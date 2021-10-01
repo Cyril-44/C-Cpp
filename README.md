@@ -1,8 +1,15 @@
+Hello, I'm Cyril.
+
+Welcome to my C/C++ world! :)
+# C/Cpp Source
+- ## Header
+- 1: str.h 
+(Includes some string operations)
+
+<!---
 - 👋 Hi, I’m @Cyril-44
 - 👀 I’m interested in C/C++
 - 🌱 I’m currently learning C/C++
-- Welcome to my C/C++ world! :)
-<!---
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me ...
 --->
