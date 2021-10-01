@@ -27,7 +27,6 @@ bool strncmp(char*,char*,int);
 
 //Realization
 #ifdef _INC_STDIO
-    int __cdecl getchar(void);
     inline void instr(char *s){*s=getchar();if(*s!='\n') instr(s+1);}
 #endif
 inline bool isbig(char c){return c>='A'&&c<='Z';}
