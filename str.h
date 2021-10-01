@@ -12,6 +12,8 @@ bool isbig(char);
 bool issmall(char);
 bool isnum(char);
 bool isalph(char);
+char tosmall(char);
+char tobig(char);
 int strlen(char*);
 #ifdef _INC_STDIO
     void instr(char*);
@@ -23,7 +25,7 @@ void swaps(char*,char*);
 bool strcmp(char*,char*);
 bool strncmp(char*,char*,int);
 
-// Realization
+//Realization
 #ifdef _INC_STDIO
     int __cdecl getchar(void);
     inline void instr(char *s){*s=getchar();if(*s!='\n') instr(s+1);}
@@ -32,6 +34,8 @@ inline bool isbig(char c){return c>='A'&&c<='Z';}
 inline bool issmall(char c){return c>='a'&&c<='z';}
 inline bool isnum(char c){return c>='0'&&c<='9';}
 inline bool isalph(char c){return isbig(c)||issmall(c);}
+inline char tosmall(char c){return isbig(c)?c:c-'a'+'A';}
+inline char tobig(char c){return issmall(c)?c:c-'A'+'a';}
 inline int strlen(char *s){if(*s=='\0') return 0;else return 1+strlen(s+1);}
 inline void strupr(char *s){if(*s!='\0'){if(issmall(*s)) *s-='a'-'A';strupr(s+1);}}
 inline void strlwr(char *s){if(*s!='\0'){if(isbig(*s)) *s+='a'-'A';strlwr(s+1);}}
