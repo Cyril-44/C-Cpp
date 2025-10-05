@@ -1,0 +1,11 @@
+<% use obfui::cmn;    my ($lines) = @_; %>
+
+<%= __('Please put a checkbox near each technology/library your product uses:') %><p>
+
+<form method=post>
+<input type=hidden name=havevals value=1>
+<div id=lib-exceptions>
+<%$ join('',@$lines) %>
+</div>
+<% $forge->include('wgt-btns-ok-cancel') %></center>
+</form>

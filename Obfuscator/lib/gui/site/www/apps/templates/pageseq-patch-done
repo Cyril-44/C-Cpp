@@ -1,0 +1,4 @@
+<%    use obfui::cmn; %>
+<%= __("Thank you for using our products!") %>
+<p>
+<%$ __("Now please restart Project Manager GUI by visiting <a class=menuitemref href=project.stop.spws-terminate-and-release-cd>Project &rArr; Quit GUI</a> and start it again.") %>

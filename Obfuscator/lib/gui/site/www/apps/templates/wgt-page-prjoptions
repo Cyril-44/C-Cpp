@@ -1,0 +1,222 @@
+<%
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module
+
+    my ($html,$cfgref,$prj,$is_creation,%options) = @_;
+
+    $prj->{symbols_subdir} = $cfgref->{symfiles_subdir}
+        if !length($prj->{symbols_subdir});
+
+    #declare vars that were passed to 'page-prjoptions'
+    my $typehtml = $html;
+    my $s = $options{s};
+    my $filename = $options{filename};
+
+%>
+
+<% $forge->include('wgt-load-semanticui') %>
+<% $forge->include('wgt-init-filesysbrowser',$cfgref) %>
+
+<div class="main ui container">
+<div class="ui segment">
+    <% $forge->include('wgt-semui-header', $is_creation ?  __('Creating new project') : __('Editing project options') ) %>
+
+    <form class="ui form" method=post enctype="multipart/form-data" id=mainform>
+    <input type=hidden name=havevals value=1>
+
+	<div class="fields">
+    	    <div class="eight wide field required">
+		<label><%$ __("Project title:") . tooltip("prj.title") %></label>
+		<input value="<%= $prj->{title} %>" required name="title"  placeholder="<%= __('My project title') %>" type="text">
+	    </div>
+
+    	    <div class="eight wide field required">
+		<label><%$ __("Input directory:") . tooltip("prj.indir")  %></label>
+		<div class="ui action input">
+		    <input required name="indir"  id=indir value="<%= $prj->{indir} %>"
+			placeholder="<%= $^O =~ /Win/ ? 'c:\\work\project1\\in' :  "$ENV{HOME}/work/project1/in"  %>" type="text">
+		    <button class="ui icon button" id="indir_btn" dataset-id="indir">
+			<i class="folder icon"></i>
+		      </button>
+		</div>
+	    </div>
+        </div>
+
+
+	<div class=" fields">
+
+    	    <div class="eight wide field required">
+		<label><%$ __("Output directory:") . tooltip("prj.outdir") %></label>
+		<div class="ui action input">
+		    <input required name="outdir"  id=outdir placeholder="../out" type="text" 
+				 value="<%= $prj->{outdir} %>">
+		    <button class="ui icon button"  id="outdir_btn" dataset-id="outdir">
+			<i class="folder icon"></i>
+		      </button>
+		</div>
+	    </div>
+
+    	    <div class="eight wide field required">
+		<label><%$ __("State directory:") . tooltip("prj.stdir")  %></label>
+		<div class="ui action input">
+		    <input required name="stdir"  id=stdir placeholder="../st" type="text" value="<%= $prj->{stdir} %>" >
+		    <button class="ui icon button"  id="stdir_btn" dataset-id="stdir">
+			<i class="folder icon"></i>
+		      </button>
+		</div>
+	    </div>
+
+        </div>
+
+<% if (length($html)) { %>
+	<div class="inline fields">
+    	    <div class="field">
+		<label><%$ hstr('prj.codetype',__("Code type (optional):")) %></label>
+		<%$ $html %>
+	    </div>
+	</div>
+
+<% } %>
+
+
+	<div class="fields">
+        	<button class="ui  primary wide button"><i class="ui icon <%= $is_creation ? 'upload' : 'save' %>"></i>
+		 <%= $is_creation ?  __('Create') : __('Save') %>  </button>
+	</div>
+
+<div>&nbsp;</div>
+
+<div class="ui accordion container">
+    <div class="title"><i class="dropdown icon"></i><%= __('Advanced options') %></div>
+    <div class="content">
+	<div class="equally spaced fluid fields">
+
+    	    <div class="five wide field">
+		<label><%$ __("Commandline to run for testing (optional):") . tooltip('prj.testcmd') %></label>
+		<div class="ui  input">
+		    <input  name=testcmdline placeholder="<%= __('enter command line here') %>" type="text"
+			value="<%= $prj->{testcmdline} %>" >
+		</div>
+	    </div>
+
+    	    <div class="six wide field">
+		<label><%$  __("Commandline to run BEFORE building project:") . tooltip('prj.precmdline') %></label>
+		<div class="ui  input">
+		    <input  name=precmdline placeholder="<%= __('enter command line here') %>" type="text"
+			value="<%= $prj->{precmdline} %>" >
+		</div>
+	    </div>
+
+    	    <div class="field five wide">
+		<label><%$  __("Commandline to run AFTER building project:") . tooltip('prj.postcmdline') %></label>
+		<div class="ui  input">
+		    <input  name=postcmdline placeholder="<%= __('enter command line here') %>" type="text"
+			value="<%= $prj->{postcmdline} %>" >
+		</div>
+	    </div>	    
+	</div>
+
+	<div class="field fluid">
+	    <label><%$ __("Project description:") . tooltip('prj.description') %></label>
+<% 
+       my $placeholder = "Put project description here. HTML markup allowed, including links. It will be shown as tooltip in Project &rArr; Open screen";
+%>
+	    <textarea  name=description  rows="5" placeholder="<%$ $placeholder %>"><%= $prj->{description} %></textarea>
+	</div>
+
+
+
+<% if (!$is_creation) { 
+    my @popts = (
+	[hstr('prj.symbols_subdir',	__('Directory where list of symbols is stored')),	
+		'entry',	$prj->{symbols_subdir}, 'symbols_subdir'],
+
+	($cfgref->{product}->{lang} ne 'perl' ? 
+	    (
+		[hstr('prj.process_files_one_by_one',	__('Process files one by one')),	'checkbox',	
+		$prj->{process_files_one_by_one}, 'process_files_one_by_one'] 
+	    ) :  (
+		[hstr('prj.perlpath',__('Path to Perl to use')),   'entry',	$prj->{perlpath}, 'perlpath'],
+	    ) 
+	),
+
+	($cfgref->{product}->{lang} ne 'cxx' ? () : (
+		[hstr('prj.cxx_ignore_exceptions_by_header',	__('Do not load exceptions for each #include\'d header file')),	
+			    'checkbox',
+			    $prj->{cxx_ignore_exceptions_by_header}, 'cxx_ignore_exceptions_by_header'],
+		[hstr('prj.cxx_per_file_exceptions_are_not_aggregated',	__('Do not aggregate per-file exceptions extracted with Clang-based tool')),	
+			    'checkbox',
+			    $prj->{cxx_per_file_exceptions_are_not_aggregated}, 'cxx_per_file_exceptions_are_not_aggregated'],
+	)),
+    );
+
+    foreach my $i (@popts)
+    {
+	my ($prompt,$fieldtype,$value,$name,$placeholder) = @$i;
+	if ($fieldtype eq 'entry') { 
+%>
+	<div class="inline fields">
+    	    <div class="field">
+		<label><%$ $prompt   %></label>
+		<div class="ui  input">
+		    <input  name="<%= $name %>" placeholder="<%= $placeholder %>" type="text"
+			value="<%= $value %>" >
+		</div>
+	    </div>
+	</div>
+<% 	} elsif ($fieldtype eq 'checkbox') { %> 
+
+	<div class="fields">
+    	    <div class="inline field">
+		<div class="ui checkbox">
+		    <input class="hidden" tabindex="0" type="checkbox" name=<%= $name %> id=<%= $name %> 
+			    <%$ $value ? 'checked' : '' %> >
+		    <label><%$ $prompt   %></label>
+		</div>
+	    </div>
+	</div>
+<%
+	}
+    }
+%>
+
+
+
+    <div>&nbsp;</div>
+
+    <div>
+	<i class="icon folder"></i>
+	<%= __('The project file is stored in file named: ') %>
+	<tt><%= $filename%></tt>
+	<%= __('You can safely copy content of the directory it resides in to backup or move all your projects to another computer.') %>
+    </div>
+
+
+    <div>&nbsp;</div>
+
+    <% $forge->include('wgt-gobtn',__('Delete this project'), 
+	"project.delete",'confirm',
+	__('Do you really wish to delete this project?'), 'class'=>'button-wide' ) %>
+    <p>
+
+<% } else { # project creation is in effect %>
+
+	<div>
+	    <i class="icon idea"></i>
+	    <%$ __('Once your create the project, you can go to Settings &rArr; Options to configure some other advanced project properties.') %>
+	</div>
+
+
+<% } %>
+
+
+    </div> <!-- accordion content-->
+</div> <!-- -->
+
+    </form>
+
+
+</div> <!-- segment -->
+</div> <!-- container -->
+
+
+<% $forge->include('wgt-page-prjoptions-pickdirjs',  'disallowspaces',1) %>

@@ -1,0 +1,6 @@
+
+<ifmodule mod_expires.c>
+ExpiresActive On
+ExpiresDefault A300
+</ifmodule>
+

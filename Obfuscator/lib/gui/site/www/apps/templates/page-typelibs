@@ -1,0 +1,23 @@
+<% use obfui::cmn; my ($items) = @_; %>
+<%= __('Select name of TypeLibrary you would like to extract symbols from:') %>
+<br>
+<form>
+<input type=hidden name=havevals value=1>
+<center>
+<select name=libs style='width: 85%;'> <!-- multiple -->
+<% for(my $i=0;$i<@$items;++$i) { %>
+<option value=<%$ $i %>><%= $items->[$i]->[0] . "(v $items->[$i]->[1])" %>
+<% }  %>
+</select>
+<p>
+<input type=radio class=radio name=needevents checked value=0>
+    <%= __('Get list of symbol names') %>
+<input type=radio class=radio name=needevents value=1>
+    <%= __('Get list of event names') %> 
+<br>
+<input type=checkbox class=checkbox name=need_param_names>
+    <%= __('Also get names of methods\' parameters') %> 
+<p>
+<% $forge->include('wgt-submitbtn') %>
+</center>
+</form>

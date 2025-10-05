@@ -1,0 +1,10 @@
+<% use obfui::cmn; my ($rlist) = @_; %>
+<% if (@$rlist) { %>
+<ul class=compattoc>
+<% foreach my $k (@$rlist) { %>
+<li><%= $k %>
+<% } %>
+</ul>
+<% } else { %>
+<p><%= __('No files.') %>
+<% } %>

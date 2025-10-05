@@ -1,0 +1,109 @@
+<% use obfui::cmn; my ($cfg) = @_;  %>
+<link rel="stylesheet" type="text/css" class="ui" href="/res/other/semantic-ui/2.1.4/semantic.min.css">
+<script src="/res/other/semantic-ui/2.1.4/semantic.min.js"></script>
+
+<div class="main ui container">
+
+
+
+<h3 class="ui center aligned icon header" >
+  <i class="checkmark icon positive"></i> 
+ Project created!
+</h3>
+
+<% if ($cfg->{product}->{lang} eq 'cxx' ) { %>
+<h4 class="ui header">
+  <i class="warning circle icon"></i>
+  <div class="content">Next step (REQUIRED!)
+  </div>
+</h4>
+
+<%$ __('If your project uses some headers besides listed in Standard C and C++ library, POSIX and Win32 APIs, go to <a href=syms.gen_from_comp_db class=menuitemref>Symbols&rArr;Generate exceptions using Clang-based tool</a> to detect symbols from other APIs, so they are kept unchanged.') %>
+<p>
+<% } %>
+    
+
+
+
+
+<h4 class="ui header">
+  <i class="settings icon"></i>
+  <div class="content">Debugging presets are in effect
+  </div>
+</h4>
+The project has been created with <b>debugging presets</b> selected.
+once you  have fully tested your project protected using debugging presets,
+go to <a  class=menuitemref href=settings.switchbase.code
+    >Settings &rArr; Select preset for code mangling.. </a> to select a production preset. 
+
+
+
+
+<p>
+
+<h4 class="ui header">
+  <i class="file outline icon"></i>
+  <div class="content">File types were autodetected
+  </div>
+</h4>
+
+The type of all files have been guessed by their extension. If some of your files have non-standard file extensions, specify how to handle those files
+in this menu: <a href=settings.files class=menuitemref>Settings &rArr; For files</a>.
+Also visit that page when you add or remove files to your project.
+
+<p>
+
+<% if ($cfg->{product}->{lang} eq 'cxx'
+    && 0 #it's rather optional, why confuse people?
+    ) { %>
+
+<h4 class="ui header">
+  <i class="options icon"></i>
+  <div class="content">Optional: review headers found
+  </div>
+</h4>
+
+<%$ __('A list of header files used by your code (using <tt>#include &lt;filename&gt;</tt> or <tt>#include "filename"</tt> lines) has been collected. Exceptions for each of the well-known headers (STL, Standard C and C++ library, POSIX and Win32 APIs) have been activated for all files in your project. You can review the set of known header files detected here:') %>
+    <a href=syms.choose_except_by_header class=menuitemref>
+	<%$ __('Symbols&rArr;Select which common header files to load exceptions for') %></a>. 
+<p>
+
+<p>
+<% } %>
+
+
+
+
+
+
+<% if ($cfg->{product}->{lang} eq 'cxx' 
+    && 0 #it's obsoleted by clang-based extractor
+    ) { %>
+
+<b>If you are obfuscating sources of a library</b>, put the header files that define its public interface into
+some directory, then go to 
+    <a class=noul href=tools.syms_from_dir>Tools&rArr;Extract symbols from directory with source files</a>
+and specify the name of that directory there. It will report list of symbols that should be left unchanged during obfuscation
+of the library, copy and paste that list  into 
+    <a class=noul href=syms.edituser.main>Symbols&rArr;Edit user-specified exceptions</a>.
+
+<p>
+<% } %>
+
+
+
+
+<h4 class="ui header">
+  <i class="help icon"></i>
+  <div class="content">Getting help
+  </div>
+</h4>
+
+
+Please see <a class=menuitemref target=helpwindow href=/support/doc/<%$ $cfg->{product}->{sitesec} %>/intro.shtml
+    >Introduction and key concepts</a> on how to use the tool
+and 
+<a  class=menuitemref  target=helpwindow  href=/support/doc/<%$ $cfg->{product}->{sitesec} %>/guide-gui.shtml>
+Step-by-Step Guide using GUI (Project Manager)</a> on how to use the GUI..
+
+</div>

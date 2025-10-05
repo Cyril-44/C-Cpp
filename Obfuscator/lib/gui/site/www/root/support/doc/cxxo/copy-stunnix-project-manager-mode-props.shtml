@@ -1,0 +1,13 @@
+<!--#set var="title" value="copy-stunnix-project-manager-mode-props.pl - copy settings of some mode in Project Manager project file, from one file to another" -->
+<!--#include virtual="/h-cxxo.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>CXX-Obfus suite</a> &#8594;
+<a href=. class= nav>copy-stunnix-project-manager-mode-props.pl</a>
+</span></div>
+
+<div class=body>
+
+<!--#include virtual="./BODY-copy-stunnix-project-manager-mode-props.shtml" -->
+<!--#include virtual="/f.shtml" -->

@@ -1,0 +1,83 @@
+<%
+    my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");; #import proper module
+
+    eval("require ${mod}" . "::menudef;");
+    if (0) {
+
+	eval($mod . '::menudef::show_menu_root();');
+%>
+<% } elsif (1) {  %>
+<div class="ui  menu web4gui-main">
+	<% eval($mod . '::menudef::show_menu_root_semui();'); %>
+</div>    
+<%
+  } else {
+%>
+<div class="ui  menu web4gui-main">
+
+  <div class="menu">
+    <div class="ui  dropdown my item">Project <!-- <i class="dropdown icon"></i> -->
+	<div class="menu submenu">
+    	    <a class="item" data-tooltip="sdfswdf"  data-position="right center"  href=project.import><i class="plus icon"></i> New</a>
+    	    <a class="item"><i class="folder open outline icon"></i>Open  <%$ tooltip('makeiso_volumeid') %></a>
+    	    <a class="item"><i class="upload icon"></i>Import  <%$ tooltip('menu.pack.sign_osx') %></a>
+        </div>
+    </div>
+  </div>
+
+
+  <div class="menu">
+    <div class="ui dropdown my item ">Make prototype <!-- <i class="dropdown icon"></i> -->
+	<div class="menu">
+    	    <a class="item my-menuitem-with-popup" data-content="sdfsdf"><i class=" icons">
+  <i class="big red dont icon"></i>
+  <i class="black user icon"></i>
+</i>Foo</a>
+    	    <a class="item"><i class="icons"><i class="big puzzle icon"></i><i class="small top left corner add icon"></i></i>Bar</a>
+        </div>
+    </div>
+  </div>
+
+
+
+</div>    
+
+
+<% }  %>
+
+<style type=text/css>
+.ui.menu { margin-bottom: 0; }
+.ui.dropdown.item { padding-top: 7px; padding-bottom: 7px ; } 
+.ui.menu.web4gui-main { min-height: 0px; background: none; }
+ .ui.dropdown.item { color: #e8e8e8; font-size: 16px; } 
+
+ .ui.dropdown.active.item.visible { color: #fff; } 
+ .ui.dropdown.active.item:hover { color: #fff; } 
+ .ui.dropdown.item:hover { color: #fff; } 
+ .ui.menu.dropdown.item.my:hover { color: #fff;   background-color: rgba(0,0,0,.9);                   } 
+ .ui.dropdown.item.my:hover { color: #fff;  background-color: rgba(0,0,0,.15);   } 
+ .ui.dropdown.item:hover { color: #fff; } 
+ .ui.menu.active.item:hover { color: #fff; } 
+
+
+.ui.menu .ui.dropdown .menu > .item:hover { color: white; background-color: rgb(109,78,78); }
+.ui.menu.dropdown  > .item { color: #eee; background-color: rgb(129,88,78); }
+
+.ui.menu .ui.dropdown .menu > .item { color: #eee; background-color: rgb(129,88,78); }
+.submenu > .item { color: #eee; background-color: rgb(129,88,78); }
+.submenu > .menu { color: #eee; background-color: rgb(129,88,78); }
+
+.ui.dropdown.my.item > .menu.submenu .item { color: #eee; background-color: rgb(129,88,78); }
+.ui.dropdown.my.item > .menu  { color: #fff; background-color:   rgb(241,241,241) }
+.ui.dropdown.my.item > .menu.submenu > .item { color: #eee;  }
+
+body#page-menuitems div.ui.dropdown.my.item .my-menuitem-with-popup small { color: #444; }
+</style>
+
+<script>
+<!--
+J(document).ready(function(){
+    J('.my-menuitem-with-popup').popup( {hoverable: true} ); }
+);
+-->
+</script>

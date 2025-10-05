@@ -1,0 +1,90 @@
+<% use obfui::cmn; my ($have_extr,$what,$keytoset,$bases,$limited) = @_;  %>
+<script language=javascript>
+<!--
+function ge_by_id(nm)
+{
+    return document.getElementById(nm);
+}
+function show_alt_options(sel)
+{
+    for(var i=0;i<sel.options.length;++i)
+    {
+    var id = sel.options[i].value;
+    ge_by_id('alt_' + sel.id + '_' + id).style.display = 'none';	
+    }
+    ge_by_id('alt_' + sel.id + '_' + sel.options[sel.selectedIndex].value).style.display = 'block';
+    sel['idx-was'] = sel.selectedIndex;
+}
+
+sub dumpcode { $forge->include('block-samples-code',@_,$cfgref); }
+
+-->
+</script>
+
+
+<h2><%= $what eq 'code' ?
+    __('Select a preset to be used for mangling code in the project: ') :
+    $what eq 'html' ?
+    	__('Select a preset to be used for mangling html markup around code in the project: ') :
+    __('Select a preset to be used for encoding of code: ')
+ %></h2>
+
+<%=
+   !$have_extr ? "" :
+    ($what eq 'code' ?
+    __('Please select the profile for protecting code in the project - in raw
+files and inside some client-side or server-side markup. Profile for jamming of
+redundant spaces around html tags and removing html comments is selected using
+"Project->Switch mode for mangling html markup around code.." menu item.') :
+    $what eq 'html' ? __('Please select the profile for jamming redundant whitespace between html
+tags and removing HTML comments. It will not affect jamming whitespaces and
+removing comments inside the scripts!! The profile for mangling scripts can be
+selected using "Project->Switch debugging/production mode for code mangling.."
+menu item.') :
+    __('Please select the profile for encoding of code in your project - in raw
+files and inside some client-side or server-side markup.')
+    )
+ %>
+
+
+
+<p>
+<form method=post>
+<input type=hidden name=havevals value=1>
+<input type=hidden name=keytoset value=<%= $keytoset %>>
+
+
+<% foreach (@$bases) { 
+    my ($id,$title,$descr,$iscur,$isprecreated) = @$_; 
+    $title =~ s/^SPECIAL BASE[^:]*://g;
+%>
+    <div class=mode>
+    <input type=radio name=newbase value=<%$ $id %> 
+		<%$ $iscur ? 'checked' : '' %> ></input>
+    <a class=noul 
+	  href=modes.edit.$id><%= $title %></a>
+	<% if (!$isprecreated) { %><pre><%= $descr %></pre><% 
+	} else { %><div class=mode-descr><%$ $descr %></div><% } %>
+    </div>
+<% };
+   if (!@$bases) {
+%>
+<p>
+<b><%= __('You project was created in previous version of the product, that had 
+no predefined modes of the specified type to choose from. Please recreate your 
+project in this version of the Product to be able to use this menu item.') 
+%></b>
+<% } %>
+</dl>
+<p>
+<% $forge->include('wgt-submitbtn'); %>
+</form>
+
+<% if ($limited) { %>
+<script language=javascript>
+<!--
+    alert('<%=  __('This is trial edition. The only ways it can mangle symbols is by prepending fixed string to it, so irregarding of the symbol mangling mode you will choose here, symbols will be just prefixed a ReplacementFor_ string or left as is. That does not limit your ability to evaluate the product in any way; purchase a  product to enable other ways of symbol mangling.') %>');
+-->
+</script>
+<% } %>
+

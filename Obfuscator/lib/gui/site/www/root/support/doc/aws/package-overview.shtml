@@ -1,0 +1,129 @@
+<!--#set var="title" value="Stunnix Advanced Web Server - overview of files and directories in the package" -->
+<!--#include virtual="/h-aws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Advanced Web Server</a>
+</span></div>
+<div class=body>
+
+
+<h1>Overview of Stunnix Advanced Web Server package</h1>
+<a href=http://www.stunnix.com/prod/aws/overview.shtml>Stunnix Advanced Web 
+Server</a>  comes as a .tar.gz archive that should be extracted using
+either WinZIP (on windows platforms) or by using tar and gzip utilities
+on unix-like OSes.
+<p>
+<dl>
+<dt>/sample-image</dt>
+    <dd>The files in this directory serves several purposes:
+    <ul>
+    <li>This is a template of a directory root for multi-platform CDROM 
+    image that includes 
+        <ul>
+	<li> copy of Stunnix Advanced Web Server (located in
+	    <tt>/sample-image/site/stunnixwebsrv</tt>);
+	<li>dynamic web
+	    site (in <tt>/sample-image/site/www/root</tt>)
+	    that includes <a href=http://www.stunnix.com/prod/_o/projmgr.shtml>
+	    Project Manager</a> for 
+	    <a href=http://www.stunnix.com/prod/po/overview.shtml>Stunnix 
+	    Perl-Obfus</a>;
+	<li> sample trivial XCGI script in
+	    <tt>/sample-image/site/www/apps/sample-lib/Mods/mod1.pm</tt>
+	    and an <i>entry</i> for it in
+	    <tt>/sample-image/site/www/root/sample-xcgi.xcgi</tt>;
+	<li>
+	    sample CGI script in 
+	    <tt>/sample-image/site/www/root/sample-cgi.pl</tt>;
+	<li>copy of all documentation for Stunnix Advanced Web Server 
+	    (that's also a sample of Server-Parsed documents)
+		in <tt>/sample-image/site/www/root/support/doc/aws/</tt>
+	    (see on the <a href=#readingdocs>recommended</a> way of reading 
+		the documentation);
+	</ul>	
+	In order to make the CDROM prototype to work on systems without
+	Perl interpreter installed, you have to <a href=#standalone_guide>
+	perform additional operations</a> documented later in this document.
+	
+    <li>Everything below <tt>/sample-image/site</tt> is an image from which
+	single executable containing Perl interpreter, required core modules,
+	Stunnix Advanced Web Server and sample site can be built. Just run the
+	script <tt>/sample-scripts/sample-make-exe.pl</tt> 
+	(after installing PAR and following all
+	<a href=exepack-notes.shtml#notes>notes on installing PAR</a>)	
+	and the executable
+	file with name <tt>sample-site</tt> will be put into current 
+	directory.
+    </ul>
+</dd>
+
+<dt>tools/</dt>
+    <dd>contains various useful scripts, most notably
+	<a href=packsite-par.shtml>packsite-par.pl</a></dd>
+<dt>sample-scripts/</dt>
+    <dd>This directory contains sample scripts for performing various
+	tasks. Just execute <tt>sample-make-exe.pl</tt> script from there
+	without any arguments (after installing PAR and following all
+	<a href=exepack-notes.shtml#notes>notes on installing PAR</a>)
+	to get a sample executable named 'sample-site' built with
+	Stunnix Advanced Web Server included and Project Manager for
+	Stunnix Perl-Obfus as a sample site.
+	<p>
+	 Executing <tt>sample-make-zip-with-deps.pl</tt> script from there
+	without any arguments (after installing PAR and following all
+	<a href=exepack-notes.shtml#notes>notes on installing PAR</a>)
+	will give you <tt>sample-site.zip</tt> in that directory
+	containing all modules and their support files required for
+	Stunnix Advanced Web Server and sample site located in 
+	<tt>/sample-image</tt>.
+	</dd>
+</dl>
+
+<h1>Recommended way of reading documentation on Stunnix Advanced Web Server</h1>
+<a name=readingdocs></a>
+Documentation on Stunnix Advanced Web Server comes in 
+<tt>/sample-image/site/www/root/support/doc/aws/</tt> and it contains
+Server Side Includes and other constructs available in Server Parsed
+documents. Due to this fact it's inconvenient to open documentation
+directly from your disk - the recommended way is to start 
+Stunnix Advanced Web Server (by executing 
+<tt>/sample-image/site/stunnixwebsrv/startsite.pl</tt> - e.g. by double-clicking
+on it in Windows Explorer), and following the first link in the default
+document that is opened for the site.
+
+<h1>Adding perl interpreter and core modules for running sample site
+    on the system without Perl interpreter installed</h1>
+<a name=standalone_guide></a>	
+In order to make the sample CDROM prototype not to require Perl interpreter
+in the system, 	you have to build a list of core modules
+required by web server and site (in general - by using 
+<a href=packsite-par.shtml>tools/packsite-par.pl</a> utility,
+for sample site - by invoking
+<tt>/sample-scripts/sample-make-zip-with-deps.pl</tt> script without
+any arguments).
+After using either of the methods, you'll get a .zip file in your current
+directory. You have to put the content of the 'lib' directory to the 
+directory of the CDROM prototype corresponding  to the operating system
+- <tt>/sample-image/perl/linux-x86/lib</tt> for Linux running on x86 CPUs
+and to <tt>/sample-image/perl/win32/lib</tt> for Windows OSes. You 
+will also have to put Perl interpreter itself and its support files to 
+the corresponding directory too - put <tt>/usr/bin/perl</tt>
+to <tt>/sample-image/perl/linux-x86/</tt> for Linux on x86 CPUs, and
+put <tt>c:\perl\bin\wperl.exe</tt> and <tt>c:\perl\bin\perl58.dll</tt>
+or <tt>c:\perl\bin\perl56.dll</tt> to <tt>/sample-image/perl/win32/</tt>
+for Windows platforms.
+<p>
+There are files named 'filelist' in <tt>/sample-image/perl/linux-x86/</tt>
+and <tt>/sample-image/perl/win32/</tt> listing all files that were put
+for some versions of the Perl interpreters.
+<p>
+The sample CD prototype with Perl interpreters included for Linux on x86
+and Windows OSes is 
+<a href=http://www.stunnix.com/prod/aws/samplecd.shtml>available online</a> 
+on Stunnix site - you can also just extract and copy content of the 
+<tt>perl</tt> directory to the <tt>/sample-image/perl/</tt>
+instead of making all steps outlined above.
+
+
+<!--#include virtual="/f.shtml" -->

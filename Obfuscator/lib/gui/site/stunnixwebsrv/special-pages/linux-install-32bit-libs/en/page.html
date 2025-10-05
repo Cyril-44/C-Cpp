@@ -1,0 +1,22 @@
+<html>
+<body>
+<style type=text/css>
+.commandline { font-family: courier; background: #ddd; padding: 1.3em; }
+</style>
+
+<div class=heading>You do not have libraries for 32 bit apps installed. The product will not work until you install them.</div>
+<div class=run-in-terminal>To install them open Terminal, and type the command line provided below, and then run 
+the product again:</div>
+
+<dl>
+<dt>On Ubuntu or Debian:</dt>
+<dd><div class=commandline>sudo apt-get install ia32-libs lib32gcc1</div>
+    If it fails, run 
+     <div class=commandline>sudo apt-get install lib32z1 lib32ncurses5 lib32gcc1</div>
+</dd>
+<dt>On Fedora, CentOS or RedHat:</dt>
+<dd><div class=commandline>sudo yum install redhat-lsb.i686</div>
+<dt>If none of the instructions above works</dt>
+<dd>Contact vendor of the product you are trying to run for support.</dd>
+</dl>
+</body>

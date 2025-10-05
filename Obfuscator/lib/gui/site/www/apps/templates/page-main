@@ -1,0 +1,10 @@
+<% 
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; 
+     my ($cfgref) = @_; 
+%>
+
+<% $forge->include('page-msg-success',0,__('Now you can perform any operation on your project.'),
+	'title', __('Project opened') ) %>
+
+
+

@@ -1,0 +1,12 @@
+<!--#set var="title" value="Protecting JavaScript code only in marked sections of code" -->
+<!--#include virtual="/h-jo.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>JS-Obfus suite</a>
+</span></div>
+
+<div class=body>
+<h1>Protecting JavaScript code only in marked sections of code</h1>
+<!--#include virtual="BODY-delimited-intro.shtml" -->
+<!--#include virtual="/f.shtml" -->

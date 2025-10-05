@@ -1,0 +1,36 @@
+<% use obfui::cmn;  my ($errcode,$errstr,$compdb_filename)
+    = @_;
+%>
+
+<% $forge->include('wgt-load-semanticui') %>
+
+<div class="main ui container">
+
+
+<% if ($errcode) { %>
+
+    <h3 class="ui center aligned icon header" >
+	<i class="remove circle icon negative"></i><%= __('Failed generating compilation database') %>
+    </h3>
+
+    <%= __('Error message(s):'). ' ' . $errstr %>
+    <p>
+    <form>
+	<input type=hidden name=what value=generate>
+	<% $forge->include('wgt-submitbtn', __('Correct compiler options')) %>	
+    </form>
+
+<% } else  { %>
+
+    <h3 class="ui center aligned icon header" >
+	<i class="checkmark icon positive"></i><%= __('Done generating compilation database') %>
+    </h3>
+    
+    <%$ sprintf( __('To regenerate it, just remove file named <tt>%s</tt> from Project\'s Input directory, and you will be directed to compilation database generator again.'), 
+	    $compdb_filename) %>
+    <%$ __('Now you can go to <a class=menuref href=syms.gen_from_comp_db>main screen</a> of the Clang-based generator to generate exceptions.') %>
+
+
+<% } %>
+
+</div>

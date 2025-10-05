@@ -1,0 +1,49 @@
+<% use obfui::cmn;  my ($data) 
+    = @_;
+
+    my @filenames_sorted = sort { $a cmp $b } keys %$data;
+
+    my $idx = 0;
+%>
+
+<h4 class="ui header"><%=  __('Pick a file:')  %></h4> 
+
+<div class="ui fluid  search selection dropdown" id=exceptions_view_file_dropdown>
+  <input name="srcfile" type="hidden">
+  <i class="dropdown icon"></i>
+  <div class="default text"><%=  __('Enter or pick a file name') %></div>
+  <div class="menu">
+<% foreach my $fn (@filenames_sorted) { %>
+  <div class="item" data-value="<%= $idx++ %>"><%= $fn %></div>
+<% } %>
+  </div>
+</div>
+
+
+
+<div>&nbsp;</div>
+
+<!-- for each file, generate this html code -->
+
+<% for(my $i=0; $i < @filenames_sorted; ++$i) { %>
+<div style="display: none" class=x-exception-list id=exception_list_<%= $i %> >
+<h3 class="ui dividing header"><%= sprintf( __('Exceptions, extracted from %s'), $filenames_sorted[$i] ) %></h3> 
+<div  style="height: 9em; overflow-y:auto">
+<table class="ui very basic striped table">
+  <tbody>
+
+
+<%  my @syms = sort { $a cmp $b } keys %{$data->{ $filenames_sorted[$i] }  };
+    #list all symbols
+    foreach my $sym (@syms) { %>
+    <tr><td><%= $sym %></td></tr>
+<% } %>
+
+
+  </tbody>
+</table>
+</div>
+</div>
+
+<% }  #of iteration over all files
+%>

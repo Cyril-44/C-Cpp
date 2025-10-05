@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>Intermediate page for accessing web interface for Stunnix 
+	Obfuscators</title>
+<link rel=stylesheet type=text/css href=/res/res.css>
+<link rel=stylesheet type=text/css href=/res/res-obfui.css>
+<script  language="JavaScript">
+<!--
+if (navigator.appName.indexOf('Netscape')!=-1 || 
+    navigator.appName.indexOf('Konqueror')!=-1 )
+{
+    document.write('<link rel=stylesheet type=text/css href=/res/mozres.css>');
+}
+-->
+</script>
+<body>
+<h1>Intermediate page for accessing web interface for Stunnix Obfuscators</h1>
+<div class=page-gate>
+Note: this is an auxilary page used to start web interface for Stunnix 
+Obfuscators with proper settings.
+
+<div class=safe-to-close>It's safe to close this window now or use it 
+for browsing any other web page.
+</div>
+
+<script language=javascript>
+var brw = navigator.appName;
+var bok = 0;
+if (brw.indexOf('Explorer')!=-1)
+{
+    bok = 1;
+} else if (brw.indexOf('Netscape')!=-1) {
+    var v = navigator.appVersion.substr(0,navigator.appVersion.indexOf(' '));
+    if (v>=5)
+	bok = 1;
+}
+
+if (!bok)
+    alert('Warning! Only Mozilla-based browsers and Internet Explorer ' +
+	    'are certified for ' + 
+	    'running Web Interface for Stunnix Obfuscators! Please switch ' + 
+	    'to using either of these browsers, though the interface will be '+
+	    'started anyway now.');
+
+if (!window.open('ui.xpl/none/','',
+        'directories=0,location=0,menubar=0,personalbar=0,' +
+        'toolbar=0,resizable=1,status=0,scrollbars=1'))
+{
+    alert('Attempt to open Project Manager window in a separate window was ' 
+    + 'blocked by your browser. Press OK to start Project Manager in current '
+    + 'window (please note that it\'s recommended to run Project Manager in '
+    + 'separate window without browser menu for various reasons. So it\'s '
+    + 'recommneded to allow popups from this site');
+    var l = window.location.href;
+    var p = l.indexOf('start.shtml');
+    l = l.substr(0,p) + 'ui.xpl/none/';
+    window.location = l;
+} else {
+	window.close();
+}
+</script>
+<noscript>
+Web interface for Stunnix Obfuscators requires Javascript support 
+from <b>graphic-mode</b> browsers. Please enable support for it and reload
+this page if you are using graphic-mode browser.<p>
+
+Users of text-mode browsers, please follow  <a href=ui.xpl/none/>this 
+link</a> to enter the web-based interface.<p>
+</noscript>
+</div>
+</body></html>

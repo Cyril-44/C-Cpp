@@ -1,0 +1,51 @@
+<h1>Terminating SAWS and releasing media</h1>
+Once user has finished working with a website SAWS serves, there is a need to
+free resources taken by SAWS and to stop SAWS, MySQL server (if one
+was started) and clear database files copied to disk (if it was configured
+to do this). Typically SAWS is two or more processes named "httpd"
+or "apache.exe" in process list. They of course won't use CPU cycles when
+user doesn't make requests to pages served by SAWS, but if SAWS was started
+from CD/DVD/USB, then on operating systems other then Windows (i.e. macOS and
+unix-like) user will be unable to eject a disk unless SAWS is stopped.
+
+<h2>Stopping web server for CD programmatically or using web page content</h2>
+In order to stop SAWS, user must access any resource on the site with
+URL "/stop-the-server/helper-stop-httpd.exe"; this will trigger execution of
+a special script, that will initiate a shutdown and that then will redirect
+browser to "/spws-terminate-and-release-cd.html". So 
+"/spws-terminate-and-release-cd.html" should contain a (or redirect to)
+web page that says goodbye, thanks for using the product or something like that.
+
+<p>
+Once request to the "/stop-the-server/helper-stop-httpd.exe" resource is 
+performed, SAWS will continue to serve content for additional 15 seconds 
+(to allow the goodbye page to refer to any other content like scripts, stylesheets, images
+or even multimedia), and then SAWS will terminate, attempting to eject
+CDROM if it was started from CDROM. Browser window won't be closed.
+
+<p>
+It's possible to implement a HTML button (i.e a HTML FORM with a single BUTTON or SUBMIT)
+that triggers POST request to the url  "/stop-the-server/helper-stop-httpd.exe" too.
+In fact, POST request is more  preferred than simple &lt;A HREF="/stop-the-server/helper-stop-httpd.exe"&gt;
+because browser will not even think about caching results (and if results are cached, 
+the SAWS won't be stopped). 
+If you are implementing STOP functionality
+via link (instead of a button), use random value as GET argument of the URL, i.e. instead of  
+<pre>
+&lt;A HREF="/stop-the-server/helper-stop-httpd.exe"&gt;
+</pre>
+use
+<pre>
+&lt;A HREF="/stop-the-server/helper-stop-httpd.exe?anyname=&lt;?php print rand() ?&gt;"&gt;
+</pre>
+
+<h2>Using desktop environment to initiate stopping of Web Server</h2>
+User can stop SAWS using tray icon menu - by right-clicking
+on tray icon on Windows or macOS and selecting apropriate menu item.
+<p>
+If you configured your project to use Portable Firefox as the browser, you can configure SAWS 
+to stop automatically  once all windows of Portable Firefox are closed, by checking corresponding
+checkbox in the <tt>Project &rArr; Site Settings &rArr; Browser Properties &rArr; "Browser to use on .." </tt>. 
+Don't forget that there are more than one checkboxes - one checkbox for each platform your Prototype supports.
+
+

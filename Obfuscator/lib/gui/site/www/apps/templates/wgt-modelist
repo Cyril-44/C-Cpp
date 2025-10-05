@@ -1,0 +1,26 @@
+<% use obfui::cmn; my ($prj,$rlist,$eltype) = @_; %>
+<% if (@$rlist) { %>
+<$eltype class=compattoc>
+<%  foreach my $k (@$rlist) {
+	my $desc =$prj->{modes}->{$k}->{descr};
+	$tip{_tmp} = $desc;
+%>
+<li><a class=noul
+	href=modes.edit.$k><%= $prj->{modes}->{$k}->{title} %></a>$tip{_tmp}
+
+<% 
+	my %h;
+	require obfui::act_modes;
+	obfui::act_modes::_list_src_depending_on_mode($k,\%h,0);
+	my @l =  sort { $a cmp $b } keys %h;
+	if (@l) { 
+%> 
+    <a class="noul" style="font-weight:normal;padding-left:2em;font-size:85%;" href=modes.filesusing.<%= $k %> 
+	    ><%= sprintf(__('assigned to %d files'),@l+0) %></a>
+<% 
+	}
+    } %>
+</$eltype>
+<% } else { %>
+<p><%= __('No modes found') %>
+<% } %>

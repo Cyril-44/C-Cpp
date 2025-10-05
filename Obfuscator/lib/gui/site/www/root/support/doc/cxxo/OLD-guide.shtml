@@ -1,0 +1,120 @@
+<!--#set var="title" value="GUIDE: Protecting projects with Stunnix CXX-Obfus (without using Project Manager)" -->
+<!--#include virtual="/h-cxxo.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>CXX-Obfus suite</a> &#8594;
+<a href=. class= nav>Users guide</a>
+</span></div>
+
+<div class=body>
+
+<ol>
+<li><a href=#makefile>Prepare makefile</a>
+<li><a href=#collect>Collect names of symbols that should not be modified.</a>
+<li><a href=#testbuild>Test protection with "lite" protection applied</a>
+</ol>
+
+
+<h1>Steps in detail</h1>
+
+ <h2>Prepare makefile</h2>
+ <a name=makefile></a>
+ Prepare a Makefile for a Make utility or compose a script that will perform
+ protection for your entire project; make sure that it allows to edit
+ commandline options applied to all invokations of CXX-Obfus in a single
+ place. It will be very useful since you will have to run CXX-Obfus
+ on your entire project several times, with different settings.
+ 
+
+<h2>Collect names of symbols that should not be modified.</h2>
+<a name=collect></a>
+There can be several reasons a symbol should not be replaced with a meaningless
+string - most frequently case is when the symbol is in external module
+that is shipped in non-protected form (e.g. some library you don't have 
+permission to modify or functions defined in ActiveX control) or 
+just simply should stay the same because your project
+is library and the symbols are public entries into it.
+<p>
+There are several options available on how to do this:
+<ol>
+
+<li>
+    You can put all headers of 3rd-party libraries you use in your code 
+     to a separate directory,    start Project Manager GUI,
+    go to <i>Tools, Extract symbols from     directory with source files</i>,
+    enter name of that directory, select symbol types you wish to gather,
+    and get the list of symbols defined in that directory.
+    Then paste it to the list of exceptions.
+
+
+
+<li>For symbols that are defined in public interface of ActiveX or OLE
+    component, it's possible to extract names of these symbols using
+    Project Manager. Start Project Manager, go to the Tools menu
+    and select 'Extract symbols from ActiveX components' (this menuitem
+    is available only on Windows platforms). For each component your
+    project uses, select the component, click 'Extract' button, and you 
+    will be prompted to
+    save a list of exceptions extracted from the component to the file
+    of your choice. Please note that Evaluation and Demo editions don't
+    offer this functionality (empty file will be produced).
+
+<li>For generating list of symbols from external libraries, one
+can use semi-manual method - extract all symbols used by your code
+by running CXX-Obfus over all files of your project with commandline
+option 
+<a href=cxx-obfus.shtml#item_%2DD_list%2Dof%2Dsymbols%2Dfilename">-D somefile.txt</a>), 
+and then find all symbols in 'somefile.txt' that come from external libraries.
+<p>
+If all symbols start from the same prefix or match some pattern, such filtering
+can be performed very easily
+
+
+<li>Produce list of exceptions manually. Sometimes this is necessary even
+    for symbols from external library modules too. Just add them to the
+    file (e.g. named 'symlist.txt') one per line.
+
+</ol>
+
+
+<h2>Test protection with "lite" protection applied</h2>
+<a name=testbuild></a>
+Apply "lite" protection to your application, and 
+try to rebuild your project with C/C++ compiler.
+
+The 99% of the build failures encountered when trying to build 
+protected project is
+that some symbol from external module was not listed as exception, and got
+replaced with different name.  Once run, you will get errors like
+"no declaration for: z34ea8c" in places where original code calls
+"somelib_somefunction" and "somelib_somefunction" is not listed as exception. 
+In order to easily
+identify that "z34ea8c" should stand for "somelib_somefunction", one should
+to use "lite" protection, that will make symbols only slightly less
+understandable, but different from original, e.g. you will get errors like 
+"no declaration for: ReplacementFor_somelib_somefunction", that will signal you that
+"somelib_somefunction" is not listed as exception. The following commandline will
+stand for "lite" protection:
+<p>
+
+<pre>perl cxx-obfus -jam 0 -i prefix -n none -s none -e 0</pre><p>
+ that will stand for
+"Jam spaces and newlines: off", 
+"Number of encoding iterations applied: 0 - don't encode",
+"Obfuscation of symbol names: none",
+ "Obfuscation of integer constants: none",
+ "Obfuscation of strings: none" options in interactive 
+online 
+ <a href=/support/interactive/cmd-builder/cl-cxx.shtml>
+ commandline builder</a>.
+ 
+ 
+ <p>
+ Once your app works correctly once such "lite" protection is applied,
+ you should apply "final" protection, using options you wish. 
+<p>
+If something still doesn't work, make sure you've read recommendations in
+<a href=cxx-obfus.shtml#notes>NOTES section in CXX-Obfus manual</a>.     
+<!--#include virtual="/f.shtml" -->
+

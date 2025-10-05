@@ -1,0 +1,199 @@
+<% use obfui::cmn; my ($have_extr,$what,$keytoset,$bases,$limited,$cfgref) = @_; 
+    my $samples_only = $cfgref->{product}->{samples_gen} + 0;
+
+    my $is_2inputs = index($keytoset,'encoding') != -1 && $have_extr;
+    my $sd = $cfgref->{product}{mode_samples};
+    sub dumpcode { $forge->include('block-samples-code',@_,$cfgref); }
+ %>
+<script language=javascript>
+<!--
+function ge_by_id(nm)
+{
+    return document.getElementById(nm);
+}
+-->
+</script>
+
+
+
+<form method=post>
+<input type=hidden name=havevals value=1>
+<input type=hidden name=keytoset value=<%= $keytoset %>>
+<input type=hidden id=newbase name=newbase>
+
+
+
+<!-- Original code (before protection):<br> -->
+
+<div class="code-before-protection ui segment secondary">
+        <div class="Xmode-title ui header">Sample of original code - before protection</div>
+    <% dumpcode($sd,$bases->[0]->[0],$is_2inputs,1) %>
+</div>
+<p>&nbsp;<p>
+
+
+<script>
+<!--
+var _cur_mode_id;
+-->
+</script>
+
+<% 
+    if (!$samples_only) {
+	$forge->include('block-switchbase-hint',$have_extr,$what,$limited,1) 
+    };
+%>
+
+
+<div class=code-after-protection>
+<% 
+  my $idx=0;
+  foreach (@$bases) { 
+    my ($id,$title,$descr,$iscur,$isprecreated) = @$_; 
+    $title =~ s/^SPECIAL BASE[^:]*://g;
+    my $is_experimental = $id =~ /minlocals|renamelocals|_minify/;
+%>
+<% if ($iscur) { %>
+    <script>
+    <!--
+	_cur_mode_id = "<%= $id %>";
+    -->
+    </script>
+<% } %>
+
+
+    <div class="Xmode-item ui segment">
+        <div class="Xmode-title ui header"">
+	<% if (!$samples_only) { %>
+	    <span class="XXmode-title">Mode: <a href=modes.edit.$id><%= $title %></a><% if ($is_experimental) { %>
+		<b>[EXPERIMENTAL]</b>
+	    <% } %>
+
+		<% if (0) { %><small>(<a class=noul href=modes.edit.$id>edit mode</a>)</small><% } %>
+		</span>
+	<% } else { %>
+	    <span class=mode-title>Mode <%= $title %>:</span>
+	<% } %>
+	</div>
+
+
+	    <% dumpcode($sd,$bases->[$idx++]->[0],$is_2inputs,0) %>  
+
+    <div class="ui basic segment compact">
+    <div class="ui accordion container">
+	<div class="title"><i class="dropdown icon"></i><%= __('Details') %></div>
+	<div class="content">
+
+	<% if ($samples_only ? 0 : !$isprecreated) { %><pre><%= $descr %></pre><% 
+	} else { 
+	    $descr =~ s,(<div class=whentouse>),$1<span class=whentouse>WHEN TO USE:</span>,g;
+            $descr =~ s,(<span class=whentouse>WHEN TO USE:</span>)+,<span class=whentouse>WHEN TO USE:</span>,gs;    
+	    %><div class=mode-descr><%$ $descr %></div>
+	<% } %>
+	</div>
+    </div>
+    </div>
+
+<% if (0) { %>
+	<div style='padding-top: 0.5em;'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<span class=details-btn>Details
+	    <script><!--
+		    showHide_setup_parent_div();
+		    -->
+	    </script>
+	    </span><p>
+
+        <div class=x-mode-outer id=alt_m_<%= $id %> style='width: 80%; padding-left: 2em;'>
+	<div class=mode>
+	<p>
+	<% if ($samples_only ? 0 : !$isprecreated) { %><pre><%= $descr %></pre><% 
+	} else { 
+	    $descr =~ s,(<div class=whentouse>),$1<span class=whentouse>WHEN TO USE:</span>,g;
+            $descr =~ s,(<span class=whentouse>WHEN TO USE:</span>)+,<span class=whentouse>WHEN TO USE:</span>,gs;    
+	    %><div class=mode-descr><%$ $descr %></div>
+	<% } %>
+	</div>
+	</div>
+<% } %>
+
+
+    </div><!--mode item-->
+
+<% }; %>
+
+
+</div> <!-- div.code-after-protection -->
+
+
+<% if (!$samples_only) { %>
+<script>
+<!--
+modesample_clicked(_cur_mode_id);
+-->
+</script>
+
+<%   if (!@$bases) {
+%>
+<p>
+<b><%= __('You project was created in previous version of the product, that had 
+no predefined modes of the specified type to choose from. Please recreate your 
+project in this version of the Product to be able to use this menu item.') 
+%></b>
+<% } %>
+</dl>
+
+
+<p>&nbsp;</p>
+<% $forge->include('wgt-submitbtn'); %>
+<% $forge->include('wgt-backbtn'); %>
+<% } %>
+
+</form>
+
+
+<% if (!$samples_only && 1) { %>
+<div class="ui basic segment right floated">
+There is a 
+<a class=noul 
+    href=settings.switchbase.$what.1>more compact</a> version of this screen.
+    <p>&nbsp;<p>
+</div>
+<% } %>
+
+
+
+<style type=text/css>
+div.block-of-code { position: relative; }
+div.code { 
+    /* width: 100%;
+  height: 100%; 
+  position: absolute;
+  top: 0;
+  left: 0; */
+}
+div.current-mode, div.not-current-mode {
+  width: 100%;
+  position: absolute;
+  top: 30px;
+  left: 40px;   
+  z-index: 11;
+  font-size: 100px; 
+  opacity: 0.14;
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none;
+}
+.code-selected div.not-current-mode {  visibility: hidden; }
+.code div.current-mode {  visibility: hidden; }
+.code-selected div.current-mode {  visibility: visible; }
+
+.code {overflow: hidden;  min-height: 200px;}
+.code:hover div.current-mode, .code:hover div.not-current-mode{  visibility: hidden; 
+    opacity: 0.04;
+    transition: opacity .5s , visibility .2s ;
+}
+
+div.code-before-protection div.code { border: 0px; background: #eee;}
+</style>

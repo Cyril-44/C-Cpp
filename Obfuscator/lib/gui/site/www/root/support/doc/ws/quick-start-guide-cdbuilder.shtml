@@ -1,0 +1,142 @@
+<!--#set var="title" value="Stunnix Perl Web Server - short HOWTO when using CDBuilder" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Perl Web Server</a>
+</span></div>
+<div class=body>
+
+
+<h1>Required: Create a project in CDBuilder</h1>
+Start CDBuilder. Do Project, New to create a project. You should select
+project input directory (where various files used for your CD will reside,
+including database files and of course web content).
+<p>
+Put database files to one subdirectory of your input directory, put your
+web content to other subdirectory.
+<p>
+ Select output directory
+(it's advicable to specify it relative to input directory, e.g. like
+"../out") - it's the directory where prototype (as a tree of folders and
+files) will be copied to.
+<p>
+Then go to "Project", "Site Settings", "General", "Main Properties" and
+specify platforms your product will support and paths to directory with
+database files and with web content RELATIVE to input directory (e.g.
+if "c:\mycd1\in" is project input directory and "c:\mycd1\in\webroot"
+is directory with web content, specify "webroot" as directory with web content,
+and so on for directories with database files.
+<p>
+<b>WARNING!</b> There is a detailed sample on directory layout
+<a href=cdbuilder-steps.shtml>available in a separate document</a>.
+
+<h1>Required: Specify other site settings</h1>
+On the "Project", "Site Settings", specify database access mode in
+"Databases","MySQL" and "Databases","SQLite"  (or turn off support for
+sqlite and mysql there).
+<p>
+On the same page, in "Scripting Languages" specify desired support type for
+each scripting language, and select extensions you need, if any.
+
+
+<h1>Required: Update database connection strings in your scripts</h1>
+
+<h2>If your product uses MySQL</h2>
+
+
+<ul>
+<li><i>If accessing MySQL database from Perl</i>, update your
+    DSN string to contain mysql port number (stored in $ENV{MYSQL_PORT})
+    as done in <tt>/site/www/root/mysqldemo.pl</tt> from full trial cd.
+    PHP scripts will use correct port number automatically since it'll
+    be set in dynamically-generated php.ini.
+
+<li>Update PHP and Perl scripts to use host=127.0.0.1 in 
+    database connection string.
+</ul>
+
+
+<h2>If your product uses SQLite</h2>
+<ul>
+<li>Convert SQLite database to proper format (understood by 
+    sqlite library shipped with web server demo).
+
+<li>Update PHP and Perl scripts to use environment variable
+    <tt>SQLITE_TABLES</tt> as a directory with SQLite database files in
+    database connection string as done in 
+    <tt>/site/www/root/sqlitedemo.php</tt> and 
+    <tt>/site/www/root/sqlitedemo.pl</tt> .
+</ul>
+
+
+
+
+
+
+<h1>Optional: Make your product more user-friendly</h1>
+It's greatly recommended to add some text to <tt>/README.html</tt>.
+<p>
+Specify path to splash screen and CDROM icon (not favicon!) 
+relative to project's input directory
+in Project, "Site Settings",
+"General", "Paths and initial url".
+
+
+
+
+<h1>Optional: Consider protecting your code from theft and analysis</h1>
+
+<ul>
+<li>
+<i>To protect JavaScript from analysis and theft and for mangling html</i>, 
+you can
+ use <a target=_blank href=http://stunnix.com/prod/jo/overview.shtml>Stunnix JavaScript Obfuscator</a>;
+
+<li>
+<i>To protect VBScript from analysis and theft and for mangling html</i>, 
+    you can
+ use <a target=_blank href=http://stunnix.com/prod/vbso/overview.shtml>Stunnix VBScript and ASP Obfuscator</a>;
+
+<li>
+<i>To protect Perl scripts from analysis and theft</i>, 
+    you can
+ use <a target=_blank href=http://stunnix.com/prod/po/overview.shtml>Stunnix Perl-Obfus</a> - 
+    an advanced obfuscator and encoder for Perl source code;
+
+<li>
+<i>To protect PHP scripts from analysis and theft</i>, 
+    you can use
+    <a target=_blank href=http://ioncube.com>IonCube PHP encoder</a> - it's already
+    integrated into SPWS and supported on all platforms. 
+
+</ul>
+
+
+
+<h1>Optional: Request any help from us</h1>
+Please <a href=/contact/>contact us</a> if you have any questions.
+If PHP available with our trial doesn't include extension you need, or if you
+wish to make SPWS to support other platforms, or need some apache module
+to become supported by SPWS - we also can help you.
+
+
+<h1>Required: Create CDROM tree</h1>
+Click Build, "Rebuild changed" - you should get a prototype of your cdrom
+in project's output directory. Just burn it onto CD.
+The program that creates ISO images or that burns prototype to CDROM should
+preserve filename case in order your CD to work on platforms other than
+Windows.  It may be wise to burn CDs in multisession mode and not to close
+last session, in order to be able to append or replace some data on CD.
+<p>
+If you need to create a desktop application out of CDROM, use the tree in 
+project output directory as a prototype of your application. 
+
+
+
+<h1>Required: Enjoy!</h1>
+Enjoy our product and tell your partners and friends 
+about how exciting it is :)
+
+
+<!--#include virtual="/f.shtml" -->

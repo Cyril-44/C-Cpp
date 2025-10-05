@@ -1,0 +1,147 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Advanced Web Server - MYSQL extension" -->
+<!--#include virtual="/h-aws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../../ class= nav>Support</a> &#8594;
+<a href=../../ class= nav>Documentation</a> &#8594;
+<a href=../ class= nav>Stunnix Advanced Web Server</a>
+<a href=. class= nav>Extensions</a>
+</span></div>
+
+<div class=body>
+<h1>Introduction</h1>
+This extension allows Perl and PHP scripts to use MySQL server.
+<p>
+The implementations of extension should be extracted to 
+<tt>/extensions/engines</tt>.
+<p>The implementations for this extension have the following sizes on CDROM:
+Windows: 8Mb, Linux: 10Mb, MacOSX: 8.5Mb.
+
+<p>Implementations of this extension are not included with distribution of
+SPWS, one has to download them separately and put to appropriate directory.
+
+<h1>Details</h1>
+No options can be passed to this extension using 
+<a href=extlist.conf.shtml>/site/config/extlist.conf</a> file.
+
+<p>
+
+The deployment versions of this extension lack all files that are not
+needed for running MySQL server and doing essential administration.
+The only executables provided are mysql server itself, mysqladmin and
+mysql commandline client. All documentation and various utilities 
+for exporting/importing/repairing MySQL databases are not included.<p>
+
+Full version of MySQL (for development stage) should be acquired from
+<a href=http://www.mysql.com>www.mysql.com</a>. It's not recommended to extract
+versions available from there to the <tt>/extensions/engines</tt>, see
+<a href=#rebuilding>below for more details</a>.
+
+Implementations of MySQL available from us for all platforms 
+do not have any  dependencies since all third-party libraries are statically 
+compiled into them, so they don't require any non-standard libraries installed
+on user's computer to run.
+
+
+<h1>Putting database files to proper place</h1>
+<a name=datadir></a>
+All database files should not be put to 'data' directory inside the
+implementation's installation root, please copy the contents of './data' 
+directory to <tt>/extensions/data/mysql_data</tt>; the database files
+are managed by <a href=mysql_data.shtml>mysql_data extension</a> 
+(that allows database files to remain on CDROM, or be copied during first
+use of SPWS or each time SPWS is started) - see 
+<a href=mysql_data.shtml>documentation of mysql_data extension</a> for
+more information.  MySQL server will automatically be configured to use the
+proper directory (the directory on CDROM or the copy of it in user's
+private files directory - depending on options specified for 
+<a href=mysql_data.shtml>mysql_data extension</a>) as location of database
+files).
+
+
+
+<h1>Using proper port number to connect to MySQL server in scripts</h1>
+<a name=portusage></a>
+The port number MySQL server will accept connections on is determined
+automatically at startup as first free available port. It will be listed
+as default port for MySQL in php configuration file, so PHP 
+scripts won't have to be changed at all (unless they hardcode mysql port
+number - but these scripts should be considered incorrectly-written). 
+Also the port number MySQL listens on will also be exported in the
+<tt>MYSQL_PORT</tt> environment variable, so all Perl scripts should
+specify port number explicitly in the DBI data source string.
+
+
+
+<h1>Finding MySQL error messages and runtime-properties</h1>
+<a name=runtimeinfo></a>
+A directory Stunnix Advanced Web Server stores application-specific files 
+permamently (it's name is contained in the $ENV{STUNNIXWS_STATEDIR} variable
+(or, in case <i>once_to_permdir</i> was used for <i>copy_to_hdd</i>
+parameter to <a href=mysql_data.shtml>mysql_data</a> extension, in
+$ENV{STUNNIXWS_PERMSTATEDIR} )
+and is (unless <i>copy_to_hdd=once_to_permdir</i> is used)
+typically /home/user-name/.stunnixws/SITEID on Linux/Unix and MacOSX ,
+c:\Documents and settings\USERNAME\Local Settings\Temp\.stunnixws\SITEID\
+on Win2k and above and c:\windows\temp\.stunnixws\SITEID\ on Win9x and WinME
+) 
+- also contains files that with information about MySQL server.
+File named 'mysql-port.txt' contains port number MySQL server runs on,
+'mysql-stderr.txt' and 'mysql-stdout.txt' - standard error log
+and standard output log file. 
+Also 'mysql_data/USERNAME.err' contains the additional trace information
+from MySQL. 
+So if you wish to inspect database using commandline 'mysql' client,
+find out port number in 'mysql-port.txt' (suppose it's 9002)
+and start mysql client (bin/mysql or bin/mysql.exe) using commandline
+<pre>
+mysql --port=9002 --host=127.0.0.1
+</pre>
+Probably you will also have to add '--user=root' commandline switch.
+
+
+
+<h1>Preparing database files</h1>
+<a name=preparing-datafiles></a>
+First of all, suppose you have a MySQL database you wish to put on CDROM.
+First you will need to grant everybody all access to it. Start mysql client,
+and enter 
+<pre>
+grant all on *.* to ''@'%';
+</pre>
+This should be enough. Though sometimes it may be necessary to also
+execute:
+<pre>
+grant all on *.* to 'root'@'%';
+grant all on *.* to 'root'@'127.0.0.1';
+</pre>
+<p>
+<b>NOTE: none of the GRANT commands above are needed if using Stunnix
+Advanced Web Server version 2.1 and above!!</b>
+<p>
+Then stop MySQL server and copy all database files to 
+<tt>/extensions/data/mysql_data</tt>.
+That's all!
+
+
+
+<h1>Rebuilding MySQL</h1>
+<a name=rebuilding></a>
+It's of course possible to rebuild MySQL yourself, in case you need
+version of MySQL different from what we provide.
+ <p>
+So after getting distribution version of MySQL, just leave all files we've
+left in our version. 
+
+For Windows version,  execute commands 'exetype mysqld.exe WINDOWS'
+and 'exetype mysqladmin.exe WINDOWS' to 
+turn executables from Win32 Console Applications into Win32 GUI applications
+in order console window not to appear when mysql server is started or stopped
+during startup or shutdown of Stunnix Advanced Web Server.
+<p>
+Feel free to contact us for more information.
+
+
+
+
+
+<!--#include virtual="/f.shtml" -->

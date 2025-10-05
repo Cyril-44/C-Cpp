@@ -1,0 +1,13 @@
+<!--#set var="title" value="get-idents-from-html.pl - gather names and ids of elements used inside a set of html files" -->
+<!--#include virtual="/h-vbso.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>VBScript Obfuscator suite</a> &#8594;
+<a href=. class= nav>get-idents-from-html.pl</a>
+</span></div>
+
+<div class=body>
+
+<!--#include virtual="./BODY-get-idents-from-html.shtml" -->
+<!--#include virtual="/f.shtml" -->

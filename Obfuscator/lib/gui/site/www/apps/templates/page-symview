@@ -1,0 +1,11 @@
+<% use obfui::cmn;    my ($lines,%opts) = @_; %>
+<%= __('Note: this list is being generated automatically during build of the project. It\'s stored as a file in the current project state directory, so clearing project state files clears this list too.') %>
+<p>
+<% if (!@$lines) { %>
+<%= __('The list is empty, this may be due to the fact that the project hasn\'t been built yet or the state files were cleared recently.') %>
+<% } else { %>
+<pre class=symlist>
+<%= join('',@$lines) %>
+</pre>
+<% } %>
+<p><% $forge->include('wgt-backbtn',__('Back')) %>

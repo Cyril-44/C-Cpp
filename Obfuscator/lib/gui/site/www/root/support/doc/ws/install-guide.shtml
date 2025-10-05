@@ -1,0 +1,109 @@
+<!--#set var="title" value="Stunnix Perl Web Server - how to install or upgrade guide a purchased copy of Stunnix Perl Web Server" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Perl Web Server</a>
+</span></div>
+<div class=body>
+<h1>Introduction</h1>
+Upon purchase of Stunnix Perl Web Server or receiving an update to it,
+you receive a file named <t>Stunnix-Perl-Web-Server-N.M.tar.gz</t>.
+Just unpack the archive using WinZIP if you are using Windows, or use
+gunzip and then tar if you are using MacOSX or Unix-like operating system.
+<p>
+
+This archive contain a non-trial web server implementation (located
+in <tt>/sample-image/site/stunnixwebsrv/</tt>) and a copy of all documents 
+related to SPWS from Stunnix website and a set of utilities for packing 
+websites scripted in Perl. More information on the content of the archive
+can be found <a href=package-overview.shtml>in a separate document</a>.
+The archive <b>does not</b> contain Perl and php interpreters and additional
+modules and mysql server; you will have to download a full trial version
+that includes everything (but contains expiring web server core) - you have to 
+<a href=/prod/ws/eval-req.shtml>register</a> for receiving a download link
+to that full trial (in case you didn't evaluate it before).
+<p>
+
+So in order to be able to create non-expiring product based on Stunnix Perl
+Web Server, you will have  to 
+put ALL files from <tt>/sample-image/site/stunnixwebsrv/</tt> extracted from the
+archive you've downloaded from ShareIT site to <tt>/site/stunnixwebsrv/</tt>
+in the cdrom tree prototype you've created when using trial edition of SPWS
+(by doing this, you will be replacing tria SPWS core that will expire in
+several months with "normal" non-expiring SPWS core). Otherwise CDROM based on
+trial version will stop working in several monthes.
+
+<p>
+Such packaging of Stunnix Perl Web Server allows to minimize traffic required
+for downloading purchased Stunnix Perl Web Server or an update to it, and
+allows to evaluate all features Stunnix Perl WebServer provides without
+purchasing it.
+
+<b>PLEASE test the site you've created by setting clock of your PC 4 monthes ahead and running
+them to ensure that you've turned your web server into NON-TRIAL!</b>
+
+<p>
+If you never evaluated SPWS before, please follow
+<a href=quick-start-guide.shtml>short HOWTO</a> on using the product.
+
+<h1>Handling the license key</h1>
+The license key you get when purchasing needn't be put into any file on CDROM,
+it's just a proof that you've purchased our product.
+
+
+<h1>Notes on updating to new version of SPWS</h1>
+Once new version of Stunnix Perl Web Server is released, it's sent to
+all customers who purchased a product (or update to it) during the 365 days
+before the date of release.
+<p>
+The update is the same file that one receives when purchasing a product
+in the <a href=/store/>store</a>. The list of changes introduced in each 
+new version of the product is always available 
+<a href=/prod/ws/whatsnew.shtml>on a dedicated What's New page</a>.
+<p>
+One should copy all files from <tt>/sample-image/site/stunnixwebsrv/</tt> 
+extracted from the update to <tt>/site/stunnixwebsrv/</tt>
+in the cdrom tree prototype to update webserver core. In some new versions
+of SPWS 
+Perl and PHP interpreters and MySQL server are also updated (and it's
+also mentioned in <a href=/prod/ws/whatsnew.shtml>What's New page</a>),
+so if stated that something besides web server core is updated,
+one will also need to 
+<a href=/prod/ws/eval-req.shtml>register  again</a> for receiving a download 
+link to the full trial, download it, and either copy <tt>/perl</tt>,
+<tt>/extensions/egnines</tt> and all files from the top directory of 
+trial CDROM image, or copy only updated and new files from those
+locations.
+
+
+<h1>Consider protecting your code from theft and analysis</h1>
+
+We recommend you to protect scripts used in your site.
+<ul>
+<li>
+<i>To protect JavaScript from analysis and theft and for mangling html</i>, 
+you can
+ use <a href=/prod/jo/overview.shtml>Stunnix JavaScript Obfuscator</a>;
+
+<li>
+<i>To protect VBScript from analysis and theft and for mangling html</i>, 
+    you can
+ use <a href=/prod/vbso/overview.shtml>Stunnix VBScript and ASP Obfuscator</a>;
+
+<li>
+<i>To protect Perl scripts from analysis and theft</i>, 
+    you can
+ use <a href=/prod/po/overview.shtml>Stunnix Perl-Obfus</a> - 
+    an advanced obfuscator and encoder for Perl source code;
+
+<li>
+<i>To protect PHP scripts from analysis and theft</i>, 
+    you can use
+    <a href=http://ioncube.com>IonCube PHP encoder</a> - it's already
+    integrated into SPWS and supported on all platforms. 
+</ul>
+
+
+
+<!--#include virtual="/f.shtml" -->

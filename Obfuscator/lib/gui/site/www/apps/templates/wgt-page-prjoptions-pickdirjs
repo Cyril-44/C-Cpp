@@ -1,0 +1,111 @@
+<%
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module
+    my(%options) = @_; #supported options: disallowspaces
+
+    my $disallowspaces_rule = !$options{disallowspaces} ? '' :  ',{ type: "doesntContain[ ]", prompt: "' . 
+	    __('Spaces are not allowed in the absolute path of the directory') . '"}'; 
+%>
+
+<script language=javascript>
+<!--
+J(document).ready(  function() {
+    var ids = ['indir','outdir', 'stdir'];
+
+
+    for(var idx in ids) {
+	var id = ids[idx];
+	var btn = J('#' + id + '_btn');
+	if (!btn.length) { continue; }
+
+    
+	if (!_fsb_os_supported) { 
+	    btn.hide();
+	    continue;
+	}
+
+	btn.click( { 'id' : id} , function(event) {
+		var indir_val = J('#indir').val();
+		var id = event.data.id;
+		var entry = J('#' + id );
+		var curval = entry.val();
+		
+		var opts = { 'curval': curval };
+		if (id != 'indir') {
+		    opts['basedir'] = indir_val;
+		};
+		fsb_browser_run_ajax('dir', opts,
+            	    { //callbacks
+            		'onsuccess': function (newval)  {  entry.val(newval); }
+            	    }
+    		);
+		return false;
+	    }
+	);
+    }
+
+
+
+    //custom rule: check whether dir exists
+    J.fn.form.settings.rules.direxists = function(value,is_relative) {
+	var indir =  J('#indir').val();
+	//console.log("in dir validator indir=" + indir);
+	var ret;
+	J.ajax({
+                url: 'project.ajax-checkdir',
+		async: false,
+		data : {
+		    basedir: indir,
+		    subdir: (is_relative == true ? value : '')
+		},
+		success: function(text) {
+		    //console.log("got ajax value " + text);
+		    ret = parseInt(text);
+		}
+	    });
+	var str = "checking whether " + value + " exists. is_relative=" + is_relative + " return val is " + ret
+	//console.log(str );alert(str);
+	return ret == 1 ? false : true;
+    };
+
+    J('#mainform').form({ inline: true,
+	fields: {
+	    indir: {
+    		identifier: 'indir',
+    		rules: [
+        	    {
+        		type   : 'direxists[0]',
+        		prompt : 'Directory does not exist!'
+		    }
+		    <%$ $disallowspaces_rule %>
+		]
+	    },
+
+	    outdir: {
+    		identifier: 'outdir',
+    		rules: [
+        	    {
+        		type   : 'direxists[1]',
+        		prompt : 'Directory does not exist!'
+		    }
+		    <%$ $disallowspaces_rule %>
+		]
+	    },
+	    stdir: {
+    		identifier: 'stdir',
+    		rules: [
+        	    {
+        		type   : 'direxists[1]',
+        		prompt : 'Directory does not exist!'
+		    }
+		    <%$ $disallowspaces_rule %>
+		]
+	    },
+
+
+          }
+        });
+  }
+);
+-->
+</script>
+

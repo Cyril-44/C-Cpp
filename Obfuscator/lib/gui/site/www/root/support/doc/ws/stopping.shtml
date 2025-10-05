@@ -1,0 +1,30 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Perl Web Server - stopping it" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Perl Web Server</a>
+</span></div>
+<div class=body>
+<h1>Terminating SPWS and releasing media</h1>
+Once user has finished working with site SPWS serves, there is a need to
+free resources taken by SPWS. Typically SPWS is two processes named "perl"
+or "wperl.exe" in process list. They of course won't use CPU cycles when
+user doesn't make requests to pages served by SPWS, but if SPWS was started
+from CDROM, then on operating systems other then Windows (i.e. MacOSX and
+unix-like) user will be unable to eject CDROM unless SPWS is stopped.
+<p>
+In order to stop SPWS, user must access any resource on the site with the
+path containing string "spws-terminate-and-release-cd" (e.g. filename
+of the resource should contain this string, or name of directory, or
+even virtual URL handled by Mason). Once request to this resource is performed,
+SPWS will continue to serve content for additional 5 seconds (to allow
+that resource to refer to any other content like scripts, stylesheets, images
+or even multimedia), and then SPWS will terminate, attempting to eject
+CDROM if it was started from CDROM.
+<p> 
+The sample of this functionality is available on
+<a href=/prod/ws/samplecd.shtml>demo cdrom</a>.
+
+</div>
+<!--#include virtual="/f.shtml" -->

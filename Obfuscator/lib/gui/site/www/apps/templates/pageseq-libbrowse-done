@@ -1,0 +1,5 @@
+<% use obfui::cmn;    my ($lines) = @_; %>
+<%$ sprintf( __("Done updating list of libraries used in your project. Now you can go to <a href=%s>Build</a> menu and <b>Rebuld All</b> of your project for new settings to take effect")
+    ,'menu.build') %>
+
+

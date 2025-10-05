@@ -1,0 +1,92 @@
+<%
+    my ($retcode,$tracestr,$duration,$menu_items,$prjid,$opts_str,$prj) = @_;
+
+    my $verb = $opts_str;
+    use obfui::cmn;
+
+    my $st = $retcode ? __('Operation has <span class=build-failed>failed</span>.') : 
+	sprintf(__('Operation has <span class=build-succeeded>succeeded</span> in %d seconds. '),$duration);
+%>
+
+<div id=content>
+
+<% $forge->include('wgt-load-semanticui') %>
+
+<% if (!$retcode) { %>
+
+    <h3 class="ui center aligned icon header" >
+	<i class="checkmark icon positive"></i>
+	<div class=content><%= __('Operation has succeeded') %>
+	    <div class="sub header"><%= P__('in %d seconds', $duration) %></div>
+	</div>
+    </h3>
+
+
+<% } else { %>
+
+
+    <h3 class="ui center aligned icon header">
+	<i class="remove circle icon negative"></i>
+	 <%= __('Operation has failed') %>
+    </h3>
+
+<% }  %>
+
+<div class="main ui container">
+
+
+
+<%= __('Use shortcuts below to repeat build-related commands.') %>
+<br>
+<% $forge->include('block-menuitems',$menu_items,$prjid); %>
+<p>
+
+<% if ($verb =~ /build/) { %>
+<div style="font-weight:bold">
+<%$ __('Producing output using presets selected in <i>Settings &rArr; select preset for .. </i> menu item(s). Go <a href=menu.settings>there</a> to select different preset.') %>
+</div><p>
+<% } %>
+<p>
+<%= __('The following output was produced:') %>
+<div id=build-result>
+<% 
+    my $ttf = Text::Forge->new;
+    $ttf->{forced_no_header} = 1;
+    $tracestr =~ s,(\r?\n)+,<br>,gs; #there are some newlines in output, convert them to <br>
+
+
+    {#make filelists expandable
+	my $listing_idx = 0;
+	$tracestr =~ s|<br><!--STUNNIX-FILELIST-BEGIN-->| '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' .$ttf->trap_send('wgt-optional-start','flist' . ++$listing_idx, 'see details',1) |egs;
+
+        $listing_idx = 0;
+	$tracestr =~ s|<!--STUNNIX-FILELIST-END-->| $ttf->trap_send('wgt-optional-end','flist' . ++$listing_idx,1)|egs;
+    }
+    {
+	my $idx = 0;
+	$tracestr =~ s|<!--STUNNIX_CMDLINE_HINT_BEGIN-->(.*?)<!--STUNNIX_CMDLINE_HINT_END-->|
+	     '<p>' .  $ttf->trap_send('wgt-optional-start','cmd' . ++$idx, 'Invoked command line') 
+		. 'The following command line is executed inside ' . $prj->{indir} . ':<p><tt>' 
+		. $1 . '</tt><p>' .
+		__('Do not run the command line above directly, see "FAQ: How to perform this from command line?" at the bottom of this window on how to build/clean your project from command line. Also you can use <a class=menuref href=tools.cmdbuilder>Tools &rArr; Command line builder</a> to build the command lines.') 
+	    .  $ttf->trap_send('wgt-optional-end','cmd' . $idx); 
+	 |egs;
+    }
+
+
+%>
+<%$ $tracestr %>
+</div>
+<p>&nbsp;</p>
+<%$ $st %>
+</div>
+
+<div style="padding-top: 4px;">&nbsp;<p></div>
+</div>
+
+<script language=javascript>
+<!--
+window.parent['export-data'] =   ge_by_id('content').innerHTML;
+-->
+</script>
+

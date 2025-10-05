@@ -1,0 +1,69 @@
+<% use obfui::cmn;    my ($pred_body,$testlines,$test_results,$predfilename) = @_; %>
+
+<form method=post action=filenames.edit_predicate>
+<input type=hidden name=havevals value=1>
+
+<%=  __('Enter the implementation of the predicates that decide whether to alter names of files and directories.') %>
+ <%= sprintf( __('The predicate is stored in the file named %s in the project\'s State Directory, you can edit it with your favourite editor or using textarea below.'),
+    $predfilename) %>
+<p>
+<center>
+<textarea name=predbody style="width:90%; height:20em;">
+<%= $pred_body %>
+</textarea>
+</center>
+
+<p>
+
+<center>
+<p><% $forge->include('wgt-submitbtn-wide',__('Save changes'),'save') %>
+</center>
+
+<p>&nbsp;<p>&nbsp;<p>&nbsp;
+<%=  __('Use form below to test the predicate. Enter names relative to project\'s Input Directory, one per line.') %>
+ <%=  __('All paths should use unix-style slashes (/), start with slash. If line ends with slash, it is passed to directory name predicate. ') %>
+
+
+<center>
+<textarea name=testlines  style="width:90%; height:10em;" ><%= $testlines %></textarea>
+<p><% $forge->include('wgt-submitbtn-wide',__('Save predicate\'s code and test paths above'),'save_and_test') %>
+</center>
+</form>
+
+<% if ($test_results) {
+    if (!$test_results->[0]) { %>
+<%=  __('Error parsing predicate code: ') %> <%= $test_results->[1] %>
+<% } else { %>
+
+<%=  __('Output from predicate:') %><p>
+
+<table style='padding-left: 4em;' class=symlist>
+<thead>
+<tr><th><%= __('Path') %></th><th><%= __('Result from predicate') %></th>
+<tbody>
+<%
+    my (undef,@items) =  @$test_results;
+    my $idx = 1;
+    foreach (@items) {
+	++$idx;
+	my ($lastpart,$path,$result) = @$_;
+%>
+
+<tr class=direntry<%? ($idx %2) %> >
+<td ><%= $path %></td>
+<td><%$ 
+
+sprintf( ($result ? __('Predicate returned 1, <b>%s</b> WILL be changed') : 
+		    __('Predicate returned 0, <b>%s</b> WILL NOT be changed')),
+    $lastpart)
+%>
+
+<%  } %>
+</tbody>
+</table>
+<p
+>
+<%  }
+} %>
+
+

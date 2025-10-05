@@ -1,0 +1,18 @@
+<!--#set var="title" value="Extracting and using exceptions" -->
+<!--#include virtual="/h-cxxo.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>C/C++ Obfuscator suite</a> &#8594;
+<a href=. class= nav>Working with exceptions</a>
+</span></div>
+
+<div class=body>
+<script>
+var on_page_loaded = [];
+</script>
+
+<!--#include virtual="./INC-exceptions.shtml" -->
+<!--#include virtual="../obfusui/INC-exceptions-scripts.shtml" -->
+
+<!--#include virtual="/f.shtml" -->

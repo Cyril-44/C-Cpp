@@ -1,0 +1,64 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Advanced Web Server" -->
+<!--#include virtual="/h-aws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Advanced Web Server</a>
+</span></div>
+
+<div class=body>
+
+<h1>Stunnix Advanced Web Server documentation</h1>
+<ul>
+
+<li><a href=http://stunnix.com/prod/aws/video/><b>Video tutorials</b> on use of CDBuilder</a>
+
+<li><a href=quick-start-guide-cdbuilder.shtml>READ THIS FIRST: HOW TO use 
+    Stunnix   Advanced Web Server for your sites WITH CDBuilder GUI tool</a>
+
+<li><a href=faq.shtml>SAWS Frequently Asked Questions (FAQ)</a>
+
+<li><a href=cdbuilder-steps.shtml>A sample layout for your project
+    input directory and how to input it into CDBuilder</a>
+
+<li><a href=joomla-steps.shtml>A step-by-step guide on preparing
+    CD with Joomla using CDBuilder</a>
+
+<li><a href=quick-start-guide.shtml>READ THIS FIRST: HOW TO use Stunnix
+    Advanced Web Server for your sites WITHOUT CDBuilder GUI tool</a>
+
+<li><a href=install-guide.shtml>Guide on installing SAWS purchased in the
+    store or received as update</a>
+
+<li><a href=troubleshooting.shtml>TROUBLESHOOTING GUIDE</a>
+
+<li><a href=file-folder-chooser.shtml>Facility for selecting file and folder paths
+    in web pages  using native GUI</a>
+
+<li><a href=package-overview.shtml>Overview of the 
+    files and directories in the purchased product</a>
+<li><a href=xcgi.shtml>Using XCGI for dynamic content</a>
+<li><a href=tomcat-debug.shtml>Guide on preparing and 
+    debugging tomcat-based sites</a>
+<li><a href=extensions/>Documentation on available extensions</a>
+<li><a href=extensions/extlist.conf.shtml>Documentation on 
+	file /site/config/extlist.conf</a>
+<li><a href=envvars.shtml>Environment variables exported by SAWS to 
+    CGI/XCGI scripts and Server-Parsed documents</a>
+<li><a href=startsite.shtml>'startsite.pl' - wrapper script to start 
+    SAWS on first free port and open browser window with the site in it</a>
+<li><a href=cfgfile.shtml>Stunnix Advanced Web Server configuration file settings reference</a>
+<li><a href=srvcmdline.shtml>Commandline options supported by 'srvrun.pl' script</a>
+<li><a href=stopping.shtml>Terminating SAWS and releasing media</a>
+
+<li><a href=exepack-notes.shtml>Notes on packing site into
+    single executable</a>
+<li><a href=packsite-par.shtml>packsite-par.pl - utility for packing site and 
+    web server into a single executable</a>
+</ul>
+
+<h1>Articles on various topics related to Stunnix Advanced Web Server documentation</h1>
+<!--#include virtual="/a/INC-saws-articles.shtml" -->
+
+
+<!--#include virtual="/f.shtml" -->

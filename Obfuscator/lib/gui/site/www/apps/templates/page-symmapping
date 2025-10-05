@@ -1,0 +1,35 @@
+<% use obfui::cmn;    my ($lines,%opts) = @_; %>
+<%= __('Note: this map is being generated automatically during building of the project. It\'s stored as a file in the current project state directory, so clearing project state files clears this list too. Rows with both columns equal are not shown.') %>
+<p>
+<% if (!@$lines) { %>
+<%= __('The mapping is empty, this may be due to the fact that the project hasn\'t been built yet or the state files were cleared recently  (or none of symbols in your files has been altered).') %>
+<% } else { %>
+<center>
+<table class=symlist>
+<thead>
+<tr><th class=name><%= __('Original') %></th><th class=mode><%= __('Resulting') %></th>
+<tbody>
+<% 
+    my %hlines;
+    {
+	foreach (@$lines) { 
+	    next if $_ !~ m/^\s*(\S+)\s+(\S+)\s*/;
+	    my ($to,$from) = ($1,$2);
+	    $hlines{$from} = $to;
+	}
+    }
+    my $idx;
+    foreach (sort keys %hlines) {
+	++$idx;
+	my ($from,$to) = ($_,$hlines{$_});
+%>
+<tr class=direntry<%? ($idx %2) %> ><td><%= $from %></td><td><%= $to %></td>
+<% } %>
+</table>
+<p>
+<a class=noul href=syms.view.mapping_srclist><%= __('Download list of encountered symbols in code from input files') %></a>
+</center>
+<% }  %>
+<center>
+<p><% $forge->include('wgt-backbtn',__('Back')) %>
+</center>

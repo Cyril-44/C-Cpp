@@ -1,0 +1,276 @@
+<% use obfui::cmn;  my ($info) 
+    = @_;
+
+    my $have_local_arch = length($info->{local_archive_filename});
+    my $have_uploaded_files = (0+ keys(%{$info->{items}}));
+%>
+
+<style type=text/css>
+#real-filesel { display: none; }
+</style>
+
+<% $forge->include('wgt-load-semanticui') %>
+
+<% sub _gen_symarch_buttons { %>
+<button title="<%= __('View exceptions in this set.' ) %>" class="ui icon  button x-fileop-button" data-what=view ><i class="unhide icon"></i></button>
+<button title="<%= __('Download this set of exceptions for importing on computer with other operating system.' ) %>" class="ui icon  button x-fileop-button" data-what=download ><i class="download icon"></i></button>
+<button title="<%= __('Delete this set.' ) %>" class="ui icon button x-fileop-button" data-what=delete ><i class="delete icon"></i></button>
+
+
+<!-- <div class="ui button" >    <i class="edit icon"></i></div> -->
+
+
+<% } %>
+
+<div class="main ui container">
+
+
+
+
+<div class="ui segment">
+
+<p>
+<form class="ui form" id=regen-or-export-form >
+    <input type=hidden name=what value=generate /> 
+    <div>
+<% if ($have_local_arch) { %>
+	<%= __('You already have exceptions generated, use the button on the right to update them..') %>
+<% } else { %>
+	<%= __('You have not extracted exceptions yet. Use the button on the right to generate them.') %>
+<% } %>
+    <button class="XXXui primary inverted button" data-what=generate><i class="refresh icon"></i><%= $have_local_arch ? __('Regenerate') : __('Generate') %></button>
+    </div>
+    <div>
+
+    </div>
+</form>
+
+
+
+<form class="ui form" style="padding-top: 3em; ">
+    <!-- it will contain fileid being deleted. It's used for server to know which flie row user has clicked on -->
+    <input type=hidden name=fileid id=fileid_to_work_on />
+    <input type=hidden name=what value='delete|download|view' id=what_to_do_with_file />
+
+
+    <div>
+	<!-- You do not have any exceptions yet!	 -->
+
+<table class="ui very basic table">
+  <tbody>
+
+<% if ($have_local_arch) { %>
+    <thead>
+    <td colspan=2>
+	  <h3 class="ui dividing header"><%= __('Exceptions, generated on this computer') %></h3>
+    </td>
+    </thead>
+
+    <tr  data-fileid="<%= $info->{local_archive_filename} %>" >
+      <td>
+	    <%= $info->{local_archive_title} %>
+      </td>
+      <td>
+
+<% _gen_symarch_buttons() %>
+
+	</td>
+    </tr>	
+<% }  %>
+
+<%  if ($have_uploaded_files) {  %>
+
+    <thead>
+    <td colspan=2>
+	  <h3 class="ui dividing header"><%= __('Exceptions, generated for other configurations/operating systems') %></h3>
+    </td>
+    </thead>
+
+<% 
+    my @sorted_keys = sort { $info->{items}{$a} cmp $info->{items}{$b}  } keys %{$info->{items}};
+    foreach my $k (@sorted_keys) { %>
+
+    <tr  data-fileid="<%= $k %>" >
+      <td>
+	    <%= $info->{items}->{$k} %>
+      </td>
+      <td>
+
+<% _gen_symarch_buttons() %>
+	</td>
+    </tr>	
+<%
+    }  #iterating by keys
+
+ } #if ($have_uploaded_files)
+%>
+
+</tbody>
+</table>
+    </div>
+</form>
+
+
+
+
+
+
+<!-- form for adding new file -->
+<div class="ui accordion container">
+  <div class="title"><i class="dropdown icon"></i><%= __('Add a file generated on different OS or using different configuration') %></div>
+  <div class="content">
+
+    <form class="ui form" method=post enctype="multipart/form-data">
+    <input type=hidden name=what value=addfile>
+
+    <div class="ui form">
+      <div class=fields>
+	<div class="ten wide field">
+	    <label><%= __('Title of the file (will be shown in the table above)') %></label>
+	    <input type="text" required name=file_title placeholder="<%= __('Set from Windows') %>">
+        </div>
+
+	<div class="four wide field">
+	    <label><%= __('Pick a file') %></label>
+	    <input type="text" required readonly class="fake-filesel" name=newfile  placeholder="<%= __('Click to select a file') %>">
+	    <input type="file" id=real-filesel name=filedata>
+        </div>
+
+	<div class="two wide field">
+	    <label>&nbsp;</label>
+	    <button class="ui primary wide button"><i class="ui icon upload"></i> <%= __('Add') %>  </button>
+        </div>
+      </div>  
+    </div>  
+    </form>
+  </div>
+
+</div>
+
+
+
+
+
+<div id=exceptions_view_content_empty style="display:none">
+<%= __('Loading..') %>
+</div>
+
+
+<!--modal view -->
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    <%= __('Viewing exceptions with title:') %> <span id=exceptions_view_title></span>
+  </div>
+  <div class="content" id=exceptions_view_content>
+  </div>
+</div>
+
+
+<script>
+<!--
+
+//this block is for a form for adding a file
+//It keeps input=file invisible but synchronized with fake input field
+J(document).ready(  function() {
+
+J("input.fake-filesel").click(function() {
+  J(this).parent().find("input:file").click();
+});
+
+J('input:file')
+  .on('change', function(e) {
+    var name = e.target.files[0].name;
+    J('.fake-filesel', J(e.target).parent()).val(name);
+  });
+
+} );
+
+
+//this block is for a form for removing a file
+J(document).ready(  function() {
+    J(".x-fileop-button").click(function() {
+	var fileid = J(this).parent().parent().data('fileid');	
+	J('#fileid_to_work_on').val(fileid);
+
+	var what = J(this).data('what');
+	J('#what_to_do_with_file').val(what);
+	//alert(fileid);
+	if (what == 'delete') {
+	    if (!confirm('Do you really wish to remove this file?'))
+		return false;
+	} else if (what == 'view') { //implement  viewing exceptions
+	    var filetitle = J(this).parent().parent().find(">:first-child").text();
+	    J('#exceptions_view_title').text(filetitle);
+	    J('.ui.modal').modal('show');	 
+	    J('#exceptions_view_content').html( J('#exceptions_view_content_empty').html() ); //reset content
+	
+	    J.ajax({
+		    url: location.pathname, 
+		    data: { 'what': 'view', 'fileid': fileid },
+		    success: function(result) {
+			J('#exceptions_view_content').html(result);
+			J('.ui.dropdown').dropdown();
+			J('#exceptions_view_file_dropdown').dropdown({
+			    onChange: function (val) {
+				J('.x-exception-list').hide();
+				J('#exception_list_' + val).show();
+			    }
+			});
+		}
+	    })   ;
+	    return false;
+	}
+    });
+} );
+
+
+//this block is for a form for generating or exporting a main file
+J(document).ready(  function() {
+    J("#regen-or-export-form button").click(function() {
+	var what = J(this).data('what');
+	J('#regen-or-export-hidden-field').val(what);
+	//alert(what);
+    });
+
+} );
+
+
+-->
+</script>
+</div>
+
+
+
+
+<div class="ui accordion container">
+  <div class="title"><i class="dropdown icon"></i><%= __('What is this?') %></div>
+  <div class="content">
+    <p/>
+    <%= __('Clang is a modern compiler suite, it is a default compiler for macOS, iOS, FreeBSD and OpenBSD.') %>
+    <%= __('You can generate exceptions individually for each file in your project, using special Clang-based tool.') %>
+    <%= __("It will list all symbols declared anywhere besides your project's files as exceptions,  provided those symbols are used in your project's files.") %>
+    <p/>
+    <p/>
+    <%$ __('By default, symbols for common header files listed in <a class=menuref href=syms.choose_except_by_header>Symbols &rArr; Select which common header files to load exceptions for</a> are also loaded, you can disable loading them in <a class=menuref href=project.options>Settings &rArr; Options</a>.') %> 
+    <p/>
+    <%$ __('Also by default, symbols extracted using Clang-based tool are merged into single set and applied to every file, instead of using only symbols extracted for a particular file, to work around some issues in the extractor. You can disable this  <a class=menuref href=project.options>Settings &rArr; Options</a>.') %> 
+    <p/>
+    <%= __('You need to regenerate exceptions using this page every time you add or remove files, or update their content.') %>
+    <p/>
+    <%= __('For the Clang-based backend to work properly, no file (containing code) or folder inside a Project Input Directory should be a symlink.') %>
+  </div>
+
+
+  <div class="title"><i class="dropdown icon"></i><%= __('What are different configurations?') %></div>
+  <div class="content">
+    <p/>
+    <%= __('The tool can only inspect the code that corresponds to current configuration (compiler options and defined macros) and operating system.') %>
+    <%$ __('If in your current configuration macro FOO is not defined, and your code is between <tt>#ifdef FOO</tt>..<tt>#endif</tt> then the tool will not see that code, and will not generate exceptions for that piece of code.') %>
+    <%= __('So to "cover" all your code, you have to generate exceptions and export them (by Downloading and then importing them using the buttons at the bottom of the page) for all configurations (and operating systems) your code supports.') %>
+    <p/>
+    <%$ __('To generate exceptions for different configuration, regenerate <tt>compile_commands.json</tt> file for different configuration..') %>
+    <%= __('Also you may generate exceptions for other operating systems by running obfuscator and using this tool on other computers, and then downloading the set of exceptions from other computers and importing it to current computer.') %>
+  </div>
+</div> <!-- of accordion -->
+

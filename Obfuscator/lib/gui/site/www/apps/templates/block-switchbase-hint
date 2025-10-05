@@ -1,0 +1,45 @@
+<% use obfui::cmn; my ($have_extr,$what,$limited,$bysample) = @_;  %>
+
+<h2><%= $what eq 'code' ?
+    __('Select a preset to be used for mangling code in the project') :
+    $what eq 'html' ?
+    	__('Select a preset to be used for mangling html markup around code in the project') :
+    __('Select a preset to be used for encoding of code')
+ %></h2>
+
+
+<%$
+   !$have_extr ? "" :
+    ($what eq 'code' ?
+    __('Select the profile for protecting code in the project - in raw
+files and inside some client-side or server-side markup. Profile for jamming of
+redundant spaces around html tags and removing html comments is selected using
+"<a class=menuitemref href=settings.switchbase.html>Settings &rArr; 
+    Select preset for mangling html markup around code..</a>" menu item') :
+
+    $what eq 'html' ? __('Select the profile for jamming redundant whitespace between html
+tags and removing HTML comments. It will not affect jamming whitespaces and
+removing comments inside the scripts!! The profile for mangling scripts can be
+selected using "<a class=menuitemref href=settings.switchbase.code>Settings &rArr;
+    Select preset for code mangling..</a>"
+menu item') :
+    __('Select the profile for encoding of code in your project - in raw
+files and inside SCRIPT and ASP blocks of client-side or server-side markup')
+    )
+ %>
+
+
+<% if ($bysample && 1) { %>
+<%$ __('- just click on a sample of the protected that matches the way you wish your protected code to look like.') %>
+<p>
+<% } else { %>.<% } %>
+
+
+<% if ($limited) { %>
+<script language=javascript>
+<!--
+    alert('<%=  __('This is trial edition. The only ways it can mangle symbols is by prepending fixed string to it, so irregarding of the symbol mangling mode you will choose here, symbols will be just prefixed a ReplacementFor_ string or left as is. That does not limit your ability to evaluate the product in any way; purchase a  product to enable other ways of symbol mangling.') %>');
+-->
+</script>
+<% } %>
+

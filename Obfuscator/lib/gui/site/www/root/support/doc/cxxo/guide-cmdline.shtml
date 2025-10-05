@@ -1,0 +1,13 @@
+<!--#set var="title" value="Using from command line - C/C++ Obfuscator" -->
+<!--#include virtual="/h-cxxo.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>C/C++ Obfuscator suite</a> &#8594;
+<a href=. class= nav>Using from command line</a>
+</span></div>
+
+<div class=body>
+
+<!--#include virtual="./INC-guide-cmdline.shtml" -->
+<!--#include virtual="/f.shtml" -->

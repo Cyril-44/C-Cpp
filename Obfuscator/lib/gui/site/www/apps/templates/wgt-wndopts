@@ -1,0 +1,29 @@
+<script language=javascript>
+<!--
+function clone_with_menu() {     open('#'); }
+function clone_wo_menu() {	
+     openwnd('#','','directories=0,location=0,menubar=0,personalbar=0,' +
+	'toolbar=0,resizable=1,status=0,scrollbars=1'); 
+}
+function openhelp()
+{
+    var url = '/support/doc/obfusui/help.shtml#';
+    {
+	var p = location.pathname;
+	var fname = p.substr(p.lastIndexOf('/')+1);
+	url += fname;
+    }		    
+    openwnd(url,'helpwindow',
+	'directories=0,location=0,menubar=0,personalbar=0,' +
+	'toolbar=0,resizable=1,status=0,scrollbars=1'); 
+}
+-->
+</script>
+<% use obfui::cmn; %>
+<a class=wndop title='<%= __('Go back') %>' href='javascript:history.back();'><img src=/res/$skin/obfui-nav-back.png></img></a>
+<a class=wndop title='<%= __('Go forward') %>' href='javascript:history.forward();'><img src=/res/$skin/obfui-nav-fwd.png ></img></a>
+<a class=wndop title='<%= __('Reload the page') %>' href='javascript:location.reload();'><img src=/res/$skin/obfui-nav-reload.png ></img></a>
+<a class=wndop title='<%= __('Clone window with browser menu') %>' href='javascript:clone_with_menu()'><img src=/res/$skin/obfui-nav-clone-mnu.png ></img></a>
+<a class=wndop title='<%= __('Clone window') %>' href='javascript:clone_wo_menu();'><img src=/res/$skin/obfui-nav-clone-nomnu.png ></img></a>
+<a class=wndop title='<%= __('Help on this window') %>' href='javascript:openhelp();'><img src=/res/$skin/obfui-nav-help.png ></img></a>
+

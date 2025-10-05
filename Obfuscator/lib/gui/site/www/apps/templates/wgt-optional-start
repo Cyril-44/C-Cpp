@@ -1,0 +1,31 @@
+<%
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module
+
+    my ($id,$prompt,$is_span) = @_;
+    $prompt ||= __('Advanced');
+    my $pfx = "advancedOptions${id}";
+    print $is_span ? '<span ' : '<div ';
+%>
+
+class=advanced-options >
+<span class=advanced-options id=${pfx}DisclosureButton  ><span 
+    class="${pfx}DisclosureTrigger advanced-options-toggle-show advanced-options-toggle">&#x25B6;</span><span 
+    class="${pfx}DisclosureTrigger advanced-options-toggle-hide advanced-options-toggle" 
+	style="display:none">&#x25BC;</span>&nbsp;<span 
+    class=advanced-options-prompt><%= $prompt %></span></span>
+<div class=${pfx}group ></div>
+<div class=${pfx}group style="display:none">
+<div class="alternatives-alternative-inner">
+<script language=javascript>
+<!--
+J("#${pfx}DisclosureButton").click( function() 
+    { 
+	J(".${pfx}group").toggle(500 ) 
+	J(".${pfx}DisclosureTrigger").toggle() 
+    });
+
+
+-->
+</script>
+
+

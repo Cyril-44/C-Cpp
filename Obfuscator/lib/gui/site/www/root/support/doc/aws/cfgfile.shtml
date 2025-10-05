@@ -1,0 +1,39 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Advanced Web Server configuration file settings reference" -->
+<!--#include virtual="/h-aws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Advanced Web Server</a>
+</span></div>
+<div class=body>
+<h1>Configuration settings</h1>
+Since the core of Stunnix Advanced Web Server is based on
+<a href=http://httpd.apache.org>Apache web server</a>, it has the same syntax.
+Please find documentation on available modules and on configuration
+directives at <a href=http://httpd.apache.org/docs/1.3/>Apache's web site</a>.
+<p>
+The configuration file used by the core is created by preprocessing and
+joining the following files:
+<ul>
+<li>
+       "${httpdcmnroot}/conf/httpd.conf"
+<li>       "${httpdcmnroot}/conf/httpd-custom-add-pre.conf"
+<li>       "${binhttpd_path}/conf/httpd-custom-add-pre.conf"
+<li>       "${httpdcmnroot}/conf/httpd-custom-add-post.conf"
+<li>       "${binhttpd_path}/conf/httpd-custom-add-post.conf"
+</ul>
+
+where paths are the following (relative to top of CDROM):
+<ul>
+<li>    ${httpdcmnroot} is /httpd/common-httpd-files/
+<li>    ${binhttpd_path} is platform-specific dir, e.g./httpd/httpd-ppc-macosx/
+
+</ul>
+
+As in all config file parts, %(BLAH) expands either to $ENV{BLAH} or to
+$config{BLAH}.
+
+
+
+
+<!--#include virtual="/f.shtml" -->

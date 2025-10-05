@@ -1,0 +1,55 @@
+
+<h2>Introduction to support for obfuscation of C/C++ code surrounded by delimiters</h2>
+Stunnix CXX-Obfus can obfuscate C/C++ code only between certain strings. This is useful
+if you wish to keep some parts of your code totally unchanged, or if your C/C++
+is intermixed with some other high-level language.
+<p>
+When such support for delimiters is enabled, Stunnix CXX-Obfus scans input file for
+code start delimiter, and protects the C/C++ till it encounters end delimiter.
+<p>
+You can define several different strings as start delimiter; 
+also you can define several different strings as end delimiter. Once Stunnix CXX-Obfus
+encounters any variant of start delimiter, it will start protecting C/C++ code, 
+and it will stop mangling C/C++ code once it encounters any version of 
+end delimiter.
+<p>
+Start/end delimiter can be arbitrary sequence of characters except newline; it can contain spaces,
+characters used for operators or characters that mark up the comment. It is common practice
+to make start delimiter and end delimiter a single-line comment containg some keyword, so delimited 
+code would look like this:
+<pre>
+//CODESTART
+  abc=def+42;
+//CODEEND
+</pre>
+- this way, code with delimiters will still be syntactically correct C/C++ code.
+
+
+<h2>Configuring project for obfuscating C/C++ code surrounded by delimiters</h2>
+Let's create a new processing mode that will enable protection of  C/C++ code 
+only surrounded by delimiters. We'll assign that mode to files we are interested in using
+Settings &rArr; "For files" - by putting checkbox near those files, selecting the 
+newly-created mode from dropdown list and then clicking on <tt>"Assign Processing Mode"</tt> button.
+
+<p>
+To create new mode, go to Settings &rArr; Edit modes, click on <tt>"Create new mode"</tt> button. Enter title "delimited" or
+the next screen. Select <tt>"Standard: treat as raw code"</tt> as PARENT mode from dropdown list.
+Scroll down to section <tt>"Meta-language in input files"</tt>,
+Select <tt>"Code is protected only between delimiters"</tt>, and check a checkbox to the left of
+dropdown list. Put checkboxes to the left of textfields with titles 
+<tt>"Name of file containing strings that mark start of piece of code"</tt> and 
+<tt>"Name of file containing strings that mark start of piece of code"</tt>. Put "start-delimiters.txt" (without quotes) into
+<tt>"Name of file containing strings that mark start of piece of code"</tt> and put "end-delimiters.txt" (without quotes) 
+<tt>"Name of file containing strings that mark start of piece of code"</tt>. Click Save at the bottom of the page.
+<p>
+After that, put files with names <tt>"start-delimiters.txt"</tt> and <tt>"end-delimiters.txt"</tt> into your Project's
+input directory; list your start delimiters, one per line in the former and list your end delimiters into the later.
+<p>
+
+After that go to Settings &rArr; <tt>"For files"</tt>, select files where start/end delimiters are present, select
+<tt>"delimited"</tt> from dropdown list and click on  <tt>"Assign Processing Mode"</tt> button.
+
+<h2>Possible applications</h2>
+One of possible applications for delimited obfuscation of C/C++ code is protection of files for
+YACC or LEXX parser/lexer generators. Just surround your code with start/end delimiters, and your protected file
+will work just fine with YACC or LEXX generator.

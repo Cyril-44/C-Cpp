@@ -1,0 +1,90 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Perl Web Server Extensions" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../../ class= nav>Support</a> &#8594;
+<a href=../../ class= nav>Documentation</a> &#8594;
+<a href=../ class= nav>Stunnix Perl Web Server</a>
+<a href=. class= nav>Extensions</a>
+</span></div>
+
+<div class=body>
+Stunnix Perl Web Server allows site developers to use other scripting 
+languages and programs implemented in compiled languages like C++ or C.
+They are called extensions in this documentaion.
+<p>
+Please see <a href=techoverview.shtml>technical details</a> about extensions
+for more information.
+
+<p>
+
+List of extensions to load and their runtime options are configured in the 
+<a href=extlist.conf.shtml>site/config/extlist.conf</a>
+configuration file, please see .
+<a href=extlist.conf.shtml>documentation on extlist.conf</a> for more 
+information.
+<p>
+<h1>Lists of extensions with platform-specific implementations</h1>
+These extensions require presence of platform-specific implementations
+in <b>/extensions/engines/</b>. They are available for download separately
+on the  <a href=/prod/ws/evaluate.shtml>Evaluation page</a>. You can also
+find a sample CDROM image with all these extensions for all platforms
+included on <a href=/prod/ws/evaluate.shtml>evaluation page</a>.
+<p>
+Click on the name of extension to see a more detailed information about 
+extension.
+<table>
+<thead>
+<tr><th>Name</th><th>Supported platforms and version of engine</th>
+<tdata>
+<tr><td><a href=php4.shtml>PHP4</a></td>
+    <td>Windows(4.3.3),	Linux on x86(4.3.11),	MacOSX PPC(4.3.2)
+    </td>
+<tr><td><a href=php5.shtml>PHP5</a></td>
+    <td>Windows(5.0.5),	Linux on x86(5.1.2),	MacOSX PPC(5.1.2)
+    </td>
+<tr><td><a href=mysql.shtml>MySQL</a></td>
+    <td>Windows(standard-4.1.11),
+	Linux on x86(standard-4.1.11),
+	MacOSX PPC(standard-4.1.11)
+    </td>
+
+<tr><td><a href=perldbddbi.shtml>Perl DBI and DBD::mysql, DBD::SQLite modules</a></td>
+    <td>Windows, Linux on x86,	MacOSX PPC
+    </td>
+</table>
+
+<h1>Lists of "virtual" extensions that alter startup or shutdown of other
+    extensions</h1>
+These are "virtual" extensions that do not require additional platform-specific
+implementations to be put into /extensions/ directory. They just alter
+run-time behavior of other extensions.
+
+<dl>
+<dt><a href=mysql_data.shtml>mysql_data</a></dt> 
+<dd>Extension that manages MySQL tables residing on CDROM. It can be configured
+    to copy MySQL database files each time Stunnix Perl Web Server is run, or
+    only at first invokation, or not copy at all (if database is used only for reading data)</dd>
+
+<dt><a href=sqlite_data.shtml>sqlite_data</a></dt> 
+<dd>Extension that manages SQLite tables residing on CDROM. It can be configured
+    to copy SQLite tables each time Stunnix Perl Web Server is run, or
+    only once, or not copy at all (if database is used only for reading data)</dd>
+
+
+<dt><a href=mysql_remove_data_copied_on_exit.shtml>mysql_remove_data_copied_on_exit</a></dt> 
+<dd>Extension that, if enabled, will remove MySQL database files that were
+    copied from CDROM by <a href=mysql_data.shtml>mysql_data</a> extension  
+    during shutdown of Stunnix Perl Web Server.</dd>
+
+<dt><a href=sqlite_remove_data_copied_on_exit.shtml>sqlite_remove_data_copied_on_exit</a></dt> 
+<dd>Extension that, if enabled, will remove SQLite database files copied from 
+    CDROM by <a href=sqlite_data.shtml>sqlite_data</a> extension
+     during shutdown of Stunnix Perl Web Server.</dd>
+
+<dt><a href=running_mysql_stopper.shtml>running_mysql_stopper</a></dt> 
+<dd>This is internal extension. At startup it stops mysql server if was left
+    running for some unknown reason.</dd>
+
+</dl>
+
+<!--#include virtual="/f.shtml" -->

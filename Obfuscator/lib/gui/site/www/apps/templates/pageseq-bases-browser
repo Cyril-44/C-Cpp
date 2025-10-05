@@ -1,0 +1,188 @@
+<% use obfui::cmn; 
+    my ($have_extr,$what,$keytoset,$bases,$limited,$cfgref) = @_;  
+    my $sd = $cfgref->{product}{mode_samples};
+    my $is_2inputs =  index($keytoset,'encoding') != -1 && $have_extr;
+
+sub dumpcode { $forge->include('block-samples-code',@_,$cfgref); }
+sub strip_title
+{
+    my($pfx,$title,$id,$iscur,$groupref) = @_;
+    if ($title =~ /\s+$pfx/)
+    {
+	$title =~ s,\s+$pfx\s+-\s+,    ,g;
+	push @$groupref, { 'title' => $title, 'id' => $id, 'iscur' => $iscur };
+    }
+}
+
+    my @bases_grouped = ();# {'title' => 'group title','items' => [ {title=>$title,id=>$id,iscur=>$iscur}] }
+    if ($cfgref->{product}->{lang} eq 'js') { 
+	my ($g_testing,$g_liteprot,$g_production,$g_experimental) = ([],[],[],[]);
+	foreach (@$bases) {
+	    my ($id,$title,$descr,$iscur,$isprecreated) = @$_;
+	    $title =~ s/^SPECIAL BASE[^:]*://g;
+	    my $is_experimental = $id =~ /minlocals|renamelocals|_minify/;
+	    if ($is_experimental) {
+		push @$g_experimental, { 'title' => $title, 'id' => $id, 'iscur' => $iscur };
+	    } else {
+		strip_title('testing',$title,$id,$iscur,$g_testing);
+		strip_title('lite protection',$title,$id,$iscur,$g_liteprot);
+		strip_title('production',$title,$id,$iscur,$g_production);
+	    };
+	}
+	push @bases_grouped,   {'title', 'Preparing for obfuscation and testing','items',$g_testing } 
+		if @$g_testing;
+	push @bases_grouped,   {'title', 'Lite protection that does not alter symbol names (requires no preparation of the code)',
+			'items',$g_liteprot } 
+		if @$g_liteprot;
+	push @bases_grouped,   {'title', 'Production modes','items',$g_production } 
+		if @$g_production;
+	push @bases_grouped,   {'title', 'Experimental modes (protected code may not run correctly)','items',$g_experimental } 
+		if @$g_experimental;
+
+    };
+
+%>
+<script language=javascript>
+<!--
+function ge_by_id(nm)
+{
+    return document.getElementById(nm);
+}
+function show_alt_options(sel)
+{
+    for(var i=0;i<sel.options.length;++i)
+    {
+    var id = sel.options[i].value;
+    ge_by_id('alt_' + sel.id + '_' + id).style.display = 'none';	
+    }
+    ge_by_id('alt_' + sel.id + '_' + sel.options[sel.selectedIndex].value).style.display = 'block';
+    sel['idx-was'] = sel.selectedIndex;
+    setFooterBottom(1);
+}
+
+-->
+</script>
+
+<div class="code-before-protection ui segment secondary">
+<div class="ui header">Sample of original code - before protection</div>
+<div class=code-before-protection>
+    <% dumpcode($sd,$bases->[0]->[0],$is_2inputs,1) %>
+</div>
+</div>
+<p>&nbsp;<p>
+
+
+
+<div class="ui segment">
+<% $forge->include('block-switchbase-hint',$have_extr,$what,$limited,0) %>
+
+
+
+
+<p>
+<form method=post>
+<input type=hidden name=havevals value=1>
+<input type=hidden name=keytoset value=<%= $keytoset %>>
+
+
+
+<table style='width: 85%'><tr><td style='width: 100%; zborder: 1px solid black;' >
+<select name=newbase onchange='show_alt_options(this)' id=m style='width: 100%;'>
+<% 
+  if (@bases_grouped) {
+    foreach (@bases_grouped)
+    {
+	my ($title,$items) = ($_->{title},$_->{items});
+	%><optgroup label="<%= $title %>">
+<%
+	foreach (@$items) {
+	    my ($title,$id,$iscur) = ($_->{title},$_->{id},$_->{iscur}); %>
+		<option value=<%= $id %> <%= $iscur ? 'selected' : '' %> ><%= $title %>
+<%	} %>	
+	</optgroup><%
+    }
+  } else {    
+      foreach (@$bases) { 
+        my ($id,$title,$descr,$iscur,$isprecreated) = @$_; 
+	$title =~ s/^SPECIAL BASE[^:]*://g;
+%><option value=<%= $id %> <%= $iscur ? 'selected' : '' %> ><%= $title %>
+<%    } 
+   }
+%>
+</select>
+
+
+
+<% 
+  my $idx=0;
+  foreach (@$bases) { 
+    my ($id,$title,$descr,$iscur,$isprecreated) = @$_; 
+    $title =~ s/^SPECIAL BASE[^:]*://g;
+%>
+    <div class=mode-outer id=alt_m_<%= $id %> style='width: 100%'>
+    <div class="Xmode ui segment">
+
+	<div class=code-before-protection>
+            <% dumpcode($sd,$bases->[$idx++]->[0],$is_2inputs,0,$cfgref,1) %>
+	</div>
+
+
+	<% if (!$isprecreated) { %>
+        <span class=whentouse>DESCRIPTION:</span>	
+	<pre><%= $descr %></pre><% 
+	} else { 
+	    $descr =~ s,(<div class=whentouse>),$1<span class=whentouse>WHEN TO USE:</span>,g;
+	    $descr =~ s,<span class=whentouse>WHEN TO USE:</span><span class=whentouse>WHEN TO USE:</span>,<span class="whentouse">WHEN TO USE:</span>,; #remove dups
+    
+	    %>
+	    <p>&nbsp;</p><div class=mode-descr><span class=whentouse>DESCRIPTION:</span><%$ $descr %></div><% } %>
+    </div></div>
+<% }; %>
+<script>
+<!--
+show_alt_options(ge_by_id('m'));
+-->
+</script>
+</table>
+<%   if (!@$bases) {
+%>
+<p>
+<b><%= __('You project was created in previous version of the product, that had 
+no predefined modes of the specified type to choose from. Please recreate your 
+project in this version of the Product to be able to use this menu item.') 
+%></b>
+<% } %>
+</dl>
+<p>&nbsp;</p>
+<% $forge->include('wgt-submitbtn'); %>
+<% $forge->include('wgt-backbtn'); %>
+</form>
+
+</div>
+
+<% if ($limited 
+    && 0  #this alert would be second one on the same page!
+    ) { %>
+<script language=javascript>
+<!--
+    alert('<%=  __('This is trial edition. The only ways it can mangle symbols is by prepending fixed string to it, so irregarding of the symbol mangling mode you will choose here, symbols will be just prefixed a ReplacementFor_ string or left as is. That does not limit your ability to evaluate the product in any way; purchase a  product to enable other ways of symbol mangling.') %>');
+-->
+</script>
+<% } %>
+
+
+
+<div class="ui basic segment right floated">
+<p>You can
+<a class=noul
+
+    href=settings.switchbase.$what> switch presets by selecting samples of protected code</a>
+too, on a different page.
+</div>
+
+<style type=text/css>
+.code {overflow: hidden;   }
+div.code-before-protection div.code { border: 0px; background: #eee;}
+div.mode { background: none; border: solid 1px #aaa; }
+div.comment { padding-top: 3em; } 
+</style>
