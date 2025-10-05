@@ -1,0 +1,244 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Perl Web Server - short HOWTO" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Perl Web Server</a>
+</span></div>
+<div class=body>
+
+
+<h1>Required: Download a proper trial</h1>
+First, you need to download proper SPWS trial, so that all required
+modules.
+<ul>
+<li>
+<i>If your site is scripted in Perl and DOES NOT use MySQL or SQLite and
+does not use HTML::Mason</i> download a demo of SPWS from the
+bottom of <a href=/prod/ws/samplecd.shtml>this page</a>.
+
+<li>
+<i>If your site is scripted in Perl and DOES NOT use MySQL or SQLite and
+ uses HTML::Mason</i>, feel
+free to download a demo of SPWS from the
+<a href=/prod/ws/sample-mason.shtml>this page</a>. That demo already
+includes all required HTML::Mason modules.
+
+<li><i>If your site is scripted in Perl or PHP and uses MySQL OR SQLite</i>,
+<a href=/prod/ws/eval-req.shtml>register here</a> for receiving a 
+download link to a trial that includes everything (perl,php,mysql,DBI and DBD
+for Perl for Windows, OSX and Linux).
+</ul>
+
+
+
+
+<h1>Required: Placing your scripts to proper location</h1>
+All PHP scripts are executed using CGI convention.
+Copy all CGI scripts (including PHP scripts) and static documents
+(html files, images, stylesheets, media files etc)
+into <tt>/site/www/root/</tt>.
+An XCGI - a FastCGI-like protocol is supported by SPWS for Perl code,
+see <a href=xcgi.shtml>introduction to XCGI</a> for more information.
+
+
+
+<h1>Required: Put your database files</h1>
+
+<h2>If your product uses MySQL</h2>
+<ul>
+<li>Grant permissions to database objects properly and copy database files
+    to proper location as  described 
+    <a href=extensions/mysql.shtml#preparing-datafiles>here</a>
+    (this is required only if using SPWS version less than 2.1).
+    PHPMyAdmin included with full trial can be used for administration
+    of database.
+
+<li><i>If accessing MySQL database from Perl</i>, update your
+    DSN string to contain mysql port number (stored in $ENV{MYSQL_PORT})
+    as done in <tt>/site/www/root/mysqldemo.pl</tt> from full trial cd.
+<li>Update PHP and Perl scripts to use host=127.0.0.1 in 
+    database connection string.
+</ul>
+
+
+<h2>If your product uses SQLite</h2>
+<ul>
+<li>Convert SQLite database to proper format (understood by 
+    sqlite library shipped with SPWS demo) and put database files
+    to <tt>/extensions/data/sqlite_data/</tt>.
+<li>Update PHP and Perl scripts to use environment variable
+    <tt>SQLITE_TABLES</tt> as a directory with SQLite database files in
+    database connection string as done in 
+    <tt>/site/www/root/sqlitedemo.php</tt> and 
+    <tt>/site/www/root/sqlitedemo.pl</tt> .
+</ul>
+
+<h1>Required: Choose the database access mode</h1>
+MySQL and SQLite databases located on CDROM with SPWS can be independantly
+from each other configured to either be: 
+
+<ol>
+<li> accessed directly from cdrom
+<li>copied to harddisk only first time product is run by given user (thus
+preserving all changes to database made between sessions)
+<li>copied to harddisk each time product is run (loosing all changes
+user makes to database during the session).
+</ol>
+
+The mode is specified by editing <tt>/site/config/extlist.conf</tt>;
+all possible options are documented <a href=extensions/extlist.conf.shtml>
+in a separate document</a>.
+.
+Determine the mode your product should support for each database type
+(MySQL and SQLite) and
+modify that file as follows:
+
+<h4>For MySQL</h4>
+<ul>
+<li><i>for mode 1</i>,
+    replace <tt>mysql_data copy_to_hdd=always</tt>
+    with <tt>mysql_data copy_to_hdd=no</tt>
+<li><i>for mode 2</i>,
+    replace <tt>mysql_data copy_to_hdd=always</tt>
+    with <tt>mysql_data copy_to_hdd=once</tt>
+(this will place database
+    files to temporary directory that  is cleaned very rarely by users)
+    OR <tt>mysql_data copy_to_hdd=once_to_permdir</tt> (database
+    files will be copied to some permament location outside of temporary
+    files folder)
+    and comment out line with <tt>mysql_remove_data_copied_on_exit</tt>
+<li><i>for mode 3</i> do nothing.
+</ul>
+
+<h4>For SQLite</h4>
+<ul>
+<li><i>for mode 1</i>,
+    replace <tt>sqlite_data copy_to_hdd=always</tt>
+    with <tt>sqlite_data copy_to_hdd=no</tt>
+<li><i>for mode 2</i>,
+    replace <tt>sqlite_data copy_to_hdd=always</tt>
+    with <tt>sqlite_data copy_to_hdd=once</tt>
+(this will place database
+    files to temporary directory that  is cleaned very rarely by users)
+    OR <tt>sqlite_data copy_to_hdd=once_to_permdir</tt> (database
+    files will be copied to some permament location outside of temporary
+    files folder)
+    and comment out line with <tt>sqlite_remove_data_copied_on_exit</tt>
+<li><i>for mode 3</i> do nothing.
+</ul>
+
+
+
+<h1>Optional: Make your product more user-friendly</h1>
+It's greatly recommended to add some text to <tt>/README.html</tt>.
+<p>
+Edit <tt>/site/config/siteinfo.pm</tt> and replace 
+<tt>Perl-Obfus-2.0-Standard-0</tt> there with your site identifier
+(string without spaces). Putting anything other than 
+<tt>Perl-Obfus-2.0-Standard-0</tt> will allow your product to coexist
+(and run concurrently)
+with other SPWS-based products on the same computer. 
+<p>
+You can put an icon to the top directory of your CDROM and update your
+<tt>/autorun.inf</tt> accordingly so that the icon is displayed 
+in Windows Explorer instead of default CDROM icon 
+when your CDROM is inserted into tray.
+<p>
+
+You may also remove unneeded files from CDROM. E.g. if your product
+doesn't use MySQL server, then you can remove all directories with
+"mysql" in their name from <tt>/extensions/data</tt> and
+<tt>/extensions/engines/</tt>. You may also remove extensions for
+platforms you don't support from <tt>/extensions/engines/</tt> and from
+<tt>/perl</tt> too (though we greatly recommend not to do this since
+e.g. if your product works on OSX, then there is a big probability
+that it will also work on Linux - why limit abilities of your product?).
+
+
+<p>
+It's recommended to remove all traces of demos included with trial
+to make your product look polished.
+Just remove all extra files that are not part of your product from
+<tt>/site/www/root/</tt> and everything from 
+<tt>/site/www/apps</tt>.
+
+<h2>Remove support for unused platforms to minimize size</h2>
+Find directories with names containing names of platforms your product 
+doesn't support, and remove them in the following directories:
+<tt>/extensions/engines/</tt> and from
+<tt>/perl</tt>. E.g. if you have a MacOSX
+version of cdrom with your your site, you can delete
+<pre>
+/extensions/engines/mysql-x86-linux
+/extensions/engines/mysql-x86-windows
+/extensions/engines/perldbddbi-x86-linux
+/extensions/engines/perldbddbi-x86-windows
+/extensions/engines/php4-x86-linux
+/extensions/engines/php4-x86-windows
+
+/perl/linux-x86
+/perl/win32
+</pre>
+
+
+<p>
+But keep in mind that 
+we greatly recommend not to remove support for other platforms
+this since
+e.g. if your product works on OSX, then there is a big probability
+that it will also work on Linux - why limit abilities of your product?.
+
+
+
+<p>
+It's recommended to remove all traces of demos included with trial
+to make your product look polished.
+Just remove all extra files that are not part of your product from
+<tt>/site/www/root/</tt> and everything from 
+<tt>/site/www/apps</tt>.
+
+
+<h1>Optional: Consider protecting your code from theft and analysis</h1>
+
+<ul>
+<li>
+<i>To protect JavaScript from analysis and theft and for mangling html</i>, 
+you can
+ use <a target=_blank href=http://stunnix.com/prod/jo/overview.shtml>Stunnix JavaScript Obfuscator</a>;
+
+<li>
+<i>To protect VBScript from analysis and theft and for mangling html</i>, 
+    you can
+ use <a target=_blank href=http://stunnix.com/prod/vbso/overview.shtml>Stunnix VBScript and ASP Obfuscator</a>;
+
+<li>
+<i>To protect Perl scripts from analysis and theft</i>, 
+    you can
+ use <a target=_blank href=http://stunnix.com/prod/po/overview.shtml>Stunnix Perl-Obfus</a> - 
+    an advanced obfuscator and encoder for Perl source code;
+
+<li>
+<i>To protect PHP scripts from analysis and theft</i>, 
+    you can use
+    <a target=_blank href=http://ioncube.com>IonCube PHP encoder</a> - it's already
+    integrated into SPWS and supported on all platforms. 
+
+</ul>
+
+
+
+<h1>Optional: Request any help from us</h1>
+Please <a href=/contact/>contact us</a> if you have any questions.
+If PHP available with our trial doesn't contain a module you need, or
+wish to make SPWS to support other platforms, we also can help you.
+
+
+
+<h1>Required: Enjoy!</h1>
+Enjoy our product and tell your partners and friends 
+about how exciting it is :)
+
+
+
+<!--#include virtual="/f.shtml" -->

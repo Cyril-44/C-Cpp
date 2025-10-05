@@ -1,0 +1,68 @@
+<h1>Installing trial of <!--#echo var="prod" --></h1>
+<a name=trial></a>
+Installing trial of <!--#echo var="prod" --> is easy - just download a trial for your platform, then use it.
+<p>
+
+<dl>
+<dt>If you platform is Windows</dt><dd> just run the .exe file you've downloaded to install
+<!--#echo var="prod" --> on your computer - it will add itself to Start &rArr; Programs menu.
+</dd>
+
+
+<dt>If your platform is Mac OS X</dt><dd> just unpack the .zip file to any directory you like
+and click on the only icon of application bundle to run it;from that location. You can safely
+copy the unpacked content to any directory later (though BuildScripts exported from it
+will stop working if you'll delete <!--#echo var="prod" --> from its original location, but you can re-export
+them).
+</dd>
+<dt>If your platform is Linux or any other Unix</dt><dd> (except Mac OS X), just unpack .tar.gz file
+to any directory, and run bin/startui.pl to start <!--#echo var="prod" --> Project Manager GUI from 
+any kind of terminal program (like xterm or gnome-terminal) or by any other mean; the only
+requirement is that Mozilla or Firefox are installed on your computer and that
+DISPLAY environment variable is set.
+</dd>
+</dl>
+
+<h1>Installing non-trial edition of <!--#echo var="prod" --> purchased in the Store</h1>
+<a name=purchased></a>
+The file downloaded after purchase in our store is effectively a patch for a trial version.
+So you have to install a trial as described <a href=#trial>above</a> first.
+<p>
+To patch <!--#echo var="prod" --> into non-trial, start Project Manager, then go to <tt>Tools &rArr;
+Upgrade into non-trial..</tt> menu item, accept the license and then specify the file
+you've downloaded from the store and a serial number (received in the email with
+download link for the patch), then click OK. After you do this,
+just restart Project Manager as described on the final step of this procedure.
+<p>
+
+<h1>Optional steps needed if you'll be using command line interface of the <!--#echo var="prod" --></h1>
+<!--#echo var="prod" --> is implemented in Perl programming language, that gives it portability and
+flexibility. To be able to command line interface of <!--#echo var="prod" -->, a proper version of Perl interpreter
+has to be available on your system.
+<p>
+<dl>
+<dt>On Mac OS X</dt><dd> the proper versions of Perl come with OS X itself, so you don't
+need any additional steps to perform.
+</dd>
+<dt>On Linux and Unix</dt><dd> Perl comes preinstalled by OS vendor in 99% of cases. If it's absent,
+just fetch a package of Perl from an OS vendor and install it.
+</dd>
+<dt>On Windows,</dt><dd>
+a trial of <!--#echo var="prod" --> for Windows already includes Perl interpreter of the proper version.
+There are two options - either add it to the PATH and use it (it's sufficient for running
+command line version of <!--#echo var="prod" -->), or download and install a complete package
+of Perl <b>version 5.8</b> from 
+    <A nofollow HREF="http://downloads.activestate.com/ActivePerl/Windows/5.8/"
+	>http://downloads.activestate.com/ActivePerl/Windows/5.8/</A> - the installer will
+add itself to the PATH.
+</dd>
+</dl>
+
+<h1>Updating non-trial version of the <!--#echo var="prod" --></h1>
+
+When releasing updates, we send out a patch against current trial of the <!--#echo var="prod" --> 
+as email attachment. You will have to find out your original serial number (received after
+purchase of the product in the store) and then follow the same steps as when 
+installing just purchased product, as described <a href=#purchased>here</a> - i.e. you
+will have to fetch current trial, go to <tt>Tools &rArr; Upgrade into non-trial..</tt>,
+point the location of the patch received as email attachment, enter serial number and click OK.

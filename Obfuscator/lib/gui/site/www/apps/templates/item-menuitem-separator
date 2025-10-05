@@ -1,0 +1,11 @@
+<%
+    my ($item,$prjid) = @_;
+    my ($id,$url,$title,$target,%opts) = @$item;
+    if (0) {
+%>
+<tr class=menuitem-separator><td></td> 
+<%  } else { %>
+</table>
+<table class=menuitems-as-content>
+<%  } %> 
+

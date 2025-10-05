@@ -1,0 +1,9 @@
+<% use obfui::cmn;  my ($errs) = @_;
+
+%>
+
+<% if (!length($errs->[0]) ) { %>
+    Everything was OK
+<% } else { %>
+    Error message was <%= $errs->[1] %>
+<% } %>

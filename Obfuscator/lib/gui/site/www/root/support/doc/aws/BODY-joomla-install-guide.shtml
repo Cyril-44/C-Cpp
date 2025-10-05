@@ -1,0 +1,209 @@
+Installing <a href=http://www.joomla.org>Joomla</a> on Stunnix Web Server.
+
+
+<h1>Using Joomla available on Demo CD</h1>
+A demo of Stunnix Web Server already includes installation of Joomla.
+You can login to adminstrator's interface using 
+<a href=/joomla/administrator>this link</a> using login 'admin' and
+password 'root' and edit configuration yourself.
+In case such option suits you, there is no need to read the rest of this
+document.
+
+
+ 
+<h1>Installing your own copy of Joomla</h1>
+
+<h2>Stage 1</h2>
+<ol>
+	<!--#include virtual="/support/doc/aws/BODY-createcd-gui-steps-pre.shtml" -->
+
+<li>Suppose you wish to have Joomla be accessible using url
+    http://127.0.0.1/cms/joomla/; in this case, create 'cms/joomla'
+    directory inside 'content' folder and unpack Joomla there.
+    This way you will have file LICENSE.php from toplevel joomla
+    directory located in
+     c:\mycds\cd1\in\content\cms\joomla\LICENSE.php (windows) or
+    /home/YOURLOGIN/mycds/cd1/in/content/cms/joomla/LICENSE.php
+
+<li>Copy 'configuration-stunnix.php' from 
+    'site/www/root/joomla/' on the demo CD to the directory
+    where you've unpacked your Joomla to
+    - in your case it should go to 
+	c:\mycds\cd1\in\content\cms\joomla\configuration-stunnix.php
+     (windows) or
+    /home/YOURLOGIN/mycds/cd1/in/content/cms/joomla/configuration-stunnix.php.
+    Edit it there, and set value of variable  $_mosConfig_dirpath 
+    to 'cms/joomla' (i.e.
+     <tt>$_mosConfig_dirpath= 'cms/joomla'</tt>;
+    ), otherwise CD you'll produce won't work on other OSes or boxes.
+
+<li>In order your Joomla site to appear in browser on startup of the
+    Stunnix Web Server, go to General,Path and Initial URL and 
+    enter '/cms/joomla' for 'Default initial URL to open' field.
+
+	<!--#include virtual="/support/doc/aws/BODY-createcd-gui-steps-mid.shtml" -->    
+
+<li>Click Databases, Mysql. Change 'MySQL support' to 'Run from CD'.
+
+<li>Click PHP, Main and select anything but 'PHP4' in topmost 'PHP support' dropdown
+    list (CD won't work on OSX if you'll select PHP4 there).
+
+	<!--#include virtual="/support/doc/aws/BODY-createcd-gui-steps-post.shtml" -->
+
+<li>Go to the directory with your CD's prototype - i.e.
+    c:\mycds\cd1\out (windows) or ( /home/YOURLOGIN/mycds/cd1/out for OSX or
+    Linux) and start CD from there (by clicking on runcd on Windows,
+    running 'autorun' on Linux or clicking 'Run CD on MacOS X' on OSX).
+    Your CD will start.
+
+<li>Once browser opens, a Joomla installer should start automatically.
+    Click next till you reach 'MySQL configuration'. <p>
+    Enter
+    '127.0.0.1' as host name, enter 'blah' as user name and password
+    (mysql included with Stunnix Web Server is configured to ignore 
+    access control, so it doesn't matter what login/password you will type there).<p>
+    Enter <tt>test</tt> as 'database name'.<p>
+    Check 'drop existing tables' checkbox (to drop tables created by Joomla
+    used in demo), configure rest of checkboxes  as you like.
+
+<li>Click Next. Joomla will ask site description - enter something and
+    click Next.
+
+<li>Do not alter paths on the next screen, just type admin email and
+    password.
+
+<li>Click Next, Click View Site. Then rename directory named 'installation'
+    inside 
+    c:\mycds\cd1\out\site\www\root\cms\joomla\
+     (windows) or
+    /home/YOURLOGIN/mycds/cd1/out/site/www/root/cms/joomla/ (OSX, Linux)
+    to e.g. 'installation-was'.
+
+<li>Add line <tt>include('configuration-stunnix.php');</tt> to the bottom
+    of file 'configuration.php' located in 
+
+    c:\mycds\cd1\out\site\www\root\cms\joomla\
+     (windows) or
+    /home/YOURLOGIN/mycds/cd1/out/site/www/root/cms/joomla/ (OSX, Linux)
+    (otherwise CD won't work on other computers).
+
+<li>Use Joomla. Install your Joomla packages, templates  and bots.
+
+<li>Consider adding link for stopping CD to all pages on your site - 
+    it should have a destination of
+    "/stop-the-server/helper-stop-httpd.exe" (in case you are running
+    Stunnix ADVANCED Web Server) or "/spws-terminate-and-release-cd.html"
+    (if running Stunnix PERL Web Server); you will also have to
+    create a file "/spws-terminate-and-release-cd.html" in your project's
+    output directory and put something like "goodbye, thank you for
+    using our disk or product" message there (or put
+    a redirect to other page there). This means that 
+    you should create and fill a file 
+
+    c:\mycds\cd1\out\site\www\root\spws-terminate-and-release-cd.html
+     (windows) or
+    /home/YOURLOGIN/mycds/cd1/out/site/www/root/spws-terminate-and-release-cd.html 
+    (OSX, Linux) - like one present on Demo CD.    
+</ol>
+
+
+Now your CD prototype is ready to work from HDD (but not from CD);
+it's not ready to work from CD because it's configured to start
+MySQL from CD, that will prevent Joomla from working since it updates
+a lot of tables on each pageview. 
+<p>
+Also the problem is that if you will decide
+to alter any setting in CDBuilder and rebuild your CD (e.g. change
+browser properties, alter location of logo file or edit the
+set of supported operating systems), all your changes
+you've made to database (installing sample data, installation of
+bots, packages and templates) and changes to files (configuration-stunnix.php,
+configuration.php) will be lost.
+So you will have to "backport" all your changes to your "project input 
+directory". Of course it's better to backport everything once you've finished
+installing all Joomla packages, templates and so on.
+
+<p>
+To do this, you will have to stop Stunnix web server and MySQL server first
+that run your Joomla-based site.
+
+<h2>Stage 2 - backporting changes back to input directory</h2>
+<ol>
+<li>Stop the mysql server and web server by opening URL 
+    "/stop-the-server/helper-stop-httpd.exe" (in case you are running
+    Stunnix ADVANCED Web Server) or "/spws-terminate-and-release-cd.html"
+    (if running Stunnix PERL Web Server) - just see copy the URL of any
+    Joomla page (e.g. http://127.0.0.1:9001/cms/joomla/ ) and
+    enter URL
+    <a target=_blank 
+    href=http://127.0.0.1:9001/stop-the-server/helper-stop-httpd.exe>
+    http://127.0.0.1:9001/stop-the-server/helper-stop-httpd.exe</a>
+    (in case of Stunnix ADVANCED Web Server)  or
+    <a target=_blank 
+    href=http://127.0.0.1:9001/spws-terminate-and-release-cd.html>
+    http://127.0.0.1:9001/spws-terminate-and-release-cd.html</a>
+    (in case of Stunnix PERL Web Server).
+
+    Wait for 30 seconds after visiting that URL.
+
+<li>It's wise to backup your project output directory - i.e.
+
+    c:\mycds\cd1\out\
+     (windows) or
+    /home/YOURLOGIN/mycds/cd1/out/ (OSX, Linux).
+
+
+
+<li>Clear web content directory in project INPUT directory, that is
+    c:\mycds\cd1\in\content\
+     (windows) or
+    /home/YOURLOGIN/mycds/cd1/in/content (OSX, Linux).
+    
+
+    Copy web content from
+    c:\mycds\cd1\out\site\www\root\    
+     (windows) or
+    /home/YOURLOGIN/mycds/cd1/out/site/www/root/ (OSX, Linux)
+    to project's input web content directory:
+
+    c:\mycds\cd1\in\content\   
+     (windows) or
+    /home/YOURLOGIN/mycds/cd1/in/content/ (OSX, Linux).
+
+
+<li>Clear database files in project INPUT directory
+    c:\mycds\cd1\in\databases
+     (windows) or 
+    /home/YOURLOGIN/mycds/cd1/in/databases  (OSX or  Linux)
+    and copy all database files from CD prototype - from
+
+
+    c:\mycds\cd1\out\extensions\data
+     (windows) or 
+    /home/YOURLOGIN/mycds/cd1/out/extensions/data  (OSX or  Linux)
+
+    to directory you've just cleared.
+    
+
+<li>Go to Project, Site Settings in the CDBuilder (we assume you didn't
+    close CDBuilder window; if you've closed it - start CDBuilder again,
+    do Project, Open and select your project).
+
+<li>Go to Project, Site Settings.
+
+<li>Click Databases, Mysql. Change 'Run from CD' to ANYTHING else
+    (since Joomla updates database tables on each pageview),
+    e.g. 'Copy to temp directory on HDD each time' 
+    (so that all changes made by user are lost each time user runs CD).
+    
+<li>Change other CD settings in that dialog as you wish, click OK.
+
+<li>Click 'Make prototype', 'Clear dir with prototype then copy all files'.
+</ol>
+
+Now you play with your site settings, click 
+'Make prototype', 'Clear dir with prototype then copy all files' and 
+your project's output directory will reflect all your changes.
+
+
+

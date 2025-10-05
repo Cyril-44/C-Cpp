@@ -1,0 +1,22 @@
+<%
+    use obfui::cmn;
+    my ($title,$name,$hint,$type,%options) = @_;
+    #options may contain
+    #	other_classes - appended to class attribute
+    #	other_attrs = {} - set of attrs with names and values dumped to element's attributes
+    $title ||= __('OK');
+    $type ||= 'submit';
+
+    $options{other_attrs} ||= {};
+    
+%>
+<input type=<%= $type %> class="button <%= $options{other_classes} %> "  <%$ $name ? "name=$name  id=$name " : '' %> 
+	<% if (length($hint)) { %>
+		onmouseover="return overlib('<%= $hint %>')" onmouseout="return nd();"
+	<% }; 
+	    my $other_attrs =  $options{other_attrs} || {};
+	    foreach my $k (keys %$other_attrs) { #dump other attributes
+	%>
+		<%= $k %>="<%= $other_attrs->{$k} %>"
+	<% }; %>
+	value="<%= $title %>" >

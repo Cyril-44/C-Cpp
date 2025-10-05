@@ -1,0 +1,342 @@
+table.topnav {
+    background: #720000; width: 100%; border-bottom: solid 1px #510000; }
+
+
+* { color: white }
+input { color: black }
+
+select {     background-color: #890000 ;     color: #dddddd ;   width: 15em; }
+div.wideselect select  { width: 30em; }
+
+div.detailed-options select { width: auto; }
+select.wide-select {  width: auto; }
+a { color: #E98080; }
+a.helplink, a.uihelp  { text-decoration: none; color: #c90000; }
+a.helplink:hover, a.uihelp:hover  { text-decoration: underline; }
+a.uihelp { color: #fff0f0;}
+
+*.width-of-select * { width: 15em; }
+
+
+
+/*global stuff*/
+body {
+    background-color:   #990000;
+    color: #ffffff;
+    /*font-weight: bold;*/
+}
+
+div.body {     text-align: left; 
+    margin: 10px 5px 0px 5px; /*0px 0px 0px 0px;*/
+    padding: 0.3em 2em 0.3em 2em;
+}
+body
+{
+        scrollbar-3dlight-color : #c05050;
+        scrollbar-arrow-color : #c2c2cf;
+
+        scrollbar-base-color : #990000;
+        scrollbar-track-color : #720000;
+        scrollbar-face-color : #990000;
+        scrollbar-highlight-color : #c05050;
+        scrollbar-shadow-color : #261A1a;
+        scrollbar-darkshadow-color : #261A1a;
+}
+
+
+
+
+/*mode-page*/
+div.alternatives-alternative {
+    margin-left: 1em; 
+}
+
+div.alternatives-alternative-inner {
+    /*background-color: #180000 ;*/
+    padding:   1em 1.7em 1em 1.5em; 
+    margin-top: 1em;
+    border: solid 3px #830000;
+    /* background-color: #830000 ; */
+}
+
+/* table#megatable-with-options  { background-color: #830000; } */
+
+
+span.is-overriden-cell { background-color:  #D90000 ; 
+    padding: 0.5em 0.3em 0.2em 0.3em; }
+
+span.alternatives-alternative-title-secname { 
+    font-style: italic; font-family: verdana; }
+
+div.detailed-options h1 { 
+    padding-left: 0.2em; background: #000000;     font-size: 130%;
+}
+div.detailed-options h2 {
+    padding-left: 0.2em;  
+    margin-right: 1em;
+    background: #750000; 	
+    font-weight: normal; 
+    font-family: verdana;
+    font-size: 115%;
+}
+
+div.section-content 
+{
+    margin-left: 3em;
+    margin-right: 1em;
+    font-weight: bold;
+}
+
+
+table#modeprops td { margin: 2em; }
+
+
+
+/*huge pieces of text*/
+div.consoleoutput { 
+    background: #750000;
+    padding: 2em;
+    margin: 1em;
+    font-weight: normal;
+}
+div.dedicated-body h2xx { 
+    padding-left: 2em; 
+    background: #750000;
+    font-size: 130%;
+}
+div#outputmsg pre, div#resultstr pre
+{
+    padding: 1em;
+    background: #850000;
+}
+
+
+
+/*filebrowser props*/
+table.filebrowser thead tr, table.symlist thead tr{ background: black;  }
+table.filebrowser th { font-weight: normal; }
+table.filebrowser, table.symlist  
+{ border-collapse:collapse; border: 1px solid black;     }
+table.filebrowser { width: 90% }
+
+table.filebrowser a.objlink {     text-decoration: none; color: #fff0f0;   
+    font-weight: bold }
+table.filebrowser a.objlink:hover {  text-decoration: underline; }
+
+tr.fileentry0 { background: #b00000; }  
+tr.fileentry1 { background: #900000; }  
+
+tr.direntry0  { background:  #850000; }
+tr.direntry1  { background:  #750000; }
+
+
+
+/*menuitems*/
+table.menuitems-as-content tr { background: #720000; ; }
+table.menuitems-as-content a { 
+    text-decoration: none; font-weight: bold; font-family: verdana; }
+table.menuitems-as-content td { padding: 0.1em 1em 0.1em 1em; }
+
+
+
+
+
+
+/*page header and footer*/
+span.logo { font-weight: bold; font-family: arial; font-size: 70%; 
+	color: #c0c0c0; /*margin-left: 5em;*/
+    }
+td.logorow { text-align: center;  }
+span.logo span.pagetitle { margin-left: 2em; color: #e0c0c0; }
+
+a.noul { color: #c0b0b0; }
+li { margin-bottom: 0.0em; }
+div#footer { height: 30px; background-color: #720000; }
+table.botnav { background-color:  #720000; height: 30px;
+     width: 100%; 
+    color: #d0d0d0; 
+    }
+td.nb { font-size: 12px; }
+
+
+
+/*window-ops*/
+td.windowops { text-align: right; }
+table.wndops td { background: #220000;
+    border: solid 1px #a40000; width: 1.1em; text-align: center;  }
+table.wndops a.wndop { 
+    font-size: 12px; 
+    font: verdana bold;
+    text-decoration: none;
+     }
+table.wndops a:hover { color: #ffffff; }
+
+
+
+
+textarea.symlist { height: 300; width: 95%; }
+table.symlist  td { padding-left: 1em; padding-right: 1em; }
+
+
+
+/* page-start */
+div.page-start { padding: 2em;  text-align: justify; }
+div.welcome { font-size: 130%; font-weight: bold; text-align: center;
+    padding-bottom: 0.8em; padding-top: 1em; }
+div.menuhints { color: #dddddd;}
+div.uihint { padding-top: 1.6em;
+    font-size: 80%; font-style: italic; color: #cccccc; }
+span.menuref { font-weight: bold; }
+a.wslink { text-decoration: none; color: #ffaaaa; }
+a.wslink:hover { text-decoration: underline; }
+
+div.page-gate { font-size: 110%; font-weight: bold; color: #cccccc; 
+    padding: 2em; }
+div.safe-to-close { color: #ddaaaa; padding-top: 1em; }
+
+
+/* page-about */
+div.product-title { font-family: verdana; font-size: 120%; font-weight: bold; 
+    padding: 0em 2em 0.6em 2em ; text-align: center; }
+div.product-title span.title-label { font-weight: normal; }
+div.page-about a { text-decoration: none; color: #ffcccc; }
+div.statement { font-size: 105%; font-weight: bold; padding-bottom: 0.4em; 
+    text-align: justify; color: #ddcccc; }
+
+div.page-about a:hover { text-decoration: underline;  }
+div.page-about-links { padding: 1.5em 1em 1.5em 1em }
+div.page-about { font-family: verdana; }
+div.page-about-links-section 
+{ background: #750000; 	spacing-bottom: 1em; padding: 1em; }
+
+div.errlog { color: #ffff00; font-size: 105%; font-weight: bold; }
+
+td#menucell { border-top: solid 1px #a90000; }
+div.curloc { display: none } 
+
+span.build-failed { font-weight: bold; color: #ffff00; }
+span.build-succeeded { font-weight: bold; color: #e0e0e0; }
+
+
+
+/*********************** ws-ui begins here ************************/
+div.tree-leaf,div.tree-leaf-active, div.tree-node-0,div.tree-node-1,
+div.tree-node-2, div.tree-node-3 
+{
+    margin-left: 1em;
+}
+div.tree-leaf { cursor: pointer; }
+
+div.tree-node-0,div.tree-node-1,div.tree-node-2, div.tree-node-3 
+{    font-weight: bold; }
+
+div.tree-leaf,div.tree-leaf-active
+{    font-weight: normal; padding-left: 0.3em; padding-right: 0.3em;}
+
+div.tree-leaf-active
+{    background-color: #750000; }
+
+div#setting-bodies { padding-left: 3em;}
+table#settings { width: 95%; }
+
+/*TODO*/
+div.setting-hint { font-style: italic; font-family: verdana; }
+div.body-subsec-label { font-style: italic; font-family: verdana; }
+
+table.php-exts-table td { border-collapse:collapse; border: 1px solid black; }
+table.php-exts-table { border-collapse:collapse; }
+
+
+/* */
+pre.rawfiles { background: #750000 }
+
+
+
+
+body#pageseq-bases-browser div.dontchange { display: none; dd: padding-bottom: 3em; }
+div.mode { background: #850000; padding-top: 1em; padding-bottom: 0.7em; 
+    padding-left:  2em; padding-right: 1em;
+     width: auto; }
+div.mode-outer { display:  none; spacing: 2em;}
+div.mode { spacing-bottom: 3em;  margin-bottom: 3em; spacing: 3em; }
+div.mode a.noul { color: white; font-weight: bold }
+
+body#pageseq-bases-browser dt  { background: #850000 }
+/* div.note { font-style: italic; color: #cccccc } */
+
+span.mode-title { margin-left: 1.5em; font-size: 105%; margin-left: -1em;; }
+
+span.whentouse, span.note, span.changing 
+{ font-size: 80%; font-weight: bold; } 
+
+div.note, div.whentouse { padding-top: 1em; padding-bottom: 0.7em; }
+div.mode del { color: #aaaaaa; }
+span.sample-before, span.sample-after { font-family: courier; }
+
+
+body#page-menuitems small { color: #a96060 }
+body#page-menuitems table.menuitems-as-content td:hover 
+    { background-color: #400000 }
+
+
+/******************rules for new design ******************/
+
+td.base2-leftcell { background: url('/res/skins/silver/left-base2.png'); 
+    width: 59px; height: 105px; }
+td.base2-rightcell { background: url('/res/skins/silver/right-base2.png'); 
+    width: 58px; height: 105px; }
+td.base2-center { background: url('/res/skins/silver/center-base2.png'); 
+    background-repeat: x-repeat;}
+table.base2, table.base1 { border-width: 0px; border-collapse: collapse;
+    width: 100%; }
+
+
+/* these are styles for case when a border around entire body was being drawn
+
+td.base1-leftcell  { background: url('/res/skins/silver/left-base.png'); 
+    width: 9px; background-repeat: y-repeat; }
+td.base1-rightcell  { background: url('/res/skins/silver/right-base.png'); 
+    width: 10px; background-repeat: y-repeat; }
+
+
+td.base1-leftbotcell { background: url('/res/skins/silver/left-bot-base1.png'); 
+    width: 9px; height: 12px; }
+td.base1-rightbotcell { background: url('/res/skins/silver/right-bot-base1.png'); 
+    width: 10px; height: 12px; }
+td.base1-centerbotcell { background: url('/res/skins/silver/bot-base1.png'); 
+   height: 12px; background-repeat: x-repeat; }
+*/
+
+
+table.megatable { width: 100%; }
+table.base1 { height: 450px; }
+
+td.base2-center { vertical-align: top; align: top; }
+
+
+table.title-and-winops {     position: absolute;left: 0px;   top:15px; left: 5em;
+    width: 100%;}
+
+td.title-cell { align:left; font-size: 20px;  } td.winops-cell { align:right; } 
+table.title-and-winops { width: 100%; }
+
+div.title-cell { width: 100%; position: absolute; left: 0px; top: 20px; }
+
+div.winops-cell {  position: absolute; right: 3em; top: 20px; text-align: right;}
+
+div.title-cell { text-align: left; padding-left: 4em; font-size: 22px; 
+    height: 1em;   overflow: hidden;  }
+div.winops-cell { text-align: right; /*padding-right: 5em; margin-right: 5em; border-right: 5em; */
+    height: 2em;   overflow: hidden;}
+
+div.block-with-menuitems { text-align:center; align:center; 
+    position: relative;left: 0px;
+    top:60px; height: 1.1em;/*right: 10px*/
+
+      width: 100%;  
+ }
+div.block-with-menuitems table.block-with-menuitems { width: 100%; }
+
+
+
+a.wndop img, a.wndop { border:  0px ; }

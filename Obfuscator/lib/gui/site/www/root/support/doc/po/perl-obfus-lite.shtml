@@ -1,0 +1,12 @@
+<!--#set var="title" value="Stunnix products documentation: perl-obfus - obfuscate (make more difficult to understand) perl source code (Lite version)" -->
+<!--#include virtual="/h-po.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Perl-Obfus suite</a>
+</span></div>
+
+<div class=body>
+
+<!--#include virtual="./BODY-perl-obfus-lite.shtml" -->
+<!--#include virtual="/f.shtml" -->

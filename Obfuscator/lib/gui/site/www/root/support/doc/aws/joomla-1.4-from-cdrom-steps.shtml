@@ -1,0 +1,15 @@
+<!--#set var="title" value="Stunnix Advanced Web Server - putting Joomla (1.4.x and below) -based site to CD or DVD - step by step" -->
+<!--#include virtual="/h-aws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Advanced Web Server</a>
+</span></div>
+<div class=body>
+
+For installing Joomla 1.5.x and above, please see <a href=joomla-steps.shtml>another guide</a>,
+
+<!--#include virtual="BODY-joomla-install-guide.shtml" -->
+
+
+<!--#include virtual="/f.shtml" -->

@@ -1,0 +1,46 @@
+<% 
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module 
+    my ($flist,$dirnm) = @_;  
+
+%>
+<% if (!@$flist) { %>
+<%= __('No projects were created - nothing to choose from. You have to either create new or import existing project.') %>
+<% } else { %>
+
+
+    <%= __('Choose one of the projects by clicking on its name:') %>
+<ul>
+<% foreach (@$flist) { 
+    my ($id,$title,$description) = @$_; 
+    $tip{_tmp} = $description if length($description);
+    %>
+    <li><a class=noul href=../<%$ $id %>/>		<%= $title %>	</a>
+    <% if (length($description))  {  %>
+	$tip{_tmp}
+    <% }  %>
+    
+<% } %>
+</ul>
+<p>&nbsp;<p>
+
+<% $forge->include('wgt-optional-start','hints',__('Advanced tips')) %>
+<div class=some-hint>
+Projects files are special files that <b>are stored in the 
+directory</b> named <tt><a href="project.browse.any?dir=<%= $dirnm %>"><%= $dirnm %></a></tt>.  You can rename files in that folder, just keep '.op' extension.
+<p>
+<b>To backup all your projects</b> (or move to other computer)
+just archive all files in that folder. 
+
+<p>
+<b>To remove a single project</b>, open it, go to <i>Settings&rArr;Options</i>
+and click <i>Delete this project</i> there.
+</div>
+
+<% $forge->include('wgt-optional-end','hints') %>
+
+<% } %>
+
+
+<script>
+ol_sticky = 1; //so that tooltips stick on screen. This allows links to be embedded into the project description.
+</script>

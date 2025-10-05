@@ -1,0 +1,9 @@
+<% use obfui::cmn; my ($prj,$modenm,$rancestors,$rchildren) = @_; %>
+<%$ hstr('mode.filesusing.this',__('List of files, using this mode:')) %>
+<%  $forge->include('wgt-filelist', $rancestors); %>
+<p>
+<%$ hstr('mode.filesusing.children',__('List of files, using child modes for this mode:')) %>
+<%  $forge->include('wgt-filelist', $rchildren); %>
+<p>
+
+<% $forge->include('wgt-backbtn',__('Back')) %>

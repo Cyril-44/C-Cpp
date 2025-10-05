@@ -1,0 +1,243 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Advanced Web Server - startsite.pl script" -->
+<!--#include virtual="/h-aws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Advanced Web Server</a>
+</span></div>
+<div class=body>
+<h1>Introduction to startsite.pl script</h1>
+The script 'startsite.pl' is located in the same directory where
+'srvrun.pl' script is. It's a multipurpose wrapper that performs following
+tasks:
+<ul>
+<li>initializes <a href=envvars.shtml#uniquvars>some environment variables</a>
+     to provide platform abstraction  to the scripts - by computing
+     various paths;
+<li>checks whether the same site is already running on the computer - 
+    by loading state files and file containing port number web server for
+    started for a given site last time; if it finds that the server for
+    this site is already running, it just opens browser window with
+    default site page and finishes execution.
+<li>If no server is running for the site in question,  necessary
+    configuration files for web server core, php.ini and other configuration
+    files are generated;
+<li><a href=extensions/>Extensions to SAWS</a> are initialized
+    (that may cause copying database files to harddisk or restarting
+    already running MySQL server);
+<li><a href=modules/>Modules for SAWS</a> are initialized
+    (that detect various information about the site's configuration
+    and compute paths for loading appropriate modules into web server core
+    and initialize environment variables in a special way);
+
+<li>Then web server core is started.
+
+<li>Then 'startsite.pl' script waits till web server core starts serving
+    http requests;
+
+<li>Once web server is listening for incoming connections, user's browser
+    is started and default web page of the site is opened in it;
+</ul>
+
+These tasks are configurable using configuration settings.
+It's adviced to modify the following configuration settings by
+putting them to file /site/config/siteinfo.pm.
+It's safe to modify the following configuration settings:
+<table  border=1 style='border-collapse:collapse'>
+<thead>
+<tr><th>Name</th><th>Default value</th><th>Description</th>
+<tbody>
+<tr><td>_debug</td><td>0</td>
+    <td>Specifies whether debugging mode is On. When debugging mode is
+	on, the trace of performed operation is written to stderr, and 
+	some temporary files are not deleted at the end of script 
+	execution.</td>
+<tr><td>_docroot_default</td><td>../www/root</td>
+    <td>Specifies the directory that corresponds to the root of the
+	site. It can be relative path (with directory containing 'srvrun.pl'
+	being the base for it). It's highly recommended to use unix-style
+	slashes as directory separators; trailing slash is mandatory.
+    </td>
+<tr><td>sitename</td><td>default</td>
+    <td>Specifies the so-called site ID. It's a string that unqiuely
+	distinguishes the site from others. It should contain version
+	number too. No more than 1 web server process group can be
+	serving site with the same site ID for the given user. Giving
+	sites with different content different site IDs allows user
+	to use these several sites simultaneously.
+    </td>
+<tr><td>urlpath</td><td></td>
+    <td>Specifies the default URL path to open in the browser once
+	web server is started for the site. Default value is empty string.
+	It should start from slash if non-empty!
+    </td>
+<tr><td>show_win32_firewall_alert</td><td>1</td>
+    <td><a name=show_win32_firewall_alert></a>
+	Specifies whether to show message about possibility of firewall 
+	alerts on Windows platforms. Set to 1 to show it, set to 0 in order
+	not to show it. 
+    </td>
+<tr><td>win32_firewall_alert_message</td><td></td>
+    <td><a name=win32_firewall_alert_message></a>
+	Specifies the message to show first time web server product is
+	run on user's computer. If empty, fallback text is used.	
+    </td>
+
+<tr><td>macosx_prefer_ie</td><td>0</td>
+    <td><a name=macosx_prefer_ie></a>
+    Specifies whether to try opening page in MSIE if it's 
+    available (instead of default browser, that is Safari on most of MacOSX
+    computers) on MacOS X. Set to 1 to try MSIE first, set to 0 to use
+    default browser. 
+    </td>
+<tr><td>win32_prefer_ie</td><td>0</td>
+    <td>Specifies whether to try opening page in MSIE (instead of default 
+    browser). Set to 1 use MSIE, set to 0 to use default browser. 
+    </td>
+
+<tr><td>win32_msie_prop__addressbar,
+win32_msie_prop__menubar,
+win32_msie_prop__statusbar,
+win32_msie_prop__toolbar,
+win32_msie_prop__resizable,
+
+win32_msie_prop__silent,
+
+win32_msie_prop__fullscreen,
+win32_msie_prop__theatermode,
+
+win32_msie_prop__height,
+win32_msie_prop__left,
+win32_msie_prop__top,
+win32_msie_prop__width
+</td><td></td>
+    <td>Specifies the value of the corresponding MSIE window property.
+	Documentation on the meaning of this properties can be
+    found <a href=http://msdn.microsoft.com/workshop/browser/webbrowser/reference/objects/internetexplorer.asp>in MSDN documentation</a>.
+    Use these settings to e.g. disable statusbar or menubar in MSIE.
+    These settings apply only if <tt>win32_prefer_ie=1</tt> and
+    <tt>win32_prefer_ie_kiosk_mode=0</tt>. Default value is empty
+    string for each option, and this means that the MSIE-default value is
+    used for the MSIE object property. Use 0 or 1 for boolean properties and
+    integers for other properties.
+    </td>
+
+
+<tr><td>win32_prefer_ie_kiosk_mode</td><td>0</td>
+    <td>Specifies whether to try opening page in MSIE in kiosk
+    (fullscreen) mode.  If value is 1, value of <tt>win32_prefer_ie</tt> 
+    is ignored (i.e. value of <tt>win32_prefer_ie</tt> does not affect
+    <tt>win32_prefer_ie_kiosk_mode</tt> at all)  </td>
+
+<tr><td>nobrowser</td><td>0</td>
+    <td>Specifies whether not to open any browser at all.  This is useful
+    if you run some web services using SAWS and access them from your
+    application, so that no browser window needs to be opened. 
+    </td>
+<tr><td>_debugtofile</td><td>0</td>
+    <td>Specifies whether log all stages of startup process (finding port
+    number, copying database files, starting MySQL server and so on)
+    to 'c:/spwstrace.txt' (on Windows) or '/tmp/spwstrace.txt' (Linux or 
+    MacOSX).
+    </td>
+
+
+<tr><td>port_to_start_scanning_from</td><td>9000</td>
+    <td><a name=port_to_start_scanning_from></a>
+    Specifies whether log all stages of startup process (finding port
+    number, copying database files, starting MySQL server and so on)
+    to 'c:/spwstrace.txt' (on Windows) or '/tmp/spwstrace.txt' (Linux or 
+    MacOSX).
+    </td>
+
+<tr><td>program_to_run_before_browser_M, program_to_run_after_browser_M,
+    program_to_run_before_server_M</td><td></td>
+    <td><a name=program_to_run></a>
+    M can be 1, 2 or 3.
+    Specifies the names of the programs to run before or after starting
+    the browser, or before running the server.
+     Up to 3 programs for running before and up to 3 programs
+    for running after can be specified. If value is empty string, the
+    program with given index is not run. It's possible to specify the
+    delay to perform (time to wait in seconds) after starting the program
+    using options <tt>program_to_run_before_browser_M_sleep_seconds</tt>
+    or <tt>program_to_run_after_browser_M_sleep_seconds</tt>
+    or <tt>program_to_run_before_server_M_sleep_seconds</tt>
+    (default time to wait is 0).<p>
+    Since /site/config/siteinfo.pm is effectively a Perl script, one can
+    compute names of the programs depending on the OS version and so on,
+    see sample file from democd or ask us for more information.<p>
+
+    Since it's possible to switch off starting browser using <tt>nobrowser</tt>
+    option, it's possible to
+    use interfaces not based on browser for running application (e.g.
+    UI made as flash clip).
+    <p>
+    The programs can retrieve the port number the server will listen on
+    using SERVER_PORT environment variable; the fact whether web server
+    was already running is passed using STUNNIX_WEBSERVER_WAS_ALREADY_RUNNING
+    environment variable.
+    <p>
+    All programs started using these settings will be automatically
+    terminated on the server shutdown. The paths to the programs need
+    to be relative to CD root.
+    
+    </td>
+</table>
+
+
+
+
+In most cases, it's enough to change only settings 'sitename' and 
+'_docroot_default' (if document root is located not in '../www/root/').
+
+<h1>Altering behavior of 'startsite.pl'</h1>
+Behavior of 'startsite.pl' script is rather configurable. Default
+values for configuration settings are stored in the %config hash, initialized
+in the script. It's possible to specify desired values for the
+settings using two methods:
+<ul>
+<li>In the external file with name 'siteinfo.pm' located in the directory
+    where 'startsite.pl' resides;    
+<li>In the external file with name 'siteinfo.pm' located in the directory
+    "../config/" relative to the directory  where 'startsite.pl' resides;    
+<li>By passing space-separated names and values of configuration settings
+    on the 'startsite.pl' commandline;
+</ul>
+
+<h2>Specifying settings in the external file</h2>
+During execution of 'startsite.pl', the existance of file 'siteinfo.pm'
+is checked in the directory where 'startsite.pl' resides. If it exists,
+it's interpreted using 'do' statement. This script is supposed to modify
+values of %config hash in any meaningful way.
+Then the existance of "../config/siteinfo.pm" is checked and it's
+interpreted with 'do' statement too. It's <b>greatly</b> adviced to
+put all configuration settings to "../config/siteinfo.pm" rather than
+to "siteinfo.pm" residing in the directory where startsite.pl resides.
+
+
+<p>
+Here is  a content of 'siteinfo.pm' from the sample site shipped with
+Stunnix Advanced Web Server (it's located in 
+<tt>/sample-image/site/stunnixwebsrv/</tt> directory):
+
+<pre class=bigtext>
+$config{_docroot_default} = '../www/root/';
+$config{sitename} = "Perl-Obfus-2.0-Standard-0";
+</pre>
+As you can see, the 'sitename' setting includes version of the browser-based
+application to allow running several versions of browser-based applications
+at the same time.
+
+<h2>Specifying settings on the command line</h2>
+It's possible to pass values of settings on the commandline of 'startsite.pl'.
+Just specify name and value pairs on the commandline, as in example below:
+
+<pre class=bigtext>
+perl startsite.pl _debug 1 urlpath /admin.shtml
+</pre>
+In the example above, values of '_debug' and 'urlpath' settings were specified
+on the commandline.
+
+</div>
+<!--#include virtual="/f.shtml" -->

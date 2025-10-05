@@ -1,0 +1,55 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Advanced Web Server - MySQL_data extension" -->
+<!--#include virtual="/h-aws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../../ class= nav>Support</a> &#8594;
+<a href=../../ class= nav>Documentation</a> &#8594;
+<a href=../ class= nav>Stunnix Advanced Web Server</a>
+<a href=. class= nav>Extensions</a>
+</span></div>
+
+<div class=body>
+<h1>Introduction</h1>
+
+This extension manages MySQL database files residing on CDROM. It can be 
+configured
+    to copy MySQL database files each time Stunnix Advanced Web Server is run, or
+    only at first invokation of Stunnix Advanced Web Server by this user on a
+    given computer, or not copy at all (if database is used only for reading 
+data). 
+<p>
+The MySQL database files should be put to <tt>/extensions/data/mysql_data/</tt>,
+rather than to ./data subdirectory of each implementation of MySQL server
+(so only one copy of your database resides on the CDROM). This is possible
+since format of MySQL database files is CPU- and OS-independant.
+
+<h1>Details</h1>
+This extension accepts option 'copy_to_hdd' specified via 
+<a href=extlist.conf.shtml>/site/config/extlist.conf</a> file; possible
+values for this option are <i>no</i> (if you access database only for reading,
+specifying this option will leave database files on the CDROM),
+
+<i>once</i> (thus database files are  copied only at first invokation of Stunnix 
+Advanced Web Server  by this user on the computer to the <b>temporary</b>
+directory,  preserving all changes made
+to database by  user during all their invokations of Stunnix Advanced Web Server
+<b>until user cleans all temp files</b>),
+
+<i>once_to_permdir</i> (the database files are  copied only at first 
+invokation of Stunnix  Advanced Web Server  by this user on the computer to the 
+<b>permament</b> directory,  preserving all changes made
+to database by  user during all their invokations of Stunnix Advanced Web Server
+) 
+
+ and <i>always</i> (database files are  copied each time
+Stunnix Advanced Web Server is run).
+<p>
+If data is copied from CDROM, you may wish to activate
+<a href=mysql_remove_data_copied_on_exit.shtml>mysql_remove_data_copied_on_exit
+extension</a> to remove database files from disk during shutdown of 
+Stunnix Advanced Web Server.
+<p>
+<a href=mysql.shtml#preparing-datafiles>Notes on preparing MySQL database</a>
+are available in documentation on <a href=mysql.shtml>MySQL extension</a>.
+
+
+<!--#include virtual="/f.shtml" -->

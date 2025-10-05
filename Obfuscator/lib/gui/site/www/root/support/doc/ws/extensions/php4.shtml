@@ -1,0 +1,76 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Perl Web Server - PHP4 extension - for running PHP v4 scripts" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../../ class= nav>Support</a> &#8594;
+<a href=../../ class= nav>Documentation</a> &#8594;
+<a href=../ class= nav>Stunnix Perl Web Server</a>
+<a href=. class= nav>Extensions</a>
+</span></div>
+
+<div class=body>
+<h1>Introduction</h1>
+This extension allows to use PHP scripts of corresponding version
+in sites running Stunnix Perl Web
+Server. There is no need to "port" any script to work under Stunnix Perl Web
+Server, all scripts should work as is.
+<p>
+The implementations of extension should be extracted to 
+<tt>/extensions/engines</tt>.
+<p>The implementations for this extension have the following sizes on CDROM:
+Windows: 15Mb, Linux: 5Mb, MacOSX: 5.6Mb.
+
+<p>Implementations of this extension are not included with distribution of
+SPWS, one has to download them separately and put to appropriate directory.
+
+<h1>Details</h1>
+This extension supports pptions decoder_ioncube_disable  (boolean,
+default value is 0) and decoder_zend_disable (boolean, default is 0),
+they can be set in
+<a href=extlist.conf.shtml>/site/config/extlist.conf</a> file.
+
+<p>
+Scripts are run using PHP CGI SAPI module. For Linux and Windows CLI SAPI
+module is also included, CLI SAPI module for MacOSX is not included. To see
+a list of modules and version of PHP available for a given platform, go to
+the appropriate directory (/extensions/engines/php4-*) 
+and read <tt>README-SPWS.txt</tt> and 
+<tt>phpinfo.html</tt> files there.<p>
+
+Implementations of PHP4 available from us for all platforms 
+do not have any  dependencies since all third-party libraries are statically 
+linked with them, so they don't require any non-standard libraries installed
+on user's computer to run.
+
+Full version of PHP (for development stage) should be acquired from
+<a href=http://www.php.net>www.php.net</a>. It's not recommended to extract
+versions available from there to the <tt>/extensions/engines</tt>, see
+<a href=#rebuilding>below for more details</a>.
+
+<h1>Hints</h1>
+In order to simplify maintenance and reduce size of implementaions, 
+PHP extension configures PHP interpreter to extend PHP's "include_path"
+to also contain <tt>/extensions/engines-noarch-custom/php</tt> and
+<tt>/extensions/engines-noarch-standard/php/</tt>, so it's adviceable to
+put PHP classes to either of these directories.
+
+<h1>Rebuilding PHP</h1>
+<a name=rebuilding></a>
+It's of course possible to rebuild PHP yourself, in case you need some
+php extensions not available in the version of PHP we provide. Please
+be sure to build CGI SAPI binary too. 
+<p>
+For Windows version, rename it to 
+'php-cgi.exe' and execute command 'exetype php-cgi.exe WINDOWS' to 
+turn it from Win32 Console Application into Win32 GUI application in order
+console window not to appear each time PHP interpreter is run.
+<p>
+For Linux and MacOSX versions, please insure that you've linked statically
+all libraries except ones that are part of C/C++ library.
+<p>
+Feel free to contact us for more information.
+
+
+
+
+
+<!--#include virtual="/f.shtml" -->

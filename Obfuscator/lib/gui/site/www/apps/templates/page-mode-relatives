@@ -1,0 +1,13 @@
+<% use obfui::cmn; my ($prj,$modenm,$rancestors,$rchildren) = @_; %>
+<%$ hstr('mode.relatives.ancestors',__('List of ancestor modes, nearest first:')) %>
+<% 
+    $forge->include('wgt-modelist', $prj, $rancestors ,'ol');
+%>
+<p>
+<%$ hstr('mode.relatives.children',__('List of child modes:')) %>
+<% 
+    $forge->include('wgt-modelist', $prj, $rchildren,'ul');
+%>
+<p>
+
+<% $forge->include('wgt-backbtn',__('Back')) %>

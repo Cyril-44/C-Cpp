@@ -1,0 +1,17 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Perl Web Server - project directory layout and CDBuilder" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Perl Web Server</a>
+</span></div>
+<div class=body>
+
+Here is a sample on how to lay out  project's directories  and how to
+enter them in CDBuilder.
+
+<ol>
+	<!--#include virtual="../aws/BODY-createcd-gui-steps-pre.shtml" -->
+	<!--#include virtual="../aws/BODY-createcd-gui-steps-mid.shtml" -->
+</ol>
+<!--#include virtual="/f.shtml" -->

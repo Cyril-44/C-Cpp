@@ -1,0 +1,78 @@
+<% use obfui::cmn;    my ($info) = @_; %>
+
+<%$ __('Below is a list of header files used by your code (using <tt>#include &lt;filename&gt;</tt> or <tt>#include "filename"</tt> lines). Please select whether to load exceptions for each of the header files and which ones (select a category to use):') %><p>
+<p>
+<%= __('Based on category to use, a list of exceptions (set of names that should not be changed) will be automatically loaded for that header and all its dependencies.') %>
+
+<%$ __('Such set of exceptions will be automatically applied for <b>ALL</b> files in the project..') %>
+
+<center>
+<div class=colored-fields>
+<form method=post>
+<input type=hidden name=havevals value=1>
+<% if (!@$info) { %>
+<%= __('No external header files are used by your project. Probably you did not scan your project\'s files for them yet. Click Rescan button below to scan for them again.') %><p>    
+<% } else { %>
+
+<table class=filebrowser>
+<thead><tr><th><%= __('Header file') %></th><th><%= __('Category to use') %></th></thead>
+<tbody>
+<%
+	my $idx;
+	my $unknown_cnt = 0;
+	foreach (@$info) {
+	    my ($title,$html,$is_present) = @$_;
+	    if (!$is_present) {
+		$unknown_cnt++;
+		next;
+	    };
+%> 
+<tr class=fileentry<%= (++$idx & 1) %>><td class=nm>&nbsp;&nbsp;&nbsp;<%= $title %></td><td class=state><%$ $html %></td>
+<% 
+	}
+%>
+</tbody>
+</table>
+
+
+<%  if ($unknown_cnt) { %>
+<h2><%= __('Unidentified header files') %></h2>
+<table class=filebrowser>
+<thead><tr><th><%= __('Header file') %></th>
+<tbody>
+<%
+	my $idx;
+	foreach (@$info) {
+	    my ($title,$html,$is_present) = @$_;
+	    next if $is_present;
+%> 
+<tr class=fileentry<%= (++$idx & 1) %>><td class=nm>&nbsp;&nbsp;&nbsp;<%= $title %></td>
+<% 
+	}
+%>
+</tbody>
+</table>
+
+<%$ __('<b>To generate exceptions</b> for unidentified header files shown above, use <a class=menuref href=syms.gen_from_comp_db>Symbols &rArr; Clang-based symbol extraction tool</a>.') %>
+<% } else { %>
+<%$ __('<b>To generate exceptions</b> for unidentified header files, use <a class=menuref href=syms.gen_from_comp_db>Symbols &rArr; Clang-based symbol extraction tool</a>.') %>
+<% }  %>
+
+
+
+
+<%   } #if (@$info) 
+%>
+<p>
+<% $forge->include('wgt-btns-ok-cancel') %></center>
+</form>
+
+<p>
+
+<form action=syms.exceptheader_rescan>
+<div class=wideselect>
+<% $forge->include('wgt-submitbtn-wide', __('Rescan for header files again')) %>
+</div>
+</form>
+</div>
+</center>

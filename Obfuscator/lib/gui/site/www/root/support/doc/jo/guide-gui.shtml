@@ -1,0 +1,13 @@
+<!--#set var="title" value="Using GUI (Project Manager) - JavaScript Obfuscator" -->
+<!--#include virtual="/h-jo.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>JavaScript Obfuscator suite</a> &#8594;
+<a href=. class= nav>Using GUI (Project Manager)</a>
+</span></div>
+
+<div class=body>
+
+<!--#include virtual="./INC-guide-gui.shtml" -->
+<!--#include virtual="/f.shtml" -->

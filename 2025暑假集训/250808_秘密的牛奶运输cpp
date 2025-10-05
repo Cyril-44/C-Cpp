@@ -1,0 +1,121 @@
+#include <cstdio>
+#include <algorithm>
+#include <cstring>
+using std::max;
+using std::min;
+constexpr int N = 505, N_2 = 15;
+struct Edge {
+	int u, v, w;
+	bool in_mst;
+	inline bool operator<(const Edge &rhs) const {
+		return w < rhs.w;
+	}
+} e[N * N];
+namespace Graph {
+	struct Edge {
+		int to, nxt, w;
+	} e[N * N];
+	int head[N];
+	inline void addedg(const int &fr, const int &to, const int &w) {
+		e[++head[0]] = Edge {to, head[fr], w};
+		head[fr] = head[0];
+	}
+	int depth[N];
+	bool vis[N];
+	int fa[N][N_2], mx[N][N_2], mx2[N][N_2];
+	void dfs(int u, int p) {
+		vis[u] = true, fa[u][0] = p;
+		mx2[u][0] = -1;
+		for (int i = head[u]; i; i = e[i].nxt)
+			if (!vis[e[i].to]) {
+				depth[e[i].to] = depth[u] + 1;
+				mx[e[i].to][0] = e[i].w;
+				dfs(e[i].to, u);
+			}
+	}
+	inline void initst(const int &n) {
+		dfs(1, 0);
+		for (int k = 1; (1<<k) <= n; k++)
+			for (int i = 1; i + (1<<k) - 1 <= n; i++) {
+				fa[i][k] = fa[fa[i][k-1]][k-1];
+				int mxs[4] = {mx[i][k-1], mx[fa[i][k-1]][k-1], mx2[i][k-1], mx2[fa[i][k-1]][k-1]};
+				std::sort(mxs, mxs + 4);
+				mx[i][k] = mxs[3];
+				mx2[i][k] = (mxs[3] ^ mxs[2]) ? mxs[2] : (mxs[3] ^ mxs[1]) ? mxs[1] : (mxs[3] ^ mxs[0]) ? mxs[0] : -1;
+			}
+	}
+	inline int lca(int u, int v) {
+		if (depth[u] < depth[v]) std::swap(u, v);
+		for (int k = N_2-1; k >= 0; k--)
+			if ((1<<k) & (depth[u]-depth[v]))
+				u = fa[u][k];
+		if (u == v) return u;
+		for (int k = N_2-1; k >= 0; k--)
+			if (fa[u][k] ^ fa[v][k])
+				u = fa[u][k], v = fa[v][k];
+		return fa[u][0];
+	}
+	inline int mxpath(int u, int v, const int &x) {
+		int _lca = lca(u, v);
+		int ans1 = -1;
+		for (int k = N_2-1; k >= 0; k--)
+			if ((1<<k) & (depth[u] - depth[_lca])) {
+				if (mx[u][k] ^ x) ans1 = max(ans1, mx[u][k]);
+				else ans1 = max(ans1, mx2[u][k]);
+				u = fa[u][k];
+			}
+		int ans2 = -1;
+		for (int k = N_2-1; k >= 0; k--)
+			if ((1<<k) & (depth[v] - depth[_lca])) {
+				if (mx[v][k] ^ x) ans2 = max(ans2, mx[v][k]);
+				else ans2 = max(ans2, mx2[v][k]);
+				v = fa[v][k];
+			}
+		if (ans1 == -1 && ans2 == -1) return -1;
+		return max(ans1, ans2);
+	}
+} using Graph::mxpath;
+namespace DSU {
+	int fa[N];
+	inline void init(const int &n) {
+		for (int i = 1; i <= n; i++)
+			fa[i] = i;
+	}
+	inline int getroot(int u) {
+		int v = u, tp;
+		while (u ^ fa[u]) u = fa[u];
+		while (v ^ u) tp = fa[v], fa[v] = u, v = tp;
+		return u;
+	}
+	inline long long kruskal(const int &n, const int &m) {
+		init(n);
+		std::sort(e+1, e+1 + m);
+		int cnt = 1;
+		long long sum = 0;
+		for (int i = 1; cnt < n && i <= m; i++) {
+			int u = getroot(e[i].u), v = getroot(e[i].v);
+			if (u ^ v) {
+				fa[v] = u, ++cnt, sum += e[i].w, e[i].in_mst = true;
+				Graph::addedg(e[i].u, e[i].v, e[i].w);
+				Graph::addedg(e[i].v, e[i].u, e[i].w);
+			}
+		}
+		Graph::initst(n);
+		return sum;
+	}
+} using DSU::kruskal;
+int main() {
+	int n, m;
+	scanf("%d%d", &n, &m);
+	for (int i = 1; i <= m; i++)
+		scanf("%d%d%d", &e[i].u, &e[i].v, &e[i].w);
+	long long sum = kruskal(n, m);
+	long long ans = 0x7ffffffffffffffLL;
+	for (int i = 1; i <= m; i++) {
+		if (e[i].in_mst) continue;
+		long long tp = mxpath(e[i].u, e[i].v, e[i].w);
+		if (~tp) ans = min(ans, -tp + e[i].w);
+	}
+	printf("%lld\n", sum + ans);
+	return 0;
+}

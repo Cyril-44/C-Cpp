@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Run Obfuscator GUI
+Icon=utilities-terminal
+Exec=bash -c 'cd "$(dirname '\"%k\"')";  ./startui.pl '
+Categories=Application;

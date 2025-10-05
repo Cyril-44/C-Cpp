@@ -1,0 +1,26 @@
+<% 
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module 
+    my ($prj) = @_;
+
+    my $menurefpiece = $ENV{REQUEST_URI} =~ m,^/ws-ui, ?
+	    '<a class=noul  href=project.options>Project&rArr;Meta options (title & input and output directories)</a>' :
+	    '<a class=menuref  href=settings.options>Settings&rArr;Options - locations of dirs, title</a>';	    
+    
+	
+%>
+
+<% $forge->include('wgt-load-semanticui') %>
+
+<h3 class="ui center aligned icon header" >
+  <i class="checkmark icon positive"></i>
+ Project imported and became current.
+</h3>
+
+<div class="main ui container">
+
+
+<p>&nbsp;<p>
+<span style="font-size: 150%"><i class="ui icon options"></i></span>
+<%$ P__('If you\'ve copied the project from other computer, you may need to ensure that correct paths to input/output directories are specified in %s.',
+    $menurefpiece) %>
+</div>

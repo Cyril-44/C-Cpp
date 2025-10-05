@@ -1,0 +1,20 @@
+#Encrypted file follows
+JCspxtfsDbqt
+JSfrvftuTubut
+DTufodjmTubuf
+JJtbqjFyufotjpo
+JIuuqSfrvftuMpplvq
+DJtbqjXpslfs
+JUbhSfqmbdfs
+JIuuqTfswfsDpoufyu
+JCspxtfsDbqtTwd
+JIuuqGjmf
+BUM
+``BUMTJGBDF`I``
+JQbhfDbdifDpouspm
+BumTfswfsSfrvftu
+DDppljf
+JXsjufTusfbn
+JSfrvftuIboemfs
+ITFTTJPOFOVN
+JBumNfnNhs

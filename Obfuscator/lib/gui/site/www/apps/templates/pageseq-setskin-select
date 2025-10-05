@@ -1,0 +1,12 @@
+<% use obfui::cmn; my ($curskin,$rallskins) = @_;  %>
+
+<%= __('Choose a skin to use:') %>
+<form>
+<input type=hidden name=havevals value=1>
+<% foreach (@$rallskins) { %>
+<input type=radio name=newskin value=<%= $_  . ' ' . ($_ eq $curskin ? 'checked' : '') %> >
+    <%= substr($_,length("skins/")) %><br>
+<% } %>
+<p>
+<% $forge->include('wgt-submitbtn', __('OK')) %>
+</form>

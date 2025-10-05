@@ -1,0 +1,12 @@
+<!--#set var="title" value="find-undeclared-subs.pl - find places in perl code where undeclared symbols" -->
+<!--#include virtual="/h-po.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Perl-Obfus suite</a>
+</span></div>
+
+<div class=body>
+<!--#include virtual="./BODY-find-undeclared-subs.shtml" -->
+
+<!--#include virtual="/f.shtml" -->

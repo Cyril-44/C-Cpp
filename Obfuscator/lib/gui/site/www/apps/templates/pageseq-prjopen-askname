@@ -1,0 +1,62 @@
+<% 
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module 
+    my ($flist,$dirnm) = @_;  
+
+    my $menuname = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? 'Project&rArr;Meta options' : 'Settings&rArr;Options';
+%>
+<% if (!@$flist) { %>
+    <%= __('No projects were created - nothing to choose from. You have to either create new or import existing project.') %>
+<% } else { %>
+
+<% $forge->include('wgt-load-semanticui') %>
+<div class="main ui container">
+<div class="ui segment">
+    <% $forge->include('wgt-semui-header',   __('Choose a project to open') ) %>
+    <div class="ui middle aligned animated list">
+
+
+<% foreach (@$flist) { 
+    my ($id,$title,$description) = @$_; 
+    tooltip('_tmp',$description) if length($description);
+    %>
+    <span class=item>
+
+	<a class='noul' href=../<%$ $id %>/>
+	<i class="icon file outline"></i>
+	    <%= $title %>
+	</a>
+	<% if (length($description))  {  print	tooltip('_tmp');  }  %>
+    </span>    
+
+
+<% } %>	
+    </div>
+
+</div>
+</div>
+
+
+<p>&nbsp;<p>
+<% $forge->include('wgt-optional-start','hints',__('How to backup or delete them?')) %>
+
+<div class=some-hint>
+<p>
+<%$ P__('Projects files are special files that <b>are stored in the directory</b> named <tt><a href="project.browse.any?dir=%s">%s</a></tt>.', $dirnm, $dirnm) %> 
+<%= __("You can rename files in that folder, just keep '.op' extension.") %>
+
+<p/>
+<%$ __('<b>To backup all your projects</b> (or move to other computer) just archive all files in that folder.') %>
+
+<p>
+<%$ P__('<b>To remove a single project</b>, open it, go to <i>%s</i>, expand <i>Advanced options</i>, and click <i>Delete this project</i> there.',
+	$menuname) %>
+</div>
+
+<% $forge->include('wgt-optional-end','hints') %>
+
+<% } %>
+
+
+<script>
+ol_sticky = 1; //so that tooltips stick on screen. This allows links to be embedded into the project description.
+</script>

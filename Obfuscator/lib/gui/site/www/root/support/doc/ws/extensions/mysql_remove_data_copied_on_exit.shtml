@@ -1,0 +1,26 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Perl Web Server - mysql_remove_data_copied_on_exit extension" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../../ class= nav>Support</a> &#8594;
+<a href=../../ class= nav>Documentation</a> &#8594;
+<a href=../ class= nav>Stunnix Perl Web Server</a>
+<a href=. class= nav>Extensions</a>
+</span></div>
+
+<div class=body>
+<h1>Introduction</h1>
+
+This "virtual" extension, if enabled, erases MySQL database files copied
+from CDROM during Stunnix Perl Web Server shutdown.  If MySQL database files 
+were not copied from CDROM (as set by option <i>copy_from_hdd</i>
+of <a href=mysql_data.shtml>mysql_data extension</a>), no attempt will be made to 
+delete database files.
+
+<h1>Details</h1>
+No options can be passed to this extension using 
+<a href=extlist.conf.shtml>/site/config/extlist.conf</a> file.
+<p>
+No implementation for this extension is necessary, this extension is
+"virtual".
+
+<!--#include virtual="/f.shtml" -->

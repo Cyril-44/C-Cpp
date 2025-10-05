@@ -1,0 +1,13 @@
+<!--#set var="title" value="generate-buildscript-from-project-file.pl - generate buildscripts for Perl-Obfus projects from command line" -->
+<!--#include virtual="/h-po.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Perl-Obfus suite</a> &#8594;
+<a href=. class= nav>generate-buildscript-from-project-file.pl</a>
+</span></div>
+
+<div class=body>
+
+<!--#include virtual="./BODY-generate-buildscript-from-project-file.shtml" -->
+<!--#include virtual="/f.shtml" -->

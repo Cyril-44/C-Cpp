@@ -1,0 +1,14 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Perl Web Server - PHP5 extension - for running PHP v5 scripts" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../../ class= nav>Support</a> &#8594;
+<a href=../../ class= nav>Documentation</a> &#8594;
+<a href=../ class= nav>Stunnix Perl Web Server</a>
+<a href=. class= nav>Extensions</a>
+</span></div>
+
+<div class=body>
+<h1>Introduction</h1>
+Everything that applies to <a href=php4.shtml>PHP4</a> extension also
+applies to extension PHP5.
+<!--#include virtual="/f.shtml" -->

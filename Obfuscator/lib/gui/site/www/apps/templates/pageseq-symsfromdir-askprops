@@ -1,0 +1,89 @@
+<% use obfui::cmn;    my ($info,$dirnm,$cfgref) = @_; %>
+
+<% $forge->include('wgt-init-filesysbrowser',$cfgref) %>
+
+<% if ($info->{lang} eq 'c++') { %>
+<p>
+<b>
+    <%$ __('Please note: it is better to use <a class=menuref href=syms.gen_from_comp_db>Symbols &rArr; Clang-based symbol extraction tool</a>&nbsp; instead of this tool! It\'s by far superior and precise in all aspects!') %>
+</b>
+<p>&nbsp;<p>
+<% } %>
+
+
+<%= __("This screen allows you to collect names of symbols (variables, functions, types) declared as API in files located in some directory and its subdirectories.") %>
+
+
+
+<p>
+<% if (!$info->{have_java}) {  
+	if ($info->{java_based_backend_supported}) {
+%>
+<div class=error>
+<%= __('For best results, please install Java and make sure it is listed in your PATH environment variable! In that case, much more advanced backend will be enabled for extracting symbols!') %>
+</div>
+<p>
+<% 	}	 
+   } %>
+
+<%$ __("You may paste the collected names into <a class=menuitemref href=syms.edituser.main>Symbols &rArr; Edit user-specified exceptions</tt></a> screen to protect those symbols from being renamed.") %>
+
+<% if ($info->{lang} ne 'c++') { %>
+<p>
+<%= __("Only raw source files can be scanned for symbols - i.e. files inside HTML markup will be ignored or will be analyzed incorrectly.") %>
+<% } %>
+
+<center>
+<div class=colored-fields>
+<form method=post>
+<input type=hidden name=havevals value=1>
+
+<div align=left>
+<table style='margin-left: 3em; '>
+<tr>
+<td><%= __('Enter name of directory:') %></td>
+    <td><input required type=text name=dirnm id=dirnm class=text value="<%= $dirnm %>"></td>
+    <td><script language=javascript>
+	<!--
+	    fsb_add_dir_browser(document.getElementById('dirnm'),'');
+	-->
+	</script></td>
+
+<tr><td><%= __('Enter regular expression for filenames to analyze:') %></td>
+    <td><input required type=text name=nmrx value="<%= $info->{rx} %>" class=text>
+
+</td></table>
+<p>
+<small>
+<%= __("The POSIX regular expression above is matched case-insensitive.It's matched against full pathname of each file, so it can include matching on subdirectory name too.") %>
+</small>
+</div>
+
+<% if (!$info->{have_java}) {  
+%>
+<table class=filebrowser>
+<thead><tr><th></th><th><%= __('Types of symbols to extract') %></th></thead>
+<tbody>
+<%
+	my $idx;
+	foreach (@{$info->{types}}) {
+	    my ($is_on_by_default,$opt_char,$shortnm,$title) = @$_;
+%> 
+<tr class=fileentry<%= (++$idx & 1) %>><td class=nm>&nbsp;&nbsp;&nbsp;
+    <input class=checkbox type=checkbox name=OPTION_<%= $opt_char %> checked></td>
+    <td class=state><%$ $title %></td>
+<% 
+	}
+%>
+</tbody>
+</table>
+
+<% } %>
+
+<p>
+<% $forge->include('wgt-btns-ok-cancel') %></center>
+</form>
+
+<p>
+
+</center>

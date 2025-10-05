@@ -1,0 +1,192 @@
+
+
+<style type=text/css>
+tt { font-family: verdana; font-weight: bold; font-size:90%;  }
+dt { display: list-item;          /* This has to be "list-item"                                               */
+    list-style-type: square;       /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
+    list-style-position: inside;} 
+
+h1 { padding-top: 2em; }
+</style>
+
+<!--
+<h1>Required step: see video tutorials on using CDBuilder</h1>
+See <a href=/prod/aws/video/>video tutorials on using CDBuilder</a>.
+
+-->
+
+<h1>Required step: create and configure a project in CDBuilder</h1>
+Start CDBuilder and select Project&rArr;New to create a project. You will be asked for:
+<dl>
+<dt>Project Input  Directory</dt>
+<dd>- directory where various files used for your CD will reside, e.g. database files and web content.
+<p>
+Put the database files into one subdirectory of that directory, 
+and your web content - into  another subdirectory.
+</dd>
+<dt>Project Output directory</dt>
+<dd>
+It's the directory where  the prototype (tree of folders and files)  of your CD/USB will be output to.
+It's recommended to specify a path relative to Project's Input directory, e.g. like "../out", so you could move all files related
+to your project to another disk or even computer and update a path only in single location- 
+</dd>
+</dl>
+<p>
+
+Once you click OK, a New Project Wizard will start, asking you for a as few information as possible, using several screens.
+On any screen, default values are the recommended ones, so just skip to next screen if uncertain about anything.
+<p>
+You will be asked trivial questions, like what operating systems to support, what types of database servers it uses (MySQL, SQLite, etc),
+which programming languages to support (most probably it's using PHP) and so on.
+<p>
+
+
+
+
+Once the wizard completes, here is what to do next:
+
+<ol>
+<li>Go to <tt>Make Prototype</tt> menu to build your prototype.
+<li>After building the Prototype, just start your product by going to <tt>Project</tt> &rArr; <tt>Browse output directory</tt>
+    and starting it the way you did when starting CDBuilder (i.e. click on runcd.exe on Windows or "Run CD on Mac OS X"
+    on Mac). 
+<li>You will see CDInspector page (unless you've disabled it), just click
+    <tt>Open Directory with Web Scripts</tt> button in CDInspector window - a file manager window (Explorer on PC and Finder on Mac) will appear. 
+    Copy your web scripts into that directory. 
+<li>Click <tt>Run PhpMyAdmin to import your data</tt> button in CDInspector window
+    to import your .sql backups into a MySQL database. 
+<li>Then stop the Prototype (selecting "Stop Prototype" in CDBuilder from the dropdown list), 
+    and do <tt>Copy from prototype</tt> &rArr; <tt>Copy db files and web docs back from prototype to input dir</tt>
+    to backport all changes you've made to Project's Input Directory.
+<li> After that, alter Project Settings as you need  in <tt>Project &rArr; Site Settings</tt>.
+    Most probably you will need to  disable CDInspector in <tt>General &rArr; Main Properties</tt> there.
+
+<li>do <tt>Make prototype</tt> &rArr; <tt>Clear dir with prototype then copy all files</tt> to recreate your Prototype 
+    using data only from  your Project Input Directory.
+<li>Start and test your Prototype. If it works properly, it means that all you need to recreate the Prototype is inside
+    Project's input directory - so you can alter any site setting, <tt>Make prototype</tt> &rArr; <tt>Clear dir with prototype then copy all files</tt>
+    and get a working configuration.
+<li>Optimize and pack the prototype using <tt>Optimize &amp; Pack Prototype</tt> menu. See 
+    <a class=wslink target=helpwindow 
+	href=http://stunnix.com/prod/aws/video/website-packing-to-run-from-cdrom-or-usb-thumb-drive.shtml#video>
+    this video</a> on how
+    to pack Prototype for distribution on CD/DVD/USB and into downloadable OS-specific packages. It's not recommended to just zip its content  using your favorite
+    archive utility     to get a      downloadable ZIP file, or use your favorite disk burning tool to make ISO image - special well-tested tools for these 
+    purposes are already included with CDBuilder.
+</ol>
+
+<p>
+Of course you can re-run the wizard again using 
+<tt>Project &rArr; Re-run settings wizard..</tt> or visit  <tt>Project &rArr; Site Settings</tt> to
+see and alter all settings besides basic ones.
+<p>
+
+
+
+
+<h1>Required step: Update database connection strings in your scripts:</h1>
+
+<h2>If your product uses MySQL</h2>
+
+
+
+<dl>
+<dt>For PHP-based websites</dt>
+<dd>
+Nothing needs changes in PHP scripts at all as PHP scripts will  use correct port number and database host name 
+- they will be taken from a dynamically-generated php.ini. 
+</dd>
+<dt>For sites that are coded in Perl/Python/Java</dt>
+<dd>Use host=127.0.0.1 in a database connection string.</dd>
+
+<dt>For sites that are coded in Perl</dt>
+<dd> update your DSN string to contain MySQL port 
+number (stored in $ENV{MYSQL_PORT}) as done in <tt>/site/www/root/mysqldemo.pl</tt> from the 
+trial cd. 
+</dd>
+</dl>
+
+You do not need to specify/update database username and password for database connection string in your scripts, since MySQL is started in a special mode 
+ that does not check a password supplied in connection string.
+
+
+<h2>If your product uses SQLite</h2>
+<ul>
+<li>Convert SQLite databases to a proper format (understood by SQLite library shipped with the 
+web server demo).
+
+<li>Update PHP and Perl scripts to use environment variables <tt>SQLITE_TABLES</tt> as a 
+directory with SQLite database files in database connection strings as done in 
+<tt>/site/www/root/sqlitedemo.php</tt> and <tt>/site/www/root/sqlitedemo.pl</tt>.
+</ul>
+
+
+
+<h1>Optional step: Make your product more user friendly:</h1>
+<ul>
+<li>
+It's greatly recommended to put some text to <tt>/README.html</tt>, at least link to your website in the Internet and
+preferred way to contact you. Be sure to put some version number or release date into it so users will be able
+to tell you which product and which version they are using. In order CDBuilder to put this file automatically to your Project's
+Output directory, create a  folder named "files-to-copy-to-output-directory" in your Project's Input directory  and put your
+README.html there. CDBuilder by default will copy all files from the directory with that name to your Project's Output Directory.
+
+<p>
+
+<li>Specify the path to the splash screen and CDROM icon (not favicon!) relative to the project's 
+input directory in <tt>Project &rArr; Site Settings &rArr; General &rArr; Branding</tt> (click on Advanced to
+access settings for icon).
+</ul>
+
+
+<h1>Optional step: Protect your code from theft and analysis:</h1>
+
+<ul>
+<li>To protect JavaScript from analysis and theft and for mangling of your html, you can use the 
+<a target=_blank href=http://stunnix.com/prod/jo/overview.shtml>Stunnix JavaScript Obfuscator</a>;
+
+
+<li>To protect Perl scripts from analysis and theft, you can use <a target=_blank 
+href=http://stunnix.com/prod/po/overview.shtml>Stunnix Perl-Obfus</a> - 
+    an advanced obfuscator and encoder for Perl source code;
+
+<li>To protect PHP scripts from analysis and theft, you can use <a target=_blank 
+href=http://ioncube.com nofollow>IonCube PHP encoder</a> - it's already integrated into SAWS 
+and is supported on all platforms! 
+
+<li>To protect VBScript from analysis and theft and for mangling of your html you can use 
+<a target=_blank href=http://stunnix.com/prod/vbso/overview.shtml>Stunnix 
+VBScript and ASP Obfuscator</a>;
+
+</ul>
+
+
+
+<h1>Optional step: Request any help from us</h1>
+Please <a href=/contact/>contact us</a> if you have any questions. 
+If the PHP  available with our evaluation software doesn't include the extension you need, 
+or if you wish to make SAWS support other platforms, or need an Apache module to become supported 
+by SAWS - we can also help you.
+
+
+<h1>Required step: Create CDROM Trees</h1>
+Click Build &#8594; "Rebuild Changed" - you should get a prototype of your cdrom in the 
+project's output directory.  It's recommended to use CDBuilder for creation of ISO files
+for burning to CD - just click "Tools", "Create ISO out of project's output directory..".
+Just burn it directly onto a CD. 
+
+<p>The program that creates the ISO images or burns prototypes directly
+to CDROMs should preserve case of filenames for your CD to work on platforms other than Windows
+(the ISO creation facility of CDBuilder does this correctly, so it's <b>greatly</b>
+not recommended to use third-party tools instead of it). 
+
+In order to be able top append or replace some data on the CD, it may be wise to burn CDs in 
+multi-session mode and not close the last session.
+
+<p> If you need to create a desktop application from the CDROM, use the tree in the project 
+output directory as a prototype for your application. 
+
+
+<h1>Suggested step: Enjoy!</h1>
+Please enjoy our products and tell your friends about how fantastic this software worked for you!
+

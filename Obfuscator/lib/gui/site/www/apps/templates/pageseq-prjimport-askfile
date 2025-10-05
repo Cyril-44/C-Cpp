@@ -1,0 +1,115 @@
+<% 
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module
+    my($cfgref) = @_;
+%>
+
+<% if (0) { %>
+<form method=post enctype="multipart/form-data">
+<input type=hidden name=havevals value=1>
+<%$ __('Select file that was previously exported using Project &rArr; Export:') %>
+<br><input required type=file name=file><p>
+<% $forge->include('wgt-submitbtn'); %>
+</form>
+
+<% } %>
+
+<% if ($^O =~ /darwin/i && 0) { %>
+<div class=errlog>
+<%$ __('Warning! You are using Mac OS X. Some bug in Stunnix Perl Web Server (tool used to serve this GUI)  exists that prevents this page from working on Leopard (unless obfuscator is run as "root" and Firefox is used). To import project, just copy your file to the directory that is shown when you <a href=project.browse.pvtdir>click here</a> (clicking there will show that special directory in Finder).') %>
+</div>
+<% } %>
+
+
+
+<style type=text/css>
+#real-filesel { display: none; }
+</style>
+
+
+<% $forge->include('wgt-load-semanticui') %>
+
+
+<div class="main ui container">
+
+
+
+<div class="ui segment">
+    <% $forge->include('wgt-semui-header',  __('Importing project') ) %>
+    <form class="ui form" method=post enctype="multipart/form-data" id=prjimportform
+    <input type=hidden name=what value=addfile>
+    <input type=hidden name=havevals value=1>
+
+    <div class="ui form">
+      <div class=fields>
+
+	<div class="four wide field required">
+	    <label><%= __('Pick a file') %></label>
+		<input type="text" required readonly class="fake-filesel" name=newfile placeholder="<%= __('Click to select a file') %>">
+	    <input type="file" id=real-filesel name=file>
+        </div>
+
+	<div class="ten wide field">
+	    <label><%= __('Assign this name to the project (keep it empty to use name of exported project)') %></label>
+	    <input type="text" name=file_title placeholder="<%= __('My project title') %>">
+        </div>
+
+	<div class="two wide field">
+	    <label>&nbsp;</label>
+	    <button class="ui primary wide button" id=submit><i class="ui icon upload"></i> <%= __('Import') %>  </button>
+        </div>
+      </div>  
+    </div>  
+    </form>
+
+</div>
+
+<div class="ui accordion container">
+  <div class="title"><i class="dropdown icon"></i><%= __('Tips and hints') %></div>
+  <div class="content">
+    <p/>
+    <p/>
+    <i style="font-size: 140%" class="ui icon idea"></i><%$ __('The project file should have been exported using <a href=project.export.export.native class=menuref>Project &rArr; Export for backup <small>(in native format)</small></a>') %>
+    <p/>
+    <i style="font-size: 140%" class="ui  icon folder outline"></i><%$ P__('The project files are stored in this folder: <tt>%s</tt> . You can manually project files to that folder to import them in batch mode.',$cfgref->{prjdir}) %>
+   </div>
+</div>
+
+
+
+</div>
+
+<script>
+<!--
+
+//this block is for a form for adding a file
+//It keeps input=file invisible but synchronized with fake input field
+J(document).ready(  function() {
+
+J("input.fake-filesel").click(function() {
+  J(this).parent().find("input:file").click();
+});
+
+J('input:file')
+  .on('change', function(e) {
+    var name = e.target.files[0].name;
+    J('.fake-filesel', J(e.target).parent()).val(name);
+    J('.ui.form').form('set value', '.fake-filesel', name);
+  });
+
+
+J('#prjimportform').on('submit',function() {
+    var fn =  J('.fake-filesel').val();
+    if (!fn.length) {
+	alert('Please select a file');
+	return false;
+    };
+    return true;
+});
+
+
+} );
+
+-->
+</script>
+
+

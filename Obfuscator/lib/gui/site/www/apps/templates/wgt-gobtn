@@ -1,0 +1,13 @@
+<%
+    my ($title,$url,%opts) = @_;
+    use obfui::cmn;
+    my $hint = $opts{hint};
+%>
+<input class=<%= $opts{class} || 'button'  %> type=button name="<%= $title %>" value="<%= $title %>"
+        <% if ($hint) { %>
+                onmouseover="return overlib('<%= $hint %>')" onmouseout="return nd();"
+        <% }; %>
+onclick='<%= $opts{confirm} ? "confirm('$opts{confirm}') && " : '' %>
+(location = "<%= $url %>")'></input><noscript>
+<a href=<%= $url %>><%= $title %></a>
+</noscript>

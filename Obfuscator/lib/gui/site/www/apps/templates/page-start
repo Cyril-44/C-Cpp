@@ -1,0 +1,26 @@
+<% use obfui::cmn; my ($cfgref) = @_; %>
+<div class=page-start>
+<div class=welcome><%= sprintf(__('Welcome to Stunnix %s version %s!'),
+    $cfgref->{product}->{title}, $cfgref->{product}->{version}) %>
+</div>
+<div class=page-start-body>
+<div class=menuhints>
+<%$ sprintf(__('If it is the first time you run %s, please have a look at <a class=wslink  href=/support/doc/obfusui/guidewui.shtml target=helpwindow>Guide on Using Project Manager</a> and after that <a href=/support/doc/%s/guide.shtml class=wslink target=helpwindow>Guide on using Stunnix %s</a>.'),
+	$cfgref->{product}->{title},$cfgref->{product}->{sitesec}, $cfgref->{product}->{title}); 
+%>
+
+<!--
+<%$ __('If you\'ve used to "red" skin of Project Manager, you can return it at  <span class=menuref>Tools &rArr; Change skin</span> page. ') %>
+  -->
+<p>
+</div>
+<div class=menuhints>
+<%$ __('Go to <span class=menuref>Project</span> menu to open, create or import a project to work with. ') %>
+<%$ __('Go to <span class=menuref>Help</span> menu to read documentation on the tool and related topics.') %>
+</div>
+<div class=uihint>
+<%$ __('All user interface is browser-based (with help of <a class=wslink href=http://www.stunnix.com/prod/aws/>Stunnix Advanced Web Server</a> running on your computer), so it should be very familiar to you! ') %>
+<%$ __('Just don\'t forget the "window operations" buttons in the top right corner of the window - you will find them to be extremely useful.') %>
+</div>
+</div>
+</div>

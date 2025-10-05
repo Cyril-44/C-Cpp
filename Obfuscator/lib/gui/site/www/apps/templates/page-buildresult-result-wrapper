@@ -1,0 +1,56 @@
+<%
+    my ($url) = @_;
+    use obfui::cmn;
+%>
+<iframe src=<%$ $url %> frameborder=0 width=0 height=0></iframe>
+<div id=outputmsg>
+<%= __('Please wait while operation is in progress. You will be notified once it is finished.') %>
+</div>
+<div style="padding-top: 4px;">&nbsp;</div>
+<script language=javascript>
+setFooterBottom(0);
+
+window['export-data'] = 1;
+function show_build_output()
+{
+    var d = ge_by_id('outputmsg');
+    d.innerHTML = window['export-data'];
+    setFooterBottom(0);
+
+    /***************/
+    /* from here: http://stackoverflow.com/a/20584396 */
+    function nodeScriptReplace(node) {
+        if ( nodeScriptIs(node) === true ) {
+                node.parentNode.replaceChild( nodeScriptClone(node) , node );
+        }
+        else {
+                var i        = 0;
+                var children = node.childNodes;
+                while ( i < children.length ) {
+                        nodeScriptReplace( children[i++] );
+                }
+        }
+
+        return node;
+    }
+    function nodeScriptIs(node) {
+        return node.tagName === 'SCRIPT';
+    }
+    function nodeScriptClone(node){
+        var script  = document.createElement("script");
+        script.text = node.innerHTML;
+        for( var i = node.attributes.length-1; i >= 0; i-- ) {
+                script.setAttribute( node.attributes[i].name, node.attributes[i].value );
+        }
+        return script;
+    }
+    nodeScriptReplace(d);
+    /***************/
+}
+</script>
+<% $forge->include('wgt-optional-start','build-from-cmdline',__('FAQ: How to perform this from command line?')) %>
+<% my $export_part = $^O =~ /Win32/i ?  '<a class=menuref href=project.export.export.bat>Project &rArr; Export as .bat file for Windows</a>' :
+	    '<a class=menuref href=project.export.export.buildscript>Project &rArr; Generate buildscript</a>'; %>
+<%$ sprintf(__('You can perform this operation with your project from command line too. Just go to %s and then just run resultant file. It can build/rebuild/clean your project - see its command line options <a target=helpwindow href=/support/doc/obfusui/buildscript.shtml>here</a>. The generated script will include all your project settings, you will have to regenerate it every time you change project settings or add/remove files to the project.'),
+    $export_part ) %>
+<% $forge->include('wgt-optional-end','build-from-cmdline') %>

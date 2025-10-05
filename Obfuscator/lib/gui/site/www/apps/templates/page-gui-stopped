@@ -1,0 +1,31 @@
+<% 
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module
+    my ($is_fake) = @_; 
+%>
+
+<% $forge->include('wgt-load-semanticui') %>
+
+<h3 class="ui center aligned icon header" >
+  <i class="sign out icon positive"></i>
+ <%= __('Stopping server') %>
+</h3>
+
+<div class="main ui container">
+
+<a href=http://www.stunnix.com/prod/aws/overview.shtml><%= 
+ __('Stunnix Web Server') %></a>
+ <%= __('- a product which is used for Project Manager, will be stopped in 30 seconds.') %>
+ <%= __('After that it will be safe to update the product or uninstall it.') %>
+<p>
+ <%= __('You can safely close this browser tab now.') %>
+
+<% if (!$is_fake) { %>
+<iframe src=/stop-the-server/helper-stop-httpd.exe
+    frameborder=0 width=0 height=0></iframe>
+</div>
+<% } %>
+
+
+</div>
+
+

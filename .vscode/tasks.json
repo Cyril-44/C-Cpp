@@ -1,0 +1,79 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: g++ build active file",
+			"command": "/usr/bin/g++",
+			"args": [
+				"-std=c++14",
+				"-Wall",
+				"-D_GLIBCXX_DEBUG",
+				"-fdiagnostics-color=always",
+				"-g3",
+				"${file}",
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: /usr/bin/g++"
+		},
+		{
+			"type": "cppbuild",
+			"label": "--!-- C/C++: g++ build --!--",
+			"command": "/usr/bin/g++",
+			"args": [
+				"-std=c++2a",
+				"-Wall",
+				"-fdiagnostics-color=always",
+				"-I${workspaceFolder}/testlib",
+				"-I${workspaceFolder}/gmp/bin/include",
+				"-L${workspaceFolder}/gmp/bin/lib",
+				"-O2", 
+				"${file}",
+				"-o",
+				"${fileBasenameNoExtension}", 
+				"-lgmpxx",
+				"-lgmp",
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: /usr/bin/g++"
+		},
+		{
+			"type": "cppbuild",
+			"label": "--!-- C: gcc build --!--",
+			"command": "/usr/bin/gcc",
+			"args": [
+				"-std=c17",
+				"-Wall",
+				"-fdiagnostics-color=always",
+				"-I${workspaceFolder}/gmp/bin/include",
+				"-L${workspaceFolder}/gmp/bin/lib",
+				"-O2", 
+				// "-g3",
+				"${file}",
+				"-o",
+				"${fileBasenameNoExtension}", 
+				"-lgmp",
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: /usr/bin/gcc"
+		},
+	]
+}

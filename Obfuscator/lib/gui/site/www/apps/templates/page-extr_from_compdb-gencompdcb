@@ -1,0 +1,159 @@
+<% use obfui::cmn;  my ($prj,$compdb_fn,$platinfo,$missingfiles,$allfilescount)
+    = @_;
+
+    my $compdbinfo = $prj->{compdb_generator};
+%>
+
+<% $forge->include('wgt-load-semanticui') %>
+
+<script language='javascript'>
+             J(document).ready(function(){
+		J('.ui.accordion').accordion({ exclusive: false });
+             });
+</script>
+
+
+<%$ sprintf( $missingfiles ?
+	__('Compilation database file <tt>%s</tt> file found in your Project\'s input directory does not have info for some (%d, to be exact) of your %d source code files! Please regenerate it.') :	
+	__('No compilation database file <tt>%s</tt> file found in your Project\'s input directory!'), 
+	$compdb_fn, ($missingfiles ? 0+@$missingfiles : 0), $allfilescount ) %>
+
+<% if ($missingfiles) { %>
+
+<%= __('This means no information is available on what compiler options, preprocessor defines and include paths are used to build those files.')  %>
+
+<div class="ui accordion container">
+  <div class="title"><i class="dropdown icon"></i><%= __('List of files missing in database') %></div>
+  <div class="content">
+	<%$ join('<br>', @$missingfiles) %>
+  </div>    
+</div>
+<p/>
+<p/>
+
+    <%= __('You can generate exceptions for all files, for which info is available, by clicking the button below (this is recommended).')  %>
+    <form>
+	<input type=hidden name=do_ignore_missing_rules value=1>
+	<input type=hidden name=what value=generate>
+	<center>
+	     <button class="ui primary wide button"><i class="ui icon refresh"></i> <%= __('Generate skipping those files') %>  </button>
+	</center>
+    </form>
+    <br>
+    <%= __('Alternatively, you can remove those files or update your Makefiles or IDE project so that those files are compiled too when you rebuild your project again.')  %>
+    <p>
+<% } %>
+
+<div class="ui styled fluid accordion container">
+  <div class="title"><i class="dropdown icon"></i><%= __('What is compilation database?') %></div>
+  <div class="content">
+	<%= __('That file tells the compiler command line used to build each of the files in your project. It is industry standard, it is used by a lot of tools that work with source code.') %>
+  </div>    
+
+  <div class="title"><i class="dropdown icon"></i><%= __('How to produce it?') %></div>
+  <div class="content">
+    <p/>
+
+    <div class="accordion">
+	<div class="title"><i class="dropdown icon"></i><%= __('If you are using CMake') %></div>
+	<div class="content">
+	    <p/><%$ __('You can generate it by adding <tt>-DCMAKE_EXPORT_COMPILE_COMMANDS=1</tt> command line option when invoking Cmake. This is supported only for some backends of CMake - Makefile-based, ninja-based and some others.') %>
+	</div>
+
+	<div class="title"><i class="dropdown icon"></i><%= __('If you are using Visual Studio') %></div>
+	<div class="content">
+	    <p/><%$ __('Just install <a href="https://marketplace.visualstudio.com/items?itemName=vs-publisher-1208751.SourcetrailExtension" target=_blank>Sourcetrail</a> Visual Studio extension to generate it for any Visual Studio Project.') %>
+	    <%$ P__('Once you install it, open your project in Visual Studio, go to Sourcetrail menu, "Create compilation database", and put "%s" into "Filename" field, and click "Create".', (split(/\./,$compdb_fn))[0] ) %>
+	</div>
+
+	<div class="title"><i class="dropdown icon"></i><%= __('If you are building your code on Linux or macOS') %></div>
+	<div class="content">
+	    <%$ P__('You can use <a href=https://github.com/rizsotto/Bear target=_blank>Build EAR</a> tool. For Ubuntu and Debian, just install package <tt>bear</tt>. Once installed, run it like this "bear make" (if you are using "make") - it will capture all invokations of compiler using dynamic linker API, and write out <tt>%s</tt> in the current directory.', $compdb_fn) %>
+	    <p/><p/>
+
+	    <%$ P__('If you are using XCode on macOS - open Terminal, change directory to the directory where your project resides (where *.xcodeproj is located) and generate compilation database using command line like this:') %>
+	    <br/><tt>xcodebuild clean build | xcpretty -r json-compilation-database --output compile_commands.json</tt><br/>
+	    <%$ P__('and in case *.xcodeproj resides in some subdirectory - do not forget to alter last argument of command line above so compile_commands.json gets placed into your Project Input Directory.') %>
+	</div>
+
+	<% if ($platinfo->{osname} ne 'windows') { %>
+	    <div class="title"><i class="dropdown icon"></i><%= __('If you are building your code on Linux or macOS - easy way') %></div>
+	    <div class="content">
+		<%$ P__('You can use the simple generator below to generate <tt>%s</tt> in one click.', $compdb_fn) %>
+	    </div>
+	<% } %>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<% if ($platinfo->{osname} ne 'windows') { %>
+<p>
+<h2><%= sprintf( __('Compilation database generator'), $compdb_fn) %></h2>
+
+<form class="ui form">
+    <input type=hidden name=what value=compdb_generate>
+    <div class="ui form">
+
+	<div class=fields>
+        <div class="six wide field">
+            <label><%$ __('C++ compiler to use') .  $tip{'compdb.compiler'} %></label>
+            <input type="text" name=cxx_cmd value="<%= $compdbinfo->{cxx}->{cmd} %>" placeholder="`which c++`">
+        </div>
+
+        <div class="ten wide field">
+            <label><%= __('C++-specific command line options (may include backticks)') %>
+		    <%$ $tip{'compdb.compiler-options'} %></label>
+            <input type="text" name=cxx_options value="<%= $compdbinfo->{cxx}->{options} %>" placeholder="-std=c++98 ">
+        </div>
+	</div>
+
+	<div class=fields>
+        <div class="six wide field">
+            <label><%$ __('C compiler to use') .  $tip{'compdb.compiler'} %></label>
+            <input type="text" name=cc_cmd  value="<%= $compdbinfo->{cc}->{cmd} %>" placeholder="`which cc`">
+        </div>
+
+        <div class="ten wide field">
+            <label><%= __('C-specific command line options (may include backticks)') %>
+		    <%$ $tip{'compdb.compiler-options'} %></label>
+            <input type="text" name=cc_options  value="<%= $compdbinfo->{cc}->{options} %>" placeholder="-std=c99 ">
+        </div>
+	</div>
+
+        <div class="field">
+            <label><%= __('Command line options for all compilers, mostly telling header search paths (may include backticks)') %>
+		    <%$ $tip{'compdb.compiler-options-cmn'} %></label>
+            <input type="text" name=common_options value="<%= $compdbinfo->{common}->{options} %>"
+		placeholder="-DSOME_MACRO1  -I/usr/local/include `xml-config --cflags` -DSOME_MACRO2=1">
+        </div>
+
+
+        <div class="field">
+            <label>&nbsp;</label>
+            <button class="ui primary wide button"><i class="ui icon refresh"></i> <%= __('Generate') %>  </button>
+        </div>
+
+    </div>
+</form>
+
+<div class="ui accordion container">
+  <div class="title"><i class="dropdown icon"></i><%= __('Tips and notes') %></div>
+  <div class="content">
+	<p/>
+	<%= __('Using other methods for generation of compilation database file will produce more better results.') %>
+	<%= __('But if Clang-based tool does not report errors when generating exceptions, then using the generator above is enough.') %>
+	<p/>
+	<%= __('The most important is to specify header search paths, otherwise the clang-based extraction tool will not find all headers.') %>
+	<p/>
+	<%= __('If you are using backtick commands in the fields above, the substitution will happen once you press Generate button.') %>
+	<%= __('If the output of those commands changes from time to time, you will have to delete compilation database file and regenerate it again.') %>
+  </div>
+</div>
+
+
+<% }  #not for windows
+%>

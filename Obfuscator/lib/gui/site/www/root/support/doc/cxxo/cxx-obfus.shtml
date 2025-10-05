@@ -1,0 +1,13 @@
+<!--#set var="title" value="Stunnix products documentation: cxx-obfus - obfuscate (make more difficult to understand) C/C++ source code " -->
+<!--#include virtual="/h-cxxo.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>CXX-Obfus suite</a> &#8594;
+<a href=. class= nav>cxx-obfus</a>
+</span></div>
+
+<div class=body>
+
+<!--#include virtual="./BODY-cxx-obfus.shtml" -->
+<!--#include virtual="/f.shtml" -->

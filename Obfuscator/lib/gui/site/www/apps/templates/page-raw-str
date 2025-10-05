@@ -1,0 +1,5 @@
+<% #this page is used for sending AJAX responses
+    my ($str) = @_;
+%>
+
+<%= $str %>

@@ -1,0 +1,65 @@
+<%
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module
+
+    my ($id,$props,$nodes,$prjid) = @_;
+    my %hprops = @$props;
+
+    my $title = $hprops{title};
+    $title =~ s, ,&nbsp;,g;
+    #use Data::Dumper;
+%>
+
+  <div class="menu">
+    <div class="ui  dropdown my item"><%$ $title  %>
+        <div class="vertical menu">
+	    <% foreach my $n (@$nodes) {
+		    my ($newpath,$url,$ititle,$target,%opts) = @$n;
+		    #print STDERR Dumper($n) . "\n" if $newpath eq 'build.rebuild.changed';
+		    my $dest =  length($url) ? $url : $newpath;
+
+		    my $tgtsfx = $opts{prepend_prjname_to_target} ? $prjid : '';
+		    $tgtsfx =~ s/[^a-zA-Z_0-9]/_/g;
+
+		    my $onclick_purejs;
+		    if (length($opts{jsopenopts})) {
+    			$onclick_purejs = 'onclick="openwnd(' . "'$dest', " . ($target ? "'$target$tgtsfx'" : '') .
+    			    ",'$opts{jsopenopts}')" . ';"';
+		    } else {
+    			$onclick_purejs = "onclick=\"location='$dest';return false;\"";
+		    };
+
+
+
+		    if (index($newpath,'_SEPARATOR_') != -1) {
+	     %>
+			<div class="ui divider"></div>
+	    <%	    } else { %>
+        		<a class="item my-menuitem-with-popup"  href=<%$ $opts{jsopenopts} ? '#' : $dest %>
+			    <%$ length($target) && !$opts{jsopenopts} ? "target=$target$tgtsfx " : '' %>
+
+			<% if (length($opts{jsopenopts})) {
+				my $s = 'onclick="openwnd(' . "'$dest', " . ($target ? "'$target$tgtsfx'" : '') .
+			        ",'$opts{jsopenopts}')" . ';"';
+			    print $s;
+
+
+			} 
+			my $icon =  length($opts{icon}) ? $opts{icon} : 'folder';
+			my $hasicons = 0 && !$hprops{noicons};
+
+			my $tooltip = tooltip_data('menu.' . $newpath);
+			$tooltip =~ s,",&quot;,g; #otherwise attribute value will be truncated at that point
+			$tooltip =~ s,<p/>,,g; #it won't be displayed correctly anyway..
+
+			%>  
+				data-position="left center" data-html="<%$ $tooltip %>" 
+				xhref="<%= $newpath %>"><% 
+			    if ($hasicons) { %><i class="<%= $icon %> icon"></i><% 
+			    } 
+			    %><%$ $ititle  %>  </a>		
+    	    <% 	    } %>
+    	    <% } %>
+
+        </div>
+    </div>
+  </div>

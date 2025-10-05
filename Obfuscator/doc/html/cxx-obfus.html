@@ -1,0 +1,1034 @@
+<HTML>
+<HEAD>
+<TITLE>cxx-obfus - obfuscate C/C++ source code 
+programs</TITLE>
+<LINK REV="made" HREF="mailto:bhcompile@daffy.perf.redhat.com">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+
+<UL>
+
+	<LI><A HREF="#name">NAME</A></LI>
+	<LI><A HREF="#synopsis">SYNOPSIS</A></LI>
+	<LI><A HREF="#description">DESCRIPTION</A></LI>
+	<LI><A HREF="#options">OPTIONS</A></LI>
+	<LI><A HREF="#return value">RETURN VALUE</A></LI>
+	<LI><A HREF="#diagnostics">DIAGNOSTICS</A></LI>
+	<LI><A HREF="#examples">EXAMPLES</A></LI>
+	<LI><A HREF="#files">FILES</A></LI>
+	<LI><A HREF="#notes">NOTES</A></LI>
+</UL>
+<!-- INDEX END -->
+
+<HR>
+<P>
+<HR>
+<H1><A NAME="name">NAME</A></H1>
+<P>cxx-obfus - obfuscate (make more difficult to understand) C/C++ source code 
+programs</P>
+<P>
+<HR>
+<H1><A NAME="synopsis">SYNOPSIS</A></H1>
+<P><STRONG>cxx-obfus</STRONG> [&nbsp;<STRONG>-v|--version</STRONG>&nbsp;] [&nbsp;<STRONG>--noparsing</STRONG>&nbsp;]
+    [&nbsp;<STRONG>--output-line-len</STRONG>&nbsp;<EM>N</EM>&nbsp;]&nbsp;[&nbsp;<STRONG>--jam</STRONG>&nbsp;<EM>0</EM>|<EM>1</EM>&nbsp;]
+    [&nbsp;<STRONG>--cxx11-invalid-output</STRONG>&nbsp;]
+    [&nbsp;<STRONG>--keep-spaces</STRONG>&nbsp;]&nbsp;[&nbsp;<STRONG>--keep-newlines</STRONG>&nbsp;]
+    [&nbsp;<STRONG>--keep-comments</STRONG>&nbsp;]     
+    [&nbsp;<STRONG>--transform-comments</STRONG>]&nbsp;<EM>truncate</EM>|<EM>chars2x</EM>|<EM>nonwhites2x</EM>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<EM>keep-original</EM>|<EM>replace-with-newlines</EM>]
+    [&nbsp;<STRONG>--preserved-top-comments-count</STRONG>&nbsp;<EM>0</EM>&nbsp;]
+    [&nbsp;<STRONG>--bannerhead</STRONG>&nbsp;<EM>filename</EM>]&nbsp;[<STRONG>--bannertail</STRONG>&nbsp;<EM>filename</EM>&nbsp;]
+    [&nbsp;<STRONG>--excludeidentsfile|-x</STRONG>&nbsp;<EM>filename</EM>&nbsp;].. 
+    [&nbsp;<STRONG>--excludeidentsfile-anycase</STRONG>&nbsp;<EM>filename</EM>&nbsp;].. 
+    [&nbsp;<STRONG>-X</STRONG>&nbsp;<EM>filename</EM>&nbsp;]..
+    [&nbsp;<STRONG>--quoted-symbol-names</STRONG>&nbsp;<EM>filename</EM>&nbsp;]..
+    [&nbsp;<STRONG>--suffixes-asis-list</STRONG>&nbsp;<EM>filename</EM>&nbsp;]..
+    [&nbsp;<STRONG>-F</STRONG>&nbsp;<EM>user-defined-mapping-filename</EM>&nbsp;]..
+    [&nbsp;<STRONG>-d</STRONG>&nbsp;<EM>map-filename</EM>&nbsp;]&nbsp;[<STRONG>--embed-map</STRONG>]&nbsp;[&nbsp;<STRONG>-e</STRONG>&nbsp;<EM>encode-count</EM>&nbsp;]
+    [&nbsp;<STRONG>-D</STRONG>&nbsp;<EM>list-of-symbols-filename</EM>&nbsp;]
+    [&nbsp;<STRONG>-i</STRONG>&nbsp;<EM>idents-mangling-params</EM>&nbsp;] 
+    [&nbsp;<STRONG>-n</STRONG>&nbsp;<EM>number-mangling-params</EM>&nbsp;]
+    [&nbsp;<STRONG>-s</STRONG>&nbsp;<EM>string-mangling-params</EM>&nbsp;]    
+    [&nbsp;<STRONG>-c</STRONG>&nbsp;<EM>charcode-mangling-params</EM>&nbsp;]     
+    [&nbsp;<STRONG>-N</STRONG>&nbsp;<EM>filename-mangling-params</EM>&nbsp;]     
+    [&nbsp;<STRONG>--alter-only-symbols-from-antiexceptions</STRONG>&nbsp;]     
+    [&nbsp;<STRONG>-S</STRONG>&nbsp;<EM>server-mode-params</EM>&nbsp;]
+    [&nbsp;<STRONG>-O</STRONG>&nbsp;<EM>profile-name</EM>&nbsp;]
+	<EM>file-to-obfuscate</EM></P>
+<P>
+<HR>
+<H1><A NAME="description">DESCRIPTION</A></H1>
+<P>This program turns C/C++ source code files into functionally equivalent
+C/C++ source code that is much more difficult to study, analyze
+and modify - thus providing you control over intellectual property theft.
+It works perfectly with multi-module programs and
+for programs that depend on a lot of third-party modules that are not subject
+to obfuscation.</P>
+<P>This program typically obfuscates only one C/C++ source file at a time, reading source
+code file from stdin and writing output to stdout. It's possble to request it
+to save the output directly to a file using <STRONG>-o</STRONG> switch. There are special
+aids to protect several files at once, this is done using <EM>multifile</EM>
+``mode'' - see description of it in the documentation of the <STRONG>-S</STRONG> option below.</P>
+<P>All comments are stripped away by default, but this can be switched off
+by passing the <STRONG>--keep-comments</STRONG> switch. It's possible to add comments
+with author and copyright information  to the top and to the end of the
+obfuscated version of the file using options <STRONG>--bannerhead</STRONG> and
+<STRONG>--bannertail</STRONG> respectively. Of course these comments
+will appear in clear text form in the obfuscated file, independant of whether
+encoding was applied to it.</P>
+<P>The obfuscation typically means</P>
+<UL>
+<LI>
+replacing all symbol names it's possible to with the
+non-meaningfull ones, e.g. replacing variable <EM>files</EM> with <EM>zcadaa4fc81</EM>, while
+preserving synaxical and semantical correctness of the source code. Of
+course predefined symbols like <EM>document</EM> and 
+symbols from the third-party or standard libraries the source code uses will 
+be left
+the same so the obfuscated code will still work without requiring to 
+obfuscate those third-party  and standard libraries.
+<P></P>
+<LI>
+substitution of numeric values with the arithmetic 
+expressions using (random or constant for the same numeric value as requested
+by the options) decimial and hexadecimial numeric values that evaluate to the 
+same value
+<P></P>
+<LI>
+using hexadecimial character codes for all characters in strings
+<P></P>
+<LI>
+removing extra white space
+<P></P>
+<LI>
+jamming as much code on each line (of length not more than specified
+using <STRONG>--output-line-len</STRONG> option) as possible if <STRONG>--jam=0</STRONG> is not specified
+<P></P></UL>
+<P>The non-encoded obfuscated code is extremely difficult to understand for a human since
+the name of variables and subroutines and other symbols are totally meaningless
+and hard to remember (e.g. <EM>files</EM> becomes <EM>zcadaa4fc81</EM>). It's possible
+to control most aspects of obfuscation using the commandline switches of the
+CXX-Obfus.</P>
+<P>It's possible to request CXX-Obfus to save the mapping between obfuscated
+symbol names and original symbol names in the external file by passing
+the filename after <STRONG>-d</STRONG> switch.</P>
+<P>
+<HR>
+<H1><A NAME="options">OPTIONS</A></H1>
+<P>It's possible to store the default commandline options in the globally-visible
+file <EM>$instroot/lib/cxx-obfus/cxx-obfus-settings.pl</EM> (where <STRONG>$instroot</STRONG>
+is a directory in which the CXX-Obfus package was installed to). See 
+comments in that file for more information.</P>
+<P>Note that there is interacive web-based commandline builder for CXX-Obfus 
+available at <A HREF="http://www.stunnix.com/support/interactive/cmd-builder/">http://www.stunnix.com/support/interactive/cmd-builder/</A>.</P>
+<DL>
+<DT><STRONG><A NAME="item_%2Dv%7C%2D%2Dversion"><STRONG>-v|--version</STRONG></A></STRONG><BR>
+<DD>
+Output version information and exit.
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Doutput%2Dline%2Dlen_N"><STRONG>--output-line-len</STRONG> <EM>N</EM></A></STRONG><BR>
+<DD>
+Set the maximum line length for the obfuscated file. However, if some string
+constant will be longer than this limit, it won't be split or otherwise 
+wrapped, resulting in a line longer than an amount specified. The default
+value for parameter <EM>N</EM> is <EM>80</EM>.
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Djam_0%7C1"><STRONG>--jam</STRONG> <EM>0</EM>|<EM>1</EM></A></STRONG><BR>
+<DD>
+Control whether to omit extra white spaces. When argument is <EM>1</EM>, all extra
+white spaces (including carridge returns) are omitted, that makes the
+obfuscated file looking even less readable. 
+When argument is <EM>0</EM>, the obfuscated (but not encoded) file will look 
+like original file with respect to spaces and newlines - in particular it will
+have the same identation.
+By default jamming is enabled (value is <EM>1</EM>).
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dcxx11%2Dinvalid%2Doutput"><STRONG>--cxx11-invalid-output</STRONG></A></STRONG><BR>
+<DD>
+Allow to produce more compact code, but that is invalid C++11 code. By default, valid C++11 
+code  is produced.
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dkeep%2Dspaces"><STRONG>--keep-spaces</STRONG></A></STRONG><BR>
+<DD>
+Request not to skip extra spaces in the lines (whitespaces and tabs) if 
+jamming is  enabled (which is the default). By default 
+extra spaces in the line are ignored if jamming is enabled.
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dkeep%2Dnewlines"><STRONG>--keep-newlines</STRONG></A></STRONG><BR>
+<DD>
+Request not to skip newlines if jamming is  enabled (which is the default). 
+By default newlines are ignored if jamming is enabled.
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dkeep%2Dcomments"><STRONG>--keep-comments</STRONG></A></STRONG><BR>
+<DD>
+Requests to keep all comments. By default all comments are stripped away.
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dtransform%2Dcomments_replace%2Dwith%2Dnewlin"><STRONG>--transform-comments</STRONG> <EM>replace-with-newlines</EM>|<EM>truncate</EM>|<EM>chars2x</EM>|<EM>nonwhites2x</EM>|<EM>keep-original</EM></A></STRONG><BR>
+<DD>
+If <STRONG>--keep-comments</STRONG> is specified on the commandline, this option
+specifies what to do with comments.  By default comments are not modified
+(this corresponds to value <EM>keep-original</EM> of this option). The possible
+values for this option are:
+<DL>
+<DT><STRONG><A NAME="item_replace%2Dwith%2Dnewlines"><STRONG>replace-with-newlines</STRONG></A></STRONG><BR>
+<DD>
+If specified, comment delimiters and
+their bodies are removed, and are replaced with newlines contained in the
+comment bodies (thus keeping line numbers in sync with original code, but
+not revealing locations where comments were located).
+<P></P>
+<DT><STRONG><A NAME="item_truncate"><STRONG>truncate</STRONG></A></STRONG><BR>
+<DD>
+If specified, only newlines are kept in bodies of comments.
+<P></P>
+<DT><STRONG><A NAME="item_chars2x"><STRONG>chars2x</STRONG></A></STRONG><BR>
+<DD>
+If specified, newlines are kept in bodies of comments, and all other characters
+including spaces are replaced with character 'x'.
+This is useful to show that original code contained some comments, and
+give an impression on what length of them was.
+<P></P>
+<DT><STRONG><A NAME="item_nonwhites2x"><STRONG>nonwhites2x</STRONG></A></STRONG><BR>
+<DD>
+If specified, newlines are kept in bodies of comments, and all other characters
+except whitespaces are replaced with character 'x', whitespaces are left as is.
+This is useful to show that original code contained some comments, and
+give an impression on what length of them was, and what content they had
+approximately (since a lot of comments in the code happen to be various
+separators formed by repeating some character like dash for entire length
+of the line).
+<P></P>
+<DT><STRONG><A NAME="item_keep%2Doriginal"><STRONG>keep-original</STRONG></A></STRONG><BR>
+<DD>
+If specified, comments are kept as they were in original code. This is
+a default value for this option.
+<P></P></DL>
+<DT><STRONG><A NAME="item_%2D%2Dpreserved%2Dtop%2Dcomments%2Dcount_0"><STRONG>--preserved-top-comments-count</STRONG> <EM>0</EM></A></STRONG><BR>
+<DD>
+Specifies how many topmost comments in each file to be  preserved in the output.
+Often source files start with copyright notice, use this option to preserve it in output files.
+The default value for this option is 0.
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dbannerhead_filename"><STRONG>--bannerhead</STRONG> <EM>filename</EM></A></STRONG><BR>
+<DD>
+<DT><STRONG><A NAME="item_%2D%2Dbannertail_filename"><STRONG>--bannertail</STRONG> <EM>filename</EM></A></STRONG><BR>
+<DD>
+Specify the file whoose content will be prepended or appended to the
+obfuscated file. This is most useful for adding comments with copyright
+and license information. Such comments will be visible as clear text
+in any file that was obfuscated and/or encoded.
+<P></P>
+<DT><STRONG><A NAME="item_%2Do_destination%2Dfilename"><STRONG>-o</STRONG> <EM>destination-filename</EM></A></STRONG><BR>
+<DD>
+Output the obfuscated version to the named file. 
+There is no default value for this option - i.e. 
+the obfuscated file is written to stdout by default.
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dexcludeidentsfile_filename"><STRONG>--excludeidentsfile</STRONG> <EM>filename</EM></A></STRONG><BR>
+<DD>
+<DT><STRONG><A NAME="item_%2Dx_filename"><STRONG>-x</STRONG> <EM>filename</EM></A></STRONG><BR>
+<DD>
+This option can be specified more than once. It allows to specify the names of
+files that contain a list of symbol names that won't be mangled, one symbol 
+per line. 
+Such symbols are called exceptions from this point. 
+Comments are allowed in such files by placing a hash sign (<CODE>#</CODE>)
+as the first character of the line. The file name specified is first searched
+in the current directory (if it's not absolute path), and then in the
+subdirectory <EM>lib/cxx-obfus/exceptions/</EM> of the directory where
+CXX-Obfus was installed to.
+There is no need to add names of C/C++ pre-defined variables and 
+functions - they are already hardcoded into
+<EM>CXX-Obfus</EM>. The default set of 
+exceptions CXX-Obfus uses can be controlled in the file that stores
+``persistent settings'' for it - located in the 
+<EM>lib/cxx-obfus/cxx-obfus-settings.pl</EM> in the directory where 
+CXX-Obfus was installed.
+<P>It's possible to remove symbols from lists of exceptions by passing
+names of files with these symbol names using <STRONG>-X</STRONG> switch.</P>
+<P>The <EM>filename</EM> can be name of directory, in this case all files located
+in this directory and any of its subdirectories (at any depth) are 
+loaded as if the names of these files were specified individually one-by-one.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dexcludeidentsfile%2Danycase_filename"><STRONG>--excludeidentsfile-anycase</STRONG> <EM>filename</EM></A></STRONG><BR>
+<DD>
+This option is very similar to <STRONG>--excludeidentsfile</STRONG>, except that symbols
+read from the specified file are treated as case-insensitive exceptions. 
+This functionality is useful for listing methods and properties of ActiveX 
+objects, that are case-insensitive.
+<P>The <EM>filename</EM> can be name of directory, in this case all files located
+in this directory and any of its subdirectories (at any depth) are 
+loaded as if the names of these files were specified individually one-by-one.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%2DX_filename"><STRONG>-X</STRONG> <EM>filename</EM></A></STRONG><BR>
+<DD>
+This option can be specified more than once. It allows to specify the names of
+files that contain a list of symbol names that should be mangled, even
+if those symbol names were in the files with names passed with <STRONG>-x</STRONG> switch
+(i.e. for disabling some exceptions). At first files specified with <STRONG>-x</STRONG>
+switch are processed, and then files specified with <STRONG>-X</STRONG>
+switch are processed.
+<P>Comments are allowed in such files by placing a hash sign (<CODE>#</CODE>)
+as the first character of the line. The file name specified is first searched
+in the current directory (if it's not absolute path), and then in the
+subdirectory <EM>lib/cxx-obfus/exceptions/</EM> of the directory where
+CXX-Obfus was installed to.</P>
+<P>This option is mostly useful in case the set of exceptions created from
+builtin list and content of files passed with <STRONG>-x</STRONG> switch is too 
+broad.</P>
+<P>The <EM>filename</EM> can be name of directory, in this case all files located
+in this directory and any of its subdirectories (at any depth) are 
+loaded as if the names of these files were specified individually one-by-one.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dquoted%2Dsymbol%2Dnames_filename"><STRONG>--quoted-symbol-names</STRONG> <EM>filename</EM></A></STRONG><BR>
+<DD>
+This option can be specified more than once. It allows to specify the names of
+files that contain a list of symbol names that should be mangled, when found in strings.
+The string will be replaced if it contains just symbol name, without any other characters 
+in it. E.g. if the file contains the line <EM>bar</EM>, then the string <EM>``bar''</EM> will be
+replaced with a string, containing replacement used for <EM>bar</EM>, e.g. <EM>``zb4da9ec5''</EM>;
+while the strings <EM>``bar!''</EM> or <EM>``the bar near us''</EM> will not be altered 
+as name <EM>bar</EM> is surrounded by other characters inside those strings.
+<P>This can be seen alternative to using <EM>OBJNAME</EM> function. So instead of wrapping symbol
+names in call of <EM>OBJNAME</EM>, you can just list those symbols in a file and pass name of
+that file after <STRONG>--quoted-symbol-names</STRONG> switch.</P>
+<P>Note that you can use this functionality to hide some hash keys you internally use in your code
+for storing data in various structures or even config files. CXX-Obfus will also accept
+<EM>-</EM> (dash) in names of symbols loaded from <EM>filename</EM>, to allow using keys with dashes.</P>
+<P>Comments are allowed in such files by placing a hash sign (<CODE>#</CODE>)
+as the first character of the line. The file name specified is first searched
+in the current directory (if it's not absolute path), and then in the
+subdirectory <EM>lib/cxx-obfus/exceptions/</EM> of the directory where
+CXX-Obfus was installed to.</P>
+<P>The <EM>filename</EM> can be name of directory, in this case all files located
+in this directory and any of its subdirectories (at any depth) are 
+loaded as if the names of these files were specified individually one-by-one.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dsuffixes%2Dasis%2Dlist_filename"><STRONG>--suffixes-asis-list</STRONG> <EM>filename</EM></A></STRONG><BR>
+<DD>
+This option can be specified more than once. It allows to specify the names of
+files that contain a list of suffixes that should be preserved in
+symbols being mangled. E.g. if suffix <EM>onclick</EM> is listed in some file
+mentioned by this option, then symbol <EM>myButton_onclick</EM> will be
+mangled to something like <EM>z2b9a0ec6d_onclick</EM>, rather than to
+something like <EM>za40f93e635d</EM>.
+<P>Comments are allowed in such files by placing a hash sign (<CODE>#</CODE>)
+as the first character of the line. The file name specified is first searched
+in the current directory (if it's not absolute path), and then in the
+subdirectory <EM>lib/cxx-obfus/exceptions/</EM> of the directory where
+CXX-Obfus was installed to.</P>
+<P>This option is mostly useful for protecting code for environments, that scan
+name of symbol for some suffix in order to treat the symbol specially.</P>
+<P>The <EM>filename</EM> can be name of directory, in this case all files located
+in this directory and any of its subdirectories (at any depth) are 
+loaded as if the names of these files were specified individually one-by-one.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%2DF_user%2Ddefined%2Dmapping%2Dfilename"><STRONG>-F</STRONG> <EM>user-defined-mapping-filename</EM></A></STRONG><BR>
+<DD>
+This option can be specified more than once. It allows to specify the names of
+files that contain user-specified mapping of symbols.
+<P>Comments are allowed in such files by placing a hash sign (<CODE>#</CODE>)
+as the first character of the line. Each line in such file contains two 
+symbols: name of original symbol, one or more space characters, and required 
+resultant symbol.</P>
+<P>In case some mangling engine decides to assign a symbol that is listed as
+resultant symbol, special attempts will be made to guarantee that the symbol
+chosen by obfuscation engine won't conflict with it (by adding prefixes
+until unqueness is reached).</P>
+<P></P>
+<DT><STRONG><A NAME="item_%2Dd_map%2Dfilename"><STRONG>-d</STRONG> <EM>map-filename</EM></A></STRONG><BR>
+<DD>
+This option specifies the name of file to write the mapping between
+obfuscated symbol names and non-obfuscated symbol names to.
+Such mapping may be useful for analyzing C/C++ error messages that contain
+obfuscated symbol names - just find the line with the symbol C/C++ interpreter
+complained about, and the second word on that line will be the original
+symbol name. Please keep in mind that it will be much easier for a 
+person having access to such mapfile to study the code, so 
+it's highly suggested to keep such map file in secure place and not
+to distribute it to the customers.
+<P>If the file specified with this option exists, the accumulated mapping
+information will be <STRONG>merged</STRONG> with mapping information previously 
+stored in the file - this allows one to have map file for entire project.</P>
+<P>By default no filename is specified, and thus mapping information 
+is not saved anywhere.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%2D%2Dembed%2Dmap"><STRONG>--embed-map</STRONG></A></STRONG><BR>
+<DD>
+This option instructs the mapping between obfuscated symbol names and
+original  symbol names to be appended inside a comment to the result of
+processing, in form of couple of strings per line - obfuscated symbol name
+ and original  symbol name. For symbols that are exceptions (i.e. for ones
+obfuscated symbol name is the same as original) such lines are not emitted
+at all. Lines are emitted only for symbols found in subject file.
+<P>By default this mapping information is not embedded at all.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%2DD_list%2Dof%2Dsymbols%2Dfilename"><STRONG>-D</STRONG> <EM>list-of-symbols-filename</EM></A></STRONG><BR>
+<DD>
+Instructs CXX-Obfus to save a list of symbols encountered during
+processing to the <EM>list-of-symbols-filename</EM>. The file will be overwritten.
+This is useful e.g. when generating a list of exceptions from some library, 
+since the resultant file can be used for passing to <STRONG>-x</STRONG> or <STRONG>-X</STRONG>
+switches while processing files that use that library.
+<P>.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%2Di_idents%2Dmangling%2Dparams"><STRONG>-i</STRONG> <EM>idents-mangling-params</EM></A></STRONG><BR>
+<DD>
+<DT><STRONG><A NAME="item_%2Dn_number%2Dmangling%2Dparams"><STRONG>-n</STRONG> <EM>number-mangling-params</EM></A></STRONG><BR>
+<DD>
+<DT><STRONG><A NAME="item_%2Ds_string%2Dmangling%2Dparams"><STRONG>-s</STRONG> <EM>string-mangling-params</EM></A></STRONG><BR>
+<DD>
+<DT><STRONG><A NAME="item_%2DN_filename%2Dmangling%2Dparams"><STRONG>-N</STRONG> <EM>filename-mangling-params</EM></A></STRONG><BR>
+<DD>
+Specify options for mangling of tokens of each type.
+The argument is <EM>mangling-specification</EM>, that has the following syntax:
+<P><EM>obfuscator-title</EM>[,<EM>option</EM>=<EM>value</EM>]..</P>
+<P>Tokens of each type can be mangled using different approaches, each approach
+corresponds to <EM>obfuscator</EM>, identified by <EM>obfuscator-title</EM>. Each
+<EM>obfuscator</EM> can have options that alter its behaviour, in order to specify
+them the comma separated
+<EM>option</EM>=<EM>value</EM> pairs may follow <EM>obfuscator-title</EM> after a comma.</P>
+<P>The <EM>mangling-specification</EM> specifies all details on how to mangle tokens
+of each type, so if multiplie occurences of the option are specified, the last
+one is taken into the effect.</P>
+<P>For each type of token a special obfuscator with title <EM>none</EM> is available - 
+it doesn't alter the tokens in any way.</P>
+<P>Here is a list of <EM>obfuscators</EM> for each type of the token, with the options
+they support.</P>
+<DL>
+<DT><STRONG><A NAME="item_%2Di_%3D_obfuscators_for_symbol_names"><STRONG>-i</STRONG> = obfuscators for symbol names</A></STRONG><BR>
+<DD>
+It's obvious that symbols with the same name should be 
+obfuscated  to the same name, independant of location in the program
+these symbol names are locatged. It also should be obvious that entire set of modules 
+and scripts that uses them should be obfuscated using the same value of
+<EM>mangling-specification</EM> - otherwise there will appear undeclared symbols.
+<DL>
+<DT><STRONG><A NAME="item_obfuscator_none">obfuscator <STRONG>none</STRONG></A></STRONG><BR>
+<DD>
+Selecting this obfuscator will keep symbol names unchanged.
+<P></P>
+<DT><STRONG><A NAME="item_obfuscator_combs">obfuscator <STRONG>combs</STRONG></A></STRONG><BR>
+<DD>
+This obfuscator replaces names of symbols with names consisting of all
+possible combinations of characters, specified via option <EM>spec</EM>,
+of the length specified via option <EM>minlen</EM>. E.g. it 
+can replace <EM>formname</EM> with <EM>IlI</EM> and <EM>mystr</EM> with <EM>llI</EM> 
+(which both look very similar to the  human eye) if user specified
+the value of <EM>spec</EM> option as <EM>Il</EM>.
+<P>The replacement symbol depends solely on the index of symbol being seen for the first time
+in the project, and on the value of <EM>seed</EM> argument.</P>
+<P>The detection of collisions for symbols in the current file is done 
+automatically. It's possible to activate detection of collisions for symbols 
+in entire project by the use of <EM>adhere-mapfile</EM> option of this symbol
+obfuscator.</P>
+<P>If option <EM>adhere-mapping</EM> is specified for this obfuscator and has non-zero
+value and if mapfile name is specified via global option <EM>-d</EM>, then 
+CXX-Obfus will read specified mapfile at startup, and will 
+try to lookup the original symbol names in it and use a replacement from that
+file if found; it will also ensure that protected symbols that were produced
+during that invokation of CXX-Obfus are not assigned to any symbol 
+listed in mapfile (and if it encounters some obfuscated symbol it was going 
+to use as a replacement as being used as a replacement for another symbol
+(i.e. so-called ``hash-collision'' occurs) then execution of CXX-Obfus
+is aborted with error message - in which case it's necessary to
+clear mapfile, change the seed and/or increase value of <EM>len</EM> option
+and protect entire application again); after processing completes, mapfile will
+be updated as usual.</P>
+<P>Note, that <EM>shortest</EM> symbol obfuscator also can generate protected symbols 
+using all possible combinations of characters, but it allows to generate
+shortest names possible at the same time (by requiring 2 passes on each 
+source file).</P>
+<P>Options:</P>
+<DL>
+<DT><STRONG><A NAME="item_adhere%2Dmapfile"><STRONG>adhere-mapfile</STRONG></A></STRONG><BR>
+<DD>
+See description of <EM>combs</EM> obfuscator for more information on this option.
+The default value is <EM>0</EM>.
+<P></P>
+<DT><STRONG><A NAME="item_seed"><STRONG>seed</STRONG></A></STRONG><BR>
+<DD>
+The value of this option affects the order in which all possible combinations
+of characters used for symbol name are chosen. The value can be arbitrary string.
+<P></P>
+<DT><STRONG><A NAME="item_minlen"><STRONG>minlen</STRONG></A></STRONG><BR>
+<DD>
+<DT><STRONG><A NAME="item_len"><STRONG>len</STRONG></A></STRONG><BR>
+<DD>
+Minimal length of generated symbol. Once all combinations of characters
+of a given length were used for generating symbol names, the length 
+of resultant symbol name is automatically increased. This means it's not
+necessary to make the value of this option very long - set it to big
+enough value that makes your code acceptably unreadable and acceptably big.
+It's impossible to assign value lower than 4 to this option.
+The default value is for this option is <EM>10</EM>.
+<P></P>
+<DT><STRONG><A NAME="item_spec"><STRONG>spec</STRONG></A></STRONG><BR>
+<DD>
+The value of this option instructs which characters can be used for generating
+names of symbols, the value should either be string that is a 
+concatenation of all characters
+possible in the resultant symbol name, e.g. <EM>Il</EM> or <EM>OQ</EM>, or a couple of 
+such strings separated by colon, in which case a string before the colon
+specifies characters that can be used for leading symbol's character, and
+string after the colon specifies characters that can be used for all characters
+of the symbol except the first (the leading) - e.g. <EM>lI:lI1</EM> or <EM>O:O0</EM>.
+The recommended values are <EM>lI</EM>, <EM>O:O0</EM> and <EM>lI:lI1</EM>.
+If this option is not specified, it's assumed that all characters
+allowed for C/C++ language to be used for symbols can form a 
+resultant symbol name.
+<P></P></DL>
+<DT><STRONG><A NAME="item_obfuscator_mixcase">obfuscator <STRONG>mixcase</STRONG></A></STRONG><BR>
+<DD>
+This obfuscator replaces all symbols with one of names you specify, but randomly
+altering case of letters in the names. E.g. if you specify <EM>spec</EM> option as
+<EM>strictly_confidential</EM> it will replace names of symbols with
+<EM>sTrictly_CONfidENTiAl</EM>, <EM>StRiCtly_cOnFiDeNTiaL</EM>, <EM>stRIctLY_coNFiDeNTiaL</EM>
+and other possible variantions. You can specify several replacement names
+via <EM>spec</EM> option, separating them with <EM>:</EM> (colon).
+The replacement symbol depends solely on the index of symbol being seen for the first time
+in the project, and on the value of <EM>seed</EM> argument.
+<P>The detection of collisions for symbols in the current file is done 
+automatically. It's possible to activate detection of collisions for symbols 
+in entire project by the use of <EM>adhere-mapfile</EM> option of this symbol
+obfuscator.</P>
+<P>If option <EM>adhere-mapping</EM> is specified for this obfuscator and has non-zero
+value and if mapfile name is specified via global option <EM>-d</EM>, then 
+CXX-Obfus will read specified mapfile at startup, and will 
+try to lookup the original symbol names in it and use a replacement from that
+file if found; it will also ensure that protected symbols that were produced
+during that invokation of CXX-Obfus are not assigned to any symbol 
+listed in mapfile (and if it encounters some obfuscated symbol it was going 
+to use as a replacement as being used as a replacement for another symbol
+(i.e. so-called ``hash-collision'' occurs) then execution of CXX-Obfus
+is aborted with error message - in which case it's necessary to
+clear mapfile,  and change the seed and/or use longer names in <EM>spec</EM> argument,
+and then clean and rebuild entire project again.</P>
+<P>After processing completes, mapfile will be updated as usual.</P>
+<P>Options:</P>
+<DL>
+<DT><STRONG><STRONG>adhere-mapfile</STRONG></STRONG><BR>
+<DD>
+See description of <EM>combs</EM> obfuscator for more information on this option.
+The default value is <EM>0</EM>.
+<P></P>
+<DT><STRONG><STRONG>seed</STRONG></STRONG><BR>
+<DD>
+The value of this option affects the order in which all possible combinations
+of characters used for symbol name are chosen. The value can be arbitrary string.
+<P></P>
+<DT><STRONG><STRONG>spec</STRONG></STRONG><BR>
+<DD>
+The value of this option specifies replacement names, separated with a colon (<EM>:</EM>).
+If number of all possible variants all specified names allow to produce is lower than
+certain amount (<EM>512</EM>), hardcoded fallback value <EM>strictly_confidential</EM> is used.
+<P>If number of symbols that need to be replaced in the project is less than 
+number of all possible variants all specified names allow to generate, then
+obfuscation is aborted with error message.</P>
+<P>It's allowed to use non-letters in the value of this option (e.g. digits and underscore).</P>
+<P></P></DL>
+<DT><STRONG><A NAME="item_obfuscator_md5">obfuscator <STRONG>md5</STRONG></A></STRONG><BR>
+<DD>
+This obfuscator calculates md5 sum of the string produced by concatentation
+of a constant prefix (that can be passed via <STRONG>seed</STRONG> option) and the symbol 
+name to be obfuscated. After that from the hexadecimial representation of the
+md5sum several (exact length is specified using <STRONG>len</STRONG> option)
+leading characters are appended to another prefix
+(that can be set via <STRONG>prefix</STRONG> option) to form obfuscated symbol name.
+<P>It's obvious that in theory it's possible to get md5sum collision - the 
+critical situation when two different symbols will be obfuscated to the same 
+symbol name. When such situation is detected, the obfuscation is aborted.
+The detection of collisions for symbols in the current file is done 
+automatically. If detection of collisions for symbols in entire project
+is required, one can use <EM>adhere-mapfile</EM> option for enforcing uniqueness
+of protected symbols across all files - please read the description of
+symbol name obfuscator <EM>combs</EM>.
+The only solution in case md5sum collision is detected is to change the value 
+of the <STRONG>seed</STRONG> option or to increase
+the value of the <STRONG>len</STRONG> option. However, such situations are very rare.</P>
+<P>This is the default obfuscator for symbol names.</P>
+<P>Options:</P>
+<DL>
+<DT><STRONG><STRONG>adhere-mapfile</STRONG></STRONG><BR>
+<DD>
+See description of <EM>combs</EM> obfuscator for more information on this option.
+The default value is <EM>0</EM>.
+<P></P>
+<DT><STRONG><STRONG>seed</STRONG></STRONG><BR>
+<DD>
+See above for a description of this option. The value can be arbitrary string.
+The default value is generated as random string at the CXX-Obfus suite 
+installation time, so it will be unique for each user of CXX-Obfus.
+<P></P>
+<DT><STRONG><STRONG>len</STRONG></STRONG><BR>
+<DD>
+Specifies how many characters of the hexadecimial representation of the md5 
+sum to use for obfuscated name of the symbol. The less the value, the shorter
+all identifiers will be, the smaller obfuscated code will become, and the
+easier it will be for human to study the code. Also increasing the value
+lowers the probability of md5sum collision. The default value is <EM>10</EM>.
+<P></P>
+<DT><STRONG><A NAME="item_prefix"><STRONG>prefix</STRONG></A></STRONG><BR>
+<DD>
+Specifies the prefix of all mangled symbol names. It should non-empty string
+(one character is enough) just because hex representation of md5sum can begin
+with a digit. There is no point in changing the prefix. The default value is
+<EM>z</EM>.
+<P></P></DL>
+<DT><STRONG><A NAME="item_obfuscator_prefix">obfuscator <STRONG>prefix</STRONG></A></STRONG><BR>
+<DD>
+This obfuscator just prepends the same string (specified via <STRONG>str</STRONG> option)
+to all symbol names to get the obfuscated symbol name. This obfuscator is
+designed to be used for initial testing of obfuscated code for locations of
+use of undeclared symbols in obfuscated code. It's obvious that 
+while testing obfuscated code it's much more easier  to find out what symbol 
+is undeclared if it's trivial to correlate that symbol of the obfuscated
+program with the symbol of the non-obfuscated program.
+<P>Options:</P>
+<DL>
+<DT><STRONG><A NAME="item_str"><STRONG>str</STRONG></A></STRONG><BR>
+<DD>
+The string to prepend to all symbol names. Default value is <EM>Z439Z_</EM>.
+<P></P></DL>
+<DT><STRONG><A NAME="item_obfuscator_shortest">obfuscator <STRONG>shortest</STRONG></A></STRONG><BR>
+<DD>
+This obfuscator replaces each symbol name with the shortest identifier
+possible, using the shorter identifiers for symbols that are used more
+frequently. Using this obfuscator and <EM>none</EM> obfuscators for strings and
+numbers will produce the most compact version of the code possible. 
+The presence of this obfuscator turns CXX-Obfus into so-called source code <EM>``compressor''</EM>.
+<P>It's perfectly suitable for multimodule projects too.
+There are two modes of operation this obfuscator works in 
+(controlled by its parameter <STRONG>countupdate</STRONG>) - scanning through the project 
+files for computing the use counts for all symbols (used if 
+parameter <STRONG>countupdate</STRONG> is passed value <EM>1</EM>) and saving the
+counts to a special file hereafter called <EM>countsfile</EM> 
+(whose name is specified as value of 
+parameter <STRONG>countsfile</STRONG>) or performing the obfuscation
+itself using the symbol use counts from <EM>countsfile</EM> gathered during 
+first mode of operation
+(used if parameter <STRONG>countupdate</STRONG> is passed value <EM>0</EM>, or if
+this parameter is not specified at all). In the obfuscation mode
+obfuscator maintains its state (a mapping between original symbols and
+obfuscated ones) in the file whose name specified as a value of
+parameter <STRONG>statefile</STRONG> (hereafter such file will be called <EM>statefile</EM>).</P>
+<P>Note that file with symbol counts should be up to date
+- at least it should mention all symbols that are subject to obfuscation - 
+so if you added some code and introduced some new symbols, you'll have to 
+regenerate <EM>countsfile</EM>. CXX-Obfus aborts execution if it 
+encounters that some symbol was not counted at all, with diagnostics indicating
+that <EM>countsfile</EM> needs to be rebuilt. Rebuilding <EM>countsfile</EM> means
+deleting (or truncating) the <EM>countsfile</EM> and <EM>statefile</EM> and running 
+CXX-Obfus in symbol count gathering mode on all files of the project.
+If your change to the code didn't introduce new symbols but just
+increased or decreased the use of already existing ones, it won't abort
+the execution but there will be a chance that size of resultant obfuscated
+file won't be the smallest possible.</P>
+<P>So the common approach to using this obfuscator for symbol names is:
+develop and debug the code, delete files <EM>a-file-with-counts</EM> and
+<EM>a-file-with-state</EM>, then run the CXX-Obfus with options
+like this  <CODE>-i shortest,countupdate=1,countsfile=a-file-with-counts</CODE> for all
+source files in the project to gather symbol counts to the file
+<EM>a-file-with-counts</EM>, and then run CXX-Obfus with options
+like this  
+<CODE>-i shortest,countupdate=0,countsfile=a-file-with-counts,statefile=a-file-with-state</CODE>
+for all source files in the project.</P>
+<P>Another option is to process all files in your project in one invokation of  CXX-Obfus,
+and use <EM>twopasses=1</EM> option of this mangler. In that case, you won't need to 
+pass <EM>..,countsfile=a-file-with-counts,statefile=a-file-with-state</EM> options to the mangler - 
+it will maintain counts file and state file in temporary files.</P>
+<P>By default each symbol name is obfuscated to the unique, but random identifier
+of the length corresponding to the number of occurencies of the
+given symbol. That randomness of identifier can be disabled by passing
+value <EM>0</EM> for parameter <STRONG>dontshuffle</STRONG> - this will force e.g. first symbol in 
+the first source file of the project to always be obfuscated to the name
+<EM>a</EM>
+(provided there is no exception with the same name).</P>
+<P>It's possible to specify a set of characters that can be used for resultant
+symbol names by the use of <EM>spec</EM> option - e.g. one can make code very hard
+to analyze without modification by asking to use only symbols <EM>I</EM> and <EM>l</EM>
+for names of symbols - that will produce symbols like <EM>IllII</EM> or <EM>IIlIIl</EM>
+which look very similar in the most fonts (but of course this won't result
+in smallest output). 
+The use of this option makes <EM>shortest</EM> obfuscator a reliable version
+of <EM>combs</EM> obfuscator for multi-module projects, since it eliminates
+a chance for a case when two different symbols in two different modules
+(in which only one of the symbols is used) getting replaced with the same
+resultant symbol (which is possible in theory, but has a very small 
+possibility).</P>
+<P>Options:</P>
+<DL>
+<DT><STRONG><A NAME="item_countsfile"><STRONG>countsfile</STRONG></A></STRONG><BR>
+<DD>
+Location of the <EM>countsfile</EM> - the file containing use counts for all symbols.
+<P></P>
+<DT><STRONG><A NAME="item_countupdate"><STRONG>countupdate</STRONG></A></STRONG><BR>
+<DD>
+Selects the mode of obfuscator - gathering symbol use counts 
+(if value is <EM>1</EM>) or obfuscating (value is <EM>0</EM>). Default value is <EM>0</EM>.
+<P></P>
+<DT><STRONG><A NAME="item_statefile"><STRONG>statefile</STRONG></A></STRONG><BR>
+<DD>
+Specifies the name of the file with the state information used internally
+by obfuscator when it's in obfuscation mode.
+<P></P>
+<DT><STRONG><A NAME="item_dontshuffle"><STRONG>dontshuffle</STRONG></A></STRONG><BR>
+<DD>
+Instructs not to select random name of the given length as obfuscated symbol
+name, but to select the next one by alphabet not being an exception.
+<P></P>
+<DT><STRONG><STRONG>minlen</STRONG></STRONG><BR>
+<DD>
+Instructs the minimal length of resultant symbol name. Default value is <EM>1</EM>.
+<P></P>
+<DT><STRONG><A NAME="item_twopasses"><STRONG>twopasses</STRONG></A></STRONG><BR>
+<DD>
+Passing <EM>1</EM> to this option will force  CXX-Obfus to make two temporary files
+and internally pass them to <EM>statefile</EM> and <EM>countsfile</EM> options; first making 
+a pass with <EM>countsupdate</EM> set to <EM>1</EM>, and then making a pass with h <EM>countsupdate</EM> set to <EM>0</EM>.
+So it obviates the need to call  CXX-Obfus manually two times. 
+It will protect your entire project in one invokation of  CXX-Obfus.
+This option can't be used if you need to update and then reprotect only one file in your project, without 
+re-protecting all other files.
+<P></P>
+<DT><STRONG><STRONG>spec</STRONG></STRONG><BR>
+<DD>
+The value of this option instructs which characters can be used for generating
+names of symbols, the value should either be string that is a 
+concatenation of all characters
+possible in the resultant symbol name, e.g. <EM>Il</EM> 
+(that will produce symbols like <EM>IllII</EM> or <EM>IIlIIl</EM>)
+or <EM>OQ</EM> (that will produce symbols like <EM>OQOOQQ</EM> or <EM>QOOQQO</EM>), 
+or a couple of 
+such strings separated by colon, in which case a string before the colon
+specifies characters that can be used for leading symbol's character, and
+string after the colon specifies characters that can be used for all characters
+of the symbol except the first (the leading) - e.g. <EM>lI:lI1</EM> 
+(that will produce symbols like <EM>I1lII1</EM> or <EM>lI1IIl1</EM>)
+or <EM>O:O0</EM>.
+The recommended values are <EM>lI</EM>, <EM>O:O0</EM> and <EM>lI:lI1</EM>.
+The use of this option makes <EM>shortest</EM> obfuscator a reliable version
+of <EM>combs</EM> obfuscator for multi-module projects.
+If this option is not specified, it's assumed that all characters
+allowed for C/C++ language can form a resultant symbol name.
+<P></P></DL>
+</DL>
+<DT><STRONG><A NAME="item_%2Dn_%3D_obfuscators_for_numeric_constants"><STRONG>-n</STRONG> = obfuscators for numeric constants</A></STRONG><BR>
+<DD>
+There is only one non-trivial obfuscator for numeric constants currently - 
+<STRONG>sum3</STRONG>. It's the default.
+<DL>
+<DT><STRONG>obfuscator <STRONG>none</STRONG></STRONG><BR>
+<DD>
+Selecting this obfuscator will keep numbers unchanged.
+<P></P>
+<DT><STRONG><A NAME="item_obfuscator_sum3">obfuscator <STRONG>sum3</STRONG></A></STRONG><BR>
+<DD>
+This obfuscator replaces the constant value with an arithmetic expression
+consisting of addition and substraction operations on either 3 constant numeric 
+values (in case no asserters were enabled) or 2 constant numeric values 
+and 1 constant variable (in case some asserters were enabled - please
+note that asserters are not supported in Trial version of the Product),
+which are represented as decimial and hexadecimial values (their
+radixes can be changed by altering <STRONG>format</STRONG> option). For different occurencies
+of the same constant numeric values, the choice is provided between
+using the same values used in expressions, or using 2 random values and one 
+computed - this is controlled using <STRONG>const</STRONG> option. If you wish to make
+analysis of the differencies between revisions of your software more difficult, 
+you should request the use of 2 random values and one  computed in the 
+expression - this way after each obfuscation each obfuscated file will differ
+from the previous run of obfuscator. This is the default obfuscator
+(in fact it's the only non-trvial one for numeric constants).
+<P>Options:</P>
+<DL>
+<DT><STRONG><A NAME="item_const"><STRONG>const</STRONG></A></STRONG><BR>
+<DD>
+Specifies whether for the same numeric constant the obfuscation 
+should produce different substitution expression (the value for the option
+is <EM>0</EM>) or same expressuib (the value for the option is <EM>1</EM>). 
+Default value is <EM>0</EM>.
+<P></P>
+<DT><STRONG><A NAME="item_format"><STRONG>format</STRONG></A></STRONG><BR>
+<DD>
+Specifies the sprintf format string for the obfuscated substitutor.
+The default value is 
+<EM>(0x%04x+% 4d-0x%04x)</EM>.
+<P></P></DL>
+</DL>
+<DT><STRONG><A NAME="item_%2Ds_%3D_obfuscators_for_string_constants"><STRONG>-s</STRONG> = obfuscators for string constants</A></STRONG><BR>
+<DD>
+These make constant strings more difficult to read. 
+The default string obfuscator is <STRONG>hexchar</STRONG>.
+The default string obfuscator is <STRONG>none</STRONG> - that is, strings are not mangled
+at all.
+<DL>
+<DT><STRONG>obfuscator <STRONG>none</STRONG></STRONG><BR>
+<DD>
+Selecting this obfuscator will keep strings unchanged.
+<P></P>
+<DT><STRONG><A NAME="item_obfuscator_hexchar">obfuscator <STRONG>hexchar</STRONG></A></STRONG><BR>
+<DD>
+This obfuscator substitutes each character of the string with reverse slash
+and it's code, by default in hexadecimial notation - e.g. string <EM>``abc''</EM> is substituted
+with <EM>``\x61\x62\x63''</EM>.
+<DL>
+<DT><STRONG><STRONG>format</STRONG></STRONG><BR>
+<DD>
+Specifies the sprintf format string for each character's substitutor.
+The default value is <EM>'\\x%x'</EM>.
+<P></P></DL>
+</DL>
+<DT><STRONG><A NAME="item_%2DN_%3D_obfuscator_for_file_names"><STRONG>-N</STRONG> = obfuscator for file names</A></STRONG><BR>
+<DD>
+Please read the description of the <STRONG>ident</STRONG> obfuscator for identifiers. <STRONG>md5</STRONG>, <STRONG>combs</STRONG>,
+<STRONG>prefix</STRONG> and <STRONG>none</STRONG> obfuscators are supported, they basically have the same options.
+<P>Below are options that specific to mangling of filenames.</P>
+<DL>
+<DT><STRONG><A NAME="item_filename%2Dpolicy"><EM>filename-policy</EM></A></STRONG><BR>
+<DD>
+For <STRONG>md5</STRONG> and <STRONG>combs</STRONG> manglers, it specifies which part of file path is used to generate a new name of file 
+(without path!). Given same part of file path, you will get same resultant file name. Use this to control
+whether files with same name, residing in different directories, should get different resultant names, and so on.
+<P></P>
+<DT><STRONG><A NAME="item_dirname%2Dpolicy"><EM>dirname-policy</EM></A></STRONG><BR>
+<DD>
+For <STRONG>md5</STRONG> and <STRONG>combs</STRONG> manglers, it specifies which part of directory path is used to generate a new name of directory. 
+I.e. should subdirectories with same name, residing in different directories, get same or different resultant names.
+<P></P>
+<DT><STRONG><A NAME="item_sysdir%2Dfile%2Dmangling"><EM>sysdir-file-mangling</EM></A></STRONG><BR>
+<DD>
+This option controls whether name of file specified using #include &lt; &gt; be subject to filename mangling.
+So if you have <STRONG>time.h</STRONG> in your project, and have a #include &lt;time.h&gt; line in your code, depending on this 
+option that line will be either updated (and resultant name of <STRONG>time.h</STRONG> present in your project be used) or whether
+it will be left unmodified. Set it to 1 for projects that use  #include &lt; &gt; to refer to their own
+files.
+<P></P>
+<DT><STRONG><A NAME="item_lowercase%2Dbefore%2Dmangling"><EM>lowercase-before-mangling</EM></A></STRONG><BR>
+<DD>
+This option controls whether name of file or folder is lowercased before applying mangler to it. If you mix case of
+filenames in your project (e.g. if you refer to MyFile.h as myFile.h and myfile.h in different places via #include
+directive, then you have to have this option enabled). By default it's enabled.
+<P></P>
+<DT><STRONG><A NAME="item_alter%2Dfilenames"><EM>alter-filenames</EM></A></STRONG><BR>
+<DD>
+<DT><STRONG><A NAME="item_alter%2Ddirnames"><EM>alter-dirnames</EM></A></STRONG><BR>
+<DD>
+These options are accepted only by <STRONG>prefix</STRONG> filename mangler. They allow you to control separately altering
+names of files and directories. This is handy when debugging your scripts and Makefiles. Note, that <STRONG>md5</STRONG> and <STRONG>combs</STRONG>
+manglers allow to turn of mangling names of files or names of directories using <STRONG>filename-policy</STRONG>
+and <STRONG>dirname-policy</STRONG> (pass <STRONG>nochange</STRONG> to disable altering names of files or directories).
+<P></P></DL>
+</DL>
+<DT><STRONG><A NAME="item_%2D%2Dalter%2Donly%2Dsymbols%2Dfrom%2Dantiexceptio"><STRONG>--alter-only-symbols-from-antiexceptions</STRONG></A></STRONG><BR>
+<DD>
+If this option is specified, only symbols listed as antiexceptions will be altered. If symbol is listed as exception and 
+as antiexception, it will not be altered. This option is useful if you need to alter only certain set of symbols.
+<P></P>
+<DT><STRONG><A NAME="item_%2DS_server%2Dmode%2Dparams"><STRONG>-S</STRONG> <EM>server-mode-params</EM></A></STRONG><BR>
+<DD>
+Specify options for server mode backends.
+The argument is <EM>server-specification</EM>, that has the following syntax:
+<P><EM>server-backend-title</EM>[,<EM>option</EM>=<EM>value</EM>]..</P>
+<P>There are several types of backends. The backend is selected
+by <EM>server-backend-title</EM>. Each
+<EM>backend</EM> can have options that alter its behaviour, in order to specify
+them the comma separated
+<EM>option</EM>=<EM>value</EM> pairs may follow <EM>server-backend-title</EM> after a comma.</P>
+<P>There is a special backend with title <EM>none</EM> available -
+it doesn't perform any action other than processing selected input file
+(i.e. it doesn't have any server behaviour).</P>
+<P>When non-default backend is used, CXX-Obfus waits for input coming from
+a backend-specific source, processes input according to commandline
+options given to it when CXX-Obfus was started (this means that
+the same set of exceptions and other processing options
+will be used for all supplied inputs), and
+returns the result of processing in the backend-specific way to the client
+(or stores them somewhere).</P>
+<P>Here is a list of <EM>server-backend-title</EM>s, with the options they support.</P>
+<DL>
+<DT><STRONG><A NAME="item_none"><STRONG>none</STRONG></A></STRONG><BR>
+<DD>
+When it's selected, CXX-Obfus will read input file from stdin or from
+file whose name is passed as a commandline argument, and will produce output
+on stdout or to the file specified with <STRONG>-o</STRONG> option. This server mode
+has no options. This is default server mode.
+<P></P>
+<DT><STRONG><A NAME="item_multifile"><STRONG>multifile</STRONG></A></STRONG><BR>
+<DD>
+This server mode allows to process several files with the same set of
+commandline options at once. The names of files are passed as commandline
+arguments of CXX-Obfus or via <STRONG>filelist</STRONG> parameter; 
+they may be located in different directories.
+The name of the output directory is specified with <EM>outdir</EM> option of
+this server mode; if filenames to process are absolute pathnames it's necessary
+to specify input directory relative to which output filenames will be 
+computed by the use of option <EM>indir</EM>. 
+If filenames to process are relative names, it's assumed that current directory
+is input directory relative to which output filenames will be computed.
+All necessary output subdirectories will automatically be created.
+<P>Example:</P>
+<P>The following commandline fragments:</P>
+<PRE>
+    -S multifile,outdir=/home/user/prj1/out,indir=/home/user/prj1/in \
+        /home/user/prj1/in/file1..cpp /home/user/prj1/in/file2..cpp \
+        /home/user/prj1/in/subdir1/file3..cpp</PRE>
+<P>and</P>
+<PRE>
+    -S multifile,outdir=/home/user/prj1/out \
+        file1..cpp file2..cpp subdir1/file3..cpp</PRE>
+<P>are equivalent if current directory is <EM>/home/user/prj1/in</EM>. So at first
+ CXX-Obfus will create <EM>/home/user/prj1/out/subdir1</EM> (if absent),
+and will put protected version of <EM>file1..cpp</EM> to 
+<EM>/home/user/prj1/out/file1..cpp</EM>, <EM>file2..cpp</EM> to 
+<EM>/home/user/prj1/out/file2..cpp</EM> and <EM>subdir1/file3..cpp</EM> to 
+<EM>/home/user/prj1/out/subdir1/file3..cpp</EM>.</P>
+<P>Options supported:</P>
+<DL>
+<DT><STRONG><A NAME="item_outdir"><EM>outdir</EM></A></STRONG><BR>
+<DD>
+This option is required; it specifies the output directory.
+<P></P>
+<DT><STRONG><A NAME="item_indir"><EM>indir</EM></A></STRONG><BR>
+<DD>
+This option specifies base input directory  used to compute
+input file names (see example above); specifying this option is not
+necessary if all input filenames specified are relative.
+<P></P>
+<DT><STRONG><A NAME="item_filelist"><EM>filelist</EM></A></STRONG><BR>
+<DD>
+This option specifies name of file that contains filenames to
+process, one per line. Filenames should be relative to the 
+directory specified by <STRONG>indir</STRONG> parameter. This is not mandatory option - 
+if it's not specified, names of files to process are taken from the 
+command line.
+<P></P></DL>
+</DL>
+<DT><STRONG><A NAME="item_%2DO_profile%2Dparams"><STRONG>-O</STRONG> <EM>profile-params</EM></A></STRONG><BR>
+<DD>
+Tune the behaviour of the CXX-Obfus for some specific dialect or 
+environment.
+<P>The argument is <EM>profile-params</EM>, that has the following syntax:</P>
+<P><EM>profile-name</EM>[,<EM>option</EM>=<EM>value</EM>]..</P>
+<P>There are several profiles available. The profile is selected
+by <EM>profile-name</EM>. Each
+profile can have options that alter its behaviour, in order to specify
+them the comma separated
+<EM>option</EM>=<EM>value</EM> pairs may follow <EM>profile-name</EM> after a comma.</P>
+<P>The following values for <EM>profile-name</EM> are available:</P>
+<DL>
+<DT><STRONG><A NAME="item_default"><EM>default</EM></A></STRONG><BR>
+<DD>
+Selects default C/C++ dialect.
+<P></P></DL>
+<P>The profile with name <EM>default</EM> is the default profile.</P>
+<P>All profiles have the following options (specified in the way options
+for manglers and extractors are specified):</P>
+<DL>
+<DT><STRONG><A NAME="item_handle%2Ddynamic%2Dscripts"><STRONG>handle-dynamic-scripts</STRONG></A></STRONG><BR>
+<DD>
+Specifies whether dynamic C/C++ code (the code generated on the fly)
+should be obfuscated.
+See the description of the option with the same name for <EM>asp</EM> extractor.
+<P></P>
+<DT><STRONG><A NAME="item_dynamic%2Dscripts%2Dby"><STRONG>dynamic-scripts-by</STRONG></A></STRONG><BR>
+<DD>
+Specifies names of objects and methods whoose arguments should be
+scanned for dynamic C/C++ code. 
+See the description of the option with the same name for <EM>asp</EM> extractor.
+<P></P></DL>
+</DL>
+<P>
+<HR>
+<H1><A NAME="return value">RETURN VALUE</A></H1>
+<P>In case of an error, the exit code will be non-zero, otherwise the
+exit code will be zero.</P>
+<P>
+<HR>
+<H1><A NAME="diagnostics">DIAGNOSTICS</A></H1>
+<P>On successful processing of the file its obfuscated and/or encoded version
+will be printed to stdout or saved to file specifed with <STRONG>-o</STRONG> commandline
+option. 
+The processing will stop
+if there is a syntax error in the file being obfuscated or in the file
+it uses - in that case location and details of syntax error will be
+printed to stderr.</P>
+<P>
+<HR>
+<H1><A NAME="examples">EXAMPLES</A></H1>
+<P>The following commandline obfuscates and encodes file <EM>blah..cpp</EM> using default 
+parameters and exceptions from file named <EM>./excepts</EM>, 
+writing obfuscated and encoded version to <EM>oblah..cpp</EM>:</P>
+<PRE>
+    cxx-obfus blah..cpp -o oblah..cpp -x ./excepts</PRE>
+<P>The following commandline is recommended way of obfuscating file 
+<EM>blah..cpp</EM> for shipping using default parameters and exceptions from file 
+named <EM>./excepts</EM>, writing obfuscated and encoded version to <EM>oblah..cpp</EM> (the main
+difference from previous example is passing the value of the <STRONG>seed</STRONG> 
+parameter for obfuscator routine for symbol names):</P>
+<PRE>
+    cxx-obfus blah..cpp -o oblah..cpp -x ./excepts -i md5,seed=SomeRandomString</PRE>
+<P>The following commandline is a recommended for producing the mildly-obfuscated
+non-encoded version of the  <EM>blah..cpp</EM> that is ideal for testing whether the obfuscated
+code  has no problems like use of undefined symbols (that may arise due to
+insufficiently complete list of exceptions in file <EM>./excepts</EM>) :</P>
+<PRE>
+    cxx-obfus blah..cpp -e 0 -o oblah..cpp -x ./excepts -n none -s none -i prefix,str=ZZZ</PRE>
+<P>The following commandlines are a sample of passing same set values for all options
+to the <STRONG>md5</STRONG> obfuscator routine for symbol names. It obfuscates and encodes
+file <EM>blah..cpp</EM>, writing obfuscated and encoded version of the file to <EM>oblah..cpp</EM>:</P>
+<PRE>
+    cxx-obfus blah..cpp -o oblah..cpp -i md5,seed=57823,prefix=p,len=5
+    cxx-obfus blah..cpp -o oblah..cpp -i 'md5,prefix=p, seed=57823 , len=5'</PRE>
+<P>The following example obfuscates and encodes file <EM>blah..cpp</EM>, 
+writing obfuscated and encoded version of the file to <EM>oblah..cpp</EM>,
+with embedding code for license checking that allows the code to be executed
+itself till 28 April 2005; upon expiration
+of the code default message is printed:</P>
+<PRE>
+    cxx-obfus blah..cpp -o oblah..cpp 
+        -T 'expire,whenexpires=28 April 2005,onviolated-warn=1' 
+        -H hosttails,matches=site.com+.site.com,onviolated-warn=1</PRE>
+<P>
+<HR>
+<H1><A NAME="files">FILES</A></H1>
+<P>It's possible to store the default commandline options in the globally-visible
+file <EM>$instroot/lib/cxx-obfus/cxx-obfus-settings.pl</EM> (where <STRONG>$instroot</STRONG>
+is a directory in which the CXX-Obfus package was installed to) 
+which is a Perl module. 
+This file defines one sub <EM>cmnargs</EM> that should return a list of
+options to  be prepended to actual commandline the cxx-obfus, thus allowing to store
+``persistent settings'' for cxx-obfus.</P>
+<P>
+<HR>
+<H1><A NAME="notes">NOTES</A></H1>
+<P>In most cases, once properly prepared for obfuscation, obfuscated version 
+of the code should work the same as non-obfuscated. 
+After fixing the issues with incomplete
+set of exceptions, it's recommended to check whether ofbuscated code behaves
+exactly the same as original - by using pre-existing testsuite or 
+checking functionality manually.</P>
+<P>If some obfuscated code is syntaxically correct but works differently
+than original version , 
+obfuscate it without encoding and string, integer and ident mangling 
+as following:</P>
+<P>Then try to run it again. If it still does not work correctly, find the source 
+file which is guilty by replacing each of the obfuscated files with original
+ones one by one. After you have found the file that contains the problem, 
+append the definitions of all functions from the source file to that target
+file and by temporary renaming function names in the appended part 
+to something else (e.g. by suffixing 
+the names with '1' or 'blah') you will
+be able to find the function that is guilty. Same process can be applied to
+the blocks in the guilty function too (just replace obfuscated parts with
+source parts) to find out which part of the obfuscate function is misbehaving.</P>
+<P>Having found the function block that misbehaves, that block should be
+modified in order the obfuscated version to have the same functionality
+as original code.</P>
+
+</BODY>
+
+</HTML>

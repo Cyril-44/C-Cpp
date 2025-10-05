@@ -1,0 +1,8 @@
+<%
+    my ($title) = @_;
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module
+
+%>
+
+txt here <%$ tooltip("prj.indir") %>
+<p>

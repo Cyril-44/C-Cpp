@@ -1,0 +1,46 @@
+<html>
+<head><title>Your goodbye page is missing!</title>
+<body>
+<b>
+It turned out that you didn't put a file named 
+<tt>/spws-terminate-and-release-cd.html</tt> onto the top of the web documents root - i.e.
+in <tt>/site/www/root/spws-terminate-and-release-cd.html</tt>.</b>
+
+<p>
+The document with URL /spws-terminate-and-release-cd.html is shown when one tries to
+terminate site in some way - using tray icon on windows or by clicking that special link
+that points to <tt>/stop-the-server/helper-stop-httpd.exe</tt>. Even if you are producing
+Linux-only or Mac-only CD, that location will still be executed (but Perl script will be
+sitting at that location due to some magic, not executable file!)
+<p>
+You can put a javascript or html redirect to it - e.g. if you prefer that page to be
+produced by PHP or if you need to use different url from proper display of the document.
+E.g. put javascript with body <tt>"location.href= '/goodbye.php';"</tt> there to show
+page '/goodbye.php'. Don't use port number in the URL since it varies from invokation to
+invokation!
+<p>
+It may make sense to say good bye to that page, invite to test other product of your company,
+or do something else.
+<p>
+<b>The shutdown process for your web server (and all infrastructure) have been started.</b>
+</body>
+</html>
+
+<!--
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+some comment to make body larger - otherwise MSIE won't display the page
+-->

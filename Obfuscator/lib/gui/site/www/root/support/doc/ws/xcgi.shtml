@@ -1,0 +1,128 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Perl Web Server - using XCGI for dynamic content" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Perl Web Server</a>
+</span></div>
+<div class=body>
+<h1>Introduction to XCGI</h1>
+Since most browser-based applications are dynamic web sites by nature,
+there is a need to efficiently support dynamically generated content.
+The recommended way is to use XCGI protocol, similar to CGI in spirit,
+for producing dynamic content using Perl code. The sample site shipped
+with Stunnix Perl Web Server includes
+sample trivial XCGI script in
+<tt>/sample-image/site/www/apps/sample-lib/Mods/mod1.pm</tt>
+and a <i>descriptor</i> for it in
+    <tt>/sample-image/site/www/root/sample-xcgi.xcgi</tt>.
+<p>
+The XCGI protocol Stunnix Perl Web Server supports is designed to allow
+one process to serve several http requests, thus eliminating startup
+time of Perl interpreter and time it needs to parse and compile code.
+It's very similar to <a href=http://www.fastcgi.com>FastCGI</a> protocol
+in spirit, since it explicitly organizes flow control and lifetime of 
+variables, unlike <a href=http://apache.perl.org/>mod_perl framework</a>.
+<p>
+When request comes that is to be handled by <b>mod_xcgi</b> module
+of Stunnix Perl Web Server, serving of this request is dispatched to one
+of the slave processes of Stunnix Perl Web Server. The chosen slave process
+checks whether it ever loaded corresponding XCGI script during its lifetime.
+If not, the file to which requested URL maps is loaded by the slave (using
+Perl "do" keyword). The return value of the "do"  operator is reference to subroutine that 
+has to be invoked to serve the request. The reference to Perl subroutine
+is stored in the slave process' dictionary, and then it's invoked.
+After the request to the corresponding XCGI script comes again, slave
+process just invokes the subroutine using reference extracted from
+dictionary. Before subroutine is invoked, environment is prepared 
+the same way it's prepared for CGI scripts, and input and output are
+redirected to the socket that interfaces with browser in certain manner.
+This means that subroutine gets the same operating environment (i.e.
+STDIN/STDOUT/%ENV) the CGI script would get - meaning that all standard
+modules designed for CGI environment (most importantly, CGI.pm) 
+just work if used in XCGI. The only sign of running via XCGI for scripts
+is non-zero value of $ENV{RUNNING_VIA_XCGI}.
+
+<h2>Writing a descriptor of the XCGI script</h2>
+In order to simplify development of XCGI scripts, a Perl framework is
+provided as XCGI.pm module. Using this framework, the file that is processed
+by XCGI script is effectively a description of the location of the code
+to load. Here is a content of 
+<tt>/sample-image/site/www/root/sample-xcgi.xcgi</tt> from sample site
+shipped with SPWS:
+<pre class=bigtext>
+#!/usr/bin/perl
+use XCGI;
+XCGI::run( {
+	'inc'		=&gt; "$ENV{'DOCUMENT_ROOT'}../apps/sample-lib/",
+	    #don't use any path separator after $ENV{} - since it will make
+	    #your script platform-dependant!!
+        'nocache'       =&gt; (0+$ENV{XCGI_DONTCACHE_COMPILED_CODE}),
+            #the line above computes whether to cache compiled scripts in
+            #memory. To prevent XCGI scripts from being cached in memory
+            #(i.e. to force reloading of them on each request - e.g. during
+            #debugging them) uncomment corresponding "Set Env" entry at
+            #the bottom of 'http.conf'
+	'module' 	=&gt; 'Mods::mod1',#name of module with implementation
+					#of XCGI handler
+	'function'	=&gt; 'doit'	#name of sub to execute from that
+					#module. Name 'handler' is default
+					#name
+    } );
+</pre>
+
+As you can see, it loads XCGI.pm module, and then calls subroutine <i>run</i>
+from XCGI passing various options in the reference to anonymous hash.
+The options are 'inc' (locations to add to @INC - list of directories
+to seach for modules in), 'nocache' (whether slave process should exit after
+serving one request to XCGI - e.g. during development), 
+'module' - specifying name of module to load
+for handling the request, and 'function' -  specifying name of subroutine
+to invoke from that module.
+
+<h2>Writing XCGI script</h2>
+The XCGI script itself should be a Perl module, containing a subroutine
+that is invoked to handle http request. Here is a sample trivial XCGI
+script (simpler than script shipped with SPWS in sample site, located
+in file 
+    <tt>/sample-image/site/www/apps/sample-lib/Mods/mod1.pm</tt>):
+<pre class=bigtext>
+package Mods::mod1;
+my $nr = 0;
+
+#this is subroutine that is executed to handle request.
+sub doit
+{
+    ++$nr;
+    print "Content-type: text/html\n\n";
+    print "Hi from Mods::mod1 - invoked $nr time(s)&lt;br&gt;";
+    1;
+}
+
+1;			    
+</pre>
+<p>
+The code can perform any initialization (like opening files or connections
+to database) at the module's scope.
+<p>
+XCGI.pm module also allows to
+write http request  handlers that
+can be executed as plain CGI scripts and FastCGI scripts 
+when used in other web servers like Apache; support for execution them
+under mod_perl is planned too.
+
+<h2>Debugging XCGI scripts</h2>
+During development it can be desireble to have web server to reload all 
+sources of XCGI scripts before each request (e.g. to notice modifications
+or bugfixes made by developer). The value of 'nocache' option in XCGI
+descriptor controls this; the most convenient way to initialize the value
+passed to this option on a site-wide basis is using environment variable.
+We think that most convenient way to set them on site-wide or per-location
+basis is using <a href=cfgfile.shtml>configuration file directives</a>.
+The sample configuration file shipped with SPWS already has a commented-out
+section that sets environment variable XCGI_DONTCACHE_COMPILED_CODE, and
+sample XCGI descriptors use them for initializing option 'nocache'; we advice
+other developers to follow this approach.
+
+</div>
+<!--#include virtual="/f.shtml" -->

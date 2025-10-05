@@ -1,0 +1,43 @@
+<!--#set var="title" value="Stunnix products documentation: Stunnix Perl Web Server - commandline options supported" -->
+<!--#include virtual="/h-ws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Perl Web Server</a>
+</span></div>
+<div class=body>
+<h1>Supported commandline options</h1>
+The script to just start Stunnix Perl Web Server on a predefined port
+(without free port autodetection and without opening browser window) is
+'srvrun.pl' script. This script supports the following commandline options:
+<dl>
+<dt>--cfgfile <i>configuration-file-name</i></dt>
+    <dd>This option makes SPWS reading <i>configuration-file-name</i> 
+	for configuration settings. If no such option specified at all,
+	SPWS tries to load <i>httpd.conf</i> file in the directory
+	where <i>srvrun.pl</i> script resides.</dd>
+
+<dt>--cfgline <i>configuration-file-line</i></dt>
+    <dd>This option adds <i>configuration-file-line</i> to the
+	internal buffer. Once all commandline options are scanned
+	and all configuration files parsed,
+	that internal buffer is parsed as configuration file. Please
+	beware of quoting problems since 
+	<i>configuration-file-line</i> always will contain spaces - 
+	some shells on several operating 
+	systems have bizarre quoting rules - e.g. Windows allows only
+	double quotes as quoting character. Passing double quotes inside
+	argument on some systems is difficult task. So in cases when
+	identical cross-platform behaviour is desired
+	it's recommended to create a temporary configuration file and
+	put all configuration file lines to it, and specify the name of
+	the file using <b>--cfgfile</b> option.
+	</dd>
+<dt>--dont-capture-stderr</dt>
+    <dd>Passing this option requests SPWS not to redirect its standard error 
+	output to a files named 'srvlog' and 'clilog' in the directory where
+	<i>srvrun.pl</i> script resides (all errors and 
+	abnormal conditions are reported in these files).
+    </dd>	
+</dl>
+<!--#include virtual="/f.shtml" -->

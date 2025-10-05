@@ -1,0 +1,97 @@
+<!--#set var="title" value="How to install or upgrade guide a purchased copy of Stunnix Advanced Web Server" -->
+<!--#include virtual="/h-aws.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>Stunnix Advanced Web Server</a>
+</span></div>
+<div class=body>
+
+<b>PLEASE READ THIS CAREFULLY! OTHERWISE PRODUCTS CREATED WITH SAWS
+WILL EXPIRE!</b>
+
+<h1>Introduction</h1>
+Upon purchase of Stunnix Advanced Web Server or receiving an update to it,
+you receive a file named <t>saws-patcher-nontrial.zip</t>.
+
+
+Just unpack it to any directory and then run a program specific to the OS:
+run-patcher-on-windows.exe on Windows, Run-Patcher-on-MacOS-X on OSX
+and run-patcher-on-linux-or-unix.sh (in terminal) on Linux. It will patch
+a trial SAWS into non-trial (updating files for all platforms). It can also be
+used to patch products created with trial SAWS too.
+<p>
+Before running, please ensure that SAWS (or product created with it) is not running
+(otherwise patcher will silently fail to patch busy files). The safe way to ensure
+this is to reboot your computer; other way is killing all httpd, apache, mysql
+processes.
+<p>
+If you forget to apply this patch to demo or to products created with demo,
+they will stop working in about 4 monthes.
+<p>
+
+After patching, <b>PLEASE test the site you've created by setting clock of your PC 10
+monthes ahead  and running your product to ensure that you've turned your web server 
+into NON-TRIAL correctly.</b> You will have to reburn CDs and resend them to your
+customers if CDs are expired!
+
+
+
+<p>
+If you never evaluated SWS before, please follow
+<a href=quick-start-guide.shtml>short HOWTO</a> on using the product.
+
+<h1>Handling the license key</h1>
+The license key you get when purchasing needn't be put into any file on CDROM,
+it's just a proof that you've purchased our product.
+
+
+<h1>Notes on updating to new version of SWS</h1>
+Once new version of Stunnix Advanced Web Server is released, a patcher is
+sent (as attachment) to all customers who purchased a product (or update to it) 
+during the 365 days before the date of release.
+<p>
+The update is the same file that one receives when purchasing a product
+in the <a href=/store/>store</a>. The list of changes introduced in each 
+new version of the product is always available 
+<a href=/prod/aws/whatsnew.shtml>on a dedicated What's New page</a>.
+<p>
+In some new versions of SWS  Perl and PHP interpreters and MySQL server can also 
+be updated (and it's
+also mentioned in <a href=/prod/aws/whatsnew.shtml>What's New page</a>),
+so if stated that something besides web server core is updated,
+one will also need to 
+<a href=/prod/aws/eval-req.shtml>register  again</a> for receiving a download 
+link to the full trial, download it and apply patch to it.
+
+
+<h1>Consider protecting your code from theft and analysis</h1>
+
+We recommend you to protect scripts used in your site.
+<ul>
+<li>
+<i>To protect JavaScript from analysis and theft and for mangling html</i>, 
+you can
+ use <a href=/prod/jo/overview.shtml>Stunnix JavaScript Obfuscator</a>;
+
+<li>
+<i>To protect VBScript from analysis and theft and for mangling html</i>, 
+    you can
+ use <a href=/prod/vbso/overview.shtml>Stunnix VBScript and ASP Obfuscator</a>;
+
+<li>
+<i>To protect Perl scripts from analysis and theft</i>, 
+    you can
+ use <a href=/prod/po/overview.shtml>Stunnix Perl-Obfus</a> - 
+    an advanced obfuscator and encoder for Perl source code;
+
+<li>
+<i>To protect PHP scripts from analysis and theft</i>, 
+    you can use
+    <a href=http://ioncube.com>IonCube PHP encoder</a> - it's already
+    integrated into SPWS and supported on all platforms. 
+</ul>
+
+
+
+<!--#include virtual="/f.shtml" -->

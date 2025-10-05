@@ -1,0 +1,247 @@
+<%
+    use obfui::cmn;
+    my ($args) = @_;
+%>
+<html>
+<head><title><%= $args->{title} %></title>
+<link rel=stylesheet type=text/css href=/res/$skin/res.css>
+<link rel=stylesheet type=text/css href=/res/$skin/res-obfui.css>
+<link rel=stylesheet type=text/css href=/res/$skin/res-obfui-samples.css />
+<script type="text/javascript" src="/res/obfui.js"></SCRIPT>
+<script type="text/javascript" src="/res/overlib.js"><!-- overLIB (c) Erik Bosrup --></SCRIPT>
+<script  language="JavaScript">
+<!--
+var skin_do_set_footer_in_js = 1; //needed for 'silver' and 'red'
+-->
+</script>
+
+<script type="text/javascript" src="/res/overlib_shadow.js"><!-- overLIB (c) Erik Bosrup --></SCRIPT>
+<script type="text/javascript" src="/res/$skin/skin.js"></SCRIPT>
+<script  language="JavaScript">
+<!--
+if (navigator.appName.indexOf('Netscape')!=-1 || 
+    navigator.appName.indexOf('Konqueror')!=-1 )
+{
+    document.write('<link rel=stylesheet type=text/css href=/res/$skin/mozres.css>');
+}
+function ge_by_id(nm)
+{
+    return document.getElementById(nm);
+}
+function setFooterBottom(resetpos)
+{
+    if (!skin_do_set_footer_in_js) return;
+    obj=document.getElementById('footer');
+    if (!obj)
+	return;
+    if (navigator.appName.indexOf('Explorer')!=-1)
+	resetpos=0;
+    if (resetpos && obj.style['position'] && obj.style.position == 'absolute')
+    {
+        obj.style.position = 'auto';
+        obj.style.top = 0 + 'px';	
+    }
+    var H;
+    {
+	var test1 = document.body.scrollHeight;
+	var test2 = document.body.offsetHeight
+	if (test1 > test2) // all but Explorer Mac
+	{
+    	    H = document.body.scrollHeight;
+	}
+	else // Explorer Mac;
+    	    //would also work in Explorer 6 Strict, Mozilla and Safari
+	{
+    	    H = document.body.offsetHeight;
+	}
+    }
+    divoffset = 30;//should be same in CSS too!
+    if (obj.offsetTop < H - divoffset){
+	pos = H - divoffset;
+        obj.style.position = 'absolute';
+        obj.style.top = pos + 'px';
+    }
+}
+
+function setFooterBottom_tbl(resetpos){
+    if (!skin_do_set_footer_in_js) return;    
+    obj=document.getElementById('bodytbl');
+    if (!obj)
+	return;
+    if (navigator.appName.indexOf('Explorer')!=-1)
+	resetpos=0;
+    var H;
+    {
+	var test1 = document.body.scrollHeight;
+	var test2 = document.body.offsetHeight
+	if (test1 > test2) // all but Explorer Mac
+	{
+    	    H = document.body.scrollHeight;
+	}
+	else // Explorer Mac;
+    	    //would also work in Explorer 6 Strict, Mozilla and Safari
+	{
+    	    H = document.body.offsetHeight;
+	}
+    }
+    divoffset = 115;
+    if (obj.offsetTop < H - divoffset){
+	pos = H - divoffset;
+        obj.style.height = pos + 'px';
+    }
+    if (0) {
+    obj=document.getElementById('megatbl');    
+    obj.style.width = document.body.scrollWidth;
+    };
+}
+
+
+
+function openwnd(url,name,opts)
+{
+    if (!window.open(url,name,opts))
+    {
+	alert("Action not completed since your browser has blocked window " +
+		"popup. Please disable popup blocking for this site.");
+    };
+}
+-->
+</script>
+</head>
+<body marginwidth=0 marginheight=0 topmargin=0 leftmargin=0 id='<%= $args->{content} %>'
+onload='setFooterBottom(0);$args->{onloadcode}'
+onresize='setFooterBottom(1);'>
+% my $footer_content = '&copy; 2002-2009 Stunnix. All rights reserved.';
+% if ($skin ne 'modern') {
+<table CLASS=megatable id=megatbl><tr><td>
+<% if (!$args->{'metapage-is-dedicated-window'}) { %>
+
+
+
+<table class=base2>
+<tr>
+<td class=base2-leftcell></td>
+<td class=base2-center>
+
+  <div class=title-cell>
+  <span class=logo>
+    <span class=pagetitle><%= length($args->{title}) ? "$args->{title} - " : '' %></span>
+    <span class=stunnix>Stunnix</span>
+    <span class=prodname><%= $args->{product} %></span>
+    <span class=resttitle>Project Manager</span> 
+  </span>
+  </div>
+
+  <div class=winops-cell>
+    <%  $forge->include('wgt-wndopts') %>
+  </div>
+
+  <div class=block-with-menuitems width=100%>
+    <center>
+	    <table ><tr><td >
+		<%  $forge->include('block-menu') %>
+	    </td></table>
+    </center>
+  </div>
+
+
+</td> <!-- a cell of submegatable -->
+<td class=base2-rightcell></td>
+</table>
+
+<% } %>
+
+</td></table> <!-- of megatable -->
+
+
+<div class=body>
+<div class=colored-fields>
+<% if (!$args->{'metapage-is-dedicated-window'}) { %>
+    <!-- before page content -->
+	<%  $forge->include($args->{content},@{$args->{args}}); %>
+    <!-- end page content -->
+<% } else { %>
+<div class=dedicated-body>
+<h2><%= (!$args->{'no-h1-title'} ? $args->{title} : '') %></h2>
+    <!-- before page content -->
+	<%  $forge->include($args->{content},@{$args->{args}}); %>
+    <!-- end page content -->
+</div>
+<% } %>
+<p>
+
+
+</div>
+</div>
+
+
+
+
+
+<div align=center id=footer>
+<table class=botnav> 
+<tr><td class=page-footer><center><%= $footer_content %></center></td>
+</table></div>
+
+% } else { 
+######################### modern skin goes here!
+
+<div class=footer>
+<%= $footer_content %>
+</div>
+
+<div class=page-title
+>Changing project properties - Stunnix JS-Obfus FIXME</div>
+
+<!-- FIXME -->
+<div class=wndops><img src=res/obfui-nav-back.png></img
+><img src=res/obfui-nav-fwd.png></img></div>
+
+
+<table class=frame>
+<tr>
+<td class=frame-ul></td>
+<td class=frame-u>
+
+
+
+</td><td class=frame-ur></td>
+</tr>
+<tr><td valign=bottom class=frame-l><img src=res/frame-l.png
+    ></img></td><td class=frame-content>
+
+    <!-- before page content -->
+	<%  $forge->include($args->{content},@{$args->{args}}); %>
+    <!-- end page content -->
+
+</td>
+<td  valign=bottom  class=frame-r><img src=res/frame-r.png></img></td>
+</tr>
+<tr>
+<td class=frame-bl></td>
+<td class=frame-b><div class=push></div></td>
+<td class=frame-br></td>
+</tr>
+</table>
+
+
+
+<div id=menu
+><center><table border=0 id=tblmenu><tr id=mainrow><td id=left-menu-piece
+></td><td id=center-menu-piece>
+<a href=/>Project</a>
+<a href=/>Settings</a>
+<a href=/>Symbols</a>
+</td><td id=right-menu-piece></td></tr></table></center></div>
+
+
+
+% }
+
+</body>
+<script language=javascript>
+<!--
+    setFooterBottom(0);
+-->
+</script>
+</html>

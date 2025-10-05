@@ -1,0 +1,6 @@
+<% 
+    my ($title,$code) = @_; 
+    use obfui::cmn;
+%>
+<input class=button type=button name="<%= $title %>" value="<%= $title %>"
+onclick='<%= $code %>' ></input>

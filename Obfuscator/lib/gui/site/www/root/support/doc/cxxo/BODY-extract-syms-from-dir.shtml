@@ -1,0 +1,53 @@
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+
+<UL>
+
+	<LI><A HREF="#name">NAME</A></LI>
+	<LI><A HREF="#synopsis">SYNOPSIS</A></LI>
+	<LI><A HREF="#description">DESCRIPTION</A></LI>
+	<LI><A HREF="#options">OPTIONS</A></LI>
+</UL>
+<!-- INDEX END -->
+
+<HR>
+<P>
+<HR>
+<H1><A NAME="name">NAME</A></H1>
+<P>extract-syms-from-dir.pl - Extract symbols defined in all files residing in specified
+directory</P>
+<P>
+<HR>
+<H1><A NAME="synopsis">SYNOPSIS</A></H1>
+<P><STRONG>extract-syms-from-dir.pl</STRONG> <EM>dirname</EM> 	[&nbsp;regular-expression&nbsp;] [&nbsp;symbol-types&nbsp;]</P>
+<P>
+<HR>
+<H1><A NAME="description">DESCRIPTION</A></H1>
+<P>This script finds all symbols declared in all files residing in specified directory. It prints
+those symbols on its standard output, one per line (so it is suitable for using as exceptions).</P>
+<P>It does exactly what default page Tools, Extract&nbsp;symbols&nbsp;from&nbsp;directory&nbsp;with&nbsp;source&nbsp;files 
+command in Stunnix Obfuscator Project Manager does, with default settings (if no additional command line
+options are given).</P>
+<P>
+<HR>
+<H1><A NAME="options">OPTIONS</A></H1>
+<DL>
+<DT><STRONG><A NAME="item_%5B_regular%2Dexpression_%5D"><EM>[ regular-expression  ]</EM></A></STRONG><BR>
+<DD>
+Specify regular expression  for filenames to analyze.
+<P>The POSIX regular expression  is matched case-insensitive. It is matched against full pathname of each 
+file, so it can include matching on subdirectory name too.</P>
+<P>If just <STRONG>-</STRONG> (i.e. a minus sign) is passed as regular expression, default regular expression for current programming
+language will be used.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%5B_symbol%2Dtypes_%5D"><EM>[ symbol-types ]</EM></A></STRONG><BR>
+<DD>
+Specify symbol types to extract. If this argument is omitted, then symbols of all types are extracted.
+The argument given is a string, each character of the string specifies some type of symbol. To get meaning of
+each possible character, run this tool passing anything for <EM>regular expression</EM> argument and dot (``.'')
+as <EM>[ symbol-types ]</EM>, e.g.
+<P><STRONG>extract-syms-from-dir.pl . . .</STRONG></P>
+<P>The order in which characters are provided does not matter.</P>
+<P></P></DL>
+

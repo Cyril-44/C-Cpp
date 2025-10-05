@@ -1,0 +1,13 @@
+<% 
+    use obfui::cmn; 
+    my ($dontquote,@args) = @_;
+    my $msg = join('',@args);
+    $msg = __('Operation resulted in error') if (!$msg);
+%>
+<div class=error>
+<% if ($dontquote) { %>
+    <%$ $msg %>
+<% } else { %>
+    <%= $msg  %>
+<% } %>
+</div>

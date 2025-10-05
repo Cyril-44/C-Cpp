@@ -1,0 +1,28 @@
+<%
+    my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;"); #import proper module
+    if ($mod eq 'obfui' && 0) {
+%>
+
+<link rel="stylesheet" type="text/css" class="ui" href="/res/other/semantic-ui/2.1.4/semantic.min.css">
+<script src="/res/other/semantic-ui/2.1.4/semantic.min.js"></script>
+<script src="/res/other/accordion.js"></script>
+<script src="/res/other/dropdown.js"></script>
+
+<script language='javascript'>
+             J(document).ready(function(){
+                J('.ui.accordion').accordion();
+                J('.ui.dropdown').dropdown();
+		J('.ui.checkbox').checkbox();
+		J('.ui.menu').menu();
+             });
+</script>
+
+<style type=text/css>
+/*uncomment this to have error and success icons have different colors */
+/*
+.icon.positive { color: green; }
+.icon.negative { color: red; }
+*/
+</style>
+
+<% } %>

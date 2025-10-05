@@ -1,0 +1,174 @@
+<!--#set var="title" value="GUIDE: Protecting projects with Stunnix JavaScript Obfuscator (without using Project Manager)" -->
+<!--#include virtual="/h-jo.shtml" -->
+<div class=curloc><span class=curloc><a 
+    href=../../ class= nav>Support</a> &#8594;
+<a href=../ class= nav>Documentation</a> &#8594;
+<a href=. class= nav>JavaScript Obfuscator suite</a> &#8594;
+<a href=. class= nav>Users guide</a>
+</span></div>
+
+<div class=body>
+
+<ol>
+<li><a href=#cmdbuilder>Make sure you know about the online Commandline Builder for JS-Obfus</a>
+<li><a href=#makefile>Prepare a Makefile</a>
+<li><a href=#fixeval>Update uses of symbol names in the modules</a>
+<li><a href=#testorig>Test your original code with all modifications necessary for the protection applied</a>
+<li><a href=#collect>Collect names of symbols that should not be modified.</a>
+<li><a href=#testbuild>Test protection with <i>"LITE"</i> protection applied</a>
+</ol>
+
+
+<h1>Detailed Steps:</h1>
+<h2>Make sure you know about the online Commandline builder for JS-Obfus</h2>
+<a name=cmdbuilder></a>
+Make sure you are aware of the Stunnix interactive online 
+<a href=/support/interactive/cmd-builder/cl-js.shtml> Commandline Builder</a>. 
+It not only helps you to build command lines, but can be used as a "Table Of Contents" for the 
+JS-Obfus manual.
+
+
+<h2>Prepare a Makefile</h2>
+<a name=makefile></a>
+Prepare a Makefile for a Make utility or compose a script that will perform protection for your 
+entire project; make sure that it allows you to edit commandline options applied to all 
+invocations of JS-Obfus in a single place. It will prove to be very useful since you will have to 
+run JS-Obfus on your entire project several times, with different settings.
+ 
+ <h2>Update uses of symbol names in the modules</h2>
+ <a name=fixeval></a>
+ Finds all places in your code that uses symbol names to refer to objects (e.g. using
+eval() or setTimeout with string argument).
+
+Add the following lines to the begining of those files (or make sure that the definitions of 
+these functions are visible to your code from some base modules):
+
+<pre>
+function OBJNAME(n) { '';return n; }
+</pre>	  
+ 
+If the name of the symbol is a string constant, wrap it into the call of the OBJNAME function 
+(passing the name of the symbol in <b>single</b> quotes (double quotes will not work!), 
+without any spaces between parentheses and quoted symbol names:
+
+<pre>
+//before
+    var varname = "myvar";
+    eval(varname + '= 23;");
+//after
+    var varname = <b>OBJNAME('myvar')</b>;
+    eval(varname + ' = 23;');
+</pre>
+<p>
+If your code uses some strings that come from external sources as a name of the symbol, 
+then list all possible names of symbols as exceptions. The example below will have to be listed: 
+'f1' and 'f2' as exceptions in the 'exceptions.txt' file, otherwise your code won't work once
+ protected since there won't be functions with the names 'f1' and 'f2' (since they'll
+become functions  with names like z343a1b034 and z5e915db6).
+<pre>
+function f1 {}
+function f2 {}
+
+var fnnm = document.forms['form1'].myentry;
+eval(fnnm + '()');
+</pre>
+
+
+ 
+
+<h2>Test your original code with all modifications necessary for the protection applied</h2>
+<a name=testorig></a>
+Make sure your original code (after making all modifications described in the steps above) 
+works prior to your modifications.
+
+
+<h2>Collect names of symbols that should not be modified</h2>
+<a name=collect></a>
+There can be several reasons a symbol should not be replaced with a meaningless
+name - most frequently caused when the symbol is in external module that is shipped in 
+non-protected form (e.g. a library you don't have permission to modify or as functions defined 
+in ActiveX control) or is a name of a document element (used by your code in a statement like 
+'document.all.para1' or a formfield name used by your code like this: document.forms[1].radio_name) 
+or used in CSS files inside an <b>expression</b> statement. Or this should just simply stay the 
+same because your project library and the symbols used are public entries. Another case is when 
+some symbols are used from parts of your application, that are not obfuscated - e.g. from html 
+strings with embedded javascript code that you don't plan to alter by marking names of symbols with 
+OBJNAME() calls.
+<p>
+There are several options available on how you can do this:
+<ol>
+<li>
+ You can put all 3rd-party libraries you use into your code  to a separate directory, start 
+Project Manager GUI, go to <i>Tools, Extract symbols from directory with source files</i>, 
+enter the name of that directory, select symbol types you wish to gather, and get the list of 
+symbols defined in that directory. Then paste it to the list of exceptions.
+
+
+<li> For generating a list of IDs and NAMEs of html elements and form fields, you can use 
+<a href=get-idents-from-html.shtml>get-idents-from-html.pl</a> utility shipped with JS-Obfus, 
+by running it over all your html files, like this: 
+<pre> perl get-idents-from-html.pl -i htmlidents.txt file1.html file2.html file3.html
+ </pre>
+ Note: if using the Project Manager GUI, the IDs and NAMEs of html elements and form fields are 
+collected automatically if you assign a proper "mode" to the files that can contain them in the: 
+<i>Settings, For files</i> - assign modes to project's files, then click 
+<i>Assing processing mode</i> button.. 
+
+<li>For symbols that are defined in public interface of ActiveX or OLE component, it's possible 
+to extract names of these symbols using Project Manager. Start Project Manager, go to the Tools 
+menu and select 'Extract symbols from ActiveX components' (this menu item is available only on 
+Windows platforms). For each component your project uses, select the component, click the 
+'Extract' button, and you will be prompted to save a list of exceptions extracted from the 
+component to the file of your choice. Please note that the Evaluation and Demo editions don't 
+offer this function (an empty file will be produced).
+
+<li>For generating lists of symbols from external JavaScript libraries, one can use the 
+semi-manual method which extracts all symbols used by your code by running JS-Obfus over all 
+files of your project with the commandline option 
+<a href=js-obfus.shtml#item_%2DD_list%2Dof%2Dsymbols%2Dfilename">-D somefile.txt</a>, 
+and then find all symbols in 'somefile.txt' that come from the external libraries. 
+If all symbols start from the same prefix or match some pattern, then such filtering can be 
+performed easily.
+
+<li>Produce a list of exceptions manually. Sometimes this is necessary even for symbols from 
+external library modules too. Simply add them to the file (e.g. named 'symlist.txt') one per line.
+
+</ol>
+
+
+<h2>Test protection with "LITE" protection applied</h2>
+<a name=testbuild></a>
+Apply "LITE" protection to your application, and test as much of your application as possible 
+(i.e. try to perform all operations, or at least most common operations). At least 99% of the 
+problems encountered when trying to run a protected application is that some symbols from 
+external modules were not listed as an exception, and get replaced with different names. 
+Once run, you will get errors like "Object is required: z34ea8c" in places where original code 
+calls "document.all.myentry.value" and "myentry" is not listed as an exception. 
+In order to easily identify that "z34ea8c" stands for "myentry", you should use "LITE" protection. 
+This will make symbols only slightly less understandable, but different from the original. 
+E.g. you will get errors like "Object is required: Z439Z_myentry", that will alert you that
+"myentry" is not listed as an exception. The following commandline will stand for 
+"LITE" protection:
+<p>
+
+<pre>perl js-obfus -jam 0 -i prefix -n none -s none -e 0</pre><p>  
+
+This will stand for "Jam spaces and newlines: off", 
+"Number of encoding iterations applied: 0 - don't encode",
+"Obfuscation of symbol names: none", "Obfuscation of integer constants: none",
+ "Obfuscation of strings: none" as options in an interactive online 
+<a href=/support/interactive/cmd-builder/cl-js.shtml>Commandline Builder</a>.
+ 
+ 
+ <p>
+ Once your application works correctly when "LITE" protection is applied, you should apply 
+"Final" protection, using the options you wish. If  the "finally-protected app" works 
+differently, revert the commandline options back to "LITE" protection, and turn on each 
+type of protection incrementally. E.g. turn on "Obfuscation of integer constants", then 
+"Obfuscation of string constants", then "Number of encoding iterations applied: 4", 
+testing your application at each step.
+<p>
+If something still doesn't work, make sure you've read the recommendations in the 
+<a href=js-obfus.shtml#notes>NOTES section of the JS-Obfus manual</a>.     
+<!--#include virtual="/f.shtml" -->
+

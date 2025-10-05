@@ -1,0 +1,29 @@
+<%
+    my ($statedir_path, $task) = @_;
+    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module
+%>
+
+<div class=longtask-div id=longtask_output></div>
+<script src=/res/longtask.js></script>
+<script language=javascript>
+<!--
+    J(
+	function() {
+	    if (window.longtask_hooks == undefined)
+		window.longtask_hooks = {};
+
+	    var lt = new longtask('#longtask_output',"<%= $statedir_path %>" );
+
+	    //example of overriding decorator overriding
+	    lt.decorator_for_diagnostics1 = function(hubelt, element,item) {
+		hubelt.append( element.text(item[0] + " ===") );
+	    };
+
+	    lt.setup_and_run();
+	}
+    );
+-->
+</script>
+<style type=text/css>
+.longtask-tracelog { padding-left: 0.6em; }
+</style>
