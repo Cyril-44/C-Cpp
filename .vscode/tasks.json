@@ -33,6 +33,7 @@
 				"-I${workspaceFolder}/testlib",
 				"-I${workspaceFolder}/gmp/bin/include",
 				"-L${workspaceFolder}/gmp/bin/lib",
+				"-fsanitize=address",
 				"-O2", 
 				"${file}",
 				"-o",
