@@ -12,4 +12,7 @@
         "math_ldbl_opt.h": "c",
         "*.tbl": "cpp"
     },
+    "clangd.arguments": [
+        
+    ]
 }

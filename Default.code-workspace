@@ -6,6 +6,7 @@
 	],
 	"settings": {
 		"files.associations": {
+			"*.ejs": "html",
 			"thread": "cpp",
 			"libiop.h": "c",
 			"wcsmbsload.h": "c",
@@ -114,8 +115,9 @@
 			"bool_set": "cpp",
 			"dynamic_bitset": "cpp",
 			"250808_秘密的牛奶运输cpp": "cpp",
-			"mman.h": "c"
+			"mman.h": "c",
+			"*.in": "cpp"
 		},
-		"C_Cpp.intelliSenseEngine": "disabled"
+		"C_Cpp.intelliSenseEngine": "Tag Parser",
 	}
 }
