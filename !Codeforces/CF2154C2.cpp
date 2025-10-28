@@ -34,8 +34,10 @@ inline void solveSingleTestCase() {
     For (i, 1, n) cin >> b[i];
     map<int, int> fac;
     long long ans = 1ll << 60;
-    
+    set<int> purefac;
+
     For (i, 1, n) {
+        vector<vector<int>> facsarr;
         For (now, a[i], a[i]+2) {
             int lmt = sqrt(now);
             int tp = now;
@@ -47,14 +49,29 @@ inline void solveSingleTestCase() {
                 }
             }
             if (tp > 1) facs.push_back(tp);
-            for (int j : facs) {
-                int cur = b[i] * (now - a[i]);
-                if (fac.count(j)) {
+            facsarr.push_back(facs);
+            int cur = b[i] * (now - a[i]);
+            for (int j : facs)
+                if (fac.count(j))
                     ans = min(ans, 0ll + fac[j] + cur);
-                    fac[j] = min(fac[j], cur);
-                }
+            if (now == a[i])
+                for (int j : facs)
+                    purefac.insert(j);
+        }
+        int add = 0;
+        for (const auto &facs : facsarr) {
+            int cur = b[i] * (add);
+            for (int j : facs) {
+                if (fac.count(j)) fac[j] = min(fac[j], cur);
                 else fac[j] = cur;
             }
+            ++add;
+        }
+    }
+    For (i, 1, n) {
+        auto it = purefac.upper_bound(a[i]);
+        if (it != purefac.end()) {
+            ans = min(ans, 1ll * b[i] * (*it - a[i]));
         }
     }
     cout << ans << '\n';
@@ -66,3 +83,10 @@ int main() {
         solveSingleTestCase();
     return 0;
 }
+
+/*
+1
+2
+385 16
+1000000000 1
+*/
