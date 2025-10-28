@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include <cmath>
+#include <math.h>
 #include <algorithm>
-constexpr int N = 40005, B = 205;
+constexpr int N = 50005, B = 305;
 int n;
 int a[N], _[N], _tofill;
 namespace BF {
@@ -14,7 +14,7 @@ namespace BF {
 		int mx = 0, mxp = -1;
 		for (int i = 1; i <= *_; i++)
 			if (h[i] > mx) mx = h[i], mxp = i;
-		return mxp;
+		return _[mxp];
 	}
 }
 namespace BLK {
@@ -27,13 +27,14 @@ namespace BLK {
 			if (i % bsz == 0)
 				memcpy(sum[++bcnt], h, _tofill);
 		}
-		memcpy(sum[++bcnt], h, _tofill);
+		if (n % bsz) memcpy(sum[++bcnt], h, _tofill);
 		for (int i = 1; i <= bcnt; i++) {
 			memset(h, 0, _tofill);
 			int l = (i-1) * bsz + 1;
 			int mx = 0, mxp = -1;
 			for (int r = l; r <= n; ++r) {
 				if (++h[a[r]] > mx) mx = h[a[r]], mxp = a[r];
+				else if (h[a[r]] == mx && a[r] < mxp) mxp = a[r];
 				if (r % bsz == 0) com[i][r / bsz] = mxp;
 			}
 			com[i][bcnt] = mxp;
@@ -42,27 +43,32 @@ namespace BLK {
 	inline int query(const int l, const int r) {
 		static int h[N];
 		static bool vis[N];
-		int bl = (l + bsz - 1) / bsz, br = r / bsz;
+		int bl = (l + bsz - 1) / bsz + 1, br = r / bsz;
 		memset(h, 0, _tofill);
-		memset(vis, 0, _tofill/4);
+		memset(vis, 0, _tofill);
 		if (bl == br) {
 			int mx = 0, mxp = -1;
 			for (int i = l; i <= r; i++)
 				if (++h[a[i]] > mx) mx = h[a[i]], mxp = a[i];
+	fprintf(stderr, "\n");
 			return _[mxp];
 		}
-		int mxp = com[bl][br], mx = sum[br][mxp] - sum[bl][mxp];
+		int mxp = com[bl][br], mx = sum[br][mxp] - sum[bl - 1][mxp];
+		h[mxp] = mx;
 		vis[mxp] = true;
-		for (int st : {0, 1}) {
+		fprintf(stderr, "%d, %d (%d [%d,%d] %d) ", _[mxp], mx, l, (bl-1) * bsz + 1, br * bsz, r);
+        for (int st : {0, 1}) {
 			for (int i = st ? br * bsz + 1 : l; i <= (st ? r : (bl-1) * bsz); ++i) {
 				++h[a[i]];
 				if (!vis[a[i]]) {
 					vis[a[i]] = true;
 					h[a[i]] += sum[br][a[i]] - sum[bl-1][a[i]];
 				}
-				if (h[a[i]] > mx) mx = h[a[i]], mxp = a[i];
+				if (h[a[i]] > mx || h[a[i]] == mx && a[i] < mxp) mx = h[a[i]], mxp = a[i];
+				if (_[a[i]]==404964756) fprintf(stderr, "!%d! ", h[a[i]]);
 			}
 		}
+		fprintf(stderr, "%d %d\n", _[mxp], mx);
 		return _[mxp];
 	}
 }
