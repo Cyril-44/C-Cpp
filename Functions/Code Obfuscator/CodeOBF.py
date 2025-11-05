@@ -21,12 +21,31 @@ from typing import Tuple, List, Set
 # 全局映射表：原名 -> 混淆名
 ID_MAPPING = {}
 
-def rand_name(min_len=8, max_len=16):
-    # 生成以字母或下划线开头的随机标识符
-    first = random.choice(''.join(random.choices(['o', 'O'], k=random.randint(min_len, max_len))))
-    length = random.randint(min_len, max_len)
-    rest = ''.join(random.choices(string.ascii_letters, k=length))
-    return first + rest
+# def rand_name(min_len=8, max_len=16):
+#     # 生成以字母或下划线开头的随机标识符
+#     first = random.choice(''.join(random.choices(['o', 'O'], k=random.randint(min_len, max_len))))
+#     length = random.randint(min_len, max_len)
+#     rest = ''.join(random.choices(string.ascii_letters, k=length))
+#     return first + rest
+
+def rand_name():
+    if not hasattr(rand_name, "all_names"):
+        rand_name.all_names = set()
+        rand_name.available_chars = set(string.ascii_letters)  # 所有可用字符
+    
+    # 如果所有字符都已用完，清空重新开始或抛出异常
+    if not rand_name.available_chars:
+        # 选项1: 清空重新开始
+        rand_name.all_names.clear()
+        rand_name.available_chars = set(string.ascii_letters)
+        # 或者选项2: 抛出异常
+        # raise Exception("所有单个字符都已使用完毕")
+    
+    # 从可用字符中随机选择一个
+    temp = random.choice(list(rand_name.available_chars))
+    rand_name.available_chars.remove(temp)  # 移除已使用的字符
+    rand_name.all_names.add(temp)
+    return temp
 
 
 def parse_args():
@@ -63,6 +82,39 @@ CPP_KEYWORDS = {
     "void","volatile","while","main","include",
     "uint32_t", "uint64_t", "__int128",
 }
+
+# 保留集合
+RESERVED = {
+    # C headers and C++ headers
+    "stdio.h", "stdlib.h", "string.h", "math.h", "limits.h", "float.h", "ctype.h", "stdbool.h", "assert.h", "time.h", 
+    "wchar.h", "locale.h",  "errno.h", "signal.h", "stdarg.h", "stddef.h", "stdint.h", "inttypes.h", 
+    "unistd.h", "fcntl.h", "sys/types.h", "sys/stat.h", "sys/time.h", "sys/wait.h", "dirent.h", "pthread.h", "netinet/in.h", 
+    "arpa/inet.h", "netdb.h", "sys/socket.h", "poll.h", "termios.h",
+    "time", "1LL<<62", "std", "u<<1", "u<<1|1", 
+    "iostream", "iomanip", "fstream", "sstream", "tie", "sync_with_stdio", 
+    "string", "vector", "list", "deque", "queue", "stack", "map", "unordered_map",  "set", "unordered_set", 
+    "bitset", "priority_queue", "pair", "first", "second",
+    "algorithm", "numeric", "functional", "utility", "memory", "tuple", "limits", "typeinfo", "cstdio", "cctype", 
+    "cmath", "cstdlib", "cstring", "ctime", "cassert", 
+    "cstdarg", "cstddef", "cstdint", "climits", "csignal", "locale", "new", "stdexcept", "exception",
+    "size_t", "int64_t", "uint64_t", "EOF", "__always_inline", "stdin", "stdout",
+    "enable_if", "type", "value", "const_cast", 
+    "fread", "fwrite", "printf", "scanf", "cin", "cout", "fprintf", "sort", "assert",
+    "bitset", "resize", "push_back", "pop_back", "emplace_back", "top", "front", "push", "pop", "emplace", 
+    "multiset", "list", "max", "min", "empty", "at", "array", "stack",
+    "__always_inline", "reverse", "ios", "swap", "kth_element", "lower_bound", "upper_bound", "unique",
+    "enable_if", "type", "value", "is_integral", "decay", "is_same", "is_unsigned", "is_signed", 
+    "common_type", "is_floating_point", "conditional", "remove_reference", "remove_const", "remove_volatile",
+    "integral_constant", "make_signed", "make_unsigned", "underlying_type",
+    "endl", "boolalpha", "fixed", "defined",
+    "sort", "strlen", "memcpy", "memset", "getchar", "puts", "putchar", "to_string", 
+    "acos", "cos", "asin", "sin", "atan", "tan", "abs", "sqrt", "log", "floor", "ceil", "round",
+    "iterator", "const_iterator", "begin", "end", "cbegin", "cend", "rbegin", "rend", "crbegin", "crend",
+    "greater", "less", "greater_equal", "less_equal",
+    "runtime_error", "out_of_range", "overflow_error", "underflow_error", "domain_error", "length_error", "invalid_argument",
+    "FILE", "freopen", "fopen", "fclose", "fflush", "_IOFBF", "_IONBF", "_IOLBF", "setvbuf"
+}
+
 
 
 def collect_user_functions(src: str) -> Set[str]:
@@ -184,37 +236,6 @@ def restore_chars(src: str, chars: List[str]) -> str:
         src = src.replace(f"__CHAR{i}__", "(char)(" + str(code) + ")")
     return src
 
-# 保留集合
-RESERVED = {
-    # C headers and C++ headers
-    "stdio.h", "stdlib.h", "string.h", "math.h", "limits.h", "float.h", "ctype.h", "stdbool.h", "assert.h", "time.h", 
-    "wchar.h", "locale.h",  "errno.h", "signal.h", "stdarg.h", "stddef.h", "stdint.h", "inttypes.h", 
-    "unistd.h", "fcntl.h", "sys/types.h", "sys/stat.h", "sys/time.h", "sys/wait.h", "dirent.h", "pthread.h", "netinet/in.h", 
-    "arpa/inet.h", "netdb.h", "sys/socket.h", "poll.h", "termios.h",
-    "time", "1LL<<62", "std", "u<<1", "u<<1|1", 
-    "iostream", "iomanip", "fstream", "sstream", "tie", "sync_with_stdio", 
-    "string", "vector", "list", "deque", "queue", "stack", "map", "unordered_map",  "set", "unordered_set", 
-    "bitset", "priority_queue", "pair", "first", "second",
-    "algorithm", "numeric", "functional", "utility", "memory", "tuple", "limits", "typeinfo", "cstdio", "cctype", 
-    "cmath", "cstdlib", "cstring", "ctime", "cassert", 
-    "cstdarg", "cstddef", "cstdint", "climits", "csignal", "locale", "new", "stdexcept", "exception",
-    "size_t", "int64_t", "uint64_t", "EOF", "__always_inline", "stdin", "stdout",
-    "enable_if", "type", "value", "const_cast", 
-    "fread", "fwrite", "printf", "scanf", "cin", "cout", "fprintf", "sort", "assert",
-    "bitset", "resize", "push_back", "pop_back", "emplace_back", "top", "front", "push", "pop", "emplace", 
-    "multiset", "list", "max", "min", "empty", "at", "array", "stack",
-    "__always_inline", "reverse", "ios", "swap", "kth_element", "lower_bound", "upper_bound", "unique",
-    "enable_if", "type", "value", "is_integral", "decay", "is_same", "is_unsigned", "is_signed", 
-    "common_type", "is_floating_point", "conditional", "remove_reference", "remove_const", "remove_volatile",
-    "integral_constant", "make_signed", "make_unsigned", "underlying_type",
-    "endl", "boolalpha", "fixed", "defined",
-    "sort", "strlen", "memcpy", "memset", "getchar", "puts", "putchar", "to_string", 
-    "acos", "cos", "asin", "sin", "atan", "tan", "abs", "sqrt", "log", "floor", "ceil", "round",
-    "iterator", "const_iterator", "begin", "end", "cbegin", "cend", "rbegin", "rend", "crbegin", "crend",
-    "greater", "less", "greater_equal", "less_equal",
-    "runtime_error", "out_of_range", "overflow_error", "underflow_error", "domain_error", "length_error", "invalid_argument",
-}
-
 
 # 在全局变量区，新增一个用于保存用户保护列表（来自 OBF.protect）
 PROTECT_SET = set()
@@ -244,6 +265,7 @@ def obf_identifiers(src: str, macros: Set[str], protect_set: Set[str], str_place
         macro_param_lists[mac] = params
 
     mapping = {}
+    all_obf_names = {}
 
     # 为源码中发现的宏名与宏参数优先生成映射（除非被用户保护或属于 RESERVED/CPP_KEYWORDS）
     for mac in macros:

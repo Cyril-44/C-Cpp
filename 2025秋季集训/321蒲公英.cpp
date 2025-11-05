@@ -2,6 +2,10 @@
 #include <string.h>
 #include <math.h>
 #include <algorithm>
+#ifdef ONLINE_JUDGE
+# undef fprintf
+# define fprintf(...) ((void)0)
+#endif
 constexpr int N = 50005, B = 305;
 int n;
 int a[N], _[N], _tofill;
@@ -34,7 +38,7 @@ namespace BLK {
 			int mx = 0, mxp = -1;
 			for (int r = l; r <= n; ++r) {
 				if (++h[a[r]] > mx) mx = h[a[r]], mxp = a[r];
-				else if (h[a[r]] == mx && a[r] < mxp) mxp = a[r];
+				else if (h[a[r]] == mx && a[r] < mxp) mxp = a[r]; // 一定要注意 取最小。。。
 				if (r % bsz == 0) com[i][r / bsz] = mxp;
 			}
 			com[i][bcnt] = mxp;
@@ -46,11 +50,11 @@ namespace BLK {
 		int bl = (l + bsz - 1) / bsz + 1, br = r / bsz;
 		memset(h, 0, _tofill);
 		memset(vis, 0, _tofill);
-		if (bl == br) {
+		if (br - bl <= 1) {
 			int mx = 0, mxp = -1;
 			for (int i = l; i <= r; i++)
 				if (++h[a[i]] > mx) mx = h[a[i]], mxp = a[i];
-	fprintf(stderr, "\n");
+				else if (h[a[i]] == mx && a[i] < mxp) mxp = a[i];
 			return _[mxp];
 		}
 		int mxp = com[bl][br], mx = sum[br][mxp] - sum[bl - 1][mxp];

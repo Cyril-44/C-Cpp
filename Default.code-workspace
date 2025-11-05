@@ -116,9 +116,10 @@
 			"dynamic_bitset": "cpp",
 			"250808_秘密的牛奶运输cpp": "cpp",
 			"mman.h": "c",
-			"*.in": "cpp"
+			"*.in": "cpp",
+			"queue": "cpp"
 		},
-		"C_Cpp.intelliSenseEngine": "Tag Parser",
+		"C_Cpp.intelliSenseEngine": "default",
 		"C_Cpp.autocomplete": "disabled",
 		"C_Cpp.autocompleteAddParentheses": true,
 	}
