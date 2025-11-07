@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-$1// #define LUOGU
+// #define LUOGU
 #if defined(ONLINE_JUDGE) && !defined(LUOGU)
-# pragma GCC optimize(2, 3, "inline", "unroll-loops", "fast-math", "inline-small-functions", "no-stack-protector", "delete-null-pointer-checks")
+# pragma GCC optimize(2, 3, "inline", "unroll-loops")
 # pragma GCC target("tune=native")
 #endif
 #define Inline __attribute__((always_inline)) inline
@@ -16,14 +16,37 @@ $1// #define LUOGU
 #define YESNO(j) cout << ((j) ? "Yes\n" : "No\n")
 using namespace std;using pii_t=pair<int,int>;using pll_t=pair<int64_t,int64_t>;using veci_t=vector<int>;using vecl_t=vector<int64_t>;Inline int Popcnt(int x){return __builtin_popcount((unsigned)x);}Inline int Popcnt(unsigned x){return __builtin_popcount(x);}Inline int Popcnt(int64_t x){return __builtin_popcountll((uint64_t)x);}Inline int Popcnt(uint64_t x){return __builtin_popcountll(x);}Inline int Log2(int x){return 31-__builtin_clz((unsigned)x|1);}Inline int Log2(unsigned x){return 31-__builtin_clz(x|1);}Inline int Log2(int64_t x){return 63-__builtin_clzll((uint64_t)x|1);}Inline int Log2(uint64_t x){return 63-__builtin_clzll(x|1);}
 
-$2#define MULTI_TEST_CASES
+#define MULTI_TEST_CASES
 
-constexpr int N = ${1000:0};
-$1001
 inline void solveSingleTestCase() {
-    ${1002:int} n$1003;
-    cin >> n$1004;
-    $0
+    int n, k;
+    string s, t;
+    cin >> n >> k >> s >> t;
+    if (s == t) {
+        cout << "0\n";
+        return;
+    }
+    vector<int> r(n), now(n);
+    Forv (i, 0, n-1, j=0) {
+        if (i > j) { cout << "-1\n"; return; }
+        while (j < n && (j-i) <= k && (t[j] == s[i])) ++j;
+        if (i == j) { cout << "-1\n"; return; }
+        r[i] = j - 1;
+    }
+    iota(now.begin(), now.end(), 0);
+    vector<string> ans;
+    Rep (k) {
+        string current;
+        current.resize(n);
+        Forv (i, 0, n-1, p=0) {
+            if (now[i] < r[i]) ++now[i];
+            while (p <= now[i]) current[p++] = s[i];
+        }
+        if (ans.empty() || current != ans.back()) ans.emplace_back(current);
+        else break;
+    }
+    cout << ans.size() << '\n';
+    for (const auto &s : ans) cout << s << '\n';
 }
 int main() {
     cin.tie(nullptr) -> sync_with_stdio(false);
