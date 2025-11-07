@@ -120,7 +120,7 @@
 			"queue": "cpp"
 		},
 		"C_Cpp.intelliSenseEngine": "default",
-		"C_Cpp.autocomplete": "disabled",
+		"C_Cpp.autocomplete": "default",
 		"C_Cpp.autocompleteAddParentheses": true,
 	}
 }

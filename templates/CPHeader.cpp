@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 $1// #define LUOGU
 #if defined(ONLINE_JUDGE) && !defined(LUOGU)
-# pragma GCC optimize(2, 3, "inline", "unroll-loops")
+# pragma GCC optimize(2, 3, "inline", "unroll-loops", "fast-math", "inline-small-functions", "no-stack-protector", "delete-null-pointer-checks")
 # pragma GCC target("tune=native")
 #endif
 #define Inline __attribute__((always_inline)) inline
