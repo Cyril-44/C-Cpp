@@ -117,7 +117,8 @@
 			"250808_秘密的牛奶运输cpp": "cpp",
 			"mman.h": "c",
 			"*.in": "cpp",
-			"queue": "cpp"
+			"queue": "cpp",
+			"cf2163b": "cpp"
 		},
 		"C_Cpp.intelliSenseEngine": "default",
 		"C_Cpp.autocomplete": "default",
