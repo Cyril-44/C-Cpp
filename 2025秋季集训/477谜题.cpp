@@ -37,24 +37,27 @@ void dfs(int i, int j, Status mask) {
         fclose(stdout);
         exit(0);
     }
-    if (j > m) dfs(i+1, 1, mask);
     Status tmp = right[all[now[i][j-1]].b] & down[all[now[i-1][j]].c] & mask;
     while (tmp) {
         int id = __builtin_ctz(tmp); tmp ^= 1ull << id;
         now[i][j] = id;
-        dfs(i, j + 1, mask ^ (1ull << id));
+        dfs(i + (j==m), (j==m) ? 2 : j+1, mask ^ (1ull << id));
     }
 }
 int main() {
+#ifdef ONLINE_JUDGE
+	freopen("puzzle.in", "r", stdin);
+	freopen("puzzle.out", "w", stdout);
+#endif
     scanf("%d%d", &n, &m);
     for (int i = 0; i < n*m; i++) {
         scanf("%d%d%d%d", &all[i].a, &all[i].b, &all[i].c, &all[i].d);
-        right[all[i].d] |= 1 << i;
-        down[all[i].a] |= 1 << i;
+        right[all[i].d] |= 1ull << i;
+        down[all[i].a] |= 1ull << i;
     }
     for (int i = 0; i < n*m; i++) {
         now[1][1] = i;
-        dfs1(2, ~0 ^ (1ull << i));
+        dfs1(2, (~0ull) ^ (1ull << i));
     }
     puts("-1");
     return 0;
