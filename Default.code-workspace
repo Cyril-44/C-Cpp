@@ -120,7 +120,7 @@
 			"queue": "cpp",
 			"cf2163b": "cpp"
 		},
-		"C_Cpp.intelliSenseEngine": "default",
+		"C_Cpp.intelliSenseEngine": "disabled",
 		"C_Cpp.autocomplete": "default",
 		"C_Cpp.autocompleteAddParentheses": true,
 	}
