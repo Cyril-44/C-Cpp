@@ -1,6 +1,0 @@
-<%
-    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module
-    my ($html,$cfgref) = @_;
-%>
-
-<%  $forge->include('wgt-page-prjoptions',$html,$cfgref,{},1) %>

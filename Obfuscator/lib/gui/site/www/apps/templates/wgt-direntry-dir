@@ -1,8 +1,0 @@
-<% use obfui::cmn;
-    my ($cbnm, $nm, $dirstr,$dirstrnew,$state,$idx) = @_;
-%>
-<tr class=direntry<%? ($idx %2) %>><td class=cb><input type=checkbox class=checkbox
-    name=<%$ $cbnm %>></td>
-    <td class=nm><a class=objlink href=project.files?dir=<%? $dirstrnew %>
-	><%= $nm %></a>&nbsp;&nbsp;&nbsp;</td>
-    <td class=state><%= $state %></td>

@@ -1,5 +1,0 @@
-<div class=stretchformfields>
-<table class="eqsize-2"><tr><td><% $forge->include('wgt-submitbtn'); %></td>
-<td><% $forge->include('wgt-backbtn'); %></td>
-</table>
-</div>
