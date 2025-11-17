@@ -1,7 +1,0 @@
-return {
- ["enginebanner"]="This is LuaTeX, Version 1.10.0 (TeX Live 2019/Debian)",
- ["formatbanner"]="2019.03.21 21:39",
- ["luaversion"]=5.3,
- ["sourcefile"]="context.mkiv",
- ["sourcehash"]="7cf5d34d1119a73f281d98c012013215",
-}

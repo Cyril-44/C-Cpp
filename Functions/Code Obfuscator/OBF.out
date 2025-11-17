@@ -1,175 +1,134 @@
-class FastIS {
-    static constexpr size_t P = 1 << 20;
-    char t[P];
-    char *y, *I;
-    FILE *a;
-  public:
-    FastIS(FILE *G = stdin) : y(nullptr), I(nullptr), a(G) {}
-    ~FastIS() { fclose(a); }
-    Inline int b() {
-        return (y == I) &&
-                       (I = (y = t) + fread(t, 1, P, a),
-                        y == I)
-                   ? EOF
-                   : *y++;
+#include <bits/stdc++.h>
+template <typename E>
+E modInv(const E& P, const E& M) { // P * w ≡ 1 (o M)
+    assert(P != 0);
+    E w = 0, N = 1, U = P, Q = M, A;
+    while (U != 0) {
+        A = Q / U;
+        std::swap(U, Q -= A * U);
+        std::swap(w -= A * N, N);
     }
-    template <typename F>
-    typename std::enable_if<std::is_unsigned<F>::value &&
-                                std::is_integral<F>::value,
-                            FastIS &>::type inline
-    operator>>(F &K) {
-        int w = b();
-        while (~w && (w < '0' || w > '9'))
-            w = b();
-        for (K = 0; w >= '0' && w <= '9'; w = b())
-            K = (K << 3) + (K << 1) + (w ^ '0');
+    assert(Q == 1);
+    return w;
+}
+template<typename Mod>
+class Modular_Base {
+    using F = typename std::decay<decltype(Mod::value)>::type;
+    F value;
+    constexpr static F o() { return Mod::value; }
+    template<typename E> E L(E P) {
+        F H = static_cast<F>(-o() < P && P < o() ? P : P % o());
+        return (H < 0 ? H += o() : H);
+    }
+public:
+    constexpr Modular_Base() : value() {}
+    template<typename E> Modular_Base(const E &P) { value = L(P); }
+    template<typename E> explicit operator E() const { return static_cast<E>(value); }
+    const F& operator()() const { return value; }
+    Modular_Base& operator+=(const Modular_Base& P) {
+        if ((value += P.value) >= o()) value -= o();
         return *this;
     }
-    template <typename F>
-    typename std::enable_if<
-        std::is_signed<F>::value && std::is_integral<F>::value &&
-            !std::is_same<F, bool>::value && !std::is_same<F, char>::value,
-        FastIS &>::type inline
-    operator>>(F &K) {
-        int w = b();
-        bool d = false;
-        while (~w && (w < '0' || w > '9') && (w ^ '-'))
-            w = b();
-        if (w == '-')
-            w = b(), d = true;
-        for (K = 0; w >= '0' && w <= '9'; w = b())
-            K = (K << 3) + (K << 1) + (w ^ '0');
-        K = d ? -K : K;
+    Modular_Base& operator-=(const Modular_Base& P) {
+        if ((value -= P.value) < 0) value += o();
         return *this;
     }
-    template <typename F>
-    typename std::enable_if<std::is_floating_point<F>::value,
-                            FastIS &>::type inline
-    operator>>(F &K) {
-        int w = b();
-        bool d = false;
-        while (~w && (w < '0' || w > '9') && (w ^ '-'))
-            w = b();
-        if (w == '-')
-            w = b(), d = true;
-        using u =
-            typename std::conditional<std::is_same<F, float>::value,
-                                      std::uint32_t, std::uint64_t>::type;
-        u Z;
-        for (Z = 0; w >= '0' && w <= '9'; w = b())
-            Z = (Z << 3) + (Z << 1) + (w ^ '0');
-        K = Z;
-        if (w == '.') {
-            u D = 1;
-            for (w = b(); w >= '0' && w <= '9'; w = b())
-                K += (w ^ '0') * (1. / (D *= 10));
-        }
-        if (d)
-            K = -K;
+    Modular_Base& operator*=(const Modular_Base& P) {
+        if constexpr (std::is_same<F, int>::value) 
+            value = L(static_cast<int64_t>(value) * P.value);
+        else value = L(value * P.value);
         return *this;
     }
-    inline FastIS &operator>>(bool &F) {
-        int w = b();
-        while (~w && w != '0' && w != '1')
-            w = b();
-        F = static_cast<bool>(w & 1);
-        return *this;
-    }
-    inline FastIS &operator>>(char &O) {
-        int w = b();
-        while (w == ' ' || w == '\r' || w == '\n')
-            w = b();
-        O = w;
-        return *this;
-    }
-    inline FastIS &operator>>(char *O) {
-        int w = b();
-        while (~w && (w == ' ' || w == '\r' || w == '\n'))
-            w = b();
-        while (~w && (w != ' ' && w != '\r' && w != '\n'))
-            *O++ = w, w = b();
-        return *this;
-    }
-} fin;
-class FastOS {
-    static constexpr size_t P = 1 << 20;
-    static constexpr double X = 1e-9;
-    char t[P], *A;
-    const char *k;
-    FILE *B;
-    int e;
-  public:
-    FastOS(FILE *G = stdout)
-        : A(t), k(t + P), B(G), e(-1) {
-        setvbuf(B, nullptr, _IONBF, 0);
-    }
-    ~FastOS() {
-        E();
-        fclose(B);
-    }
-    FastOS &E() {
-        fwrite(t, A - t, 1, B);
-        return *this;
-    }
-    FastOS &S(int U) {
-        *A++ = U;
-        if (A == k)
-            fwrite(t, P, 1, B), A = t;
-        return *this;
-    }
-    FastOS &L(const int &V) {
-        e = V;
-        return *this;
-    }
-    template <typename F>
-    typename std::enable_if<std::is_unsigned<F>::value &&
-                                std::is_integral<F>::value,
-                            FastOS &>::type inline
-    operator<<(F K) {
-        static int O[32];
-        O[ *O = 1] = K % 10;
-        while (K /= 10)
-            O[++(*O)] = K % 10;
-        while (*O)
-            S(O[(*O)--] | '0');
-        return *this;
-    }
-    template <typename F>
-    typename std::enable_if<std::is_signed<F>::value &&
-                                std::is_integral<F>::value &&
-                                !std::is_same<F, char>::value,
-                            FastOS &>::type inline
-    operator<<(const F &K) {
-        if (K < 0)
-            S('-') << (typename std::make_unsigned<F>::type)(-K);
-        else
-            *this << (typename std::make_unsigned<F>::type)(K);
-    }
-    template <typename F>
-    typename std::enable_if<std::is_floating_point<F>::value,
-                            FastOS &>::type inline
-    operator<<(F K) {
-        if (K < 0)
-            S('-'), K = -K;
-        using u =
-            typename std::conditional<std::is_same<F, float>::value,
-                                      std::uint32_t, std::uint64_t>::type;
-        u Q = static_cast<u>(K);
-        F q = K - Q;
-        *this << Q;
-        if (e > 0 || e < 0 && q > X) {
-            S('.');
-            for (int a = 0; e > 0 && a < e || e < 0 && q > X;
-                 a++) {
-                int M = static_cast<int>(q *= 10);
-                S(M | '0');
-                q -= M;
-            }
+    Modular_Base& operator/=(const Modular_Base& P) { return *this *= Modular_Base(modInv(P.value, o())); }
+    template<typename E> typename std::enable_if<std::is_integral<E>::value, Modular_Base>::type& operator^=(E P) {
+        if (P < 0) return *this = Modular_Base(modInv(static_cast<F>(1), (*this ^ (-P))()));
+        Modular_Base e = *this;
+        for (*this = static_cast<F>(1); P; P >>= 1) {
+            if (P & 1) *this *= e;
+            e *= e;
         }
         return *this;
     }
-    FastOS &operator<<(const char &U) {
-        S(U);
-        return *this;
+    Modular_Base operator-() const { return Modular_Base(-value); }
+    Modular_Base& operator++() { return *this += 1; }
+    Modular_Base& operator--() { return *this -= 1; }
+    Modular_Base operator++(int) { Modular_Base e = *this; ++*this; return e; }
+    Modular_Base operator--(int) { Modular_Base e = *this; --*this; return e; }
+    Modular_Base operator+(const Modular_Base& P) const { return Modular_Base(*this) += P; }
+    Modular_Base operator-(const Modular_Base& P) const { return Modular_Base(*this) -= P; }
+    Modular_Base operator*(const Modular_Base& P) const { return Modular_Base(*this) *= P; }
+    Modular_Base operator/(const Modular_Base& P) const { return Modular_Base(*this) /= P; }
+    bool operator==(const Modular_Base& P) const { return value == P.value; }
+    bool operator!=(const Modular_Base& P) const { return value != P.value; }
+    bool operator<=(const Modular_Base& P) const { return value <= P.value; }
+    bool operator>=(const Modular_Base& P) const { return value >= P.value; }
+    bool operator<(const Modular_Base& P) const { return value < P.value; }
+    bool operator>(const Modular_Base& P) const { return value > P.value; }
+    bool operator!() const { return value; }
+    template<typename q, typename E> friend q& operator>>(q& , Modular_Base<E>& );
+    template<typename I, typename E> friend I& operator<<(I& , const Modular_Base<E>& );
+    template<typename N> friend Modular_Base operator+(const Modular_Base& J, const N& P) { return J + Modular_Base(P); }
+    template<typename N> friend Modular_Base operator+(const N& J, const Modular_Base& P) { return Modular_Base(J) + P; }
+    template<typename N> friend Modular_Base operator-(const Modular_Base& J, const N& P) { return J - Modular_Base(P); }
+    template<typename N> friend Modular_Base operator-(const N& J, const Modular_Base& P) { return Modular_Base(J) - P; }
+    template<typename N> friend Modular_Base operator*(const Modular_Base& J, const N& P) { return J * Modular_Base(P); }
+    template<typename N> friend Modular_Base operator*(const N& J, const Modular_Base& P) { return Modular_Base(J) * P; }
+    template<typename N> friend Modular_Base operator/(const Modular_Base& J, const N& P) { return J / Modular_Base(P); }
+    template<typename N> friend Modular_Base operator/(const N& J, const Modular_Base& P) { return Modular_Base(J) / P; }
+    template<typename N> friend typename std::enable_if<std::is_integral<N>::value, Modular_Base>::type operator^(Modular_Base J, const N& P) { return J ^= P; }
+    template<typename N> friend Modular_Base operator+=(Modular_Base& J, const N& P) { return J += Modular_Base(P); }
+    template<typename N> friend Modular_Base operator-=(Modular_Base& J, const N& P) { return J -= Modular_Base(P); }
+    template<typename N> friend Modular_Base operator*=(Modular_Base& J, const N& P) { return J *= Modular_Base(P); }
+    template<typename N> friend Modular_Base operator/=(Modular_Base& J, const N& P) { return J /= Modular_Base(P); }
+    template<typename N> friend Modular_Base operator==(const Modular_Base& J, const N& P) { return J == Modular_Base(P); }
+    template<typename N> friend Modular_Base operator==(const N& J, const Modular_Base& P) { return Modular_Base(J) == P; }
+    template<typename N> friend Modular_Base operator!=(const Modular_Base& J, const N& P) { return J != Modular_Base(P); }
+    template<typename N> friend Modular_Base operator!=(const N& J, const Modular_Base& P) { return Modular_Base(J) != P; }
+    template<typename N> friend Modular_Base operator<=(const Modular_Base& J, const N& P) { return J <= Modular_Base(P); }
+    template<typename N> friend Modular_Base operator<=(const N& J, const Modular_Base& P) { return Modular_Base(J) <= P; }
+    template<typename N> friend Modular_Base operator>=(const Modular_Base& J, const N& P) { return J >= Modular_Base(P); }
+    template<typename N> friend Modular_Base operator>=(const N& J, const Modular_Base& P) { return Modular_Base(J) >= P; }
+    template<typename N> friend Modular_Base operator<(const Modular_Base& J, const N& P) { return J < Modular_Base(P); }
+    template<typename N> friend Modular_Base operator<(const N& J, const Modular_Base& P) { return Modular_Base(J) < P; }
+    template<typename N> friend Modular_Base operator>(const Modular_Base& J, const N& P) { return J > Modular_Base(P); }
+    template<typename N> friend Modular_Base operator>(const N& J, const Modular_Base& P) { return Modular_Base(J) > P; }
+};
+template<typename q, typename E>
+q& operator>>(q& g, Modular_Base<E>& J) {
+    typename Modular_Base<E>::F K; g >> K;
+    J.value = J.L(K);
+    return g;
+}
+template<typename I, typename E>
+I& operator<<(I& C, const Modular_Base<E>& P) { return C << P.value; }
+using ModType = int;
+constexpr ModType MOD = 1e9 + 7;
+using Modular = Modular_Base<std::integral_constant<ModType, MOD>>;
+// struct l { static ModType value; };
+// ModType &Mod = l::value;
+// using Modular = Modular_Base<l>;
+struct Fact {
+    std::vector<Modular> c, X;
+    const int j;
+    Fact(const int &s) : c(s+1, Modular(1)), X(s+1), j(s) {
+        c[0] = 1;
+        for (int B = 1; B <= s; B++) c[B] = c[B-1] * B;
+        X[s] = Modular(1) / c[s];
+        for (int B = s; B >= 1; B--) X[B-1] = X[B] * B;
     }
-} fout;
+    Modular C(const int &s, const int &Q) const {
+        if (s < 0 || Q < 0 || s < Q) return 0;
+        if (s > j) throw std::out_of_range("\u0045\u0078\u0070\u0065\u0063\u0074\u0065\u0064\u0020\u006E\u0020\u003C\u0020" + std::to_string(j) + "\u002C\u0020\u0062\u0075\u0074\u0020\u0066\u006F\u0075\u006E\u0064\u0020\u006E\u0020\u003D\u0020" + std::to_string(s) + "\u002E");
+        return c[s] * X[Q] * X[s - Q];
+    }
+    Modular A(const int &s, const int &Q) const {
+        if (s < 0 || Q < 0 || s < Q) return 0;
+        if (s > j) throw std::out_of_range("\u0045\u0078\u0070\u0065\u0063\u0074\u0065\u0064\u0020\u006E\u0020\u003C\u0020" + std::to_string(j) + "\u002C\u0020\u0062\u0075\u0074\u0020\u0066\u006F\u0075\u006E\u0064\u0020\u006E\u0020\u003D\u0020" + std::to_string(s) + "\u002E");
+        return c[s] * X[s - Q];
+    }
+};
+int main() {
+    1 + Modular(1);
+    Modular p = 1;
+    return 0;
+}

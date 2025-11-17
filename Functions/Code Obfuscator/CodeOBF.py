@@ -28,23 +28,24 @@ ID_MAPPING = {}
 #     rest = ''.join(random.choices(string.ascii_letters, k=length))
 #     return first + rest
 
+RAND_NAME_ALL_NAMES = set()
+RAND_NAME_AVALIABLE_CHARS = set(string.ascii_letters)
+
 def rand_name():
-    if not hasattr(rand_name, "all_names"):
-        rand_name.all_names = set()
-        rand_name.available_chars = set(string.ascii_letters)  # 所有可用字符
+    global RAND_NAME_ALL_NAMES, RAND_NAME_AVALIABLE_CHARS
     
     # 如果所有字符都已用完，清空重新开始或抛出异常
-    if not rand_name.available_chars:
+    if not RAND_NAME_AVALIABLE_CHARS:
         # 选项1: 清空重新开始
-        rand_name.all_names.clear()
-        rand_name.available_chars = set(string.ascii_letters)
+        # rand_name.all_names.clear()
+        # rand_name.available_chars = set(string.ascii_letters)
         # 或者选项2: 抛出异常
-        # raise Exception("所有单个字符都已使用完毕")
+        raise Exception("所有单个字符都已使用完毕")
     
     # 从可用字符中随机选择一个
-    temp = random.choice(list(rand_name.available_chars))
-    rand_name.available_chars.remove(temp)  # 移除已使用的字符
-    rand_name.all_names.add(temp)
+    temp = random.choice(list(RAND_NAME_AVALIABLE_CHARS))
+    RAND_NAME_AVALIABLE_CHARS.remove(temp)  # 移除已使用的字符
+    RAND_NAME_ALL_NAMES.add(temp)
     return temp
 
 

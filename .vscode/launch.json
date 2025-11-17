@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/a.out",
+            "program": "${workspaceFolder}/.vscode/a.out",
             "args": ["${workspaceFolder}/a.dmp"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

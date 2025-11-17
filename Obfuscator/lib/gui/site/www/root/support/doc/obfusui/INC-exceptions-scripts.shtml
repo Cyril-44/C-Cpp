@@ -1,9 +1,0 @@
-<link rel="stylesheet" href="/res/themes/base/jquery.ui.all.css">
-    <script src="/res/jquery-1.6.2.js"></script>
-    <script src="/res/ui/jquery.ui.core.js"></script>
-    <script src="/res/ui/jquery.ui.widget.js"></script>
-    <script src="/res/ui/jquery.ui.tabs.js"></script>
-
-<script>
-    for(var i=0;i<on_page_loaded.length;++i) { on_page_loaded[i](); }
-</script>

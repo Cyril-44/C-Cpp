@@ -1,7 +1,0 @@
-<%  my ($mitems,$prjid,$root) = @_; use obfui::cmn; %>
-<span style="font-size: 80%; "><%= __('Menu items: ') %></span>
-<br>
-<% $forge->include('block-menuitems',$mitems,$prjid); %>
-<style type=text/css>
-    a[href="menu.<%$ $root %>"] {  font-weight: bold; text-shadow: 1px 2px 3px #000; }
-</style>
