@@ -12,9 +12,11 @@
 				"-fdiagnostics-color=always",
 				"-g3",
 				"${file}",
+				"-o",
+				"${workspaceFolder}/.vscode/a.out",
 			],
 			"options": {
-				"cwd": "${workspaceFolder}"
+				"cwd": "${fileDirname}"
 			},
 			"problemMatcher": [ "$gcc" ],
 			"group": "build",

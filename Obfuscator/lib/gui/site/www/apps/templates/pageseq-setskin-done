@@ -1,6 +1,0 @@
-<% use obfui::cmn; my ($newskin) = @_;  %>
-
-<%= __('Done selecting new skin.') %>
-<p>
-
-<%= __('Your selection is stored in cookie and will be used for all projects. The next page you will load will use new skin.') %>

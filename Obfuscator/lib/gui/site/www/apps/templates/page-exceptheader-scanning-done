@@ -1,9 +1,0 @@
-<% use obfui::cmn;    my ($new_count) = @_; %>
-
-<%$ sprintf( __('We found <b>%d</b> new header files used in your project.'),$new_count) %><p>
-
-<%=  __('You can define which category each header belongs to in order to identify proper set of exceptions to load for that header.') %>
-
-<%$ sprintf(__('To do this, go here: <a href=syms.choose_except_by_header class=menuitemref>%s</a>'),
-    __('Symbols &rArr; Select which common header files to load exceptions for'))
- %>

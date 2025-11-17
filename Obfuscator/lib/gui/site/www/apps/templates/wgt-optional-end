@@ -1,9 +1,0 @@
-<%
-    {my $mod = $ENV{REQUEST_URI} =~ m,^/ws-ui, ? "ui" : "obfui" ;eval("use " . $mod . "::cmn;");}; #import proper module
-
-    my ($id,$is_span) = @_;
-%>
-
-</div>
-</div> <!-- of expandable content -->
-<%    print $is_span ? '</span>' : '</div>'; %>

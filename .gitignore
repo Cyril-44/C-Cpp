@@ -1,3 +1,10 @@
 gmp/
 testlib/
 a.out
+.vscode/a.out
+musl/
+my-project/
+my-project2/
+PSTools/
+logkeys/
+Obfuscator/

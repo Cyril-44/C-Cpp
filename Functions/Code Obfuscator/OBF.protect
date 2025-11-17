@@ -3,8 +3,14 @@ FastOS
 Inline
 fin
 fout
+flush
+put
+setprecision
+get
 
 Modular
+Modular_Base
+modInv
 Fact
 A
 C
