@@ -67,31 +67,31 @@ public:
     bool operator!() const { return value; }
     template<typename IStream, typename T> friend IStream& operator>>(IStream& , Modular_Base<T>& );
     template<typename OStream, typename T> friend OStream& operator<<(OStream& , const Modular_Base<T>& );
-    template<typename T, typename U> friend Modular_Base operator+(const Modular_Base<T>& lhs, const U& rhs) { return lhs + Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator+(const U& lhs, const Modular_Base<T>& rhs) { return Modular_Base<T>(lhs) + rhs; }
-    template<typename T, typename U> friend Modular_Base operator-(const Modular_Base<T>& lhs, const U& rhs) { return lhs - Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator-(const U& lhs, const Modular_Base<T>& rhs) { return Modular_Base<T>(lhs) - rhs; }
-    template<typename T, typename U> friend Modular_Base operator*(const Modular_Base<T>& lhs, const U& rhs) { return lhs * Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator*(const U& lhs, const Modular_Base& rhs) { return Modular_Base<T>(lhs) * rhs; }
-    template<typename T, typename U> friend Modular_Base operator/(const Modular_Base<T>& lhs, const U& rhs) { return lhs / Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator/(const U& lhs, const Modular_Base& rhs) { return Modular_Base<T>(lhs) / rhs; }
-    template<typename T, typename U> friend typename std::enable_if<std::is_integral<U>::value, Modular_Base>::type operator^(Modular_Base<T> lhs, const U& rhs) { return lhs ^= rhs; }
-    template<typename T, typename U> friend Modular_Base operator+=(Modular_Base<T>& lhs, const U& rhs) { return lhs += Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator-=(Modular_Base<T>& lhs, const U& rhs) { return lhs -= Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator*=(Modular_Base<T>& lhs, const U& rhs) { return lhs *= Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator/=(Modular_Base<T>& lhs, const U& rhs) { return lhs /= Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator==(const Modular_Base<T>& lhs, const U& rhs) { return lhs == Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator==(const U& lhs, const Modular_Base<T>& rhs) { return Modular_Base<T>(lhs) == rhs; }
-    template<typename T, typename U> friend Modular_Base operator!=(const Modular_Base<T>& lhs, const U& rhs) { return lhs != Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator!=(const U& lhs, const Modular_Base<T>& rhs) { return Modular_Base<T>(lhs) != rhs; }
-    template<typename T, typename U> friend Modular_Base operator<=(const Modular_Base<T>& lhs, const U& rhs) { return lhs <= Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator<=(const U& lhs, const Modular_Base& rhs) { return Modular_Base<T>(lhs) <= rhs; }
-    template<typename T, typename U> friend Modular_Base operator>=(const Modular_Base<T>& lhs, const U& rhs) { return lhs >= Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator>=(const U& lhs, const Modular_Base& rhs) { return Modular_Base<T>(lhs) >= rhs; }
-    template<typename T, typename U> friend Modular_Base operator<(const Modular_Base<T>& lhs, const U& rhs) { return lhs < Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator<(const U& lhs, const Modular_Base& rhs) { return Modular_Base<T>(lhs) < rhs; }
-    template<typename T, typename U> friend Modular_Base operator>(const Modular_Base<T>& lhs, const U& rhs) { return lhs > Modular_Base<T>(rhs); }
-    template<typename T, typename U> friend Modular_Base operator>(const U& lhs, const Modular_Base& rhs) { return Modular_Base<T>(lhs) > rhs; }
+    template<typename U> friend Modular_Base operator+(const Modular_Base& lhs, const U& rhs) { return lhs + Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator+(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) + rhs; }
+    template<typename U> friend Modular_Base operator-(const Modular_Base& lhs, const U& rhs) { return lhs - Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator-(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) - rhs; }
+    template<typename U> friend Modular_Base operator*(const Modular_Base& lhs, const U& rhs) { return lhs * Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator*(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) * rhs; }
+    template<typename U> friend Modular_Base operator/(const Modular_Base& lhs, const U& rhs) { return lhs / Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator/(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) / rhs; }
+    template<typename U> friend typename std::enable_if<std::is_integral<U>::value, Modular_Base>::type operator^(Modular_Base lhs, const U& rhs) { return lhs ^= rhs; }
+    template<typename U> friend Modular_Base operator+=(Modular_Base& lhs, const U& rhs) { return lhs += Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator-=(Modular_Base& lhs, const U& rhs) { return lhs -= Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator*=(Modular_Base& lhs, const U& rhs) { return lhs *= Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator/=(Modular_Base& lhs, const U& rhs) { return lhs /= Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator==(const Modular_Base& lhs, const U& rhs) { return lhs == Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator==(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) == rhs; }
+    template<typename U> friend Modular_Base operator!=(const Modular_Base& lhs, const U& rhs) { return lhs != Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator!=(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) != rhs; }
+    template<typename U> friend Modular_Base operator<=(const Modular_Base& lhs, const U& rhs) { return lhs <= Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator<=(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) <= rhs; }
+    template<typename U> friend Modular_Base operator>=(const Modular_Base& lhs, const U& rhs) { return lhs >= Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator>=(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) >= rhs; }
+    template<typename U> friend Modular_Base operator<(const Modular_Base& lhs, const U& rhs) { return lhs < Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator<(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) < rhs; }
+    template<typename U> friend Modular_Base operator>(const Modular_Base& lhs, const U& rhs) { return lhs > Modular_Base(rhs); }
+    template<typename U> friend Modular_Base operator>(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) > rhs; }
 };
 template<typename IStream, typename T>
 IStream& operator>>(IStream& is, Modular_Base<T>& lhs) {
@@ -128,5 +128,7 @@ struct Fact {
     }
 };
 int main() {
+    1 + Modular(1);
+    Modular abc = 1;
     return 0;
 }

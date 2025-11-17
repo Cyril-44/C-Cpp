@@ -1,6 +1,0 @@
-<%
-    use obfui::cmn;
-    my ($title) = @_;
-    $title ||= __('Cancel');
-%>
-<input class=button type=reset value="<%= $title %>" onclick='history.go(-1)'>

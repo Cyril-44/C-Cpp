@@ -1,5 +1,0 @@
-<%
-    my ($id,$props) = @_;
-    my %hprops = @$props;
-%>
-	<td class=nb><a href=menu.$id class=nb><%= $hprops{title} %></a></td>

@@ -1,5 +1,0 @@
-<!--#set var="title" value="Stunnix products documentation: BuildScript user's manual" -->
-<!--#include virtual="/h.shtml" -->
-<div class=body>
-<!--#include virtual="../obfusui/BODY-buildscript.shtml" -->
-<!--#include virtual="/f.shtml" -->

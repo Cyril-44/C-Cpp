@@ -4,7 +4,6 @@ using namespace std;
 int main() {
     freopen("Converter.in", "r", stdin);
     freopen("Converter.out", "w", stdout);
-    
     string s;
     while (getline(cin, s)) {
         putchar('\"');
