@@ -24,33 +24,33 @@ ID_MAPPING = {}
 RAND_NAME_ALL_NAMES = set()
 
 
-# def rand_name(min_len=1, max_len=2):
-#     # 生成字母随机标识符
-#     global RAND_NAME_ALL_NAMES
-#     get_name = lambda : ''.join(random.choices(string.ascii_letters, k=random.randint(min_len, max_len)))
-#     tmp = get_name()
-#     while tmp in RAND_NAME_ALL_NAMES:
-#         tmp = get_name()
-#     RAND_NAME_ALL_NAMES.add(tmp)
-#     return tmp
+def rand_name(min_len=8, max_len=16):
+    # 生成字母随机标识符
+    global RAND_NAME_ALL_NAMES
+    get_name = lambda : ''.join(random.choices(string.ascii_letters, k=random.randint(min_len, max_len)))
+    tmp = get_name()
+    while tmp in RAND_NAME_ALL_NAMES:
+        tmp = get_name()
+    RAND_NAME_ALL_NAMES.add(tmp)
+    return tmp
 
-RAND_NAME_AVALIABLE_CHARS = set(string.ascii_letters)
-def rand_name():
-    global RAND_NAME_ALL_NAMES, RAND_NAME_AVALIABLE_CHARS
+# RAND_NAME_AVALIABLE_CHARS = set(string.ascii_letters)
+# def rand_name():
+#     global RAND_NAME_ALL_NAMES, RAND_NAME_AVALIABLE_CHARS
     
-    # 如果所有字符都已用完，清空重新开始或抛出异常
-    if not RAND_NAME_AVALIABLE_CHARS:
-        # 选项1: 清空重新开始
-        # rand_name.all_names.clear()
-        # rand_name.available_chars = set(string.ascii_letters)
-        # 或者选项2: 抛出异常
-        raise Exception("所有单个字符都已使用完毕")
+#     # 如果所有字符都已用完，清空重新开始或抛出异常
+#     if not RAND_NAME_AVALIABLE_CHARS:
+#         # 选项1: 清空重新开始
+#         # rand_name.all_names.clear()
+#         # rand_name.available_chars = set(string.ascii_letters)
+#         # 或者选项2: 抛出异常
+#         raise Exception("所有单个字符都已使用完毕")
     
-    # 从可用字符中随机选择一个
-    temp = random.choice(list(RAND_NAME_AVALIABLE_CHARS))
-    RAND_NAME_AVALIABLE_CHARS.remove(temp)  # 移除已使用的字符
-    RAND_NAME_ALL_NAMES.add(temp)
-    return temp
+#     # 从可用字符中随机选择一个
+#     temp = random.choice(list(RAND_NAME_AVALIABLE_CHARS))
+#     RAND_NAME_AVALIABLE_CHARS.remove(temp)  # 移除已使用的字符
+#     RAND_NAME_ALL_NAMES.add(temp)
+#     return temp
 
 
 def parse_args():

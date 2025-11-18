@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <algorithm>
+#include <stdio.h>
 #define For(i, s, t) for (int i = (s); (i) <= (t); ++(i))
 constexpr int N = 1000005;
 int a[N];
@@ -24,7 +24,7 @@ int solve() {
     int ans = 0;
     int pL = std::lower_bound(a + 1, a + n + 1, p0) - a,
         pR = std::lower_bound(a + 1, a + n + 1, p0 + k + 1) - a - 1;
-    For (i, 0, n - pR) {
+    For(i, 0, n - pR) {
         int R = std::max(p0 + k, a[pR + i]);
         int sum = pR + i - pL + 1;
         if (R - p0 - k > n - pR - i)
@@ -38,9 +38,10 @@ int solve() {
                 r = m - 1;
         }
         sum += std::max(
-            0, pL - std::max(r + 1, (int)(std::lower_bound(a + 1, a + n + 1,
-                                                           R - k - r) -
-                                          a)));
+            0, pL - std::max(r + 1, 
+                (int)(std::lower_bound(
+                    a + 1, a + n + 1, R - k - r) -
+                a)));
         ans = std::max(ans, sum);
     }
     return ans;
