@@ -1,4 +1,7 @@
+#include <bits/c++config.h>
 #include <bits/stdc++.h>
+#include <concepts>
+#include <type_traits>
 class FastIS {
     static constexpr size_t BUF_SIZ = 1 << 20;
     char buffer[BUF_SIZ];
@@ -9,59 +12,52 @@ public:
     __attribute__((always_inline)) inline int get() {
         return (p1 == p2) && (p2 = (p1 = buffer) + fread(buffer, 1, BUF_SIZ, src), p1 == p2) ? EOF : *p1++;
     }
-    template<typename T> typename std::enable_if<std::is_unsigned<T>::value && std::is_integral<T>::value, 
-    FastIS&>::type inline operator>>(T &rhs) {
-        int ch = get();
-        while (~ch && (ch < '0' || ch > '9')) ch = get();
-        for (rhs = 0; ch >= '0' && ch <= '9'; ch = get())
-            rhs = (rhs << 3) + (rhs << 1) + (ch ^ '0');
-        return *this;
-    }
-    template<typename T> typename std::enable_if<
-        std::is_signed<T>::value && std::is_integral<T>::value &&
-        !std::is_same<T, bool>::value && !std::is_same<T, char>::value, 
-    FastIS&>::type inline operator>>(T &rhs) {
-        int ch = get();
-        bool flg = false;
-        while (~ch && (ch < '0' || ch > '9') && (ch ^ '-')) ch = get();
-        if (ch == '-') ch = get(), flg = true;
-        for (rhs = 0; ch >= '0' && ch <= '9'; ch = get())
-            rhs = (rhs << 3) + (rhs << 1) + (ch ^ '0');
-        rhs = flg ? -rhs : rhs;
-        return *this;
-    }
-    template<typename T> typename std::enable_if<std::is_floating_point<T>::value, 
-    FastIS&>::type inline operator>>(T &rhs) {
-        int ch = get();
-        bool flg = false;
-        while (~ch && (ch < '0' || ch > '9') && (ch ^ '-')) ch = get();
-        if (ch == '-') ch = get(), flg = true;
-        using Int = typename std::conditional<std::is_same<T, float>::value, std::uint32_t, std::uint64_t>::type;
-        Int integer;
-        for (integer = 0; ch >= '0' && ch <= '9'; ch = get())
-            integer = (integer << 3) + (integer << 1) + (ch ^ '0');
-        rhs = integer;
-        if (ch == '.') {
-            Int base = 1;
-            for (ch = get(); ch >= '0' && ch <= '9'; ch = get())
-                rhs += (ch ^ '0') * (1. / (base *= 10));
+    template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
+    FastIS& operator>>(T& rhs) {
+        if _GLIBCXX17_CONSTEXPR (std::is_same<T, bool>::value) {
+            int ch = get();
+            while (~ch && ch != '0' && ch != '1') ch = get();
+            rhs = static_cast<bool>(ch & 1);
+        } else if _GLIBCXX17_CONSTEXPR (std::is_same<T, char>::value) {
+            rhs = get();
+            while (rhs == ' ' || rhs == '\r' || rhs == '\n') rhs = get();
+        } else if _GLIBCXX17_CONSTEXPR (std::is_integral<T>::value) {
+            if _GLIBCXX17_CONSTEXPR (std::is_unsigned<T>::value) {
+                int ch = get();
+                while (~ch && (ch < '0' || ch > '9')) ch = get();
+                for (rhs = 0; ch >= '0' && ch <= '9'; ch = get())
+                    rhs = (rhs << 3) + (rhs << 1) + (ch ^ '0');
+            } else {
+                int ch = get();
+                bool flg = false;
+                while (~ch && (ch < '0' || ch > '9') && (ch ^ '-')) ch = get();
+                if (ch == '-') ch = get(), flg = true;
+                for (rhs = 0; ch >= '0' && ch <= '9'; ch = get())
+                    rhs = (rhs << 3) + (rhs << 1) + (ch ^ '0');
+                rhs = flg ? -rhs : rhs;
+            }
+        } else if _GLIBCXX17_CONSTEXPR (std::is_floating_point<T>::value) {
+            int ch = get();
+            bool flg = false;
+            while (~ch && (ch < '0' || ch > '9') && (ch ^ '-')) ch = get();
+            if (ch == '-') ch = get(), flg = true;
+            using Int = typename std::conditional<std::is_same<T, float>::value, std::uint32_t, std::uint64_t>::type;
+            Int integer;
+            for (integer = 0; ch >= '0' && ch <= '9'; ch = get())
+                integer = (integer << 3) + (integer << 1) + (ch ^ '0');
+            rhs = integer;
+            if (ch == '.') {
+                Int base = 1;
+                for (ch = get(); ch >= '0' && ch <= '9'; ch = get())
+                    rhs += (ch ^ '0') * (1. / (base *= 10));
+            }
+            if (flg) rhs = -rhs;
+        } else {
+            static_assert(false, "Not supported!");
         }
-        if (flg) rhs = -rhs;
         return *this;
     }
-    inline FastIS& operator>>(bool &x) {
-        int ch = get();
-        while (~ch && ch != '0' && ch != '1') ch = get();
-        x = static_cast<bool>(ch & 1);
-        return *this;
-    }
-    inline FastIS& operator>>(char &s) {
-        int ch = get();
-        while (ch == ' ' || ch == '\r' || ch == '\n') ch = get();
-        s = ch;
-        return *this;
-    }
-    inline FastIS& operator>>(char *s) {
+    FastIS& operator>>(char *s) {
         int ch = get();
         while (~ch && (ch == ' ' || ch == '\r' || ch == '\n')) ch = get();
         while (~ch && (ch != ' ' && ch != '\r' && ch != '\n'))
@@ -92,43 +88,45 @@ public:
         prec = new_prec;
         return *this;
     }
-    template<typename T> typename std::enable_if<std::is_unsigned<T>::value && std::is_integral<T>::value, 
-    FastOS&>::type inline operator<<(T rhs) {
-        static int s[32];
-        s[*s = 1] = rhs % 10;
-        while (rhs /= 10) s[++(*s)] = rhs % 10;
-        while (*s) put(s[(*s)--] | '0');
-        return *this;
-    }
-    template<typename T> typename std::enable_if<
-        std::is_signed<T>::value && std::is_integral<T>::value &&
-        !std::is_same<T, char>::value, 
-    FastOS&>::type inline operator<<(const T &rhs) {
-        if (rhs < 0) put('-') << (typename std::make_unsigned<T>::type)(-rhs);
-        else *this << (typename std::make_unsigned<T>::type)(rhs);
-    }
-    template<typename T> typename std::enable_if<std::is_floating_point<T>::value, 
-    FastOS&>::type inline operator<<(T rhs) {
-        if (rhs < 0) put('-'), rhs = -rhs;
-        using Int = typename std::conditional<std::is_same<T, float>::value, std::uint32_t, std::uint64_t>::type;
-        Int inte = static_cast<Int>(rhs);
-        T frac = rhs - inte;
-        *this << inte;
-        if (prec > 0 || prec < 0 && frac > EPS) {
-            put('.');
-            for (int i = 0; prec > 0 && i < prec || prec < 0 && frac > EPS; i++) {
-                int digit = static_cast<int>(frac *= 10);
-                put(digit | '0');
-                frac -= digit;
+    template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
+    FastOS& operator<<(T rhs) {
+        if _GLIBCXX17_CONSTEXPR (std::is_same<T, char>::value)
+            put(rhs);
+        else if _GLIBCXX17_CONSTEXPR (std::is_integral<T>::value) {
+            if _GLIBCXX17_CONSTEXPR (std::is_signed<T>::value)
+                if (rhs < 0) put('-'), rhs = -rhs;
+            static uint8_t s[40];
+            s[*s = 1] = rhs % 10;
+            while (rhs /= 10) s[++(*s)] = rhs % 10;
+            while (*s) put(s[(*s)--] | '0');
+        }
+        else if _GLIBCXX17_CONSTEXPR (std::is_floating_point<T>::value) {
+            if (rhs < 0) put('-'), rhs = -rhs;
+            using Int = typename std::conditional<std::is_same<T, float>::value, std::uint32_t, std::uint64_t>::type;
+            Int inte = static_cast<Int>(rhs);
+            T frac = rhs - inte;
+            *this << inte;
+            if (prec > 0 || (prec < 0 && frac > EPS)) {
+                put('.');
+                for (int i = 0; (prec > 0 && i < prec) || (prec < 0 && frac > EPS); i++) {
+                    int digit = static_cast<int>(frac *= 10);
+                    put(digit | '0');
+                    frac -= digit;
+                }
             }
+        } else {
+            static_assert(false, "Not supported!");
         }
         return *this;
     }
-    FastOS& operator<<(const char &c) {
-        put(c);
+    FastOS& operator<<(char* s) {
+        while (*s) put(*s++);
         return *this;
     }
 } fout;
+#ifdef MULTI_TEST_CASES
+auto __read_extra_test_cases = [](int x){fin >> x; return x;}();
+#endif
 int main() {
     double x;
     fin >> x;

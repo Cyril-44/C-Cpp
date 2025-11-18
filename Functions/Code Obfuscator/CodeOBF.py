@@ -21,16 +21,20 @@ from typing import Tuple, List, Set
 # 全局映射表：原名 -> 混淆名
 ID_MAPPING = {}
 
-# def rand_name(min_len=8, max_len=16):
-#     # 生成以字母或下划线开头的随机标识符
-#     first = random.choice(''.join(random.choices(['o', 'O'], k=random.randint(min_len, max_len))))
-#     length = random.randint(min_len, max_len)
-#     rest = ''.join(random.choices(string.ascii_letters, k=length))
-#     return first + rest
-
 RAND_NAME_ALL_NAMES = set()
-RAND_NAME_AVALIABLE_CHARS = set(string.ascii_letters)
 
+
+# def rand_name(min_len=1, max_len=2):
+#     # 生成字母随机标识符
+#     global RAND_NAME_ALL_NAMES
+#     get_name = lambda : ''.join(random.choices(string.ascii_letters, k=random.randint(min_len, max_len)))
+#     tmp = get_name()
+#     while tmp in RAND_NAME_ALL_NAMES:
+#         tmp = get_name()
+#     RAND_NAME_ALL_NAMES.add(tmp)
+#     return tmp
+
+RAND_NAME_AVALIABLE_CHARS = set(string.ascii_letters)
 def rand_name():
     global RAND_NAME_ALL_NAMES, RAND_NAME_AVALIABLE_CHARS
     
@@ -81,7 +85,7 @@ CPP_KEYWORDS = {
     "static_assert","static_cast","struct","switch","template","this","throw",
     "true","try","typedef","typename","union","unsigned","using","virtual",
     "void","volatile","while","main","include",
-    "uint32_t", "uint64_t", "__int128",
+    "uint32_t", "uint64_t", "__int128", "uint8_t", "int8_t", "int32_t", "int64_t"
 }
 
 # 保留集合
@@ -100,11 +104,11 @@ RESERVED = {
     "cstdarg", "cstddef", "cstdint", "climits", "csignal", "locale", "new", "stdexcept", "exception",
     "size_t", "int64_t", "uint64_t", "EOF", "__always_inline", "stdin", "stdout",
     "enable_if", "type", "value", "const_cast", 
-    "fread", "fwrite", "printf", "scanf", "cin", "cout", "fprintf", "sort", "assert",
-    "bitset", "resize", "push_back", "pop_back", "emplace_back", "top", "front", "push", "pop", "emplace", 
+    "fread", "fwrite", "printf", "scanf", "cin", "cout", "fprintf", "sort", "assert", "fill","c_str",
+    "bitset", "resize", "push_back", "pop_back", "emplace_back", "top", "front", "push", "pop", "emplace", "size", "length",
     "multiset", "list", "max", "min", "empty", "at", "array", "stack",
     "__always_inline", "reverse", "ios", "swap", "kth_element", "lower_bound", "upper_bound", "unique",
-    "enable_if", "type", "value", "is_integral", "decay", "is_same", "is_unsigned", "is_signed", 
+    "enable_if", "type", "value", "is_integral", "decay", "is_same", "is_unsigned", "is_signed", "is_arithmetic",
     "common_type", "is_floating_point", "conditional", "remove_reference", "remove_const", "remove_volatile",
     "integral_constant", "make_signed", "make_unsigned", "underlying_type",
     "endl", "boolalpha", "fixed", "defined",
@@ -112,8 +116,9 @@ RESERVED = {
     "acos", "cos", "asin", "sin", "atan", "tan", "abs", "sqrt", "log", "floor", "ceil", "round",
     "iterator", "const_iterator", "begin", "end", "cbegin", "cend", "rbegin", "rend", "crbegin", "crend",
     "greater", "less", "greater_equal", "less_equal",
-    "runtime_error", "out_of_range", "overflow_error", "underflow_error", "domain_error", "length_error", "invalid_argument",
-    "FILE", "freopen", "fopen", "fclose", "fflush", "_IOFBF", "_IONBF", "_IOLBF", "setvbuf"
+    "runtime_error", "out_of_range", "overflow_error", "underflow_error", "domain_error", "length_error", "range_error", "invalid_argument",
+    "FILE", "freopen", "fopen", "fclose", "fflush", "_IOFBF", "_IONBF", "_IOLBF", "setvbuf",
+    "move"
 }
 
 

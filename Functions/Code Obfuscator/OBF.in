@@ -1,134 +1,122 @@
-#include <bits/stdc++.h>
-template <typename T>
-T modInv(const T& x, const T& y) { // x * u ≡ 1 (mod y)
-    assert(x != 0);
-    T u = 0, v = 1, a = x, m = y, t;
-    while (a != 0) {
-        t = m / a;
-        std::swap(a, m -= t * a);
-        std::swap(u -= t * v, v);
-    }
-    assert(m == 1);
-    return u;
-}
-template<typename Mod>
-class Modular_Base {
-    using Int = typename std::decay<decltype(Mod::value)>::type;
-    Int value;
-    constexpr static Int mod() { return Mod::value; }
-    template<typename T> T normalize(T x) {
-        Int res = static_cast<Int>(-mod() < x && x < mod() ? x : x % mod());
-        return (res < 0 ? res += mod() : res);
-    }
+class FastIS {
+    static constexpr size_t BUF_SIZ = 1 << 20;
+    char buffer[BUF_SIZ];
+    char *p1, *p2;
+    FILE *src;
 public:
-    constexpr Modular_Base() : value() {}
-    template<typename T> Modular_Base(const T &rhs) { value = normalize(rhs); }
-    template<typename T> explicit operator T() const { return static_cast<T>(value); }
-    const Int& operator()() const { return value; }
-    Modular_Base& operator+=(const Modular_Base& rhs) {
-        if ((value += rhs.value) >= mod()) value -= mod();
-        return *this;
+    FastIS(FILE* f = stdin) : p1(nullptr), p2(nullptr), src(f) {}
+    __attribute__((always_inline)) inline int get() {
+        return (p1 == p2) && (p2 = (p1 = buffer) + fread(buffer, 1, BUF_SIZ, src), p1 == p2) ? EOF : *p1++;
     }
-    Modular_Base& operator-=(const Modular_Base& rhs) {
-        if ((value -= rhs.value) < 0) value += mod();
-        return *this;
-    }
-    Modular_Base& operator*=(const Modular_Base& rhs) {
-        if constexpr (std::is_same<Int, int>::value) 
-            value = normalize(static_cast<int64_t>(value) * rhs.value);
-        else value = normalize(value * rhs.value);
-        return *this;
-    }
-    Modular_Base& operator/=(const Modular_Base& rhs) { return *this *= Modular_Base(modInv(rhs.value, mod())); }
-    template<typename T> typename std::enable_if<std::is_integral<T>::value, Modular_Base>::type& operator^=(T rhs) {
-        if (rhs < 0) return *this = Modular_Base(modInv(static_cast<Int>(1), (*this ^ (-rhs))()));
-        Modular_Base tmp = *this;
-        for (*this = static_cast<Int>(1); rhs; rhs >>= 1) {
-            if (rhs & 1) *this *= tmp;
-            tmp *= tmp;
+    template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
+    FastIS& operator>>(T& rhs) {
+        if _GLIBCXX17_CONSTEXPR (std::is_same<T, bool>::value) {
+            int ch = get();
+            while (~ch && ch != '0' && ch != '1') ch = get();
+            rhs = static_cast<bool>(ch & 1);
+        } else if _GLIBCXX17_CONSTEXPR (std::is_same<T, char>::value) {
+            rhs = get();
+            while (rhs == ' ' || rhs == '\r' || rhs == '\n') rhs = get();
+        } else if _GLIBCXX17_CONSTEXPR (std::is_integral<T>::value) {
+            if _GLIBCXX17_CONSTEXPR (std::is_unsigned<T>::value) {
+                int ch = get();
+                while (~ch && (ch < '0' || ch > '9')) ch = get();
+                for (rhs = 0; ch >= '0' && ch <= '9'; ch = get())
+                    rhs = (rhs << 3) + (rhs << 1) + (ch ^ '0');
+            } else {
+                int ch = get();
+                bool flg = false;
+                while (~ch && (ch < '0' || ch > '9') && (ch ^ '-')) ch = get();
+                if (ch == '-') ch = get(), flg = true;
+                for (rhs = 0; ch >= '0' && ch <= '9'; ch = get())
+                    rhs = (rhs << 3) + (rhs << 1) + (ch ^ '0');
+                rhs = flg ? -rhs : rhs;
+            }
+        } else if _GLIBCXX17_CONSTEXPR (std::is_floating_point<T>::value) {
+            int ch = get();
+            bool flg = false;
+            while (~ch && (ch < '0' || ch > '9') && (ch ^ '-')) ch = get();
+            if (ch == '-') ch = get(), flg = true;
+            using Int = typename std::conditional<std::is_same<T, float>::value, std::uint32_t, std::uint64_t>::type;
+            Int integer;
+            for (integer = 0; ch >= '0' && ch <= '9'; ch = get())
+                integer = (integer << 3) + (integer << 1) + (ch ^ '0');
+            rhs = integer;
+            if (ch == '.') {
+                Int base = 1;
+                for (ch = get(); ch >= '0' && ch <= '9'; ch = get())
+                    rhs += (ch ^ '0') * (1. / (base *= 10));
+            }
+            if (flg) rhs = -rhs;
+        } else {
+            static_assert(false, "Not supported!");
         }
         return *this;
     }
-    Modular_Base operator-() const { return Modular_Base(-value); }
-    Modular_Base& operator++() { return *this += 1; }
-    Modular_Base& operator--() { return *this -= 1; }
-    Modular_Base operator++(int) { Modular_Base tmp = *this; ++*this; return tmp; }
-    Modular_Base operator--(int) { Modular_Base tmp = *this; --*this; return tmp; }
-    Modular_Base operator+(const Modular_Base& rhs) const { return Modular_Base(*this) += rhs; }
-    Modular_Base operator-(const Modular_Base& rhs) const { return Modular_Base(*this) -= rhs; }
-    Modular_Base operator*(const Modular_Base& rhs) const { return Modular_Base(*this) *= rhs; }
-    Modular_Base operator/(const Modular_Base& rhs) const { return Modular_Base(*this) /= rhs; }
-    bool operator==(const Modular_Base& rhs) const { return value == rhs.value; }
-    bool operator!=(const Modular_Base& rhs) const { return value != rhs.value; }
-    bool operator<=(const Modular_Base& rhs) const { return value <= rhs.value; }
-    bool operator>=(const Modular_Base& rhs) const { return value >= rhs.value; }
-    bool operator<(const Modular_Base& rhs) const { return value < rhs.value; }
-    bool operator>(const Modular_Base& rhs) const { return value > rhs.value; }
-    bool operator!() const { return value; }
-    template<typename IStream, typename T> friend IStream& operator>>(IStream& , Modular_Base<T>& );
-    template<typename OStream, typename T> friend OStream& operator<<(OStream& , const Modular_Base<T>& );
-    template<typename U> friend Modular_Base operator+(const Modular_Base& lhs, const U& rhs) { return lhs + Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator+(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) + rhs; }
-    template<typename U> friend Modular_Base operator-(const Modular_Base& lhs, const U& rhs) { return lhs - Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator-(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) - rhs; }
-    template<typename U> friend Modular_Base operator*(const Modular_Base& lhs, const U& rhs) { return lhs * Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator*(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) * rhs; }
-    template<typename U> friend Modular_Base operator/(const Modular_Base& lhs, const U& rhs) { return lhs / Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator/(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) / rhs; }
-    template<typename U> friend typename std::enable_if<std::is_integral<U>::value, Modular_Base>::type operator^(Modular_Base lhs, const U& rhs) { return lhs ^= rhs; }
-    template<typename U> friend Modular_Base operator+=(Modular_Base& lhs, const U& rhs) { return lhs += Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator-=(Modular_Base& lhs, const U& rhs) { return lhs -= Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator*=(Modular_Base& lhs, const U& rhs) { return lhs *= Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator/=(Modular_Base& lhs, const U& rhs) { return lhs /= Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator==(const Modular_Base& lhs, const U& rhs) { return lhs == Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator==(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) == rhs; }
-    template<typename U> friend Modular_Base operator!=(const Modular_Base& lhs, const U& rhs) { return lhs != Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator!=(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) != rhs; }
-    template<typename U> friend Modular_Base operator<=(const Modular_Base& lhs, const U& rhs) { return lhs <= Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator<=(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) <= rhs; }
-    template<typename U> friend Modular_Base operator>=(const Modular_Base& lhs, const U& rhs) { return lhs >= Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator>=(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) >= rhs; }
-    template<typename U> friend Modular_Base operator<(const Modular_Base& lhs, const U& rhs) { return lhs < Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator<(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) < rhs; }
-    template<typename U> friend Modular_Base operator>(const Modular_Base& lhs, const U& rhs) { return lhs > Modular_Base(rhs); }
-    template<typename U> friend Modular_Base operator>(const U& lhs, const Modular_Base& rhs) { return Modular_Base(lhs) > rhs; }
-};
-template<typename IStream, typename T>
-IStream& operator>>(IStream& is, Modular_Base<T>& lhs) {
-    typename Modular_Base<T>::Int val; is >> val;
-    lhs.value = lhs.normalize(val);
-    return is;
-}
-template<typename OStream, typename T>
-OStream& operator<<(OStream& os, const Modular_Base<T>& rhs) { return os << rhs.value; }
-using ModType = int;
-constexpr ModType MOD = 1e9 + 7;
-using Modular = Modular_Base<std::integral_constant<ModType, MOD>>;
-// struct Dynamic_ModInt { static ModType value; };
-// ModType &Mod = Dynamic_ModInt::value;
-// using Modular = Modular_Base<Dynamic_ModInt>;
-struct Fact {
-    std::vector<Modular> fact, invfact;
-    const int size;
-    Fact(const int &n) : fact(n+1, Modular(1)), invfact(n+1), size(n) {
-        fact[0] = 1;
-        for (int i = 1; i <= n; i++) fact[i] = fact[i-1] * i;
-        invfact[n] = Modular(1) / fact[n];
-        for (int i = n; i >= 1; i--) invfact[i-1] = invfact[i] * i;
+    FastIS& operator>>(char *s) {
+        int ch = get();
+        while (~ch && (ch == ' ' || ch == '\r' || ch == '\n')) ch = get();
+        while (~ch && (ch != ' ' && ch != '\r' && ch != '\n'))
+            *s++ = ch, ch = get();
+        return *this;
     }
-    Modular C(const int &n, const int &m) const {
-        if (n < 0 || m < 0 || n < m) return 0;
-        if (n > size) throw std::out_of_range("Expected n < " + std::to_string(size) + ", but found n = " + std::to_string(n) + ".");
-        return fact[n] * invfact[m] * invfact[n - m];
+} fin;
+class FastOS {
+    static constexpr size_t BUF_SIZ = 1 << 20;
+    static constexpr double EPS = 1e-9;
+    char buffer[BUF_SIZ], *p;
+    const char *pt;
+    FILE *dest;
+    int prec;
+public:
+    FastOS(FILE* f = stdout) : p(buffer), pt(buffer + BUF_SIZ), dest(f), prec(-1) { setvbuf(dest, nullptr, _IONBF, 0); }
+    ~FastOS() { flush(); fclose(dest); }
+    FastOS& flush() {
+        fwrite(buffer, p - buffer, 1, dest);
+        return *this;
     }
-    Modular A(const int &n, const int &m) const {
-        if (n < 0 || m < 0 || n < m) return 0;
-        if (n > size) throw std::out_of_range("Expected n < " + std::to_string(size) + ", but found n = " + std::to_string(n) + ".");
-        return fact[n] * invfact[n - m];
+    FastOS& put(int c) {
+        *p++ = c;
+        if (p == pt) fwrite(buffer, BUF_SIZ, 1, dest), p = buffer;
+        return *this;
     }
-};
-int main() {
-    1 + Modular(1);
-    Modular abc = 1;
-    return 0;
-}
+    FastOS& setprecision(const int& new_prec) {
+        prec = new_prec;
+        return *this;
+    }
+    template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
+    FastOS& operator<<(T rhs) {
+        if _GLIBCXX17_CONSTEXPR (std::is_same<T, char>::value)
+            put(rhs);
+        else if _GLIBCXX17_CONSTEXPR (std::is_integral<T>::value) {
+            if _GLIBCXX17_CONSTEXPR (std::is_signed<T>::value)
+                if (rhs < 0) put('-'), rhs = -rhs;
+            static uint8_t s[40];
+            s[*s = 1] = rhs % 10;
+            while (rhs /= 10) s[++(*s)] = rhs % 10;
+            while (*s) put(s[(*s)--] | '0');
+        }
+        else if _GLIBCXX17_CONSTEXPR (std::is_floating_point<T>::value) {
+            if (rhs < 0) put('-'), rhs = -rhs;
+            using Int = typename std::conditional<std::is_same<T, float>::value, std::uint32_t, std::uint64_t>::type;
+            Int inte = static_cast<Int>(rhs);
+            T frac = rhs - inte;
+            *this << inte;
+            if (prec > 0 || (prec < 0 && frac > EPS)) {
+                put('.');
+                for (int i = 0; (prec > 0 && i < prec) || prec < 0 && frac > EPS; i++) {
+                    int digit = static_cast<int>(frac *= 10);
+                    put(digit | '0');
+                    frac -= digit;
+                }
+            }
+        } else {
+            static_assert(false, "Not supported!");
+        }
+        return *this;
+    }
+    FastOS& operator<<(char* s) {
+        while (*s) put(*s++);
+        return *this;
+    }
+} fout;
