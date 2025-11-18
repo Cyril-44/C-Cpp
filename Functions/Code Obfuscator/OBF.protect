@@ -8,12 +8,13 @@ put
 setprecision
 get
 
+Mint
 Modular
-Modular_Base
+Modular
 modInv
 Fact
 A
 C
 MOD
 Mod
-ModType
+_GLIBCXX17_CONSTEXPR
