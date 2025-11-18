@@ -3,8 +3,13 @@
 #include <algorithm>
 #include <tuple>
 #define For(i,s,t) for (int i = (s); (i) <= (t); ++(i))
-constexpr int N = 1000005;
+constexpr int N = 1000005, MX = 1e9;
 int a[N];
+#ifdef DEBUG
+# define debug(...) fprintf(stderr, __VA_ARGS__)
+#else
+# define debug(...) (void(0))
+#endif
 namespace FastI {
     char buf[1 << 21], *p1(nullptr), *p2(nullptr);
     inline char get() {
@@ -18,53 +23,52 @@ namespace FastI {
             x = (x << 3) + (x << 1) + (ch ^ '0');
     }
 } using FastI::in;
-using Query_t = std::tuple<int, int, int>;
-inline Query_t gor(int r, int L, int R, int lmt = (int)2e9) {
-    std::pair<int,int> res(r, L);
-    int cnt = 0;
-    while (L <= R && lmt--) {
-        --R, ++r;
-        while (L <= R && a[L] == r) ++L;
-        if (res.second ^ L) res = std::make_pair(r, L), cnt = 0;
-        else ++cnt;
+int n, k, p0;
+inline int solve() {
+    int pL = std::lower_bound(a+1, a+1 + n, p0) - a,
+        pR = std::upper_bound(a+1, a+1 + n, p0 + k) - a-1;
+    debug("p0=%d, [%d,%d]\n", p0, pL, pR);
+    int now = pL; // 当前最左边到的
+    int lp = 1;   // 最左边未取的
+    int rgL = p0; // 最左边在 [rgL, rgL + k]
+    int ans = 0;
+    while (now >= lp) {
+        int l = pR, r = n, mid;
+        while (l <= r) {
+            mid = l + r >> 1;
+            //  所需要的最少右移次数     可以提供的最大右移次数
+            if (a[mid] - (p0 + k) <= n - mid - (pL - now)) l = mid + 1;
+            else r = mid - 1;
+        }
+        ans = std::max(ans, r - now + 1);
+        debug("%d %d [%d,%d]\n", lp, rgL, now, r);
+        --now;
+        lp += rgL - a[now], rgL = a[now];
     }
-    return Query_t(res.first, res.second, cnt);
+    return ans;
 }
-inline Query_t gol(int l, int L, int R, int lmt = (int)2e9) {
-    std::pair<int,int> res(l, R);
-    int cnt = 0;
-    while (L <= R && lmt--) {
-        ++L, --l;
-        while (L <= R && a[R] == l) --R;
-        if (res.second ^ R) res = std::make_pair(l, R), cnt = 0;
-        else ++cnt;
-    }
-    return Query_t(res.first, res.second, cnt);
-}
-inline void solve() {
-    int n, k, p0;
+inline void solveTestCase() {
     in(n), in(k), in(p0);
     For (i, 1, n) in(a[i]);
     std::sort(a+1, a+1 + n);
-    int pL = std::lower_bound(a+1, a+1+n, p0) - a - 1,
-        pR = std::upper_bound(a+1, a+1+n, p0+k) - a;
-    auto [r1 , R1,  ext1] = gor(p0 + k, pR, n       );
-    auto [l1a, L1a, _1a ] = gol(r1 - k, 1 , pL      );
-    auto [l1b, L1b, _1b ] = gol(p0    , 1 , pL, ext1);
-    auto [l2 , L2 , ext2] = gol(p0    , 1 , pL      );
-    auto [r2a, R2a, _2a ] = gor(l2 + k, pR, n       );
-    auto [r2b, R2b, _2b ] = gor(p0 + k, pR, n , ext2);
-#ifdef DEBUG
-    fprintf(stderr, "Right Attepmt: add[%d,%d] from[%d,%d] goto[%d,%d]ext=%d then[%d,%d], (%d,%d) -> (min(%d,%d),%d)\n", l1b, l1b+k, p0, p0+k, r1-k-ext1, r1-ext1, ext1, l1a, l1a+k, pL, pR, L1a, L1b, R1);
-    fprintf(stderr, " Left Attempt: add[%d,%d] from[%d,%d] goto[%d,%d]ext=%d then[%d,%d], (%d,%d) -> (%d,max(%d,%d))\n", r2b-k, r2b, p0, p0+k, l2+ext2, l2+k+ext2, ext2, r2a-k, r2a, pL, pR, L2, R2a, R2b);
-#endif
-    printf("%d\n", std::max(R1 - std::min(L1a, L1b) - 1, std::max(R2a, R2b) - L2 - 1));
+    int ans1 = solve();
+    For (i, 1, n) a[i] = MX - a[i];
+    p0 = MX - p0 - k;
+    std::reverse(a+1, a+1 + n);
+    int ans2 = solve();
+    printf("%d\n", std::max(ans1, ans2));
 }
 int main() {
     freopen("iq.in", "r", stdin);
     freopen("iq.out", "w", stdout);
+#ifdef DEBUG
+    freopen("iq.txt", "w", stderr);
+#endif
     int T;
     in(T);
-    while (T--) solve();
+    For(i, 1, T) {
+        debug("Case %d:\n", i);
+        solveTestCase();
+    }
     return 0;
 }

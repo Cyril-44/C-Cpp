@@ -52,9 +52,7 @@ public:
                     rhs += (ch ^ '0') * (1. / (base *= 10));
             }
             if (flg) rhs = -rhs;
-        } else {
-            static_assert(false, "Not supported!");
-        }
+        } else throw;
         return *this;
     }
     FastIS& operator>>(char *s) {
@@ -114,9 +112,7 @@ public:
                     frac -= digit;
                 }
             }
-        } else {
-            static_assert(false, "Not supported!");
-        }
+        } else throw;
         return *this;
     }
     FastOS& operator<<(char* s) {
