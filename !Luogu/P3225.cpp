@@ -4,78 +4,89 @@
 #include <set>
 #include <vector>
 constexpr int N = 1005;
-std::vector<int> g[N];
-int bcccnt[N], bl2[N], top;
-namespace Tarjan {
-    unsigned low[N], dfn[N], ts;
-    int sta[N]; bool insta[N];
+struct Edge {
+    int to, nxt;
+} edgs[N << 1];
+int edghead[N];
+inline void addedg(int fr, int to) {
+    edgs[++edghead[0]] = Edge {to, edghead[fr]};
+    edghead[fr] = edghead[0];
+}
+bool vcut[N];
+std::vector<std::vector<int>> dccs;
+namespace Tarjan { // 无向图
+    unsigned dfn[N], low[N], ts;
     int root;
-    void dfs(int u) {
-        low[u] = dfn[u] = ++ts;
+    int sta[N];
+    void dfs(int u, int fr) {
+        dfn[u] = low[u] = ++ts;
         sta[++sta[0]] = u;
-        insta[u] = true;
-        for (int v : g[u]) {
-            if (!dfn[v]) {
-                dfs(v);
-                low[u] = std::min(low[u], low[v]);
+        int f = 0;
+        for (int i = edghead[u], v; i; i = edgs[i].nxt) {
+            if ((i-1 ^ fr-1) == 1) continue; // 不从来边更新
+            if (!dfn[v = edgs[i].to]) {
+                dfs(v, i);
                 if (dfn[u] <= low[v]) {
-                    ++top;
-                    do {
-                #define now sta[sta[0]]
-                        bl2[now] = top;
-                        ++bcccnt[top];
-                        insta[now] = false;
-                #undef now
-                    } while (sta[sta[0]--] != v);
+                    if (u != root || ++f >= 2) vcut[u] = true;
+                    dccs.emplace_back();
+                    do dccs.back().push_back(sta[sta[0]]);
+                    while (sta[sta[0]--] != v);
+                    dccs.back().push_back(u);
                 }
+                low[u] = std::min(low[u], low[v]);
             }
             else low[u] = std::min(low[u], dfn[v]);
         }
-        if (u == root && g[u].size() == 0) {
-            ++top;
-            bl2[top] = u;
+        if (u == root && !edghead[u]) {
+            dccs.push_back({u});
             --sta[0];
-            insta[u] = false;
-            ++bcccnt[top];
         }
     }
     inline void tarj(int n) {
-        memset(bcccnt, 0, sizeof(int) * (top+1));
+        ts = 0;
+        dccs.clear();
+        memset(vcut, 0, sizeof vcut);
         memset(dfn, 0, sizeof(int) * (n+1));
-        top = 0;
         for (int i = 1; i <= n; i++)
-            if (!dfn[i]) root = i, dfs(i);
+            if (!dfn[i]) root = i, dfs(i, 0);
     }
 }
 int deg[N];
 int main() {
+#ifndef ONLINE_JUDGE
+    freopen("P3225_2.in", "r", stdin);
+    freopen("P3225.out", "w", stdout);
+#endif
     for (int n, testcase=1; scanf("%d", &n) && n; ++testcase) {
-        for (int i = 1; i <= 1000; i++) g[i].clear();
+        memset(edghead, 0, sizeof edghead);
+        memset(edgs, 0, sizeof edgs);
         int mx = 0;
         for (int u, v; n--; ) {
             scanf("%d%d", &u, &v);
-            g[u].push_back(v);
-            g[v].push_back(u);
+            addedg(u, v);
+            addedg(v, u);
             mx = std::max(mx, std::max(u, v));
         }
         n = mx;
         Tarjan::tarj(n);
-        memset(deg, 0, sizeof(int) * (n + 1));
-        std::set<std::pair<int,int>> st;
-        for (int i = 1; i <= n; i++)
-            for (int j : g[i])
-                if (bl2[i] ^ bl2[j]) {
-                    st.emplace(bl2[i], bl2[j]);
-                    st.emplace(bl2[j], bl2[i]);
-                }
-        for (const auto& [i, j] : st)
-            ++deg[j]; 
-        unsigned long long ans2 = 1;
         int ans1 = 0;
-        for (int i = 1; i <= top; i++) {
-            if (deg[i] <= 1) ans2 *= bcccnt[i], ;
+        unsigned long long ans2 = 1;
+        for (const auto& dcc : dccs) {
+            int cnt = 0;
+            for (int i : dcc)
+                if (vcut[i]) ++cnt;
+            switch (cnt) {
+            case 0: // 不可到达别的联通块
+                ans1 += 2, ans2 *= (dcc.size() - 1ull) * (dcc.size()) / 2;
+                break;
+            case 1: // 可以到达别的联通块
+                ans1 += 1, ans2 *= dcc.size() - 1ull;
+                break;
+            default: // 可以到达 1 个以上的联通块
+                break;
+            }
         }
-        if (top == 1) ++ans1, ++ans2;
+        if (ans1 < 2) ans1 = 2, ans2 = n * (n - 1ull) / 2;
         printf("Case %d: %d %llu\n", testcase, ans1, ans2);
     }
     return 0;
