@@ -22,7 +22,7 @@ struct Edge {
     };
     int start;
     inline EdgeIter begin() { return EdgeIter{start}; }
-    inline EdgeIter end() { return EdgeIter{-1}; }
+    inline EdgeIter end() { return EdgeIter{0}; }
     inline Edge(int u) : start(edghead[u]) {}
 };
 
