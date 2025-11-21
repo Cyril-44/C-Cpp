@@ -119,6 +119,9 @@ public:
         while (*s) put(*s++);
         return *this;
     }
+    FastOS& operator<<(const std::string &s) {
+        return *this << s.c_str();
+    }
 } fout;
 #ifdef MULTI_TEST_CASES
 auto __read_extra_test_cases = [](int x){fin >> x; return x;}();
