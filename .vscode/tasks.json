@@ -54,7 +54,6 @@
 				"-I${workspaceFolder}/testlib",
 				"-I${workspaceFolder}/gmp/bin/include",
 				"-L${workspaceFolder}/gmp/bin/lib",
-				"-fsanitize=address",
 				"-g1",
 				"-O2", 
 				"${file}",

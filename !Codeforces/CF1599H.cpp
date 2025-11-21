@@ -49,11 +49,14 @@ inline void solveSingleTestCase() {
         case 2: r = ml;
         break;
         case 1: l = mr;
+        if(!res.count(mr-1)) res[mr+1] = qr-1;
         break;
         }
         fprintf(stderr, "[%d,%d]\n", l, r);
     }
-    int left = interact(l + r >> 1);
+    For (i, l, r) interact(i);
+    int left = 1e9;
+    for (auto [_, i] : res) left = min(left, i);
     int uy = res[1] - left, dy = MX - (res[MX] - left);
     int x1 = interact(MX, 1);
     int right = x1 - uy;
