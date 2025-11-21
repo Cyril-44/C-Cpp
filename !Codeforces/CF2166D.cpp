@@ -39,7 +39,7 @@ inline void solveSingleTestCase() {
     For (i, 1, n) ++h[a[i]];
     int64_t ans = 0;
     For (i, 1, n) {
-        For (j, 1, n) 
+        
     }
     cout << ans << '\n';
 }
