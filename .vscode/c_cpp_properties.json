@@ -15,7 +15,9 @@
             "compilerArgs": [
                 "-Wall",
                 "-Wextra",
-                "-ftemplate-depth=1024"
+                "-ftemplate-depth=1024",
+                "-DDEBUG",
+                "-D_GLIBCXX_DEBUG"
             ]
         },
         {
