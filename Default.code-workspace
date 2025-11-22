@@ -114,7 +114,13 @@
 			"dynamic_bitset": "cpp",
 			"mman.h": "c",
 			"queue": "cpp",
-			"cf2163b": "cpp"
+			"cf2163b": "cpp",
+			"libc.h": "c",
+			"syscall.h": "c",
+			"expected": "cpp",
+			"format": "cpp",
+			"ranges": "cpp",
+			"flat_map": "cpp"
 		},
 		"C_Cpp.intelliSenseEngine": "default",
 		"C_Cpp.autocomplete": "default",
