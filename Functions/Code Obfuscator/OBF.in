@@ -1,61 +1,70 @@
-#include <stdio.h>
-#include <string.h>
-#include <algorithm>
-#include <tuple>
-#define For(i,s,t) for (int i = (s); (i) <= (t); ++(i))
-constexpr int N = 1000005, MX = 1e9;
-int a[N];
-namespace FastI {
-    char buf[1 << 21], *p1(nullptr), *p2(nullptr);
-    inline char get() {
-        if (p1 == p2) p2 = (p1=buf) + fread(buf, 1, sizeof buf, stdin);
-        return *p1++;
+#include <bits/stdc++.h>
+using namespace std;
+#define N 1000005
+#define ll long long
+inline int read() {
+    int a = 0, f = 1;
+    char c = getchar();
+    while (c > '9' || c < '0') {
+        if (c == '-')
+            f = -1;
+        c = getchar();
     }
-    inline void in(int &x) {
-        char ch = get();
-        while (ch < '0' || ch > '9') ch = get();
-        for (x = ch ^ '0', ch = get(); ch >= '0' && ch <= '9'; ch = get())
-            x = (x << 3) + (x << 1) + (ch ^ '0');
+    while (c >= '0' && c <= '9') {
+        a = a * 10 + c - '0';
+        c = getchar();
     }
-} using FastI::in;
-int n, k, p0;
-inline int solve() {
-    int pL = std::lower_bound(a+1, a+1 + n, p0) - a,
-        pR = std::upper_bound(a+1, a+1 + n, p0 + k) - a-1;
-    int now = pL; // 当前最左边到的
-    int lp = 1;   // 最左边未取的
-    int rgL = p0; // 最左边在 [rgL, rgL + k]
-    int ans = 0;
-    while (now >= lp) {
-        int l = pR, r = n, mid;
-        while (l <= r) {
-            mid = l + r >> 1;
-            //  所需要的最少右移次数     可以提供的最大右移次数
-            if (a[mid] - (p0 + k) <= n - mid - (pL - now)) l = mid + 1;
-            else r = mid - 1;
-        }
-        ans = std::max(ans, r - now + 1);
-        --now;
-        lp += rgL - a[now], rgL = a[now];
-    }
-    return ans;
+    return a * f;
 }
-inline void solveTestCase() {
-    in(n), in(k), in(p0);
-    For (i, 1, n) in(a[i]);
-    std::sort(a+1, a+1 + n);
-    int ans1 = solve();
-    For (i, 1, n) a[i] = MX - a[i];
-    p0 = MX - p0 - k;
-    std::reverse(a+1, a+1 + n);
-    int ans2 = solve();
-    printf("%d\n", std::max(ans1, ans2));
+int s1[N][11], s2[N][11], a[N];
+ll ny[N], jc[N];
+int mod = 998244353;
+ll C(int a, int b) {
+    if (a < b)
+        return 0;
+    return jc[a] * ny[b] % mod * ny[a - b] % mod;
+}
+ll ksm(ll a, int b) {
+    ll s = 1;
+    while (b) {
+        if (b % 2)
+            s = (s * 1ll * a) % mod;
+        a = (a * 1ll * a) % mod, b /= 2;
+    }
+    return s;
 }
 int main() {
-    freopen("iq.in", "r", stdin);
-    freopen("iq.out", "w", stdout);
-    int T;
-    in(T);
-    while (T--) solveTestCase();
+    // freopen("1.in","r",stdin);
+    // freopen("1.out","w",stdout);
+    string s;
+    cin >> s;
+    int n = s.size();
+    jc[0] = jc[1] = 1, ny[0] = ny[1] = 1;
+    for (int i = 2; i <= n; i++)
+        jc[i] = jc[i - 1] * i % mod;
+    ny[n] = ksm(jc[n], mod - 2);
+    for (int i = n - 1; i >= 2; i--)
+        ny[i] = ny[i + 1] * (i + 1) % mod;
+    for (int i = 0; i < n; i++)
+        a[i + 1] = s[i] - '0';
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j <= 9; j++)
+            s1[i][j] = s1[i - 1][j];
+        s1[i][a[i]]++;
+    }
+    for (int i = n; i >= 1; i--) {
+        for (int j = 0; j <= 9; j++)
+            s2[i][j] = s2[i + 1][j];
+        s2[i][a[i]]++;
+    }
+    ll ans = 0;
+    for (int i = 1; i <= n; i++) {
+        int x = s1[i - 1][a[i] - 1], y = s2[i][a[i]];
+        if (x <= 0)
+            continue;
+        x--;
+        ans += C(x + y, x), ans %= mod;
+    }
+    printf("%lld\n", ans);
     return 0;
 }
