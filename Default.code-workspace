@@ -122,7 +122,7 @@
 			"ranges": "cpp",
 			"flat_map": "cpp"
 		},
-		"C_Cpp.intelliSenseEngine": "default",
+		"C_Cpp.intelliSenseEngine": "disabled",
 		"C_Cpp.autocomplete": "default",
 		"C_Cpp.autocompleteAddParentheses": true,
 	}
