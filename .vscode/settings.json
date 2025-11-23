@@ -14,5 +14,6 @@
     },
     "clangd.arguments": [
         
-    ]
+    ],
+    "cmake.sourceDirectory": "/home/cyril/code/Functions/clang-cpp-obf"
 }

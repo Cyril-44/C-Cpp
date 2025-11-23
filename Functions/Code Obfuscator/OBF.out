@@ -1,61 +1,70 @@
-#include <stdio.h>
-#include <string.h>
-#include <algorithm>
-#include <tuple>
-#define PuHCWimRPp(cwaZJCInQvdNn,pFVxfPyZDWFJBR,dUnIXnRvhsaEhvMA) for (int cwaZJCInQvdNn = (pFVxfPyZDWFJBR); (cwaZJCInQvdNn) <= (dUnIXnRvhsaEhvMA); ++(cwaZJCInQvdNn))
-constexpr int ubMRswMUZGnQ = 1000005, ZMCRlfsfwFkdsuFW = 1e9;
-int GNFwonoKZ[ubMRswMUZGnQ];
-namespace EgQSwEBuaCfrd {
-    char tUpWkTvxEF[1 << 21], *VawTKYPgRdhwnva(nullptr), *guSMfdAORtt(nullptr);
-    inline char get() {
-        if (VawTKYPgRdhwnva == guSMfdAORtt) guSMfdAORtt = (VawTKYPgRdhwnva=tUpWkTvxEF) + fread(tUpWkTvxEF, 1, sizeof tUpWkTvxEF, stdin);
-        return *VawTKYPgRdhwnva++;
+#include <bits/stdc++.h>
+using namespace std;
+#define kLRmCdQD 1000005
+#define rVFLXEcLK long long
+inline int cRoqvBanReoo() {
+    int KYvmJJfbvdpvLi = 0, aHuTxrYl = 1;
+    char SFYdZRTulKNWwz = getchar();
+    while (SFYdZRTulKNWwz > (char)(57) || SFYdZRTulKNWwz < (char)(48)) {
+        if (SFYdZRTulKNWwz == (char)(45))
+            aHuTxrYl = -1;
+        SFYdZRTulKNWwz = getchar();
     }
-    inline void CkCtMDenEcTrAUcO(int &XpQDeaAYSRGlmCZK) {
-        char aAGAVIfhZ = get();
-        while (aAGAVIfhZ < (char)(48) || aAGAVIfhZ > (char)(57)) aAGAVIfhZ = get();
-        for (XpQDeaAYSRGlmCZK = aAGAVIfhZ ^ (char)(48), aAGAVIfhZ = get(); aAGAVIfhZ >= (char)(48) && aAGAVIfhZ <= (char)(57); aAGAVIfhZ = get())
-            XpQDeaAYSRGlmCZK = (XpQDeaAYSRGlmCZK << 3) + (XpQDeaAYSRGlmCZK << 1) + (aAGAVIfhZ ^ (char)(48));
+    while (SFYdZRTulKNWwz >= (char)(48) && SFYdZRTulKNWwz <= (char)(57)) {
+        KYvmJJfbvdpvLi = KYvmJJfbvdpvLi * 10 + SFYdZRTulKNWwz - (char)(48);
+        SFYdZRTulKNWwz = getchar();
     }
-} using EgQSwEBuaCfrd::CkCtMDenEcTrAUcO;
-int XGaaEsqVpQkWYi, GvoYUMzrfjmp, kzmvaoBLNC;
-inline int ZKOsAkkUzKULFNsh() {
-    int QrOpDqQBpvVh = std::lower_bound(GNFwonoKZ+1, GNFwonoKZ+1 + XGaaEsqVpQkWYi, kzmvaoBLNC) - GNFwonoKZ,
-        uMyEsAhrKFG = std::upper_bound(GNFwonoKZ+1, GNFwonoKZ+1 + XGaaEsqVpQkWYi, kzmvaoBLNC + GvoYUMzrfjmp) - GNFwonoKZ-1;
-    int ieKBjimCTDKT = QrOpDqQBpvVh; // 当前最左边到的
-    int gGwBwwbNn = 1;   // 最左边未取的
-    int mDwIGjwqkBZPe = kzmvaoBLNC; // 最左边在 [mDwIGjwqkBZPe, mDwIGjwqkBZPe + GvoYUMzrfjmp]
-    int suzYQiZxzbbD = 0;
-    while (ieKBjimCTDKT >= gGwBwwbNn) {
-        int OOswQNCm = uMyEsAhrKFG, cbgAAwmb = XGaaEsqVpQkWYi, XskujFAFWaG;
-        while (OOswQNCm <= cbgAAwmb) {
-            XskujFAFWaG = OOswQNCm + cbgAAwmb >> 1;
-            //  所需要的最少右移次数     可以提供的最大右移次数
-            if (GNFwonoKZ[XskujFAFWaG] - (kzmvaoBLNC + GvoYUMzrfjmp) <= XGaaEsqVpQkWYi - XskujFAFWaG - (QrOpDqQBpvVh - ieKBjimCTDKT)) OOswQNCm = XskujFAFWaG + 1;
-            else cbgAAwmb = XskujFAFWaG - 1;
-        }
-        suzYQiZxzbbD = std::max(suzYQiZxzbbD, cbgAAwmb - ieKBjimCTDKT + 1);
-        --ieKBjimCTDKT;
-        gGwBwwbNn += mDwIGjwqkBZPe - GNFwonoKZ[ieKBjimCTDKT], mDwIGjwqkBZPe = GNFwonoKZ[ieKBjimCTDKT];
-    }
-    return suzYQiZxzbbD;
+    return KYvmJJfbvdpvLi * aHuTxrYl;
 }
-inline void dwYlSwvpbylxVq() {
-    CkCtMDenEcTrAUcO(XGaaEsqVpQkWYi), CkCtMDenEcTrAUcO(GvoYUMzrfjmp), CkCtMDenEcTrAUcO(kzmvaoBLNC);
-    PuHCWimRPp (cwaZJCInQvdNn, 1, XGaaEsqVpQkWYi) CkCtMDenEcTrAUcO(GNFwonoKZ[cwaZJCInQvdNn]);
-    std::sort(GNFwonoKZ+1, GNFwonoKZ+1 + XGaaEsqVpQkWYi);
-    int NdPwUkTmYujeUL = ZKOsAkkUzKULFNsh();
-    PuHCWimRPp (cwaZJCInQvdNn, 1, XGaaEsqVpQkWYi) GNFwonoKZ[cwaZJCInQvdNn] = ZMCRlfsfwFkdsuFW - GNFwonoKZ[cwaZJCInQvdNn];
-    kzmvaoBLNC = ZMCRlfsfwFkdsuFW - kzmvaoBLNC - GvoYUMzrfjmp;
-    std::reverse(GNFwonoKZ+1, GNFwonoKZ+1 + XGaaEsqVpQkWYi);
-    int XxnEEbRvUukli = ZKOsAkkUzKULFNsh();
-    printf("\u0025\u0064\u000A", std::max(NdPwUkTmYujeUL, XxnEEbRvUukli));
+int XpJBChmqVaapjV[kLRmCdQD][11], EAiMPxNnYuVby[kLRmCdQD][11], KYvmJJfbvdpvLi[kLRmCdQD];
+rVFLXEcLK XgstKAdcBAcV[kLRmCdQD], fmXtUMFZiOCp[kLRmCdQD];
+int PIcfykyGwSaALMS = 998244353;
+rVFLXEcLK C(int KYvmJJfbvdpvLi, int gezGErwZKj) {
+    if (KYvmJJfbvdpvLi < gezGErwZKj)
+        return 0;
+    return fmXtUMFZiOCp[KYvmJJfbvdpvLi] * XgstKAdcBAcV[gezGErwZKj] % PIcfykyGwSaALMS * XgstKAdcBAcV[KYvmJJfbvdpvLi - gezGErwZKj] % PIcfykyGwSaALMS;
+}
+rVFLXEcLK qkORHeNMcvA(rVFLXEcLK KYvmJJfbvdpvLi, int gezGErwZKj) {
+    rVFLXEcLK GsIjmqnfkepACiol = 1;
+    while (gezGErwZKj) {
+        if (gezGErwZKj % 2)
+            GsIjmqnfkepACiol = (GsIjmqnfkepACiol * 1ll * KYvmJJfbvdpvLi) % PIcfykyGwSaALMS;
+        KYvmJJfbvdpvLi = (KYvmJJfbvdpvLi * 1ll * KYvmJJfbvdpvLi) % PIcfykyGwSaALMS, gezGErwZKj /= 2;
+    }
+    return GsIjmqnfkepACiol;
 }
 int main() {
-    freopen("\u0069\u0071\u002E\u0069\u006E", "\u0072", stdin);
-    freopen("\u0069\u0071\u002E\u006F\u0075\u0074", "\u0077", stdout);
-    int GnqcxMUkN;
-    CkCtMDenEcTrAUcO(GnqcxMUkN);
-    while (GnqcxMUkN--) dwYlSwvpbylxVq();
+    // freopen("\u0031\u002E\u0069\u006E","\u0072",stdin);
+    // freopen("\u0031\u002E\u006F\u0075\u0074","\u0077",stdout);
+    string GsIjmqnfkepACiol;
+    cin >> GsIjmqnfkepACiol;
+    int IGMlvBOsD = GsIjmqnfkepACiol.size();
+    fmXtUMFZiOCp[0] = fmXtUMFZiOCp[1] = 1, XgstKAdcBAcV[0] = XgstKAdcBAcV[1] = 1;
+    for (int XBNdTkpmL = 2; XBNdTkpmL <= IGMlvBOsD; XBNdTkpmL++)
+        fmXtUMFZiOCp[XBNdTkpmL] = fmXtUMFZiOCp[XBNdTkpmL - 1] * XBNdTkpmL % PIcfykyGwSaALMS;
+    XgstKAdcBAcV[IGMlvBOsD] = qkORHeNMcvA(fmXtUMFZiOCp[IGMlvBOsD], PIcfykyGwSaALMS - 2);
+    for (int XBNdTkpmL = IGMlvBOsD - 1; XBNdTkpmL >= 2; XBNdTkpmL--)
+        XgstKAdcBAcV[XBNdTkpmL] = XgstKAdcBAcV[XBNdTkpmL + 1] * (XBNdTkpmL + 1) % PIcfykyGwSaALMS;
+    for (int XBNdTkpmL = 0; XBNdTkpmL < IGMlvBOsD; XBNdTkpmL++)
+        KYvmJJfbvdpvLi[XBNdTkpmL + 1] = GsIjmqnfkepACiol[XBNdTkpmL] - (char)(48);
+    for (int XBNdTkpmL = 1; XBNdTkpmL <= IGMlvBOsD; XBNdTkpmL++) {
+        for (int PZqnisxgE = 0; PZqnisxgE <= 9; PZqnisxgE++)
+            XpJBChmqVaapjV[XBNdTkpmL][PZqnisxgE] = XpJBChmqVaapjV[XBNdTkpmL - 1][PZqnisxgE];
+        XpJBChmqVaapjV[XBNdTkpmL][KYvmJJfbvdpvLi[XBNdTkpmL]]++;
+    }
+    for (int XBNdTkpmL = IGMlvBOsD; XBNdTkpmL >= 1; XBNdTkpmL--) {
+        for (int PZqnisxgE = 0; PZqnisxgE <= 9; PZqnisxgE++)
+            EAiMPxNnYuVby[XBNdTkpmL][PZqnisxgE] = EAiMPxNnYuVby[XBNdTkpmL + 1][PZqnisxgE];
+        EAiMPxNnYuVby[XBNdTkpmL][KYvmJJfbvdpvLi[XBNdTkpmL]]++;
+    }
+    rVFLXEcLK jwGvAfGJKYEVOXX = 0;
+    for (int XBNdTkpmL = 1; XBNdTkpmL <= IGMlvBOsD; XBNdTkpmL++) {
+        int mYxCMlQnEssOou = XpJBChmqVaapjV[XBNdTkpmL - 1][KYvmJJfbvdpvLi[XBNdTkpmL] - 1], sxHClQjvCbRWY = EAiMPxNnYuVby[XBNdTkpmL][KYvmJJfbvdpvLi[XBNdTkpmL]];
+        if (mYxCMlQnEssOou <= 0)
+            continue;
+        mYxCMlQnEssOou--;
+        jwGvAfGJKYEVOXX += C(mYxCMlQnEssOou + sxHClQjvCbRWY, mYxCMlQnEssOou), jwGvAfGJKYEVOXX %= PIcfykyGwSaALMS;
+    }
+    printf("\u0025\u006C\u006C\u0064\u000A", jwGvAfGJKYEVOXX);
     return 0;
 }
