@@ -50,8 +50,6 @@ inline void solveSingleTestCase() {
     sort(a+1, a+1 + tot);
     vector<vector<int>> ans(n+1, vector<int>(m+1));
     For (i, 1, tot) {
-        
-        ans[a[i].x][a[i].y]
     }
 }
 int main() {
