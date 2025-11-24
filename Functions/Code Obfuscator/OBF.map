@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ==== USR -> obf mapping ====
 c:@S@Edge@FI@start -> sNVY
 c:victim.cpp@542@S@Edge@S@EdgeIter@F@operator==#$@S@Edge@S@EdgeIter#1@rhs -> oldR
@@ -6609,3 +6610,35 @@ c:@N@std@ST>2#T#T@__lc_rai@FT@>2#T#T__newlast1#t1.0#S0_#t1.1#S1_#S0_#S -> wO8k
 c:@N@std@SP>2#T#T@__duration_common_type_wrapper>#$@N@std@S@__failure_type#t0.0#t0.1 -> wRML
 c:@N@std@ST>4#T#T#T#T@unordered_multiset@F@end#^_Hashtable<type-parameter-0-0, type-parameter-0-0, type-parameter-0-3, _Identity, type-parameter-0-2, type-parameter-0-1, _Mod_range_hashing, _Default_ranged_hash, _Prime_rehash_policy, _Hashtable_traits<__cache_default<_Value, _Hash>::value, true, false> >:::size_type# -> fgvE
 c:@N@std@SP>1#T@__timepoint_common_type_wrapper>#$@N@std@S@__failure_type#t0.0 -> z1S1
+=======
+# Obfuscation map (original -> obfuscated)
+# Note: macro names and protected names are excluded from this map.
+divide -> feIuCcMs
+work -> BezRguXy
+in -> WfNcMiWTvFOX
+N -> OWtQaEin
+T -> UAIjIOcqNClkUOr
+a -> HsLXSbSkfNtehoD
+ans -> kkiHNmaOZX
+c -> rEMIUuuBM
+cerr -> EynpndnS
+cnt -> IUqhLCjHj
+f -> joutuuMf
+i -> WCDmkAbTq
+j -> HolnHxEENInAKG
+k -> CUxPczZrYxCn
+l -> hqwbbfjSDt
+len -> PyIPtsbk
+ll -> CtjLlgtCevVMDuug
+lto -> PDCUMByJ
+m -> DtgcuYeoJzz
+n -> ZbJQbhtCGK
+p -> tFsMeVMmZD
+pop_front -> xRuBIHCK
+prev -> hpwrmBMjkfPbmm
+push_front -> feTPiVvu
+r -> djNcNVuHpBOYiH
+rto -> voRaumbleRPP
+t -> zZPhlkbbbyT
+x -> HzTkZyVHmVPH
+>>>>>>> 565968d5a2ef961896dca4746c0dcfc5df1ed480
