@@ -4,7 +4,6 @@
 #include <cstring>
 #include <bitset>
 #include <vector>
-#include "FastIO.cpp"
 class Demical {
     constexpr static size_t DIGITLEN = 1 << 17;
     constexpr static unsigned BASE = 1e9;
