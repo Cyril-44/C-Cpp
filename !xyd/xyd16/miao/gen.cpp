@@ -18,16 +18,16 @@ template <typename T> T& read(T &x) {
 	return x *= f;
 }
 mt19937 mrand(chrono::steady_clock::now().time_since_epoch().count());
-inline int rnd(int l, int r) {return mrand() % (r - l + 1) + l;}
-const int N = 2e6 + 10;
+uniform_int_distribution<int> rnd(1, 2);
+const int N = 2e6 + 10, N_[]{0,300,2000,6000,2000000,2000000};
 int a[N];
 void work1() {
 	int t = 5;
 	cout << t << '\n';
 	F(_, 1, t) {
-		int n = _ * 100;
+		int n = N_[_];
 		cout << n << '\n';
-		F(i, 1, n) cout << rnd(1, 2) << ' '; cout << '\n';
+		F(i, 1, n) cout << rnd(mrand) << ' '; cout << '\n';
 	}
 }
 signed main() {

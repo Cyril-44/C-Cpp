@@ -120,10 +120,38 @@
 			"expected": "cpp",
 			"format": "cpp",
 			"ranges": "cpp",
-			"flat_map": "cpp"
+			"flat_map": "cpp",
+			"barrier": "cpp",
+			"compare": "cpp",
+			"concepts": "cpp",
+			"coroutine": "cpp",
+			"generator": "cpp",
+			"latch": "cpp",
+			"numbers": "cpp",
+			"print": "cpp",
+			"semaphore": "cpp",
+			"span": "cpp",
+			"spanstream": "cpp",
+			"stacktrace": "cpp",
+			"stdfloat": "cpp",
+			"stop_token": "cpp",
+			"syncstream": "cpp",
+			"text_encoding": "cpp",
+			"flat_set": "cpp",
+			"stack": "cpp"
 		},
-		"C_Cpp.intelliSenseEngine": "default",
+		"C_Cpp.intelliSenseEngine": "disabled",
 		"C_Cpp.autocomplete": "default",
 		"C_Cpp.autocompleteAddParentheses": true,
+		"clangd.arguments": [
+			"--background-index=false",   // 禁止后台索引，降低内存和CPU
+			"--limit-results=500",        // 限制返回结果数量
+			"--malloc-trim",              // 空闲时释放内存
+			"--pch-storage=memory",       // 预编译头存储在内存中（可改为disk）
+			"--log=error",                // 降低日志等级
+			"--clang-tidy=false"          // 禁用clang-tidy，避免额外分析
+		],
+		"clangd.onConfigChanged": "prompt", // 修改配置后自动重启clangd
+		"clangd.checkUpdates": true          // 保持插件更新
 	}
 }
