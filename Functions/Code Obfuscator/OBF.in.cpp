@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Functions/Code Obfuscator/OBF.in.cpp
 #include <string>
 #include <iostream>
 #include <stdio.h>
@@ -78,193 +79,114 @@ template <typename T, typename = typename std::enable_if<std::is_integral<T>::va
             x /= BASE;
         }
     }
+=======
+>>>>>>> 565968d5a2ef961896dca4746c0dcfc5df1ed480:Functions/Code Obfuscator/OBF.in
 
-template<size_t N> Demical(std::bitset<N> bit) {
-        unsigned long tp;
-        Demical base(1);
-        static const Demical long_up = (sizeof(unsigned long) == 8UL) ? Demical("18446744073709551616") : Demical("4294967296");
-        while (bit.any()) {
-            tp = bit & static_cast<unsigned long>(-1);
-            bit >>= (sizeof(unsigned long) == 8UL) ? 64 : 32;
-            *this += base * tp;
-            base *= long_up;
-        }
+using namespace std;
+typedef long long ll;
+template <class T> void in(T &x) {
+    x = 0;
+    char c = getchar();
+    int f = 1;
+    while (c < '0' || c > '9') {
+        if (c == '-')
+            f = -1;
+        c = getchar();
     }
-    Demical(const char *s) { *this = Demical(s, false); }
-    Demical(const std::string &s) { *this = Demical(s.c_str(), false); }
-    explicit operator bool () const { return !a.empty(); }
-
-// #ifdef _FASTIO
-//     inline void in() { *this = Demical(read(FastIO::nc), true); }
-// #else
-    inline void in() { *this = Demical(read(getchar), true); }
-// #endif
-    inline char* c_str() const { // Temporary, Coverable and Unstable
-        static char buffer[DIGITLEN];
-        if (a.empty()) {
-            buffer[0] = '0';
-            buffer[1] = '\0';
-            return buffer;
-        }
-        int top(0);
-        if (sign) buffer[top++] = '-';
-        char buf[BASELEN];
-        auto it = a.crbegin(); unsigned y = *it;
-        for (int i = BASELEN - 1; i >= 0; --i) buf[i] = (y % 10) ^ '0', y /= 10;
-        for (int i = 0; i < BASELEN; i++) if (buf[i] ^ '0') { for (; i < BASELEN; i++) buffer[top++] = buf[i]; break; }
-        for (++it; it != a.crend(); ++it) { y = *it;
-            for (int i = BASELEN - 1; i >= 0; --i) buf[i] = (y % 10) ^ '0', y /= 10;
-            for (int i = 0; i < BASELEN; i++) buffer[top++] = buf[i];
-        }
-        buffer[top] = '\0';
-        return buffer;
+    while (c >= '0' && c <= '9') {
+        x = x * 10 + c - '0';
+        c = getchar();
     }
-
-    friend std::string to_string(const Demical &x) { return std::string(x.c_str()); }
-
-    template<typename IStream>
-    friend IStream& operator>>(IStream &is, Demical &x) {
-        x = Demical(x.read([&is]()->int {return is.get();}), true);
-        return is;
-    }
-    template<typename OStream>
-    friend OStream& operator<<(OStream &os, const Demical &x) { return os << x.c_str(); }
-    friend inline Demical abs(Demical x) { x.sign = false; return x; }
-    inline Demical operator-() const { return Demical(!sign, a); }
-    inline Demical operator+(const Demical &x) const { return Demical(*this) += x; }
-    inline Demical& operator-=(const Demical &x) { return *this += -x; }
-    inline Demical operator-(const Demical &x) const { return Demical(*this) + -x; }
-    inline Demical operator*(const Demical &x) const { return Demical(*this) *= x; }
-    inline Demical operator/(const Demical &x) const { return Demical(*this) /= x; }
-    inline Demical& operator%=(const Demical &x) { return *this -= *this / x * x; }
-    inline Demical operator%(const Demical &x) const { return *this - *this / x * x; }
-    inline Demical operator^(const Demical &x) const { return Demical(*this) ^= x; }
-    inline bool operator==(const Demical &x) const { return sign == x.sign && a == x.a; }
-    inline bool operator!=(const Demical &x) const { return sign != x.sign || a != x.a; }
-    inline bool operator<=(const Demical &x) const { return *this == x || *this < x; }
-    inline bool operator>(const Demical &x) const { return x < *this; }
-    inline bool operator>=(const Demical &x) const { return x == *this || x < *this; }
-    template <typename T> friend inline bool operator==(const T &x, const Demical &y) { return Demical(x) == y; }
-    template <typename T> friend inline bool operator==(const Demical &x, const T &y) { return x == Demical(y); }
-    template <typename T> friend inline bool operator!=(const T &x, const Demical &y) { return Demical(x) != y; }
-    template <typename T> friend inline bool operator!=(const Demical &x, const T &y) { return x != Demical(y); }
-    template <typename T> friend inline bool operator<(const T &x, const Demical &y) { return Demical(x) < y; }
-    template <typename T> friend inline bool operator<(const Demical &x, const T &y) { return x < Demical(y); }
-    template <typename T> friend inline bool operator<=(const T &x, const Demical &y) { return Demical(x) <= y; }
-    template <typename T> friend inline bool operator<=(const Demical &x, const T &y) { return x <= Demical(y); }
-    template <typename T> friend inline bool operator>(const T &x, const Demical &y) { return Demical(x) > y; }
-    template <typename T> friend inline bool operator>(const Demical &x, const T &y) { return x > Demical(y); }
-    template <typename T> friend inline bool operator>=(const T &x, const Demical &y) { return Demical(x) >= y; }
-    template <typename T> friend inline bool operator>=(const Demical &x, const T &y) { return x >= Demical(y); }
-    template <typename T> friend inline Demical operator+(const T &x, const Demical &y) { return Demical(x) + y; }
-    template <typename T> friend inline Demical operator+(const Demical &x, const T &y) { return x + Demical(y); }
-    template <typename T> friend inline Demical& operator+=(Demical &x, const T &y) { return x += Demical(y); }
-    template <typename T> friend inline Demical operator-(const T &x, const Demical &y) { return Demical(x) - y; }
-    template <typename T> friend inline Demical operator-(const Demical &x, const T &y) { return x - Demical(y); }
-    template <typename T> friend inline Demical& operator-=(Demical &x, const T &y) { return x -= Demical(y); }
-    template <typename T> friend inline Demical operator*(const T &x, const Demical &y) { return Demical(x) * y; }
-    template <typename T> friend inline Demical operator*(const Demical &x, const T &y) { return x * Demical(y); }
-    template <typename T> friend inline Demical& operator*=(Demical &x, const T &y) { return x *= Demical(y); }
-    template <typename T> friend inline Demical operator/(const T &x, const Demical &y) { return Demical(x) / y; }
-    template <typename T> friend inline Demical operator/(const Demical &x, const T &y) { return x / Demical(y); }
-    template <typename T> friend inline Demical& operator/=(Demical &x, const T &y) { return x /= Demical(y); }
-    template <typename T> friend inline Demical operator%(const T &x, const Demical &y) { return Demical(x) % y; }
-    template <typename T> friend inline Demical operator%(const Demical &x, const T &y) { return x % Demical(y); }
-    template <typename T> friend inline Demical& operator%=(Demical &x, const T &y) { return x %= Demical(y); }
-    template <typename T> friend inline Demical operator^(const T &x, const Demical &y) { return Demical(x) ^ y; }
-    template <typename T> friend inline Demical operator^(const Demical &x, const T &y) { return x ^ Demical(y); }
-    template <typename T> friend inline Demical& operator^=(Demical &x, const T &y) { return x ^= Demical(y); }
-    inline bool operator<(const Demical &x) const {
-        if (sign && !x.sign) return true; // - < +
-        if (!sign && x.sign) return false; // + > -
-        if (sign) return -x < -*this; // -a < -b => b < a
-        if (a.size() < x.a.size()) return true;
-        if (x.a.size() < a.size()) return false;
-        for (size_t i = a.size()-1; i ^ static_cast<size_t>(-1); --i) {
-            if (a[i] < x.a[i]) return true;
-            if (a[i] > x.a[i]) return false;
-        }
-        return false;
-    }
-    inline Demical& operator+=(const Demical &x) {
-        static std::vector<int> help_array;
-        const static auto func = [](std::vector<int>& a, const std::vector<unsigned>& x, const std::vector<unsigned>& y, const int &fx, const int &fy)->void {
-            size_t digits(std::max(x.size(), y.size()));
-            a.resize(digits + 1);
-            std::fill(a.begin(), a.end(), 0);
-            for (size_t i = 0; i < digits; ++i) {
-                if (i < x.size()) a[i] += x[i] * fx;
-                if (i < y.size()) a[i] += y[i] * fy;
-            }
-        };
-        if (sign && !x.sign)
-            if (-*this > x) // -a + b (a>b) = -(a + -b)
-                sign = false, *this += -x, sign = true;
-            else // -a + b (a<b)
-                sign = false, func(help_array, a, x.a, -1, 1);
-        else if (!sign && x.sign)
-            if (*this < -x) // a + -b (a<b) = -(-a + b)
-                sign = true, *this += -x, sign = true;
-            else // a + -b (a>b)
-                func(help_array, a, x.a, 1, -1);
-        else func(help_array, a, x.a, 1, 1);
-        normalize(help_array);
-        return *this;
-    }
-    inline Demical& operator*=(const Demical &x) {
-        sign = static_cast<bool>(sign ^ x.sign);
-        std::vector<unsigned long long> help_array(a.size() + x.a.size() + 1);
-        for (size_t i = 0; i < a.size(); i++)
-            for (size_t j = 0; j < x.a.size(); j++) {
-                help_array[i + j] += 1ULL * a[i] * x.a[j];
-                if (help_array[i+j] >= BASE) { // to prevent overflow
-                    help_array[i+j+1] += help_array[i+j] / BASE;
-                    help_array[i+j] %= BASE;
+    x *= f;
+}
+const int N = 2000010;
+int n, cnt[N], len;
+deque<pair<int, int>> ans;
+bool divide(int l, int r) {
+    // cerr<<l<<' '<<r<<endl;
+    if (l > r)
+        return 1;
+    int m = l + r >> 1;
+    for (int i = m; i >= l; i--) {
+        if (cnt[i] >= 2) {
+            int rto = i * 2 - l + 1;
+            if (rto < m)
+                break;
+            if (divide(rto, r)) {
+                // cerr<<l<<' '<<m<<' '<<r<<" LLL ";
+                for (int j = rto - 1; j >= i; j--) {
+                    ans.push_front(
+                        {2, (i == j ? cnt[i] : cnt[j] + cnt[i * 2 - j])});
+                    for (int k = 1; k <= cnt[j]; k++)
+                        ans.push_front({1, 1000 + l});
                 }
+                for (int j = i - 1; j >= l; j--)
+                    for (int k = 1; k <= cnt[j]; k++)
+                        ans.push_front({1, 2000 + l});
+                return 1;
             }
-        normalize(help_array);
-        return *this;
-    }
-    inline Demical& operator/=(const Demical &x) {
-        if (x.a.empty()) throw std::domain_error("Division by zero.");   // Throw an exception when x=0
-        if (a.size() < x.a.size()) return *this = std::move(Demical());
-        size_t digits(a.size() - x.a.size() + 1);
-        Demical tp;
-        std::vector<unsigned long long> help_array(a.size());
-        bool sn = static_cast<bool>(sign ^ x.sign);
-        sign = false;
-        std::vector<int> div(digits);
-        for (size_t i = digits - 1; i ^ static_cast<size_t>(-1); --i) {
-            int l(0), r(BASE - 1), mid;
-            while (l <= r) {
-                mid = (l + r) >> 1;
-                std::fill(help_array.begin(), help_array.end(), 0);
-                for (size_t j = 0; j < x.a.size(); j++)
-                    help_array[i + j] += 1ULL * mid * x.a[j];
-                tp.normalize(help_array);
-                if (tp > *this) r = mid - 1;
-                else l = mid + 1;
+        }
+        i = l + r - i;
+        if (cnt[i] >= 2) {
+            int lto = i * 2 - r - 1;
+            if (lto > m + 1)
+                break;
+            if (divide(l, lto)) {
+                for (int j = lto + 1; j < i; j++)
+                    for (int k = 1; k <= cnt[j]; k++)
+                        ans.push_back({1, 0});
+                for (int j = i; j <= r; j++) {
+                    for (int k = 1; k <= cnt[j]; k++)
+                        ans.push_back({1, 0});
+                    ans.push_back(
+                        {2, (i == j ? cnt[i] : cnt[j] + cnt[i * 2 - j])});
+                }
+                return 1;
             }
-            std::fill(help_array.begin(), help_array.end(), 0);
-            for (size_t j = 0; j < x.a.size(); j++)
-                help_array[i + j] += 1ULL * r * x.a[j];
-            tp.normalize(help_array);
-            *this -= tp;
-            div[i] = r;
         }
-        sign = sn;
-        normalize(div);
-        return *this;
+        i = l + r - i;
     }
-    inline Demical& operator^=(Demical x) {
-        if (x < 0) throw std::range_error("Negative Exponent.");
-        Demical tp = abs(*this);
-        *this = (sign ? -1 : 1);
-        while (!x.a.empty()) {
-            if (x % 2 == 1) *this *= tp;
-            tp *= tp;
-            x /= Demical(2);
+    return 0;
+}
+void work() {
+    in(n);
+    int prev = 0;
+    len = 0;
+    for (int i = 1; i <= n; i++) {
+        cnt[i] = 0;
+        int a;
+        in(a);
+        if (prev == a)
+            cnt[len]++;
+        else
+            cnt[++len] = 1, prev = a;
+    }
+    // for(int i=1;i<=len;i++)
+    // cerr<<cnt[i]<<' '; cerr<<endl;
+    if (divide(1, len)) {
+        printf("Yes\n");
+        printf("%d\n", (int)ans.size());
+        while (!ans.empty()) {
+            pair<int, int> p = ans.front();
+            ans.pop_front();
+            if (p.first == 1)
+                printf("1\n");
+            // if(p.first==1) printf("1 %d\n",p.second);
+            else
+                printf("2 %d\n", p.second);
         }
-        return *this;
-    }
-};
+    } else
+        printf("No\n");
+    // cerr<<endl;
+}
+int main() {
+    freopen("miao.in", "r", stdin);
+    freopen("miao.out", "w", stdout);
+    int t;
+    in(t);
+    while (t--)
+        work();
+}
+/*
+1
+*/

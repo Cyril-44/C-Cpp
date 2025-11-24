@@ -1,0 +1,7 @@
+[
+  {
+    "directory": "/home/cyril/code/testlib",
+    "command": "clang++ -I/home/cyril/code/testlib -I/home/stu/C-Cpp/testlib -I/usr/lib/llvm-19/include -std=c++2a -DDEBUG -c main.cpp -o main.o",
+    "file": "main.cpp"
+  }
+]
