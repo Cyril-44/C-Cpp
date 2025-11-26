@@ -1,0 +1,10 @@
+-std=c++17
+-I/usr/include/c++/15
+-I/usr/include/x86_64-linux-gnu/c++/15
+-I/usr/include/c++/15/backward
+-I/usr/lib/gcc/x86_64-linux-gnu/15/include
+-I/usr/local/include
+-I/usr/include/x86_64-linux-gnu
+-I/usr/include
+-I/home/stu/C-Cpp
+-include-pch /home/stu/C-Cpp/pch.pch

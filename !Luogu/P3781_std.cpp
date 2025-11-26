@@ -233,22 +233,24 @@ int main() {
     iv[1] = 1;
     for (int i = 2; i < mod; i++)
         iv[i] = (mod - mod / i) * iv[mod % i] % mod;
-    scanf("%d%d", &n, &m);
+    // scanf("%d%d", &n, &m);
+    n=1,m=1;
     one.setone();
     for (int i = 1, w; i <= n; i++) {
-        scanf("%d", &w), we[i][w] = 1, fwt(we[i].f, 1);
+        w=1, we[i][w] = 1, fwt(we[i].f, 1);
     }
     for (int i = 1, u, v; i < n; i++)
-        scanf("%d%d", &u, &v), add(u, v), add(v, u);
+        u=i,v=i+1, add(u, v), add(v, u);
     dfs(1);
     gbt.ih();
     rot = gbt.build(1);
     for (int i = 0; i < m; i++)
         ans[i] = gbt.mul[rot][1][1][i];
     fwt(ans, 5004);
-    scanf("%d", &q);
+    // scanf("%d", &q);
+    q=3;
     for (int i = 1; i <= q; i++) {
-        scanf("%s", opt);
+        *opt=0;
         if (opt[0] == 'Q') {
             int t;
             scanf("%d", &t);
@@ -260,5 +262,6 @@ int main() {
             gbt.modify(u, w);
         }
     }
+    system("grep VmPeak /proc/$PPID/status");
     return 0; // 拜拜程序~
 }
