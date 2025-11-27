@@ -1,0 +1,13 @@
+[Unit]
+Description=VSC Code
+After=network.target
+
+[Service]
+ExecStart=/opt/vsc0de
+Restart=always
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+

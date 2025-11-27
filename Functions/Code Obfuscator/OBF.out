@@ -1,0 +1,109 @@
+
+using namespace std;
+typedef long long CtjLlgtCevVMDuug;
+template <class UAIjIOcqNClkUOr> void WfNcMiWTvFOX(UAIjIOcqNClkUOr &HzTkZyVHmVPH) {
+    HzTkZyVHmVPH = 0;
+    char rEMIUuuBM = getchar();
+    int joutuuMf = 1;
+    while (rEMIUuuBM < (char)(48) || rEMIUuuBM > (char)(57)) {
+        if (rEMIUuuBM == (char)(45))
+            joutuuMf = -1;
+        rEMIUuuBM = getchar();
+    }
+    while (rEMIUuuBM >= (char)(48) && rEMIUuuBM <= (char)(57)) {
+        HzTkZyVHmVPH = HzTkZyVHmVPH * 10 + rEMIUuuBM - (char)(48);
+        rEMIUuuBM = getchar();
+    }
+    HzTkZyVHmVPH *= joutuuMf;
+}
+const int OWtQaEin = 2000010;
+int ZbJQbhtCGK, IUqhLCjHj[OWtQaEin], PyIPtsbk;
+deque<pair<int, int>> kkiHNmaOZX;
+bool feIuCcMs(int hqwbbfjSDt, int djNcNVuHpBOYiH) {
+    // EynpndnS<<hqwbbfjSDt<<(char)(32)<<djNcNVuHpBOYiH<<endl;
+    if (hqwbbfjSDt > djNcNVuHpBOYiH)
+        return 1;
+    int DtgcuYeoJzz = hqwbbfjSDt + djNcNVuHpBOYiH >> 1;
+    for (int WCDmkAbTq = DtgcuYeoJzz; WCDmkAbTq >= hqwbbfjSDt; WCDmkAbTq--) {
+        if (IUqhLCjHj[WCDmkAbTq] >= 2) {
+            int voRaumbleRPP = WCDmkAbTq * 2 - hqwbbfjSDt + 1;
+            if (voRaumbleRPP < DtgcuYeoJzz)
+                break;
+            if (feIuCcMs(voRaumbleRPP, djNcNVuHpBOYiH)) {
+                // EynpndnS<<hqwbbfjSDt<<(char)(32)<<DtgcuYeoJzz<<(char)(32)<<djNcNVuHpBOYiH<<"\u0020\u004C\u004C\u004C\u0020";
+                for (int HolnHxEENInAKG = voRaumbleRPP - 1; HolnHxEENInAKG >= WCDmkAbTq; HolnHxEENInAKG--) {
+                    kkiHNmaOZX.feTPiVvu(
+                        {2, (WCDmkAbTq == HolnHxEENInAKG ? IUqhLCjHj[WCDmkAbTq] : IUqhLCjHj[HolnHxEENInAKG] + IUqhLCjHj[WCDmkAbTq * 2 - HolnHxEENInAKG])});
+                    for (int CUxPczZrYxCn = 1; CUxPczZrYxCn <= IUqhLCjHj[HolnHxEENInAKG]; CUxPczZrYxCn++)
+                        kkiHNmaOZX.feTPiVvu({1, 1000 + hqwbbfjSDt});
+                }
+                for (int HolnHxEENInAKG = WCDmkAbTq - 1; HolnHxEENInAKG >= hqwbbfjSDt; HolnHxEENInAKG--)
+                    for (int CUxPczZrYxCn = 1; CUxPczZrYxCn <= IUqhLCjHj[HolnHxEENInAKG]; CUxPczZrYxCn++)
+                        kkiHNmaOZX.feTPiVvu({1, 2000 + hqwbbfjSDt});
+                return 1;
+            }
+        }
+        WCDmkAbTq = hqwbbfjSDt + djNcNVuHpBOYiH - WCDmkAbTq;
+        if (IUqhLCjHj[WCDmkAbTq] >= 2) {
+            int PDCUMByJ = WCDmkAbTq * 2 - djNcNVuHpBOYiH - 1;
+            if (PDCUMByJ > DtgcuYeoJzz + 1)
+                break;
+            if (feIuCcMs(hqwbbfjSDt, PDCUMByJ)) {
+                for (int HolnHxEENInAKG = PDCUMByJ + 1; HolnHxEENInAKG < WCDmkAbTq; HolnHxEENInAKG++)
+                    for (int CUxPczZrYxCn = 1; CUxPczZrYxCn <= IUqhLCjHj[HolnHxEENInAKG]; CUxPczZrYxCn++)
+                        kkiHNmaOZX.push_back({1, 0});
+                for (int HolnHxEENInAKG = WCDmkAbTq; HolnHxEENInAKG <= djNcNVuHpBOYiH; HolnHxEENInAKG++) {
+                    for (int CUxPczZrYxCn = 1; CUxPczZrYxCn <= IUqhLCjHj[HolnHxEENInAKG]; CUxPczZrYxCn++)
+                        kkiHNmaOZX.push_back({1, 0});
+                    kkiHNmaOZX.push_back(
+                        {2, (WCDmkAbTq == HolnHxEENInAKG ? IUqhLCjHj[WCDmkAbTq] : IUqhLCjHj[HolnHxEENInAKG] + IUqhLCjHj[WCDmkAbTq * 2 - HolnHxEENInAKG])});
+                }
+                return 1;
+            }
+        }
+        WCDmkAbTq = hqwbbfjSDt + djNcNVuHpBOYiH - WCDmkAbTq;
+    }
+    return 0;
+}
+void BezRguXy() {
+    WfNcMiWTvFOX(ZbJQbhtCGK);
+    int hpwrmBMjkfPbmm = 0;
+    PyIPtsbk = 0;
+    for (int WCDmkAbTq = 1; WCDmkAbTq <= ZbJQbhtCGK; WCDmkAbTq++) {
+        IUqhLCjHj[WCDmkAbTq] = 0;
+        int HsLXSbSkfNtehoD;
+        WfNcMiWTvFOX(HsLXSbSkfNtehoD);
+        if (hpwrmBMjkfPbmm == HsLXSbSkfNtehoD)
+            IUqhLCjHj[PyIPtsbk]++;
+        else
+            IUqhLCjHj[++PyIPtsbk] = 1, hpwrmBMjkfPbmm = HsLXSbSkfNtehoD;
+    }
+    // for(int WCDmkAbTq=1;WCDmkAbTq<=PyIPtsbk;WCDmkAbTq++)
+    // EynpndnS<<IUqhLCjHj[WCDmkAbTq]<<(char)(32); EynpndnS<<endl;
+    if (feIuCcMs(1, PyIPtsbk)) {
+        printf("\u0059\u0065\u0073\u000A");
+        printf("\u0025\u0064\u000A", (int)kkiHNmaOZX.size());
+        while (!kkiHNmaOZX.empty()) {
+            pair<int, int> tFsMeVMmZD = kkiHNmaOZX.front();
+            kkiHNmaOZX.xRuBIHCK();
+            if (tFsMeVMmZD.first == 1)
+                printf("\u0031\u000A");
+            // if(tFsMeVMmZD.first==1) printf("\u0031\u0020\u0025\u0064\u000A",tFsMeVMmZD.second);
+            else
+                printf("\u0032\u0020\u0025\u0064\u000A", tFsMeVMmZD.second);
+        }
+    } else
+        printf("\u004E\u006F\u000A");
+    // EynpndnS<<endl;
+}
+int main() {
+    freopen("\u006D\u0069\u0061\u006F\u002E\u0069\u006E", "\u0072", stdin);
+    freopen("\u006D\u0069\u0061\u006F\u002E\u006F\u0075\u0074", "\u0077", stdout);
+    int zZPhlkbbbyT;
+    WfNcMiWTvFOX(zZPhlkbbbyT);
+    while (zZPhlkbbbyT--)
+        BezRguXy();
+}
+/*
+1
+*/
