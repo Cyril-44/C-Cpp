@@ -26,11 +26,12 @@
 			"detail": "compiler: /usr/bin/g++"
 		},
 		{
-			"type": "cppbuild",
+			"type": "shell",
 			"label": "Cpp Release Build",
 			"command": "/usr/bin/g++",
 			"args": [
 				"-std=c++14",
+				"-Wall",
 				"-O2",
 				"${file}",
 				"-o",
