@@ -1,0 +1,120 @@
+sequence1.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 15
+  subtaskId: 1
+
+sequence2.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 15
+  subtaskId: 1
+
+sequence3.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 15
+  subtaskId: 1
+
+sequence4.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 2
+
+sequence5.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 2
+
+sequence6.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 2
+
+sequence7.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 20
+  subtaskId: 2
+
+sequence8.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 15
+  subtaskId: 3
+
+sequence9.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 15
+  subtaskId: 3
+
+sequence10.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 15
+  subtaskId: 3
+
+sequence11.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 50
+  subtaskId: 4
+
+sequence12.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 50
+  subtaskId: 4
+
+sequence13.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 50
+  subtaskId: 4
+
+sequence14.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 50
+  subtaskId: 4
+
+sequence15.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 50
+  subtaskId: 4
+
+sequence16.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 50
+  subtaskId: 4
+
+sequence17.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 50
+  subtaskId: 4
+
+sequence18.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 50
+  subtaskId: 4
+
+sequence19.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 50
+  subtaskId: 4
+
+sequence20.in:
+  timeLimit: 1000
+  memoryLimit: 524288
+  score: 50
+  subtaskId: 4
+

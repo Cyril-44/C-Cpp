@@ -1,0 +1,360 @@
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_call.os): in function `rec_dirsearch':
+/home/cyril/glibc-2.31/nis/nis_call.c:452: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_call.c:513: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_call.os): in function `__GI___nisbind_connect':
+/home/cyril/glibc-2.31/nis/nis_call.c:214: undefined reference to `clnttcp_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_call.c:245: undefined reference to `authunix_create_default'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_call.c:211: undefined reference to `clntudp_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_call.os): in function `get_ckey':
+/home/cyril/glibc-2.31/nis/nis_call.c:154: undefined reference to `key_gendes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_call.os): in function `__GI___nisbind_connect':
+/home/cyril/glibc-2.31/nis/nis_call.c:240: undefined reference to `authdes_pk_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_call.c:242: undefined reference to `authunix_create_default'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_call.os): in function `nis_server_cache_search':
+/home/cyril/glibc-2.31/nis/nis_call.c:620: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_call.os): in function `nis_server_cache_add':
+/home/cyril/glibc-2.31/nis/nis_call.c:658: undefined reference to `xdr_sizeof'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_call.c:671: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_call.os): in function `first_shoot':
+/home/cyril/glibc-2.31/nis/nis_call.c:551: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_ping.os): in function `__GI_nis_ping':
+/home/cyril/glibc-2.31/nis/nis_ping.c:64: undefined reference to `xdr_void'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_mapname':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:68: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_domainname':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:61: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_mapname':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:68: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypmap_parms':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:102: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_domainname':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:61: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_mapname':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:68: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_domainname':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:61: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypreq_xfr':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:133: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/yp_xdr.c:135: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypstat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:47: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/yp_xdr.c:47: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_valdat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:90: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypstat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:47: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/yp_xdr.c:47: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypresp_all':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:182: undefined reference to `xdr_bool'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypresp_xfr':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:200: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypstat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:47: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_yppushresp_xfr':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:238: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypbind_binding':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:254: undefined reference to `xdr_opaque'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypbind_resptype':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:247: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_domainname':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:61: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypall':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:306: undefined reference to `xdr_bool'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypmaplist':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:213: undefined reference to `xdr_pointer'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypstat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:47: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypxfrstat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:54: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_domainname':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:61: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_keydat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:82: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_valdat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:90: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_peername':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:75: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_keydat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:82: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_mapname':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:68: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypreq_xfr':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:137: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_valdat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:90: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_keydat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:82: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_peername':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:75: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypresp_order':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:175: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypxfrstat':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:54: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypresp_maplist':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:224: undefined reference to `xdr_pointer'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_yppush_status':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:231: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/yp_xdr.c:231: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypbind_resptype':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:247: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypbind_binding':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:256: undefined reference to `xdr_opaque'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypbind_resp':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:268: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(yp_xdr.os): in function `__GI_xdr_ypbind_setdom':
+/home/cyril/glibc-2.31/nis/yp_xdr.c:283: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `yp_bind_client_create':
+/home/cyril/glibc-2.31/nis/ypclnt.c:72: undefined reference to `__libc_clntudp_bufcreate'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `__xdr_ypresp_all':
+/home/cyril/glibc-2.31/nis/ypclnt.c:695: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:666: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:672: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:703: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `__ypclnt_call':
+/home/cyril/glibc-2.31/nis/ypclnt.c:287: undefined reference to `clnt_perror'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `yp_bind_ypbindprog':
+/home/cyril/glibc-2.31/nis/ypclnt.c:114: undefined reference to `clnttcp_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `__GI_yp_all':
+/home/cyril/glibc-2.31/nis/ypclnt.c:750: undefined reference to `clnttcp_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:770: undefined reference to `clnt_perror'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `__GI_yp_match':
+/home/cyril/glibc-2.31/nis/ypclnt.c:470: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `__GI_yp_next':
+/home/cyril/glibc-2.31/nis/ypclnt.c:582: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `__GI_yp_master':
+/home/cyril/glibc-2.31/nis/ypclnt.c:612: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `__GI_yp_order':
+/home/cyril/glibc-2.31/nis/ypclnt.c:642: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `__GI_yp_first':
+/home/cyril/glibc-2.31/nis/ypclnt.c:525: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypclnt.os): in function `__GI_yp_update':
+/home/cyril/glibc-2.31/nis/ypclnt.c:965: undefined reference to `host2netname'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:972: undefined reference to `clnt_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:1004: undefined reference to `authdes_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:1006: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:1018: undefined reference to `authunix_create_default'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:1026: undefined reference to `clnt_perror'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:1007: undefined reference to `authunix_create_default'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypclnt.c:979: undefined reference to `clnt_pcreateerror'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypupdate_xdr.os): in function `__GI_xdr_ypupdate_args':
+/home/cyril/glibc-2.31/nis/ypupdate_xdr.c:46: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypupdate_xdr.os): in function `__GI_xdr_yp_buf':
+/home/cyril/glibc-2.31/nis/ypupdate_xdr.c:38: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypupdate_xdr.os): in function `__GI_xdr_ypdelete_args':
+/home/cyril/glibc-2.31/nis/ypupdate_xdr.c:57: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(ypupdate_xdr.os): in function `__GI_xdr_yp_buf':
+/home/cyril/glibc-2.31/nis/ypupdate_xdr.c:38: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypupdate_xdr.c:38: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/ypupdate_xdr.c:38: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_free.os): in function `__GI___free_fdresult':
+/home/cyril/glibc-2.31/nis/nis_free.c:28: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_free.os): in function `__GI_nis_free_request':
+/home/cyril/glibc-2.31/nis/nis_free.c:39: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_free.os): in function `__GI_nis_free_directory':
+/home/cyril/glibc-2.31/nis/nis_free.c:50: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_free.os): in function `__GI_nis_free_object':
+/home/cyril/glibc-2.31/nis/nis_free.c:61: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_free.os): in function `__GI_nis_freeresult':
+/home/cyril/glibc-2.31/nis/nis_free.c:72: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_file.os): in function `read_nis_obj':
+/home/cyril/glibc-2.31/nis/nis_file.c:43: undefined reference to `xdrstdio_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_file.os): in function `write_nis_obj':
+/home/cyril/glibc-2.31/nis/nis_file.c:67: undefined reference to `xdrstdio_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_lookup.os): in function `__GI_nis_lookup':
+/home/cyril/glibc-2.31/nis/nis_lookup.c:110: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_table.os): in function `get_tablepath':
+/home/cyril/glibc-2.31/nis/nis_table.c:162: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_table.os): in function `__GI_nis_list':
+/home/cyril/glibc-2.31/nis/nis_table.c:394: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_table.c:437: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_endpoint':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:75: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:78: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_table_col':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:179: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:182: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_nis_tag':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:401: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_name':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_nis_server':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:91: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:95: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_oar_mask':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:66: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_entry_col':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:132: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_attr':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:32: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_name':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nstype':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:60: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_directory_obj':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:112: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:117: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_oid':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:243: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:245: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_name':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_nis_object':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:267: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:270: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_zotypes':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:54: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_table_obj':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:192: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:195: undefined reference to `xdr_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_zotypes':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:54: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_link_obj':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:167: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_entry_obj':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:142: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_group_obj':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:153: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_table_obj':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:198: undefined reference to `xdr_u_char'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:201: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_error':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:285: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `__GI__xdr_nis_result':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:300: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:305: undefined reference to `xdr_netobj'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:308: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:311: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:314: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_name':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `__GI__xdr_ib_request':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:343: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:348: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:351: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:357: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_xdr.c:364: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_name':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_error':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:285: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_cp_result':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:391: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_name':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_error':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:285: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_name':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_fd_result':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:433: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_name':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_endpoint':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:80: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_table_col':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:184: undefined reference to `xdr_u_int'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_nis_tag':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:403: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_nis_server':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:97: undefined reference to `xdr_netobj'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_zotypes':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:54: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_entry_col':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:134: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_attr':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:34: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `__GI_xdr_obj_p':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:448: undefined reference to `xdr_pointer'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_directory_obj':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:119: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_objdata':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:231: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_entry_obj':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:144: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_name':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_error':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:285: undefined reference to `xdr_enum'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `__GI__xdr_nis_result':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:316: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_ns_request':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:331: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `__GI__xdr_ib_request':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:366: undefined reference to `xdr_netobj'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_ping_args':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:381: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_cp_result':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:393: undefined reference to `xdr_uint32_t'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_nis_taglist':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:410: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `xdr_nis_name':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:42: undefined reference to `xdr_string'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `_xdr_fd_result':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:436: undefined reference to `xdr_bytes'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_xdr.os): in function `__GI_xdr_cback_data':
+/home/cyril/glibc-2.31/nis/nis_xdr.c:456: undefined reference to `xdr_array'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_getservlist.os): in function `__GI_nis_freeservlist':
+/home/cyril/glibc-2.31/nis/nis_getservlist.c:165: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_findserv.os): in function `__nis_findfastest_with_timeout':
+/home/cyril/glibc-2.31/nis/nis_findserv.c:146: undefined reference to `clntudp_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_findserv.c:154: undefined reference to `authunix_create_default'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_findserv.c:158: undefined reference to `xdr_void'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_findserv.c:158: undefined reference to `xdr_void'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_findserv.c:176: undefined reference to `xdr_void'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_findserv.os): in function `__pmap_getnisport':
+/home/cyril/glibc-2.31/nis/nis_findserv.c:58: undefined reference to `__libc_rpc_getport'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_callback.os): in function `cb_prog_1':
+/home/cyril/glibc-2.31/nis/nis_callback.c:122: undefined reference to `xdr_bool'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:168: undefined reference to `xdr_void'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:184: undefined reference to `svc_sendreply'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:185: undefined reference to `svcerr_systemerr'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:181: undefined reference to `svcerr_noproc'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:114: undefined reference to `xdr_void'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:114: undefined reference to `svc_sendreply'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:156: undefined reference to `xdr_void'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:184: undefined reference to `svc_sendreply'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:126: undefined reference to `svcerr_decode'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:122: undefined reference to `xdr_bool'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_callback.os): in function `internal_nis_do_callback':
+/home/cyril/glibc-2.31/nis/nis_callback.c:201: undefined reference to `__rpc_thread_svc_max_pollfd'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:213: undefined reference to `__rpc_thread_svc_pollfd'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:226: undefined reference to `xdr_bool'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:226: undefined reference to `xdr_netobj'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:208: undefined reference to `__rpc_thread_svc_pollfd'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:238: undefined reference to `svc_getreq_poll'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_callback.os): in function `__nis_create_callback':
+/home/cyril/glibc-2.31/nis/nis_callback.c:321: undefined reference to `svctcp_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:328: undefined reference to `svc_register'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:348: undefined reference to `get_myaddress'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:320: undefined reference to `svcudp_bufcreate'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:362: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:290: undefined reference to `key_secretkey_is_set'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:362: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:330: undefined reference to `xprt_unregister'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:332: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:340: undefined reference to `xprt_unregister'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:342: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_callback.os): in function `__nis_destroy_callback':
+/home/cyril/glibc-2.31/nis/nis_callback.c:373: undefined reference to `xprt_unregister'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_callback.c:376: undefined reference to `xdr_free'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_clone_dir.os): in function `__GI_nis_clone_directory':
+/home/cyril/glibc-2.31/nis/nis_clone_dir.c:36: undefined reference to `xdr_sizeof'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_clone_dir.c:40: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_clone_dir.c:61: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_clone_obj.os): in function `__GI_nis_clone_object':
+/home/cyril/glibc-2.31/nis/nis_clone_obj.c:37: undefined reference to `xdr_sizeof'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_clone_obj.c:49: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_clone_obj.c:53: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_clone_obj.c:49: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/build/bin/lib/libnsl_pic.a(nis_clone_res.os): in function `__GI_nis_clone_result':
+/home/cyril/glibc-2.31/nis/nis_clone_res.c:36: undefined reference to `xdr_sizeof'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_clone_res.c:40: undefined reference to `xdrmem_create'
+/usr/bin/ld: /home/cyril/glibc-2.31/nis/nis_clone_res.c:61: undefined reference to `xdrmem_create'
+collect2: error: ld returned 1 exit status
+make[2]: *** [../Makerules:536: /home/cyril/glibc-2.31/build/bin/lib/libnsl.so] Error 1
+make[1]: *** [Makefile:487: nis/subdir_install] Error 2
+make: *** [Makefile:12: install] Error 2
