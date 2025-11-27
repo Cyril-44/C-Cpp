@@ -9,3 +9,5 @@ PSTools/
 logkeys/
 Obfuscator/
 Default.code-workspace
+.hmcl.json
+.hmcl/
