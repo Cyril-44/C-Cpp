@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "thread": "cpp",
+        "libiop.h": "c",
+        "wcsmbsload.h": "c",
+        "shlib-compat.h": "c",
+        "fcntl.h": "c",
+        "fd_to_filename.h": "c",
+        "unistd.h": "c",
+        "stdio.h": "c",
+        "libio.h": "c",
+        "math_ldbl_opt.h": "c",
+        "*.tbl": "cpp"
+    },
+    "clangd.arguments": [
+        
+    ],
+    "cmake.sourceDirectory": "/home/cyril/code/Functions/clang-cpp-obf"
+}
