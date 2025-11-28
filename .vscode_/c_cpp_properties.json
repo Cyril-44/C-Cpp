@@ -1,0 +1,46 @@
+{
+    "configurations": [
+        {
+<<<<<<< HEAD
+            "name": "Linux",
+=======
+            "name": "Competitive Programming",
+>>>>>>> origin/master
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+<<<<<<< HEAD
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+=======
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "browse": {
+                "path": []
+            },
+            "compilerPath": "/usr/bin/g++",
+            "compilerArgs": [
+                "-Wall",
+                "-Wextra",
+                "-ftemplate-depth=1024",
+                "-DDEBUG",
+                "-D_GLIBCXX_DEBUG"
+            ]
+        },
+        {
+            "name": "Projects (C++20)",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c17",
+            "cppStandard": "c++20",
+>>>>>>> origin/master
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}
