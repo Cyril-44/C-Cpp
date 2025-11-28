@@ -9,12 +9,6 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/.vscode/a.out",
-<<<<<<< HEAD
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-=======
             "args": ["${workspaceFolder}/a.dmp"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -24,33 +18,19 @@
                     "value": "detect_leaks=0:abort_on_error=1:disable_coredump=0"
                 }
             ],
->>>>>>> origin/master
             "externalConsole": false,
             "MIMode": "gdb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
-<<<<<<< HEAD
-                    "ignoreFailures": true
-=======
->>>>>>> origin/master
                 },
                 {
                     "description": "Set Disassembly Flavor to Intel",
                     "text": "-gdb-set disassembly-flavor intel",
-<<<<<<< HEAD
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "C/C++: g++ build debug file"
-        }
-
-=======
                 }
             ],
             "preLaunchTask": "Cpp Debug Build"
         }
->>>>>>> origin/master
     ]
 }

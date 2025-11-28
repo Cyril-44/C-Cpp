@@ -1,20 +1,11 @@
 {
     "configurations": [
         {
-<<<<<<< HEAD
-            "name": "Linux",
-=======
             "name": "Competitive Programming",
->>>>>>> origin/master
             "includePath": [
                 "${workspaceFolder}/**"
             ],
             "defines": [],
-<<<<<<< HEAD
-            "compilerPath": "/usr/bin/gcc",
-            "cStandard": "c17",
-            "cppStandard": "c++14",
-=======
             "cStandard": "c17",
             "cppStandard": "c++14",
             "browse": {
@@ -38,7 +29,6 @@
             "compilerPath": "/usr/bin/g++",
             "cStandard": "c17",
             "cppStandard": "c++20",
->>>>>>> origin/master
             "intelliSenseMode": "linux-gcc-x64"
         }
     ],
