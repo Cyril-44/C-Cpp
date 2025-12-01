@@ -2,16 +2,23 @@
 #include <string.h>
 #include <algorithm>
 #define umax(x, y) ((x) = std::max((x), (y)))
+#ifdef DEBUG
+# define debug(...) fprintf(stderr, __VA_ARGS__)
+#else
+# define debug(...) ((void)0)
+#endif
 constexpr int N = 500005, NINF = -(1 << 30);
 int n;
 namespace SegTr {
 struct Node {
 	int size; // 这个节点代表的区间的长度
-	int sum, mx, mx2, mxcnt, hmx;
+	long long sum, mx, mx2;
+	int mxcnt;
+	long long hmx;
 // 懒标记:
 	struct Tag {
-		int mx, hmx; // 对于 mx 的懒标记，从该节点 pushdown 以来的最大 mx 懒标记
-		int x, hx; // 对于不是 mx 的懒标记，从该节点 pushdown 以来的最大 非mx 懒标记
+		long long mx, hmx; // 对于 mx 的懒标记，从该节点 pushdown 以来的最大 mx 懒标记
+		long long x, hx; // 对于不是 mx 的懒标记，从该节点 pushdown 以来的最大 非mx 懒标记
 	} add;
 	inline void pull(const Tag &t) { // 先更新历史 再更新当前
 	// 更新线段树
@@ -26,10 +33,11 @@ struct Node {
 	}
 } tr[N << 2];
 void pushdown(int u) {
-	if (tr[u<<1].mx == tr[u].mx)
+	auto maxthreshld = std::max(tr[u<<1].mx, tr[u<<1|1].mx);
+	if (tr[u<<1].mx == maxthreshld)
 		tr[u<<1].pull(tr[u].add);
 	else tr[u<<1].pull({tr[u].add.x, tr[u].add.hx, tr[u].add.x, tr[u].add.hx});
-	if (tr[u<<1|1].mx == tr[u].mx)
+	if (tr[u<<1|1].mx == maxthreshld)
 		tr[u<<1|1].pull(tr[u].add);
 	else tr[u<<1|1].pull({tr[u].add.x, tr[u].add.hx, tr[u].add.x, tr[u].add.hx});
 	memset(&tr[u].add, 0, sizeof tr[u].add);
@@ -53,7 +61,7 @@ inline void pushup(int u) {
 }
 void build(int u = 1, int l = 1, int r = n) {
 	if (l == r) {
-		scanf("%d", &tr[u].mx);
+		scanf("%lld", &tr[u].mx);
 		tr[u].sum = tr[u].hmx = tr[u].mx;
 		tr[u].mx2 = NINF;
 		tr[u].mxcnt = tr[u].size = 1;
@@ -67,14 +75,14 @@ void build(int u = 1, int l = 1, int r = n) {
 }
 int L, R, X;
 #define QUE(var, func, deft) \
-	int que##var(int u, int l, int r) { \
+	long long que##var(int u, int l, int r) { \
 		if (r < L || R < l) return deft; \
 		if (L <= l && r <= R) return tr[u].var; \
 		int mid = l + r >> 1; \
 		pushdown(u); \
 		return func(que##var(u<<1, l, mid), que##var(u<<1|1, mid+1, r)); \
 	} \
-	inline int query_##var(int l, int r) { \
+	inline long long query_##var(int l, int r) { \
 		L = l, R = r; \
 		return que##var(1, 1, n); \
 	}
@@ -83,20 +91,25 @@ QUE(mx, std::max, NINF)
 QUE(hmx, std::max, NINF)
 QUE(sum, add, 0)
 void updmn(int u, int l, int r) {
-	if (r < L || R < l) return;
+	if (r < L || R < l) {
+		debug("Unexpected [%d, %d], with data %d (%d, %d, %d, %d, %d)\n", l, r, u, tr[u].sum, tr[u].mx, tr[u].mx2, tr[u].mxcnt, tr[u].hmx);
+		return;
+	}
+	if (tr[u].mx <= X) return; // 没有任何影响
 	if (L <= l && r <= R) {
-		if (tr[u].mx <= X) return; // 没有任何影响
 		if (tr[u].mx2 < X && X < tr[u].mx) { // second_max < modify < max
+			// debug("Updating [%d, %d] with data %d (%d, %d, %d, %d, %d)", l, r, u, tr[u].sum, tr[u].mx, tr[u].mx2, tr[u].mxcnt, tr[u].hmx);
 			tr[u].sum -= (tr[u].mx - X) * tr[u].mxcnt; // 变为对于 max 加上 (modify - max)
 			tr[u].add.mx += X - tr[u].mx;
 			tr[u].mx = X;
+			// debug(" to (%d, %d, %d, %d, %d)\n", tr[u].sum, tr[u].mx, tr[u].mx2, tr[u].mxcnt, tr[u].hmx);
 			return;
 		}
 	}
 	int mid = l + r >> 1;
 	pushdown(u);
-	updmn(u<<1, l, mid);
-	updmn(u<<1|1, mid+1, r);
+	if (L <= mid) updmn(u<<1, l, mid);
+	if (mid < R) updmn(u<<1|1, mid+1, r);
 	pushup(u);
 }
 void updadd(int u, int l, int r) {
@@ -126,16 +139,26 @@ int main() {
 	int m;
 	scanf("%d%d", &n, &m);
 	SegTr::build();
+	int __opt_cnt = 0, __que_cnt = 0;
 	for (int op, l, r, v; m--; ) {
 		scanf("%d%d%d", &op, &l, &r);
 		if (op <= 2) scanf("%d", &v);
+#ifdef DEBUG
+		(op < 3) ? debug("===Operation %d: [%d, %d] %s %d===\n", ++__opt_cnt, l, r, op==1?"+=":"umin", v) : debug("===Query %d: [%d, %d]'s %s===\n", ++__que_cnt, l, r, op==3?"sum":op==4?"max":"hist_max");
+#endif
 		switch (op) {
 		case 1: SegTr::updateadd(l, r, v); break;
 		case 2: SegTr::updatemin(l, r, v); break;
-		case 3: printf("%d\n", SegTr::query_sum(l, r)); break;
-		case 4: printf("%d\n", SegTr::query_mx(l, r)); break;
-		case 5: printf("%d\n", SegTr::query_hmx(l, r)); break;
+		case 3: printf("%lld\n", SegTr::query_sum(l, r)); break;
+		case 4: printf("%lld\n", SegTr::query_mx(l, r)); break;
+		case 5: printf("%lld\n", SegTr::query_hmx(l, r)); break;
 		}
+#ifdef DEBUG
+		if (op < 3 && false) {
+			debug("\tVal:%c", l-1?' ':'['); for (int i = 1; i <= n; i++) debug("%3d%c", SegTr::query_sum(i, i), i==l-1?'[':i==r?']':' '); debug("\n");
+			debug("\tHMx:%c", l-1?' ':'['); for (int i = 1; i <= n; i++) debug("%3d%c", SegTr::query_hmx(i, i), i==l-1?'[':i==r?']':' '); debug("\n");
+		}
+#endif
 	}
 	return 0;
 }
