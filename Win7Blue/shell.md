@@ -39,3 +39,4 @@ su noi -s /bin/sh; x11vnc -viewonly -display :0 -rfbauth ~/.vnc/passwd
 172.17.227.88|C02
 172.17.227.92|C06
 172.17.227.95|D01
+172.17.227.120|D02
