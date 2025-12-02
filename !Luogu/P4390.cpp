@@ -93,25 +93,18 @@ namespace KDTree {
     }
 }
 int main() {
-#ifdef DEBUG
-    freopen("P4148.in", "r", stdin);
-#endif
-    int n;
-    int last_ans = 0;
-    scanf("%d", &n);
+    scanf("%*d%*d");
     for (int op; ; ) {
         scanf("%d", &op);
         if (op == 3) break;
         if (op == 1) {
             int x, y, A;
             int __cnt = scanf("%d%d%d", &x, &y, &A);
-            x ^= last_ans, y ^= last_ans, A ^= last_ans;
             KDTree::insert(x, y, A);
         } else {
             int x1, y1, x2, y2;
             int __cnt = scanf("%d%d%d%d", &x1, &y1, &x2, &y2);
-            x1 ^= last_ans, y1 ^= last_ans, x2 ^= last_ans, y2 ^= last_ans;
-            printf("%d\n", last_ans = KDTree::query(x1, y1, x2, y2));
+            printf("%d\n", KDTree::query(x1, y1, x2, y2));
         }
     }
     return 0;

@@ -16,7 +16,7 @@
 				"-g3",
 				"${file}",
 				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}",
+				"${workspaceFolder}/.vscode/a.out",
 			],
 			"options": {
 				"cwd": "${fileDirname}"
