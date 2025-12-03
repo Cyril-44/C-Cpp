@@ -51,7 +51,7 @@ public:
             }
             if (m) j = -j;
         } else {
-            static_assert(false, "\u004E\u006F\u0074\u0020\u0073\u0075\u0070\u0070\u006F\u0072\u0074\u0065\u0064\u0021");
+            throw;
         }
         return *this;
     }
@@ -113,7 +113,7 @@ public:
                 }
             }
         } else {
-            static_assert(false, "\u004E\u006F\u0074\u0020\u0073\u0075\u0070\u0070\u006F\u0072\u0074\u0065\u0064\u0021");
+            throw;
         }
         return *this;
     }
