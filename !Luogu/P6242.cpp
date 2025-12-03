@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
+#include <bits/stdc++.h>
+using namespace std;
 #define umax(x, y) ((x) = std::max((x), (y)))
 constexpr int N = 500005, NINF = -(1 << 30);
+#define Inline __attribute__((always_inline)) inline
 int n;
 namespace SegTr {
 struct Node {
@@ -22,7 +25,8 @@ struct Node {
 	// 更新树上懒标记
 		umax(add.hmx, add.mx + t.hmx);
 		umax(add.hx, add.x + t.hx);
-		add.mx += t.mx, add.x += t.x;
+		add.mx += t.mx, add.x += t.x
+		;
 	}
 } tr[N << 2];
 void pushdown(int u) {
