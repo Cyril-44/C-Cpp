@@ -19,6 +19,14 @@ impersonate_token <token>
 shell
 ```
 
+```sh
+# 确认 sysrq 已启用
+echo 1 > /proc/sys/kernel/sysrq
+
+# 触发 panic
+echo c > /proc/sysrq-trigger
+```
+
 `pxbakioi%%%orz%%%wtz10.07.19wtzzhy80`
 
 Capture 
