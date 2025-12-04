@@ -1,4 +1,3 @@
-#include <cwchar>
 #include <stdio.h>
 #include <algorithm>
 #include <cstdint>
@@ -19,8 +18,8 @@ Point q[N];
 void cdq(int l, int r) {
     if (l >= r) return;
     int mid = l + r >> 1;
-    cdq(l, mid), cdq(mid+1, r);
     int midx = a[mid].x;
+    cdq(l, mid), cdq(mid+1, r);
     std::inplace_merge(a+l, a+mid+1, a+r+1, [](const Point&a, const Point&b){return a.y < b.y;});
     int h = 0, t = 0;
     for (int i = l; i <= r; i++)
@@ -39,10 +38,10 @@ int main() {
     std::mt19937_64 rng(std::chrono::steady_clock::now().time_since_epoch().count());
     std::uniform_int_distribution<int> rg(1, n);
     int x = rg(rng), y = rg(rng);
-    while (y == x) y = rg(rng);
+    if (y == x) y = y % n + 1;
     mndis = getlen(a[x], a[y]);
     std::sort(a+1, a+1 + n, [](const Point&a, const Point&b){return a.x < b.x;});
     cdq(1, n);
-    printf("%lld\n", mndis);
+    printf("%.4lf\n", std::sqrt(mndis));
     return 0;
 }
