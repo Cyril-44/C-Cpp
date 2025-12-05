@@ -31,9 +31,12 @@ void cdq1(int l, int r) { // 确保 xl > xr, 计算 yl < yr
     std::sort(a+mid+1, a+r+1, [](const Node&x, const Node&y){return x.y < y.y;});
     int i = l;
     for (int j = mid+1; j <= r; ++j) {
-        while (i <= mid && a[i].y <= a[j].y) BIT::upd(a[i++].id, 1);
+        while (i <= mid && a[i].y <= a[j].y) {
+            debug("add %d: %d\n", i, a[i].id);
+            BIT::upd(a[i++].id, 1);
+        }
         ans += BIT::sum(n) - (BIT::sum(std::min(a[j].id + k, n)) - BIT::sum(std::max(a[j].id - k - 1, 0)));
-        debug("%d %d %d %d(%d) %d(%d)\n", i, j, a[j].id, BIT::sum(std::min(a[j].id + k, n)), std::min(a[j].id + k, n), BIT::sum(std::max(a[j].id - k, 1)), std::max(a[j].id - k, 1));
+        debug("set %d %d %d ==> %d(%d) - %d(%d)\n", i, j, a[j].id, BIT::sum(std::min(a[j].id + k, n)), std::min(a[j].id + k, n), BIT::sum(std::max(a[j].id - k, 1)), std::max(a[j].id - k, 1));
     }
     while (--i >= l) BIT::upd(a[i].id, -1);
 }
@@ -48,7 +51,7 @@ void cdq2(int l, int r) { // 确保 yl > yr, 计算 xl < xr
     for (int j = mid+1; j <= r; ++j) {
         while (i <= mid && a[i].x <= a[j].x) BIT::upd(a[i++].id, 1);
         ans += BIT::sum(n) - (BIT::sum(std::min(a[j].id + k, n)) - BIT::sum(std::max(a[j].id - k - 1, 0)));
-        // debug("%d %d %d %d(%d) %d(%d)\n", i, j, a[j].id, BIT::sum(std::min(a[j].id + k, n)), std::min(a[j].id + k, n), BIT::sum(std::max(a[j].id - k, 1)), std::max(a[j].id - k, 1));
+        debug("%d %d %d %d(%d) %d(%d)\n", i, j, a[j].id, BIT::sum(std::min(a[j].id + k, n)), std::min(a[j].id + k, n), BIT::sum(std::max(a[j].id - k, 1)), std::max(a[j].id - k, 1));
     }
     while (--i >= l) BIT::upd(a[i].id, -1);
 }
