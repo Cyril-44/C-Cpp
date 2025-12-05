@@ -1,24 +1,25 @@
 #include <stdio.h>
+#include <numeric>
+#include <array>
 constexpr int N = 55, M = 100005;
-int n;
+int n, T;
 int edg[M][2];
-using Status = unsigned long long;
-struct Node {
-    Status to;
-    int s;
-    inline bool operator[] (int p) { return to >> p & 1; }
-    inline Node& operator|= (int p) { to |= 1ull << p; }
-} g[N];
+using Node = std::array<int, N>;
 namespace SegTr {
 Node tr[M << 2];
 inline void pushup(int u) {
-    tr[u] = tr[u<<1];
-    if (tr[u<<1][tr[u<<1|1].s]) tr[u].s |= tr[u<<1|1].s;
+    auto &us = tr[u];
+    const auto& ls = tr[u<<1], rs = tr[u<<1|1];
+    for (int i = 1; i <= T; i++)
+        us[i] = (rs[ls[i]]) ? rs[ls[i]] : ls[i];
 }
 void build(int u = 1, int l = 1, int r = n) {
     if (l == r) {
-        scanf("%d", &tr[u].s);
-        tr[u].to = g[tr[u].s];
+        int x;
+        scanf("%d", &x);
+        std::iota(tr[u].begin(), tr[u].end(), 0);
+        tr[u][edg[x][0]] = edg[x][1];
+        return;
     }
     int mid = l + r >> 1;
     build(u << 1, l, mid);
@@ -28,8 +29,8 @@ void build(int u = 1, int l = 1, int r = n) {
 int P, X;
 void upd(int u = 1, int l = 1, int r = n) {
     if (l == r) {
-        tr[u].s = X;
-        tr[u].to = g[X];
+        std::iota(tr[u].begin(), tr[u].end(), 0);
+        tr[u][edg[X][0]] = edg[X][1];
         return;
     }
     int mid = l + r >> 1;
@@ -42,19 +43,20 @@ Node que(int u = 1, int l = 1, int r = n) {
     if (L <= l && r <= R) return tr[u];
     int mid = l + r >> 1;
     if (L <= mid && mid < R) {
-        Node left = que(u << 1, l, mid);
-        Node right = que(u << 1 | 1, mid + 1, r);
-        if (left[right.s]) left.s |= right.s;
+        auto left = que(u << 1, l, mid);
+        auto right = que(u << 1 | 1, mid + 1, r);
+        for (int i = 1; i <= T; i++)
+            if (right[left[i]]) left[i] = right[left[i]];
         return left;
     }
     if (L <= mid) return que(u << 1, l, mid);
     return que(u << 1 | 1, mid + 1, r);
 }
-inline void update (int l, int r) { L = l, R = r; upd(); }
-inline Node query (int l, int r) { L = l, R = r; return query(); }
+inline void update (int p, int x) { P = p, X = x; upd(); }
+inline Node query (int l, int r) { L = l, R = r; return que(); }
 }
 int main() {
-    int T, m, q;
+    int m, q;
     scanf("%d%d", &T, &m);
     for (int x, y, i = 1; i <= m; i++) {
         scanf("%d%d", &edg[i][0], &edg[i][1]);
@@ -67,8 +69,9 @@ int main() {
         if (op == 1) scanf("%d", &z);
         if (op == 1) {
             Node get = SegTr::query(x, y);
-            if (get[z])
+            printf("%d\n", get[z]);
         }
+        else SegTr::update(x, y);
     }
     return 0;
 }
