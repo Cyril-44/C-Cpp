@@ -22,48 +22,29 @@ namespace BIT {
     }
 }
 long long ans = 0;
-void cdq1(int l, int r) { // 确保 xl > xr, 计算 yl < yr
+void cdq(int l, int r) { // 确保 xl > xr, 计算 yl < yr
     if (l == r) return;
     int mid = l + r >> 1;
-    cdq1(l, mid), cdq1(mid + 1, r);
-    std::sort(a+l, a+r+1, [](const Node&x, const Node&y){return x.x > y.x;});
-    std::sort(a+l, a+mid+1, [](const Node&x, const Node&y){return x.y < y.y;});
-    std::sort(a+mid+1, a+r+1, [](const Node&x, const Node&y){return x.y < y.y;});
+    cdq(l, mid), cdq(mid + 1, r);
     int i = l;
     for (int j = mid+1; j <= r; ++j) {
         while (i <= mid && a[i].y <= a[j].y) {
-            debug("add %d: %d\n", i, a[i].id);
+            debug("add %d(%d,%d)\n", a[i].id, a[i].x, a[i].y);
             BIT::upd(a[i++].id, 1);
         }
         ans += BIT::sum(n) - (BIT::sum(std::min(a[j].id + k, n)) - BIT::sum(std::max(a[j].id - k - 1, 0)));
-        debug("set %d %d %d ==> %d(%d) - %d(%d)\n", i, j, a[j].id, BIT::sum(std::min(a[j].id + k, n)), std::min(a[j].id + k, n), BIT::sum(std::max(a[j].id - k, 1)), std::max(a[j].id - k, 1));
+        debug("set %d(%d,%d) ==> %d - %d + %d\n", a[j].id, a[j].x, a[j].y, BIT::sum(n), BIT::sum(std::min(a[j].id + k, n)), BIT::sum(std::max(a[j].id - k, 1)));
     }
     while (--i >= l) BIT::upd(a[i].id, -1);
-}
-void cdq2(int l, int r) { // 确保 yl > yr, 计算 xl < xr
-    if (l == r) return;
-    int mid = l + r >> 1;
-    cdq2(l, mid), cdq2(mid + 1, r);
-    std::sort(a+l, a+r+1, [](const Node&x, const Node&y){return x.y > y.y;});
-    std::sort(a+l, a+mid+1, [](const Node&x, const Node&y){return x.x < y.x;});
-    std::sort(a+mid+1, a+r+1, [](const Node&x, const Node&y){return x.x < y.x;});
-    int i = l;
-    for (int j = mid+1; j <= r; ++j) {
-        while (i <= mid && a[i].x <= a[j].x) BIT::upd(a[i++].id, 1);
-        ans += BIT::sum(n) - (BIT::sum(std::min(a[j].id + k, n)) - BIT::sum(std::max(a[j].id - k - 1, 0)));
-        debug("%d %d %d %d(%d) %d(%d)\n", i, j, a[j].id, BIT::sum(std::min(a[j].id + k, n)), std::min(a[j].id + k, n), BIT::sum(std::max(a[j].id - k, 1)), std::max(a[j].id - k, 1));
-    }
-    while (--i >= l) BIT::upd(a[i].id, -1);
+    std::inplace_merge(a+l, a+mid+1, a+r+1, [](const Node&i, const Node&j){return i.y < j.y;});
 }
 int main() {
     scanf("%d%d", &n, &k);
     for (int i = 1; i <= n; i++) a[i].id = i;
-#define READ(val) \
-    for (int i = 1; i <= n; i++) scanf("%d", &p[i]); \
-    for (int i = 1; i <= n; i++) a[p[i]].val = i
+#define READ(val) for (int i = 1, tp; i <= n; i++) scanf("%d", &tp), a[tp].val = i;
     READ(x); READ(y);
-    cdq1(1, n);
-    cdq2(1, n);
+    std::sort(a+1, a+1 + n, [](const Node&i, const Node&j){return i.x > j.x;});
+    cdq(1, n);
     printf("%lld\n", ans);
     return 0;
 }
