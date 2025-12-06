@@ -14,11 +14,10 @@ namespace Init {
 int ts = 0;
 void dfs(int u) {
     dfn[u] = ++ts;
-    for (int k = 1; k <= K; k++)
-        for (int i = 1; i <= n; i++) {
-            fa[i][k] = fa[fa[i][k-1]][k-1];
-            mn[i][k] = std::min(mn[i][k-1], mn[fa[i][k-1]][k-1]);
-        }
+    for (int k = 1; k <= K; k++) {
+        fa[u][k] = fa[fa[u][k-1]][k-1];
+        mn[u][k] = std::min(mn[u][k-1], mn[fa[u][k-1]][k-1]);
+    }
     for (const auto&[v, w] : g[u]) {
         if (v == fa[u][0]) continue;
         fa[v][0] = u;
@@ -57,10 +56,16 @@ inline void build(std::vector<int>& pts) {
     for (int v : pts) {
         int u = lca(v, sta[top]); // lca(v, sta[top])
         if (u != sta[top]) {
-            for (; dfn[sta[top-1]] >= dfn[u]; --top) // 注意 >=，一直搞到 栈次大 严格 < dfn[u]
+            for (; top > 1 && dfn[sta[top-1]] > dfn[u]; --top) // 注意 >=，一直搞到 栈次大 <= dfn[u]
                 ng[sta[top-1]].push_back(sta[top]);
-            if (sta[top] != u) // lca 不在栈顶，说明栈顶 dep < lca dep，将 lca 接在栈顶下面 
-                sta[++top] = u;
+            if (sta[top-1] == u) { // u -> (sta[top], v)
+                ng[u].push_back(sta[top--]);
+            } else { // sta[top-1] -> u -> (sta[top], v)
+                ng[u].push_back(sta[top]);
+                sta[top] = u;
+            }
+            // if (sta[top] != u) // lca 不在栈顶，说明栈顶 dep < lca dep，将 lca 接在栈顶下面 
+            //     sta[++top] = u;
         }
         sta[++top] = v;
     }
@@ -109,6 +114,9 @@ int main() {
             key[x] = true;
         }
         VT::build(a);
+        // for (int i = 1; i <= n; i++)
+        //     for (int j : ng[i])
+        //         fprintf(stderr, "%d %d\n", i, j);
         Solve::dfs(1);
         printf("%lld\n", Solve::f[1][0]);
     }
