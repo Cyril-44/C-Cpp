@@ -48,3 +48,24 @@ su noi -s /bin/sh; x11vnc -viewonly -display :0 -rfbauth ~/.vnc/passwd
 172.17.227.92|C06
 172.17.227.95|D01
 172.17.227.120|D02
+
+```nmap
+Nmap scan report for 172.17.226.200
+Host is up (0.0011s latency).
+Not shown: 65522 filtered tcp ports (no-response)
+PORT      STATE SERVICE
+21/tcp    open  ftp
+22/tcp    open  ssh
+80/tcp    open  http
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+443/tcp   open  https
+445/tcp   open  microsoft-ds
+990/tcp   open  ftps
+3389/tcp  open  ms-wbt-server
+5040/tcp  open  unknown
+5357/tcp  open  wsdapi
+7680/tcp  open  pando-pub
+8080/tcp  open  http-proxy
+49669/tcp open  unknown
+```
