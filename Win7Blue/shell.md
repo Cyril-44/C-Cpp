@@ -32,10 +32,14 @@ echo c > /proc/sysrq-trigger
 Capture 
 ```sh
 llks -s -m /usr/local/bin/llkk.cnf -o /tmp/xxxxxxxx
-su noi -s /bin/sh; x11vnc -viewonly -display :0 -rfbauth ~/.vnc/passwd
+su noi -s /bin/sh
+x11vnc -storepasswd
+openssl rand -base64 20 | cut -c1-20
+x11vnc -viewonly -display :0 -rfbauth ~/.vnc/passwd
 ```
 
 `Ew2IEOEcEkTD4aBYwukD`
+`1b2uns3wOz0OxNS2mODb`
 
 |IP|Port|
 |:-:|:-:|
