@@ -15,5 +15,6 @@
     "clangd.arguments": [
         
     ],
-    "cmake.sourceDirectory": "/home/cyril/code/Functions/clang-cpp-obf"
+    "cmake.sourceDirectory": "/home/cyril/code/Functions/clang-cpp-obf",
+    "C_Cpp.intelliSenseEngine": "disabled"
 }
