@@ -1,0 +1,884 @@
+(1,-9)(4,7) {(10,-2),(-10,3)}
+Detected Case 2: (1,-9)(4,7)(10,-2) Area=61.5, real_calc=61.5
+Detected Case 2: (-10,3)(1,-9)(4,7) Area=106.0, real_calc=106.0
+(1,-9)(-5,2) {(-8,-5),(10,-2)}
+Detected Case 2: (-8,-5)(-5,2)(1,-9) Area=37.5, real_calc=37.5
+Detected Case 2: (-5,2)(1,-9)(10,-2) Area=70.5, real_calc=70.5
+(1,-9)(-4,-5) {(-2,-10),(0,10)}
+Detected Case 2: (-4,-5)(-2,-10)(1,-9) Area=8.5, real_calc=8.5
+Detected Case 2: (-4,-5)(0,10)(1,-9) Area=45.5, real_calc=45.5
+(1,-9)(3,-4) {(10,-2),(-10,3)}
+Detected Case 1: (1,-9)(3,-4)(10,-2) Area=-2.0, real_calc=15.5
+Detected Case 2: (-10,3)(1,-9)(3,-4) Area=39.5, real_calc=39.5
+(1,-9)(-1,-5) {(-8,-5),(10,-2)}
+Detected Case 1: (-8,-5)(-1,-5)(1,-9) Area=14.0, real_calc=14.0
+Detected Case 2: (-1,-5)(1,-9)(10,-2) Area=25.0, real_calc=25.0
+(1,-9)(10,6) {(10,-2),(-10,3)}
+Detected Case 1: (1,-9)(10,-2)(10,6) Area=-32.5, real_calc=36.0
+Detected Case 2: (-10,3)(1,-9)(10,6) Area=136.5, real_calc=136.5
+(1,-9)(-9,8) {(-8,-5),(10,-2)}
+Detected Case 1: (-9,8)(-8,-5)(1,-9) Area=-57.5, real_calc=56.5
+Detected Case 2: (-9,8)(1,-9)(10,-2) Area=111.5, real_calc=111.5
+(1,-9)(-1,-6) {(-8,-5),(10,-2)}
+Detected Case 1: (-8,-5)(-1,-6)(1,-9) Area=-10.5, real_calc=9.5
+Detected Case 2: (-1,-6)(1,-9)(10,-2) Area=20.5, real_calc=20.5
+(1,-9)(10,7) {(10,-2),(-10,3)}
+Detected Case 1: (1,-9)(10,-2)(10,7) Area=-32.5, real_calc=40.5
+Detected Case 2: (-10,3)(1,-9)(10,7) Area=142.0, real_calc=142.0
+(1,9)(4,7) {(-2,-10),(0,10)}
+Detected Case 2: (-2,-10)(1,9)(4,7) Area=31.5, real_calc=31.5
+Detected Case 1: (0,10)(1,9)(4,7) Area=-1.5, real_calc=0.5
+(1,9)(-5,2) {(5,-10),(-10,3)}
+Detected Case 2: (-5,2)(1,9)(5,-10) Area=71.0, real_calc=71.0
+Detected Case 2: (-10,3)(-5,2)(1,9) Area=20.5, real_calc=20.5
+(1,9)(-4,-5) {(10,-2),(-10,3)}
+Detected Case 2: (-4,-5)(1,9)(10,-2) Area=90.5, real_calc=90.5
+Detected Case 2: (-10,3)(-4,-5)(1,9) Area=62.0, real_calc=62.0
+(1,9)(3,-4) {(-10,3),(10,-2)}
+Detected Case 2: (-10,3)(1,9)(3,-4) Area=77.5, real_calc=77.5
+Detected Case 2: (1,9)(3,-4)(10,-2) Area=47.5, real_calc=47.5
+(1,9)(-1,-5) {(10,-2),(-10,3)}
+Detected Case 2: (-1,-5)(1,9)(10,-2) Area=74.0, real_calc=74.0
+Detected Case 2: (-10,3)(-1,-5)(1,9) Area=71.0, real_calc=71.0
+(1,9)(10,6) {(-2,-10),(0,10)}
+Detected Case 2: (-2,-10)(1,9)(10,6) Area=90.0, real_calc=90.0
+Detected Case 1: (0,10)(1,9)(10,6) Area=-3.0, real_calc=3.0
+(1,9)(-9,8) {(5,-10),(0,10)}
+Detected Case 2: (-9,8)(1,9)(5,-10) Area=97.0, real_calc=97.0
+Detected Case 2: (-9,8)(0,10)(1,9) Area=5.5, real_calc=5.5
+(1,9)(-1,-6) {(10,-2),(-10,3)}
+Detected Case 2: (-1,-6)(1,9)(10,-2) Area=78.5, real_calc=78.5
+Detected Case 2: (-10,3)(-1,-6)(1,9) Area=76.5, real_calc=76.5
+(1,9)(10,7) {(-2,-10),(0,10)}
+Detected Case 2: (-2,-10)(1,9)(10,7) Area=88.5, real_calc=88.5
+Detected Case 1: (0,10)(1,9)(10,7) Area=-4.5, real_calc=3.5
+Detected Case 2: (-10,3)(4,0)(4,7) Area=49.0, real_calc=49.0
+Detected Case 2: (4,0)(4,7)(10,-2) Area=21.0, real_calc=21.0
+(4,0)(-5,2) {(-2,-10),(0,10)}
+Detected Case 2: (-5,2)(-2,-10)(4,0) Area=51.0, real_calc=51.0
+Detected Case 2: (-5,2)(0,10)(4,0) Area=41.0, real_calc=41.0
+(4,0)(-4,-5) {(5,-10),(-6,7)}
+Detected Case 2: (-4,-5)(4,0)(5,-10) Area=42.5, real_calc=42.5
+Detected Case 2: (-6,7)(-4,-5)(4,0) Area=53.0, real_calc=53.0
+(4,0)(3,-4) {(10,-2),(-10,3)}
+Detected Case 2: (3,-4)(4,0)(10,-2) Area=13.0, real_calc=13.0
+Detected Case 2: (-10,3)(3,-4)(4,0) Area=29.5, real_calc=29.5
+(4,0)(-1,-5) {(5,-10),(-6,7)}
+Detected Case 2: (-1,-5)(4,0)(5,-10) Area=27.5, real_calc=27.5
+Detected Case 2: (-6,7)(-1,-5)(4,0) Area=42.5, real_calc=42.5
+(4,0)(10,6) {(5,-10),(-6,7)}
+Detected Case 2: (4,0)(5,-10)(10,6) Area=33.0, real_calc=33.0
+Detected Case 2: (-6,7)(4,0)(10,6) Area=51.0, real_calc=51.0
+(4,0)(-9,8) {(-2,-10),(0,10)}
+Detected Case 2: (-9,8)(-2,-10)(4,0) Area=89.0, real_calc=89.0
+Detected Case 2: (-9,8)(0,10)(4,0) Area=49.0, real_calc=49.0
+(4,0)(-1,-6) {(5,-10),(-10,3)}
+Detected Case 2: (-1,-6)(4,0)(5,-10) Area=28.0, real_calc=28.0
+Detected Case 2: (-10,3)(-1,-6)(4,0) Area=49.5, real_calc=49.5
+(4,0)(10,7) {(5,-10),(-10,3)}
+Detected Case 2: (4,0)(5,-10)(10,7) Area=33.5, real_calc=33.5
+Detected Case 2: (-10,3)(4,0)(10,7) Area=58.0, real_calc=58.0
+(7,4)(4,7) {(-8,-5),(0,10)}
+Detected Case 2: (-8,-5)(4,7)(7,4) Area=36.0, real_calc=36.0
+Detected Case 1: (0,10)(4,7)(7,4) Area=-2.5, real_calc=1.5
+(7,4)(-5,2) {(5,-10),(0,10)}
+Detected Case 2: (-5,2)(5,-10)(7,4) Area=82.0, real_calc=82.0
+Detected Case 2: (-5,2)(0,10)(7,4) Area=43.0, real_calc=43.0
+(7,4)(-4,-5) {(5,-10),(-6,7)}
+Detected Case 2: (-4,-5)(5,-10)(7,4) Area=68.0, real_calc=68.0
+Detected Case 2: (-6,7)(-4,-5)(7,4) Area=75.0, real_calc=75.0
+(7,4)(3,-4) {(10,-2),(-10,3)}
+Detected Case 2: (3,-4)(7,4)(10,-2) Area=24.0, real_calc=24.0
+Detected Case 2: (-10,3)(3,-4)(7,4) Area=66.0, real_calc=66.0
+(7,4)(-1,-5) {(5,-10),(-10,3)}
+Detected Case 2: (-1,-5)(5,-10)(7,4) Area=47.0, real_calc=47.0
+Detected Case 2: (-10,3)(-1,-5)(7,4) Area=72.5, real_calc=72.5
+(7,4)(10,6) {(5,-10),(-6,7)}
+Detected Case 1: (5,-10)(7,4)(10,6) Area=11.0, real_calc=19.0
+Detected Case 2: (-6,7)(7,4)(10,6) Area=17.5, real_calc=17.5
+(7,4)(-9,8) {(-2,-10),(0,10)}
+Detected Case 2: (-9,8)(-2,-10)(7,4) Area=130.0, real_calc=130.0
+Detected Case 2: (-9,8)(0,10)(7,4) Area=34.0, real_calc=34.0
+(7,4)(-1,-6) {(5,-10),(-10,3)}
+Detected Case 2: (-1,-6)(5,-10)(7,4) Area=46.0, real_calc=46.0
+Detected Case 2: (-10,3)(-1,-6)(7,4) Area=81.0, real_calc=81.0
+(7,4)(10,7) {(5,-10),(-6,7)}
+Detected Case 1: (5,-10)(7,4)(10,7) Area=9.5, real_calc=18.0
+Detected Case 2: (-6,7)(7,4)(10,7) Area=24.0, real_calc=24.0
+(-3,8)(4,7) {(-2,-10),(0,10)}
+Detected Case 2: (-3,8)(-2,-10)(4,7) Area=62.5, real_calc=62.5
+Detected Case 2: (-3,8)(0,10)(4,7) Area=8.5, real_calc=8.5
+(-3,8)(-5,2) {(10,-2),(-10,3)}
+Detected Case 2: (-5,2)(-3,8)(10,-2) Area=49.0, real_calc=49.0
+Detected Case 2: (-10,3)(-5,2)(-3,8) Area=16.0, real_calc=16.0
+(-3,8)(-4,-5) {(10,-2),(-10,3)}
+Detected Case 2: (-4,-5)(-3,8)(10,-2) Area=89.5, real_calc=89.5
+Detected Case 2: (-10,3)(-4,-5)(-3,8) Area=43.0, real_calc=43.0
+(-3,8)(3,-4) {(-8,-5),(10,-2)}
+Detected Case 2: (-8,-5)(-3,8)(3,-4) Area=69.0, real_calc=69.0
+Detected Case 2: (-3,8)(3,-4)(10,-2) Area=48.0, real_calc=48.0
+(-3,8)(-1,-5) {(-10,3),(10,-2)}
+Detected Case 2: (-10,3)(-3,8)(-1,-5) Area=50.5, real_calc=50.5
+Detected Case 2: (-3,8)(-1,-5)(10,-2) Area=74.5, real_calc=74.5
+(-3,8)(10,6) {(-2,-10),(0,10)}
+Detected Case 2: (-3,8)(-2,-10)(10,6) Area=116.0, real_calc=116.0
+Detected Case 2: (-3,8)(0,10)(10,6) Area=16.0, real_calc=16.0
+(-3,8)(-9,8) {(5,-10),(0,10)}
+Detected Case 1: (-9,8)(-3,8)(5,-10) Area=54.0, real_calc=54.0
+Detected Case 1: (-9,8)(-3,8)(0,10) Area=3.0, real_calc=6.0
+(-3,8)(-1,-6) {(-10,3),(10,-2)}
+Detected Case 2: (-10,3)(-3,8)(-1,-6) Area=54.0, real_calc=54.0
+Detected Case 2: (-3,8)(-1,-6)(10,-2) Area=81.0, real_calc=81.0
+(-3,8)(10,7) {(-2,-10),(0,10)}
+Detected Case 2: (-3,8)(-2,-10)(10,7) Area=116.5, real_calc=116.5
+Detected Case 2: (-3,8)(0,10)(10,7) Area=14.5, real_calc=14.5
+(7,-9)(4,7) {(-10,3),(10,-2)}
+Detected Case 2: (-10,3)(4,7)(7,-9) Area=118.0, real_calc=118.0
+Detected Case 2: (4,7)(7,-9)(10,-2) Area=34.5, real_calc=34.5
+(7,-9)(-5,2) {(-8,-5),(0,10)}
+Detected Case 2: (-8,-5)(-5,2)(7,-9) Area=58.5, real_calc=58.5
+Detected Case 2: (-5,2)(0,10)(7,-9) Area=75.5, real_calc=75.5
+(7,-9)(-4,-5) {(-2,-10),(0,10)}
+Detected Case 2: (-4,-5)(-2,-10)(7,-9) Area=23.5, real_calc=23.5
+Detected Case 2: (-4,-5)(0,10)(7,-9) Area=90.5, real_calc=90.5
+(7,-9)(3,-4) {(-8,-5),(10,-2)}
+Detected Case 2: (-8,-5)(3,-4)(7,-9) Area=29.5, real_calc=29.5
+Detected Case 2: (3,-4)(7,-9)(10,-2) Area=21.5, real_calc=21.5
+(7,-9)(-1,-5) {(-2,-10),(0,10)}
+Detected Case 2: (-2,-10)(-1,-5)(7,-9) Area=22.0, real_calc=22.0
+Detected Case 2: (-1,-5)(0,10)(7,-9) Area=62.0, real_calc=62.0
+(7,-9)(10,6) {(10,-2),(-10,3)}
+Detected Case 1: (7,-9)(10,-2)(10,6) Area=-11.5, real_calc=12.0
+Detected Case 2: (-10,3)(7,-9)(10,6) Area=145.5, real_calc=145.5
+(7,-9)(-9,8) {(-8,-5),(0,10)}
+Detected Case 1: (-9,8)(-8,-5)(7,-9) Area=-96.5, real_calc=95.5
+Detected Case 2: (-9,8)(0,10)(7,-9) Area=92.5, real_calc=92.5
+(7,-9)(-1,-6) {(-2,-10),(0,10)}
+Detected Case 2: (-2,-10)(-1,-6)(7,-9) Area=17.5, real_calc=17.5
+Detected Case 2: (-1,-6)(0,10)(7,-9) Area=65.5, real_calc=65.5
+(7,-9)(10,7) {(10,-2),(-10,3)}
+Detected Case 1: (7,-9)(10,-2)(10,7) Area=-11.5, real_calc=13.5
+Detected Case 2: (-10,3)(7,-9)(10,7) Area=154.0, real_calc=154.0
+(8,-3)(4,7) {(-8,-5),(10,-2)}
+Detected Case 2: (-8,-5)(4,7)(8,-3) Area=84.0, real_calc=84.0
+Detected Case 2: (4,7)(8,-3)(10,-2) Area=12.0, real_calc=12.0
+(8,-3)(-5,2) {(-2,-10),(0,10)}
+Detected Case 2: (-5,2)(-2,-10)(8,-3) Area=70.5, real_calc=70.5
+Detected Case 2: (-5,2)(0,10)(8,-3) Area=64.5, real_calc=64.5
+(8,-3)(-4,-5) {(5,-10),(0,10)}
+Detected Case 2: (-4,-5)(5,-10)(8,-3) Area=39.0, real_calc=39.0
+Detected Case 2: (-4,-5)(0,10)(8,-3) Area=86.0, real_calc=86.0
+(8,-3)(3,-4) {(5,-10),(0,10)}
+Detected Case 2: (3,-4)(5,-10)(8,-3) Area=16.0, real_calc=16.0
+Detected Case 2: (0,10)(3,-4)(8,-3) Area=36.5, real_calc=36.5
+(8,-3)(-1,-5) {(5,-10),(0,10)}
+Detected Case 2: (-1,-5)(5,-10)(8,-3) Area=28.5, real_calc=28.5
+Detected Case 2: (-1,-5)(0,10)(8,-3) Area=66.5, real_calc=66.5
+(8,-3)(10,6) {(10,-2),(-10,3)}
+Detected Case 1: (8,-3)(10,-2)(10,6) Area=-1.0, real_calc=8.0
+Detected Case 2: (-10,3)(8,-3)(10,6) Area=87.0, real_calc=87.0
+(8,-3)(-9,8) {(-2,-10),(0,10)}
+Detected Case 2: (-9,8)(-2,-10)(8,-3) Area=114.5, real_calc=114.5
+Detected Case 2: (-9,8)(0,10)(8,-3) Area=66.5, real_calc=66.5
+(8,-3)(-1,-6) {(5,-10),(0,10)}
+Detected Case 2: (-1,-6)(5,-10)(8,-3) Area=27.0, real_calc=27.0
+Detected Case 2: (-1,-6)(0,10)(8,-3) Area=70.5, real_calc=70.5
+(8,-3)(10,7) {(10,-2),(-10,3)}
+Detected Case 1: (8,-3)(10,-2)(10,7) Area=-1.0, real_calc=9.0
+Detected Case 2: (-10,3)(8,-3)(10,7) Area=96.0, real_calc=96.0
+(7,-3)(-7,1) {(-9,-4),(3,10)}
+Detected Case 2: (-9,-4)(-7,1)(7,-3) Area=39.0, real_calc=39.0
+Detected Case 2: (-7,1)(3,10)(7,-3) Area=83.0, real_calc=83.0
+(7,-3)(-4,-8) {(10,-5),(0,10)}
+Detected Case 2: (-4,-8)(7,-3)(10,-5) Area=18.5, real_calc=18.5
+Detected Case 2: (-4,-8)(0,10)(7,-3) Area=89.0, real_calc=89.0
+(7,-3)(4,-7) {(10,-5),(-9,0)}
+Detected Case 2: (4,-7)(7,-3)(10,-5) Area=9.0, real_calc=9.0
+Detected Case 2: (-9,0)(4,-7)(7,-3) Area=36.5, real_calc=36.5
+(7,-3)(0,9) {(-9,-4),(9,7)}
+Detected Case 2: (-9,-4)(0,9)(7,-3) Area=99.5, real_calc=99.5
+Detected Case 2: (0,9)(7,-3)(9,7) Area=47.0, real_calc=47.0
+(7,-3)(8,-9) {(-9,-4),(10,4)}
+Detected Case 2: (-9,-4)(7,-3)(8,-9) Area=48.5, real_calc=48.5
+Detected Case 2: (7,-3)(8,-9)(10,4) Area=12.5, real_calc=12.5
+(1,-6)(-7,1) {(-9,-4),(9,7)}
+Detected Case 2: (-9,-4)(-7,1)(1,-6) Area=27.0, real_calc=27.0
+Detected Case 2: (-7,1)(1,-6)(9,7) Area=80.0, real_calc=80.0
+(1,-6)(-4,-8) {(10,-5),(0,10)}
+Detected Case 1: (-4,-8)(1,-6)(10,-5) Area=0.5, real_calc=6.5
+Detected Case 2: (-4,-8)(0,10)(1,-6) Area=41.0, real_calc=41.0
+(1,-6)(4,-7) {(-9,-4),(3,10)}
+Detected Case 1: (-9,-4)(1,-6)(4,-7) Area=-2.0, real_calc=2.0
+Detected Case 2: (1,-6)(3,10)(4,-7) Area=25.0, real_calc=25.0
+(1,-6)(0,9) {(-9,-4),(10,4)}
+Detected Case 2: (-9,-4)(0,9)(1,-6) Area=74.0, real_calc=74.0
+Detected Case 2: (0,9)(1,-6)(10,4) Area=72.5, real_calc=72.5
+(1,-6)(8,-9) {(-9,-4),(3,10)}
+Detected Case 1: (-9,-4)(1,-6)(8,-9) Area=8.0, real_calc=8.0
+Detected Case 2: (1,-6)(3,10)(8,-9) Area=59.0, real_calc=59.0
+(8,-10)(-7,1) {(-9,-4),(9,7)}
+Detected Case 2: (-9,-4)(-7,1)(8,-10) Area=48.5, real_calc=48.5
+Detected Case 2: (-7,1)(8,-10)(9,7) Area=133.0, real_calc=133.0
+(8,-10)(-4,-8) {(-9,-4),(3,10)}
+Detected Case 1: (-9,-4)(-4,-8)(8,-10) Area=-19.0, real_calc=19.0
+Detected Case 2: (-4,-8)(3,10)(8,-10) Area=115.0, real_calc=115.0
+(8,-10)(4,-7) {(-9,-4),(9,7)}
+Detected Case 1: (-9,-4)(4,-7)(8,-10) Area=-14.5, real_calc=13.5
+Detected Case 2: (4,-7)(8,-10)(9,7) Area=35.5, real_calc=35.5
+(8,-10)(0,9) {(-9,-4),(9,7)}
+Detected Case 2: (-9,-4)(0,9)(8,-10) Area=137.5, real_calc=137.5
+Detected Case 2: (0,9)(8,-10)(9,7) Area=77.5, real_calc=77.5
+Detected Case 2: (-9,0)(8,-10)(8,-9) Area=8.5, real_calc=8.5
+Detected Case 1: (8,-10)(8,-9)(10,-5) Area=4.0, real_calc=1.0
+(10,-10)(-7,1) {(-9,-4),(9,7)}
+Detected Case 2: (-9,-4)(-7,1)(10,-10) Area=53.5, real_calc=53.5
+Detected Case 2: (-7,1)(9,7)(10,-10) Area=139.0, real_calc=139.0
+(10,-10)(-4,-8) {(-9,-4),(3,10)}
+Detected Case 1: (-9,-4)(-4,-8)(10,-10) Area=-23.0, real_calc=23.0
+Detected Case 2: (-4,-8)(3,10)(10,-10) Area=133.0, real_calc=133.0
+(10,-10)(4,-7) {(-9,-4),(9,7)}
+Detected Case 1: (-9,-4)(4,-7)(10,-10) Area=-11.5, real_calc=10.5
+Detected Case 2: (4,-7)(9,7)(10,-10) Area=49.5, real_calc=49.5
+(10,-10)(0,9) {(-9,-4),(9,7)}
+Detected Case 2: (-9,-4)(0,9)(10,-10) Area=150.5, real_calc=150.5
+Detected Case 1: (0,9)(9,7)(10,-10) Area=-76.5, real_calc=75.5
+(10,-10)(8,-9) {(-9,-4),(9,7)}
+Detected Case 1: (-9,-4)(8,-9)(10,-10) Area=-4.5, real_calc=3.5
+Detected Case 2: (8,-9)(9,7)(10,-10) Area=16.5, real_calc=16.5
+(6,-1)(-7,1) {(-9,-4),(3,10)}
+Detected Case 2: (-9,-4)(-7,1)(6,-1) Area=34.5, real_calc=34.5
+Detected Case 2: (-7,1)(3,10)(6,-1) Area=68.5, real_calc=68.5
+(6,-1)(-4,-8) {(10,-5),(0,10)}
+Detected Case 2: (-4,-8)(6,-1)(10,-5) Area=34.0, real_calc=34.0
+Detected Case 2: (-4,-8)(0,10)(6,-1) Area=76.0, real_calc=76.0
+(6,-1)(4,-7) {(10,-5),(-9,0)}
+Detected Case 2: (4,-7)(6,-1)(10,-5) Area=16.0, real_calc=16.0
+Detected Case 2: (-9,0)(4,-7)(6,-1) Area=46.0, real_calc=46.0
+(6,-1)(0,9) {(-9,-4),(9,7)}
+Detected Case 2: (-9,-4)(0,9)(6,-1) Area=84.0, real_calc=84.0
+Detected Case 2: (0,9)(6,-1)(9,7) Area=39.0, real_calc=39.0
+(6,-1)(8,-9) {(-9,-4),(10,4)}
+Detected Case 2: (-9,-4)(6,-1)(8,-9) Area=63.0, real_calc=63.0
+Detected Case 2: (6,-1)(8,-9)(10,4) Area=21.0, real_calc=21.0
+(-9,-7)(-7,1) {(10,-5),(-9,0)}
+Detected Case 2: (-9,-7)(-7,1)(10,-5) Area=74.0, real_calc=74.0
+Detected Case 1: (-9,-7)(-9,0)(-7,1) Area=1.0, real_calc=7.0
+(-9,-7)(-4,-8) {(-9,-4),(3,10)}
+Detected Case 2: (-9,-7)(-9,-4)(-4,-8) Area=7.5, real_calc=7.5
+Detected Case 2: (-9,-7)(-4,-8)(3,10) Area=48.5, real_calc=48.5
+(-9,-7)(4,-7) {(10,-5),(3,10)}
+Detected Case 1: (-9,-7)(4,-7)(10,-5) Area=6.0, real_calc=13.0
+Detected Case 2: (-9,-7)(3,10)(4,-7) Area=110.5, real_calc=110.5
+(-9,-7)(0,9) {(10,-5),(-9,0)}
+Detected Case 2: (-9,-7)(0,9)(10,-5) Area=143.0, real_calc=143.0
+Detected Case 1: (-9,-7)(-9,0)(0,9) Area=40.5, real_calc=31.5
+(-9,-7)(8,-9) {(-9,-4),(3,10)}
+Detected Case 2: (-9,-7)(-9,-4)(8,-9) Area=25.5, real_calc=25.5
+Detected Case 2: (-9,-7)(3,10)(8,-9) Area=156.5, real_calc=156.5
+(0,6)(-7,1) {(10,-5),(0,10)}
+Detected Case 2: (-7,1)(0,6)(10,-5) Area=63.5, real_calc=63.5
+Detected Case 1: (-7,1)(0,6)(0,10) Area=-18.5, real_calc=14.0
+(0,6)(-4,-8) {(10,-5),(-9,0)}
+Detected Case 2: (-4,-8)(0,6)(10,-5) Area=92.0, real_calc=92.0
+Detected Case 2: (-9,0)(-4,-8)(0,6) Area=51.0, real_calc=51.0
+(0,6)(4,-7) {(-9,-4),(10,4)}
+Detected Case 2: (-9,-4)(0,6)(4,-7) Area=78.5, real_calc=78.5
+Detected Case 2: (0,6)(4,-7)(10,4) Area=61.0, real_calc=61.0
+Detected Case 1: (-9,0)(0,6)(0,9) Area=-27.0, real_calc=13.5
+Detected Case 2: (0,6)(0,9)(10,-5) Area=15.0, real_calc=15.0
+(0,6)(8,-9) {(-9,-4),(9,7)}
+Detected Case 2: (-9,-4)(0,6)(8,-9) Area=107.5, real_calc=107.5
+Detected Case 2: (0,6)(8,-9)(9,7) Area=71.5, real_calc=71.5
+(-3,-7)(5,-2) {(4,-10),(-9,10)}
+Detected Case 2: (-3,-7)(4,-10)(5,-2) Area=29.5, real_calc=29.5
+Detected Case 2: (-9,10)(-3,-7)(5,-2) Area=83.0, real_calc=83.0
+(-3,-7)(-1,4) {(10,0),(-9,10)}
+Detected Case 2: (-3,-7)(-1,4)(10,0) Area=64.5, real_calc=64.5
+Detected Case 2: (-9,10)(-3,-7)(-1,4) Area=50.0, real_calc=50.0
+(-3,-7)(9,-10) {(-7,-10),(-4,10)}
+Detected Case 2: (-7,-10)(-3,-7)(9,-10) Area=24.0, real_calc=24.0
+Detected Case 1: (-4,10)(-3,-7)(9,-10) Area=-101.5, real_calc=100.5
+(-5,1)(5,-2) {(-7,-10),(-4,10)}
+Detected Case 2: (-7,-10)(-5,1)(5,-2) Area=58.0, real_calc=58.0
+Detected Case 2: (-5,1)(-4,10)(5,-2) Area=46.5, real_calc=46.5
+(-5,1)(-1,4) {(4,-10),(-9,10)}
+Detected Case 2: (-5,1)(-1,4)(4,-10) Area=35.5, real_calc=35.5
+Detected Case 2: (-9,10)(-5,1)(-1,4) Area=24.0, real_calc=24.0
+(-5,1)(9,-10) {(-7,-10),(3,6)}
+Detected Case 2: (-7,-10)(-5,1)(9,-10) Area=88.0, real_calc=88.0
+Detected Case 2: (-5,1)(3,6)(9,-10) Area=79.0, real_calc=79.0
+(-4,2)(5,-2) {(-7,-10),(-4,10)}
+Detected Case 2: (-7,-10)(-4,2)(5,-2) Area=60.0, real_calc=60.0
+Detected Case 2: (-4,2)(-4,10)(5,-2) Area=36.0, real_calc=36.0
+(-4,2)(-1,4) {(4,-10),(-9,10)}
+Detected Case 2: (-4,2)(-1,4)(4,-10) Area=26.0, real_calc=26.0
+Detected Case 2: (-9,10)(-4,2)(-1,4) Area=17.0, real_calc=17.0
+(-4,2)(9,-10) {(-7,-10),(10,0)}
+Detected Case 2: (-7,-10)(-4,2)(9,-10) Area=96.0, real_calc=96.0
+Detected Case 2: (-4,2)(9,-10)(10,0) Area=71.0, real_calc=71.0
+(10,2)(-10,-5) {(10,-7),(-2,10)}
+Detected Case 2: (-10,-5)(10,-7)(10,2) Area=90.0, real_calc=90.0
+Detected Case 2: (-10,-5)(-2,10)(10,2) Area=122.0, real_calc=122.0
+(10,2)(8,8) {(-9,-4),(9,6)}
+Detected Case 2: (-9,-4)(8,8)(10,2) Area=63.0, real_calc=63.0
+Detected Case 1: (8,8)(9,6)(10,2) Area=1.0, real_calc=1.0
+(10,2)(2,9) {(-9,-4),(7,9)}
+Detected Case 2: (-9,-4)(2,9)(10,2) Area=90.5, real_calc=90.5
+Detected Case 1: (2,9)(7,9)(10,2) Area=17.5, real_calc=17.5
+(10,2)(-3,-9) {(10,-7),(-2,10)}
+Detected Case 1: (-3,-9)(10,-7)(10,2) Area=-13.0, real_calc=58.5
+Detected Case 2: (-3,-9)(-2,10)(10,2) Area=118.0, real_calc=118.0
+(10,2)(9,-9) {(10,-7),(-9,-4)}
+Detected Case 1: (9,-9)(10,-7)(10,2) Area=-1.0, real_calc=4.5
+Detected Case 2: (-9,-4)(9,-9)(10,2) Area=101.5, real_calc=101.5
+(10,2)(-6,-3) {(10,-7),(-2,10)}
+Detected Case 2: (-6,-3)(10,-7)(10,2) Area=72.0, real_calc=72.0
+Detected Case 2: (-6,-3)(-2,10)(10,2) Area=94.0, real_calc=94.0
+(10,2)(-2,-1) {(10,-7),(-2,10)}
+Detected Case 2: (-2,-1)(10,-7)(10,2) Area=54.0, real_calc=54.0
+Detected Case 2: (-2,-1)(-2,10)(10,2) Area=66.0, real_calc=66.0
+(10,2)(-5,-3) {(10,-7),(-2,10)}
+Detected Case 2: (-5,-3)(10,-7)(10,2) Area=67.5, real_calc=67.5
+Detected Case 2: (-5,-3)(-2,10)(10,2) Area=90.0, real_calc=90.0
+(10,2)(7,-3) {(10,-7),(-6,6)}
+Detected Case 2: (7,-3)(10,-7)(10,2) Area=13.5, real_calc=13.5
+Detected Case 2: (-6,6)(7,-3)(10,2) Area=46.0, real_calc=46.0
+(10,2)(-2,7) {(-9,-4),(7,9)}
+Detected Case 2: (-9,-4)(-2,7)(10,2) Area=83.5, real_calc=83.5
+Detected Case 2: (-2,7)(7,9)(10,2) Area=34.5, real_calc=34.5
+(10,2)(-3,5) {(-9,-4),(4,10)}
+Detected Case 2: (-9,-4)(-3,5)(10,2) Area=67.5, real_calc=67.5
+Detected Case 2: (-3,5)(4,10)(10,2) Area=43.0, real_calc=43.0
+(10,2)(-7,-3) {(10,-7),(-2,10)}
+Detected Case 2: (-7,-3)(10,-7)(10,2) Area=76.5, real_calc=76.5
+Detected Case 2: (-7,-3)(-2,10)(10,2) Area=98.0, real_calc=98.0
+(10,2)(9,-10) {(10,-7),(-9,-4)}
+Detected Case 1: (9,-10)(10,-7)(10,2) Area=-2.5, real_calc=4.5
+Detected Case 2: (-9,-4)(9,-10)(10,2) Area=111.0, real_calc=111.0
+(10,2)(8,7) {(-9,-4),(9,6)}
+Detected Case 2: (-9,-4)(8,7)(10,2) Area=53.5, real_calc=53.5
+Detected Case 1: (8,7)(9,6)(10,2) Area=1.5, real_calc=1.5
+(10,2)(2,3) {(10,-7),(4,10)}
+Detected Case 2: (2,3)(10,-7)(10,2) Area=36.0, real_calc=36.0
+Detected Case 2: (2,3)(4,10)(10,2) Area=29.0, real_calc=29.0
+(-4,-8)(5,6) {(10,-6),(-4,5)}
+Detected Case 2: (-4,-8)(5,6)(10,-6) Area=89.0, real_calc=89.0
+Detected Case 1: (-4,-8)(-4,5)(5,6) Area=4.5, real_calc=58.5
+(-4,-8)(7,8) {(10,-6),(-4,5)}
+Detected Case 2: (-4,-8)(7,8)(10,-6) Area=101.0, real_calc=101.0
+Detected Case 1: (-4,-8)(-4,5)(7,8) Area=16.5, real_calc=71.5
+(-4,-8)(2,7) {(10,-6),(-4,5)}
+Detected Case 2: (-4,-8)(2,7)(10,-6) Area=99.0, real_calc=99.0
+Detected Case 1: (-4,-8)(-4,5)(2,7) Area=6.0, real_calc=39.0
+(-2,-6)(5,6) {(10,-6),(-4,5)}
+Detected Case 2: (-2,-6)(5,6)(10,-6) Area=72.0, real_calc=72.0
+Detected Case 2: (-4,5)(-2,-6)(5,6) Area=50.5, real_calc=50.5
+(-2,-6)(7,8) {(10,-6),(-4,5)}
+Detected Case 2: (-2,-6)(7,8)(10,-6) Area=84.0, real_calc=84.0
+Detected Case 2: (-4,5)(-2,-6)(7,8) Area=63.5, real_calc=63.5
+(-2,-6)(2,7) {(10,-6),(-9,-8)}
+Detected Case 2: (-2,-6)(2,7)(10,-6) Area=78.0, real_calc=78.0
+Detected Case 1: (-9,-8)(-2,-6)(2,7) Area=19.0, real_calc=41.5
+(-9,-6)(5,6) {(10,-6),(1,10)}
+Detected Case 2: (-9,-6)(5,6)(10,-6) Area=114.0, real_calc=114.0
+Detected Case 2: (-9,-6)(1,10)(5,6) Area=52.0, real_calc=52.0
+(-9,-6)(7,8) {(10,-6),(1,10)}
+Detected Case 2: (-9,-6)(7,8)(10,-6) Area=133.0, real_calc=133.0
+Detected Case 2: (-9,-6)(1,10)(7,8) Area=58.0, real_calc=58.0
+(-9,-6)(2,7) {(10,-6),(-4,5)}
+Detected Case 2: (-9,-6)(2,7)(10,-6) Area=123.5, real_calc=123.5
+Detected Case 1: (-9,-6)(-4,5)(2,7) Area=21.5, real_calc=28.0
+(2,10)(5,6) {(-9,-8),(1,10)}
+Detected Case 2: (-9,-8)(2,10)(5,6) Area=49.0, real_calc=49.0
+Detected Case 1: (1,10)(2,10)(5,6) Area=2.0, real_calc=2.0
+(2,10)(7,8) {(-9,-8),(1,10)}
+Detected Case 2: (-9,-8)(2,10)(7,8) Area=56.0, real_calc=56.0
+Detected Case 1: (1,10)(2,10)(7,8) Area=1.0, real_calc=1.0
+Detected Case 1: (-9,-8)(2,7)(2,10) Area=-83.5, real_calc=16.5
+Detected Case 2: (2,7)(2,10)(10,-6) Area=12.0, real_calc=12.0
+(8,7)(5,6) {(10,-6),(1,10)}
+Detected Case 2: (5,6)(8,7)(10,-6) Area=20.5, real_calc=20.5
+Detected Case 2: (1,10)(5,6)(8,7) Area=8.0, real_calc=8.0
+(8,7)(7,8) {(-9,-8),(1,10)}
+Detected Case 2: (-9,-8)(7,8)(8,7) Area=16.0, real_calc=16.0
+Detected Case 1: (1,10)(7,8)(8,7) Area=-2.0, real_calc=2.0
+(8,7)(2,7) {(0,-8),(1,10)}
+Detected Case 1: (0,-8)(2,7)(8,7) Area=15.0, real_calc=45.0
+Detected Case 1: (1,10)(2,7)(8,7) Area=9.0, real_calc=9.0
+(7,8)(10,3) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(7,8)(10,3) Area=59.0, real_calc=59.0
+Detected Case 1: (7,8)(8,6)(10,3) Area=-1.5, real_calc=0.5
+(7,8)(-3,0) {(6,0),(-8,2)}
+Detected Case 1: (-3,0)(6,0)(7,8) Area=4.0, real_calc=36.0
+Detected Case 2: (-8,2)(-3,0)(7,8) Area=30.0, real_calc=30.0
+(7,8)(-5,9) {(-7,-7),(8,6)}
+Detected Case 2: (-7,-7)(-5,9)(7,8) Area=97.0, real_calc=97.0
+Detected Case 1: (-5,9)(7,8)(8,6) Area=-12.5, real_calc=11.5
+(7,8)(-5,8) {(-7,-7),(8,6)}
+Detected Case 1: (-7,-7)(-5,8)(7,8) Area=15.0, real_calc=90.0
+Detected Case 1: (-5,8)(7,8)(8,6) Area=12.0, real_calc=12.0
+(7,8)(1,-7) {(7,1),(-8,2)}
+Detected Case 1: (1,-7)(7,1)(7,8) Area=-24.0, real_calc=21.0
+Detected Case 2: (-8,2)(1,-7)(7,8) Area=94.5, real_calc=94.5
+(7,8)(3,5) {(6,0),(-8,2)}
+Detected Case 2: (3,5)(6,0)(7,8) Area=14.5, real_calc=14.5
+Detected Case 1: (-8,2)(3,5)(7,8) Area=-11.5, real_calc=10.5
+Detected Case 1: (-10,-3)(7,8)(7,10) Area=-94.5, real_calc=17.0
+Detected Case 2: (7,8)(7,10)(8,6) Area=1.0, real_calc=1.0
+(7,8)(3,1) {(7,1),(-8,2)}
+Detected Case 1: (3,1)(7,1)(7,8) Area=0.0, real_calc=14.0
+Detected Case 2: (-8,2)(3,1)(7,8) Area=40.5, real_calc=40.5
+(0,-10)(10,3) {(7,1),(-8,2)}
+Detected Case 1: (0,-10)(7,1)(10,3) Area=35.5, real_calc=9.5
+Detected Case 2: (-8,2)(0,-10)(10,3) Area=112.0, real_calc=112.0
+(0,-10)(-3,0) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(-3,0)(0,-10) Area=39.5, real_calc=39.5
+Detected Case 2: (-3,0)(0,-10)(8,6) Area=64.0, real_calc=64.0
+(0,-10)(-5,9) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(-5,9)(0,-10) Area=77.5, real_calc=77.5
+Detected Case 2: (-5,9)(0,-10)(8,6) Area=116.0, real_calc=116.0
+(0,-10)(-5,8) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(-5,8)(0,-10) Area=72.5, real_calc=72.5
+Detected Case 2: (-5,8)(0,-10)(8,6) Area=112.0, real_calc=112.0
+(0,-10)(1,-7) {(7,1),(-10,-3)}
+Detected Case 1: (0,-10)(1,-7)(7,1) Area=-23.5, real_calc=5.0
+Detected Case 2: (-10,-3)(0,-10)(1,-7) Area=18.5, real_calc=18.5
+(0,-10)(3,5) {(8,6),(-10,-3)}
+Detected Case 1: (0,-10)(3,5)(8,6) Area=20.0, real_calc=36.0
+Detected Case 2: (-10,-3)(0,-10)(3,5) Area=85.5, real_calc=85.5
+(0,-10)(7,10) {(7,1),(-10,-3)}
+Detected Case 1: (0,-10)(7,1)(7,10) Area=-39.5, real_calc=31.5
+Detected Case 2: (-10,-3)(0,-10)(7,10) Area=124.5, real_calc=124.5
+(0,-10)(3,1) {(7,1),(-10,-3)}
+Detected Case 1: (0,-10)(3,1)(7,1) Area=16.5, real_calc=22.0
+Detected Case 2: (-10,-3)(0,-10)(3,1) Area=65.5, real_calc=65.5
+(-3,-10)(10,3) {(7,1),(-8,2)}
+Detected Case 1: (-3,-10)(7,1)(10,3) Area=52.0, real_calc=6.5
+Detected Case 2: (-8,2)(-3,-10)(10,3) Area=110.5, real_calc=110.5
+Detected Case 2: (-10,-3)(-3,-10)(-3,0) Area=35.0, real_calc=35.0
+Detected Case 1: (-3,-10)(-3,0)(8,6) Area=33.0, real_calc=55.0
+(-3,-10)(-5,9) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(-5,9)(-3,-10) Area=59.5, real_calc=59.5
+Detected Case 2: (-5,9)(-3,-10)(8,6) Area=120.5, real_calc=120.5
+(-3,-10)(-5,8) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(-5,8)(-3,-10) Area=56.0, real_calc=56.0
+Detected Case 2: (-5,8)(-3,-10)(8,6) Area=115.0, real_calc=115.0
+(-3,-10)(1,-7) {(6,0),(-8,2)}
+Detected Case 1: (-3,-10)(1,-7)(6,0) Area=11.5, real_calc=6.5
+Detected Case 2: (-8,2)(-3,-10)(1,-7) Area=31.5, real_calc=31.5
+(-3,-10)(3,5) {(7,1),(-8,2)}
+Detected Case 2: (-3,-10)(3,5)(7,1) Area=42.0, real_calc=42.0
+Detected Case 2: (-8,2)(-3,-10)(3,5) Area=73.5, real_calc=73.5
+(-3,-10)(7,10) {(7,1),(-8,2)}
+Detected Case 1: (-3,-10)(7,1)(7,10) Area=-55.0, real_calc=45.0
+Detected Case 2: (-8,2)(-3,-10)(7,10) Area=110.0, real_calc=110.0
+(-3,-10)(3,1) {(7,1),(-8,2)}
+Detected Case 1: (-3,-10)(3,1)(7,1) Area=33.0, real_calc=22.0
+Detected Case 2: (-8,2)(-3,-10)(3,1) Area=63.5, real_calc=63.5
+(8,-4)(10,3) {(7,1),(-10,-3)}
+Detected Case 2: (7,1)(8,-4)(10,3) Area=8.5, real_calc=8.5
+Detected Case 2: (-10,-3)(8,-4)(10,3) Area=64.0, real_calc=64.0
+(8,-4)(-3,0) {(-7,-7),(8,6)}
+Detected Case 2: (-7,-7)(-3,0)(8,-4) Area=46.5, real_calc=46.5
+Detected Case 2: (-3,0)(8,-4)(8,6) Area=55.0, real_calc=55.0
+(8,-4)(-5,9) {(-7,-7),(8,6)}
+Detected Case 2: (-7,-7)(-5,9)(8,-4) Area=117.0, real_calc=117.0
+Detected Case 2: (-5,9)(8,-4)(8,6) Area=65.0, real_calc=65.0
+(8,-4)(-5,8) {(-7,-7),(8,6)}
+Detected Case 2: (-7,-7)(-5,8)(8,-4) Area=109.5, real_calc=109.5
+Detected Case 2: (-5,8)(8,-4)(8,6) Area=65.0, real_calc=65.0
+(8,-4)(1,-7) {(-4,-6),(-2,5)}
+Detected Case 2: (-4,-6)(1,-7)(8,-4) Area=11.0, real_calc=11.0
+Detected Case 2: (-2,5)(1,-7)(8,-4) Area=46.5, real_calc=46.5
+(8,-4)(3,5) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(3,5)(8,-4) Area=78.5, real_calc=78.5
+Detected Case 2: (3,5)(8,-4)(8,6) Area=25.0, real_calc=25.0
+(8,-4)(7,10) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(7,10)(8,-4) Area=125.5, real_calc=125.5
+Detected Case 2: (7,10)(8,-4)(8,6) Area=5.0, real_calc=5.0
+(8,-4)(3,1) {(-7,-7),(8,6)}
+Detected Case 2: (-7,-7)(3,1)(8,-4) Area=45.0, real_calc=45.0
+Detected Case 2: (3,1)(8,-4)(8,6) Area=25.0, real_calc=25.0
+(-9,-6)(10,3) {(-4,-6),(-2,5)}
+Detected Case 1: (-9,-6)(-4,-6)(10,3) Area=63.0, real_calc=22.5
+Detected Case 2: (-9,-6)(-2,5)(10,3) Area=73.0, real_calc=73.0
+(-9,-6)(-3,0) {(7,1),(-8,2)}
+Detected Case 1: (-9,-6)(-3,0)(7,1) Area=13.0, real_calc=27.0
+Detected Case 2: (-9,-6)(-8,2)(-3,0) Area=21.0, real_calc=21.0
+(-9,-6)(-5,9) {(7,1),(-10,-3)}
+Detected Case 2: (-9,-6)(-5,9)(7,1) Area=106.0, real_calc=106.0
+Detected Case 2: (-10,-3)(-9,-6)(-5,9) Area=13.5, real_calc=13.5
+(-9,-6)(-5,8) {(7,1),(-10,-3)}
+Detected Case 2: (-9,-6)(-5,8)(7,1) Area=98.0, real_calc=98.0
+Detected Case 2: (-10,-3)(-9,-6)(-5,8) Area=13.0, real_calc=13.0
+(-9,-6)(1,-7) {(-7,-7),(8,6)}
+Detected Case 1: (-9,-6)(-7,-7)(1,-7) Area=4.0, real_calc=4.0
+Detected Case 2: (-9,-6)(1,-7)(8,6) Area=68.5, real_calc=68.5
+(-9,-6)(3,5) {(6,0),(-8,2)}
+Detected Case 2: (-9,-6)(3,5)(6,0) Area=46.5, real_calc=46.5
+Detected Case 1: (-9,-6)(-8,2)(3,5) Area=-13.5, real_calc=42.5
+(-9,-6)(7,10) {(7,1),(-8,2)}
+Detected Case 1: (-9,-6)(7,1)(7,10) Area=-56.0, real_calc=72.0
+Detected Case 1: (-9,-6)(-8,2)(7,10) Area=-56.0, real_calc=56.0
+(-9,-6)(3,1) {(-4,-6),(-8,2)}
+Detected Case 1: (-9,-6)(-4,-6)(3,1) Area=24.5, real_calc=17.5
+Detected Case 2: (-9,-6)(-8,2)(3,1) Area=44.5, real_calc=44.5
+(1,-10)(10,3) {(7,1),(-8,2)}
+Detected Case 1: (1,-10)(7,1)(10,3) Area=30.0, real_calc=10.5
+Detected Case 2: (-8,2)(1,-10)(10,3) Area=112.5, real_calc=112.5
+(1,-10)(-3,0) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(-3,0)(1,-10) Area=41.0, real_calc=41.0
+Detected Case 2: (-3,0)(1,-10)(8,6) Area=67.0, real_calc=67.0
+(1,-10)(-5,9) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(-5,9)(1,-10) Area=83.5, real_calc=83.5
+Detected Case 2: (-5,9)(1,-10)(8,6) Area=114.5, real_calc=114.5
+(1,-10)(-5,8) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(-5,8)(1,-10) Area=78.0, real_calc=78.0
+Detected Case 2: (-5,8)(1,-10)(8,6) Area=111.0, real_calc=111.0
+Detected Case 2: (-10,-3)(1,-10)(1,-7) Area=16.5, real_calc=16.5
+Detected Case 1: (1,-10)(1,-7)(8,6) Area=45.5, real_calc=10.5
+(1,-10)(3,5) {(8,6),(-10,-3)}
+Detected Case 1: (1,-10)(3,5)(8,6) Area=12.5, real_calc=36.5
+Detected Case 2: (-10,-3)(1,-10)(3,5) Area=89.5, real_calc=89.5
+(1,-10)(7,10) {(7,1),(-10,-3)}
+Detected Case 1: (1,-10)(7,1)(7,10) Area=-33.0, real_calc=27.0
+Detected Case 2: (-10,-3)(1,-10)(7,10) Area=131.0, real_calc=131.0
+(1,-10)(3,1) {(8,6),(-10,-3)}
+Detected Case 1: (1,-10)(3,1)(8,6) Area=-2.5, real_calc=22.5
+Detected Case 2: (-10,-3)(1,-10)(3,1) Area=67.5, real_calc=67.5
+(8,5)(10,3) {(-7,-7),(8,6)}
+Detected Case 2: (-7,-7)(8,5)(10,3) Area=27.0, real_calc=27.0
+Detected Case 2: (8,5)(8,6)(10,3) Area=1.0, real_calc=1.0
+(8,5)(-3,0) {(-4,-6),(-2,5)}
+Detected Case 1: (-4,-6)(-3,0)(8,5) Area=-25.5, real_calc=30.5
+Detected Case 1: (-3,0)(-2,5)(8,5) Area=2.5, real_calc=25.0
+(8,5)(-5,9) {(-7,-7),(8,6)}
+Detected Case 2: (-7,-7)(-5,9)(8,5) Area=108.0, real_calc=108.0
+Detected Case 2: (-5,9)(8,5)(8,6) Area=6.5, real_calc=6.5
+(8,5)(-5,8) {(-7,-7),(8,6)}
+Detected Case 2: (-7,-7)(-5,8)(8,5) Area=100.5, real_calc=100.5
+Detected Case 2: (-5,8)(8,5)(8,6) Area=6.5, real_calc=6.5
+(8,5)(1,-7) {(7,1),(-8,2)}
+Detected Case 1: (1,-7)(7,1)(8,5) Area=-22.0, real_calc=8.0
+Detected Case 2: (-8,2)(1,-7)(8,5) Area=85.5, real_calc=85.5
+(8,5)(3,5) {(-7,-7),(8,6)}
+Detected Case 1: (-7,-7)(3,5)(8,5) Area=60.0, real_calc=30.0
+Detected Case 1: (3,5)(8,5)(8,6) Area=0.0, real_calc=2.5
+(8,5)(7,10) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(7,10)(8,5) Area=49.0, real_calc=49.0
+Detected Case 2: (7,10)(8,5)(8,6) Area=0.5, real_calc=0.5
+(8,5)(3,1) {(6,0),(-8,2)}
+Detected Case 2: (3,1)(6,0)(8,5) Area=8.5, real_calc=8.5
+Detected Case 2: (-8,2)(3,1)(8,5) Area=24.5, real_calc=24.5
+(1,-2)(10,3) {(-4,-6),(-8,2)}
+Detected Case 1: (-4,-6)(1,-2)(10,3) Area=-13.5, real_calc=5.5
+Detected Case 2: (-8,2)(1,-2)(10,3) Area=40.5, real_calc=40.5
+(1,-2)(-3,0) {(-7,-7),(8,6)}
+Detected Case 2: (-7,-7)(-3,0)(1,-2) Area=18.0, real_calc=18.0
+Detected Case 2: (-3,0)(1,-2)(8,6) Area=23.0, real_calc=23.0
+(1,-2)(-5,9) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(-5,9)(1,-2) Area=63.5, real_calc=63.5
+Detected Case 2: (-5,9)(1,-2)(8,6) Area=62.5, real_calc=62.5
+(1,-2)(-5,8) {(-10,-3),(8,6)}
+Detected Case 2: (-10,-3)(-5,8)(1,-2) Area=58.0, real_calc=58.0
+Detected Case 2: (-5,8)(1,-2)(8,6) Area=59.0, real_calc=59.0
+Detected Case 2: (-10,-3)(1,-7)(1,-2) Area=27.5, real_calc=27.5
+Detected Case 1: (1,-7)(1,-2)(8,6) Area=28.0, real_calc=17.5
+(1,-2)(3,5) {(7,1),(-10,-3)}
+Detected Case 2: (1,-2)(3,5)(7,1) Area=18.0, real_calc=18.0
+Detected Case 1: (-10,-3)(1,-2)(3,5) Area=1.5, real_calc=37.5
+(1,-2)(7,10) {(7,1),(-8,2)}
+Detected Case 1: (1,-2)(7,1)(7,10) Area=-9.0, real_calc=27.0
+Detected Case 2: (-8,2)(1,-2)(7,10) Area=66.0, real_calc=66.0
+(1,-2)(3,1) {(7,1),(-8,2)}
+Detected Case 1: (1,-2)(3,1)(7,1) Area=3.0, real_calc=6.0
+Detected Case 2: (-8,2)(1,-2)(3,1) Area=17.5, real_calc=17.5
+(9,1)(2,4) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(2,4)(9,1) Area=62.0, real_calc=62.0
+Detected Case 2: (2,4)(9,1)(9,7) Area=21.0, real_calc=21.0
+(9,1)(1,10) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(1,10)(9,1) Area=121.0, real_calc=121.0
+Detected Case 2: (1,10)(9,1)(9,7) Area=24.0, real_calc=24.0
+(9,1)(4,1) {(-6,-9),(-4,10)}
+Detected Case 1: (-6,-9)(4,1)(9,1) Area=50.0, real_calc=25.0
+Detected Case 1: (-4,10)(4,1)(9,1) Area=22.5, real_calc=22.5
+(9,1)(0,7) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(0,7)(9,1) Area=99.0, real_calc=99.0
+Detected Case 2: (0,7)(9,1)(9,7) Area=27.0, real_calc=27.0
+(9,1)(-4,-1) {(-6,-9),(-9,10)}
+Detected Case 1: (-6,-9)(-4,-1)(9,1) Area=-5.0, real_calc=50.0
+Detected Case 2: (-9,10)(-4,-1)(9,1) Area=76.5, real_calc=76.5
+Detected Case 2: (-9,10)(9,1)(9,3) Area=18.0, real_calc=18.0
+Detected Case 1: (9,1)(9,3)(9,7) Area=0.0, real_calc=0.0
+(3,6)(2,4) {(6,-7),(-9,10)}
+Detected Case 2: (2,4)(3,6)(6,-7) Area=9.5, real_calc=9.5
+Detected Case 2: (-9,10)(2,4)(3,6) Area=14.0, real_calc=14.0
+(3,6)(1,10) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(1,10)(3,6) Area=39.0, real_calc=39.0
+Detected Case 2: (1,10)(3,6)(9,7) Area=13.0, real_calc=13.0
+(3,6)(4,1) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(3,6)(4,1) Area=37.5, real_calc=37.5
+Detected Case 2: (3,6)(4,1)(9,7) Area=15.5, real_calc=15.5
+(3,6)(0,7) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(0,7)(3,6) Area=28.5, real_calc=28.5
+Detected Case 2: (0,7)(3,6)(9,7) Area=4.5, real_calc=4.5
+(3,6)(-4,-1) {(6,-7),(-9,10)}
+Detected Case 2: (-4,-1)(3,6)(6,-7) Area=56.0, real_calc=56.0
+Detected Case 2: (-9,10)(-4,-1)(3,6) Area=56.0, real_calc=56.0
+(3,6)(9,3) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(3,6)(9,3) Area=63.0, real_calc=63.0
+Detected Case 2: (3,6)(9,3)(9,7) Area=12.0, real_calc=12.0
+(4,-5)(2,4) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(2,4)(4,-5) Area=62.5, real_calc=62.5
+Detected Case 2: (2,4)(4,-5)(9,7) Area=34.5, real_calc=34.5
+(4,-5)(1,10) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(1,10)(4,-5) Area=103.5, real_calc=103.5
+Detected Case 2: (1,10)(4,-5)(9,7) Area=55.5, real_calc=55.5
+Detected Case 2: (-9,10)(4,-5)(4,1) Area=39.0, real_calc=39.0
+Detected Case 1: (4,-5)(4,1)(9,7) Area=15.0, real_calc=15.0
+(4,-5)(0,7) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(0,7)(4,-5) Area=86.0, real_calc=86.0
+Detected Case 2: (0,7)(4,-5)(9,7) Area=54.0, real_calc=54.0
+(4,-5)(-4,-1) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(-4,-1)(4,-5) Area=42.0, real_calc=42.0
+Detected Case 2: (-4,-1)(4,-5)(9,7) Area=58.0, real_calc=58.0
+(4,-5)(9,3) {(6,-7),(-9,10)}
+Detected Case 2: (4,-5)(6,-7)(9,3) Area=13.0, real_calc=13.0
+Detected Case 2: (-9,10)(4,-5)(9,3) Area=89.5, real_calc=89.5
+(7,10)(2,4) {(6,-7),(-9,10)}
+Detected Case 2: (2,4)(6,-7)(7,10) Area=39.5, real_calc=39.5
+Detected Case 2: (-9,10)(2,4)(7,10) Area=48.0, real_calc=48.0
+(7,10)(1,10) {(-6,-9),(-4,10)}
+Detected Case 1: (-6,-9)(1,10)(7,10) Area=66.5, real_calc=57.0
+Detected Case 1: (-4,10)(1,10)(7,10) Area=0.0, real_calc=0.0
+(7,10)(4,1) {(7,-4),(-9,10)}
+Detected Case 2: (4,1)(7,-4)(7,10) Area=21.0, real_calc=21.0
+Detected Case 2: (-9,10)(4,1)(7,10) Area=72.0, real_calc=72.0
+(7,10)(0,7) {(6,-7),(-9,10)}
+Detected Case 2: (0,7)(6,-7)(7,10) Area=58.0, real_calc=58.0
+Detected Case 2: (-9,10)(0,7)(7,10) Area=24.0, real_calc=24.0
+(7,10)(-4,-1) {(6,-7),(-9,10)}
+Detected Case 2: (-4,-1)(6,-7)(7,10) Area=88.0, real_calc=88.0
+Detected Case 2: (-9,10)(-4,-1)(7,10) Area=88.0, real_calc=88.0
+(7,10)(9,3) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(7,10)(9,3) Area=75.0, real_calc=75.0
+Detected Case 2: (7,10)(9,3)(9,7) Area=4.0, real_calc=4.0
+(3,-1)(2,4) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(2,4)(3,-1) Area=34.0, real_calc=34.0
+Detected Case 2: (2,4)(3,-1)(9,7) Area=19.0, real_calc=19.0
+(3,-1)(1,10) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(1,10)(3,-1) Area=74.0, real_calc=74.0
+Detected Case 2: (1,10)(3,-1)(9,7) Area=41.0, real_calc=41.0
+(3,-1)(4,1) {(6,-7),(-9,10)}
+Detected Case 2: (3,-1)(4,1)(6,-7) Area=6.0, real_calc=6.0
+Detected Case 2: (-9,10)(3,-1)(4,1) Area=17.5, real_calc=17.5
+(3,-1)(0,7) {(-9,-9),(9,7)}
+Detected Case 2: (-9,-9)(0,7)(3,-1) Area=60.0, real_calc=60.0
+Detected Case 2: (0,7)(3,-1)(9,7) Area=36.0, real_calc=36.0
+(3,-1)(-4,-1) {(-6,-9),(-4,10)}
+Detected Case 1: (-6,-9)(-4,-1)(3,-1) Area=8.0, real_calc=28.0
+Detected Case 2: (-4,-1)(-4,10)(3,-1) Area=38.5, real_calc=38.5
+(3,-1)(9,3) {(6,-7),(-9,10)}
+Detected Case 2: (3,-1)(6,-7)(9,3) Area=24.0, real_calc=24.0
+Detected Case 2: (-9,10)(3,-1)(9,3) Area=57.0, real_calc=57.0
+(-9,0)(2,4) {(6,-7),(-9,10)}
+Detected Case 2: (-9,0)(2,4)(6,-7) Area=68.5, real_calc=68.5
+Detected Case 2: (-9,0)(-9,10)(2,4) Area=55.0, real_calc=55.0
+(-9,0)(1,10) {(6,-7),(-9,10)}
+Detected Case 2: (-9,0)(1,10)(6,-7) Area=110.0, real_calc=110.0
+Detected Case 1: (-9,0)(-9,10)(1,10) Area=0.0, real_calc=50.0
+(-9,0)(4,1) {(-6,-9),(-9,10)}
+Detected Case 2: (-9,0)(-6,-9)(4,1) Area=60.0, real_calc=60.0
+Detected Case 2: (-9,0)(-9,10)(4,1) Area=65.0, real_calc=65.0
+(-9,0)(0,7) {(6,-7),(-9,10)}
+Detected Case 2: (-9,0)(0,7)(6,-7) Area=84.0, real_calc=84.0
+Detected Case 2: (-9,0)(-9,10)(0,7) Area=45.0, real_calc=45.0
+(-9,0)(-4,-1) {(-9,-9),(6,8)}
+Detected Case 2: (-9,-9)(-9,0)(-4,-1) Area=22.5, real_calc=22.5
+Detected Case 2: (-9,0)(-4,-1)(6,8) Area=27.5, real_calc=27.5
+(-9,0)(9,3) {(6,-7),(-9,10)}
+Detected Case 2: (-9,0)(6,-7)(9,3) Area=85.5, real_calc=85.5
+Detected Case 2: (-9,0)(-9,10)(9,3) Area=90.0, real_calc=90.0
+(7,-3)(4,3) {(-9,-5),(9,7)}
+Detected Case 2: (-9,-5)(4,3)(7,-3) Area=51.0, real_calc=51.0
+Detected Case 2: (4,3)(7,-3)(9,7) Area=21.0, real_calc=21.0
+Detected Case 1: (-9,-5)(7,-5)(7,-3) Area=0.0, real_calc=16.0
+Detected Case 1: (7,-5)(7,-3)(9,7) Area=10.0, real_calc=2.0
+(7,-3)(3,10) {(-9,-5),(9,7)}
+Detected Case 2: (-9,-5)(3,10)(7,-3) Area=108.0, real_calc=108.0
+Detected Case 2: (3,10)(7,-3)(9,7) Area=33.0, real_calc=33.0
+(7,-3)(-8,-3) {(-1,-10),(-5,9)}
+Detected Case 2: (-8,-3)(-1,-10)(7,-3) Area=52.5, real_calc=52.5
+Detected Case 2: (-8,-3)(-5,9)(7,-3) Area=90.0, real_calc=90.0
+(7,-3)(-7,5) {(-1,-10),(9,7)}
+Detected Case 2: (-7,5)(-1,-10)(7,-3) Area=81.0, real_calc=81.0
+Detected Case 2: (-7,5)(7,-3)(9,7) Area=78.0, real_calc=78.0
+(7,-3)(9,2) {(9,7),(-7,7)}
+Detected Case 1: (7,-3)(9,2)(9,7) Area=-5.0, real_calc=5.0
+Detected Case 2: (-7,7)(7,-3)(9,2) Area=45.0, real_calc=45.0
+(7,-3)(8,5) {(9,7),(-9,-5)}
+Detected Case 1: (7,-3)(8,5)(9,7) Area=3.0, real_calc=3.0
+Detected Case 1: (-9,-5)(7,-3)(8,5) Area=-12.0, real_calc=63.0
+(7,-3)(-4,4) {(-9,-5),(9,7)}
+Detected Case 2: (-9,-5)(-4,4)(7,-3) Area=67.0, real_calc=67.0
+Detected Case 2: (-4,4)(7,-3)(9,7) Area=62.0, real_calc=62.0
+(7,-3)(8,-7) {(-9,-5),(9,7)}
+Detected Case 2: (-9,-5)(7,-3)(8,-7) Area=33.0, real_calc=33.0
+Detected Case 2: (7,-3)(8,-7)(9,7) Area=9.0, real_calc=9.0
+(7,-3)(-3,8) {(-9,-5),(9,7)}
+Detected Case 2: (-9,-5)(-3,8)(7,-3) Area=98.0, real_calc=98.0
+Detected Case 2: (-3,8)(7,-3)(9,7) Area=61.0, real_calc=61.0
+(7,-3)(5,-6) {(-1,-10),(-7,7)}
+Detected Case 1: (-1,-10)(5,-6)(7,-3) Area=-9.0, real_calc=5.0
+Detected Case 2: (-7,7)(5,-6)(7,-3) Area=31.0, real_calc=31.0
+(7,-3)(-7,1) {(-1,-10),(9,7)}
+Detected Case 2: (-7,1)(-1,-10)(7,-3) Area=65.0, real_calc=65.0
+Detected Case 2: (-7,1)(7,-3)(9,7) Area=74.0, real_calc=74.0
+(2,4)(4,3) {(-1,-10),(9,7)}
+Detected Case 2: (-1,-10)(2,4)(4,3) Area=15.5, real_calc=15.5
+Detected Case 2: (2,4)(4,3)(9,7) Area=6.5, real_calc=6.5
+(2,4)(7,-5) {(-9,-5),(9,7)}
+Detected Case 2: (-9,-5)(2,4)(7,-5) Area=72.0, real_calc=72.0
+Detected Case 2: (2,4)(7,-5)(9,7) Area=39.0, real_calc=39.0
+(2,4)(3,10) {(9,7),(-8,2)}
+Detected Case 2: (2,4)(3,10)(9,7) Area=19.5, real_calc=19.5
+Detected Case 1: (-8,2)(2,4)(3,10) Area=-7.0, real_calc=29.0
+(2,4)(-8,-3) {(-1,-10),(-5,9)}
+Detected Case 2: (-8,-3)(-1,-10)(2,4) Area=59.5, real_calc=59.5
+Detected Case 2: (-8,-3)(-5,9)(2,4) Area=49.5, real_calc=49.5
+(2,4)(-7,5) {(-1,-10),(-5,9)}
+Detected Case 2: (-7,5)(-1,-10)(2,4) Area=64.5, real_calc=64.5
+Detected Case 2: (-7,5)(-5,9)(2,4) Area=19.0, real_calc=19.0
+(2,4)(9,2) {(-1,-10),(9,7)}
+Detected Case 2: (-1,-10)(2,4)(9,2) Area=52.0, real_calc=52.0
+Detected Case 2: (2,4)(9,2)(9,7) Area=17.5, real_calc=17.5
+(2,4)(8,5) {(-1,-10),(-5,9)}
+Detected Case 1: (-1,-10)(2,4)(8,5) Area=18.0, real_calc=40.5
+Detected Case 2: (-5,9)(2,4)(8,5) Area=18.5, real_calc=18.5
+(2,4)(-4,4) {(-1,-10),(-5,9)}
+Detected Case 2: (-4,4)(-1,-10)(2,4) Area=42.0, real_calc=42.0
+Detected Case 1: (-5,9)(-4,4)(2,4) Area=15.0, real_calc=15.0
+(2,4)(8,-7) {(-9,-5),(9,7)}
+Detected Case 2: (-9,-5)(2,4)(8,-7) Area=87.5, real_calc=87.5
+Detected Case 2: (2,4)(8,-7)(9,7) Area=47.5, real_calc=47.5
+(2,4)(-3,8) {(-9,-5),(9,7)}
+Detected Case 2: (-9,-5)(-3,8)(2,4) Area=44.5, real_calc=44.5
+Detected Case 2: (-3,8)(2,4)(9,7) Area=21.5, real_calc=21.5
+(2,4)(5,-6) {(-9,-5),(9,7)}
+Detected Case 2: (-9,-5)(2,4)(5,-6) Area=68.5, real_calc=68.5
+Detected Case 2: (2,4)(5,-6)(9,7) Area=39.5, real_calc=39.5
+(2,4)(-7,1) {(-1,-10),(-5,9)}
+Detected Case 2: (-7,1)(-1,-10)(2,4) Area=58.5, real_calc=58.5
+Detected Case 2: (-7,1)(-5,9)(2,4) Area=33.0, real_calc=33.0
+(-7,-6)(7,7) {(8,-5),(1,9)}
+Detected Case 2: (-7,-6)(7,7)(8,-5) Area=90.5, real_calc=90.5
+Detected Case 2: (-7,-6)(1,9)(7,7) Area=53.0, real_calc=53.0
+(-7,-6)(-3,-9) {(-3,-8),(1,9)}
+Detected Case 2: (-7,-6)(-3,-9)(-3,-8) Area=2.0, real_calc=2.0
+Detected Case 2: (-7,-6)(-3,-9)(1,9) Area=42.0, real_calc=42.0
+Detected Case 1: (-7,-6)(-7,-2)(-7,1) Area=0.0, real_calc=0.0
+Detected Case 2: (-7,-6)(-7,1)(10,0) Area=59.5, real_calc=59.5
+(-7,-6)(-8,-1) {(-7,-2),(10,0)}
+Detected Case 2: (-8,-1)(-7,-6)(-7,-2) Area=2.0, real_calc=2.0
+Detected Case 2: (-8,-1)(-7,-6)(10,0) Area=45.5, real_calc=45.5
+(-7,-6)(8,-8) {(1,-10),(1,9)}
+Detected Case 2: (-7,-6)(1,-10)(8,-8) Area=22.0, real_calc=22.0
+Detected Case 2: (-7,-6)(1,9)(8,-8) Area=120.5, real_calc=120.5
+(-7,-6)(10,6) {(1,-10),(1,9)}
+Detected Case 2: (-7,-6)(1,-10)(10,6) Area=82.0, real_calc=82.0
+Detected Case 2: (-7,-6)(1,9)(10,6) Area=79.5, real_calc=79.5
+(-7,-6)(-5,3) {(10,0),(-7,-2)}
+Detected Case 2: (-7,-6)(-5,3)(10,0) Area=70.5, real_calc=70.5
+Detected Case 1: (-7,-6)(-7,-2)(-5,3) Area=5.0, real_calc=4.0
+(-7,-6)(0,-9) {(1,-10),(1,9)}
+Detected Case 1: (-7,-6)(0,-9)(1,-10) Area=-2.0, real_calc=2.0
+Detected Case 2: (-7,-6)(0,-9)(1,9) Area=64.5, real_calc=64.5
+(0,10)(7,7) {(1,-10),(1,9)}
+Detected Case 2: (0,10)(1,-10)(7,7) Area=68.5, real_calc=68.5
+Detected Case 1: (0,10)(1,9)(7,7) Area=-2.0, real_calc=2.0
+(0,10)(-3,-9) {(10,0),(-7,-2)}
+Detected Case 2: (-3,-9)(0,10)(10,0) Area=110.0, real_calc=110.0
+Detected Case 2: (-7,-2)(-3,-9)(0,10) Area=48.5, real_calc=48.5
+(0,10)(-7,1) {(8,-5),(1,9)}
+Detected Case 2: (-7,1)(0,10)(8,-5) Area=88.5, real_calc=88.5
+Detected Case 2: (-7,1)(0,10)(1,9) Area=8.0, real_calc=8.0
+(0,10)(-8,-1) {(8,-5),(1,9)}
+Detected Case 2: (-8,-1)(0,10)(8,-5) Area=104.0, real_calc=104.0
+Detected Case 2: (-8,-1)(0,10)(1,9) Area=9.5, real_calc=9.5
+(0,10)(8,-8) {(-7,-2),(10,0)}
+Detected Case 2: (-7,-2)(0,10)(8,-8) Area=111.0, real_calc=111.0
+Detected Case 2: (0,10)(8,-8)(10,0) Area=50.0, real_calc=50.0
+(0,10)(10,6) {(1,-10),(1,9)}
+Detected Case 2: (0,10)(1,-10)(10,6) Area=98.0, real_calc=98.0
+Detected Case 1: (0,10)(1,9)(10,6) Area=-3.0, real_calc=3.0
+(0,10)(-5,3) {(8,-5),(-7,-2)}
+Detected Case 2: (-5,3)(0,10)(8,-5) Area=65.5, real_calc=65.5
+Detected Case 1: (-7,-2)(-5,3)(0,10) Area=-13.5, real_calc=5.5
+Detected Case 2: (-7,-2)(0,-9)(0,10) Area=66.5, real_calc=66.5
+Detected Case 2: (0,-9)(0,10)(10,0) Area=95.0, real_calc=95.0
+(3,9)(7,7) {(1,-10),(1,9)}
+Detected Case 2: (1,-10)(3,9)(7,7) Area=40.0, real_calc=40.0
+Detected Case 1: (1,9)(3,9)(7,7) Area=2.0, real_calc=2.0
+(3,9)(-3,-9) {(10,0),(-7,-2)}
+Detected Case 2: (-3,-9)(3,9)(10,0) Area=90.0, real_calc=90.0
+Detected Case 2: (-7,-2)(-3,-9)(3,9) Area=57.0, real_calc=57.0
+(3,9)(-7,1) {(8,-5),(1,9)}
+Detected Case 2: (-7,1)(3,9)(8,-5) Area=90.0, real_calc=90.0
+Detected Case 1: (-7,1)(1,9)(3,9) Area=32.0, real_calc=8.0
+(3,9)(-8,-1) {(8,-5),(1,9)}
+Detected Case 2: (-8,-1)(3,9)(8,-5) Area=102.0, real_calc=102.0
+Detected Case 1: (-8,-1)(1,9)(3,9) Area=45.0, real_calc=10.0
+(3,9)(8,-8) {(-7,-2),(10,0)}
+Detected Case 2: (-7,-2)(3,9)(8,-8) Area=112.5, real_calc=112.5
+Detected Case 2: (3,9)(8,-8)(10,0) Area=37.0, real_calc=37.0
+(3,9)(10,6) {(1,-10),(1,9)}
+Detected Case 2: (1,-10)(3,9)(10,6) Area=69.5, real_calc=69.5
+Detected Case 1: (1,9)(3,9)(10,6) Area=3.0, real_calc=3.0
+(3,9)(-5,3) {(8,-5),(1,9)}
+Detected Case 2: (-5,3)(3,9)(8,-5) Area=71.0, real_calc=71.0
+Detected Case 1: (-5,3)(1,9)(3,9) Area=18.0, real_calc=6.0
+(3,9)(0,-9) {(10,0),(-7,-2)}
+Detected Case 2: (0,-9)(3,9)(10,0) Area=76.5, real_calc=76.5
+Detected Case 2: (-7,-2)(0,-9)(3,9) Area=73.5, real_calc=73.5
+(-3,2)(7,7) {(1,-10),(1,9)}
+Detected Case 2: (-3,2)(1,-10)(7,7) Area=70.0, real_calc=70.0
+Detected Case 2: (-3,2)(1,9)(7,7) Area=25.0, real_calc=25.0
+Detected Case 2: (-7,-2)(-3,-9)(-3,2) Area=22.0, real_calc=22.0
+Detected Case 2: (-3,-9)(-3,2)(10,0) Area=71.5, real_calc=71.5
+(-3,2)(-7,1) {(1,-10),(1,9)}
+Detected Case 2: (-7,1)(-3,2)(1,-10) Area=26.0, real_calc=26.0
+Detected Case 1: (-7,1)(-3,2)(1,9) Area=12.0, real_calc=12.0
+(-3,2)(-8,-1) {(1,-10),(1,9)}
+Detected Case 2: (-8,-1)(-3,2)(1,-10) Area=36.0, real_calc=36.0
+Detected Case 1: (-8,-1)(-3,2)(1,9) Area=6.5, real_calc=11.5
+(-3,2)(8,-8) {(-3,-8),(1,9)}
+Detected Case 2: (-3,-8)(-3,2)(8,-8) Area=55.0, real_calc=55.0
+Detected Case 2: (-3,2)(1,9)(8,-8) Area=58.5, real_calc=58.5
+(-3,2)(10,6) {(1,-10),(1,9)}
+Detected Case 2: (-3,2)(1,-10)(10,6) Area=86.0, real_calc=86.0
+Detected Case 2: (-3,2)(1,9)(10,6) Area=37.5, real_calc=37.5
+(-3,2)(-5,3) {(1,-10),(1,9)}
+Detected Case 1: (-5,3)(-3,2)(1,-10) Area=10.0, real_calc=10.0
+Detected Case 2: (-5,3)(-3,2)(1,9) Area=9.0, real_calc=9.0
+(-3,2)(0,-9) {(-7,-2),(10,0)}
+Detected Case 2: (-7,-2)(-3,2)(0,-9) Area=28.0, real_calc=28.0
+Detected Case 2: (-3,2)(0,-9)(10,0) Area=68.5, real_calc=68.5
+(-5,5)(10,9) {(5,-10),(-8,5)}
+Detected Case 2: (-5,5)(5,-10)(10,9) Area=132.5, real_calc=132.5
+Detected Case 1: (-8,5)(-5,5)(10,9) Area=30.0, real_calc=6.0
+(-5,5)(4,9) {(5,-10),(-8,5)}
+Detected Case 2: (-5,5)(4,9)(5,-10) Area=87.5, real_calc=87.5
+Detected Case 1: (-8,5)(-5,5)(4,9) Area=18.0, real_calc=6.0
+(-2,-3)(10,9) {(9,-6),(-8,5)}
+Detected Case 2: (-2,-3)(9,-6)(10,9) Area=84.0, real_calc=84.0
+Detected Case 2: (-8,5)(-2,-3)(10,9) Area=84.0, real_calc=84.0
+(-2,-3)(4,9) {(9,-6),(-8,5)}
+Detected Case 2: (-2,-3)(4,9)(9,-6) Area=75.0, real_calc=75.0
+Detected Case 2: (-8,5)(-2,-3)(4,9) Area=60.0, real_calc=60.0
+(2,-3)(10,9) {(9,-6),(-8,5)}
+Detected Case 2: (2,-3)(9,-6)(10,9) Area=54.0, real_calc=54.0
+Detected Case 2: (-8,5)(2,-3)(10,9) Area=92.0, real_calc=92.0
+(2,-3)(4,9) {(9,-6),(-10,-4)}
+Detected Case 2: (2,-3)(4,9)(9,-6) Area=45.0, real_calc=45.0
+Detected Case 1: (-10,-4)(2,-3)(4,9) Area=6.0, real_calc=71.0
+0.01ms

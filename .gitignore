@@ -11,3 +11,4 @@ Obfuscator/
 Default.code-workspace
 .hmcl.json
 .hmcl/
+.clangd

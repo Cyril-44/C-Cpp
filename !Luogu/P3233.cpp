@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <random>
 #define LUOGU
 #if defined(ONLINE_JUDGE) && !defined(LUOGU)
 #pragma GCC optimize(2, 3, "inline", "unroll-loops", "fast-math", "inline-small-functions", "no-stack-protector",      \
@@ -19,7 +18,9 @@
 using namespace std;using pii_t=pair<int,int>;using pll_t=pair<int64_t,int64_t>;using veci_t=vector<int>;using vecl_t=vector<int64_t>;Inline int Popcnt(int x){return __builtin_popcount((unsigned)x);}Inline int Popcnt(unsigned x){return __builtin_popcount(x);}Inline int Popcnt(int64_t x){return __builtin_popcountll((uint64_t)x);}Inline int Popcnt(uint64_t x){return __builtin_popcountll(x);}Inline int Log2(int x){return 31-__builtin_clz((unsigned)x|1);}Inline int Log2(unsigned x){return 31-__builtin_clz(x|1);}Inline int Log2(int64_t x){return 63-__builtin_clzll((uint64_t)x|1);}Inline int Log2(uint64_t x){return 63-__builtin_clzll(x|1);}
 
 // #define MULTI_TEST_CASES
+#ifdef DEBUG
 
+#endif
 constexpr int N = 300005, K = 19;
 int a[N];
 int fa[N][K + 1], dfn[N], dep[N];
@@ -60,10 +61,10 @@ inline int len(int u, int v) {
 }
 
 namespace Solve {
-pair<int,int> f[N];
+std::pair<int,int> f[N];
 void dfsdown(int u) {
     for (int v : ng[u]) {
-        
+
     }
 }
 void dfsup(int u) {
