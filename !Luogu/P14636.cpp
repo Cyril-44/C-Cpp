@@ -17,7 +17,7 @@ struct Node {
     int a, w;
     inline bool operator< (const Node &rhs) const {
         int tp1 = a * (w ^ 3), tp2 = rhs.a * (rhs.w ^ 3);
-        if (tp1 == tp2) return w > rhs.w;
+        if (tp1 == tp2) return a < rhs.a;
         return tp1 < tp2;
     }
     inline bool operator> (const Node &rhs) const { return rhs < *this; }
@@ -42,10 +42,10 @@ inline void solvebf() {
     int n, m;
     read(n, m);
     int ans = 0;
-    for (unsigned st = 0; !(st >> n); ++st) {
+    for (unsigned st = 0; st < (1 << n); ++st) {
         Node b[40]{};
         for (int i = 0; i < n; i++)
-            b[i+1] = {a[i+1], ((st >> i & 1) + 1)};
+            b[i+1] = {a[i+1], (int)((st >> i & 1) + 1)};
         std::sort(b+1, b+1 + n, std::greater<Node>());
         long long greedy = 0;
         for (int i = 1, mm = m; i <= n; i++) {
@@ -54,15 +54,15 @@ inline void solvebf() {
                 // fprintf(stderr, "Chosen %d, %d\n", b[i].a, b[i].w);
             }
         }
-        long long f[80]{};
-        memset(f, -0x3f, sizeof(long long) * 80);
+        long long f[85]{};
+        memset(f, -0x3f, sizeof(long long) * 85);
         f[0] = 0;
         for (int i = 1; i <= n; i++)
             for (int j = m; j >= b[i].w; j--)
                 f[j] = std::max(f[j], f[j - b[i].w] + b[i].a);
         long long mx = *std::max_element(f, f + m + 1);
         if (mx == greedy) ++ans;
-#ifdef LOC
+#ifdef DEBUG
         std::cerr << std::bitset<5>(st);
         fprintf(stderr, " %lld %lld %s\n", greedy, mx, mx == greedy ? "OK" : "");
 #endif
@@ -110,7 +110,7 @@ int main() {
             solvebf(); break;
         case 14: case 15: case 7: case 8: case 9:
             solve2(); break;
-	case 16: case 18: {
+	    case 16: case 18: {
             int n, m;
             read(n, m);
             printf("%d\n", qpow(2, n));
