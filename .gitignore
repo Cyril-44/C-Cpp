@@ -6,7 +6,6 @@ musl/
 my-project/
 my-project2/
 PSTools/
-logkeys/
 Obfuscator/
 Default.code-workspace
 .hmcl.json
