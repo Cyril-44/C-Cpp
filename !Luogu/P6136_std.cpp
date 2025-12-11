@@ -78,7 +78,7 @@ inline void splay(node*&i,int x)
     if(o&1)i=R(i);
     if(o&2)i=L(i);
 }
-main()
+int main()
 {
     freopen("P6136_11.in", "r", stdin);
     read(n);read(m);
