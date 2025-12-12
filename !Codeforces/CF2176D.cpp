@@ -28,21 +28,25 @@ struct Fact{Fact(const int&E):d(E+1,Mint(1)),I(E+1),Z(E){d[0]=1;for(int Y=1;Y<=E
 
 constexpr int N = 200005;
 constexpr int64_t MX = 1e18;
-vector<int> g[N], ng[N];
+vector<int> g[N];
+using Key = tuple<int, int, int64_t, int64_t>;
 int64_t a[N];
-map<pair<int, pair<int64_t, int64_t>>, Mint> mp;
-int64_t fib[205];
+int64_t fib[505];
+map<Key, Mint> mp;
 Mint dfs(int u, int dep) {
     if (dep > fib[0]) return 0;
-    auto key = make_pair(u, make_pair(fib[dep-1], fib[dep]));
-    if (mp.count(key))
-        return mp[key];
-    Mint ans = 1;
-    for (int v : g[u]) {
-        if (a[v] == fib[dep])
-            ans += dfs(v, dep + 1);
+    Key key(u, dep, fib[dep], fib[dep-1]);
+    if (dep <= 10) {
+        if (mp.count(key)) return mp[key];
     }
-    return ans;
+    Mint res = 1;
+    for (int v : g[u]) {
+        if (a[v] == fib[dep]) res += dfs(v, dep + 1);
+    }
+    if (dep <= 10) {
+        return mp[key] = res;
+    }
+    return res;
 }
 inline void solveSingleTestCase() {
     int n, m;
@@ -51,25 +55,25 @@ inline void solveSingleTestCase() {
         cin >> a[i];
         g[i].clear();
     }
-    mp.clear();
+    vector<pair<int,int>> edgs;
+    edgs.reserve(m);
     Repv (m, u, v) {
         cin >> u >> v;
-        g[u].push_back(v);
+        edgs.emplace_back(u, v);
     }
-    Mint ans;
-    For (i, 1, n) {
-        for (int j : g[i]) {
-            int64_t fn = a[i], fn_1 = a[j];
-            fib[1] = a[i], fib[2] = a[j];
-            for (fib[0] = 3; ; ++fib[0]) {
-                swap(fn, fn_1);
-                fn += fn_1;
-                if (fn > MX) break;
-                fib[fib[0]] = fn;
-            }
-            --fib[0];
-            ans += dfs(j, 3);
+    for (const auto& [u, v] : edgs)
+        if (a[u] < a[v])
+            g[u].push_back(v);
+    Mint ans = 0;
+    mp.clear();
+    for (const auto& [u, v] : edgs) {
+        fib[1] = a[u], fib[2] = a[v];
+        for (fib[0] = 3; ; ++fib[0]) {
+            fib[fib[0]] = fib[fib[0]-1] + fib[fib[0]-2];
+            if (fib[fib[0]] > MX) break;
         }
+        ans += dfs(v, 3);
+        // cerr << u << "->" << v << ": " << dfs(v, 3) << '\n';
     }
     cout << ans << '\n';
 }
