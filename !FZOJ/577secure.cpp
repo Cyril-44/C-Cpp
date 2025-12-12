@@ -6,8 +6,11 @@
 constexpr int N = 500005, INF = 0x3fffffff;
 int n, p[N], k[N];
 struct Edge { int to, nxt, w; } edgs[N << 1]; int head[N];
-int cnt[N], dep[N], dis[N], hson[N], fa[N]; // dis: 节点 1 到 i 的距离
-int dfntop=0, dfn[N], dfnmap[N], disdfn[N];
+int dis[N]; // 节点 1 到 i 的距离
+int dfnmap[N]; // 
+int cnt[N], dep[N], hson[N], fa[N];
+int dfntop=0, dfn[N];
+int disdfn[N]; // dfn序 对应的节点 到 1 的距离
 struct Chain { int head, rear; } chain[N]; // 第 i 个点属于重链: head[i] .. rear[i]
 void dfs1(int u, int pre) { // Get cnt, dep, dis, hson, fa
     cnt[u] = 1, fa[u] = pre;
