@@ -42,14 +42,13 @@ inline void solveSingleTestCase() {
             cout << sum + oddmx << ' ';
         } else { 
             int overlap = i - (int)even.size() - 1;
-            if (overlap & 1) {
-                if ((int)odd.size() > 2) cout << sum - even.back() + oddmx << ' ';
-                else cout << "0 ";
+            if (overlap == 1 && (int)odd.size() == 2) cout << "0 ";
+            else if (overlap & 1) {
+                int64_t ans = 0;
+                if ((int)odd.size() > overlap + 1) ans = max(ans, sum - even.back() + oddmx);
+                cout << ans << ' ';
             }
-            else {
-                if ((int)odd.size() > 2) cout << sum + oddmx << ' ';
-                else cout << "0 ";
-            }
+            else cout << sum + oddmx << '\n';
         }
     }
     cout << '\n';
