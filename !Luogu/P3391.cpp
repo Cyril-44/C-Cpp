@@ -42,13 +42,7 @@ inline void zig(Node* v) {
     pushdown(u);
     auto anc = v->fa;
     u->fa = v->fa;
-<<<<<<< HEAD
-<<<<<<< HEAD
     v->fa = u;
-=======
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
-=======
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
     if (anc) (anc->ls == v ? anc->ls : anc->rs) = u;
     v->rs = u->ls;
     if (u->ls) u->ls->fa = v;
@@ -57,25 +51,13 @@ inline void zig(Node* v) {
     pushup(u);
 }
 inline void zag(Node* u) {
-<<<<<<< HEAD
-<<<<<<< HEAD
     // puts("Zagged");
-=======
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
-=======
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
     pushdown(u);
     auto v = u->ls;
     pushdown(v);
     auto anc = u->fa;
     v->fa = u->fa;
-<<<<<<< HEAD
-<<<<<<< HEAD
     u->fa = v;
-=======
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
-=======
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
     if (anc) (anc->ls == u ? anc->ls : anc->rs) = v;
     u->ls = v->rs;
     if (v->rs) v->rs->fa = u;
@@ -91,14 +73,6 @@ void splay(Node* u, Node* tgt = nullptr) { // 伸展 u 使 u->fa = tgt（默认�
         // (O) ==l=> (P) ==r=> (U) 或 (O) ==r=> (P) ==l=> (u)：两次 rotate(u)
         // (O) ==l=> (P) ==l=> (U) 或 (O) ==r=> (P) ==r=> (u)：rotate(u->fa), rotate(u)
         if (u->fa->fa != tgt) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            printf("%d", (u->fa->ls == u) == (u->fa->fa->ls == u->fa));
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
-=======
-            printf("%d", (u->fa->ls == u) == (u->fa->fa->ls == u->fa));
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
             (u->fa->ls == u) == (u->fa->fa->ls == u->fa) ? rotate(u->fa) : rotate(u);
         }
         rotate(u);
@@ -107,15 +81,7 @@ void splay(Node* u, Node* tgt = nullptr) { // 伸展 u 使 u->fa = tgt（默认�
 }
 inline void build(int n) {
     auto u = alloc();
-<<<<<<< HEAD
-<<<<<<< HEAD
     u->cnt = 1;
-=======
-    u->size = 1;
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
-=======
-    u->size = 1;
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
     for (int i = 1; i <= n; i++) {
         u->rs = alloc();
         u->rs->fa = u;
@@ -126,31 +92,15 @@ inline void build(int n) {
     auto guard = alloc();
     guard->dat = 0x7fffffff;
     guard->fa = u;
-<<<<<<< HEAD
-<<<<<<< HEAD
     guard->cnt = 1;
     u->rs = guard;
-=======
-    guard->size = 1;
-    u->ls = guard;
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
-=======
-    guard->size = 1;
-    u->ls = guard;
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
     splay(guard); // 维护 size
 }
 inline Node* rank(int rk) {
     ++rk;
     auto u = root;
     while (u->size > 1) {
-<<<<<<< HEAD
-<<<<<<< HEAD
         pushdown(u);
-=======
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
-=======
->>>>>>> b025242bac38b53a21fd68016c1ca3568ef31c84
         int lsz = u->ls ? u->ls->size : 0;
         int rsz = u->rs ? u->rs->size : 0;
         if (lsz < rk && rk <= u->size - rsz) break;
