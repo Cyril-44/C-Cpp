@@ -6,30 +6,23 @@ namespace Splay_Data {
 struct Node {
     Node *ls, *rs, *fa;
     int size, cnt;
-    long long val; // 区间的左边值
-    bool inv;
+    LL val; // 区间的左边值
+    inline Node(Node* l=nullptr, Node* r=nullptr, Node* f=nullptr, int c=0, LL v=0) : 
+        ls(l), rs(r), fa(f), size(0), cnt(c), val(v) {}
     inline void pushup() {
         size = cnt;
         if (ls) size += ls->size;
         if (rs) size += rs->size;
     }
-    inline void pushdown() {
-        if (inv) {
-            if (ls) ls->inv ^= 1;
-            if (rs) rs->inv ^= 1;
-            std::swap(ls, rs);
-            inv = false;
-        }
-    }
     inline void zig() {
-        pushdown(); auto u = rs; u->pushdown();
+        auto u = rs;
         auto anc = fa; if (anc) (anc->ls == this ? anc->ls : anc->rs) = u;
         u->fa = fa; fa = u; rs = u->ls;
         if (u->ls) u->ls->fa = this; u->ls = this;
-    pushup(); u->pushup();
+        pushup(); u->pushup();
     }
     inline void zag() {
-        pushdown(); auto v = ls; v->pushdown();
+        auto v = ls;
         auto anc = fa;  if (anc) (anc->ls == this ? anc->ls : anc->rs) = v;
         v->fa = fa; fa = v; ls = v->rs;
         if (v->rs) v->rs->fa = this; v->rs = this;
@@ -44,6 +37,12 @@ inline Node* alloc() {
     static size_t ptr = 0;
     return mempool + (ptr++);
 }
+template<typename... Args>
+inline Node* alloc(Args... args) {
+    Node* res = alloc();
+    *res = Node(args...);
+    return res;
+} 
 }
 struct Splay_Dynamic {
 using Node = Splay_Data::Node;
@@ -62,9 +61,8 @@ void splay(Node* u, Node* tgt) { // 伸展 u 使 u->fa = tgt（默认旋到顶�
     while (u->fa != tgt) {
         // (O) ==l=> (P) ==r=> (U) 或 (O) ==r=> (P) ==l=> (u)：两次 rotate(u)
         // (O) ==l=> (P) ==l=> (U) 或 (O) ==r=> (P) ==r=> (u)：rotate(u->fa), rotate(u)
-        if (u->fa->fa != tgt) {
+        if (u->fa->fa != tgt)
             (u->fa->ls == u) == (u->fa->fa->ls == u->fa) ? u->fa->rotate() : u->rotate();
-        }
         u->rotate();
     }
     if (!tgt) root = u; // 旋到根了
@@ -78,7 +76,6 @@ inline Node* rank(int rk) {
     ++rk;
     auto u = root;
     while (u->size > 1) {
-        u->pushdown();
         int lsz = u->ls ? u->ls->size : 0;
         int rsz = u->rs ? u->rs->size : 0;
         if (lsz < rk && rk <= u->size - rsz) break;
@@ -88,12 +85,40 @@ inline Node* rank(int rk) {
     // printf("Find #%d %d\n", u->dat, u->size);
     return u;
 }
-inline Node* pre(Node* u) {
-    
+inline Node* last(Node* u) { // 找 u 子树中的最大节点
+    while (u->rs) u = u->rs;
+    return u;
 }
-inline void erase(Node* u) {
-    if (u->cnt == 1) {
-        
+inline Node* pre(Node* u) {
+    return u->ls ? last(u->ls) : u->fa;
+}
+inline void erase(Node *u) {
+    splay(u);
+    if (u->ls) {
+        splay(last(u->ls), u);
+        u->ls->rs = u->rs;
+        root = u->ls;
+    } else root = u->rs;
+}
+inline void erase(int p) {
+    Node *u = rank(p);
+    if (u->cnt == 1)
+        erase(u);
+    else {
+        if (u->val == p) {
+            Node *newl = Splay_Data::alloc(u->ls, nullptr, u, 1, u->val);
+            --u->cnt, ++u->val, u->ls->fa = newl, u->ls = newl;
+            erase(newl);
+        } else if (u->val + u->cnt - 1 == p) {
+            Node *newr = Splay_Data::alloc(nullptr, u->rs, u, 1, u->val + u->cnt - 1);
+            --u->cnt, u->rs->fa = newr, u->rs = newr;
+            erase(newr);
+        } else {
+            Node *newl = Splay_Data::alloc(u->ls, nullptr, u, p - u->val, u->val),
+                 *newr = Splay_Data::alloc(nullptr, u->rs, u, u->val + u->cnt - 1 - p, p + 1);
+            u->cnt = 1, u->val = p, u->ls->fa = newl, u->rs->fa = newr;
+            erase(u);
+        }
     }
 }
 inline void push_back(LL x) {
@@ -104,8 +129,7 @@ inline void push_back(LL x) {
         root->pushup();
         return;
     }
-    Node* curr = root;
-    while (curr->rs) curr = curr->rs;
+    Node* curr = last(root);
     curr->rs = Splay_Data::alloc();
     curr->rs->fa = curr;
     curr = curr->fa;
@@ -136,7 +160,16 @@ inline Node* range(int l, int r) {
 int main() {
     int n, m, q;
     scanf("%d%d%d", &n, &m, &q);
+    for (int i = 1; i <= n; i++) {
+        row[i].init(m - 1, (i-1ll) * m + 1);
+        last_col.push_back(i * m);
+    }
     for (int x, y; q--;) {
         scanf("%d%d", &x, &y);
+        if (y != m) {
+            auto last = last_col.rank(x);
+            last_col.erase(last);
+            row[x].erase(y);
+        }
     }
 }
