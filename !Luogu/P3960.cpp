@@ -92,34 +92,33 @@ inline Node* last(Node* u) { // 找 u 子树中的最大节点
 inline Node* pre(Node* u) {
     return u->ls ? last(u->ls) : u->fa;
 }
-inline void erase(Node *u) {
+inline int erase(Node *u) {
     splay(u);
     if (u->ls) {
         splay(last(u->ls), u);
         u->ls->rs = u->rs;
         root = u->ls;
     } else root = u->rs;
+    return u->val;
 }
-inline void erase(int p) {
+inline int erase(int p) {
     Node *u = rank(p);
     if (u->cnt == 1)
-        erase(u);
-    else {
-        if (u->val == p) {
-            Node *newl = Splay_Data::alloc(u->ls, nullptr, u, 1, u->val);
-            --u->cnt, ++u->val, u->ls->fa = newl, u->ls = newl;
-            erase(newl);
-        } else if (u->val + u->cnt - 1 == p) {
-            Node *newr = Splay_Data::alloc(nullptr, u->rs, u, 1, u->val + u->cnt - 1);
-            --u->cnt, u->rs->fa = newr, u->rs = newr;
-            erase(newr);
-        } else {
-            Node *newl = Splay_Data::alloc(u->ls, nullptr, u, p - u->val, u->val),
-                 *newr = Splay_Data::alloc(nullptr, u->rs, u, u->val + u->cnt - 1 - p, p + 1);
-            u->cnt = 1, u->val = p, u->ls->fa = newl, u->rs->fa = newr;
-            erase(u);
-        }
+        return erase(u);
+    if (u->val == p) { // p 在最左边
+        Node *newl = Splay_Data::alloc(u->ls, nullptr, u, 1, u->val);
+        --u->cnt, ++u->val, u->ls->fa = newl, u->ls = newl;
+        return erase(newl);
     }
+    if (u->val + u->cnt - 1 == p) { // p 在最右边
+        Node *newr = Splay_Data::alloc(nullptr, u->rs, u, 1, u->val + u->cnt - 1);
+        --u->cnt, u->rs->fa = newr, u->rs = newr;
+        return erase(newr);
+    }
+    Node *newl = Splay_Data::alloc(u->ls, nullptr, u, p - u->val, u->val),
+            *newr = Splay_Data::alloc(nullptr, u->rs, u, u->val + u->cnt - 1 - p, p + 1);
+    u->cnt = 1, u->val = p, u->ls->fa = newl, u->rs->fa = newr;
+    return erase(u);
 }
 inline void push_back(LL x) {
     if (!root) {
@@ -167,9 +166,9 @@ int main() {
     for (int x, y; q--;) {
         scanf("%d%d", &x, &y);
         if (y != m) {
-            auto last = last_col.rank(x);
-            last_col.erase(last);
-            row[x].erase(y);
+            LL lc = last_col.erase(x);
+            LL mr = row[x].erase(y);
+            
         }
     }
 }
