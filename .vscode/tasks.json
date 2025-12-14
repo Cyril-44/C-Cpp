@@ -8,6 +8,9 @@
 			"args": [
 				"-std=c++2a",
 				"-Wall",
+				"-Wextra",
+				"-Wconversion",
+				"-Wshadow",
 				"-D_GLIBCXX_DEBUG",
 				"-DDEBUG",
 				"-fsanitize=address",
