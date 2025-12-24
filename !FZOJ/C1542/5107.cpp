@@ -2,10 +2,10 @@
 using namespace std;
 
 using LL = long long;
-constexpr int N = 25;
+constexpr int N = 21;
 
-LL w[N][N], wsum[N][1<<13];
-LL W[1<<13], f[N], dp[100005];
+LL w[N][N], wsum[N][1<<20];
+LL W[1<<20], f[N], dp[100005];
 
 int main() {
     ios::sync_with_stdio(false);
