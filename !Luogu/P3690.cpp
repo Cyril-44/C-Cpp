@@ -31,11 +31,11 @@ inline bool isroot(int u) { return tr[u].go(FA).s[L] != u && tr[u].go(FA).s[R] !
 inline void rotate(int u) {
     auto &i = tr[u];
     int anc = i.go(FA).s[FA];
-    bool tp = type(u), ftp = type(i.s[FA]);
-    if (!isroot(i.s[FA])) i.go(FA).go(FA).s[type(i.s[FA])] = u; 
+    bool tp = type(u);
+    if (!isroot(i.s[FA])) i.go(FA).go(FA).s[type(i.s[FA])] = u;
     i.go(FA).s[tp] = i.s[!tp]; if (i.s[!tp]) i.go(!tp).s[FA] = i.s[FA];
-    i.s[!tp] = i.s[FA]; i.go(FA).s[FA] = u; i.s[FA] = anc;
-    i.go(!tp).pushup(); i.pushup();
+    i.s[tp] = i.s[FA]; i.go(FA).s[FA] = u; i.s[FA] = anc;
+    i.go(tp).pushup(); i.pushup();
 }
 inline void splay(int u) {
     while (!isroot(u)) {
@@ -92,10 +92,10 @@ int main() {
         scanf("%d%d%d", &op, &x, &y);
         switch (op) {
         case 0:
-            // printf("%d\n", LCT::query(x, y));
-            {LCT::changeroot(x); int tmp = LCT::access(y);
-            LCT::print(tmp); printf("%d\n", LCT::tr[tmp].xorsum);
-            detailedAnsPrinter(LCT::tr[tmp].xorsum);}
+            printf("%d\n", LCT::query(x, y));
+            // {LCT::changeroot(x); int tmp = LCT::access(y);
+            // LCT::print(tmp); printf("%d\n", LCT::tr[tmp].xorsum);
+            // detailedAnsPrinter(LCT::tr[tmp].xorsum);}
             break;
         case 1:
             LCT::link(x, y) ? fprintf(stderr, "Linked %d to %d on OP #%d.\n", x, y, _m) : fprintf(stderr, "Found same root for node %d and %d on OP #%d.\n", x, y, _m) ;
