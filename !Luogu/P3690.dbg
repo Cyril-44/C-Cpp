@@ -1,16 +1,36 @@
-Linked 1 to 9 on OP #1.
-Linked 2 to 6 on OP #2.
-Linked 4 to 9 on OP #3.
-Linked 8 to 9 on OP #4.
-Linked 1 to 13 on OP #5.
-Linked 6 to 8 on OP #6.
-Linked 1 to 12 on OP #7.
-Linked 5 to 7 on OP #8.
-Linked 10 to 13 on OP #9.
-Linked 5 to 8 on OP #10.
-Linked 7 to 11 on OP #11.
-Linked 3 to 12 on OP #12.
-1 
-1 5 7 8 12 
-1 5 8 9 12 
-6 7 8 
+Times 1
+Linked 1 to 2 on OP #1.
+Times 1 finished
+Times 2
+Times 2 finished
+Times 3
+Cut 1 from 2 on OP #3.
+Times 3 finished
+Times 4
+Linked 1 to 2 on OP #4.
+Times 4 finished
+Times 5
+Linked 2 to 3 on OP #5.
+Times 5 finished
+Times 6
+Edge (1, 3) not found on OP #6.
+Times 6 finished
+Times 7
+Found same root for node 1 and 3 on OP #7.
+Times 7 finished
+Times 8
+Linked 4 to 5 on OP #8.
+Times 8 finished
+Times 9
+Linked 2 to 5 on OP #9.
+Times 9 finished
+Times 10
+Times 10 finished
+Times 11
+Times 11 finished
+Times 12
+Times 12 finished
+Times 13
+Times 13 finished
+Times 14
+Times 14 finished

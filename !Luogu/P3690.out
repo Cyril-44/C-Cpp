@@ -1,18 +1,5 @@
-(1):	val=1, xorsum=1
-1
-(5):	  val=16, xorsum=208
-(8):	    val=128, xorsum=192
-(7):	      val=64, xorsum=64
-(1):	val=1, xorsum=2257
-(12):	  val=2048, xorsum=2048
-2257
-(1):	  val=1, xorsum=401
-(9):	      val=256, xorsum=256
-(8):	    val=128, xorsum=400
-(5):	      val=16, xorsum=16
-(12):	val=2048, xorsum=2449
-2449
-(7):	  val=64, xorsum=64
-(8):	val=128, xorsum=224
-(6):	  val=32, xorsum=32
-224
+624
+315
+296
+232709
+232823

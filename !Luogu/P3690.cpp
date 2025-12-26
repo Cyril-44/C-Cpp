@@ -28,21 +28,20 @@ struct SplayNode { // BST，节点的编号就是 val
 inline SplayNode& SplayNode::go(int tp) { return tr[s[tp]]; };
 inline bool type(int u) { return tr[u].go(FA).s[R] == u; }
 inline bool isroot(int u) { return tr[u].go(FA).s[L] != u && tr[u].go(FA).s[R] != u; }
+void update(int u) { {if (!isroot(u)) update(tr[u].s[FA]);} tr[u].pushdown(); }
 inline void rotate(int u) {
     auto &i = tr[u];
     int anc = i.go(FA).s[FA];
     bool tp = type(u);
     if (!isroot(i.s[FA])) i.go(FA).go(FA).s[type(i.s[FA])] = u;
     i.go(FA).s[tp] = i.s[!tp]; if (i.s[!tp]) i.go(!tp).s[FA] = i.s[FA];
-    i.s[tp] = i.s[FA]; i.go(FA).s[FA] = u; i.s[FA] = anc;
-    i.go(tp).pushup(); i.pushup();
+    i.s[!tp] = i.s[FA]; i.go(FA).s[FA] = u; i.s[FA] = anc;
+    i.go(!tp).pushup(); i.pushup();
 }
 inline void splay(int u) {
-    while (!isroot(u)) {
+    for (update(u); !isroot(u); rotate(u))
         if (!isroot(tr[u].s[FA]))
             rotate(type(u) == type(tr[u].s[FA]) ? tr[u].s[FA] : u);
-        rotate(u);
-    }
 }
 inline int access(int u) {
     int p = 0;
@@ -50,10 +49,9 @@ inline int access(int u) {
         splay(u), tr[u].s[R] = p, tr[u].pushup();
     return p;
 }
-void update(int u) { {if (!isroot(u)) update(tr[u].s[FA]);} tr[u].pushdown(); }
 inline int begin(int u) { return tr[u].s[L] ? (tr[u].pushdown(), begin(tr[u].s[L])) : u; }
 inline int front(int u) { u = begin(u); splay(u); return u; }
-inline int getroot(int u) { return front(access(u)); }
+inline int getroot(int u) { return access(u), splay(u), front(u); }
 inline int lca(int u, int v) { return access(u), access(v); }
 inline void changeroot(int u) { tr[access(u)].reverse(); }
 inline bool link(int u, int v) {
@@ -89,6 +87,7 @@ int main() {
     for (int i = 1; i <= n; i++)
         LCT::tr[i].set(a[i]);
     for (int op, x, y, _m = 1; _m <= m; ++_m) {
+        // fprintf(stderr, "Times %d\n", _m);
         scanf("%d%d%d", &op, &x, &y);
         switch (op) {
         case 0:
@@ -107,6 +106,7 @@ int main() {
             LCT::splay(x), LCT::tr[x].set(y);
             break;
         }
+        // fprintf(stderr, "Times %d finished\n", _m);
     }
     return 0;
 }
