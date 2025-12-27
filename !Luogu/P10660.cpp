@@ -62,7 +62,7 @@ inline void pushdown(int u) {
 void sync(int u) { if (U[FA]) sync(U[FA]); pushdown(u); }
 inline void rotate(int u) {
     bool tp = type(u); int anc = U(FA)[FA];
-    if (isroot(U[FA])) U(FA)(FA)[type(U[FA])] = u;
+    if (!isroot(U[FA])) U(FA)(FA)[type(U[FA])] = u;
     U(FA)[tp] = U[!tp]; if (U[!tp]) U(!tp)[FA] = u;
     U[!tp] = U[FA]; U(FA)[FA] = u; U[FA] = anc;
     pushup(U[!tp]), pushup(u);
@@ -137,14 +137,14 @@ int main() {
     for (int i = 1; i <= n; i++) link(i, p[i]);
     scanf("%d", &q); char ch;
     for (int a, x, y, z, _q = 1; _q <= q; ++_q) {
-        scanf( "%c%d", &ch, &a);
+        scanf(" %c%d", &ch, &a);
         if (ch == 'A') {
             printf("%d\n", query(a));
         } else {
             scanf("%d%d%d", &x, &y, &z);
             edit(a, x, z);
             cut(a, p[a]);
-            link(a, p[a] = y);
+            link(a, p[a] = y); 
         }
     }
     return 0;
