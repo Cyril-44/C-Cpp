@@ -36,7 +36,7 @@ struct Node {
     bool inv;
     Node& operator()(int);
     inline int& operator[](int x) { return s[x]; }
-} tr[N]{1,0,1,0};
+} tr[N]{1,0,1,0,0,0,0,0,false};
 int sol[N]; // 可以发现，如果可以提取出一条以已知解为链底的偏爱链，那么就可以直接计算了
 int extra[N]; // 记录基环树上多出来的那一条边（这一条边一定连接在 root 上，且这颗树在被 cut 之前不可能再有 link 和 changeroot 操作
 inline Node& Node::operator()(int x) { return tr[s[x]]; }
