@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
+#include <assert.h>
 constexpr int N = 30005, MOD = 10007;
 int p[N];
 inline int qpow(int b, int n = MOD - 2) {
@@ -22,16 +23,14 @@ enum {L, R, FA};
 struct Node {
     struct Statistics {
         int k, b;
-        inline Statistics operator+(const Statistics& o) const {
+        inline Statistics operator*(const Statistics& o) const {
             return Statistics{k * o.k % MOD, (k * o.b + b) % MOD};
         }
-        inline Statistics operator~() const { Statistics a = *this; a.reverse(); return a; }
-        inline int operator*(int x) const { return k * x + b % MOD; }
-        inline void reverse() { // 如果将 a1..an 翻转，那么原先的 an = k * a1 + b ==> a1 = 1/k * an - b/k
-            k = qpow(k);
-            b = (MOD-b) * k % MOD;
+        inline Statistics operator~() const {
+            return Statistics{qpow(k), (MOD-b) * k % MOD};
         }
-    } dat, sum;
+        inline int operator*(int x) const { return (k * x + b) % MOD; }
+    } dat, prod;
     int sz, s[3];
     bool inv;
     Node& operator()(int);
@@ -44,12 +43,11 @@ inline bool type(int u) { return U(FA)[R] == u; }
 inline bool isroot(int u) { return U(FA)[L] != u && U(FA)[R] != u; }
 inline void pushup(int u) {
     U.sz = U(L).sz + 1 + U(R).sz;
-    U.sum = U(L).sum + U.dat + U(R).sum;
+    U.prod = U(L).prod * U.dat * U(R).prod;
 }
 inline void reverse(int u) {
     std::swap(U[L], U[R]);
     U.inv ^= 1;
-    U.dat.reverse();
     pushup(u);
 }
 inline void pushdown(int u) {
@@ -59,11 +57,11 @@ inline void pushdown(int u) {
         U.inv = false;
     }
 }
-void sync(int u) { if (U[FA]) sync(U[FA]); pushdown(u); }
+void sync(int u) { if (!isroot(u)) sync(U[FA]); pushdown(u); }
 inline void rotate(int u) {
     bool tp = type(u); int anc = U(FA)[FA];
     if (!isroot(U[FA])) U(FA)(FA)[type(U[FA])] = u;
-    U(FA)[tp] = U[!tp]; if (U[!tp]) U(!tp)[FA] = u;
+    U(FA)[tp] = U[!tp]; if (U[!tp]) U(!tp)[FA] = U[FA];
     U[!tp] = U[FA]; U(FA)[FA] = u; U[FA] = anc;
     pushup(U[!tp]), pushup(u);
 }
@@ -80,51 +78,55 @@ inline int access(int u) {
     return p;
 }
 inline int getroot(int u) {
-    u = access(u);
-    while (U[L]) pushdown(u), u = U[L];
-    splay(u);
-    return u;
+    for (u = access(u); U[L]; u = U[L]) pushdown(u);
+    return splay(u), u;
 }
-inline void changeroot(int u) {
-    int rt = getroot(u);
-    access(u), splay(u), reverse(u);
-    sol[u] = sol[rt] < 0 ? sol[rt] : ~tr[access(rt)].sum * sol[rt]; // 注意判断无解
-}
+inline void changeroot(int u) { access(u), splay(u), reverse(u); }
 
 namespace Functions {
-inline void edit(int u, int k, int b) { U.dat = {k, b}; pushup(u); }
+inline void edit(int u, int k, int b) { splay(u); U.dat = {k, b}; pushup(u); }
 inline void link(int u, int v) { // u -> v, u.k * v.val + u.b = u.val
     if (getroot(u) != getroot(v))
         changeroot(u), U[FA] = v;
     else { // 准备解方程。
-        changeroot(u); access(v); splay(v); splay(u);
+        changeroot(u); access(v);
         extra[u] = v;
-        // 此时我们得到了 u --> v 的一条链，那么就有 au * sumk + sumb = av，且我们还有 au * u.k + u.b = av
-        // 解方程，可以得到 au * (k1 - k2) + b1 - b2 = 0
-        auto s1 = U.dat; U.dat = {1, 0}; pushup(u);
-        auto s2 = U.sum;
-        int k = s1.k - s2.k, b = s2.b - s1.b;
-        if (k) sol[u] = b * qpow(k) % MOD; // sol = b / k;
-        else sol[u] = b ? -1 : -2; // b!=0 无解, b=0 无数组解
+        // 此时我们得到了 u <-- v <- u 的一个环，那么就有 au * prodk + prodb = au
+        // 解方程，可以得到 au * (prodk - 1) = -prodb
+        auto s = U(R).prod * U.dat; // u -> v 存储在 U.dat 中
+        int k = (s.k - 1 + MOD) % MOD, b = (MOD - s.b) % MOD;
+        sol[u] = k ? (b * qpow(k) % MOD) // sol = b / k;
+                   : (b ? -1 : -2);      // b!=0 无解, b=0 无数组解
+        fprintf(stderr, "Solved #%d: %d * \033[4m%d\033[0m = %d\n", u, k, sol[u], b);
     }
 }
 inline void cut(int u, int v) { // Remove u -> v
-    int exu = getroot(u), exv = extra[exu];
-    extra[exu] = 0;
-    changeroot(v); access(u); splay(u);
-    U[R] = tr[v][FA] = 0; pushup(u);
+    int exu = getroot(v), exv = extra[exu];
+    extra[exu] = 0; sol[exu] = -1;
+    if (u == exu && v == exv) return;
+    changeroot(v); access(u);
+    assert(tr[v][L] == u); // 此时偏爱链应该只有 u -> v
+    tr[v][L] = U[FA] = 0;
+    pushup(v);
     if (exv) link(exu, exv);
 }
 inline int query(int u) {
-    access(u); splay(u);
     int rt = getroot(u);
+    access(u); splay(rt); // 得到了一条 rt <- u 的链
     if (sol[rt] < 0) return sol[rt];
-    else return U.sum * sol[rt];
+    else return tr[rt](R).prod * sol[rt];
+}
+void print(int u, int dep = 0) {
+    if (!u) return;
+    print(U[L], dep + 2);
+    for (int i = dep; i--; putchar(' '));
+    printf("%d: k=%d, b=%d\n", u, U.prod.k, U.prod.b);
+    print(U[R], dep + 2);
 }
 }
 #undef U
 void* __init_sol = []() { return memset(sol, -1, sizeof sol); } (); // 初始全部无解
-}
+} 
 using namespace LCT::Functions;
 
 int main() {
@@ -135,6 +137,7 @@ int main() {
         edit(i, k, b);
     }
     for (int i = 1; i <= n; i++) link(i, p[i]);
+    print(5);
     scanf("%d", &q); char ch;
     for (int a, x, y, z, _q = 1; _q <= q; ++_q) {
         scanf(" %c%d", &ch, &a);
@@ -142,8 +145,8 @@ int main() {
             printf("%d\n", query(a));
         } else {
             scanf("%d%d%d", &x, &y, &z);
-            edit(a, x, z);
             cut(a, p[a]);
+            edit(a, x, z);
             link(a, p[a] = y); 
         }
     }
