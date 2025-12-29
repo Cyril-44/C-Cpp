@@ -24,14 +24,14 @@ struct Node {
     struct Statistics {
         int k, b;
         inline Statistics operator*(const Statistics& o) const {
-            return Statistics{k * o.k % MOD, (k * o.b + b) % MOD};
+            return Statistics{k * o.k % MOD, (o.k * b + o.b) % MOD};
         }
         inline Statistics operator~() const {
             return Statistics{qpow(k), (MOD-b) * k % MOD};
         }
         inline int operator*(int x) const { return (k * x + b) % MOD; }
     } dat, prod;
-    int sz, s[3];
+    int s[3];
     bool inv;
     Node& operator()(int);
     inline int& operator[](int x) { return s[x]; }
@@ -41,10 +41,7 @@ int extra[N]; // 记录基环树上多出来的那一条边（这一条边一定
 inline Node& Node::operator()(int x) { return tr[s[x]]; }
 inline bool type(int u) { return U(FA)[R] == u; }
 inline bool isroot(int u) { return U(FA)[L] != u && U(FA)[R] != u; }
-inline void pushup(int u) {
-    U.sz = U(L).sz + 1 + U(R).sz;
-    U.prod = U(L).prod * U.dat * U(R).prod;
-}
+inline void pushup(int u) { U.prod = U(L).prod * U.dat * U(R).prod; }
 inline void reverse(int u) {
     std::swap(U[L], U[R]);
     U.inv ^= 1;
@@ -59,11 +56,12 @@ inline void pushdown(int u) {
 }
 void sync(int u) { if (!isroot(u)) sync(U[FA]); pushdown(u); }
 inline void rotate(int u) {
-    bool tp = type(u); int anc = U(FA)[FA];
-    if (!isroot(U[FA])) U(FA)(FA)[type(U[FA])] = u;
-    U(FA)[tp] = U[!tp]; if (U[!tp]) U(!tp)[FA] = U[FA];
-    U[!tp] = U[FA]; U(FA)[FA] = u; U[FA] = anc;
-    pushup(U[!tp]), pushup(u);
+    bool tp = type(u);
+    int fa = U[FA], anc = U(FA)[FA];
+    if (!isroot(fa)) tr[anc][type(fa)] = u;
+    tr[fa][tp] = U[!tp]; if (U[!tp]) U(!tp)[FA] = fa;
+    U[!tp] = fa; tr[fa][FA] = u; U[FA] = anc;
+    pushup(fa), pushup(u);
 }
 inline void splay(int u) {
     sync(u);
@@ -86,8 +84,10 @@ inline void changeroot(int u) { access(u), splay(u), reverse(u); }
 namespace Functions {
 inline void edit(int u, int k, int b) { splay(u); U.dat = {k, b}; pushup(u); }
 inline void link(int u, int v) { // u -> v, u.k * v.val + u.b = u.val
-    if (getroot(u) != getroot(v))
+    if (getroot(u) != getroot(v)) {
         changeroot(u), U[FA] = v;
+        // fprintf(stderr, "%d --> %d\n", u, v);
+    }
     else { // 准备解方程。
         changeroot(u); access(v);
         extra[u] = v;
@@ -97,14 +97,14 @@ inline void link(int u, int v) { // u -> v, u.k * v.val + u.b = u.val
         int k = (s.k - 1 + MOD) % MOD, b = (MOD - s.b) % MOD;
         sol[u] = k ? (b * qpow(k) % MOD) // sol = b / k;
                    : (b ? -1 : -2);      // b!=0 无解, b=0 无数组解
-        fprintf(stderr, "Solved #%d: %d * \033[4m%d\033[0m = %d\n", u, k, sol[u], b);
+        // fprintf(stderr, "Solved #%d: %d * \033[4m%d\033[0m = %d\n", u, k, sol[u], b);
     }
 }
 inline void cut(int u, int v) { // Remove u -> v
     int exu = getroot(v), exv = extra[exu];
     extra[exu] = 0; sol[exu] = -1;
-    if (u == exu && v == exv) return;
-    changeroot(v); access(u);
+    if (u == exu && v == exv || u == exv && v == exu) return;
+    changeroot(v); access(u); splay(v);
     assert(tr[v][L] == u); // 此时偏爱链应该只有 u -> v
     tr[v][L] = U[FA] = 0;
     pushup(v);
@@ -112,15 +112,16 @@ inline void cut(int u, int v) { // Remove u -> v
 }
 inline int query(int u) {
     int rt = getroot(u);
-    access(u); splay(rt); // 得到了一条 rt <- u 的链
     if (sol[rt] < 0) return sol[rt];
-    else return tr[rt](R).prod * sol[rt];
+    access(u); splay(rt); // 得到了一条 rt <- u 的链
+    return tr[rt](R).prod * sol[rt];
 }
 void print(int u, int dep = 0) {
     if (!u) return;
+    pushdown(u);
     print(U[L], dep + 2);
     for (int i = dep; i--; putchar(' '));
-    printf("%d: k=%d, b=%d\n", u, U.prod.k, U.prod.b);
+    printf("%d [FA=%d]: k,b = (%d,%d) {%d,%d}\n", u, U[FA], U.dat.k, U.dat.b, U.prod.k, U.prod.b);
     print(U[R], dep + 2);
 }
 }
@@ -130,19 +131,26 @@ void* __init_sol = []() { return memset(sol, -1, sizeof sol); } (); // 初始全
 using namespace LCT::Functions;
 
 int main() {
+    // auto tmp = ((LCT::Node::Statistics){2, 4} * (LCT::Node::Statistics){2, 3} * LCT::tr[0].prod);
+    // printf("%d, %d\n", tmp.k, tmp.b);
+
     int n, q;
     scanf("%d", &n);
     for (int i = 1, k, b; i <= n; i++) {
-        scanf("%d%d%d", &k, &p[i], &b);
-        edit(i, k, b);
+        scanf("%d%d%d", &LCT::tr[i].dat.k, &p[i], &LCT::tr[i].dat.b);
+        // printf("%d: k=%d, b=%d, (%d,%d)\n", i, LCT::tr[i].dat.k, LCT::tr[i].dat.b, LCT::tr[i].prod.k, LCT::tr[i].prod.b);
     }
-    for (int i = 1; i <= n; i++) link(i, p[i]);
-    print(5);
+    for (int i = 1; i <= n; i++) {
+        link(i, p[i]);
+        // puts("=========="); print(i); puts("----------"); print(p[i]);
+    }
+    // puts("========"); print(5); puts("========");
     scanf("%d", &q); char ch;
     for (int a, x, y, z, _q = 1; _q <= q; ++_q) {
         scanf(" %c%d", &ch, &a);
         if (ch == 'A') {
             printf("%d\n", query(a));
+            // print(5);
         } else {
             scanf("%d%d%d", &x, &y, &z);
             cut(a, p[a]);
