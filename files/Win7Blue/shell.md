@@ -41,6 +41,7 @@ x11vnc -viewonly -display :0 -rfbauth ~/.vnc/passwd
 `Ew2IEOEcEkTD4aBYwukD`
 `1b2uns3wOz0OxNS2mODb`
 `KZb3MSs0tHcWnCIb12XZ`
+`DH6gxMPAvBq7BllvoyBY`
 
 |IP|Port|
 |:-:|:-:|
@@ -77,3 +78,4 @@ PORT      STATE SERVICE
 
 172.17.226.220 PXB
 172.17.226.203 WSY
+172.17.226.213 WTZ
