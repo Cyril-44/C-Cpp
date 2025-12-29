@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 inline void rd() {}
 template<typename T, typename ...U>
@@ -55,6 +56,7 @@ inline int KSM(int x, int n) {
     return ans;
 }
 int n, q;
+int p[N];
 namespace LCT {
 int f[N], ch[N][2], tag[N];
 Matrix m[N], prd[N];
@@ -156,12 +158,14 @@ inline void Modify(int x, int k, int y, int b) {
     if (rt != x) {
         Access(x);
         Splay(x);
+        assert(ch[x][0] == p[x]);
         f[ch[x][0]] = 0, ch[x][0] = 0;
         PushUp(x);
         Link(x, y);
         Link(nd[rt].x, nd[rt].y);
     } else
         Link(x, y);
+    p[x] = y;
 }
 inline int Query(int p) {
     int rt = FindRoot(p);
@@ -189,7 +193,6 @@ void print(int u, int dep = 0) {
 #undef ls
 #undef rs
 }
-int p[N];
 using namespace LCT;
 signed main() {
     rd(n);
@@ -205,7 +208,7 @@ signed main() {
 
     for (int i = 1; i <= n; i++)
         Link(i, p[i]);
-    print(5);
+    // print(5);
     rd(q);
 
     while (q--) {
@@ -216,7 +219,7 @@ signed main() {
         if (s[0] == 'A') {
             rd(a);
             printf("%d\n", Query(a));
-            print(5);
+            // print(5);
         } else if (s[0] == 'C') {
             rd(a, x, y, z);
             Modify(a, x, y, z);
