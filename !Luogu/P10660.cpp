@@ -103,7 +103,7 @@ inline void link(int u, int v) { // u -> v, u.k * v.val + u.b = u.val
 inline void cut(int u, int v) { // Remove u -> v
     int exu = getroot(v), exv = extra[exu];
     extra[exu] = 0; sol[exu] = -1;
-    if (u == exu && v == exv || u == exv && v == exu) return;
+    if (u == exu && v == exv) return;
     changeroot(v); access(u); splay(v);
     assert(tr[v][L] == u); // 此时偏爱链应该只有 u -> v
     tr[v][L] = U[FA] = 0;
@@ -155,7 +155,7 @@ int main() {
             scanf("%d%d%d", &x, &y, &z);
             cut(a, p[a]);
             edit(a, x, z);
-            link(a, p[a] = y); 
+            link(a, p[a] = y);
         }
     }
     return 0;
