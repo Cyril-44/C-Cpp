@@ -1,0 +1,55 @@
+Updated: (-2147483647 *  1_cnt,  1_sz, l  0r  0, 1499842940_prio)
+=====================
+Updated: (2147483647 *  1_cnt,  1_sz, l  0r  0, 1905613403_prio)
+#  1 2147483647 (* 1): 	sz=1, prio=1905613403, ls=0, rs=0
+=====================
+Copied   1 to   2! Updated: (         9 *  1_cnt,  1_sz, l  0r  0, 2598471629_prio)
+Copied   2 to   4! #  3          9 (* 1): 	  sz=1, prio=2598471629, ls=0, rs=0
+#  4 2147483647 (* 1): 	sz=3, prio=1905613403, ls=3, rs=0
+============ Finished Query 1 ============
+Copied   4 to   5! Copied   3 to   6! Updated: (         3 *  1_cnt,  1_sz, l  0r  0, 664391199_prio)
+Copied   7 to   8! #  8          3 (* 1): 	sz=7, prio=664391199, ls=0, rs=5
+#  6          9 (* 1): 	    sz=3, prio=2598471629, ls=0, rs=0
+#  5 2147483647 (* 1): 	  sz=5, prio=1905613403, ls=6, rs=0
+============ Finished Query 2 ============
+Copied   4 to   9! Copied   3 to  10! Copied  10 to  11! Updated: (        10 *  1_cnt,  1_sz, l  0r  0, 4264922033_prio)
+Copied  11 to  13! Copied   9 to  14! # 13          9 (* 1): 	  sz=3, prio=2598471629, ls=0, rs=12
+# 12         10 (* 1): 	    sz=1, prio=4264922033, ls=0, rs=0
+# 14 2147483647 (* 1): 	sz=5, prio=1905613403, ls=13, rs=0
+============ Finished Query 3 ============
+Copied   8 to  15! Copied   5 to  16! Copied   6 to  17! Copied  15 to  18! -2147483647
+# 18          3 (* 1): 	sz=7, prio=664391199, ls=0, rs=16
+# 17          9 (* 1): 	    sz=3, prio=2598471629, ls=0, rs=0
+# 16 2147483647 (* 1): 	  sz=5, prio=1905613403, ls=17, rs=0
+============ Finished Query 4 ============
+Copied  14 to  19! Copied  13 to  20! 1
+# 20          9 (* 1): 	  sz=3, prio=2598471629, ls=0, rs=12
+# 12         10 (* 1): 	    sz=1, prio=4264922033, ls=0, rs=0
+# 19 2147483647 (* 1): 	sz=5, prio=1905613403, ls=20, rs=0
+============ Finished Query 5 ============
+Copied  14 to  21! Copied  13 to  22! Updated: (         2 *  1_cnt,  1_sz, l  0r  0, 729532766_prio)
+Copied  23 to  24! # 24          2 (* 1): 	sz=7, prio=729532766, ls=0, rs=21
+# 22          9 (* 1): 	    sz=3, prio=2598471629, ls=0, rs=12
+# 12         10 (* 1): 	      sz=1, prio=4264922033, ls=0, rs=0
+# 21 2147483647 (* 1): 	  sz=5, prio=1905613403, ls=22, rs=0
+============ Finished Query 6 ============
+Copied  24 to  25! Copied  25 to  26! 2
+# 26          2 (* 1): 	sz=7, prio=729532766, ls=0, rs=21
+# 22          9 (* 1): 	    sz=3, prio=2598471629, ls=0, rs=12
+# 12         10 (* 1): 	      sz=1, prio=4264922033, ls=0, rs=0
+# 21 2147483647 (* 1): 	  sz=5, prio=1905613403, ls=22, rs=0
+============ Finished Query 7 ============
+Copied  24 to  27! Copied  21 to  28! Copied  22 to  29! Copied  12 to  30! Copied  27 to  31! Copied  29 to  32! Copied  31 to  33! # 33          2 (* 1): 	sz=7, prio=729532766, ls=0, rs=28
+# 30         10 (* 1): 	    sz=3, prio=4264922033, ls=0, rs=0
+# 28 2147483647 (* 1): 	  sz=5, prio=1905613403, ls=30, rs=0
+============ Finished Query 8 ============
+Copied  33 to  34! Copied  28 to  35! Copied  30 to  36! Copied  34 to  37! Copied  37 to  38! Copied  35 to  39! Copied  36 to  40! Copied  38 to  41! Copied  39 to  42! -2147483647
+# 41          2 (* 1): 	sz=7, prio=729532766, ls=0, rs=42
+# 40         10 (* 1): 	    sz=3, prio=4264922033, ls=0, rs=0
+# 42 2147483647 (* 1): 	  sz=5, prio=1905613403, ls=40, rs=0
+============ Finished Query 9 ============
+Copied  18 to  43! Copied  16 to  44! Copied  17 to  45! Copied  43 to  46! Copied  46 to  47! Copied  44 to  48! Copied  45 to  49! Copied  47 to  50! -2147483647
+# 50          3 (* 1): 	sz=7, prio=664391199, ls=0, rs=48
+# 49          9 (* 1): 	    sz=3, prio=2598471629, ls=0, rs=0
+# 48 2147483647 (* 1): 	  sz=5, prio=1905613403, ls=49, rs=0
+============ Finished Query 10 ============
