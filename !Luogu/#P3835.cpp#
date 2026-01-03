@@ -1,0 +1,20 @@
+[O#include <stdio.h>
+constexpr int N = 500005, LG_N = 20, INF = 0x7fffffff;
+int rt[N];
+namespace FHQ_Treap {
+    struct Node {
+        int ls, rs;
+        int sz;
+        Node& L(); Node& R();
+    } tr[N * LG_N];
+    inline Node& Node::L() { return tr[ls]; }
+    inline Node& Node::R() { return tr[rs]; }
+};
+int main() {
+    int n;
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) {
+
+    }
+    return 0;
+}
