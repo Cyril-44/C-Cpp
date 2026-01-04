@@ -26,17 +26,17 @@ struct Node {
     inline void R(int r) { rs = r; pushup(); }
     inline void debug_all() { debug("(%10d * %2d_cnt, %2d_sz, l%3dr%3d, %lu_prio)\n", val, cnt, sz, ls, rs, prio); }
 };
-std::vector<Node> tr;
+std::vector<Node> tr(1);
 inline Node& Node::L() { return tr[ls]; }
 inline Node& Node::R() { return tr[rs]; }
-inline void copy(int &u) {
+inline void clone(int &u) {
     tr.emplace_back(U);
-    debug("Copied %3d to %3d! ", u, (int)tr.size() - 1);
+    debug("Copied %3d to %3d! ", u, (int)tr.size() - 1); U.debug_all();
     u = (int)tr.size() - 1;
 }
-std::pair<int,int> splitByKey(int &u, int key) {
+std::pair<int,int> splitByKey(int u, int key) {
     if (!u) return {0, 0};
-    copy(u);
+    clone(u);
     if (U.val <= key) {
         auto [ls, rs] = std::move(splitByKey(U.rs, key));
         U.R(ls); return {u, rs};
@@ -46,7 +46,7 @@ std::pair<int,int> splitByKey(int &u, int key) {
 }
 std::tuple<int,int,int> splitByOrd(int &u, int ord) {
     if (!u) return {0, 0, 0};
-    copy(u);
+    clone(u);
     if (U.L().sz < ord && ord <= U.sz - U.R().sz) {
         int tmpl = U.ls, tmpr = U.rs;
         U.L(0); U.R(0); return {tmpl, u, tmpr};
@@ -58,15 +58,13 @@ std::tuple<int,int,int> splitByOrd(int &u, int ord) {
     auto [ls, targ, rs] = std::move(splitByOrd(U.rs, ord - (U.sz - U.R().sz)));
     U.R(ls); return {u, targ, rs};
 }
-int merge(int &l, int &r) {
-    if (!l && !r) return 0;
-    if (!l) return r;
-    if (!r) return l;
+int merge(int l, int r) {
+    if (!l || !r) return l | r;
     if (tr[l].prio < tr[r].prio) {
-        copy(l), tr[l].R(merge(tr[l].rs, r));
+        clone(l); tr[l].R(merge(tr[l].rs, r));
         return l;
     }
-    copy(r), tr[r].L(merge(l, tr[r].ls));
+    clone(r); tr[r].L(merge(l, tr[r].ls));
     return r;
 }
 namespace Utils {
@@ -78,7 +76,7 @@ inline void insert(int &rt, int val) {
         tr.emplace_back(val, 1);
         u = (int)tr.size() - 1;
     }
-    printf("Updated: "); U.debug_all();
+    // printf("Updated: "); U.debug_all();
     mid = merge(ls, u);
     rt = merge(mid, rs);
 }
@@ -92,10 +90,20 @@ inline bool erase(int &rt, int val) {
     rt = merge(mid, rs);
     return true;
 }
-inline int getOrd(int &rt, int val) {
-    auto [l, r] = splitByKey(rt, val - 1);
-    int res = tr[l].sz;
-    rt = merge(l, r);
+inline int lower_bound(int &rt, int val) { // 找到第一个 >= val 值的 order
+    auto [mid, rs] = splitByKey(rt, val);
+    auto [ls, u] = splitByKey(mid, val - 1);
+    int res = tr[ls].sz; // 本身有一个哨兵，所以现在求的是 < val 的 +1
+    mid = merge(ls, u);
+    rt = merge(mid, rs);
+    return res;
+}
+inline int upper_bound(int &rt, int val) { // 找到第一个 > val 值的 order
+    auto [mid, rs] = splitByKey(rt, val);
+    auto [ls, u] = splitByKey(mid, val - 1);
+    int res = tr[ls].sz + tr[u].sz;
+    mid = merge(ls, u);
+    rt = merge(mid, rs);
     return res;
 }
 inline int getValByOrd(int &rt, int ord) {
@@ -119,11 +127,11 @@ inline void debug_all(int u, int dep = 0) {
 }
 using namespace FHQ_Treap::Utils;
 int main() {
-    FHQ_Treap::tr.reserve(N * LG_N * 2);
+    FHQ_Treap::tr.reserve(N * LG_N * 4);
     insert(rt[0], -INF);
-    FHQ_Treap::debug_all(rt[0]); puts("=====================");
+    // debug("%d\n", rt[0]); FHQ_Treap::debug_all(rt[0]); puts("=====================");
     insert(rt[0], INF);
-    FHQ_Treap::debug_all(rt[0]); puts("=====================");
+    // FHQ_Treap::debug_all(rt[0]); puts("=====================");
     int n;
     scanf("%d", &n);
     for (int i = 1, v, opt, x; i <= n; i++) {
@@ -132,13 +140,13 @@ int main() {
         switch (opt) {
         case 1: insert(rt[i], x); break;
         case 2: erase(rt[i], x); break;
-        case 3: printf("%d\n", getOrd(rt[i], x)); break;
+        case 3: printf("%d\n", lower_bound(rt[i], x)); break;
         case 4: printf("%d\n", getValByOrd(rt[i], x)); break;
-        case 5: printf("%d\n", getValByOrd(rt[i], getOrd(rt[i], x) - 1)); break;
-        case 6: printf("%d\n", getValByOrd(rt[i], getOrd(rt[i], x) + 1)); break;
+        case 5: printf("%d\n", getValByOrd(rt[i], lower_bound(rt[i], x) - 1)); break;
+        case 6: printf("%d\n", getValByOrd(rt[i], upper_bound(rt[i], x))); break;
         }
-        FHQ_Treap::debug_all(rt[i]);
-        debug("============ Finished Query %d ============\n", i);
+        // FHQ_Treap::debug_all(rt[i]);
+        // debug("============ Finished Query %d ============\n", i);
     }
     return 0;
 }
