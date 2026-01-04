@@ -14,7 +14,7 @@ struct Node {
     LL sum;
     bool rev;
     Node(int s = 0) : val(s), sz(1), prio(rng()), ls(), rs(), sum(s), rev() {}
-    inline void reverse() {
+    inline void flip() {
         std::swap(ls, rs);
         rev ^= 1;
     }
@@ -44,8 +44,8 @@ inline void clone(int &u) {
 }
 inline void pushdown(int u) {
     if (!U.rev) return;
-    if (U.ls) { clone(U.ls); U.L().reverse(); }
-    if (U.rs) { clone(U.rs); U.R().reverse(); }
+    if (U.ls) { clone(U.ls); U.L().flip(); }
+    if (U.rs) { clone(U.rs); U.R().flip(); }
     tr[u].rev = false;
 }
 std::pair<int,int> splitByOrd(int u, int ord) { // [<=ord, > ord] 
@@ -96,7 +96,7 @@ inline void flip(int &rt, int l, int r) {
     ++r; // Left Guard, ++l, ++r, l = l-1, r = r
     auto [mid, rs] = splitByOrd(rt, r);
     auto [ls, u] = splitByOrd(mid, l);
-    U.reverse();
+    U.flip();
     rt = merge(merge(ls, u), rs);
 }
 inline LL getsum(int &rt, int l, int r) {
