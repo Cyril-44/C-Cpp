@@ -1,367 +1,291 @@
-#01  0: sum=7, sz=5, refs=1, prio_309055178, ls_00 rs_03
-#03  7:   sum=7, sz=3, refs=1, prio_889683324, ls_00 rs_02
-#02  0:     sum=0, sz=1, refs=1, prio_1409960325, ls_00 rs_00
-=================
-
-#01  0: sum=8, sz=7, refs=1, prio_309055178, ls_00 rs_03
-#03  7:   sum=8, sz=5, refs=1, prio_889683324, ls_00 rs_04
-#04  1:     sum=1, sz=3, refs=1, prio_1215678884, ls_00 rs_02
-#02  0:       sum=0, sz=1, refs=1, prio_1409960325, ls_00 rs_00
-=================
-
-#01  0: sum=11, sz=9, refs=1, prio_309055178, ls_00 rs_03
-#03  7:   sum=11, sz=7, refs=1, prio_889683324, ls_00 rs_04
-#04  1:     sum=4, sz=5, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:         sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:       sum=3, sz=3, refs=1, prio_1409960325, ls_05 rs_00
-=================
-
-#01  0: sum=13, sz=9, refs=1, prio_309055178, ls_00 rs_03
-#03  7:   sum=13, sz=7, refs=1, prio_889683324, ls_00 rs_04
-#04  1:     sum=6, sz=5, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:         sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:       sum=5, sz=3, refs=1, prio_1409960325, ls_05 rs_06
-#06  2:         sum=2, sz=1, refs=1, prio_2697469687, ls_00 rs_00
-=================
-
-#01  0: sum=15, sz=11, refs=1, prio_309055178, ls_00 rs_03
-#03  7:   sum=15, sz=9, refs=1, prio_889683324, ls_00 rs_04
-#04  1:     sum=8, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:         sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:       sum=7, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  2:         sum=4, sz=3, refs=1, prio_2620349301, ls_00 rs_06
-#06  2:           sum=2, sz=1, refs=1, prio_2697469687, ls_00 rs_00
-=================
-
-#01  0: sum=19, sz=13, refs=1, prio_309055178, ls_00 rs_08
-#03  7:     sum=13, sz=9, refs=1, prio_889683324, ls_00 rs_04
-#04  1:       sum=6, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:           sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:         sum=5, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  2:           sum=2, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  4:   sum=19, sz=11, refs=1, prio_743229556, ls_03 rs_06
-#06  2:     sum=2, sz=1, refs=1, prio_2697469687, ls_00 rs_00
-=================
-
-#01  0: sum=19, sz=15, refs=1, prio_309055178, ls_00 rs_08
-#03  7:     sum=13, sz=9, refs=1, prio_889683324, ls_00 rs_04
-#04  1:       sum=6, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:           sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:         sum=5, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  2:           sum=2, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  4:   sum=19, sz=13, refs=1, prio_743229556, ls_03 rs_06
-#09  0:       sum=0, sz=1, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:     sum=2, sz=3, refs=1, prio_2697469687, ls_09 rs_00
-=================
-
-#01  0: sum=20, sz=17, refs=1, prio_309055178, ls_00 rs_08
-#03  7:     sum=13, sz=9, refs=1, prio_889683324, ls_00 rs_04
-#04  1:       sum=6, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:           sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:         sum=5, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  2:           sum=2, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  4:   sum=20, sz=15, refs=1, prio_743229556, ls_03 rs_10
-#09  0:         sum=0, sz=1, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:       sum=2, sz=3, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:     sum=3, sz=5, refs=1, prio_2294164571, ls_06 rs_00
-=================
-
-#01  0: sum=22, sz=17, refs=1, prio_309055178, ls_00 rs_08
-#03  7:     sum=13, sz=9, refs=1, prio_889683324, ls_00 rs_04
-#04  1:       sum=6, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:           sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:         sum=5, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  2:           sum=2, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  4:   sum=22, sz=15, refs=1, prio_743229556, ls_03 rs_10
-#09  0:         sum=0, sz=1, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:       sum=2, sz=3, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:     sum=5, sz=5, refs=1, prio_2294164571, ls_06 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
-=================
-
-#01  0: sum=24, sz=19, refs=1, prio_309055178, ls_00 rs_08
-#03  7:     sum=13, sz=9, refs=1, prio_889683324, ls_00 rs_04
-#04  1:       sum=6, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:           sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:         sum=5, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  2:           sum=2, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  4:   sum=24, sz=17, refs=1, prio_743229556, ls_03 rs_12
-#09  0:           sum=0, sz=1, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:         sum=2, sz=3, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:       sum=3, sz=5, refs=1, prio_2294164571, ls_06 rs_00
-#12  2:     sum=7, sz=7, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
-=================
-
-#01  0: sum=24, sz=19, refs=1, prio_309055178, ls_00 rs_08
-#03  7:     sum=13, sz=9, refs=1, prio_889683324, ls_00 rs_04
-#04  1:       sum=6, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:           sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:         sum=5, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  2:           sum=2, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  4:   sum=24, sz=17, refs=1, prio_743229556, ls_03 rs_12
-#09  0:           sum=0, sz=1, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:         sum=2, sz=3, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:       sum=3, sz=5, refs=1, prio_2294164571, ls_06 rs_00
-#12  2:     sum=7, sz=7, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#01  0:       sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:         sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:     sum=20, sz=9, refs=1, prio_115552231, ls_01 rs_09
+#05  3:         sum=11, sz=4, refs=1, prio_615790265, ls_00 rs_08
+#06  2:             sum=4, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  2:               sum=2, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#08  4:           sum=8, sz=3, refs=1, prio_783569407, ls_06 rs_00
+#09  0:       sum=12, sz=6, refs=1, prio_447590470, ls_05 rs_10
+#10  1:         sum=1, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#11  2:   sum=22, sz=10, refs=1, prio_6806888, ls_04 rs_00
+#12  2: sum=24, sz=12, refs=1, prio_1484739, ls_11 rs_02
+#02  0:   sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 ==== ls ====
-#01  0: sum=0, sz=3, refs=1, prio_309055178, ls_00 rs_00
+#01  0:   sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:     sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1: sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
 ==== u1 ====
+#13  2: sum=2, sz=1, refs=1, prio_1484739, ls_00 rs_00
 ==== md ====
-#04  1: sum=6, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:     sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:   sum=5, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  2:     sum=2, sz=3, refs=1, prio_2620349301, ls_00 rs_00
+#06  2:       sum=4, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  2:         sum=2, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#08  4:     sum=8, sz=3, refs=1, prio_783569407, ls_06 rs_00
+#09  0:   sum=9, sz=5, refs=1, prio_447590470, ls_08 rs_10
+#10  1:     sum=1, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#11  2: sum=11, sz=6, refs=1, prio_6806888, ls_09 rs_00
 ==== u2 ====
+#12  2: sum=2, sz=1, refs=1, prio_1484739, ls_00 rs_00
 ==== rs ====
-#08  4: sum=11, sz=9, refs=1, prio_743229556, ls_00 rs_12
-#09  0:         sum=0, sz=1, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:       sum=2, sz=3, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:     sum=3, sz=5, refs=1, prio_2294164571, ls_06 rs_00
-#12  2:   sum=7, sz=7, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:     sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#02  0: sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 ==== [3, 4] ==== [10, 11] ====
 @@@@@@@@@@@@@@ Copy [10, 10] to [3, 3] @@@@@@@@@@@@@@
-#01  0: sum=17, sz=17, refs=1, prio_309055178, ls_00 rs_08
-#04  1:     sum=6, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  3:         sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:       sum=5, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  2:         sum=2, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  4:   sum=17, sz=15, refs=1, prio_743229556, ls_04 rs_12
-#09  0:           sum=0, sz=1, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:         sum=2, sz=3, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:       sum=3, sz=5, refs=1, prio_2294164571, ls_06 rs_00
-#12  2:     sum=7, sz=7, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#01  0:       sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:         sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:     sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2:   sum=21, sz=10, refs=1, prio_1484739, ls_04 rs_11
+#06  2:           sum=4, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  2:             sum=2, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#08  4:         sum=8, sz=3, refs=1, prio_783569407, ls_06 rs_00
+#09  0:       sum=9, sz=5, refs=1, prio_447590470, ls_08 rs_10
+#10  1:         sum=1, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#11  2:     sum=11, sz=6, refs=1, prio_6806888, ls_09 rs_00
+#12  2: sum=23, sz=12, refs=1, prio_1484739, ls_13 rs_02
+#02  0:   sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 ====== ls ======
-#01  0: sum=1, sz=5, refs=1, prio_309055178, ls_00 rs_04
-#04  1:   sum=1, sz=3, refs=1, prio_1215678884, ls_00 rs_00
+#01  0:     sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:       sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:   sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2: sum=10, sz=4, refs=1, prio_1484739, ls_04 rs_00
 ====== u =======
-#05  3:     sum=3, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  0:   sum=5, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  2:     sum=2, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  4: sum=9, sz=7, refs=1, prio_743229556, ls_02 rs_00
+#06  2:         sum=4, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  2:           sum=2, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#08  4:       sum=8, sz=3, refs=1, prio_783569407, ls_06 rs_00
+#09  0:     sum=9, sz=5, refs=1, prio_447590470, ls_08 rs_10
+#10  1:       sum=1, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#11  2:   sum=11, sz=6, refs=1, prio_6806888, ls_09 rs_00
+#12  2: sum=13, sz=7, refs=1, prio_1484739, ls_11 rs_00
 ====== rs ======
-#09  0:       sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:     sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:   sum=3, sz=7, refs=1, prio_2294164571, ls_06 rs_00
-#12  2: sum=7, sz=9, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:   sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#02  0: sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 @@@@@@@@@@@@@@ Add [4, 10] += 5 @@@@@@@@@@@@@@
-#01  0: sum=47, sz=19, refs=1, prio_309055178, ls_00 rs_08
-#04  1:     sum=31, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:         sum=8, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:       sum=30, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  7:         sum=17, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  9:   sum=47, sz=17, refs=1, prio_743229556, ls_04 rs_12
-#09  0:           sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:         sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:       sum=3, sz=7, refs=1, prio_2294164571, ls_06 rs_00
-#12  2:     sum=7, sz=9, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#01  0:       sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:         sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:     sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2:   sum=51, sz=10, refs=1, prio_1484739, ls_04 rs_11
+#06  7:           sum=14, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  7:             sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#08  9:         sum=23, sz=3, refs=1, prio_783569407, ls_06 rs_00
+#09  5:       sum=34, sz=5, refs=1, prio_447590470, ls_08 rs_10
+#10  6:         sum=6, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#11  7:     sum=41, sz=6, refs=1, prio_6806888, ls_09 rs_00
+#12  7: sum=58, sz=12, refs=1, prio_1484739, ls_13 rs_02
+#02  0:   sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 ====== ls ======
-#01  0: sum=14, sz=7, refs=1, prio_309055178, ls_00 rs_04
-#04  1:   sum=14, sz=5, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:       sum=8, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:     sum=13, sz=3, refs=1, prio_1409960325, ls_05 rs_00
+#01  0:     sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:       sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:   sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2: sum=24, sz=6, refs=1, prio_1484739, ls_04 rs_06
+#06  7:   sum=14, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  7:     sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
 ====== u =======
-#07  7: sum=7, sz=3, refs=1, prio_2620349301, ls_00 rs_00
+#08  9:   sum=9, sz=1, refs=1, prio_783569407, ls_00 rs_00
+#09  5: sum=14, sz=2, refs=1, prio_447590470, ls_08 rs_00
 ====== rs ======
-#08  9: sum=16, sz=11, refs=1, prio_743229556, ls_00 rs_12
-#09  0:         sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:       sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:     sum=3, sz=7, refs=1, prio_2294164571, ls_06 rs_00
-#12  2:   sum=7, sz=9, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:     sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#10  6:     sum=6, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#11  7:   sum=13, sz=2, refs=1, prio_6806888, ls_10 rs_00
+#12  7: sum=20, sz=4, refs=1, prio_1484739, ls_11 rs_02
+#02  0:   sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 @@@@@@@@@@@@@@ Flip [6, 7] @@@@@@@@@@@@@@
-#01  0: sum=37, sz=19, refs=1, prio_309055178, ls_00 rs_08
-#04  1:     sum=21, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:         sum=8, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:       sum=20, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  7:         sum=7, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  9:   sum=37, sz=17, refs=1, prio_743229556, ls_04 rs_12
-#09  0:           sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:         sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:       sum=3, sz=7, refs=1, prio_2294164571, ls_06 rs_00
-#12  2:     sum=7, sz=9, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#01  0:       sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:         sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:     sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2:   sum=51, sz=10, refs=1, prio_1484739, ls_04 rs_11
+#06  7:         sum=14, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  7:           sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#09  5:       sum=34, sz=5, refs=1, prio_447590470, ls_06 rs_08
+#08  9:         sum=15, sz=2, refs=1, prio_783569407, ls_00 rs_10
+#10  6:           sum=6, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#11  7:     sum=41, sz=6, refs=1, prio_6806888, ls_09 rs_00
+#12  7: sum=58, sz=12, refs=1, prio_1484739, ls_13 rs_02
+#02  0:   sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 ====== ls ======
-#01  0: sum=21, sz=9, refs=1, prio_309055178, ls_00 rs_04
-#04  1:   sum=21, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:       sum=8, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:     sum=20, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  7:       sum=7, sz=3, refs=1, prio_2620349301, ls_00 rs_00
+#01  0:     sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:       sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:   sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2: sum=44, sz=9, refs=1, prio_1484739, ls_04 rs_09
+#06  7:     sum=14, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  7:       sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#09  5:   sum=34, sz=5, refs=1, prio_447590470, ls_06 rs_08
+#08  9:     sum=15, sz=2, refs=1, prio_783569407, ls_00 rs_10
+#10  6:       sum=6, sz=1, refs=1, prio_3930376042, ls_00 rs_00
 ====== u =======
-#08  9: sum=9, sz=3, refs=1, prio_743229556, ls_00 rs_00
+#11  7:   sum=7, sz=1, refs=1, prio_6806888, ls_00 rs_00
+#12  7: sum=14, sz=2, refs=1, prio_1484739, ls_11 rs_00
 ====== rs ======
-#09  0:       sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:     sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:   sum=3, sz=7, refs=1, prio_2294164571, ls_06 rs_00
-#12  2: sum=7, sz=9, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:   sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#02  0: sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 @@@@@@@@@@@@@@ Flip [9, 10] @@@@@@@@@@@@@@
-#01  0: sum=37, sz=19, refs=1, prio_309055178, ls_00 rs_08
-#04  1:     sum=21, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:         sum=8, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:       sum=20, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  7:         sum=7, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  9:   sum=37, sz=17, refs=1, prio_743229556, ls_04 rs_12
-#09  0:           sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:         sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:       sum=3, sz=7, refs=1, prio_2294164571, ls_06 rs_00
-#12  2:     sum=7, sz=9, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#01  0:       sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:         sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:     sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2:   sum=44, sz=9, refs=1, prio_1484739, ls_04 rs_09
+#06  7:       sum=14, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  7:         sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#09  5:     sum=34, sz=5, refs=1, prio_447590470, ls_06 rs_08
+#08  9:       sum=15, sz=2, refs=1, prio_783569407, ls_00 rs_10
+#10  6:         sum=6, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#12  7: sum=58, sz=12, refs=1, prio_1484739, ls_13 rs_11
+#11  7:   sum=7, sz=2, refs=1, prio_6806888, ls_00 rs_02
+#02  0:     sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 @@@@@@@@@@@@@@ QuerySum [10, 10] @@@@@@@@@@@@@@
-#01  0: sum=37, sz=19, refs=1, prio_309055178, ls_00 rs_08
-#04  1:     sum=21, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:         sum=8, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:       sum=20, sz=5, refs=1, prio_1409960325, ls_05 rs_07
-#07  7:         sum=7, sz=3, refs=1, prio_2620349301, ls_00 rs_00
-#08  9:   sum=37, sz=17, refs=1, prio_743229556, ls_04 rs_12
-#09  0:           sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:         sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:       sum=3, sz=7, refs=1, prio_2294164571, ls_06 rs_00
-#12  2:     sum=7, sz=9, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#01  0:       sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:         sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:     sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2:   sum=44, sz=9, refs=1, prio_1484739, ls_04 rs_09
+#06  7:       sum=14, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  7:         sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#09  5:     sum=34, sz=5, refs=1, prio_447590470, ls_06 rs_08
+#08  9:       sum=15, sz=2, refs=1, prio_783569407, ls_00 rs_10
+#10  6:         sum=6, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#12  7: sum=58, sz=12, refs=1, prio_1484739, ls_13 rs_11
+#11  7:   sum=7, sz=2, refs=1, prio_6806888, ls_00 rs_02
+#02  0:     sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 ==== ls ====
-#01  0: sum=14, sz=7, refs=1, prio_309055178, ls_00 rs_04
-#04  1:   sum=14, sz=5, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:       sum=8, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:     sum=13, sz=3, refs=1, prio_1409960325, ls_05 rs_00
+#01  0:     sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:       sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:   sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2: sum=24, sz=6, refs=1, prio_1484739, ls_04 rs_06
+#06  7:   sum=14, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  7:     sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
 ==== u1 ====
-#08  9: sum=9, sz=3, refs=1, prio_743229556, ls_00 rs_00
+#12  7: sum=14, sz=2, refs=1, prio_1484739, ls_00 rs_11
+#11  7:   sum=7, sz=1, refs=1, prio_6806888, ls_00 rs_00
 ==== md ====
+#10  6: sum=6, sz=1, refs=1, prio_3930376042, ls_00 rs_00
 ==== u2 ====
-#07  7: sum=7, sz=3, refs=1, prio_2620349301, ls_00 rs_00
+#09  5: sum=14, sz=2, refs=1, prio_447590470, ls_00 rs_08
+#08  9:   sum=9, sz=1, refs=1, prio_783569407, ls_00 rs_00
 ==== rs ====
-#09  0:       sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:     sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:   sum=3, sz=7, refs=1, prio_2294164571, ls_06 rs_00
-#12  2: sum=7, sz=9, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:   sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#02  0: sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 ==== [6, 8] ==== [9, 11] ====
 @@@@@@@@@@@@@@ SWAP [9, 10] and [6, 7] @@@@@@@@@@@@@@
-#01  0: sum=37, sz=19, refs=1, prio_309055178, ls_00 rs_08
-#04  1:     sum=14, sz=5, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:         sum=8, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:       sum=13, sz=3, refs=1, prio_1409960325, ls_05 rs_00
-#08  9:   sum=37, sz=17, refs=1, prio_743229556, ls_04 rs_12
-#07  7:         sum=9, sz=7, refs=1, prio_2620349301, ls_00 rs_06
-#09  0:             sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:           sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:       sum=10, sz=9, refs=1, prio_2294164571, ls_07 rs_00
-#12  2:     sum=14, sz=11, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#01  0:       sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:         sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:     sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2:   sum=24, sz=6, refs=1, prio_1484739, ls_04 rs_06
+#06  7:     sum=14, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  7:       sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#12  7: sum=58, sz=12, refs=1, prio_1484739, ls_13 rs_11
+#11  7:   sum=27, sz=5, refs=1, prio_6806888, ls_00 rs_02
+#10  6:         sum=6, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#09  5:       sum=20, sz=3, refs=1, prio_447590470, ls_10 rs_08
+#08  9:         sum=9, sz=1, refs=1, prio_783569407, ls_00 rs_00
+#02  0:     sum=20, sz=4, refs=1, prio_74220341, ls_09 rs_00
 ====== ls ======
-#01  0: sum=23, sz=9, refs=1, prio_309055178, ls_00 rs_08
-#04  1:     sum=14, sz=5, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:         sum=8, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:       sum=13, sz=3, refs=1, prio_1409960325, ls_05 rs_00
-#08  9:   sum=23, sz=7, refs=1, prio_743229556, ls_04 rs_00
+#01  0:       sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:         sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:     sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2:   sum=24, sz=6, refs=1, prio_1484739, ls_04 rs_06
+#06  7:     sum=14, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  7:       sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#12  7: sum=38, sz=8, refs=1, prio_1484739, ls_13 rs_11
+#11  7:   sum=7, sz=1, refs=1, prio_6806888, ls_00 rs_00
 ====== u =======
-#07  7: sum=7, sz=3, refs=1, prio_2620349301, ls_00 rs_00
+#10  6:   sum=6, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#09  5: sum=20, sz=3, refs=1, prio_447590470, ls_10 rs_08
+#08  9:   sum=9, sz=1, refs=1, prio_783569407, ls_00 rs_00
 ====== rs ======
-#09  0:       sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:     sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:   sum=3, sz=7, refs=1, prio_2294164571, ls_06 rs_00
-#12  2: sum=7, sz=9, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:   sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#02  0: sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 @@@@@@@@@@@@@@ Cover [8, 10] ==> 0 @@@@@@@@@@@@@@
-#01  0: sum=30, sz=19, refs=1, prio_309055178, ls_00 rs_08
-#04  1:     sum=14, sz=5, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:         sum=8, sz=1, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:       sum=13, sz=3, refs=1, prio_1409960325, ls_05 rs_00
-#08  9:   sum=30, sz=17, refs=1, prio_743229556, ls_04 rs_12
-#07  0:         sum=2, sz=7, refs=1, prio_2620349301, ls_00 rs_06
-#09  0:             sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:           sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:       sum=3, sz=9, refs=1, prio_2294164571, ls_07 rs_00
-#12  2:     sum=7, sz=11, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#01  0:       sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:         sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:     sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2:   sum=24, sz=6, refs=1, prio_1484739, ls_04 rs_06
+#06  7:     sum=14, sz=2, refs=1, prio_3017162725, ls_00 rs_07
+#07  7:       sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#12  7: sum=38, sz=12, refs=1, prio_1484739, ls_13 rs_11
+#11  7:   sum=7, sz=5, refs=1, prio_6806888, ls_00 rs_02
+#10  0:         sum=0, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#09  0:       sum=0, sz=3, refs=1, prio_447590470, ls_10 rs_08
+#08  0:         sum=0, sz=1, refs=1, prio_783569407, ls_00 rs_00
+#02  0:     sum=0, sz=4, refs=1, prio_74220341, ls_09 rs_00
 ==== ls ====
-#01  0: sum=1, sz=5, refs=1, prio_309055178, ls_00 rs_04
-#04  1:   sum=1, sz=3, refs=1, prio_1215678884, ls_00 rs_00
+#01  0:     sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:       sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:   sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2: sum=10, sz=4, refs=1, prio_1484739, ls_04 rs_00
 ==== u1 ====
-#05  8:   sum=8, sz=3, refs=1, prio_1620668467, ls_00 rs_00
-#02  5: sum=13, sz=5, refs=1, prio_1409960325, ls_05 rs_00
+#07  7: sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
 ==== md ====
 ==== u2 ====
+#06  7: sum=7, sz=1, refs=1, prio_3017162725, ls_00 rs_00
 ==== rs ====
-#08  9: sum=16, sz=13, refs=1, prio_743229556, ls_00 rs_12
-#07  0:       sum=2, sz=7, refs=1, prio_2620349301, ls_00 rs_06
-#09  0:           sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:         sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:     sum=3, sz=9, refs=1, prio_2294164571, ls_07 rs_00
-#12  2:   sum=7, sz=11, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:     sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#12  7: sum=14, sz=6, refs=1, prio_1484739, ls_00 rs_11
+#11  7:   sum=7, sz=5, refs=1, prio_6806888, ls_00 rs_02
+#10  0:         sum=0, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#09  0:       sum=0, sz=3, refs=1, prio_447590470, ls_10 rs_08
+#08  0:         sum=0, sz=1, refs=1, prio_783569407, ls_00 rs_00
+#02  0:     sum=0, sz=4, refs=1, prio_74220341, ls_09 rs_00
 ==== [4, 5] ==== [5, 6] ====
 @@@@@@@@@@@@@@ SWAP [4, 4] and [5, 5] @@@@@@@@@@@@@@
-#01  0: sum=30, sz=21, refs=1, prio_309055178, ls_00 rs_08
-#04  1:     sum=14, sz=7, refs=1, prio_1215678884, ls_00 rs_02
-#05  8:         sum=8, sz=3, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:       sum=13, sz=5, refs=1, prio_1409960325, ls_05 rs_00
-#08  9:   sum=30, sz=19, refs=1, prio_743229556, ls_04 rs_12
-#07  0:         sum=2, sz=7, refs=1, prio_2620349301, ls_00 rs_06
-#09  0:             sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:           sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:       sum=3, sz=9, refs=1, prio_2294164571, ls_07 rs_00
-#12  2:     sum=7, sz=11, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#01  0:       sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:         sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
+#04  1:     sum=8, sz=3, refs=1, prio_115552231, ls_01 rs_00
+#13  2:   sum=24, sz=6, refs=1, prio_1484739, ls_04 rs_06
+#07  7:       sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#06  7:     sum=14, sz=2, refs=1, prio_3017162725, ls_07 rs_00
+#12  7: sum=38, sz=12, refs=1, prio_1484739, ls_13 rs_11
+#11  7:   sum=7, sz=5, refs=1, prio_6806888, ls_00 rs_02
+#10  0:         sum=0, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#09  0:       sum=0, sz=3, refs=1, prio_447590470, ls_10 rs_08
+#08  0:         sum=0, sz=1, refs=1, prio_783569407, ls_00 rs_00
+#02  0:     sum=0, sz=4, refs=1, prio_74220341, ls_09 rs_00
 ==== ls ====
-#01  0: sum=0, sz=3, refs=1, prio_309055178, ls_00 rs_00
+#01  0: sum=7, sz=2, refs=1, prio_213145856, ls_00 rs_03
+#03  7:   sum=7, sz=1, refs=1, prio_1137429434, ls_00 rs_00
 ==== u1 ====
-#08  9: sum=9, sz=3, refs=1, prio_743229556, ls_00 rs_00
+#10  0:   sum=0, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#09  0: sum=0, sz=3, refs=1, prio_447590470, ls_10 rs_08
+#08  0:   sum=0, sz=1, refs=1, prio_783569407, ls_00 rs_00
 ==== md ====
-#05  8:   sum=8, sz=3, refs=1, prio_1620668467, ls_00 rs_00
-#02  5: sum=13, sz=5, refs=1, prio_1409960325, ls_05 rs_00
+#06  7:   sum=7, sz=1, refs=1, prio_3017162725, ls_00 rs_00
+#12  7: sum=21, sz=3, refs=1, prio_1484739, ls_06 rs_11
+#11  7:   sum=7, sz=1, refs=1, prio_6806888, ls_00 rs_00
 ==== u2 ====
-#04  1: sum=1, sz=3, refs=1, prio_1215678884, ls_00 rs_00
+#04  1:   sum=1, sz=1, refs=1, prio_115552231, ls_00 rs_00
+#13  2: sum=10, sz=3, refs=1, prio_1484739, ls_04 rs_07
+#07  7:   sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
 ==== rs ====
-#07  0:     sum=2, sz=7, refs=1, prio_2620349301, ls_00 rs_06
-#09  0:         sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:       sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:   sum=3, sz=9, refs=1, prio_2294164571, ls_07 rs_00
-#12  2: sum=7, sz=11, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:   sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#02  0: sum=0, sz=1, refs=1, prio_74220341, ls_00 rs_00
 ==== [2, 5] ==== [8, 11] ====
 @@@@@@@@@@@@@@ SWAP [2, 4] and [8, 10] @@@@@@@@@@@@@@
-#01  0: sum=30, sz=21, refs=1, prio_309055178, ls_00 rs_08
-#08  9:   sum=30, sz=19, refs=1, prio_743229556, ls_00 rs_12
-#05  8:           sum=8, sz=3, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:         sum=13, sz=5, refs=1, prio_1409960325, ls_05 rs_00
-#04  1:       sum=17, sz=15, refs=1, prio_1215678884, ls_02 rs_10
-#07  0:           sum=2, sz=7, refs=1, prio_2620349301, ls_00 rs_06
-#09  0:               sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:             sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:         sum=3, sz=9, refs=1, prio_2294164571, ls_07 rs_00
-#12  2:     sum=21, sz=17, refs=1, prio_1114621065, ls_04 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#01  0:     sum=14, sz=6, refs=1, prio_213145856, ls_00 rs_09
+#03  7:         sum=7, sz=2, refs=1, prio_1137429434, ls_00 rs_10
+#10  0:           sum=0, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#09  0:       sum=14, sz=5, refs=1, prio_447590470, ls_03 rs_08
+#08  0:         sum=7, sz=2, refs=1, prio_783569407, ls_00 rs_06
+#06  7:           sum=7, sz=1, refs=1, prio_3017162725, ls_00 rs_00
+#12  7:   sum=29, sz=9, refs=1, prio_1484739, ls_01 rs_11
+#11  7:     sum=8, sz=2, refs=1, prio_6806888, ls_00 rs_04
+#04  1:       sum=1, sz=1, refs=1, prio_115552231, ls_00 rs_00
+#13  2: sum=38, sz=12, refs=1, prio_1484739, ls_12 rs_02
+#07  7:     sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#02  0:   sum=7, sz=2, refs=1, prio_74220341, ls_07 rs_00
 ====== ls ======
-#01  0: sum=0, sz=3, refs=1, prio_309055178, ls_00 rs_00
+#01  0: sum=7, sz=3, refs=1, prio_213145856, ls_00 rs_03
+#03  7:   sum=7, sz=2, refs=1, prio_1137429434, ls_00 rs_10
+#10  0:     sum=0, sz=1, refs=1, prio_3930376042, ls_00 rs_00
 ====== u =======
-#08  9: sum=23, sz=9, refs=1, prio_743229556, ls_00 rs_04
-#05  8:       sum=8, sz=3, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:     sum=13, sz=5, refs=1, prio_1409960325, ls_05 rs_00
-#04  1:   sum=14, sz=7, refs=1, prio_1215678884, ls_02 rs_00
+#09  0:     sum=7, sz=3, refs=1, prio_447590470, ls_00 rs_08
+#08  0:       sum=7, sz=2, refs=1, prio_783569407, ls_00 rs_06
+#06  7:         sum=7, sz=1, refs=1, prio_3017162725, ls_00 rs_00
+#12  7:   sum=22, sz=6, refs=1, prio_1484739, ls_09 rs_11
+#11  7:     sum=8, sz=2, refs=1, prio_6806888, ls_00 rs_04
+#04  1:       sum=1, sz=1, refs=1, prio_115552231, ls_00 rs_00
+#13  2: sum=24, sz=7, refs=1, prio_1484739, ls_12 rs_00
 ====== rs ======
-#07  0:     sum=2, sz=7, refs=1, prio_2620349301, ls_00 rs_06
-#09  0:         sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:       sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:   sum=3, sz=9, refs=1, prio_2294164571, ls_07 rs_00
-#12  2: sum=7, sz=11, refs=1, prio_1114621065, ls_10 rs_11
-#11  2:   sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
+#07  7:   sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#02  0: sum=7, sz=2, refs=1, prio_74220341, ls_07 rs_00
 @@@@@@@@@@@@@@ Add [3, 9] += 0 @@@@@@@@@@@@@@
-#01  0: sum=30, sz=21, refs=1, prio_309055178, ls_00 rs_08
-#08  9:   sum=30, sz=19, refs=1, prio_743229556, ls_00 rs_12
-#05  8:           sum=8, sz=3, refs=1, prio_1620668467, ls_00 rs_00
-#02  5:         sum=13, sz=5, refs=1, prio_1409960325, ls_05 rs_00
-#04  1:       sum=17, sz=15, refs=1, prio_1215678884, ls_02 rs_10
-#07  0:           sum=2, sz=7, refs=1, prio_2620349301, ls_00 rs_06
-#09  0:               sum=0, sz=3, refs=1, prio_4044956464, ls_00 rs_00
-#06  2:             sum=2, sz=5, refs=1, prio_2697469687, ls_09 rs_00
-#10  1:         sum=3, sz=9, refs=1, prio_2294164571, ls_07 rs_00
-#12  2:     sum=21, sz=17, refs=1, prio_1114621065, ls_04 rs_11
-#11  2:       sum=2, sz=1, refs=1, prio_3876053646, ls_00 rs_00
-0
-9 8 5 1 0 0 2 1 2 2 
+#01  0:     sum=14, sz=6, refs=1, prio_213145856, ls_00 rs_09
+#03  7:         sum=7, sz=2, refs=1, prio_1137429434, ls_00 rs_10
+#10  0:           sum=0, sz=1, refs=1, prio_3930376042, ls_00 rs_00
+#09  0:       sum=14, sz=5, refs=1, prio_447590470, ls_03 rs_08
+#08  0:         sum=7, sz=2, refs=1, prio_783569407, ls_00 rs_06
+#06  7:           sum=7, sz=1, refs=1, prio_3017162725, ls_00 rs_00
+#12  7:   sum=29, sz=9, refs=1, prio_1484739, ls_01 rs_11
+#11  7:     sum=8, sz=2, refs=1, prio_6806888, ls_00 rs_04
+#04  1:       sum=1, sz=1, refs=1, prio_115552231, ls_00 rs_00
+#13  2: sum=38, sz=12, refs=1, prio_1484739, ls_12 rs_02
+#07  7:     sum=7, sz=1, refs=1, prio_4167499806, ls_00 rs_00
+#02  0:   sum=7, sz=2, refs=1, prio_74220341, ls_07 rs_00
+7
+7 0 0 0 7 7 7 1 2 7 

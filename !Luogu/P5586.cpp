@@ -5,6 +5,7 @@
 #include <vector>
 #include <random>
 #include <type_traits>
+#include <cassert>
 constexpr int N = 300005, MOD = (int)1e9 + 7;
 int rt[N];
 enum ProtoType1 { ADD, COV, FLP };
@@ -33,23 +34,23 @@ namespace Data {
     int bin[N << 3], bintop = 0, tot = 0;
     template<typename... Args>
     inline int alloc(Args... args) {
-        if (bintop) { tr[bin[bintop]] = std::move(Node(args...)); return bin[bintop--]; }
+        if (bintop) { tr[bin[bintop]] = Node(args...); return bin[bintop--]; }
         tr[++tot] = Node(args...); return tot;
     }
-    inline void recycle(int u) {
+    inline void delRef(int u) {
         if (u && --U.refCnt == 0)
-            recycle(U.ls), recycle(U.rs), bin[++bintop] = u;
+            delRef(U.ls), delRef(U.rs), bin[++bintop] = u;
     }
 }
-using Data::alloc; using Data::recycle;
+using Data::alloc; using Data::delRef;
 
 inline void addRef(int u) { u && ++U.refCnt; }
-inline void delRef(int u) { if (u && --U.refCnt == 0) recycle(u); }
 inline void clone(int &u) {
     if (U.refCnt == 1) return;
     int v = alloc(U);
     --U.refCnt; tr[v].refCnt = 1;
     addRef(U.ls), addRef(U.rs);
+    u = v;
 }
 
 inline void pushup(int u) {
@@ -73,6 +74,7 @@ void debug_all(int u = rt, int dep = 0) {
     debug_all(U.rs, dep + 2);
 }
 void* _fhq_treap_initialization = []() {
+    tr[0].sz = 0;
     int l = alloc(), r = alloc();
     if (tr[l].prio < tr[r].prio) tr[rt = l].rs = r;
     else tr[rt = r].ls = l;
@@ -100,7 +102,7 @@ int merge(int l, int r) {
     if (!l || !r) return l | r;
     clone(l); pushdown(l);
     clone(r); pushdown(r);
-    if (tr[l].prio < tr[r].prio) {
+    if (1ull * tr[l].sz * rng() < 1ull * tr[r].sz * rng()) {
         tr[l].rs = merge(tr[l].rs, r);
         return pushup(l), l;
     }
@@ -123,13 +125,13 @@ inline void push_back(int x) {
 }
 inline void modify(int destL, int destR, int srcL, int srcR, ProtoType2 tp) {
     ++destR, ++srcR;
-    std::array<std::pair<int,int>, 2> sorted{std::pair<int,int>{destL, destR}, std::pair<int,int>{srcL, srcR}};
-    std::sort(sorted.begin(), sorted.end());
+    std::pair<int,int> sorted[2]{std::pair<int,int>{destL, destR}, std::pair<int,int>{srcL, srcR}};
+    if (sorted[1] < sorted[0]) std::swap(sorted[0], sorted[1]);
     auto [tmp1, rs] = splitByOrd(rt, sorted[1].second);
     auto [tmp2, u2] = splitByOrd(tmp1, sorted[1].first);
     auto [tmp3, mid] = splitByOrd(tmp2, sorted[0].second);
     auto [ls, u1] = splitByOrd(tmp3, sorted[0].first);
-    if (std::make_pair(destL, destR) != sorted.front()) twoRangeFuncs[tp](u2, u1);
+    if (std::make_pair(destL, destR) != sorted[0]) twoRangeFuncs[tp](u2, u1);
     else twoRangeFuncs[tp](u1, u2);
 #ifdef DEBUG
     printf("==== ls ====\n"), debug_all(ls);
@@ -180,8 +182,6 @@ int main() {
     for (int i = 1, x; i <= n; i++) {
         fin >> x;
         push_back(x);
-    FHQ_Treap::debug_all();
-    puts("=================\n");
     }
 #ifdef DEBUG
     FHQ_Treap::debug_all();
@@ -190,7 +190,7 @@ int main() {
         fin >> opt >> a >> b;
         if (opt >= 2 && opt <= 5) fin >> c;
         if (opt == 4 || opt == 5) fin >> d;
-        // a ^= last, b ^= last, c ^= last, d ^= last;
+        a ^= last, b ^= last, c ^= last, d ^= last;
         a %= MOD, b %= MOD, c %= MOD, d %= MOD;
         switch (opt) {
         case 1: fout << (last = querySum(a, b)) << '\n'; break;
