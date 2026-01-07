@@ -1,0 +1,414 @@
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 1! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 2! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 3! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 4! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 5! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+[
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 1! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+=== Rotated 1 to its root, make 0 connected. ===
+    1 l=0, r=0, fa=0 
+ ==>| Reverse 1: 0 <-> 0! rev=0
+]
+   4 l=0, r=0, fa=0 
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 1! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+  1 l=0, r=0, fa=0 
+	1: fa=2, l r=0 0, op=(0,7), prod=(0,7) 
+	2: fa=0, l r=0 0, op=(6,FFFFFFFFFFFFFFFF), prod=(6,FFFFFFFFFFFFFFFF) 
+	3: fa=0, l r=0 0, op=(7,FFFFFFFFFFFFFFF8), prod=(7,FFFFFFFFFFFFFFF8) 
+	4: fa=0, l r=0 0, op=(6,FFFFFFFFFFFFFFF9), prod=(6,FFFFFFFFFFFFFFF9) 
+	5: fa=0, l r=0 0, op=(1,FFFFFFFFFFFFFFFE), prod=(1,FFFFFFFFFFFFFFFE) 
+======
+[
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 2! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+=== Rotated 2 to its root, make 0 connected. ===
+    2 l=0, r=0, fa=0 
+ ==>| Reverse 2: 0 <-> 0! rev=0
+]
+   4 l=0, r=0, fa=0 
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 2! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+  2 l=0, r=0, fa=0 
+	1: fa=2, l r=0 0, op=(0,7), prod=(0,7) 
+	2: fa=3, l r=0 0, op=(6,FFFFFFFFFFFFFFFF), prod=(6,FFFFFFFFFFFFFFFF) 
+	3: fa=0, l r=0 0, op=(7,FFFFFFFFFFFFFFF8), prod=(7,FFFFFFFFFFFFFFF8) 
+	4: fa=0, l r=0 0, op=(6,FFFFFFFFFFFFFFF9), prod=(6,FFFFFFFFFFFFFFF9) 
+	5: fa=0, l r=0 0, op=(1,FFFFFFFFFFFFFFFE), prod=(1,FFFFFFFFFFFFFFFE) 
+======
+[
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 3! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+=== Rotated 3 to its root, make 0 connected. ===
+    3 l=0, r=0, fa=0 
+ ==>| Reverse 3: 0 <-> 0! rev=0
+]
+   4 l=0, r=0, fa=0 
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 3! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+  3 l=0, r=0, fa=0 
+	1: fa=2, l r=0 0, op=(0,7), prod=(0,7) 
+	2: fa=3, l r=0 0, op=(6,FFFFFFFFFFFFFFFF), prod=(6,FFFFFFFFFFFFFFFF) 
+	3: fa=4, l r=0 0, op=(7,FFFFFFFFFFFFFFF8), prod=(7,FFFFFFFFFFFFFFF8) 
+	4: fa=0, l r=0 0, op=(6,FFFFFFFFFFFFFFF9), prod=(6,FFFFFFFFFFFFFFF9) 
+	5: fa=0, l r=0 0, op=(1,FFFFFFFFFFFFFFFE), prod=(1,FFFFFFFFFFFFFFFE) 
+======
+[
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 1! (fa=2, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+=== Rotated 1 to its root, make 0 connected. ===
+    1 l=0, r=0, fa=2 
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 2! (fa=3, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+=== Rotated 2 to its root, make 1 connected. ===
+    2 l=0, r=1, fa=3 
+      1 l=0, r=0, fa=2 
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 3! (fa=4, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+=== Rotated 3 to its root, make 2 connected. ===
+    3 l=0, r=2, fa=4 
+      2 l=0, r=1, fa=3 
+        1 l=0, r=0, fa=2 
+Before (
+  4 l=0, r=0, fa=0 
+)
+ ==>| Pushdown 4! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=0 
+)
+=== Rotated 4 to its root, make 3 connected. ===
+    4 l=0, r=3, fa=0 
+      3 l=0, r=2, fa=4 
+        2 l=0, r=1, fa=3 
+          1 l=0, r=0, fa=2 
+ ==>| Reverse 4: 0 <-> 3! rev=0
+]
+     3 l=0, r=2, fa=4 
+       2 l=0, r=1, fa=3 
+         1 l=0, r=0, fa=2 
+   4 l=3, r=0, fa=0 (rev)
+Before (
+    3 l=0, r=2, fa=4 
+      2 l=0, r=1, fa=3 
+        1 l=0, r=0, fa=2 
+  4 l=3, r=0, fa=0 (rev)
+)
+ ==>| Reverse 3: 0 <-> 2! rev=0
+ ==>| Pushdown 4! (fa=0, 1, 0, 0)
+ ==>| Reverse 2: 0 <-> 1! rev=0
+ ==>| Pushdown 3! (fa=4, 0, 3, 0)
+ ==>| Reverse 1: 0 <-> 0! rev=0
+ ==>| Pushdown 2! (fa=3, 0, 2, 0)
+ ==>| Pushdown 1! (fa=2, 0, 1, 0)
+After (
+        1 l=0, r=0, fa=2 
+      2 l=1, r=0, fa=3 
+    3 l=2, r=0, fa=4 
+  4 l=3, r=0, fa=0 
+)
+Right rotated 2
+not root set 4.fa=2
+3.L=0, 0.fa=3
+2.R=3, 3.fa=2, 2.fa=4
+Right rotated 1
+not root set 4.fa=1
+2.L=0, 0.fa=2
+1.R=2, 2.fa=1, 1.fa=4
+Right rotated 1
+4 is root! 0,0
+4.L=2, 2.fa=4
+1.R=4, 4.fa=1, 1.fa=0
+  1 l=0, r=4, fa=0 
+      2 l=0, r=3, fa=4 
+        3 l=0, r=0, fa=2 
+    4 l=2, r=0, fa=1 
+	1: fa=5, l r=0 4, op=(0,7), prod=(7,6) 
+	2: fa=4, l r=0 3, op=(6,FFFFFFFFFFFFFFFF), prod=(1,FFFFFFFFFFFFFFF8) 
+	3: fa=2, l r=0 0, op=(7,FFFFFFFFFFFFFFF8), prod=(7,FFFFFFFFFFFFFFF8) 
+	4: fa=1, l r=2 0, op=(6,FFFFFFFFFFFFFFF9), prod=(7,FFFFFFFFFFFFFFFE) 
+	5: fa=0, l r=0 0, op=(1,FFFFFFFFFFFFFFFE), prod=(1,FFFFFFFFFFFFFFFE) 
+======
+[
+Before (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+ ==>| Pushdown 1! (fa=5, 1, 0, 0)
+After (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+=== Rotated 1 to its root, make 0 connected. ===
+    1 l=0, r=0, fa=5 
+Before (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+ ==>| Pushdown 5! (fa=0, 1, 0, 0)
+After (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+=== Rotated 5 to its root, make 1 connected. ===
+    5 l=0, r=1, fa=0 
+      1 l=0, r=0, fa=5 
+ ==>| Reverse 5: 0 <-> 1! rev=0
+]
+Before (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+ ==>| Pushdown 4! (fa=1, 1, 0, 0)
+After (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+=== Rotated 4 to its root, make 0 connected. ===
+      2 l=0, r=3, fa=4 
+        3 l=0, r=0, fa=2 
+    4 l=2, r=0, fa=1 
+Before (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+ ==>| Reverse 1: 0 <-> 0! rev=0
+ ==>| Pushdown 5! (fa=0, 1, 0, 0)
+ ==>| Pushdown 1! (fa=5, 0, 1, 0)
+After (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+Right rotated 1
+5 is root! 0,0
+5.L=0, 0.fa=5
+1.R=5, 5.fa=1, 1.fa=0
+=== Rotated 1 to its root, make 4 connected. ===
+    1 l=0, r=4, fa=0 
+        2 l=0, r=3, fa=4 
+          3 l=0, r=0, fa=2 
+      4 l=2, r=0, fa=1 
+7
+Query 1:
+	1: fa=0, l r=0 4, op=(0,7), prod=(7,6) 
+	2: fa=4, l r=0 3, op=(6,FFFFFFFFFFFFFFFF), prod=(1,FFFFFFFFFFFFFFF8) 
+	3: fa=2, l r=0 0, op=(7,FFFFFFFFFFFFFFF8), prod=(7,FFFFFFFFFFFFFFF8) 
+	4: fa=1, l r=2 0, op=(6,FFFFFFFFFFFFFFF9), prod=(7,FFFFFFFFFFFFFFFE) 
+	5: fa=1, l r=0 0, op=(1,FFFFFFFFFFFFFFFE), prod=(1,FFFFFFFFFFFFFFFE) 
+[
+Before (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+ ==>| Pushdown 1! (fa=0, 1, 0, 0)
+After (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+=== Rotated 1 to its root, make 0 connected. ===
+    1 l=0, r=0, fa=0 
+ ==>| Reverse 1: 0 <-> 0! rev=0
+]
+Before (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+ ==>| Pushdown 4! (fa=1, 1, 0, 0)
+ ==>| Pushdown 2! (fa=4, 0, 2, 0)
+ ==>| Pushdown 3! (fa=2, 0, 0, 3)
+After (
+    2 l=0, r=3, fa=4 
+      3 l=0, r=0, fa=2 
+  4 l=2, r=0, fa=1 
+)
+Left rotated 3
+not root set 4.fa=3
+2.R=0, 0.fa=2
+3.L=2, 2.fa=3, 3.fa=4
+Right rotated 3
+4 is root! 0,0
+4.L=0, 0.fa=4
+3.R=4, 4.fa=3, 3.fa=1
+=== Rotated 3 to its root, make 0 connected. ===
+      2 l=0, r=0, fa=3 
+    3 l=2, r=0, fa=1 
+Before (
+  4 l=0, r=0, fa=3 
+)
+ ==>| Pushdown 1! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=3 
+)
+=== Rotated 1 to its root, make 3 connected. ===
+    1 l=0, r=3, fa=0 
+        2 l=0, r=0, fa=3 
+      3 l=2, r=0, fa=1 
+1
+Query 2:
+	1: fa=0, l r=0 3, op=(0,7), prod=(1,0) 
+	2: fa=3, l r=0 0, op=(6,FFFFFFFFFFFFFFFF), prod=(6,FFFFFFFFFFFFFFFF) 
+	3: fa=1, l r=2 0, op=(7,FFFFFFFFFFFFFFF8), prod=(1,FFFFFFFFFFFFFFF8) 
+	4: fa=3, l r=0 0, op=(6,FFFFFFFFFFFFFFF9), prod=(6,FFFFFFFFFFFFFFF9) 
+	5: fa=1, l r=0 0, op=(1,FFFFFFFFFFFFFFFE), prod=(1,FFFFFFFFFFFFFFFE) 
+Before (
+  4 l=0, r=0, fa=3 
+)
+ ==>| Pushdown 1! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=3 
+)
+Modify 3:
+	1: fa=0, l r=0 3, op=(0,3), prod=(1,0) 
+	2: fa=3, l r=0 0, op=(6,FFFFFFFFFFFFFFFF), prod=(6,FFFFFFFFFFFFFFFF) 
+	3: fa=1, l r=2 0, op=(7,FFFFFFFFFFFFFFF8), prod=(1,FFFFFFFFFFFFFFF8) 
+	4: fa=3, l r=0 0, op=(6,FFFFFFFFFFFFFFF9), prod=(6,FFFFFFFFFFFFFFF9) 
+	5: fa=1, l r=0 0, op=(1,FFFFFFFFFFFFFFFE), prod=(1,FFFFFFFFFFFFFFFE) 
+Before (
+  4 l=0, r=0, fa=3 
+)
+ ==>| Pushdown 1! (fa=0, 1, 0, 0)
+ ==>| Pushdown 3! (fa=1, 0, 0, 3)
+After (
+  4 l=0, r=0, fa=3 
+)
+Left rotated 3
+1 is root! 0,0
+1.R=2, 2.fa=1
+3.L=1, 1.fa=3, 3.fa=0
+Modify 4:
+	1: fa=3, l r=0 2, op=(0,3), prod=(6,7) 
+	2: fa=1, l r=0 0, op=(6,FFFFFFFFFFFFFFFF), prod=(6,FFFFFFFFFFFFFFFF) 
+	3: fa=0, l r=1 0, op=(3,FFFFFFFFFFFFFFFC), prod=(5,4) 
+	4: fa=3, l r=0 0, op=(6,FFFFFFFFFFFFFFF9), prod=(6,FFFFFFFFFFFFFFF9) 
+	5: fa=1, l r=0 0, op=(1,FFFFFFFFFFFFFFFE), prod=(1,FFFFFFFFFFFFFFFE) 
+[
+Before (
+  4 l=0, r=0, fa=3 
+)
+ ==>| Pushdown 3! (fa=0, 1, 0, 0)
+ ==>| Pushdown 1! (fa=3, 0, 1, 0)
+After (
+  4 l=0, r=0, fa=3 
+)
+Right rotated 1
+3 is root! 0,0
+3.L=2, 2.fa=3
+1.R=3, 3.fa=1, 1.fa=0
+=== Rotated 1 to its root, make 0 connected. ===
+    1 l=0, r=0, fa=0 
+ ==>| Reverse 1: 0 <-> 0! rev=0
+]
+Before (
+  4 l=0, r=0, fa=3 
+)
+ ==>| Pushdown 3! (fa=1, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=3 
+)
+=== Rotated 3 to its root, make 0 connected. ===
+      2 l=0, r=0, fa=3 
+    3 l=2, r=0, fa=1 
+Before (
+  4 l=0, r=0, fa=3 
+)
+ ==>| Pushdown 1! (fa=0, 1, 0, 0)
+After (
+  4 l=0, r=0, fa=3 
+)
+=== Rotated 1 to its root, make 3 connected. ===
+    1 l=0, r=3, fa=0 
+        2 l=0, r=0, fa=3 
+      3 l=2, r=0, fa=1 
+5
+Query 5:
+	1: fa=0, l r=0 3, op=(0,3), prod=(5,4) 
+	2: fa=3, l r=0 0, op=(6,FFFFFFFFFFFFFFFF), prod=(6,FFFFFFFFFFFFFFFF) 
+	3: fa=1, l r=2 0, op=(3,FFFFFFFFFFFFFFFC), prod=(5,FFFFFFFFFFFFFFFC) 
+	4: fa=3, l r=0 0, op=(6,FFFFFFFFFFFFFFF9), prod=(6,FFFFFFFFFFFFFFF9) 
+	5: fa=1, l r=0 0, op=(1,FFFFFFFFFFFFFFFE), prod=(1,FFFFFFFFFFFFFFFE) 

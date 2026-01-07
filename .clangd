@@ -1,3 +1,0 @@
-CompileFlags:
-  CompilationDatabase: Relative
-  Add: [-std=c++2a, -DDEBUG]
