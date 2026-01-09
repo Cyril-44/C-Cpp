@@ -63,24 +63,44 @@ inline std::pair<int,int> cut(int& u) {
     return ret;
 }
 
-inline bool needBalance(int wl, int wr) { return wr * 3 < wl; }
+[[gnu::always_inline]] inline bool needBalance(int wl, int wr) { return wr * 3 < wl; }
+[[gnu::always_inline]] inline bool needDoubleRot(int u, bool x) { return tr[u](x).w * 2 < tr[u](!x).w; }
+[[gnu::always_inline]] inline void rotate(int &u, bool x) { // 将 u->x 旋转到 u
+    auto [l, r] = cut(u);
+    if (x) { // r heavier
+        auto [rl, rr] = cut(r);
+        u = alloc(alloc(l, rl), rr);
+    } else {
+        auto [ll, lr] = cut(l);
+        u = alloc(ll, alloc(lr, r));
+    }
+}
+/* An Example: 
+        u              u
+       / \            / \
+      3   1          /   \
+     / \     ===>   2     2
+    1   2          / \   / \
+       / \        1   1 1   1
+      1   1                           */
+[[gnu::always_inline]] inline void balance(int &u) {
+    if (tr[u].w == 1) return;
+    bool x = tr[u](R).w > tr[u](L).w; // 重儿子编号
+    if (!needBalance(tr[u](x).w, tr[u](!x).w)) return;
+    if (needDoubleRot(tr[u][x], x)) rotate(tr[u][x], !x); // 先一边倒，然后拉回来
+    rotate(u, x);
+}
 inline int merge(int l, int r) {
     if (!l || !r) return l | r;
     if (needBalance(tr[l].w, tr[r].w)) { // l too heavy
         auto [ll, lr] = cut(l);
-        if (needBalance(tr[lr].w + tr[r].w, tr[ll].w)) {
-            auto [lrl, lrr] = cut(lr);
-            return alloc(alloc(ll, lrl), alloc(lrr, r));
-        }
-        return alloc(ll, alloc(lr, r));
+        int u = alloc(ll, alloc(lr, r));
+        balance(u); return u;
     }
     if (needBalance(tr[r].w, tr[l].w)) { // r too heavy
         auto [rl, rr] = cut(r);
-        if (needBalance(tr[l].w + tr[rl].w, tr[rr].w)) {
-            auto [rll, rlr] = cut(rl);
-            return alloc(alloc(l, rll), alloc(rlr, rr));
-        }
-        return alloc(alloc(l, rl), rr);
+        int u = alloc(alloc(l, rl), rr);
+        balance(u); return u;
     }
     return alloc(l, r);
 }
