@@ -1,8 +1,8 @@
-#define _GLIBCXX_DEBUG
 #include <cstdio>
 #include <vector>
 #include <cstring>
 #include <algorithm>
+#include <cassert>
 constexpr int N = 500005;
 int a[N], val[N];
 struct PSGT {
@@ -11,7 +11,7 @@ struct PSGT {
         long long sum;
         Node() : ls(), rs(), cnt(), sum() {}
     };
-    PSGT(int n, int m) : tr(1), root(n+1), n(m) { tr.reserve(m+1 << 6); }
+    PSGT(int n, int m) : tr(1), root(n+1), n(m) { tr.reserve(N << 6); }
     inline void insert(int i, int pos) {
         root[i] = root[i-1];
         P = pos, X = val[pos];
@@ -29,6 +29,7 @@ private:
         tr[u].cnt = tr[tr[u].ls].cnt + tr[tr[u].rs].cnt;
     }
     void upd(int &u, int l, int r) {
+        // assert(tr.size() < tr.capacity());
         tr.emplace_back(tr[u]);
         u = tr.size() - 1;
         if (l == r) {
@@ -44,7 +45,7 @@ private:
     long long que(int u, int l, int r, int cnt) {
         if (!u) return 0;
         if (l == r) return val[l] * 1ll * cnt;
-        if (tr[u].cnt == cnt) return tr[u].sum;
+        // if (tr[u].cnt == cnt) return tr[u].sum;
         int mid = l + r >> 1;
         if (cnt <= tr[tr[u].ls].cnt) return que(tr[u].ls, l, mid, cnt);
         return tr[tr[u].ls].sum + que(tr[u].rs, mid + 1, r, cnt - tr[tr[u].ls].cnt);

@@ -63,9 +63,9 @@ inline std::pair<int,int> cut(int& u) {
     return ret;
 }
 
-[[gnu::always_inline]] inline bool needBalance(int wl, int wr) { return wr * 3 < wl; }
-[[gnu::always_inline]] inline bool needDoubleRot(int u, bool x) { return tr[u](x).w * 2 < tr[u](!x).w; }
-[[gnu::always_inline]] inline void rotate(int &u, bool x) { // 将 u->x 旋转到 u
+inline bool needBalance(int wl, int wr) { return wr * 3 < wl; }
+inline bool needDoubleRot(int u, bool x) { return tr[u](x).w * 2 < tr[u](!x).w; }
+inline void rotate(int &u, bool x) { // 将 u->x 旋转到 u
     auto [l, r] = cut(u);
     if (x) { // r heavier
         auto [rl, rr] = cut(r);
@@ -83,7 +83,7 @@ inline std::pair<int,int> cut(int& u) {
     1   2          / \   / \
        / \        1   1 1   1
       1   1                           */
-[[gnu::always_inline]] inline void balance(int &u) {
+inline void balance(int &u) {
     if (tr[u].w == 1) return;
     bool x = tr[u](R).w > tr[u](L).w; // 重儿子编号
     if (!needBalance(tr[u](x).w, tr[u](!x).w)) return;
