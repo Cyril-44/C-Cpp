@@ -31,14 +31,17 @@ static int q[N];
 inline void buildAC() {
     int l = 0, r = 0;
     for (int i = 0; i < 26; ++i)
-        if (ac[0][i])
+        if (ac[0][i]) {
             q[r++] = ac[0][i];
+            addedg(0, ac[0][i]);
+        }
     while (l ^ r) {
         int u = q[l++];
         for (int i = 0; i < 26; ++i)
             if (ac[u][i]) {
                 ac[u](i)[FAIL] = ac[u](FAIL)[i];
                 addedg(ac[u](FAIL)[i], ac[u][i]);
+                // printf("Jump fail %d <-- %d\n", ac[u](FAIL)[i], ac[u][i]);
                 q[r++] = ac[u][i];
             }
             else ac[u][i] = ac[u](FAIL)[i];
@@ -59,8 +62,7 @@ inline void solve(char *s, int n) {
         u = ac[u][*s - 'a'];
         f[u] = true;
     }
-    for (int i = 0; i < 26; i++)
-        if (ac[0][i]) dfs(ac[0][i]);
+    dfs(0);
     int cnt = 0;
     for (int i = 1; i <= n; i++) {
         cnt += ans[i]; 

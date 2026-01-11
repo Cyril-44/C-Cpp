@@ -31,8 +31,10 @@ static int q[M << 2];
 inline void buildAC() {
     int l = 0, r = 0;
     for (int i = 0; i < 26; ++i)
-        if (ac[0][i])
+        if (ac[0][i]) {
             q[r++] = ac[0][i];
+            addedg(0, ac[0][i]);
+        }
     while (l ^ r) {
         int u = q[l++];
         for (int i = 0; i < 26; ++i)
@@ -59,8 +61,7 @@ inline void solve(char *s, int n) {
         u = ac[u][*s - 'a'];
         ++f[u];
     }
-    for (int i = 0; i < 26; i++)
-        if (ac[0][i]) dfs(ac[0][i]);
+    dfs(0);
     for (int i = 1; i <= n; i++)
         printf("%lld\n", ans[i]);
 }

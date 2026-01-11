@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# 生成器：尽量卡掉非-bitset 的错解
+# 用法: python3 gen.py > data.txt
+# 可在脚本顶部修改参数，或用命令行参数（简单实现）
+
+import sys
+import random
+from collections import deque
+
+# ---------- 参数（可修改） ----------
+# 推荐用于最终压力测试：
+DEFAULT_N = 40000
+DEFAULT_Q = 40000
+# 总权值数（sum k_i），不超过 1e6
+DEFAULT_TOTAL_VALUES = 1000000
+# g = 1 更能卡在线错误解；g = 0 则无 lastans 干扰
+DEFAULT_G = 1
+# 值域上界（题目 c <= 10000），我们用 MAXV = 10001 (mex 可能到 10001)
+MAXC = 10000
+# ------------------------------------
+
+def build_tree_chain_with_bushes(n):
+    """
+    构造一棵有长链（heavy path）并在链上挂很多叶子的树。
+    这样既有长路径，也有分支，能触发 HLD/分段合并的最坏情况。
+    """
+    edges = []
+    # 先做一条长链
+    chain_len = max(1, n // 2)
+    for i in range(chain_len - 1):
+        edges.append((i + 1, i + 2))
+    # 剩余节点挂到链上的不同位置
+    cur = chain_len + 1
+    attach_pos = 1
+    while cur <= n:
+        edges.append((attach_pos, cur))
+        cur += 1
+        attach_pos += 1
+        if attach_pos > chain_len:
+            attach_pos = 1
+    return edges
+
+def distribute_values(n, total_values, maxc):
+    """
+    为每个节点分配 k_i 个值，总和为 total_values。
+    分配策略：
+      - 在链前半段分配“滑动窗口”式的连续区间（密集覆盖低位），
+        使得很多路径上能覆盖 0..~high 的大量值，迫使 mex 高。
+      - 在其他节点分配随机高位或重复值，制造噪声与重复。
+    这样能让非-bitset 的合并/计数变得昂贵。
+    """
+    vals = [[] for _ in range(n)]
+    # 基本每节点平均
+    avg = total_values // n
+    rem = total_values - avg * n
+    # 滑动窗口参数
+    window = max(1, min(200, avg * 2))  # 每个节点带一个 window 大小的连续区间
+    # 前半节点使用滑动窗口覆盖 0..maxc
+    half = n // 2
+    cur_start = 0
+    for i in range(half):
+        k = avg + (1 if rem > 0 else 0)
+        if rem > 0: rem -= 1
+        # 让一部分节点带连续区间（wrap around）
+        for t in range(k):
+            v = (cur_start + (t % window)) % (maxc + 1)
+            vals[i].append(v)
+        cur_start = (cur_start + window // 2) % (maxc + 1)
+    # 后半节点随机分配（高位偏移 +重复）
+    for i in range(half, n):
+        k = avg + (1 if rem > 0 else 0)
+        if rem > 0: rem -= 1
+        for t in range(k):
+            # 50% 概率取高位随机，50% 取低位重复，制造混合
+            if random.random() < 0.5:
+                v = random.randint(maxc//2, maxc)
+            else:
+                v = random.randint(0, maxc//2)
+            vals[i].append(v)
+    # 少量节点插入稀有值（例如 maxc+1 不在题目范围，但我们 avoid）
+    return vals
+
+def build_queries(n, q, g):
+    """
+    构造 q 个查询。策略：
+      - 大量查询覆盖整条链或跨越链两端（长路径）。
+      - 部分查询为随机长路径。
+      - 使用 s1,t1 随机大数（题目允许 s1,t1 up to 1e9），并设置 p=n，
+        结合 g 和 lastans 产生在线效果。
+    """
+    queries = []
+    # produce some full-tree queries to stress worst-case
+    for i in range(q // 10):
+        s1 = random.randint(1, 10**9)
+        t1 = random.randint(1, 10**9)
+        queries.append((s1, t1, n))
+    # produce many long-path queries: choose endpoints on chain ends or deep leaves
+    for i in range(q // 2):
+        # endpoints chosen to likely map to far nodes after lastans transform
+        s1 = random.randint(1, 10**9)
+        t1 = random.randint(1, 10**9)
+        queries.append((s1, t1, n))
+    # rest random
+    while len(queries) < q:
+        s1 = random.randint(1, 10**9)
+        t1 = random.randint(1, 10**9)
+        queries.append((s1, t1, n))
+    random.shuffle(queries)
+    return queries
+
+def main():
+    # allow simple CLI overrides
+    n = DEFAULT_N
+    q = DEFAULT_Q
+    total_values = DEFAULT_TOTAL_VALUES
+    g = DEFAULT_G
+    rngseed = 123456789
+    if len(sys.argv) >= 2 and sys.argv[1].strip() == "--help":
+        print("./gen [n] [q] [sigma_k] [g] [seed]")
+        return
+    if len(sys.argv) >= 2:
+        n = int(sys.argv[1])
+    if len(sys.argv) >= 3:
+        q = int(sys.argv[2])
+    if len(sys.argv) >= 4:
+        total_values = int(sys.argv[3])
+    if len(sys.argv) >= 5:
+        g = int(sys.argv[4])
+    if len(sys.argv) >= 6:
+        rngseed = int(sys.argv[5])
+    # safety clamps
+    n = max(1, min(40000, n))
+    q = max(1, min(40000, q))
+    total_values = max(0, min(1000000, total_values))
+    g = 1 if g else 0
+
+    random.seed(rngseed)  # 固定种子，便于复现
+
+    edges = build_tree_chain_with_bushes(n)
+    vals = distribute_values(n, total_values, MAXC)
+    queries = build_queries(n, q, g)
+
+    # 输出
+    out = []
+    out.append(f"{n} {g}")
+    for (u,v) in edges:
+        out.append(f"{u} {v}")
+    # node values
+    for i in range(n):
+        arr = vals[i]
+        if len(arr) == 0:
+            out.append("0")
+        else:
+            out.append(str(len(arr)) + " " + " ".join(map(str, arr)))
+    out.append(str(q))
+    for (s1,t1,p) in queries:
+        out.append(f"{s1} {t1} {p}")
+
+    sys.stdout.write("\n".join(out))
+    sys.stdout.flush()
+
+if __name__ == "__main__":
+    main()
