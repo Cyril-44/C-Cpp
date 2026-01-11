@@ -2,8 +2,8 @@
 #include <vector>
 #include <cstring>
 #include <algorithm>
-constexpr int N1 = 155, N2 = 75, N = N1 * N2, M = 1000005;
-char s[N1][N2], t[M];
+constexpr int N1 = 150, N2 = 70, N = N1 * N2 + 5, M = 1000005;
+char s[N1][N2 + 5], t[M];
 struct Edge { int to, nxt; } e[N];
 int head[N], edgtot;
 inline void addedg(const int &fr, const int &to) {
@@ -37,8 +37,10 @@ inline void buildAC() {
     static int q[M];
     int l = 0, r = 0;
     for (int i = 0; i < 26; ++i)
-        if (ac[0][i])
+        if (ac[0][i]) {
             q[r++] = ac[0][i];
+            addedg(0, ac[0][i]);
+        }
     while (l ^ r) {
         int u = q[l++];
         for (int i = 0; i < 26; ++i)
@@ -65,8 +67,7 @@ inline void solve(char *s, int n) {
         ++f[u];
     }
     memset(ans, 0, sizeof(long long) * (n + 1));
-    for (int i = 0; i < 26; i++)
-        if (ac[0][i]) dfs(ac[0][i]);
+    dfs(0);
 }
 #undef FAIL
 }
