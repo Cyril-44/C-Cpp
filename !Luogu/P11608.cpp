@@ -16,124 +16,82 @@ struct Node {
 } a[N];
 std::vector<LL> ans;
 
-namespace Splay {
-enum {L, R, FA};
+namespace WBLT {
+enum {L, R};
 struct Node {
-    int s[3];
-    int sz;
+    int ch[2], w;
     LL val, add;
-    inline void pull(LL t) { val += t, add += t; }
-    inline int& operator[](int x) { return s[x]; }
-    Node& operator()(int);
+    inline int& operator[](bool c) { return ch[c]; }
+    Node& operator()(bool);
+    inline void pull(LL x) { val += x, add += x; }
+    inline void pushup() {
+        if (w == 1) return;
+        w = (*this)(L).w + (*this)(R).w;
+        val = (*this)(R).val;
+    }
+    inline void pushdown() {
+        if (w == 1 || !add) return;
+        (*this)(L).pull(add);
+        (*this)(R).pull(add);
+        add = 0;
+    }
+    inline Node() : ch{}, w(), val(), add() {}
+    inline Node(LL v) : ch{}, w(1), val(v), add() {}
+    inline Node(int l, int r) : ch{l, r}, add() { pushup(); }
 };
-std::array<Node, N> tr;
-int tot = 0;
-inline Node& Node::operator()(int x) { return tr[s[x]]; }
-inline int alloc(LL val, int fa = 0) {
-    ++tot;
-    tr[tot].val = val, tr[tot].add = 0;
-    tr[tot].sz = 1;
-    tr[tot][FA] = fa, tr[tot][L] = tr[tot][R] = 0;
-    return tot;
+std::array<Node, N << 2> tr;
+namespace Data {
+int bin[N << 2];
+int bintot = 0, tot = 0;
+template<class... Args> inline int alloc(Args... args) {
+    int u = bintot ? bin[bintot--] : ++tot;
+    tr[u] = Node(args...); return u;
 }
-inline bool type(int u) { return tr[u](FA)[R] == u; }
-inline void pushup(int u) { tr[u].sz = tr[u](L).sz + 1 + tr[u](R).sz; }
-inline void pushdown(int u) {
-    if (!tr[u].add) return; 
-    if (tr[u][L]) tr[u](L).pull(tr[u].add);
-    if (tr[u][R]) tr[u](R).pull(tr[u].add);
-    tr[u].add = 0;
+inline void recycle(int u) { bin[++bintot] = u; }
+} using Data::alloc; using Data::recycle;
+inline bool needBalance(int wl, int wr) { return wr * 3 < wl; }
+inline std::pair<int,int> cut(int u) {
+    recycle(u); return {tr[u][L], tr[u][R]};
 }
-inline void rotate(int u) {
-    pushdown(tr[u][FA]), pushdown(u);
-    int anc = tr[u](FA)[FA];
-    bool tp = type(u);
-    if (anc) tr[anc][type(tr[u][FA])] = u;
-    tr[u](FA)[tp] = tr[u][!tp];
-    if (tr[u][!tp]) tr[u](!tp)[FA] = tr[u][FA];
-    tr[u](FA)[FA] = u, tr[u][!tp] = tr[u][FA], tr[u][FA] = anc;
-    pushup(tr[u][!tp]), pushup(u);
-}
-int root = 0;
-inline void splay(int u, int goal = 0) {
-    while (tr[u][FA] ^ goal) {
-        if (tr[u](FA)[FA] != goal) rotate(type(u) == type(tr[u][FA]) ? tr[u][FA] : u);
-        rotate(u);
+inline int merge(int l, int r) {
+    if (!l || !r) return l | r;
+    if (needBalance(tr[l].w, tr[r].w)) {
+        auto [ll, lr] = cut(l);
+        if (needBalance(tr[r].w + tr[lr].w, tr[ll].w)) {
+            auto [lrl, lrr] = cut(lr);
+            return merge(merge(ll, lrl), merge(lrr, r));
+        }
+        return merge(ll, merge(lr, r));
     }
-    if (!goal) root = u;
+    if (needBalance(tr[r].w, tr[l].w)) {
+        auto [rl, rr] = cut(r);
+        if (needBalance(tr[rl].w + tr[l].w, tr[rr].w)) {
+            auto [rll, rlr] = cut(rl);
+            return merge(merge(l, rll), merge(rlr, rr));
+        }
+        return merge(merge(l, rl), rr);
+    }
+    return merge(l, r);
 }
-
+inline void balance(int &u) {
+    if (needBalance(tr[u](L).w, tr[u](R).w) || needBalance(tr[u](R).w, tr[u](L).w))
+        u = merge(tr[u][L], tr[u][R]);
+}
 namespace Utils {
-inline int rank(int ord) {
-    int u = root;
-    while (true) {
-        pushdown(u);
-        if (tr[u](L).sz + 1 == ord) return u;
-        u = tr[u](L).sz < ord ? tr[u][L] : tr[u][R];
+int root;
+inline bool check(const ::Node &a, int u) {
+    return tr[u].val <= (tr[u].w - 1ll) * a.k + a.b;
+}
+inline std::pair<int,int> splVal(::Node a, int u = root) {
+    if (!u || tr[u].w == 1) return {u, 0};
+    auto [l, r] = cut(u);
+    if (check(a, l)) {
+        auto [ls, rs] = splVal(a, l);
+        return {merge(l, ls), rs};
     }
 }
-bool atend;
-inline int search(const ::Node &a) {
-    int u = root, ans = -1, pre = 0;
-    auto check = [&](int u) {
-        return tr[u].val <= (LL)(pre + tr[u](L).sz) * a.k + a.b; // 注意左边的哨兵
-    };
-    while (u) {
-        pushdown(u);
-        if (check(u)) ans = u, u = tr[u][L];
-        else pre += tr[u](L).sz + 1, u = tr[u][R];
-    }
-    if (ans == -1) {
-        ans = root;
-        while (tr[ans][R]) ans = tr[ans][R];
-        atend = true;
-        splay(ans);
-        return tr[ans].sz;
-    }
-    atend = false;
-    splay(ans);
-    return tr[ans](L).sz;
 }
-inline void insert(LL val) { // 在当前 splay 的 root 的左边插一个节点
-    if (!root) { root = alloc(val); return; }
-    if (atend) {
-        tr[root][R] = alloc(val, root);
-        splay(tr[root][R]);
-        return;
-    }
-    int lfront = tr[root][L];
-    if (!lfront) {
-        tr[root][L] = alloc(val, root);
-        splay(tr[root][L]);
-        return;
-    }
-    while (tr[lfront][R]) lfront = tr[lfront][R];
-    splay(lfront, root);
-    tr[lfront][R] = alloc(val, lfront);
-    splay(tr[lfront][R]);
-}
-inline void addright(LL k) { // 在当前 root 的右孩子区间加一个数
-    int u = tr[root][R];
-    if (!u) return;
-    tr[u].pull(k);
-}
-inline void printall(int u = root) {
-    if (!u) return;
-    pushdown(u);
-    printall(tr[u][L]);
-    printf("%lld\n", tr[u].val);
-    printall(tr[u][R]);
-}
-void getall(int u = root) {
-    if (!u) return;
-    pushdown(u);
-    getall(tr[u][L]);
-    ans.push_back(tr[u].val);
-    getall(tr[u][R]);
-}
-} // namespace Utils
-} // namespace Splay
-using namespace Splay::Utils;
+} // namespace WBLT
 int main() {
     int n;
     fin >> n;
