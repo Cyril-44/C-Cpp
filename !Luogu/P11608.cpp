@@ -24,11 +24,6 @@ struct Node {
     inline int& operator[](bool c) { return ch[c]; }
     Node& operator()(bool);
     inline void pull(LL x) { val += x, add += x; }
-    inline void pushup() {
-        if (w == 1) return;
-        w = (*this)(L).w + (*this)(R).w;
-        val = (*this)(R).val;
-    }
     inline void pushdown() {
         if (w == 1 || !add) return;
         (*this)(L).pull(add);
@@ -37,11 +32,12 @@ struct Node {
     }
     inline Node() : ch{}, w(), val(), add() {}
     inline Node(LL v) : ch{}, w(1), val(v), add() {}
-    inline Node(int l, int r) : ch{l, r}, add() { pushup(); }
+    inline Node(int l, int r) : ch{l, r}, w((*this)(L).w + (*this)(R).w), add(), val((*this)(R).val) {}
 };
-std::array<Node, N << 2> tr;
+std::array<Node, N << 1> tr;
+inline Node& Node::operator()(bool c) { return tr[ch[c]]; }
 namespace Data {
-int bin[N << 2];
+int bin[N << 1];
 int bintot = 0, tot = 0;
 template<class... Args> inline int alloc(Args... args) {
     int u = bintot ? bin[bintot--] : ++tot;
@@ -71,27 +67,39 @@ inline int merge(int l, int r) {
         }
         return merge(merge(l, rl), rr);
     }
-    return merge(l, r);
+    return alloc(l, r);
 }
 inline void balance(int &u) {
     if (needBalance(tr[u](L).w, tr[u](R).w) || needBalance(tr[u](R).w, tr[u](L).w))
         u = merge(tr[u][L], tr[u][R]);
 }
-namespace Utils {
 int root;
+using WBLT::merge;
 inline bool check(const ::Node &a, int u) {
     return tr[u].val <= (tr[u].w - 1ll) * a.k + a.b;
 }
 inline std::pair<int,int> splVal(::Node a, int u = root) {
-    if (!u || tr[u].w == 1) return {u, 0};
+    if (!u) return {0, 0};
+    if (tr[u].w == 1) {
+        if (check(a, u)) return {0, u};
+        return {u, 0};
+    }
+    tr[u].pushdown();
     auto [l, r] = cut(u);
     if (check(a, l)) {
         auto [ls, rs] = splVal(a, l);
-        return {merge(l, ls), rs};
+        return {ls, merge(rs, r)};
     }
+    auto [ls, rs] = splVal({a.k, tr[l].w * a.k + a.b}, r);
+    return {merge(l, ls), rs};
 }
+void getall(int u = root) {
+    tr[u].pushdown();
+    if (tr[u].w == 1) ans.push_back(tr[u].val);
+    else getall(tr[u][L]), getall(tr[u][R]);
 }
 } // namespace WBLT
+using namespace WBLT;
 int main() {
     int n;
     fin >> n;
@@ -108,10 +116,10 @@ int main() {
   k 就是最小的 j 满足 g[i-1][j] <= (k-1) * a[i].k + a[i].b
 */
     for (int i = 1; i <= n; i++) { // 当前一轮：从 g[i-1][1..j-1] 转移到 g[i][1..j]
-        int rk = search(a[i]);
+        auto [l, r] = splVal(a[i]);
         // printf("%d top#%d:%lld\n", rk, Splay::root, Splay::tr[Splay::root].val);
-        insert(rk * a[i].k + a[i].b);
-        addright(a[i].k);
+        tr[r].pull(a[i].k);
+        root = merge(merge(l, alloc(tr[l].w * a[i].k + a[i].b)), r);
         // printall(); puts("=======");
     }
     ans.reserve(n);
