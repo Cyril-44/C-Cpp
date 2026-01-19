@@ -1,6 +1,11 @@
 #include <string.h>
 #include <stdio.h>
 #include <algorithm>
+#ifdef DEBUG
+# define DebugInfo(...) fprintf(stderr, __VA_ARGS__)
+#else
+# define DebugInfo(...) ((void)0)
+#endif
 constexpr int N = (int)1e6 + 5;
 inline void getSA(int n, char *s, int *sa, int *rk_, int *height, int sigma = 127) {
     static int tpsa[N], h[N], cnt[N];
@@ -11,7 +16,7 @@ inline void getSA(int n, char *s, int *sa, int *rk_, int *height, int sigma = 12
         for (int i = 1; i <= sigma; i++) cnt[i] += cnt[i-1];
         for (int i = n; i >= 1; i--) sa[cnt[rk[tpsa[i]]]--] = tpsa[i];
     };
-    for (int i = 1; i <= n; i++) tpsa[i] = 1, rk[i] = s[i];
+    for (int i = 1; i <= n; i++) tpsa[i] = i, rk[i] = s[i];
     radixSort();
     for (int w = 1; w < n; w <<= 1) {
         int top = 0;
@@ -26,19 +31,21 @@ inline void getSA(int n, char *s, int *sa, int *rk_, int *height, int sigma = 12
     }
     if (rk != rk_) memcpy(rk_, rk, sizeof(int) * (n+1));
     for (int i = 1, k = 0; i <= n; i++) {
+        if (rk[i] == 1) {h[i] = 0; continue;}
         if (k) --k;
         while (i + k <= n && sa[rk[i]-1] + k <= n && s[i + k] == s[sa[rk[i]-1] + k]) ++k;
         height[i] = k;
     }
 }
 int sa[N], rk[N], h[N], len[N];
-char s[N], base[N], frontLeft[N], str[N]; // base is non decreasing
+char s[N], baseStr[N], frontLeftStr[N], str[N], bestStr[N]; // base is non decreasing
 inline void solveSingleTestCase() {
     scanf("%s", s + 1);
     int n = strlen(s + 1);
-    int lastMinPos = 0; char minChar = '\0';
+    int lastMinPos = 0; char minChar = 127;
     for (int i = n; i >= 1; i--)
         if (s[i] < minChar) minChar = s[i], lastMinPos = i;
+    DebugInfo("[0] Detected last occured min character '%c' on pos %d\n", minChar, lastMinPos);
 /* [Reverse Ordered Increasing String "abcd"] <==Insert Into== [Borders and Min Suffixes "b", "bdb", "bdbccbdb"] + [Left String (front) + (back)]
     a  b  c     d  <== "b", "bcb", "bcbddbcb"
 (0)                    abcdbcbddbcb *
@@ -47,25 +54,62 @@ inline void solveSingleTestCase() {
 (3)  b  cb ddbcb   ==> abbcbcddbcbd
 */
     int baseLen = 1, frontLeftLen = 0;
-    base[1] = s[1];
-    for (int i = 2; i <= n; i++) // 构造 base(操作一) 和 frontLeft(操作二)
-        if (s[i] <= base[baseLen]) base[++baseLen] = s[i];
-        else frontLeft[++frontLeftLen] = s[i];
+    baseStr[1] = s[1];
+    for (int i = 2; i <= lastMinPos; i++) // 构造 base(操作一) 和 frontLeft(操作二)
+        if (s[i] <= baseStr[baseLen]) baseStr[++baseLen] = s[i];
+        else frontLeftStr[++frontLeftLen] = s[i];
+    std::reverse(baseStr+1, baseStr+1 + baseLen);
     int frontLen = baseLen + frontLeftLen;
+    DebugInfo("[1] Calculated Base Str \"%s\" , Front Left Str \"%s\", Front Len %d\n", (baseStr[baseLen+1]=0, baseStr+1), (frontLeftStr[frontLeftLen+1]=0, frontLeftStr+1), frontLen);
+    DebugInfo("[2] Sending \"%s\" to SA Sorting...\n", s + frontLen+1);
     getSA(n - frontLen, s+frontLen, sa, rk, h);
-    int bdcnt = 0;
-    for (int i = 1; i <= n; i++) {
-        if (i > 1 && h[i] != n - frontLen - sa[i - 1] + 1) break; // 当 sa[i-1] 是 sa[i] 的 border 的时候才考虑将 sa[i] 设置为 insert string
+    DebugInfo("[2.1] SA("); for (int i = 1; i <= n - frontLen; i++) DebugInfo("%d%c", sa[i], i^n - frontLen?',':')'); DebugInfo(" RK("); for (int i = 1; i <= n - frontLen; i++) DebugInfo("%d%c", rk[i], i^n - frontLen?',':')');DebugInfo(" Height("); for (int i = 1; i <= n - frontLen; i++) DebugInfo("%d%c", h[i], i^n - frontLen?',':')'); DebugInfo("\n");
+    int bdcnt = 1;
+    len[1] = n - frontLen - sa[1] + 1;
+    for (int i = 2; i <= n - frontLen; i++) {
+        if (h[i] != n - frontLen - sa[i] + 1) break; // 当 sa[i-1] 是 sa[i] 的 border 的时候才考虑将 sa[i] 设置为 insert string
         len[++bdcnt] = h[i];
     }
-    memcpy(str+1, base+1, baseLen);
-    memcpy(str+baseLen+1, frontLeft+1, frontLeftLen);
-    memcpy(str+frontLen+1, s+frontLen+1, n - frontLen); // 构造 [base]+[other]
-    getSA(n, s, sa, rk, h);
-    int cmpStrPtr = 0;
-    for (int i = 1; i <= bdcnt; i++) {
-        
+    DebugInfo("[3] Borders (total: %d): ", bdcnt); for (int i = 1; i <= bdcnt; i++) DebugInfo("%d ", len[i]); DebugInfo("\n");
+    memcpy(str+1, baseStr+1, baseLen);
+    memcpy(str+baseLen+1, frontLeftStr+1, frontLeftLen);
+    if (n == frontLen) {
+        str[n+1] = '\0', puts(str+1);
+        DebugInfo("[!] cuz frontLen = n, output directly...\n");
+        return;
     }
+    memcpy(str+frontLen+1, s+frontLen+1, n - frontLen); // 构造 [base]+[other]
+    DebugInfo("[4] Constructed Str \"%s\"\n", (str[n+1]=0, str+1));
+    getSA(n, str, sa, rk, h);
+    int cmpBaseIdx = 1, bestBorderLen = len[1];
+    for (int i = 1, cmpIdx; i <= bdcnt; i++) { // 依次枚举 border，保证 border_{i-1} \in border_i
+        int cmpBorderIdx = n - (len[i] - len[i-1]) + 1;
+        bool isBetter = false, isWorse = false;
+        for (cmpIdx = cmpBaseIdx; cmpBorderIdx <= n; ++cmpIdx) {
+            DebugInfo("[4.1] {%d, %d} Base '%c'(#%d) and Border '%c'(#%d)", i, cmpIdx, str[cmpBaseIdx], cmpBaseIdx, str[cmpBorderIdx], cmpBorderIdx);
+            int now = (cmpBaseIdx <= baseLen && str[cmpBaseIdx] < str[cmpBorderIdx] ? cmpBaseIdx : cmpBorderIdx)++;
+            DebugInfo(", chosen pos %d\n", now);
+            if (!isBetter && !isWorse) {
+                if (str[now] < str[cmpIdx]) isBetter = true;
+                else if (str[now] > str[cmpIdx]) isWorse = true;
+            }
+            DebugInfo("[4.2] {%d, %d} Comparing '%c' and '%c'(#%d)\n", i, cmpIdx, str[cmpIdx], str[now], now);
+        }
+        if (isWorse) break;
+        else isBetter |= rk[cmpIdx] < rk[cmpBaseIdx] || cmpIdx == cmpBaseIdx;
+        if (isBetter) bestBorderLen = len[i];
+        DebugInfo("[4.3] {%d} Current Border Len %d, judged %s\n", i, len[i], isBetter ? "isBetter" : isWorse ? "worse&killed" : "tie");
+    }
+    DebugInfo("[4] Calculated best Border Len %d\n", bestBorderLen);
+    cmpBaseIdx = 1; int cmpBorderIdx = n - bestBorderLen + 1;
+    for (int i = 0; cmpBorderIdx <= n; i++) { // 根据 bestBorderLen 模拟建出最优字符串
+        int now = (cmpBaseIdx <= baseLen && str[cmpBaseIdx] < str[cmpBorderIdx] ? cmpBaseIdx : cmpBorderIdx)++;
+        bestStr[i] = str[now];
+    }
+    DebugInfo("[5] Simulating greedy algo, whose BaseIdx=%d, BorderIdx=%d\n", cmpBaseIdx, cmpBorderIdx);
+    memcpy(bestStr + cmpBaseIdx + bestBorderLen - 1, str + cmpBaseIdx, n - (cmpBaseIdx - 1) - bestBorderLen);
+    bestStr[n] = '\0';
+    puts(bestStr);
 }
 int main() {
     int testCases;
