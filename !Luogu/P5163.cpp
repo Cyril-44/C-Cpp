@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <algorithm>
+#include <tuple>
+constexpr int N = 100005;
+std::vector<int> g[N];
+int s[N];
+int dfn[N], low[N], ts, sta[N], pres[N];
+void tarjan(int u) {
+    static int sta[N];
+    dfn[u] = low[u] = ++ts;
+    sta[++sta[0]] = u;
+    for (int v : g[u]) {
+        if (!dfn[v]) tarjan(v), low[u] = std::min(low[u], low[v]);
+        else low[u] = std::min(low[u], low[v]);
+    }
+    if (dfn[u] == low[u]) {
+        do pres[sta[sta[0]]] = u;
+        while (sta[sta[0]--] != u);
+    }
+}
+int main() {
+    int n, m, q;
+    scanf("%d%d%d", &n, &m, &q);
+    std::vector<std::pair<int,int>> edgs;
+    std::vector<std::tuple<int,int,int>> dels, mods;
+    std::vector<std::pair<int,int>> ques;
+    edgs.reserve(m);
+    for (int i = 1; i <= n; i++) scanf("%d", &s[i]);
+    for (int i = 1; i <= m; i++) {
+        int x, y;
+        scanf("%d%d", &x, &y);
+        edgs.emplace_back(x, y);
+    }
+    for (int i = 1, opt, x, y; i <= q; i++) {
+        scanf("%d%d%d", &opt, &x, &y);
+        if (opt == 1) {
+            dels.emplace_back(i, x, y);
+        } else if (opt == 2) {
+            mods.emplace_back(i, x, y);
+        } else {
+            ques.emplace_back(i, x, y);
+        }
+    }
+
+    return 0;
+}
