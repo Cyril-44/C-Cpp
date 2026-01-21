@@ -20,10 +20,8 @@ void tarjan(int u) {
     }
 }
 using Edge = std::tuple<int,int,int>; // <u,v,time>
-using Iter = std::vector<Edge>::iterator;
-inline void solve(int l, int r, Iter beg, Iter end) { // 时间在 [l,r] 内的进行处理
-    int mid = l + r >> 1;
-    std::nth_element(beg, beg+mid, end, [mid](const Edge&x, const Edge&y){return std::get<2>(x) < std::get<2>(y);});
+using Iter = std::vector<Edge>::iterator;  
+inline void solve(Iter beg, Iter end) { // 时间在 [beg.t, end.t] 内的进行处理
     
 }
 
