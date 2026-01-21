@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <algorithm>
 #include <tuple>
+#include <set>
 constexpr int N = 100005;
 std::vector<int> g[N];
 int s[N];
@@ -30,7 +31,8 @@ int main() {
     int n, m, q;
     scanf("%d%d%d", &n, &m, &q);
     std::vector<std::pair<int,int>> edgs;
-    std::vector<Edge> dels, mods;
+    std::vector<Edge> adds, mods;
+    std::set<std::pair<int,int>> deleted;
     std::vector<std::pair<int,int>> ques;
     edgs.reserve(m);
     for (int i = 1; i <= n; i++) scanf("%d", &s[i]);
@@ -42,13 +44,16 @@ int main() {
     for (int i = q, opt, x, y; i >= 1; i--) {
         scanf("%d%d%d", &opt, &x, &y);
         if (opt == 1) {
-            dels.emplace_back(i, x, y);
+            adds.emplace_back(i, x, y);
+            deleted.emplace(x, y);
         } else if (opt == 2) {
             mods.emplace_back(i, x, y);
         } else {
             ques.emplace_back(i, x, y);
         }
     }
-
+    for (const auto &i : edgs)
+        if (!deleted.count(i))
+            adds.emplace_back(i.first, i.second, ++q);
     return 0;
 }
