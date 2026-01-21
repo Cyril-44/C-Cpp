@@ -44,6 +44,7 @@ int main() {
         int val = 0;
         for (int v : allcs[clr]) val += getsize(v);
         add(1, val);
+        for (int v : allcs[clr]) add(v, -val);
     }
     for (int i = 1; i <= n; i++) f[i] += f[i-1];
     for (int i = 1; i <= n; i++) printf("%lld\n", n + f[dfn[i][0]]);
