@@ -31,10 +31,10 @@ inline void getSA(int n, char *s, int *sa, int *rk_, int *height, int sigma = 12
     }
     if (rk != rk_) memcpy(rk_, rk, sizeof(int) * (n+1));
     for (int i = 1, k = 0; i <= n; i++) {
-        if (rk[i] == 1) {h[i] = 0; continue;}
+        if (rk[i] == 1) {height[rk[i]] = 0; continue;}
         if (k) --k;
         while (i + k <= n && sa[rk[i]-1] + k <= n && s[i + k] == s[sa[rk[i]-1] + k]) ++k;
-        height[i] = k;
+        height[rk[i]] = k;
     }
 }
 int sa[N], rk[N], h[N], len[N];
@@ -67,8 +67,8 @@ inline void solveSingleTestCase() {
     int bdcnt = 1;
     len[1] = n - frontLen - sa[1] + 1;
     for (int i = 2; i <= n - frontLen; i++) {
-        if (h[i] != n - frontLen - sa[i] + 1) break; // 当 sa[i-1] 是 sa[i] 的 border 的时候才考虑将 sa[i] 设置为 insert string
-        len[++bdcnt] = h[i];
+        if (h[i] != n - frontLen - sa[i-1] + 1) break; // 当 sa[i-1] 是 sa[i] 的 border 的时候才考虑将 sa[i] 设置为 insert string
+        len[++bdcnt] = n - frontLen - sa[i] + 1;
     }
     DebugInfo("[3] Borders (total: %d): ", bdcnt); for (int i = 1; i <= bdcnt; i++) DebugInfo("%d ", len[i]); DebugInfo("\n");
     memcpy(str+1, baseStr+1, baseLen);
@@ -81,8 +81,16 @@ inline void solveSingleTestCase() {
     memcpy(str+frontLen+1, s+frontLen+1, n - frontLen); // 构造 [base]+[other]
     DebugInfo("[4] Constructed Str \"%s\"\n", (str[n+1]=0, str+1));
     getSA(n, str, sa, rk, h);
-    int cmpBaseIdx = 1, bestBorderLen = len[1];
+    int cmpBaseIdx = 1, bestBorderLen = 0;
     for (int i = 1, cmpIdx; i <= bdcnt; i++) { // 依次枚举 border，保证 border_{i-1} \in border_i
+    /*    cmpBaseIdx （两边同时选，比较）
+          |
+          |       borderIdx
+          ↓       ↓
+        aaacddeeeedd
+             ↑
+             cmpIdx （原串）
+    */
         int cmpBorderIdx = n - (len[i] - len[i-1]) + 1;
         bool isBetter = false, isWorse = false;
         for (cmpIdx = cmpBaseIdx; cmpBorderIdx <= n; ++cmpIdx) {
@@ -96,17 +104,17 @@ inline void solveSingleTestCase() {
             DebugInfo("[4.2] {%d, %d} Comparing '%c' and '%c'(#%d)\n", i, cmpIdx, str[cmpIdx], str[now], now);
         }
         if (isWorse) break;
-        else isBetter |= rk[cmpIdx] < rk[cmpBaseIdx] || cmpIdx == cmpBaseIdx;
+        else isBetter |= rk[cmpIdx] > rk[cmpBaseIdx] || cmpIdx == cmpBaseIdx;
         if (isBetter) bestBorderLen = len[i];
         DebugInfo("[4.3] {%d} Current Border Len %d, judged %s\n", i, len[i], isBetter ? "isBetter" : isWorse ? "worse&killed" : "tie");
     }
-    DebugInfo("[4] Calculated best Border Len %d\n", bestBorderLen);
+    DebugInfo("[5] Calculated best Border Len %d\n", bestBorderLen);
     cmpBaseIdx = 1; int cmpBorderIdx = n - bestBorderLen + 1;
     for (int i = 0; cmpBorderIdx <= n; i++) { // 根据 bestBorderLen 模拟建出最优字符串
         int now = (cmpBaseIdx <= baseLen && str[cmpBaseIdx] < str[cmpBorderIdx] ? cmpBaseIdx : cmpBorderIdx)++;
         bestStr[i] = str[now];
     }
-    DebugInfo("[5] Simulating greedy algo, whose BaseIdx=%d, BorderIdx=%d\n", cmpBaseIdx, cmpBorderIdx);
+    DebugInfo("[6] Simulating greedy algo, whose BaseIdx=%d, BorderIdx=%d\n", cmpBaseIdx, cmpBorderIdx);
     memcpy(bestStr + cmpBaseIdx + bestBorderLen - 1, str + cmpBaseIdx, n - (cmpBaseIdx - 1) - bestBorderLen);
     bestStr[n] = '\0';
     puts(bestStr);
@@ -117,3 +125,9 @@ int main() {
     while (testCases--) solveSingleTestCase();
     return 0;
 }
+/* Hacks
+dcddcccedd  =>>  ccccddddde
+abbeaedabe  =>>  aaabbeedbe
+cddadc      =>>  accddd
+edeabcddb   =>>  abdeebcdd
+*/

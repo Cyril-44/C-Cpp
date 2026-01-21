@@ -18,11 +18,19 @@ void tarjan(int u) {
         while (sta[sta[0]--] != u);
     }
 }
+using Edge = std::tuple<int,int,int>; // <u,v,time>
+using Iter = std::vector<Edge>::iterator;
+inline void solve(int l, int r, Iter beg, Iter end) { // 时间在 [l,r] 内的进行处理
+    int mid = l + r >> 1;
+    std::nth_element(beg, beg+mid, end, [mid](const Edge&x, const Edge&y){return std::get<2>(x) < std::get<2>(y);});
+    
+}
+
 int main() {
     int n, m, q;
     scanf("%d%d%d", &n, &m, &q);
     std::vector<std::pair<int,int>> edgs;
-    std::vector<std::tuple<int,int,int>> dels, mods;
+    std::vector<Edge> dels, mods;
     std::vector<std::pair<int,int>> ques;
     edgs.reserve(m);
     for (int i = 1; i <= n; i++) scanf("%d", &s[i]);
@@ -31,7 +39,7 @@ int main() {
         scanf("%d%d", &x, &y);
         edgs.emplace_back(x, y);
     }
-    for (int i = 1, opt, x, y; i <= q; i++) {
+    for (int i = q, opt, x, y; i >= 1; i--) {
         scanf("%d%d%d", &opt, &x, &y);
         if (opt == 1) {
             dels.emplace_back(i, x, y);
