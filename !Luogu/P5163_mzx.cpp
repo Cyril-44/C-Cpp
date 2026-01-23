@@ -6,9 +6,9 @@ using namespace std;
 const int MAXN = 500000 + 10;
 int n, m, q, lsh[MAXN], tot, s[MAXN], rt[MAXN];
 map<pair<int, int>, int> qid;
-struct Edge {
+struct EdgeNode {
     int x, y, t;
-} e[MAXN * 20];
+} e[MAXN/* * 20 */];
 int op[MAXN], a[MAXN], b[MAXN];
 #define mid (l + r >> 1)
 namespace DS {
