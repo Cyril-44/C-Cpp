@@ -1,8 +1,9 @@
+#include <cassert>
+#include <cstdio>
 #include <algorithm>
 #include <array>
 #include <set>
 #include <stack>
-#include <stdio.h>
 #include <tuple>
 #include <vector>
 using LL = long long;
@@ -17,21 +18,22 @@ inline void addedg(int fr, int to) { e[++head[0]] = {to, head[fr]}, head[fr] = h
 
 int s[N], uni[N + M], rt[N + M];
 int dfn[N], low[N], ts, sta[N], present[N];
+bool insta[N];
 
 int fa[N];
 inline int getroot(int u) { return u ^ fa[u] ? fa[u] = getroot(fa[u]) : u; }
 
 void tarjan(int u) {
     dfn[u] = low[u] = ++ts;
-    sta[++sta[0]] = u;
+    sta[++sta[0]] = u, insta[u] = true;
     for (int i = head[u], v; i; i = e[i].nxt) {
         if (!dfn[v = e[i].to])
             tarjan(v), low[u] = std::min(low[u], low[v]);
-        else
+        else if (insta[v])
             low[u] = std::min(low[u], dfn[v]);
     }
     if (dfn[u] == low[u]) {
-        do present[sta[sta[0]]] = u;
+        do present[sta[sta[0]]] = u, insta[sta[sta[0]]] = false;
         while (sta[sta[0]--] != u);
     }
 }
@@ -43,30 +45,36 @@ template <class Iter> void solve(int l, int r, Iter beg, Iter end) { // 时间�
     }
     int mid = l + r >> 1;
     Iter midth = std::upper_bound(beg, end, mid, [](int x, const auto &y) { return x < std::get<2>(y); });
-    std::set<int> pnts;
-    for (Iter i = beg; i != end; ++i) {
-        pnts.insert(U(i));
-        pnts.insert(V(i));
-    }
     
-    head[0] = 0;
-    for (int p : pnts) head[p] = dfn[p] = 0, present[p] = -1;
-    ts = 0;
+    head[0] = ts = 0;
+    for (Iter i = beg; i != end; ++i) {
+        head[U(i)] = dfn[U(i)] = 0, present[U(i)] = -1;
+        head[V(i)] = dfn[V(i)] = 0, present[V(i)] = -1;
+    }
     
     for (Iter i = beg; i != midth; ++i) addedg(U(i), V(i));
-    for (int p : pnts) if (!dfn[p]) tarjan(p);
+    for (Iter i = beg; i != midth; ++i) {
+        if (!dfn[U(i)]) tarjan(U(i));
+        if (!dfn[V(i)]) tarjan(V(i));
+    }
     
     // for (int p : pnts) printf("%d(dfn=%d,low=%d) presented as %d\n", p, dfn[p], low[p], present[p]);
-    for (Iter i = beg; i != midth;) {
-        if (present[U(i)] != present[V(i)]) {
-            U(i) = present[U(i)], V(i) = present[V(i)], T(i) = mid + 1;
-            std::swap(*i, *(--midth)); // 应当分入 [mid+1, r] 的时间
-        } else
-            ++i;
+    std::vector<std::tuple<int,int,int>> add2right;
+    add2right.reserve(midth - beg);
+    Iter realmidth = beg;
+    for (Iter i = beg; i != midth; ++i) {
+        assert(~present[U(i)]), assert(~present[V(i)]);
+        if (present[U(i)] != present[V(i)]) // 一个连通块内点 直接暴力替换成一个相同的点就可以了
+            add2right.emplace_back(present[U(i)], present[V(i)], T(i));
+        else *realmidth++ = *i;
     }
-    for (Iter i = midth; i != end; ++i) { U(i) = present[U(i)], V(i) = present[V(i)]; }
-
-    solve(l, mid, beg, midth), solve(mid + 1, r, midth, end);
+    for (Iter i = midth; i != end; ++i) {
+        if (~present[U(i)]) U(i) = present[U(i)];
+        if (~present[V(i)]) V(i) = present[V(i)];
+    }
+    Iter it = realmidth;
+    for (const auto &el : add2right)  *it++ = el;
+    solve(l, mid, beg, realmidth), solve(mid + 1, r, realmidth, end);
 }
 
 namespace SGT {
@@ -75,7 +83,7 @@ struct SegNode {
     int cnt;
     LL sum;
 };
-std::array<SegNode, N * 30> tr;
+std::array<SegNode, N * 20> tr;
 int bin[N * 20];
 inline void pushup(int u) {
     tr[u].sum = tr[tr[u].ls].sum + tr[tr[u].rs].sum;
@@ -88,7 +96,8 @@ inline void mer(int &u, int v, int l, int r) {
         mer(tr[u].ls, tr[v].ls, l, mid);
         mer(tr[u].rs, tr[v].rs, mid + 1, r);
         bin[++bin[0]] = v;
-        pushup(u);
+        tr[u].sum += tr[v].sum;
+        tr[u].cnt += tr[v].cnt;
     }
 }
 int totcnt = 0;
@@ -105,9 +114,10 @@ inline void upd(int &u, int l, int r) {
 }
 inline LL que(int u, int l, int r, int rnk) {
     if (!u || !rnk) return 0;
-    if (l == r || rnk == tr[u].cnt) return tr[u].sum;
+    if (rnk == tr[u].cnt) return tr[u].sum;
+    if (l == r) return tr[u].sum / tr[u].cnt * std::min(tr[u].cnt, rnk);
     int mid = l + r >> 1;
-    if (tr[tr[u].rs].sum >= X) return que(tr[u].rs, mid + 1, r, rnk);
+    if (tr[tr[u].rs].cnt >= rnk) return que(tr[u].rs, mid + 1, r, rnk);
     return tr[tr[u].rs].sum + que(tr[u].ls, l, mid, rnk - tr[tr[u].rs].cnt);
 }
 inline LL query(int x, int r) {
@@ -123,7 +133,7 @@ inline void merge(int x, int y) {
 inline void debug(int x) {
     if (!x) return;
     if (!tr[x].ls && !tr[x].rs) {
-        printf("(%lld,%d) ", tr[x].sum, tr[x].cnt);
+        fprintf(stderr, "(%lld,%d) ", tr[x].sum, tr[x].cnt);
     } else {
         debug(tr[x].ls);
         debug(tr[x].rs);
@@ -134,9 +144,10 @@ inline void debug(int x) {
 inline void unite(int u, int v) {
     u = getroot(u), v = getroot(v);
     if (u ^ v) {
-        // printf("Unite %d to %d ", u, v);
+        // fprintf(stderr, "Unite %d to %d ", u, v);
+        // SGT::debug(u), fputc('+', stderr), SGT::debug(v), fputc('=', stderr);
         fa[u] = v, SGT::merge(v, u);
-        // SGT::debug(v); putchar('\n');
+        // SGT::debug(v); fputc('\n', stderr);
     }
 }
 inline int getrnk(int s) {
@@ -144,6 +155,7 @@ inline int getrnk(int s) {
 }
 
 int main() {
+    // freopen("P5163_t.in", "r", stdin);
     int n, m, q;
     scanf("%d%d%d", &n, &m, &q);
     std::vector<std::pair<int, int>> edgs;
@@ -173,9 +185,9 @@ int main() {
     for (const auto &i : edgs)
         if (!deleted.count(i)) adds.emplace_back(i.first, i.second, 0);
 
-    // for (auto it = adds.rbegin(); it != adds.rend(); ++it) { printf("%d->%d when time %d\n", U(it), V(it), T(it)); }
+    // for (auto it = adds.rbegin(); it != adds.rend(); ++it) { fprintf(stderr, "%d->%d when time %d\n", U(it), V(it), T(it)); }
     solve(0, q+1, adds.rbegin(), adds.rend());
-    // for (auto it = adds.rbegin(); it != adds.rend(); ++it) { printf("%d->%d when time %d\n", U(it), V(it), T(it)); }
+    // fputs("=--=--=--=--=\n", stderr); for (auto it = adds.rbegin(); it != adds.rend(); ++it) { fprintf(stderr, "%d->%d when time %d\n", U(it), V(it), T(it)); }
 
     for (int i = 1; i <= n; i++) { SGT::update(i, getrnk(s[i]), s[i], 1); }
     std::reverse(ques.begin()+1, ques.end());
@@ -185,7 +197,7 @@ int main() {
         const auto &[opt, x, y] = ques[i];
         switch (opt) {
         case 2:
-            // printf("Make #%d: %d --> %d\n", x, s[x], s[x] - y);
+            // fprintf(stderr, "Make #%d: %d --> %d\n", x, s[x], s[x] - y);
             SGT::update(x, getrnk(s[x]), -s[x], -1);
             s[x] -= y;
             SGT::update(x, getrnk(s[x]), s[x], 1);
@@ -193,12 +205,15 @@ int main() {
         case 3:
             ans.push_back(SGT::query(x, y));
         }
-        /* printf("After oper %d: \n", i);
+        /* fprintf(stderr, "After oper %d (%d,%d,%d) rt%d: \n", i, opt, x, y, getroot(x));
+        fprintf(stderr, "s: ");
+        for (int i = 1; i <= n; i++) fprintf(stderr, "%d ", s[i]);
+        fputc('\n', stderr);
         for (int i = 1; i <= n; i++) {
             if (fa[i] == i) {
-                printf("Group %d: ", i);
+                fprintf(stderr, "Group %d: ", i);
                 SGT::debug(rt[i]);
-                putchar('\n');
+                fputc('\n', stderr);
             }
         } */
     }
