@@ -1,0 +1,119 @@
+01.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 15
+  subtaskId: 1
+
+02.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 15
+  subtaskId: 1
+
+03.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 15
+  subtaskId: 1
+
+04.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 20
+  subtaskId: 1
+
+05.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 20
+  subtaskId: 1
+
+06.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 20
+  subtaskId: 2
+
+07.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 20
+  subtaskId: 2
+
+08.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 30
+  subtaskId: 2
+
+09.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 30
+  subtaskId: 2
+
+10.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 30
+  subtaskId: 2
+
+11.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 30
+  subtaskId: 3
+
+12.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 30
+  subtaskId: 3
+
+13.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 30
+  subtaskId: 3
+
+14.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 35
+  subtaskId: 3
+
+15.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 35
+  subtaskId: 3
+
+16.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 35
+  subtaskId: 4
+
+17.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 35
+  subtaskId: 4
+
+18.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 35
+  subtaskId: 4
+
+19.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 35
+  subtaskId: 4
+
+20.in:
+  timeLimit: 2000
+  memoryLimit: 65536
+  score: 35
+  subtaskId: 4
