@@ -24,7 +24,7 @@ struct BIT {
     inline void upd(int p, long long x) {
         for (; p <= n; p += p & -p) tr[p] += x;
     }
-} f;
+} fvec;
 struct Node {int n, m, a, id;} q[N];
 int ans[N];
 int main() {
@@ -44,11 +44,11 @@ int main() {
     for (int i = 1; i <= Q; i++) {
         for (; it != sigmas.end() && it->first <= q[i].a; ++it)
             for (int j = it->second, k = 1; j <= n; j += it->second, k++)
-                f.upd(j, it->first * mu[k]);
+                fvec.upd(j, it->first * mu[k]);
         long long res = 0;
         for (int l = 1, r, x, y; l <= q[i].n; l = r + 1) {
             r = std::min(q[i].n / (x = q[i].n / l), q[i].m / (y = q[i].m / l));
-            res += f(l, r) * x * y;
+            res += fvec(l, r) * x * y;
         }
         ans[q[i].id] = res & 0x7fffffff;
     }
