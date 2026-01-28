@@ -120,28 +120,28 @@ a = decreasing(2000)
 summary.append((7, 2000, None, "decreasing n=2000"))
 write_test(7, a)
 
-# 08: block reverse n=5000, block_size=50
-a = block_reverse(5000, 50)
-summary.append((8, 5000, None, "block reverse n=5000, block=50"))
+# 08: block reverse n=50000, block_size=50
+a = block_reverse(50000, 50)
+summary.append((8, 50000, None, "block reverse n=50000, block=50"))
 write_test(8, a)
 
-# 09: chunked shuffle n=8192, chunk=32
-a = chunked_shuffle(8192, 32)
-summary.append((9, 8192, None, "chunked shuffle n=8192, chunk=32"))
+# 09: chunked shuffle n=81920, chunk=32
+a = chunked_shuffle(81920, 32)
+summary.append((9, 81920, None, "chunked shuffle n=81920, chunk=32"))
 write_test(9, a)
 
-# 10: mixed increasing chunks n=10000
-a = dense_increasing_blocks(10000, 100)
-summary.append((10, 10000, None, "increasing chunks n=10000 (effectively increasing)"))
+# 10: mixed increasing chunks n=100000
+a = dense_increasing_blocks(100000, 100)
+summary.append((10, 100000, None, "increasing chunks n=100000 (effectively increasing)"))
 write_test(10, a)
 
 # 11-15 : Subtask 3 (|a_i - i| <= 100)
 # We'll produce a series of increasing sizes but always satisfy the bound
-summary.append((11, 10000, None, "|a_i-i|<=100 n=10000"))
-write_test(11, near_identity(10000, window=100))
+summary.append((11, 100000, None, "|a_i-i|<=100 n=100000"))
+write_test(11, near_identity(100000, window=100))
 
-summary.append((12, 20000, None, "|a_i-i|<=100 n=20000"))
-write_test(12, near_identity(20000, window=100))
+summary.append((12, 200000, None, "|a_i-i|<=100 n=200000"))
+write_test(12, near_identity(200000, window=100))
 
 summary.append((13, 50000, None, "|a_i-i|<=100 n=50000"))
 write_test(13, near_identity(50000, window=100))

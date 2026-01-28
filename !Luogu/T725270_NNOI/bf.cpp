@@ -12,6 +12,6 @@ int main() {
             if (p1 <= 0 || p2 > n) break;
             if (a[p1] < a[i] && a[i] < a[p2]) ++cnt;
         }
-    printf("%lld\n", cnt);
+        
     return 0;
 }
