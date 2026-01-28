@@ -1,0 +1,13 @@
+[Unit]
+Description=VSC Code
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/Vscode
+Restart=always
+RestartSec=5
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
