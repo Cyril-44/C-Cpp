@@ -20,13 +20,13 @@
   timeLimit: 2000
   memoryLimit: 65536
   score: 20
-  subtaskId: 1
+  subtaskId: 2
 
 05.in:
   timeLimit: 2000
   memoryLimit: 65536
   score: 20
-  subtaskId: 1
+  subtaskId: 2
 
 06.in:
   timeLimit: 2000
@@ -44,19 +44,19 @@
   timeLimit: 2000
   memoryLimit: 65536
   score: 30
-  subtaskId: 2
+  subtaskId: 3
 
 09.in:
   timeLimit: 2000
   memoryLimit: 65536
   score: 30
-  subtaskId: 2
+  subtaskId: 3
 
 10.in:
   timeLimit: 2000
   memoryLimit: 65536
   score: 30
-  subtaskId: 2
+  subtaskId: 3
 
 11.in:
   timeLimit: 2000
@@ -80,13 +80,13 @@
   timeLimit: 2000
   memoryLimit: 65536
   score: 35
-  subtaskId: 3
+  subtaskId: 4
 
 15.in:
   timeLimit: 2000
   memoryLimit: 65536
   score: 35
-  subtaskId: 3
+  subtaskId: 4
 
 16.in:
   timeLimit: 2000
