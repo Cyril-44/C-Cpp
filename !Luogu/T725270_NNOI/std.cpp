@@ -18,7 +18,7 @@ int main() {
     int m = (n + 63) >> 6;
     vector<ull> low(m, 0), revHigh(m, ~0ULL);
 
-    // mask unused bits in the last word
+    // mask unused bits in the last  ord
     if (n % 64) {
         ull mask = (1ULL << (n % 64)) - 1ULL;
         revHigh[m - 1] &= mask;
