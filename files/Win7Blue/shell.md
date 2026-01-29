@@ -35,7 +35,7 @@ llks -s -m /usr/local/bin/llkk.cnf -o /tmp/xxxxxxxx
 su noi -s /bin/sh
 x11vnc -storepasswd
 openssl rand -base64 20 | cut -c1-20
-x11vnc -viewonly -display :0 -rfbauth ~/.vnc/passwd
+x11vnc -viewonly -display :0 -rfbauth ~/.vnc/passwd &
 ```
 
 `Ew2IEOEcEkTD4aBYwukD`
