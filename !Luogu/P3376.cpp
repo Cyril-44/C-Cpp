@@ -40,7 +40,7 @@ private:
         return false;
     }
     LL dfs(int u, int flow) {
-        if (u == T) return flow;
+        if (u == T) return flow; // 找到汇点返回当前流量！
         LL sum = 0;
         for (int &i = head[u]; i < (int)g[u].size(); ++i) { // 当前弧优化
             auto &[v, cap, bak] = g[u][i];
