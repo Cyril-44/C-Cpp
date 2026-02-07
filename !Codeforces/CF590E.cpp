@@ -1,12 +1,14 @@
 #include <stdio.h>
+#include <array>
 constexpr int N = 755, M = (int)1e7 + 5;
 char str[M];
 bool g[N][N]; // Substr Order Graph
 namespace ACAM {
 struct Node {
     int son[2], fa, fail, id;
-} ac[M];
-int fa[M];
+};
+std::array<Node, M> ac;
+std::array<int, M> fa;
 int tot = 0;
 inline int newnode(int fa) {
     ac[++tot].fa = fa;
@@ -23,7 +25,7 @@ inline int insert(char *s, int id) {
     return u;
 }
 inline void build() {
-    static int que[M];
+    static std::array<int, M> que;
     int head = 0, tail = 0;
     que[tail++] = 0;
     while (head < tail) {
@@ -54,8 +56,12 @@ int main() {
         int u = idx[i];
         for (int u = idx[i]; u; u = ACAM::ac[u].fa) {
             int j = ACAM::find(u);
-            if (j) g[ACAM::ac[j].id][i] = 1; // j \in i
+            if (j) g[ACAM::ac[j].id][i] = true; // j \in i
         }
     }
+    for (int k = 1; k <= n; k++)
+        for (int i = 1; i <= n; i++)
+            for (int j = 1; j <= n; j++)
+                g[i][j] |= g[i][k] & g[k][j];
     return 0;
 }
