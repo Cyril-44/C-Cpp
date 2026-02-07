@@ -1,0 +1,21 @@
+u=1 [0,8) x=0 q[1,6) k2
+u=2 [0,4) x=0 q[1,4) k1
+u=4 [0,2) x=0 q[1,2) k0
+u=9 [1,2) x=0 q[1,2) k-1
+u=5 [2,4) x=0 q[2,4) k0
+u=3 [4,8) x=0 q[4,6) k1
+u=6 [4,6) x=0 q[4,6) k0
+End query!
+u=1 [0,8) x=3 q[1,6) k2
+u=2 [0,4) x=3 q[1,4) k1
+Goto bit x = 1
+u=4 [2,4) x=1 q[3,4) k0
+Goto bit x = 1
+Detected [L,R] [3,4) in [mid, r] [3,4)!
+u=8 [2,3) x=0 q[2,3) k-1
+u=5 [0,2) x=1 q[0,2) k0
+u=3 [4,8) x=3 q[4,6) k1
+Goto bit x = 1
+Detected [L,R] [4,6) in [l, mid] [4,6)!
+u=6 [6,8) x=1 q[6,8) k0
+End query!
