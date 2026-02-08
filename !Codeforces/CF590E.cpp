@@ -1,4 +1,5 @@
 #include <limits>
+#include <set>
 #include <stdio.h>
 #include <string.h>
 #include <type_traits>
@@ -8,7 +9,7 @@
 #include <bitset>
 using LL = long long;
 bool st_;
-constexpr int N = 755, M = (int)1e6 + 5;
+constexpr int N = 755, M = (int)1e7 + 5;
 char str[M];
 using Graph = std::array<std::bitset<N>, N>;
 Graph adj; // Substr Order Graph
@@ -16,9 +17,8 @@ int idx[N];
 namespace ACAM {
 struct Node {
     int son[2], fa, fail, id;
-};
-std::vector<Node> ac(1);
-std::array<int, M> fa;
+} ac[M];
+int fa[M];
 int tot = 0;
 inline int newnode(int fa) {
     ac[++tot].fa = fa;
@@ -35,7 +35,7 @@ inline int insert(char *s, int id) {
     return u;
 }
 inline void build() {
-    static std::array<int, M> que;
+    int que[M];
     int head = 0, tail = 0;
     for (int i = 0; i < 2; i++)
         if (ac[0].son[i]) que[tail++] = ac[0].son[i];
@@ -73,7 +73,7 @@ struct MaxFlow {
         g[to].emplace_back(fr, 0, (int)g[fr].size() - 1);
     }
     inline bool bfs() {
-        static std::array<int, N * N * N> que;
+        static std::array<int, N * 2> que;
         memset(dis, 0, sizeof(int) * (n+1));
         memset(head, 0, sizeof(int) * (n+1));
         int hd = 0, tl = 0;
@@ -119,7 +119,7 @@ struct MaxFlow {
 };
 namespace Solver {
 std::vector<int> edg[N << 1];
-bool vis[N];
+bool vis[N << 1];
 void dfs(int u) {
     if (vis[u]) return;
     vis[u] = true;
@@ -129,28 +129,30 @@ inline void solve(Graph g, int n) {
     for (int k = 1; k <= n; k++)
         for (int i = 1; i <= n; i++)
             if (g[i][k]) g[i] |= g[k];
-    // for (int i = 1; i <= n; i++)
-    //     for (int j = 1; j <= n; j++)
-    //         if (g[i][j]) printf("%d %d\n", i, j);
     int S = 2*n + 1, T = 2*n + 2;
     const auto sender = [](int x) { return (x << 1) - 1; };
-    const auto receiver = [](int x) { return x << 1; };
+    const auto receiver = [](int x) { return (x << 1); };
     MaxFlow mf(n * 2 + 2, S, T);
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
-            if (i ^ j && g[i][j])
+            if (g[i][j])
                 mf.addedg(sender(i), receiver(j), 1);
     for (int i = 1; i <= n; i++)
         mf.addedg(S, sender(i), 1), mf.addedg(receiver(i), T, 1);
     printf("%d\n", n - mf());
+    std::set<int> Y;
+    for (int i = 1; i <= n; i++) Y.insert(receiver(i));
     for (int i = 1; i <= n; i++) {
-        for (const auto &[v, cap, bak] : mf.g[sender(i)])
-            if (cap) // 非匹配点 Y 走非匹配边到 X
+        for (const auto &[v, cap, bak] : mf.g[sender(i)]) {
+            if (cap == 1) // 非匹配点 Y 走非匹配边到 X
                 edg[v].push_back(sender(i));
-            else     // X 走匹配边到 Y
+            if (cap == 0) { // X 走匹配边到 Y
                 edg[sender(i)].push_back(v);
+                Y.erase(v);
+            }
+        }
     }
-    for (int i = 1; i <= n; i++) dfs(receiver(i));
+    for (int i : Y) dfs(i);
     for (int i = 1; i <= n; i++) { // 在 Y 中被访问到的点 \cap 在 X 中未被访问到的点
         if (vis[receiver(i)] && !vis[sender(i)])
             printf("%d ", i);
@@ -170,6 +172,6 @@ int main() {
     ACAM::buildGraph(n);
     Solver::solve(adj, n);
     fprintf(stderr, "Used memory: %gMiB\n", (&ed_-&st_)/1024./1024.);
-    // system("grep Vm /proc/$PPID/status");
+    system("grep Vm /proc/$PPID/status");
     return 0;
 }
