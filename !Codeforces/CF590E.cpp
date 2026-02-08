@@ -1,14 +1,15 @@
+#include <limits>
 #include <stdio.h>
 #include <string.h>
 #include <vector>
-#include <limits>
 #include <array>
 #include <tuple>
 #include <bitset>
 using LL = long long;
 constexpr int N = 755, M = (int)1e7 + 5;
 char str[M];
-std::array<std::bitset<N>, N> adj, g, atp; // Substr Order Graph
+using Graph = std::array<std::bitset<N>, N>;
+Graph adj; // Substr Order Graph
 namespace ACAM {
 struct Node {
     int son[2], fa, fail, id;
@@ -52,8 +53,11 @@ inline int find(int x) { return (x ^ fa[x]) ? (fa[x] = find(fa[x])) : x; }
 int idx[N];
 
 struct MaxFlow {
-    MaxFlow(int n_) : g(new EdgeList[n_+1]), dis(new int[n_+1]), head(new int[n_+1]), maxflow(), n(n_), S(), T() {}
-    inline void set(int s, int t) { S = s, T = t; }
+    MaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), dis(new int[n_+1]), head(new int[n_+1]), maxflow(), n(n_), S(s), T(t) {}
+    inline void addedg(int fr, int to, int c) {
+        g[fr].emplace_back(to, c, (int)g[to].size());
+        g[to].emplace_back(fr, 0, (int)g[fr].size() - 1);
+    }
     inline bool bfs() {
         static std::array<int, N * N * N> que;
         memset(dis, 0, sizeof(int) * (n+1));
@@ -87,14 +91,45 @@ struct MaxFlow {
         }
         return outfl;
     }
-private:
+    inline int operator()() {
+        if (maxflow) return maxflow;
+        while (bfs()) maxflow += dfs(S, std::numeric_limits<decltype(maxflow)>::max());
+        return maxflow;
+    }
+
     using EdgeList = std::vector<std::tuple<int,int,int>>;
     EdgeList *g;
     int *dis, *head;
     int maxflow, n, S, T;
 };
-namespace BinaryGraph {
-
+namespace Solver {
+std::vector<int> edg[N << 1];
+bool vis[N];
+void dfs()
+inline void solve(Graph g, int n) {
+    for (int k = 1; k <= n; k++)
+        for (int i = 1; i <= n; i++)
+            if (g[i][k]) g[i] |= g[k];
+    int S = 2*n + 1, T = 2*n + 2;
+    const auto sender = [](int x) { return x << 1; };
+    const auto receiver = [](int x) { return x << 1 | 1; };
+    MaxFlow mf(n, S, T);
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++)
+            if (i ^ j && g[i][j])
+                mf.addedg(sender(i), receiver(j), 1);
+    for (int i = 1; i <= n; i++)
+        mf.addedg(S, sender(i), 1), mf.addedg(receiver(i), T, 1);
+    mf();
+    for (int i = 1; i <= n; i++) {
+        for (const auto &[v, cap, bak] : mf.g[sender(i)])
+            if (cap) // Y 走匹配边到 X
+                edg[v+1 >> 1].push_back(i);
+            else     // X 走非匹配边到 Y
+                edg[i].push_back(v+1 >> 1);
+    }
+    
+}
 }
 
 int main() {

@@ -15,8 +15,13 @@ int main() {
             int ptr = std::lower_bound(a+1, a+1 + n, mid) - a;
             int right = 0;
             for (int i = ptr; i <= n; i++) {
-                right += 31 - __builtin_clz(a[i] / mid);
+                right += a[i] / mid;
             }
+            int left = 0;
+            for (int i = 1; i < ptr; i++) {
+                left += a[i];
+            }
+            if (left + right < m) return false;
             right = std::min(right, m);
             right += n - ptr + 1;
             if (right >= (n + m + 1 >> 1)) return true;
