@@ -1,25 +1,28 @@
 #include <limits>
 #include <stdio.h>
 #include <string.h>
+#include <type_traits>
 #include <vector>
 #include <array>
 #include <tuple>
 #include <bitset>
 using LL = long long;
-constexpr int N = 755, M = (int)1e7 + 5;
+bool st_;
+constexpr int N = 755, M = (int)1e6 + 5;
 char str[M];
 using Graph = std::array<std::bitset<N>, N>;
 Graph adj; // Substr Order Graph
+int idx[N];
 namespace ACAM {
 struct Node {
     int son[2], fa, fail, id;
 };
-std::array<Node, M> ac;
+std::vector<Node> ac(1);
 std::array<int, M> fa;
 int tot = 0;
 inline int newnode(int fa) {
     ac[++tot].fa = fa;
-    return ++tot;
+    return tot;
 }
 inline int insert(char *s, int id) {
     int u = 0;
@@ -34,7 +37,8 @@ inline int insert(char *s, int id) {
 inline void build() {
     static std::array<int, M> que;
     int head = 0, tail = 0;
-    que[tail++] = 0;
+    for (int i = 0; i < 2; i++)
+        if (ac[0].son[i]) que[tail++] = ac[0].son[i];
     while (head < tail) {
         int u = que[head++];
         for (int i = 0; i < 2; i++)
@@ -49,8 +53,18 @@ inline void build() {
         fa[i] = ac[i].id ? i : ac[i].fail;
 }
 inline int find(int x) { return (x ^ fa[x]) ? (fa[x] = find(fa[x])) : x; }
+inline void buildGraph(int n) {
+    for (int i = 1; i <= n; i++) {
+        int j = find(ac[idx[i]].fail);
+        if (j) adj[ac[j].id][i] = true;
+        for (int u = ac[idx[i]].fa; u; u = ac[u].fa) {
+            int j = find(u);
+            // printf("In %d, node %d(0_%d,1_%d,f_%d) found %d(0_%d,1_%d,f_%d,id:%d)\n", i, u, ac[u].son[0], ac[u].son[1], ac[u].fail, j, ac[j].son[0], ac[j].son[1], ac[j].fail, ac[j].id);
+            if (j) adj[ac[j].id][i] = true; // j \in i
+        }
+    }
 }
-int idx[N];
+}
 
 struct MaxFlow {
     MaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), dis(new int[n_+1]), head(new int[n_+1]), maxflow(), n(n_), S(s), T(t) {}
@@ -76,6 +90,7 @@ struct MaxFlow {
         return false;
     }
     int dfs(int u, int infl) {
+        if (u == T) return infl;
         int outfl = 0;
         for (int &i = head[u]; i ^ (int)g[u].size(); i++) {
             auto &[v, cap, bak] = g[u][i];
@@ -105,33 +120,45 @@ struct MaxFlow {
 namespace Solver {
 std::vector<int> edg[N << 1];
 bool vis[N];
-void dfs()
+void dfs(int u) {
+    if (vis[u]) return;
+    vis[u] = true;
+    for (int v : edg[u]) dfs(v);
+}
 inline void solve(Graph g, int n) {
     for (int k = 1; k <= n; k++)
         for (int i = 1; i <= n; i++)
             if (g[i][k]) g[i] |= g[k];
+    // for (int i = 1; i <= n; i++)
+    //     for (int j = 1; j <= n; j++)
+    //         if (g[i][j]) printf("%d %d\n", i, j);
     int S = 2*n + 1, T = 2*n + 2;
-    const auto sender = [](int x) { return x << 1; };
-    const auto receiver = [](int x) { return x << 1 | 1; };
-    MaxFlow mf(n, S, T);
+    const auto sender = [](int x) { return (x << 1) - 1; };
+    const auto receiver = [](int x) { return x << 1; };
+    MaxFlow mf(n * 2 + 2, S, T);
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
             if (i ^ j && g[i][j])
                 mf.addedg(sender(i), receiver(j), 1);
     for (int i = 1; i <= n; i++)
         mf.addedg(S, sender(i), 1), mf.addedg(receiver(i), T, 1);
-    mf();
+    printf("%d\n", n - mf());
     for (int i = 1; i <= n; i++) {
         for (const auto &[v, cap, bak] : mf.g[sender(i)])
-            if (cap) // Y 走匹配边到 X
-                edg[v+1 >> 1].push_back(i);
-            else     // X 走非匹配边到 Y
-                edg[i].push_back(v+1 >> 1);
+            if (cap) // 非匹配点 Y 走非匹配边到 X
+                edg[v].push_back(sender(i));
+            else     // X 走匹配边到 Y
+                edg[sender(i)].push_back(v);
     }
-    
+    for (int i = 1; i <= n; i++) dfs(receiver(i));
+    for (int i = 1; i <= n; i++) { // 在 Y 中被访问到的点 \cap 在 X 中未被访问到的点
+        if (vis[receiver(i)] && !vis[sender(i)])
+            printf("%d ", i);
+    }
+    putchar('\n');
 }
 }
-
+bool ed_;
 int main() {
     int n;
     scanf("%d", &n);
@@ -140,13 +167,9 @@ int main() {
         idx[i] = ACAM::insert(str, i);
     }
     ACAM::build();
-    for (int i = 1; i <= n; i++) {
-        int u = idx[i];
-        for (int u = idx[i]; u; u = ACAM::ac[u].fa) {
-            int j = ACAM::find(u);
-            if (j) adj[ACAM::ac[j].id][i] = true; // j \in i
-        }
-    }
-    
+    ACAM::buildGraph(n);
+    Solver::solve(adj, n);
+    fprintf(stderr, "Used memory: %gMiB\n", (&ed_-&st_)/1024./1024.);
+    // system("grep Vm /proc/$PPID/status");
     return 0;
 }
