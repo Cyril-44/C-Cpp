@@ -1,6 +1,4 @@
 #include <bits/stdc++.h>
-#include <bits/types/FILE.h>
-#include <cstdio>
 constexpr int N = 10000;
 template<typename Tp>
 struct MaxFlow {
@@ -65,25 +63,30 @@ int main() {
     int S = 1, T = N;
     MaxFlow<int> mf(T, S, T);
     // 每次x加进来，肯定会附加在一个链上面，不可能说来两个然后两个变成一个，因为 9 ... 16, 在这里面 6->10，不会存在加进来一个数不连边的情况 ==> 也就是这里的 x-mf() 是单调的    
+    mf.addedg(S, 1<<1, 1);
+    mf.addedg(1<<1|1, T, 1);
     while (x - mf() <= n) {
         ++x;
-        if (sqr * sqr < x) {
+        if (sqr * sqr-1 <= x) {
             ++sqr;
-            for (int i = 1, j = sqr*sqr - 1, tp = sqr * sqr - 1 >> 1; i <= tp; i++, j--)
+            for (int i = 1, j = sqr*sqr - 1, tp = sqr * sqr - 1 >> 1; i <= tp; i++, j--) {
+                fprintf(stderr, "added, %d-->%d\n", i, j);
                 mf.addedg(i <<1, j <<1|1, 1);
+            }
         }
         mf.addedg(S, x <<1, 1);
         mf.addedg(x <<1|1, T, 1);
+        fprintf(stderr, "At x=%d, found chain count %d\n", x, x - mf());
     }
     // 最后一个 x 是不行的 不能要
     printf("%d\n", x - 1);
-    for (int u = 1; u <= x; u++)
+    for (int u = 1; u < x; u++)
         for (const auto &[v, cap, bak] : mf.g[u << 1])
             if (cap == 0 && v != S && v != T) {
                 to[u] = v >> 1, hasin[v >> 1] = true;
                 break;
             }
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i < x; i++) {
         if (!hasin[i]) {
             for (int u = i; u; u = to[u])
                 printf("%d ", u);
