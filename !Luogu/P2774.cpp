@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
-#include <cassert>
-constexpr int N = 10000;
+constexpr int N = 105;
 template<typename Tp>
 struct MaxFlow {
     MaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), dis(new int[n_+1]), head(new int[n_+1]), n(n_), S(s), T(t), modified(false), maxflow() {}
@@ -12,7 +11,7 @@ struct MaxFlow {
     }
     inline bool bfs() {
         modified = true;
-        static int que[N + 5 << 1];
+        static int que[N * N];
         memset(dis, 0, sizeof(int) * (n+1));
         memset(head, 0, sizeof(int) * (n+1));
         int hd = 0, tl = 0;
@@ -50,45 +49,27 @@ struct MaxFlow {
     bool modified;
     Tp maxflow;
 };
-/* 最小路径覆盖建模！
-题意可以先转化为求最小的 x 使得将 1~x 可以按照要求分成 n 组之。
-想到可以使用二分
-然后变成 DAG 建模，每个数可以与它的对偶连边，然后。。。然后就可以做了。
-*/
-int to[N];
-bool hasin[N];
+int a[N][N];
 int main() {
-    int n;
-    scanf("%d", &n);
-    int S = 0, T = 1;
-    MaxFlow<int> mf(4001, S, T);
-    for (int i = 1; i <= 2000; i++)
-        for (int j = 1; ; j++)
-            if (j * j - i > i) {
-                if (j * j - i > 2000) break;
-                mf.addedg(i << 1, j * j - i << 1 | 1, 1);
-                // fprintf(stderr, "Added %d-->%d\n", i, j*j-i);
+    int n, m;
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= m; j++)
+            scanf("%d", &a[i][j]);
+    int S=0, T=n*m+1;
+    MaxFlow<int> mf(T, S, T);
+    auto idgen = [&](int x, int y) { return (x - 1) * m + y; };
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= m; j++) {
+            int id = (i - 1) * m + j;
+            if (id & 1) {
+                for (const auto &[dx, dy] : {std::pair<int,int>{-1,0}, {0,1}, {1,0}, {0,-1}}) {
+                    int tx = i + dx, ty = j + dy;
+                    if (1 <= tx && tx <= n && 1 <= ty && ty <= m) {
+                        mf.addedg(idgen(tx, ty), idgen(i, j), 1);
+                    }
+                }
             }
-    int x = 0;
-    while (x - mf() <= n) {
-        ++x;
-        mf.addedg(S, x << 1, 1);
-        mf.addedg(x << 1 | 1, T, 1);
-    }
-    // 最后一个 x 是不行的 不能要
-    for (int u = 1; u < x; u++)
-        for (const auto &[v, cap, bak] : mf.g[u << 1])
-            if (cap == 0 && v != S && v != T) {
-                to[u] = v >> 1, hasin[v >> 1] = true;
-                break;
-            }
-    printf("%d\n", x - 1);
-    for (int i = 1; i < x; i++) {
-        if (!hasin[i]) {
-            for (int u = i; u; u = to[u])
-                printf("%d ", u);
-            putchar('\n');
         }
-    }
     return 0;
 }

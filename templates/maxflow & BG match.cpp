@@ -2,14 +2,16 @@
 constexpr int N = 205;
 template<typename Tp>
 struct MaxFlow {
-    MaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), dis(new int[n_+1]), head(new int[n_+1]), n(n_), S(s), T(t), maxflow() {}
+    MaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), dis(new int[n_+1]), head(new int[n_+1]), n(n_), S(s), T(t), modified(false), maxflow() {}
     ~MaxFlow() { delete[] g; delete[] dis; delete[] head; }
     inline void addedg(int fr, int to, Tp c) {
+        modified = true;
         g[fr].emplace_back(to, c, (int)g[to].size());
         g[to].emplace_back(fr, Tp(0), (int)g[fr].size() - 1);
     }
     inline bool bfs() {
-        static int que[N * N];
+        modified = true;
+        static int que[$];
         memset(dis, 0, sizeof(int) * (n+1));
         memset(head, 0, sizeof(int) * (n+1));
         int hd = 0, tl = 0;
@@ -37,13 +39,14 @@ struct MaxFlow {
         return outfl;
     }
     inline Tp operator()() {
-        if (maxflow) return maxflow;
+        if (!modified) return maxflow;
         while (bfs()) maxflow += dfs(S, std::numeric_limits<Tp>::max());
         return maxflow;
     }
     using EdgeList = std::vector<std::tuple<int, Tp, int>>;
     EdgeList *g;
     int *dis, *head, n, S, T;
+    bool modified;
     Tp maxflow;
 };
 namespace Binary {
