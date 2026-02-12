@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-constexpr int N = 205;
 template<typename Tp>
 struct MaxFlow {
     MaxFlow(int n_, int s, int t) : n(n_), S(s), T(t), level(), g(n_+1), height(n_+1), gap(n_+1), extraFlow(n_+1), h(n_+1) {} 
@@ -70,30 +69,33 @@ struct MaxFlow {
     std::vector<Tp> extraFlow;
     std::vector<std::stack<int>> h;
 };
-bool block[N][N];
 int main() {
     int n, m;
     scanf("%d%d", &n, &m);
-    int S=0, T=n*n+1;
+    int S=0, T=n+m+1;
     MaxFlow<int> mf(T, S, T);
-    for (int x, y, i=1; i<=m; i++) {
-        scanf("%d%d", &x, &y);
-        block[x][y] = true;
+    int rsum = 0;
+    for (int i = 1, ri; i <= n; i++) {
+        scanf("%d", &ri);
+        rsum += ri;
+        mf(S, i, ri);
+    }
+    for (int i = 1, ci; i <= m; i++) {
+        scanf("%d", &ci);
+        mf(i+n, T, ci);
     }
     for (int i = 1; i <= n; i++)
-        for (int j = 1; j <= n; j++)
-            if ((i&1)^(j&1)){
-                if (!block[i][j]) {
-                    mf(S, (i-1)*n+j, 1);
-                    for (const auto &[dx, dy] : {std::pair<int,int>{-2,1},{-1,2},{1,2},{2,1},{1,-2},{2,-1},{-1,-2},{-2,-1}}) {
-                        int tx = i + dx, ty = j + dy;
-                        if (1 <= tx && tx <= n && 1 <= ty && ty <= n && !block[tx][ty])
-                            mf((i-1)*n+j, (tx-1)*n+ty, n*n-m);
-                    }
-                }
-            } else {
-                if (!block[i][j]) mf((i-1)*n+j, T, 1);
-            }
-    printf("%d\n", n*n - m - mf());
+        for (int j = 1; j <= m; j++)
+            mf(i, j+n, 1);
+    if (mf() != rsum) puts("0");
+    else {
+        puts("1");
+        for (int i = 1; i <= n; i++) {
+            for (const auto &[v, cap, bak] : mf.g[i])
+                if (n < v && v <= n+m && !cap)
+                    printf("%d ", v - n);
+            putchar('\n');
+        }
+    }
     return 0;
 }
