@@ -2,56 +2,73 @@
 constexpr int N = 205;
 template<typename Tp>
 struct MaxFlow {
-    MaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), dis(new int[n_+1]), head(new int[n_+1]), n(n_), S(s), T(t), modified(false), maxflow() {}
-    ~MaxFlow() { delete[] g; delete[] dis; delete[] head; }
-    inline void addedg(int fr, int to, Tp c) {
-        modified = true;
+    MaxFlow(int n_, int s, int t) : n(n_), S(s), T(t), level(), g(n_+1), height(n_+1), gap(n_+1), extraFlow(n_+1), h(n_+1) {} 
+    inline void operator()(int fr, int to, Tp c) {
         g[fr].emplace_back(to, c, (int)g[to].size());
-        g[to].emplace_back(fr, Tp(0), (int)g[fr].size() - 1);
+        g[to].emplace_back(fr, 0, (int)g[fr].size() - 1);
+    }
+    inline bool push(int u) { // 通过 height[u]=height[v]+1 的边推送超额流 (返回true表示推送完了，false没有推送完)
+        for (auto &[v, cap, bak] : g[u])
+            if (cap && (u == S && height[v] != 0x3f3f3f3f || height[u] == height[v] + 1)) {
+                Tp fl = (u == S) ? cap : std::min(cap, extraFlow[u]);
+                if (v != S && v != T && !extraFlow[v]) h[height[v]].push(v), level = std::max(level, height[v]); // GAP 优化
+                extraFlow[u] -= fl, extraFlow[v] += fl, cap -= fl, std::get<1>(g[v][bak]) += fl;
+                if (!extraFlow[u]) return false;
+            }
+        return true;
+    }
+    inline void relabel(int u) { // 通过残量网络中的临边重贴高度 height
+        height[u] = 0x3f3f3f3f;
+        for (const auto &[v, cap, bak] : g[u])
+            if (cap) height[u] = std::min(height[u], height[v]);
+        if (++height[u] < n) { // GAP优化：只处理 height < n 的节点
+            h[height[u]].push(u);
+            level = std::max(level, height[u]);
+            ++gap[height[u]];
+        }
     }
     inline bool bfs() {
-        modified = true;
-        static int que[N * N];
-        memset(dis, 0, sizeof(int) * (n+1));
-        memset(head, 0, sizeof(int) * (n+1));
-        int hd = 0, tl = 0;
-        que[tl++] = S; dis[S] = 1;
-        while (hd ^ tl) {
-            int u = que[hd++];
+        std::fill(height.begin(), height.end(), 0);
+        std::queue<int> q;
+        q.push(T), height[T] = 0; // 反向BFS，生成初始 height
+        while (!q.empty()) {
+            int u = q.front(); q.pop();
             for (const auto &[v, cap, bak] : g[u])
-                if (cap && !dis[v]) {
-                    dis[v] = dis[u] + 1;
-                    if (v == T) return true;
-                    que[tl++] = v;
-                }
+                if (std::get<1>(g[v][bak]) && height[v] > height[u] + 1)
+                    height[v] = height[u] + 1, q.push(v);
         }
-        return false;
+        return height[S] != 0x3f3f3f3f;
     }
-    Tp dfs(int u, Tp infl) {
-        if (u == T) return infl;
-        Tp outfl{};
-        for (int &i = head[u]; i ^ (int)(g[u].size()); i++) {
-            auto &[v, cap, bak] = g[u][i];
-            if (cap && dis[v] == dis[u] + 1) {
-                Tp fl = dfs(v, std::min(cap, infl));
-                if (fl) {
-                    infl -= fl, outfl += fl;
-                    cap -= fl, std::get<1>(g[v][bak]) += fl;
-                } else dis[v] = -1;
-            }
-        }
-        return outfl;
+    inline int selectHighest() { // 选出 height 最大的节点
+        while (level >= 0 && h[level].empty()) --level;
+        if (level < 0) return 0;
+        int ret = h[level].top();
+        h[level].pop();
+        return ret;
     }
     inline Tp operator()() {
-        if (!modified) return maxflow;
-        while (bfs()) maxflow += dfs(S, std::numeric_limits<Tp>::max());
-        return maxflow;
+        if (extraFlow[T]) return extraFlow[T];
+        if (!bfs()) return 0;
+        for (int i = 0; i <= n; i++)
+            if (height[i] != 0x3f3f3f3f) gap[height[i]]++;
+        height[S] = n;
+        push(S);
+        for (int u; u = selectHighest(); )
+            if (push(u)) { // 处理仍然溢出
+                if (!--gap[height[u]])
+                    for (int i = 0; i <= n; i++)
+                        if (i != S && height[i] > height[u] && height[i] <= n)
+                            height[i] = n + 1;
+                relabel(u);
+            }
+        return extraFlow[T];
     }
-    using EdgeList = std::vector<std::tuple<int, Tp, int>>;
-    EdgeList *g;
-    int *dis, *head, n, S, T;
-    bool modified;
-    Tp maxflow;
+    int n, S, T;
+    int level;
+    std::vector<std::vector<std::tuple<int,Tp,int>>> g;
+    std::vector<int> height, gap;
+    std::vector<Tp> extraFlow;
+    std::vector<std::stack<int>> h;
 };
 bool block[N][N];
 int main() {
@@ -67,15 +84,15 @@ int main() {
         for (int j = 1; j <= n; j++)
             if ((i&1)^(j&1)){
                 if (!block[i][j]) {
-                    mf.addedg(S, (i-1)*n+j, 1);
+                    mf(S, (i-1)*n+j, 1);
                     for (const auto &[dx, dy] : {std::pair<int,int>{-2,1},{-1,2},{1,2},{2,1},{1,-2},{2,-1},{-1,-2},{-2,-1}}) {
                         int tx = i + dx, ty = j + dy;
                         if (1 <= tx && tx <= n && 1 <= ty && ty <= n && !block[tx][ty])
-                            mf.addedg((i-1)*n+j, (tx-1)*n+ty, n*n-m);
+                            mf((i-1)*n+j, (tx-1)*n+ty, n*n-m);
                     }
                 }
             } else {
-                if (!block[i][j]) mf.addedg((i-1)*n+j, T, 1);
+                if (!block[i][j]) mf((i-1)*n+j, T, 1);
             }
     printf("%d\n", n*n - m - mf());
     return 0;
