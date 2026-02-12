@@ -20,32 +20,35 @@ using namespace std;using pii_t=pair<int,int>;using pll_t=pair<int64_t,int64_t>;
 
 constexpr int N = 200005;
 char s[N];
-int x[N], y[N];
+/*
+注意到两种括号互不影响，先分开来看看
+遇到非法的括号，把他们拎出来，比如 )))(((，这里是有办法使用 len/2 的次数变成合法的。
+但是如果两组的非法括号刚刚好**都是奇数**（不可能是偶数，n - 配对()*2 - 配对[]*2 一定是偶数）
+此时，可以 ]](( 同样 len/2 次数。
+但是注意 如果遇到这种 ]( 那必须要两次，也就是 len/2+1
+所以对于这种特判一下就好了
+取不合法的最后面的 ] 与最前面的 (，如果 pos] < pos( 就要ans++
+同理 )[，)(，](
+两个同时需要 ans++ 的时候，ans才可以++，因为注意到当前是奇数，所以两两配对，如果一个可以另外一种就不用考虑了，两种配对都不行才要 ans++
+*/
 inline void solveSingleTestCase() {
     int n;
     cin >> n >> s;
+    int x = 0, y = 0, fx = 0, fy = 0;
+    int lastr = 0, frontxl = n+1, frontyl = n+1;
     For (i, 1, n) switch (s[i-1]) {
-        case '[': ++x[i]; break;
-        case ']': --x[i]; break;
-        case '(': ++y[i]; break;
-        case ')': --y[i]; break;
+           case '[': ++x; if (x == 1) frontxl = i;
+    break; case ']': --x; if (x == -1) ++fx, x = 0, lastr = i; if (!x) frontxl = n+1;
+    break; case '(': ++y; if (y == 1) frontyl = i;
+    break; case ')': --y; if (y == -1) ++fy, y = 0, lastr = i; if (!y) frontyl = n+1;
     }
-    For (i, 1, n) x[i] += x[i-1], y[i] += y[i-1];
-    int xp = min_element(x+1, x+1 + n) - x,
-        yp = min_element(y+1, y+1 + n) - y;
-    if (x[xp] > 0 && y[yp] < 0) {
-        cout << (x[n] + (y[n] - y[yp] * 2)) / 2 << '\n';
-    } else if (x[xp] < 0 && y[yp] > 0) {
-        cout << ((x[n] - x[xp] * 2) + y[n]) / 2 << '\n';
-    } else if (x[xp] > 0 && y[yp] > 0) {
-        cout << (x[n] + y[n]) / 2 << '\n';
-    } else {
-        cout << ((x[n] - x[xp] * 2) + (y[n] - y[yp] * 2)) / 2 << '\n';
-    }
+    int ans = (x + y + fx + fy) / 2;
+    if ((x + y) & 1 && lastr < std::min(frontxl, frontyl)) ++ans;
+    cout << ans << '\n';
 }
 int main() {
-    cin.tie(nullptr) -> sync_with_stdio(false);
     int testCases = 1;
+    cin.tie(nullptr) -> sync_with_stdio(false);
 #ifdef MULTI_TEST_CASES
     cin >> testCases;
 #endif
