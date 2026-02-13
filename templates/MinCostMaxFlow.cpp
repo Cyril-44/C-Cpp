@@ -1,10 +1,8 @@
 #include <bits/stdc++.h>
-constexpr int N = 2005;
-
 template<typename Tp>
-struct MinCostMaxFlow {
-    MinCostMaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), head(new int[n_+1]), dis(new Tp[n_+1]), vis(new bool[n_+1]), n(n_), S(s), T(t), maxflow(), mincost() {}
-    ~MinCostMaxFlow() { delete[] g; delete[] head; delete[] dis; }
+struct MaxCostMaxFlow {
+    MaxCostMaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), head(new int[n_+1]), dis(new Tp[n_+1]), vis(new bool[n_+1]), n(n_), S(s), T(t), maxflow(), mincost() {}
+    ~MaxCostMaxFlow() { delete[] g; delete[] head; delete[] dis; }
     inline void operator()(int fr, int to, Tp c1, Tp c2) {
         g[fr].emplace_back(to, c1, c2, (int)g[to].size());
         g[to].emplace_back(fr, 0, -c2, (int)g[fr].size() - 1);
@@ -26,7 +24,7 @@ struct MinCostMaxFlow {
                 }
             }
         }
-        return dis[T] != 0x3f3f3f3f3f3f3f3fll;
+        return dis[T] != (Tp)0x3f3f3f3f3f3f3f3fll;
     }
     Tp dfs(int u, Tp infl) {
         if (u == T) return infl;
