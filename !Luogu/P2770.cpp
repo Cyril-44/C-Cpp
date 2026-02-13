@@ -2,7 +2,7 @@
 constexpr int N = 105;
 template<typename Tp>
 struct MaxCostMaxFlow {
-    MaxCostMaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), head(new int[n_+1]), dis(new Tp[n_+1]), vis(new bool[n_+1]), n(n_), S(s), T(t), maxflow(), mincost() {}
+    MaxCostMaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), head(new int[n_+1]), dis(new Tp[n_+1]), vis(new bool[n_+1]), n(n_), S(s), T(t), maxflow(), maxcost() {}
     ~MaxCostMaxFlow() { delete[] g; delete[] head; delete[] dis; }
     inline void operator()(int fr, int to, Tp c1, Tp c2) {
         g[fr].emplace_back(to, c1, c2, (int)g[to].size());
@@ -36,7 +36,7 @@ struct MaxCostMaxFlow {
             if (cap && !vis[v] && dis[v] == dis[u] + cost) {
                 Tp fl = dfs(v, std::min(infl, cap));
                 if (fl) {
-                    mincost += fl * cost;
+                    maxcost += fl * cost;
                     infl -= fl, outfl += fl;
                     cap -= fl, std::get<1>(g[v][bak]) += fl;
                 }
@@ -47,7 +47,7 @@ struct MaxCostMaxFlow {
     }
     inline std::pair<Tp,Tp> operator()() {
         while (spfa()) maxflow += dfs(S, std::numeric_limits<Tp>::max());
-        return {maxflow, mincost};
+        return {maxflow, maxcost};
     }
     using EdgeList = std::vector<std::tuple<int,Tp,Tp,int>>;
     EdgeList *g;
@@ -55,7 +55,7 @@ struct MaxCostMaxFlow {
     Tp *dis;
     bool *vis;
     int n, S, T;
-    Tp maxflow, mincost;
+    Tp maxflow, maxcost;
 };
 std::string name[N];
 int to[N];
