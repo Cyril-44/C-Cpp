@@ -25,6 +25,7 @@ inline void getSA(int n, char *s, int *sa, int *rk_, int *height, int sigma = 12
     }
     if (rk != rk_) memcpy(rk_+1, rk+1, sizeof(int) * n);
     for (int i = 1, k = 0; i <= n; i++) {
+        if (rk[i] == 1) continue;
         if (k) --k;
         while (i+k<=n && sa[rk[i]-1]+k<=n && s[i + k] == s[sa[rk[i] - 1] + k]) ++k;
         height[rk[i]] = k;
