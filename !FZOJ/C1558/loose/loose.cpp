@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <set>
 #include <vector>
+#include <array>
 #pragma GCC optimize(2)
 #pragma GCC optimize("unroll-loops", "inline", "no-stack-protector")
 constexpr int N = 100005;
@@ -38,14 +39,10 @@ inline void getsa(int n, char *s, int *sa, int *rk_, int *height, int sigma = 12
         height[rk[i]] = k;
     }
 }
-namespace PSGT {
-int mx[N * 50];
-int tot;
-void upd(){
-    
-}
-}
+std::pair<int,int> range[N];
 std::vector<int> add1[N], del1[N], add2[N], del2[N];
+inline void umin(int &x, int y) { x = std::min(x, y); }
+inline void umax(int &x, int y) { x = std::max(x, y); }
 int main() {
     int tid, n, q;
     scanf("%d%d%d %s", &tid, &n, &q, s + 1);
@@ -55,21 +52,29 @@ int main() {
         for (int i = 1; i <= m; i++)
             add1[i].clear(), add2[i].clear(), del1[i].clear(), del2[i].clear();
         getsa(m, s + l - 1, sa, rk, height);
-        std::multiset<int> val1, val2; // 1维护一次函数，2维护常函数
+        for (int i = 1; i <= m; i++) range[i] = {m+1, 0};
         for (int i = 2; i <= m; i++) {
-            int p1 = sa[i-1], p2 = sa[i];
-            if (p1 > p2) std::swap(p1, p2);
-            int incR = std::min(p2 + 1, p1 + height[i]);
-            add1[p1].push_back(1 - p1);
-            del1[incR].push_back(1 - p1);
-            if (p1 + height[i] <= p2) {
-                add2[p1 + height[i]].push_back(height[i]);
-                del2[p2 + 1].push_back(height[i]);
+            umin(range[height[i]].first, std::min(sa[i-1], sa[i]));
+            umax(range[height[i]].second, std::max(sa[i-1], sa[i]));
+        }
+        for (int i = m-1; i >= 1; i--) {
+            umin(range[i].first, range[i+1].first);
+            umax(range[i].second, range[i+1].second);
+        }
+        std::multiset<int> val1, val2; // 1维护一次函数，2维护常函数
+        for (int h = 1; h <= m; h++) {
+            int pl = range[h].first, pr = range[h].second;
+            if (pl > pr) break;
+            int incR = std::min(pr + 1, pl + h);
+            add1[pl].push_back(1 - pl);
+            del1[incR].push_back(1 - pl);
+            if (pl + h <= pr) {
+                add2[pl + h].push_back(h);
+                del2[pr + 1].push_back(h);
             }
-            fprintf(stderr, "p1=%d, p2=%d, h=%d\n", p1, p2, height[i]);
+            // fprintf(stderr, "p=[%d,%d] h=%d\n", pl, pr, h);
         }
         int ans = 0;
-        val1.clear(), val2.clear();
         val1.insert(-m), val2.insert(0);
         for (int i = 1; i <= m; i++) {
             for (int x : add1[i]) val1.insert(x);
@@ -77,19 +82,8 @@ int main() {
             for (int x : add2[i]) val2.insert(x);
             for (int x : del2[i]) val2.erase(val2.find(x));
             ans ^= i + std::max({1, *val1.rbegin() + i, *val2.rbegin()});
-            fprintf(stderr, "(%d,%d) ", *val1.rbegin() + i, *val2.rbegin());
+            // fprintf(stderr, "(%d,%d) ", *val1.rbegin() + i, *val2.rbegin());
         }
-        fprintf(stderr, "\n");
-        val1.clear(), val2.clear();
-        val1.insert(-m), val2.insert(0);
-        for (int i = 1; i <= m; i++) {
-            for (int x : add1[i]) val1.insert(x);
-            for (int x : del1[i]) val1.erase(val1.find(x));
-            for (int x : add2[i]) val2.insert(x);
-            for (int x : del2[i]) val2.erase(val2.find(x));
-            fprintf(stderr, "%d ", std::max({1, *val1.rbegin() + i, *val2.rbegin()}));
-        }
-        fprintf(stderr, "\n");
         printf("%d\n", ans);
     }
     return 0;
