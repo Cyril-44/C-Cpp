@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-constexpr int N = 205;
+#define Inline [[gnu::always_inline]] inline
+class FastIS{static constexpr size_t h=1<<20;char o[h];char*t,*v;FILE*K;public:FastIS(FILE*B=stdin):t(nullptr),v(nullptr),K(B){}~FastIS(){fclose(K);}Inline int get(){return(t==v)&&(v=(t=o)+fread(o,1,h,K),t==v)?EOF:*t++;}template<typename j>typename std::enable_if<std::is_unsigned<j>::value&&std::is_integral<j>::value,FastIS&>::type inline operator>>(j&d){int a=get();while(~a&&(a<'0'||a>'9'))a=get();for(d=0;a>='0'&&a<='9';a=get())d=(d<<3)+(d<<1)+(a^'0');return*this;}template<typename j>typename std::enable_if<std::is_signed<j>::value&&std::is_integral<j>::value&&!std::is_same<j,bool>::value&&!std::is_same<j,char>::value,FastIS&>::type inline operator>>(j&d){int a=get();bool L=false;while(~a&&(a<'0'||a>'9')&&(a^'-'))a=get();if(a=='-')a=get(),L=true;for(d=0;a>='0'&&a<='9';a=get())d=(d<<3)+(d<<1)+(a^'0');d=L?-d:d;return*this;}template<typename j>typename std::enable_if<std::is_floating_point<j>::value,FastIS&>::type inline operator>>(j&d){int a=get();bool L=false;while(~a&&(a<'0'||a>'9')&&(a^'-'))a=get();if(a=='-')a=get(),L=true;using G=typename std::conditional<std::is_same<j,float>::value,std::uint32_t,std::uint64_t>::type;G I;for(I=0;a>='0'&&a<='9';a=get())I=(I<<3)+(I<<1)+(a^'0');d=I;if(a=='.'){G w=1;for(a=get();a>='0'&&a<='9';a=get())d+=(a^'0')*(1./(w*=10));}if(L)d=-d;return*this;}inline FastIS&operator>>(bool&U){int a=get();while(~a&&a!='0'&&a!='1')a=get();U=static_cast<bool>(a&1);return*this;}inline FastIS&operator>>(char&n){int a=get();while(a==' '||a=='\r'||a=='\n')a=get();n=a;return*this;}inline FastIS&operator>>(char*n){int a=get();while(~a&&(a==' '||a=='\r'||a=='\n'))a=get();while(~a&&(a!=' '&&a!='\r'&&a!='\n'))*n++=a,a=get();return*this;}}fin;class FastOS{static constexpr size_t h=1<<20;static constexpr double R=1e-9;char o[h],*O;const char*y;FILE*q;int l;public:FastOS(FILE*B=stdout):O(o),y(o+h),q(B),l(-1){setvbuf(q,nullptr,_IONBF,0);}~FastOS(){flush();fclose(q);}FastOS&flush(){fwrite(o,O-o,1,q);return*this;}FastOS&put(int H){*O++=H;if(O==y)fwrite(o,h,1,q),O=o;return*this;}FastOS&setprecision(const int&S){l=S;return*this;}template<typename j>typename std::enable_if<std::is_unsigned<j>::value&&std::is_integral<j>::value,FastOS&>::type inline operator<<(j d){static int n[32];n[*n=1]=d%10;while(d/=10)n[++(*n)]=d%10;while(*n)put(n[(*n)--]|'0');return*this;}template<typename j>typename std::enable_if<std::is_signed<j>::value&&std::is_integral<j>::value&&!std::is_same<j,char>::value,FastOS&>::type inline operator<<(const j&d){if(d<0)put('-')<<(typename std::make_unsigned<j>::type)(-d);else*this<<(typename std::make_unsigned<j>::type)(d);return *this;}template<typename j>typename std::enable_if<std::is_floating_point<j>::value,FastOS&>::type inline operator<<(j d){if(d<0)put('-'),d=-d;using G=typename std::conditional<std::is_same<j,float>::value,std::uint32_t,std::uint64_t>::type;G z=static_cast<G>(d);j O=d-z;*this<<z;if(l>0||l<0&&O>R){put('.');for(int J=0;l>0&&J<l||l<0&&O>R;J++){int N=static_cast<int>(O*=10);put(N|'0');O-=N;}}return*this;}FastOS&operator<<(const char&H){put(H);return*this;}}fout;
 template<typename Tp>
 struct MaxFlow {
     MaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), dis(new int[n_+1]), head(new int[n_+1]), que(new int[n_+1]), n(n_), S(s), T(t), modified(false), maxflow() {}
@@ -104,56 +105,16 @@ struct MCapFlow {
     Tp aval;
     MaxFlow<Tp>* operator->() { return &mf; }
 };
-namespace Binary {
-std::vector<int> edgs[N << 1];
-bool vis[N << 1];
-void dfs(int u) {
-    if (vis[u]) return;
-    for (int v : edgs[u]) dfs(v);
-}
-inline std::vector<int> mincover(MaxFlow<int> &mf, int n, int m) {
-    int S = n+1, T = n+2;
-    for (int i = 1; i <= n; i++)
-        if (i <= m) mf.addedg(S, i, 1);
-        else mf.addedg(i, T, 1);
-    std::vector<int> ans;
-    ans.reserve(n - mf());
-    std::set<int> st;
-    for (int i = m+1; i <= n; i++) st.insert(i);
-    for (int u = 1; u <= m; u++)
-        for (const auto &[v, cap, bak] : mf.g[u])
-            if (cap == 0) {
-                edgs[u].push_back(v);
-            } else {
-                edgs[v].push_back(u);
-                st.erase(v);
-            }
-    for (int i : st) dfs(i);
-    for (int i = 1; i <= m; i++)
-        if (vis[i]) ans.push_back(i);
-    for (int i = m+1; i <= n; i++)
-        if (!vis[i]) ans.push_back(i);
-    return ans;
-}
-inline std::vector<int> maxstandalone(MaxFlow<int> &mf, int n, int m) {
-    auto anstmp = std::move(mincover(mf, n, m));
-    std::vector<int> ans;
-    auto ptr = anstmp.begin();
-    for (int i = 1; i <= n; i++)
-        if (ptr != anstmp.end() && *ptr == i) ++ptr;
-        else ans.push_back(i);
-    return ans;
-}
-inline std::vector<std::pair<int,int>> match(MaxFlow<int> &mf, int n, int m) {
-    int S = n+1, T = n+2;
-    for (int i = 1; i <= n; i++)
-        if (i <= m) mf.addedg(S, i, 1);
-        else mf.addedg(i, T, 1);
-    std::vector<std::pair<int,int>> ans;
-    ans.reserve(n - mf());
-    for (int u = 1; u <= m; u++)
-        for (const auto &[v, cap, bak] : mf.g[u])
-            if (cap == 0) ans.emplace_back(u, v);
-    return ans;
-}
+int main() {
+    int n, m, s, t;
+    fin >> n >> m >> s >> t;
+    MCapFlow<int> mcf(n);
+    for (int u, v, l, r; m--; ) {
+        fin >> u >> v >> l >> r;
+        mcf.addedg(u, v, l, r);
+    }
+    int ans = mcf.getmx(s, t);
+    if (ans == -1) puts("N");
+    else printf("%d\n", ans);
+    return 0;
 }
