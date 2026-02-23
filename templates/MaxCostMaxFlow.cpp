@@ -2,7 +2,7 @@
 template<typename Tp>
 struct MaxCostMaxFlow {
     MaxCostMaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), head(new int[n_+1]), dis(new Tp[n_+1]), vis(new bool[n_+1]), n(n_), S(s), T(t), maxflow(), maxcost() {}
-    ~MaxCostMaxFlow() { delete[] g; delete[] head; delete[] dis; }
+    ~MaxCostMaxFlow() { delete[] g; delete[] head; delete[] dis; delete[] vis; }
     inline void operator()(int fr, int to, Tp c1, Tp c2) {
         g[fr].emplace_back(to, c1, c2, (int)g[to].size());
         g[to].emplace_back(fr, 0, -c2, (int)g[fr].size() - 1);
@@ -38,6 +38,7 @@ struct MaxCostMaxFlow {
                     maxcost += fl * cost;
                     infl -= fl, outfl += fl;
                     cap -= fl, std::get<1>(g[v][bak]) += fl;
+                    if (!infl) break;
                 }
             }
         }
