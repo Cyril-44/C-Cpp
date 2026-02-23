@@ -38,7 +38,7 @@ struct MinCostMaxFlow {
                     mincost += fl * cost;
                     infl -= fl, outfl += fl;
                     cap -= fl, std::get<1>(g[v][bak]) += fl;
-                    if (!infl) return outfl;
+                    if (!infl) break;
                 }
             }
         }
