@@ -3,7 +3,7 @@ constexpr int N = 205;
 template<typename Tp>
 struct MaxFlow {
     MaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), dis(new int[n_+1]), head(new int[n_+1]), que(new int[n_+1]), n(n_), S(s), T(t), modified(false), maxflow() {}
-    ~MaxFlow() { delete[] g; delete[] dis; delete[] head; }
+    ~MaxFlow() { delete[] g; delete[] dis; delete[] head; delete que[]; }
     inline void addedg(int fr, int to, Tp c) {
         modified = true;
         g[fr].emplace_back(to, c, (int)g[to].size());
