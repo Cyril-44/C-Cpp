@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <algorithm>
 constexpr int N = 5005;
-int f[N], M;
+int f[N], M; // f[i] 表示 可以表示区间 [1,i] 的方案数
 inline void add(int &x, int y) { if ((x += y) >= M) x -= M; }
 int main() {
     int n;
