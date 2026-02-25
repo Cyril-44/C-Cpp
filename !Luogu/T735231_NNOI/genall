@@ -1,0 +1,155 @@
+#!/bin/bash
+set -e
+
+mkdir -p data
+
+###############################################
+# 1. 每个 Subtask 的 case_id 列表
+###############################################
+
+CASES_SUB1=(1 1 1 2 3 4 4 5 5)
+CASES_SUB2=(1 1 1 2 3 4 4 5 5)
+CASES_SUB3=(1 1 1 2 3 4 4 5 5)
+CASES_SUB4=(1 1 1 1)
+CASES_SUB5=(1 1 1 2 3 4 4 5 5)
+CASES_SUB6=(1 1 1 2 3 4 4 5 5)
+CASES_SUB7=(1 1 1 1 2 2 3 3 4 4 5 5 6 6)
+
+###############################################
+# 2. Subtask 分值（总分必须为 100）
+###############################################
+
+declare -A SUBTASK_SCORE
+SUBTASK_SCORE[1]=5
+SUBTASK_SCORE[2]=15
+SUBTASK_SCORE[3]=20
+SUBTASK_SCORE[4]=5
+SUBTASK_SCORE[5]=10
+SUBTASK_SCORE[6]=20
+SUBTASK_SCORE[7]=25
+
+###############################################
+# 3. 初始化旧版 config.yml
+###############################################
+
+CONFIG_FILE="data/config.yml"
+echo "# Auto-generated old-style config" > $CONFIG_FILE
+echo "" >> $CONFIG_FILE
+
+###############################################
+# 4. 初始化新版 data.yml
+###############################################
+
+DATA_YML="data/data.yml"
+echo "# Auto-generated new-style subtask config" > $DATA_YML
+echo "" >> $DATA_YML
+echo "subtasks:" >> $DATA_YML
+
+###############################################
+# 5. 全局测试点编号（dat#.in）
+###############################################
+
+GLOBAL_ID=1
+
+###############################################
+# 6. 写入旧版 config.yml
+###############################################
+
+append_old_config () {
+    local sub=$1
+    shift
+    local cases=("$@")
+
+    local idx=1
+    local score=${SUBTASK_SCORE[$sub]}
+
+    for cid in "${cases[@]}"; do
+        printf -v YY "%02d" $idx
+        local fname="friend${sub}${YY}.in"
+
+        echo "${fname}:" >> $CONFIG_FILE
+        echo "  subtaskId: ${sub}" >> $CONFIG_FILE
+        echo "  score: ${score}" >> $CONFIG_FILE
+        echo "" >> $CONFIG_FILE
+
+        idx=$((idx+1))
+    done
+}
+
+###############################################
+# 7. 写入新版 data.yml
+###############################################
+
+append_new_config () {
+    local sub=$1
+    shift
+    local cases=("$@")
+
+    local score=${SUBTASK_SCORE[$sub]}
+
+    echo "  - scoringType: GroupMin" >> $DATA_YML
+    echo "    points: ${score}" >> $DATA_YML
+    echo "    testcases:" >> $DATA_YML
+
+    local idx=1
+    for cid in "${cases[@]}"; do
+        printf -v YY "%02d" $idx
+
+        infile="friend${sub}${YY}.in"
+        outfile="friend${sub}${YY}.out"
+
+        echo "      - inputFile: '${infile}'" >> $DATA_YML
+        echo "        outputFile: '${outfile}'" >> $DATA_YML
+
+        GLOBAL_ID=$((GLOBAL_ID+1))
+        idx=$((idx+1))
+    done
+}
+
+###############################################
+# 8. 生成数据 + 写入两个配置文件
+###############################################
+
+gen_subtask_cases () {
+    local sub=$1
+    shift
+    local cases=("$@")
+
+    echo "Subtask $sub: ${#cases[@]} cases"
+
+    local idx=1
+    for cid in "${cases[@]}"; do
+        printf -v YY "%02d" $idx
+        infile="data/friend${sub}${YY}.in"
+        outfile="data/friend${sub}${YY}.out"
+
+        echo "  -> Generating $infile   (case_id = $cid)"
+
+        ./gen $sub $cid > "$infile"
+        ./std < "$infile" > "$outfile"
+        ./val < "$infile"
+
+        idx=$((idx+1))
+    done
+
+    append_old_config $sub "${cases[@]}"
+    append_new_config $sub "${cases[@]}"
+}
+
+###############################################
+# 9. 生成所有 Subtask
+###############################################
+
+gen_subtask_cases 1 "${CASES_SUB1[@]}"
+gen_subtask_cases 2 "${CASES_SUB2[@]}"
+gen_subtask_cases 3 "${CASES_SUB3[@]}"
+gen_subtask_cases 4 "${CASES_SUB4[@]}"
+gen_subtask_cases 5 "${CASES_SUB5[@]}"
+gen_subtask_cases 6 "${CASES_SUB6[@]}"
+gen_subtask_cases 7 "${CASES_SUB7[@]}"
+
+###############################################
+# 10. 新版 data.yml 的输入输出文件格式
+###############################################
+
+echo "All data + config.yml + data.yml generated."
