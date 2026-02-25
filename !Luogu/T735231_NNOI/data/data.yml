@@ -1,0 +1,98 @@
+# Auto-generated new-style subtask config
+
+subtasks:
+  - scoringType: GroupMin
+    points: 5
+    testcases:
+      - inputFile: 'friend101.in'
+        outputFile: 'friend101.out'
+      - inputFile: 'friend102.in'
+        outputFile: 'friend102.out'
+      - inputFile: 'friend103.in'
+        outputFile: 'friend103.out'
+      - inputFile: 'friend104.in'
+        outputFile: 'friend104.out'
+      - inputFile: 'friend105.in'
+        outputFile: 'friend105.out'
+      - inputFile: 'friend106.in'
+        outputFile: 'friend106.out'
+      - inputFile: 'friend107.in'
+        outputFile: 'friend107.out'
+      - inputFile: 'friend108.in'
+        outputFile: 'friend108.out'
+      - inputFile: 'friend109.in'
+        outputFile: 'friend109.out'
+  - scoringType: GroupMin
+    points: 15
+    testcases:
+      - inputFile: 'friend201.in'
+        outputFile: 'friend201.out'
+      - inputFile: 'friend202.in'
+        outputFile: 'friend202.out'
+      - inputFile: 'friend203.in'
+        outputFile: 'friend203.out'
+      - inputFile: 'friend204.in'
+        outputFile: 'friend204.out'
+      - inputFile: 'friend205.in'
+        outputFile: 'friend205.out'
+      - inputFile: 'friend206.in'
+        outputFile: 'friend206.out'
+      - inputFile: 'friend207.in'
+        outputFile: 'friend207.out'
+      - inputFile: 'friend208.in'
+        outputFile: 'friend208.out'
+      - inputFile: 'friend209.in'
+        outputFile: 'friend209.out'
+  - scoringType: GroupMin
+    points: 20
+    testcases:
+      - inputFile: 'friend301.in'
+        outputFile: 'friend301.out'
+      - inputFile: 'friend302.in'
+        outputFile: 'friend302.out'
+      - inputFile: 'friend303.in'
+        outputFile: 'friend303.out'
+      - inputFile: 'friend304.in'
+        outputFile: 'friend304.out'
+      - inputFile: 'friend305.in'
+        outputFile: 'friend305.out'
+      - inputFile: 'friend306.in'
+        outputFile: 'friend306.out'
+      - inputFile: 'friend307.in'
+        outputFile: 'friend307.out'
+      - inputFile: 'friend308.in'
+        outputFile: 'friend308.out'
+      - inputFile: 'friend309.in'
+        outputFile: 'friend309.out'
+  - scoringType: GroupMin
+    points: 5
+    testcases:
+      - inputFile: 'friend401.in'
+        outputFile: 'friend401.out'
+      - inputFile: 'friend402.in'
+        outputFile: 'friend402.out'
+      - inputFile: 'friend403.in'
+        outputFile: 'friend403.out'
+      - inputFile: 'friend404.in'
+        outputFile: 'friend404.out'
+  - scoringType: GroupMin
+    points: 10
+    testcases:
+      - inputFile: 'friend501.in'
+        outputFile: 'friend501.out'
+      - inputFile: 'friend502.in'
+        outputFile: 'friend502.out'
+      - inputFile: 'friend503.in'
+        outputFile: 'friend503.out'
+      - inputFile: 'friend504.in'
+        outputFile: 'friend504.out'
+      - inputFile: 'friend505.in'
+        outputFile: 'friend505.out'
+      - inputFile: 'friend506.in'
+        outputFile: 'friend506.out'
+      - inputFile: 'friend507.in'
+        outputFile: 'friend507.out'
+      - inputFile: 'friend508.in'
+        outputFile: 'friend508.out'
+      - inputFile: 'friend509.in'
+        outputFile: 'friend509.out'
