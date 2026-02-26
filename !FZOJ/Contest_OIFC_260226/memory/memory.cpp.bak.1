@@ -1,0 +1,114 @@
+#include <stdio.h>
+#define Case break; case
+constexpr int N = 500005;
+char s[N];
+struct QR { int l, r, lc, rc, w; } a[N];
+int main() {
+    freopen("memory.in", "r", stdin);
+    freopen("memory.out", "w", stdout);
+    int T, n, k;
+    scanf("%d", &T);
+    while (T--) {
+        scanf("%d%d %s", &n, &k, s+1);
+        int diffs = 0, addmn = 0, addmx = 0, last = 1, tot = 0;
+        for (int i = 2; i <= n; i++) {
+            if (s[i] != '?') {
+                if (s[i-1] != '?' && s[i] != s[i-1]) ++diffs;
+                if (s[i-1] == '?') {
+                    int mn = s[last] != '?' && s[i] != s[last],
+                        mx = i - last - ((i - last & 1) ^ (s[i] != s[last]));
+                    addmn += mn, addmx += mx;
+                    a[++tot] = {last + 1, i - 1, s[last] & 1, s[i] & 1, mx - mn};
+                    // fprintf(stderr, "%d\n", i - last - ((i - last & 1) ^ (s[i] != s[last])));
+                }
+                last = i;
+            }
+        }
+        if (n != last) addmx += n - last, a[++tot] = {last + 1, n, s[last] & 1, -1};
+        if (s[1] == '?') a[1].lc = -1;
+        fprintf(stderr, "Constructive range: [%d, %d] = %d + [%d,%d]\n", diffs + addmn, diffs + addmx, diffs, addmn, addmx);
+        if (diffs + addmn > k || k > diffs + addmx || s[1] != '?' && s[n] != '?' && ((k ^ diffs ^ addmn) & 1)) { puts("-1"); continue; }
+        int need = k - diffs, left = addmx;
+        for (int t = 1, i, ch; t <= tot; t++) {
+            left -= a[t].w;
+            if (need > left) {
+                int must = need - left;
+                switch (a[t].lc * 3 + a[t].rc) {
+                case 0: // 0____0  ==>  0001010 (must=4)
+                    for (i = a[t].r, ch = '1'; must--; i--, ch ^= 1) s[i] = ch;
+                    for (; i >= a[t].l; i--) s[i] = '0';
+                Case 1: // 0____1  ==>  0010101 (must=5)
+                    for (i = a[t].r, ch = 0; must--; i--, ch ^= 1) s[i] = ch;
+                    for (; i >= a[t].l; i--) s[i] = '0';
+                Case 2: // 1____?  ==>  1001010 (must=5) / 10010101 (must=6)
+                    --must;
+                    for (i = a[t].l; i <= a[t].r - must; i++) s[i] = '0';
+                    for (ch = '1'; i <= a[t].r; i++, ch ^= 1) s[i] = ch;
+                Case 3: // 1____0  ==>  1001010 (must=5)
+                    --must;
+                    for (i = a[t].r, ch = '1'; must--; i--, ch ^= 1) s[i] = ch;
+                    for (; i >= a[t].l; i--) s[i] = '0';
+                Case 4: // 1____1  ==>  1010101 (must=6)
+                    --must;
+                    for (i = a[t].r, ch = '0'; must--; i--, ch ^= 1) s[i] = ch;
+                    for (; i >= a[t].l; i--) s[i] = '0';
+                Case -1: // 0____? ==>  0001010 (must=4) / 00010101 (must=5)
+                    for (i = a[t].l; i <= a[t].r - must; i++) s[i] = '0';
+                    for (ch = '1'; i <= a[t].r; i++, ch ^= 1) s[i] = ch;
+                Case -2: // ?____1 ==>  0010101 (must=5) / 10000101 (must=4)
+                    if (must & 1) {
+                        for (i = a[t].r, ch = '0'; must--; i--, ch ^= 1) s[i] = ch;
+                        for (; i >= a[t].l; i--) s[i] = '0';
+                    } else {
+                        --must;
+                        for (i = a[t].r, ch = '0'; must--; i--, ch ^= 1) s[i] = ch;
+                        for (; i >= a[t].l; i--) s[i] = '0';
+                        s[a[t].l] = '1';
+                    }
+                Case -3: // ?____0 ==>  0101010 (must=6) / 10001010 (must=5)
+                    if (must & 1) {
+                        --must;
+                        for (i = a[t].r, ch = '0'; must--; i--, ch ^= 1) s[i] = ch;
+                        for (; i >= a[t].l; i--) s[i] = '0';
+                        s[a[t].l] = '1';
+                    } else {
+                        for (i = a[t].r, ch = '1'; must--; i--, ch ^= 1) s[i] = ch;
+                        for (; i >= a[t].l; i--) s[i] = '0';
+                    }
+                Case -4: // ?____?
+                    for (i = a[t].l; i <= a[t].r - must; i++) s[i] = '0';
+                    for (ch = '1'; i <= a[t].r; i++, ch ^= 1) s[i] = ch;
+                }
+                need = left;
+            } else {
+                switch (a[t].lc * 3 + a[t].rc) {
+                case 0: // 0____0
+                    for (int i = a[t].l; i <= a[t].r; i++) s[i] = '0';
+                Case 1: // 0____1
+                    if (need) { --need; for (int i = a[t].l; i <= a[t].r; i++) s[i] = '0'; }
+                    else throw;
+                Case 2: // 1____?
+                    if (need) { --need; for (int i = a[t].l; i <= a[t].r; i++) s[i] = '0'; }
+                    else for (int i = a[t].l; i <= a[t].r; i++) s[i] = '1';
+                Case 3: // 1____0
+                    if (need) { --need; for (int i = a[t].l; i <= a[t].r; i++) s[i] = '0'; }
+                    else throw;
+                Case 4: // 1____1
+                    if (need >= 2) { need -= 2; for (int i = a[t].l; i <= a[t].r; i++) s[i] = '0'; }
+                    else { for (int i = a[t].l; i <= a[t].r; i++) s[i] = '1'; }
+                Case -1: // 0____?
+                    for (int i = a[t].l; i <= a[t].r; i++) s[i] = '0';
+                Case -2: // ?____1
+                    if (need) { --need; for (int i = a[t].l; i <= a[t].r; i++) s[i] = '0'; }
+                    else { for (int i = a[t].l; i <= a[t].r; i++) s[i] = '1'; }
+                Case -3: // ?____0
+                    for (int i = a[t].l; i <= a[t].r; i++) s[i] = '0';
+                Case -4: // ?____?
+                    for (int i = a[t].l; i <= a[t].r; i++) s[i] = '0';
+                }
+            }
+        }
+        puts(s + 1);
+    }
+    return 0;
+}

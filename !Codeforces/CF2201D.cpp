@@ -2,7 +2,9 @@
 #include <set>
 constexpr int N = 200005;
 std::set<int> pos[N];
-inline void insert()
+inline void insert() {
+    
+}
 int main() {
     int T, n, q;
     scanf("%d", &T);

@@ -1,0 +1,7 @@
+=============================
+Constructive range: [0, 2] = 0 + [0,2]
+Number 1 zero range [1,1], lc -1, rc 0, value 1
+Number 2 zero range [10,10], lc 0, rc -1, value 1
+need=2, left=2, isextra=0
+After range[ 1, 1], need= 1, left= 1, str=100000000?
+After range[10,10], need= 0, left= 0, str=1000000001
