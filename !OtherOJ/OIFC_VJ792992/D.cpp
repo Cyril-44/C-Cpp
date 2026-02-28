@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-$1// #define LUOGU
+// #define LUOGU
 #if defined(ONLINE_JUDGE) && !defined(LUOGU)
 # pragma GCC optimize(2, 3, "inline", "unroll-loops", "fast-math", "inline-small-functions", "no-stack-protector", "delete-null-pointer-checks")
 # pragma GCC target("tune=native")
@@ -16,14 +16,37 @@ $1// #define LUOGU
 #define YESNO(j) cout << ((j) ? "Yes\n" : "No\n")
 using namespace std;using pii_t=pair<int,int>;using pll_t=pair<int64_t,int64_t>;using veci_t=vector<int>;using vecl_t=vector<int64_t>;Inline int Popcnt(int x){return __builtin_popcount((unsigned)x);}Inline int Popcnt(unsigned x){return __builtin_popcount(x);}Inline int Popcnt(int64_t x){return __builtin_popcountll((uint64_t)x);}Inline int Popcnt(uint64_t x){return __builtin_popcountll(x);}Inline int Log2(int x){return 31-__builtin_clz((unsigned)x|1);}Inline int Log2(unsigned x){return 31-__builtin_clz(x|1);}Inline int Log2(int64_t x){return 63-__builtin_clzll((uint64_t)x|1);}Inline int Log2(uint64_t x){return 63-__builtin_clzll(x|1);}
 
-$2#define MULTI_TEST_CASES
+// #define MULTI_TEST_CASES
 
-constexpr int N = ${1000:0};
-$1001
+constexpr int N = 100005;
+int64_t a[N];
 inline void solveSingleTestCase() {
-    ${1002:int} n$1003;
-    cin >> n$1004;
-    $0
+    int n;
+    cin >> n;
+    int64_t sum = 0;
+    set<pair<int64_t,int>> st;
+    For (i, 1, n) {
+        cin >> a[i];
+        sum += a[i];
+        st.emplace(a[i], i);
+    }
+    For (i, 1, n) {
+        st.erase({a[i], i});
+        if (!st.empty() && -st.begin()->first > sum) {
+            auto [var, idx] = *st.begin();
+            st.erase({var, idx});
+            a[idx] = -sum;
+            st.emplace(a[idx], idx);
+            sum = -var;
+        }
+        if (a[i] > -sum) {
+            auto tp = a[i];
+            a[i] = -sum;
+            sum = -tp;
+        }
+    }
+    For (i, 1, n) cout << a[i] << ' ';
+    cout << '\n';
 }
 int main() {
     cin.tie(nullptr) -> sync_with_stdio(false);
