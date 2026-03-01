@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c16beb35-48c2-43a5-bc18-924fb531dbe4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Kotlin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CF2198A.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CF2198B.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CF2198C.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CF2198D.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CF2198E.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CF2198F.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CF2198G.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/data.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend101.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend101.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend102.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend102.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend103.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend103.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend104.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend104.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend105.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend105.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend106.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend106.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend107.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend107.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend108.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend108.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend109.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend109.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend201.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend201.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend202.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend202.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend203.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend203.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend204.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend204.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend205.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend205.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend206.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend206.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend207.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend207.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend208.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend208.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend209.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend209.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend301.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend301.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend302.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend302.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend303.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend303.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend304.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend304.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend305.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend305.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend306.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend306.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend307.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend307.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend308.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend308.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend309.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend309.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend401.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend401.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend402.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend402.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend403.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend403.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend404.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend404.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend501.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend501.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend502.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend502.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend503.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend503.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend504.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend504.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend505.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend505.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend506.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend506.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend507.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend507.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend508.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend508.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend509.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend509.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend601.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend601.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend602.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend602.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend603.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend603.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend604.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend604.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend605.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend605.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend606.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend606.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend607.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend607.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend608.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend608.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend609.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend609.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend701.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend701.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend702.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend702.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend703.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend703.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend704.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend704.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend705.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend705.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend706.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend706.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend707.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend707.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend708.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend708.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend709.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend709.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend710.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend710.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend711.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend711.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend712.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend712.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend713.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend713.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend714.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/data/friend714.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/description.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/gen" beforeDir="false" afterPath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/gen" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/gen.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/gen.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/genall" beforeDir="false" afterPath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/genall" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/std" beforeDir="false" afterPath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/std" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/std.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/std.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/val" beforeDir="false" afterPath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/val" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/val.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../!Luogu/T735231_NNOI/val.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/code.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../T[i]" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../n" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="3ALYeBHil7OcJbXvrgkKNyyjjqB" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Kotlin.CF2198AKt.executor": "Run",
+    "Kotlin.CF2198BKt.executor": "Run",
+    "Kotlin.CF2198CKt.executor": "Debug",
+    "Kotlin.CF2198DKt.executor": "Debug",
+    "Kotlin.CF2198EKt.executor": "Debug",
+    "Kotlin.CF2198FKt.executor": "Run",
+    "Kotlin.CF2198GKt.executor": "Run",
+    "Kotlin.Debug.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "/home/cyril/code/Kotlin/CF2198H/src/Main.kt",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "kotlin"
+    ]
+  }
+}]]></component>
+  <component name="RdControllerToolWindowsLayoutState" isNewUi="true">
+    <layout>
+      <window_info id="Bookmarks" side_tool="true" />
+      <window_info id="Merge Requests" />
+      <window_info id="Backup and Sync History" />
+      <window_info id="Commit_Guest" show_stripe_button="false" />
+      <window_info id="Pull Requests" />
+      <window_info id="Learn" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17890625" />
+      <window_info id="Commit" order="1" weight="0.25" />
+      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="TypeScript" />
+      <window_info anchor="bottom" id="Profiler" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="File Transfer" />
+      <window_info anchor="bottom" id="Find" />
+      <window_info anchor="bottom" id="Version Control" order="1" weight="0.3303985" />
+      <window_info anchor="bottom" id="Problems View" order="2" weight="0.3303985" />
+      <window_info anchor="bottom" id="Problems" order="4" />
+      <window_info anchor="bottom" id="Terminal" order="6" weight="0.3303985" />
+      <window_info anchor="bottom" id="Services" order="9" />
+      <window_info anchor="bottom" id="Build" order="10" weight="0.3303985" />
+      <window_info active="true" anchor="bottom" id="Run" order="11" visible="true" weight="0.3303985" />
+      <window_info anchor="bottom" id="Debug" order="12" weight="0.3303985" />
+      <window_info anchor="right" id="Endpoints" />
+      <window_info anchor="right" id="Coverage" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
+      <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />
+      <window_info anchor="right" id="Database" order="2" weight="0.25" />
+      <window_info anchor="right" id="Gradle" order="3" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.25" />
+    </layout>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28539.33" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28539.33" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c16beb35-48c2-43a5-bc18-924fb531dbe4" name="Changes" comment="" />
+      <created>1772373411031</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1772373411031</updated>
+      <workItem from="1772373412725" duration="14338000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/CF2198H/src/Main.kt</url>
+          <line>11</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
