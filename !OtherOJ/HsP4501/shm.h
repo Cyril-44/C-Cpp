@@ -4,28 +4,20 @@
 #include <sys/mman.h>
 #include <sched.h>
 
-using namespace std;
-using u64 = unsigned long long;
-
-vector<unsigned> mod(const vector<unsigned long long>& A, unsigned MOD);
-
-static inline uint32_t next32(std::mt19937 &rng) {
-    return std::uniform_int_distribution<uint32_t>(0u, 0xffffffffu)(rng);
-}
-
+std::vector<unsigned> mod(const std::vector<unsigned long long>& A, unsigned MOD);
 int main() {
-    char *fds = getenv("INTERACTOR_SHARED_MEMORY_FD");
-    int fd = atoi(fds);
-
-    size_t need = 5 * sizeof(u64);
-    void *base = mmap(NULL, need, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    assert(base != MAP_FAILED);
-
-    volatile u64 *shm = (volatile u64*)base;
+    using namespace std;
+    using u64 = unsigned long long;
+    
+    fprintf(stderr, "FD: %s\n", getenv("INTERACTOR_SHARED_MEMORY_FD"));
+    volatile u64 *shm = (volatile u64*)mmap(NULL, 5 * sizeof(u64), PROT_READ | PROT_WRITE, MAP_SHARED, atoi(getenv("INTERACTOR_SHARED_MEMORY_FD")), 0);
+    assert(shm != MAP_FAILED && shm != NULL);
+    fprintf(stderr, "Shared Memory Map %llu\n", (unsigned long long)shm);
     
     fputs("Waiting For interactor to write data....(from shm)\n", stderr); fflush(stderr);
     // 等待 interactor 写入 N (非 0)
-    for (; shm[0] == 0; );
+    u64 aaacnt=0;
+    do sched_yield(), __sync_synchronize(), ((++aaacnt & 0x3ffff) == 0 && fprintf(stderr, "shit! time=%ld, %llu %llu %llu %llu %llu\n", clock(), shm[0], shm[1], shm[2], shm[3], shm[4])) ; while (shm[0] == 0);
     fputs("Data wrote.(from shm)\n", stderr); fflush(stderr);
 
     int N = (int)shm[0];
@@ -33,12 +25,12 @@ int main() {
     u64 seed = shm[2];
 
     // 重建 A 并计算哈希（与 interactor 保持完全一致）
-    std::mt19937 rng(seed);
+    std::mt19937_64 rng(seed);
     std::vector<unsigned long long> A(N);
     std::vector<unsigned> expected(N);
     for (int i = 0; i < N; ++i) {
-        uint32_t basev = next32(rng);
-        uint32_t r = next32(rng);
+        uint32_t basev = std::uniform_int_distribution<uint32_t>(0, MOD-1)(rng);
+        uint32_t r = std::uniform_int_distribution<uint32_t>()(rng);
         A[i] = (u64)basev + (u64)r * (u64)MOD;
         expected[i] = basev;
     }
@@ -46,19 +38,12 @@ int main() {
     fputs("Testing....(from shm)\n", stderr); fflush(stderr);
     std::vector<unsigned> B(std::move(mod(A, MOD)));
     shm[3] = 1;
-    for (u64 i = 0; i < N; ++i) {
-        if (B[i] != expected[i]) {
-            shm[3] = 0;
-            shm[4] = i;
-            break;
-        }
-    }
+    for (int i = 0; i < N; ++i) if (B[i] != expected[i]) { shm[3] = 0; shm[4] = i; break; }
 
     fputs("Test Finish. Wrote back to memory.(from shm)\n", stderr); fflush(stderr);
-
-    fputs("Interaction Complete.(from shm)\n", stderr); fflush(stderr);
     // 通知 interactor 完成
-    shm[0] = 0;
+    __sync_synchronize(); shm[0] = 0;
+    fputs("Interaction Complete.(from shm)\n", stderr); fflush(stderr);
 
     return 0;
 }
