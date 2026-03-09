@@ -1,8 +1,8 @@
 // solution.cpp
 #include "shm.h"
 
-vector<unsigned> mod(const vector<unsigned long long>& A, unsigned MOD) {
-    vector<unsigned> res(A.size());
+std::vector<unsigned> mod(const std::vector<unsigned long long>& A, unsigned MOD) {
+    std::vector<unsigned> res(A.size());
     uint64_t m = MOD;
     uint64_t mu = ~0ULL / m;  // floor(2^64 / m)
     // raise(114); abort();
