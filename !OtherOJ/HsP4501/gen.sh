@@ -31,6 +31,5 @@ for i in $(seq 0 10); do
     echo "$N"     >  "$filename"
     echo "$seed" >> "$filename"
     echo "$MOD"  >> "$filename"
-
-    echo "Generated $filename: N=$N seed=$seed MOD=$MOD"
+    touch "data/test${i}.out"
 done
