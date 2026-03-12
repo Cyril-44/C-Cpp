@@ -39,8 +39,8 @@ void dfs(int u) {
     g[u][1] = a[u];
     for (int v : edgs[u]) {
         if (v == pre[u] || v == hson[u]) continue;
-        g[u][0] += std::max(f[u][0], f[u][1]);
-        g[u][1] += f[u][0];
+        g[u][0] += std::max(f[v][0], f[v][1]);
+        g[u][1] += f[v][0];
     }
     f[u][0] = g[u][0] + std::max(f[hson[u]][0], f[hson[u]][1]);
     f[u][1] = g[u][1] + f[hson[u]][0];
