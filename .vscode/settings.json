@@ -13,8 +13,12 @@
         "*.tbl": "cpp"
     },
     "clangd.arguments": [
-        
+        // "--compile-options-file=compile_options.json",
+        "--background-index",
+        "--clang-tidy",
+        "--completion-style=detailed",
+        "--header-insertion=iwyu"
     ],
-    "cmake.sourceDirectory": "/home/cyril/code/Functions/clang-cpp-obf",
+    // "cmake.sourceDirectory": "/home/cyril/code/Functions/clang-cpp-obf",
     "C_Cpp.intelliSenseEngine": "disabled"
 }
