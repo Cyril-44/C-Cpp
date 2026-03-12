@@ -33,9 +33,17 @@ int main() {
                 for (int k = L; k < R; k++) { // k 就是当前选定的 ai+aj < ak
                     int force1Cnt = k - L;
                     // 现在要选 k(2), ...(cnt个1)..., i(1), j(1)，前面的剩余的 (i - 2 - cnt) 个随便选
-                    if (i - 2 - force1Cnt >= 0 && m - i - 2 >= 0) add(ans, 1ull* C[i - 2 - force1Cnt][m - i - 2] * pw2[n - j]);
+                    if (i - 2 - force1Cnt >= 0 && m - i >= 0) add(ans, 1ull* C[i - 2 - force1Cnt][m - i] * pw2[n - j]);
                 }
             }
+        for (int i = 1; i < n; i++) {
+            int L = std::upper_bound(a+1, a+1+n, 2 * int(a[i]), [](int x, const Node&y){return x > (int)y;}) - a;
+            // L~k 都要是 1，这样才有 Corner Case 1 2...2 0，而且后面也没有自由选择的空间
+            for (int k = L; k < i; k++) {
+                int force1Cnt = k - L;
+                if (i - 2 - force1Cnt >= 0 && m - i >= 0) add(ans, C[i - 2 - force1Cnt][m - i]);
+            }
+        }
         printf("%d\n", (pw2[n] - ans + MOD) % MOD);
     }
     return 0;
