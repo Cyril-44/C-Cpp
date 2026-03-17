@@ -3,7 +3,7 @@
 constexpr int N = 305, M = 1005;
 std::vector<int> g[N];
 /*
-考虑到如果是最小生成树，那么对于每一条树边(x_i)，其所属的所有环内的非树边(y_i) 权值 都比树边小。
+考虑到如果是最小生成树，那么对于每一条树边(x_i)，其所属的所有环（这种环是由很多条树边和一条非树边组成的）内的非树边(y_i) 权值 都比树边小。
 根据这个性质，我们知道树边一定只会减边权，非树边只会加边权。
 x_i - dec_i <= y_j + inc_j
 因为我们要求的是 dec_i 和 inc_j，拉到一起，dec_i + inc_j >= x_i - y_j 
@@ -19,7 +19,7 @@ x_i - dec_i <= y_j + inc_j
 std::vector<std::tuple<int,int,int,int>> treeEdgs, nonTreeEdgs;
 std::bitset<N> vis;
 void dfs(int u) { vis[u] = true; for (int v : g[u]) if (!vis[v]) dfs(v); }
-inline auto getcon(int u, int v) { vis.reset(); vis.set(v); dfs(u); return vis; }
+inline auto getcon(int u, int v) { vis.reset(); vis.set(v); dfs(u); vis.reset(v); return vis; }
 struct MaxCostMaxFlow {
     using EdgeList = std::vector<std::tuple<int,int,int,int>>;
     bool bfs() {
@@ -82,7 +82,7 @@ int main() {
     treeEdgs.reserve(m), nonTreeEdgs.reserve(m);
     for (int i = 1, u, v, w, f, a, b; i <= m; i++) {
         scanf("%d%d%d%d%d%d", &u, &v, &w, &f, &a, &b);
-        g[u].push_back(v), g[v].push_back(u);
+        if (f) g[u].push_back(v), g[v].push_back(u);
         if (f) treeEdgs.emplace_back(u, v, w, b);
         else nonTreeEdgs.emplace_back(u, v, w, a);
     }
