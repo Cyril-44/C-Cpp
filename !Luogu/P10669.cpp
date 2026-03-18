@@ -76,9 +76,6 @@ struct MaxCostMaxFlow {
     unsigned long long maxcost;
     int n, S, T, LMT, maxflow;
 };
-std::bitset<N> vis;
-void dfs(int u) { vis[u] = true; for (int v : g[u]) if (!vis[v]) dfs(v); }
-inline auto getcon(int u, int v) { vis.reset(); vis.set(v); dfs(u); return vis; }
 int main() {
     int n, m;
     scanf("%d%d", &n, &m);
