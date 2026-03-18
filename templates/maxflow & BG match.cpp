@@ -3,7 +3,7 @@ constexpr int N = 205;
 template<typename Tp>
 struct MaxFlow {
     MaxFlow(int n_, int s, int t) : g(new EdgeList[n_+1]), dis(new int[n_+1]), head(new int[n_+1]), que(new int[n_+1]), n(n_), S(s), T(t), modified(false), maxflow() {}
-    ~MaxFlow() { delete[] g; delete[] dis; delete[] head; delete que[]; }
+    ~MaxFlow() { delete[] g; delete[] dis; delete[] head; delete[] que; }
     inline void addedg(int fr, int to, Tp c) {
         modified = true;
         g[fr].emplace_back(to, c, (int)g[to].size());
@@ -37,7 +37,7 @@ struct MaxFlow {
                     infl -= fl, outfl += fl;
                     cap -= fl, std::get<1>(g[v][bak]) += fl;
                     if (!infl) return outfl;
-                } else dis[v] = 0;
+                } else dis[v] = 0; // 当前点优化
             }
         }
         return outfl;
