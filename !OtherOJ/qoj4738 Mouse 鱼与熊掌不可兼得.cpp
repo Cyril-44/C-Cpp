@@ -30,9 +30,15 @@ using MyGrader::query;
 // 需要一个错排，以正确查询出所有边。一次询问可以查询 n/2 条边，但是因为这个边是双向的，所以还需要一次额外的查询才可以知道方向。即最后查询环的时候再做一次判断。
 // 最终：2nlogn + n/2 + ?
 namespace My{
+int n;
 using Swaps = std::vector<std::pair<int,int>>;
 Swaps ans;
 std::vector<int> perm;
+int query(const std::vector<int> &vec) {
+    int ret = ::query(vec);
+    if (ret == n) exit(0);
+    return ret;
+}
 inline int dquery(Swaps::iterator l, Swaps::iterator r) {
     if (l == r) return 0;
     for (auto it = l; it != r; ++it) std::swap(perm[it->first], perm[it->second]);
@@ -41,13 +47,14 @@ inline int dquery(Swaps::iterator l, Swaps::iterator r) {
     return ret;
 }
 void dfs(int all, Swaps::iterator l, Swaps::iterator r) {
-    if (r - l == 1) return void(ans.push_back(*l));
+    if (r - l == 1 && all) return void(ans.push_back(*l));
     auto mid = l + (r-l)/2;
     int lres = dquery(l, mid), rres = all - lres;
     if (lres > 0) dfs(lres, l, mid);
     if (rres > 0) dfs(rres, mid, r);
 }
 void solve(int n) {
+    My::n = n;
     std::mt19937 rng(20100709);
     
     perm.resize(n);
