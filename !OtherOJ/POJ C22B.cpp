@@ -23,8 +23,9 @@ int main() {
     a[0] = F*n - std::accumulate(a+1, a+1+n, 0);
     std::priority_queue<int, std::vector<int>, Comp> q1, q2;
     for (int i = 0; i <= n; i++)
-        if (a[i] < F) q1.push(i);
-        else q2.push(i);
+        if (a[i] != 0)
+            if (a[i] < F) q1.push(i);
+            else q2.push(i);
     int m = 0;
     auto addedg = [&](int fr, int to, int w) {
         if (to == 0) to = -1;
@@ -55,7 +56,7 @@ int main() {
             addedg(n+4+i, v, F - a[u]);
         }
     }
-    printf("%d\n", 4+n);
+    printf("%d\n", n+4);
     for (int u = n+1; u <= n+4+n; u++) {
         int type = g[u].size() == 1 ? 1 : g[u].size() == 2 ? 3 : 2;
         printf("%d %d ", u, type);

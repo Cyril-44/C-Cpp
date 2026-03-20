@@ -34,11 +34,7 @@ int n;
 using Swaps = std::vector<std::pair<int,int>>;
 Swaps ans;
 std::vector<int> perm;
-int query(const std::vector<int> &vec) {
-    int ret = ::query(vec);
-    if (ret == n) exit(0);
-    return ret;
-}
+int tot = 0;
 inline int dquery(Swaps::iterator l, Swaps::iterator r) {
     if (l == r) return 0;
     for (auto it = l; it != r; ++it) std::swap(perm[it->first], perm[it->second]);
@@ -54,9 +50,11 @@ void dfs(int all, Swaps::iterator l, Swaps::iterator r) {
     if (rres > 0) dfs(rres, mid, r);
 }
 void solve(int n) {
-    My::n = n;
+    if (n == 1) return void(query({1}));
+    fprintf(stderr, "Be used, n=%d\n", n);
+    My::n = n, My::tot = 0;
     std::mt19937 rng(20100709);
-    
+
     perm.resize(n);
     std::iota(perm.begin(), perm.end(), 1);
     do std::shuffle(perm.begin(), perm.end(), rng);

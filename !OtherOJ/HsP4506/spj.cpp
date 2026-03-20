@@ -5,247 +5,267 @@ using namespace std;
 struct Skill {
     int id;
     int type;
+    int num; // for type 2
     vector<int> outs;
-    vector<long long> vals; // 对于 type2: 每条边同一个值，但存多份方便统一处理
+    vector<long long> vals;
 };
 
 int main(int argc, char* argv[]) {
     registerTestlibCmd(argc, argv);
 
-    // 读输入
     int n = inf.readInt();
     vector<long long> a(n + 1);
+    long long sumA = 0;
     for (int i = 1; i <= n; ++i) {
         a[i] = inf.readLong();
+        sumA += a[i];
     }
 
     long long totalResin = 515LL * n;
 
-    // 读选手输出
     if (ouf.seekEof()) {
         quitf(_wa, "No output");
     }
 
     int m = ouf.readInt();
     if (m < 1 || m > 5 * n) {
-        quitf(_wa, "m out of range: %d, expected 1..%d", m, 5 * n);
+        quitf(_wa, "Invalid m = %d, must be in [1, %d]", m, 5 * n);
     }
 
-    int minId = n + 1;
-    int maxId = n + m;
-
-    // 读技能
-    map<int, int> idToIndex;
+    // id range: [n+1, n+m]
+    map<int, int> idToIdx;
     vector<Skill> skills(m);
-    vector<bool> usedId(m + 1, false); // 只是辅助，不强制连续顺序
-
     for (int i = 0; i < m; ++i) {
-        int id = ouf.readInt();
-        if (id < minId || id > maxId) {
-            quitf(_wa, "skill id %d out of range [%d, %d]", id, minId, maxId);
-        }
-        if (idToIndex.count(id)) {
-            quitf(_wa, "duplicate skill id %d", id);
-        }
-        idToIndex[id] = i;
-        skills[i].id = id;
+        Skill s;
+        s.num = 0;
+        s.outs.clear();
+        s.vals.clear();
 
-        int type = ouf.readInt();
-        if (type < 1 || type > 3) {
-            quitf(_wa, "invalid skill type %d", type);
-        }
-        skills[i].type = type;
+        if (ouf.seekEof())
+            quitf(_wa, "Unexpected EOF while reading skill %d", i + 1);
 
-        if (type == 1) {
-            // id 1 out val
+        s.id = ouf.readInt();
+        if (s.id < n + 1 || s.id > n + m)
+            quitf(_wa, "Skill id %d out of range [%d, %d]", s.id, n + 1, n + m);
+        if (idToIdx.count(s.id))
+            quitf(_wa, "Duplicate skill id %d", s.id);
+        idToIdx[s.id] = i;
+
+        s.type = ouf.readInt();
+        if (s.type < 1 || s.type > 3)
+            quitf(_wa, "Invalid type %d for skill id %d", s.type, s.id);
+
+        if (s.type == 1) {
+            // type 1: out-degree = 1, need one out and one val
             int out = ouf.readInt();
             long long val = ouf.readLong();
-            if (val <= 0) {
-                quitf(_wa, "skill %d type1 has non-positive val", id);
-            }
-            skills[i].outs.push_back(out);
-            skills[i].vals.push_back(val);
-        } else if (type == 2) {
-            // id 2 num out1..outk val
-            int num = ouf.readInt();
-            if (num <= 0) {
-                quitf(_wa, "skill %d type2 has non-positive num", id);
-            }
-            vector<int> outs(num);
-            for (int j = 0; j < num; ++j) {
-                outs[j] = ouf.readInt();
+            s.outs.push_back(out);
+            s.vals.push_back(val);
+        } else if (s.type == 2) {
+            // type 2: read num, then num outs, then one val (same for all)
+            s.num = ouf.readInt();
+            if (s.num <= 0)
+                quitf(_wa, "Skill %d type 2 has non-positive num = %d", s.id, s.num);
+            s.outs.resize(s.num);
+            for (int j = 0; j < s.num; ++j) {
+                s.outs[j] = ouf.readInt();
             }
             long long val = ouf.readLong();
-            if (val <= 0) {
-                quitf(_wa, "skill %d type2 has non-positive val", id);
-            }
-            skills[i].outs = outs;
-            skills[i].vals.assign(num, val);
-        } else { // type == 3
-            // id 3 out1 out2 val1 val2
+            if (val <= 0)
+                quitf(_wa, "Skill %d type 2 has non-positive val = %lld", s.id, val);
+            s.vals.assign(s.num, val);
+        } else {
+            // type 3: out-degree = 2, two outs and two vals
             int out1 = ouf.readInt();
             int out2 = ouf.readInt();
             long long v1 = ouf.readLong();
             long long v2 = ouf.readLong();
-            if (v1 <= 0 || v2 <= 0) {
-                quitf(_wa, "skill %d type3 has non-positive val", id);
-            }
-            skills[i].outs = {out1, out2};
-            skills[i].vals = {v1, v2};
+            s.outs = {out1, out2};
+            s.vals = {v1, v2};
         }
 
-        // 检查同一技能的输出目标互不相同
+        // check outs distinct
         {
-            auto &outs = skills[i].outs;
-            sort(outs.begin(), outs.end());
-            if (unique(outs.begin(), outs.end()) != outs.end()) {
-                quitf(_wa, "skill %d has duplicate outputs", id);
+            set<int> st(s.outs.begin(), s.outs.end());
+            if ((int)st.size() != (int)s.outs.size())
+                quitf(_wa, "Skill %d has duplicate outputs", s.id);
+        }
+
+        // check vals positive
+        for (long long v : s.vals) {
+            if (v <= 0) {
+                string allouts, allvals;
+                for (auto i : s.outs) allouts += to_string(i) + ' ';
+                for (auto j : s.vals) allvals += to_string(j) + ' ';
+                quitf(_wa, "Skill %d (Outs: %s, Vals: %s) has non-positive flow value %lld", s.id, allouts.c_str(), allvals.c_str(), v);
             }
         }
+
+        skills[i] = s;
     }
 
-    // 建图并做各种检查
-    // 节点编号：
-    //   敌人：1..n
-    //   技能：n+1..n+m
-    //   空气：-1（单独处理）
-    // 我们需要：
-    //   inflow / outflow
-    map<int, long long> inflow, outflow;
+    // indegree for skills (from other skills)
+    vector<int> indegSkill(m, 0);
+    // incoming resin for skills, enemies, and air
+    vector<long long> inSkill(m, 0);
+    vector<long long> inEnemy(n + 1, 0);
+    long long inAir = 0;
 
-    // 技能图（只在技能之间建边，用于 DAG 检查和最长路）
-    // 将技能 id 压缩到 [0..m-1]
-    vector<vector<int>> g(m);
+    // build graph among skills for DAG / depth
+    vector<vector<int>> gSkill(m);
 
-    auto isEnemy = [&](int x) { return 1 <= x && x <= n; };
-    auto isSkill = [&](int x) { return minId <= x && x <= maxId; };
-    auto isAir   = [&](int x) { return x == -1; };
+    auto skillIndex = [&](int id) -> int {
+        auto it = idToIdx.find(id);
+        if (it == idToIdx.end()) return -1;
+        return it->second;
+    };
 
     for (int i = 0; i < m; ++i) {
+        Skill &s = skills[i];
+        long long outSum = 0;
+        for (int j = 0; j < (int)s.outs.size(); ++j) {
+            int to = s.outs[j];
+            long long val = s.vals[j];
+
+            if (to == -1) {
+                inAir += val;
+            } else if (1 <= to && to <= n) {
+                inEnemy[to] += val;
+            } else if (n + 1 <= to && to <= n + m) {
+                int idx = skillIndex(to);
+                if (idx == -1)
+                    quitf(_wa, "Output target %d of skill %d not defined", to, s.id);
+                indegSkill[idx]++;
+                inSkill[idx] += val;
+                gSkill[i].push_back(idx);
+            } else {
+                quitf(_wa, "Output target %d of skill %d is invalid", to, s.id);
+            }
+            outSum += val;
+        }
+        // outSum will be checked against inSkill later (flow conservation)
+    }
+
+    // Only skill id n+1 gets resin from traveler
+    int srcIdx = skillIndex(n + 1);
+    if (srcIdx == -1)
+        quitf(_wa, "Skill with id %d (n+1) not defined", n + 1);
+
+    // add traveler -> (n+1) edge with 515n resin
+    inSkill[srcIdx] += totalResin;
+
+    // indegree constraints: each skill has exactly one incoming (from skills or traveler),
+    // except n+1 which has indegree 0 from skills but 1 from traveler.
+    for (int i = 0; i < m; ++i) {
         int id = skills[i].id;
-        auto &outs = skills[i].outs;
-        auto &vals = skills[i].vals;
-
-        for (int k = 0; k < (int)outs.size(); ++k) {
-            int to = outs[k];
-            long long v = vals[k];
-
-            if (!(isEnemy(to) || isSkill(to) || isAir(to))) {
-                quitf(_wa, "skill %d has invalid output target %d", id, to);
-            }
-
-            outflow[id] += v;
-            if (!isAir(to)) {
-                inflow[to] += v;
-            }
-
-            if (isSkill(to)) {
-                int j = idToIndex[to];
-                g[idToIndex[id]].push_back(j);
-            }
-        }
-    }
-
-    // 加上旅行者 -> (n+1) 的虚拟边，流量 515n
-    inflow[minId] += totalResin;
-
-    // 流量平衡检查
-    // 敌人：inflow == a[i]
-    for (int i = 1; i <= n; ++i) {
-        long long in = inflow[i];
-        if (in != a[i]) {
-            quitf(_wa, "enemy %d gets damage %lld, expected %lld", i, in, a[i]);
-        }
-    }
-
-    // 技能：n+1 有额外 515n 输入，其余必须 inflow == outflow
-    for (int id = minId; id <= maxId; ++id) {
-        long long in = inflow[id];
-        long long out = outflow[id];
-        if (id == minId) {
-            // inflow = sum from other skills + 515n
-            // outflow must equal inflow
-            if (in != out) {
-                quitf(_wa, "skill %d (source) has inflow %lld and outflow %lld, not balanced", id, in, out);
-            }
+        if (id == n + 1) {
+            if (indegSkill[i] != 0)
+                quitf(_wa, "Skill %d (n+1) must not have incoming from other skills", id);
         } else {
-            if (in != out) {
-                quitf(_wa, "skill %d has inflow %lld and outflow %lld, not balanced", id, in, out);
-            }
+            if (indegSkill[i] != 1)
+                quitf(_wa, "Skill %d must have exactly one incoming from other skills, got %d", id, indegSkill[i]);
         }
     }
 
-    // DAG 检查（只在技能子图上）
-    {
-        vector<int> color(m, 0); // 0=unvisited,1=visiting,2=done
-        function<void(int)> dfs = [&](int u) {
-            color[u] = 1;
-            for (int v : g[u]) {
-                if (color[v] == 0) dfs(v);
-                else if (color[v] == 1) {
-                    quitf(_wa, "cycle detected among skills");
-                }
-            }
-            color[u] = 2;
-        };
-        for (int i = 0; i < m; ++i) {
-            if (color[i] == 0) dfs(i);
-        }
+    // flow conservation for each skill
+    for (int i = 0; i < m; ++i) {
+        Skill &s = skills[i];
+        long long outSum = 0;
+        for (long long v : s.vals) outSum += v;
+        if (outSum != inSkill[i])
+            quitf(_wa, "Flow not conserved at skill %d: incoming %lld, outgoing %lld",
+                  s.id, inSkill[i], outSum);
     }
 
-    // 计算从 n+1 出发到每个敌人的最长路径长度（按技能数计）
-    // 拓扑序 + DP
-    // 先对技能图拓扑排序
-    vector<int> indeg(m, 0);
-    for (int u = 0; u < m; ++u) {
-        for (int v : g[u]) indeg[v]++;
+    // total resin from traveler must be exactly 515n and fully used
+    // This is already enforced by conservation and the single source,
+    // but we can double-check that inSkill[srcIdx] == totalResin + incoming from skills (which is 0).
+    // Already ensured: indegSkill[srcIdx] == 0, so inSkill[srcIdx] == totalResin.
+
+    if (inSkill[srcIdx] != totalResin)
+        quitf(_wa, "Skill %d should receive exactly %lld resin from traveler, got %lld",
+              n + 1, totalResin, inSkill[srcIdx]);
+
+    // enemy damage must equal a[i]
+    for (int i = 1; i <= n; ++i) {
+        if (inEnemy[i] != a[i])
+            quitf(_wa, "Enemy %d receives %lld damage, expected %lld", i, inEnemy[i], a[i]);
     }
+
+    // DAG check among skills
+    int S = srcIdx;
+    int K = m;
+    vector<int> color(K, 0); // 0=unvisited,1=visiting,2=done
+    function<void(int)> dfs = [&](int u) {
+        color[u] = 1;
+        for (int v : gSkill[u]) {
+            if (color[v] == 0) dfs(v);
+            else if (color[v] == 1)
+                quitf(_wa, "Cycle detected among skills (e.g., %d -> %d)", skills[u].id, skills[v].id);
+        }
+        color[u] = 2;
+    };
+    for (int i = 0; i < K; ++i) {
+        if (color[i] == 0) dfs(i);
+    }
+
+    // longest path length from traveler to each enemy must be exactly 5
+    // Define depthSkill: length (in skills) from traveler to this skill.
+    // traveler -> (n+1) is length 1.
+    vector<int> depthSkill(K, -1);
+    depthSkill[S] = 1;
+
+    // topo order via Kahn
+    vector<int> indegTopo(K, 0);
+    for (int u = 0; u < K; ++u)
+        for (int v : gSkill[u])
+            indegTopo[v]++;
+
     queue<int> q;
-    for (int i = 0; i < m; ++i) if (indeg[i] == 0) q.push(i);
+    for (int i = 0; i < K; ++i)
+        if (indegTopo[i] == 0)
+            q.push(i);
 
     vector<int> topo;
-    topo.reserve(m);
     while (!q.empty()) {
         int u = q.front(); q.pop();
         topo.push_back(u);
-        for (int v : g[u]) {
-            if (--indeg[v] == 0) q.push(v);
+        for (int v : gSkill[u]) {
+            indegTopo[v]--;
+            if (indegTopo[v] == 0)
+                q.push(v);
         }
     }
-    if ((int)topo.size() != m) {
-        quitf(_wa, "cycle detected in skills (topo size mismatch)");
-    }
+    if ((int)topo.size() != K)
+        quitf(_wa, "Cycle detected in skills graph during topo sort");
 
-    // dpSkill[idIndex] = 从 n+1 到该技能的最长路径长度（技能数）
-    vector<int> dpSkill(m, -1000000000);
-    int sourceIdx = idToIndex[minId];
-    dpSkill[sourceIdx] = 1; // 到 n+1 自己，路径长度计为 1（包含它本身）
+    vector<int> depthEnemy(n + 1, -1);
 
     for (int u : topo) {
-        if (dpSkill[u] < -1e8) continue;
-        for (int v : g[u]) {
-            dpSkill[v] = max(dpSkill[v], dpSkill[u] + 1);
+        if (depthSkill[u] < 0) {
+            // unreachable from traveler; depth undefined, but if it leads to enemies, that would be bad
+            // because enemies must get all their damage from reachable skills (since a[i] > 0).
         }
-    }
-
-    // 对每个敌人，找所有指向它的技能边，取最大路径长度
-    vector<int> maxLenEnemy(n + 1, -1000000000);
-    for (int i = 0; i < m; ++i) {
-        int fromId = skills[i].id;
-        int fromIdx = i;
-        for (int k = 0; k < (int)skills[i].outs.size(); ++k) {
-            int to = skills[i].outs[k];
-            if (isEnemy(to)) {
-                maxLenEnemy[to] = max(maxLenEnemy[to], dpSkill[fromIdx]);
+        for (int j = 0; j < (int)skills[u].outs.size(); ++j) {
+            int to = skills[u].outs[j];
+            if (to >= n + 1 && to <= n + m) {
+                int v = skillIndex(to);
+                if (depthSkill[u] >= 0) {
+                    depthSkill[v] = max(depthSkill[v], depthSkill[u] + 1);
+                }
+            } else if (1 <= to && to <= n) {
+                if (depthSkill[u] >= 0) {
+                    depthEnemy[to] = max(depthEnemy[to], depthSkill[u] + 1);
+                }
             }
         }
     }
 
     for (int i = 1; i <= n; ++i) {
-        if (maxLenEnemy[i] != 5) {
-            quitf(_wa, "enemy %d has longest chain length %d, expected 5", i, maxLenEnemy[i]);
-        }
+        if (depthEnemy[i] != 6)
+            quitf(_wa, "Enemy %d has longest chain length %d, expected 5", i, depthEnemy[i] - 1);
     }
 
-    quitf(_ok, "OK");
+    // All checks passed
+    quitf(_ok, "Accepted");
 }
