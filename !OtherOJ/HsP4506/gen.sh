@@ -16,6 +16,7 @@ gen_one() {
     printf -v fname "data%d%02d" $SID $CID
     ../gen $n $amax $mode > ${fname}.in
     touch ${fname}.ans
+    ../val < ${fname}.in
     echo "Generated ${fname}.in / ${fname}.ans  (SID=$SID, CID=$CID, n=$n, amax=$amax, mode=$mode)"
 }
 
@@ -45,7 +46,7 @@ SID=3
 CID=1
 for i in {1..14}; do
     n=$(shuf -i50-100 -n1)
-    gen_one $SID $CID $n 2000 0
+    gen_one $SID $CID $n 200000 4
     CID=$((CID+1))
 done
 
@@ -56,7 +57,7 @@ SID=4
 CID=1
 for i in {1..16}; do
     n=$(shuf -i200-500 -n1)
-    gen_one $SID $CID $n 200000 0
+    gen_one $SID $CID $n 200000 3
     CID=$((CID+1))
 done
 
