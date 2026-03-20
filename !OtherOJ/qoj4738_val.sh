@@ -1,5 +1,5 @@
 #!/bin/bash
-N=300
+N=4
 while true; do
     inp="$N\n$(seq 1 $N | shuf | tr '\n' ' ')"
     echo -e "$inp" | ./qoj4738

@@ -1,0 +1,217 @@
+timeLimit: 1000
+memoryLimit: 512
+runSamples: true
+checker:
+  type: lines
+  caseSensitive: false
+subtasks:
+  - scoringType: GroupMin
+    points: 10
+    testcases:
+      - inputFile: data111.in
+        outputFile: data111.ans
+      - inputFile: data112.in
+        outputFile: data112.ans
+      - inputFile: data113.in
+        outputFile: data113.ans
+      - inputFile: data121.in
+        outputFile: data121.ans
+      - inputFile: data122.in
+        outputFile: data122.ans
+      - inputFile: data131.in
+        outputFile: data131.ans
+  - scoringType: GroupMin
+    points: 15
+    testcases:
+      - inputFile: data211.in
+        outputFile: data211.ans
+      - inputFile: data212.in
+        outputFile: data212.ans
+      - inputFile: data213.in
+        outputFile: data213.ans
+      - inputFile: data214.in
+        outputFile: data214.ans
+      - inputFile: data215.in
+        outputFile: data215.ans
+      - inputFile: data221.in
+        outputFile: data221.ans
+      - inputFile: data222.in
+        outputFile: data222.ans
+      - inputFile: data223.in
+        outputFile: data223.ans
+      - inputFile: data224.in
+        outputFile: data224.ans
+      - inputFile: data225.in
+        outputFile: data225.ans
+      - inputFile: data231.in
+        outputFile: data231.ans
+      - inputFile: data232.in
+        outputFile: data232.ans
+      - inputFile: data233.in
+        outputFile: data233.ans
+      - inputFile: data234.in
+        outputFile: data234.ans
+      - inputFile: data235.in
+        outputFile: data235.ans
+      - inputFile: data241.in
+        outputFile: data241.ans
+      - inputFile: data242.in
+        outputFile: data242.ans
+      - inputFile: data243.in
+        outputFile: data243.ans
+      - inputFile: data244.in
+        outputFile: data244.ans
+      - inputFile: data245.in
+        outputFile: data245.ans
+      - inputFile: data251.in
+        outputFile: data251.ans
+      - inputFile: data252.in
+        outputFile: data252.ans
+      - inputFile: data253.in
+        outputFile: data253.ans
+      - inputFile: data254.in
+        outputFile: data254.ans
+      - inputFile: data255.in
+        outputFile: data255.ans
+  - scoringType: GroupMin
+    points: 5
+    testcases:
+      - inputFile: data311.in
+        outputFile: data311.ans
+      - inputFile: data312.in
+        outputFile: data312.ans
+      - inputFile: data321.in
+        outputFile: data321.ans
+      - inputFile: data322.in
+        outputFile: data322.ans
+      - inputFile: data331.in
+        outputFile: data331.ans
+      - inputFile: data332.in
+        outputFile: data332.ans
+      - inputFile: data341.in
+        outputFile: data341.ans
+      - inputFile: data342.in
+        outputFile: data342.ans
+      - inputFile: data351.in
+        outputFile: data351.ans
+      - inputFile: data352.in
+        outputFile: data352.ans
+  - scoringType: GroupMin
+    points: 20
+    testcases:
+      - inputFile: data411.in
+        outputFile: data411.ans
+      - inputFile: data412.in
+        outputFile: data412.ans
+      - inputFile: data413.in
+        outputFile: data413.ans
+      - inputFile: data414.in
+        outputFile: data414.ans
+      - inputFile: data421.in
+        outputFile: data421.ans
+      - inputFile: data422.in
+        outputFile: data422.ans
+      - inputFile: data423.in
+        outputFile: data423.ans
+      - inputFile: data424.in
+        outputFile: data424.ans
+      - inputFile: data431.in
+        outputFile: data431.ans
+      - inputFile: data432.in
+        outputFile: data432.ans
+      - inputFile: data433.in
+        outputFile: data433.ans
+      - inputFile: data434.in
+        outputFile: data434.ans
+      - inputFile: data441.in
+        outputFile: data441.ans
+      - inputFile: data442.in
+        outputFile: data442.ans
+      - inputFile: data443.in
+        outputFile: data443.ans
+      - inputFile: data444.in
+        outputFile: data444.ans
+      - inputFile: data451.in
+        outputFile: data451.ans
+      - inputFile: data452.in
+        outputFile: data452.ans
+      - inputFile: data453.in
+        outputFile: data453.ans
+      - inputFile: data454.in
+        outputFile: data454.ans
+  - scoringType: GroupMin
+    points: 5
+    testcases:
+      - inputFile: data511.in
+        outputFile: data511.ans
+      - inputFile: data521.in
+        outputFile: data521.ans
+      - inputFile: data531.in
+        outputFile: data531.ans
+      - inputFile: data541.in
+        outputFile: data541.ans
+      - inputFile: data551.in
+        outputFile: data551.ans
+  - scoringType: GroupMin
+    points: 45
+    testcases:
+      - inputFile: data611.in
+        outputFile: data611.ans
+      - inputFile: data612.in
+        outputFile: data612.ans
+      - inputFile: data613.in
+        outputFile: data613.ans
+      - inputFile: data614.in
+        outputFile: data614.ans
+      - inputFile: data615.in
+        outputFile: data615.ans
+      - inputFile: data616.in
+        outputFile: data616.ans
+      - inputFile: data621.in
+        outputFile: data621.ans
+      - inputFile: data622.in
+        outputFile: data622.ans
+      - inputFile: data623.in
+        outputFile: data623.ans
+      - inputFile: data624.in
+        outputFile: data624.ans
+      - inputFile: data625.in
+        outputFile: data625.ans
+      - inputFile: data626.in
+        outputFile: data626.ans
+      - inputFile: data631.in
+        outputFile: data631.ans
+      - inputFile: data632.in
+        outputFile: data632.ans
+      - inputFile: data633.in
+        outputFile: data633.ans
+      - inputFile: data634.in
+        outputFile: data634.ans
+      - inputFile: data635.in
+        outputFile: data635.ans
+      - inputFile: data636.in
+        outputFile: data636.ans
+      - inputFile: data641.in
+        outputFile: data641.ans
+      - inputFile: data642.in
+        outputFile: data642.ans
+      - inputFile: data643.in
+        outputFile: data643.ans
+      - inputFile: data644.in
+        outputFile: data644.ans
+      - inputFile: data645.in
+        outputFile: data645.ans
+      - inputFile: data646.in
+        outputFile: data646.ans
+      - inputFile: data651.in
+        outputFile: data651.ans
+      - inputFile: data652.in
+        outputFile: data652.ans
+      - inputFile: data653.in
+        outputFile: data653.ans
+      - inputFile: data654.in
+        outputFile: data654.ans
+      - inputFile: data655.in
+        outputFile: data655.ans
+      - inputFile: data656.in
+        outputFile: data656.ans

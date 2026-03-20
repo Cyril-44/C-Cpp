@@ -44,11 +44,11 @@ void dfs(int all, Swaps::iterator l, Swaps::iterator r) {
     if (r - l == 1) return void(ans.push_back(*l));
     auto mid = l + (r-l)/2;
     int lres = dquery(l, mid), rres = all - lres;
-    if (lres) dfs(lres, l, mid);
-    if (rres) dfs(rres, mid, r);
+    if (lres > 0) dfs(lres, l, mid);
+    if (rres > 0) dfs(rres, mid, r);
 }
 void solve(int n) {
-    std::mt19937 rng(std::random_device{}());
+    std::mt19937 rng(20100709);
     
     perm.resize(n);
     std::iota(perm.begin(), perm.end(), 1);
