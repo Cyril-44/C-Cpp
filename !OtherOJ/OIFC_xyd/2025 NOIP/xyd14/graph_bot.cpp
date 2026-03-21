@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+template<typename b>b modInv(const b&v,const b&p){assert(v!=0);b J=0,q=1,a=v,I=p,D;while(a!=0){D=I/a;std::swap(a,I-=D*a);std::swap(J-=D*q,q);}assert(I==1);return J;}template<typename Md>class MB{using S=typename std::enable_if<std::is_signed<typename std::decay<decltype(Md::value)>::type>::value,typename std::decay<decltype(Md::value)>::type>::type;S value;constexpr static S D(){return Md::value;}template<typename b>b L(b v){if _GLIBCXX17_CONSTEXPR(std::is_unsigned<b>::value)return static_cast<S>(v<D()?v:v%D());else{S h=static_cast<S>(-D()<v&&v<D()?v:v%D());return(h<0?h+D():h);}}public:constexpr MB():value(){}template<typename b>MB(const b&z){value=L(z);}template<typename b>explicit operator b()const{return static_cast<b>(value);}const S&operator()()const{return value;}MB&operator+=(const MB&z){if((value+=z.value)>=D())value-=D();return*this;}MB&operator-=(const MB&z){if((value-=z.value)<0)value+=D();return*this;}MB&operator*=(const MB&z){if _GLIBCXX17_CONSTEXPR(std::is_same<S,int>::value)value=L((uint64_t)value*z.value);else if _GLIBCXX17_CONSTEXPR(std::is_same<S,int64_t>::value)value=L((unsigned __int128)value*z.value);else value=L(value*z.value);return*this;}MB&operator/=(const MB&z){return*this*=MB(modInv(z.value,D()));}template<typename b>typename std::enable_if<std::is_integral<b>::value,MB>::type&operator^=(b z){if(z<0)return*this=MB(modInv(static_cast<S>(1),(*this^(-z))()));MB j=*this;for(*this=static_cast<S>(1);z;z>>=1){if(z&1)*this*=j;j*=j;}return*this;}MB operator-()const{return MB(-value);}MB&operator++(){return*this+=1;}MB&operator--(){return*this-=1;}MB operator++(int){MB j=*this;++*this;return j;}MB operator--(int){MB j=*this;--*this;return j;}MB operator+(const MB&z)const{return MB(*this)+=z;}MB operator-(const MB&z)const{return MB(*this)-=z;}MB operator*(const MB&z)const{return MB(*this)*=z;}MB operator/(const MB&z)const{return MB(*this)/=z;}bool operator==(const MB&z)const{return value==z.value;}bool operator!=(const MB&z)const{return value!=z.value;}bool operator<=(const MB&z)const{return value<=z.value;}bool operator>=(const MB&z)const{return value>=z.value;}bool operator<(const MB&z)const{return value<z.value;}bool operator>(const MB&z)const{return value>z.value;}bool operator!()const{return value;}template<typename R,typename b>friend R&operator>>(R&,MB<b>&);template<typename g,typename b>friend g&operator<<(g&,const MB<b>&);template<typename G>friend MB operator+(const MB&T,const G&z){return T+MB(z);}template<typename G>friend MB operator+(const G&T,const MB&z){return MB(T)+z;}template<typename G>friend MB operator-(const MB&T,const G&z){return T-MB(z);}template<typename G>friend MB operator-(const G&T,const MB&z){return MB(T)-z;}template<typename G>friend MB operator*(const MB&T,const G&z){return T*MB(z);}template<typename G>friend MB operator*(const G&T,const MB&z){return MB(T)*z;}template<typename G>friend MB operator/(const MB&T,const G&z){return T/MB(z);}template<typename G>friend MB operator/(const G&T,const MB&z){return MB(T)/z;}template<typename G>friend typename std::enable_if<std::is_integral<G>::value,MB>::type operator^(MB T,const G&z){return T^=z;}template<typename G>friend MB operator+=(MB&T,const G&z){return T+=MB(z);}template<typename G>friend MB operator-=(MB&T,const G&z){return T-=MB(z);}template<typename G>friend MB operator*=(MB&T,const G&z){return T*=MB(z);}template<typename G>friend MB operator/=(MB&T,const G&z){return T/=MB(z);}template<typename G>friend MB operator==(const MB&T,const G&z){return T==MB(z);}template<typename G>friend MB operator==(const G&T,const MB&z){return MB(T)==z;}template<typename G>friend MB operator!=(const MB&T,const G&z){return T!=MB(z);}template<typename G>friend MB operator!=(const G&T,const MB&z){return MB(T)!=z;}template<typename G>friend MB operator<=(const MB&T,const G&z){return T<=MB(z);}template<typename G>friend MB operator<=(const G&T,const MB&z){return MB(T)<=z;}template<typename G>friend MB operator>=(const MB&T,const G&z){return T>=MB(z);}template<typename G>friend MB operator>=(const G&T,const MB&z){return MB(T)>=z;}template<typename G>friend MB operator<(const MB&T,const G&z){return T<MB(z);}template<typename G>friend MB operator<(const G&T,const MB&z){return MB(T)<z;}template<typename G>friend MB operator>(const MB&T,const G&z){return T>MB(z);}template<typename G>friend MB operator>(const G&T,const MB&z){return MB(T)>z;}};template<typename R,typename b>R&operator>>(R&w,MB<b>&T){typename MB<b>::S C;w>>C;T.value=T.L(C);return w;}template<typename g,typename b>g&operator<<(g&f,const MB<b>&z){return f<<z.value;}
+constexpr auto MOD = 998244353;
+using Mint = MB<std::integral_constant<decltype(MOD), MOD>>;
+// struct A { using type = int; static type value; };
+// d &Mod = A::value;
+// using Modular = F<A>;
+struct Fact{Fact(const int&T):E(T+1,Mint(1)),H(T+1),v(T){E[0]=1;for(int J=1;J<=T;J++)E[J]=E[J-1]*J;H[T]=Mint(1)/E[T];for(int J=T;J>=1;J--)H[J-1]=H[J]*J;}Mint C(const int&T,const int&I)const{if(T<0||I<0||T<I)return 0;if(T>v)throw std::out_of_range("\u0045\u0078\u0070\u0065\u0063\u0074\u0065\u0064\u0020\u006E\u0020\u003C\u0020"+std::to_string(v)+"\u002C\u0020\u0062\u0075\u0074\u0020\u0066\u006F\u0075\u006E\u0064\u0020\u006E\u0020\u003D\u0020"+std::to_string(T)+"\u002E");return E[T]*H[I]*H[T-I];}Mint A(const int&T,const int&I)const{if(T<0||I<0||T<I)return 0;if(T>v)throw std::out_of_range("\u0045\u0078\u0070\u0065\u0063\u0074\u0065\u0064\u0020\u006E\u0020\u003C\u0020"+std::to_string(v)+"\u002C\u0020\u0062\u0075\u0074\u0020\u0066\u006F\u0075\u006E\u0064\u0020\u006E\u0020\u003D\u0020"+std::to_string(T)+"\u002E");return E[T]*H[T-I];}private:std::vector<Mint>E,H;const int v;};
+
+constexpr int N = 300005;
+int deg[N];
+Mint inv[N];
+int main() {
+    freopen("graph.in", "r", stdin);
+    freopen("graph.out", "w", stdout);
+    int n, m;
+    scanf("%d%d", &n, &m);
+    while (m--) {
+        int u, v;
+        scanf("%d%d", &u, &v);
+        ++deg[u];
+        ++deg[v];
+    }
+    Mint sum = 0;
+    for (int i = 1; i <= n; ++i)
+        sum += Mint(1) / (deg[i] + 1);
+    cout << n - sum << '\n';
+    return 0;
+}

