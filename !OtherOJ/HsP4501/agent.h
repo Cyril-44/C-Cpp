@@ -21,8 +21,8 @@ int main() {
     }
 
     std::vector<unsigned> B(std::move(mod(A, MOD)));
-    for (int i = 0; i < N; ++i) if (B[i] != expected[i]) { cout << "0 " << i << endl; return 0; }
+    for (int i = 0; i < N; ++i) if (B[i] != expected[i]) { cout << "0 " << i << endl; fputs("Wrong Answer!", stderr); return 0; }
     cout << 1 << endl;
-    
+    fputs("Accepted!", stderr);
     return 0;
 }

@@ -9,22 +9,9 @@ int main() {
     using namespace std;
     using u64 = unsigned long long;
     
-    fprintf(stderr, "FD: %s\n", getenv("INTERACTOR_SHARED_MEMORY_FD"));
-    volatile u64 *shm = (volatile u64*)mmap(NULL, 5 * sizeof(u64), PROT_READ | PROT_WRITE, MAP_SHARED, atoi(getenv("INTERACTOR_SHARED_MEMORY_FD")), 0);
-    assert(shm != MAP_FAILED && shm != NULL);
-    fprintf(stderr, "Shared Memory Map %llu\n", (unsigned long long)shm);
-    
-    fputs("Waiting For interactor to write data....(from shm)\n", stderr); fflush(stderr);
-    // 等待 interactor 写入 N (非 0)
-    u64 aaacnt=0;
-    while (shm[0] == 0);
-    fputs("Data wrote.(from shm)\n", stderr); fflush(stderr);
+    int N; unsigned MOD; u64 seed;
+    cin >> N >> MOD >> seed;
 
-    int N = (int)shm[0];
-    unsigned MOD = (unsigned)shm[1];
-    u64 seed = shm[2];
-
-    // 重建 A 并计算哈希（与 interactor 保持完全一致）
     std::mt19937_64 rng(seed);
     std::vector<unsigned long long> A(N);
     std::vector<unsigned> expected(N);
@@ -42,7 +29,7 @@ int main() {
 
     fputs("Test Finish. Wrote back to memory.(from shm)\n", stderr); fflush(stderr);
     // 通知 interactor 完成
-    shm[0] = 0;
+    __sync_synchronize(); shm[0] = 0;
     fputs("Interaction Complete.(from shm)\n", stderr); fflush(stderr);
 
     return 0;
