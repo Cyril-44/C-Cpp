@@ -10,8 +10,8 @@ int main(int argc, char *argv[]) {
     u64 seed = inf.readUnsignedLong();
     unsigned MOD = inf.readUnsignedLong(0, 0xffffffffull, "MOD");
     cout << N << ' ' << seed << ' ' << MOD << endl;
-    cout.flush();
-    bool okFlag = ouf.readInt(0, 1, "okFlag");
+    int okFlag = ouf.readInt(0, 1, "okFlag");
+    fprintf(stderr, "%d\n", okFlag);
     if (okFlag) quitf(_ok, "All Mods match (N=%d)", N);
     else quitf(_wa, "Wrong answer on position %d", ouf.readInt(0, N-1, "Wrong Position"));
     return 0;

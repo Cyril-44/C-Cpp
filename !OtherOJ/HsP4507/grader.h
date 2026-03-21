@@ -1,91 +1,92 @@
-#ifndef GRADER_H
-#define GRADER_H
+#ifndef LOCAL_GRADER_H
+#define LOCAL_GRADER_H
 
 #include <bits/stdc++.h>
 using namespace std;
 
+// =====================
+// 加密常量（可随意修改）
+// =====================
+static const uint64_t ENC_KEY1 = 0x3636c58053a16f91ULL;
+static const uint64_t ENC_KEY2 = 0xf315e1c17f266248ULL;
+
+// =====================
+// 内部状态（混淆）
+// =====================
 namespace {
-    constexpr int LMT = 10001;
-    struct S {
-        vector<int> p;
-        int n;
-        long long qc;
-        uint64_t key;
-        bool accepted;
-    };
+    int N_global;
+    vector<int> perm;
+    long long query_count = 0;
 
-    S& G() {
-        static S s;
-        return s;
-    }
-
-    uint64_t mix(uint64_t x) {
-        x ^= (x >> 30);
-        x *= 0xbf58476d1ce4e5b9ULL;
-        x ^= (x >> 27);
-        x *= 0x94d049bb133111ebULL;
-        x ^= (x >> 31);
+    uint64_t scramble(uint64_t x) {
+        x ^= ENC_KEY1;
+        x *= ENC_KEY2;
+        x ^= (x >> 33);
         return x;
     }
 
-    void init_local(int n, int mode, uint64_t seed) {
-        auto &g = G();
-        g.n = n;
-        g.key = mix(seed ^ 0x9e3779b97f4a7c15ULL);
-        g.qc = 0;
+    // 生成排列（与 interactor 保持一致）
+    vector<int> generate_perm(int N, int mode, uint64_t seed) {
+        vector<int> p(N);
+        iota(p.begin(), p.end(), 1);
 
-        vector<int> a(n);
-        iota(a.begin(), a.end(), 1);
-
-        uint64_t r = seed ^ (g.key * (mode + 1));
-        for (int i = n - 1; i >= 1; i--) {
-            r = mix(r);
-            int j = r % (i + 1);
-            swap(a[i], a[j]);
+        uint64_t x = seed ^ (ENC_KEY1 + mode * 1315423911ULL);
+        for (int i = N - 1; i > 0; i--) {
+            x = scramble(x);
+            int j = x % (i + 1);
+            swap(p[i], p[j]);
         }
-
-        g.p = a;
+        return p;
     }
 }
 
+// =====================
+// 选手可调用的 query
+// =====================
 int query(const vector<int>& q) {
-    auto &g = G();
-    if ((int)q.size() != g.n) (cout << (1ll << 32) << endl), exit(0);
-    std::vector<bool> f(g.n);
-    for (int i : q) {
-        if (i < 1 || i > g.n) (cout << (1ll << 34) << endl), exit(0);
-        if (f[i-1]) (cout << (1ll << 35) << endl), exit(0);
-        f[i-1] = true;
+    if ((int)q.size() != N_global) {
+        cerr << "Query size mismatch" << endl;
+        exit(1);
     }
-    if (++g.qc == LMT) (cout << (1ll << 33) << endl), exit(0);
+    query_count++;
 
-    int m = 0;
-    for (int i = 0; i < g.n; i++)
-        m += (q[i] == g.p[i]);
-    if (m == g.n) g.accepted = true;
-    return m;
+    int match = 0;
+    for (int i = 0; i < N_global; i++)
+        if (q[i] == perm[i]) match++;
+
+    if (match == N_global) {
+        // 输出加密后的 Q
+        uint64_t enc = scramble(query_count);
+        cout << enc << endl;
+        exit(0);
+    }
+
+    return match;
 }
 
-void solve(int); // 选手实现
+// =====================
+// 选手实现的 solve
+// =====================
+void solve(int N);
 
+// =====================
+// 隐藏 main
+// =====================
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int T; cin >> T;
-    while (T--) {
-        int n, mode;
-        uint64_t seed;
-        cin >> n >> mode >> seed;
 
-        init_local(n, mode, seed);
+    int mode;
+    uint64_t seed;
+    cin >> N_global >> mode >> seed;
 
-        solve(n);
+    perm = generate_perm(N_global, mode, seed);
 
-        auto &g = G();
-        if (!g.accepted) cout << -g.qc << endl;
-        else cout << g.qc << endl;
-        cout.flush();
-    }
+    solve(N_global);
+
+    // 若 solve 未正确结束
+    uint64_t enc = scramble(query_count);
+    cout << enc << endl;
     return 0;
 }
 

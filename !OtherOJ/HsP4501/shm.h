@@ -17,7 +17,7 @@ int main() {
     fputs("Waiting For interactor to write data....(from shm)\n", stderr); fflush(stderr);
     // 等待 interactor 写入 N (非 0)
     u64 aaacnt=0;
-    do sched_yield(), __sync_synchronize(), ((++aaacnt & 0x3ffff) == 0 && fprintf(stderr, "shit! time=%ld, %llu %llu %llu %llu %llu\n", clock(), shm[0], shm[1], shm[2], shm[3], shm[4])) ; while (shm[0] == 0);
+    while (shm[0] == 0);
     fputs("Data wrote.(from shm)\n", stderr); fflush(stderr);
 
     int N = (int)shm[0];
@@ -42,7 +42,7 @@ int main() {
 
     fputs("Test Finish. Wrote back to memory.(from shm)\n", stderr); fflush(stderr);
     // 通知 interactor 完成
-    __sync_synchronize(); shm[0] = 0;
+    shm[0] = 0;
     fputs("Interaction Complete.(from shm)\n", stderr); fflush(stderr);
 
     return 0;
