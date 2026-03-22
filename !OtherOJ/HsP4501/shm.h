@@ -16,7 +16,6 @@ int main() {
     
     fputs("Waiting For interactor to write data....(from shm)\n", stderr); fflush(stderr);
     // 等待 interactor 写入 N (非 0)
-    u64 aaacnt=0;
     while (shm[0] == 0);
     fputs("Data wrote.(from shm)\n", stderr); fflush(stderr);
 
