@@ -1,62 +1,51 @@
-#include <bits/stdc++.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <sys/wait.h>
-using namespace std;
+#include <cstdio>
+#include <cstdlib>
 
-/*
-用法：
-    ./driver ./CF1599_re ./CF1599_grader
-*/
+int main(int argc, char **argv) {
+    if (argc != 3) return puts("Usage: ./driver [graderExePath] [ProgramExePath]"), -1;
 
-int main(int argc, char* argv[]) {
-    if (argc < 3) {
-        cerr << "Usage: " << argv[0] << " <solver> <grader>\n";
-        return 1;
-    }
+    int i2c[2]; // interactor → contestant
+    int c2i[2]; // contestant → interactor
 
-    string solver = argv[1];
-    string grader = argv[2];
+    if (pipe(i2c) == -1) perror("pipe"), exit(2);
+    if (pipe(c2i) == -1) perror("pipe"), exit(2);
 
-    // 建立两对管道：solver->grader 和 grader->solver
-    int to_grader[2], to_solver[2];
-    pipe(to_grader);
-    pipe(to_solver);
+    pid_t pid_interactor = fork();
+    if (pid_interactor == 0) {
+        // --- Interactor child ---
+        dup2(c2i[0], STDIN_FILENO);   // read from contestant
+        dup2(i2c[1], STDOUT_FILENO);  // write to contestant
 
-    pid_t pid_solver = fork();
-    if (pid_solver == 0) {
-        // 子进程：运行 solver
-        dup2(to_solver[0], STDIN_FILENO);   // grader->solver 输入
-        dup2(to_grader[1], STDOUT_FILENO);  // solver->grader 输出
-        close(to_solver[1]);
-        close(to_grader[0]);
-        execl(solver.c_str(), solver.c_str(), (char*)NULL);
-        perror("exec solver failed");
+        close(i2c[0]); close(i2c[1]);
+        close(c2i[0]); close(c2i[1]);
+
+        execl(argv[1], argv[1], NULL);
+        perror("exec");
         exit(1);
     }
 
-    pid_t pid_grader = fork();
-    if (pid_grader == 0) {
-        // 子进程：运行 grader
-        dup2(to_grader[0], STDIN_FILENO);   // solver->grader 输入
-        dup2(to_solver[1], STDOUT_FILENO);  // grader->solver 输出
-        close(to_solver[0]);
-        close(to_grader[1]);
-        execl(grader.c_str(), grader.c_str(), (char*)NULL);
-        perror("exec grader failed");
+    pid_t pid_contestant = fork();
+    if (pid_contestant == 0) {
+        // --- Contestant child ---
+        dup2(i2c[0], STDIN_FILENO);   // read from interactor
+        dup2(c2i[1], STDOUT_FILENO);  // write to interactor
+
+        close(i2c[0]); close(i2c[1]);
+        close(c2i[0]); close(c2i[1]);
+
+        execl(argv[2], argv[2], NULL);
+        perror("exec");
         exit(1);
     }
 
-    // 父进程关闭所有管道端口
-    close(to_grader[0]);
-    close(to_grader[1]);
-    close(to_solver[0]);
-    close(to_solver[1]);
+    // --- Parent ---
+    close(i2c[0]); close(i2c[1]);
+    close(c2i[0]); close(c2i[1]);
 
-    // 等待两个子进程结束
-    int status;
-    waitpid(pid_solver, &status, 0);
-    waitpid(pid_grader, &status, 0);
-
-    cerr << "Interaction finished.\n";
+    waitpid(pid_interactor, NULL, 0);
+    waitpid(pid_contestant, NULL, 0);
     return 0;
 }
