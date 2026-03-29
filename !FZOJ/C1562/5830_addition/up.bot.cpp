@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
+using LL = long long;
 
 struct Info {
-    ll tot = 0;
-    ll msuf = 0;
+    LL tot = 0;
+    LL msuf = 0;
 };
 
 Info merge_info(const Info& a, const Info& b) {
@@ -19,7 +19,7 @@ public:
     vector<Info> tree;
     int n;
     SegTree(int _n) : n(_n), tree(4 * _n + 10) {}
-    void build(int node, int start, int end, vector<ll>& d) {
+    void build(int node, int start, int end, vector<LL>& d) {
         if (start == end) {
             tree[node].tot = d[start];
             tree[node].msuf = d[start];
@@ -30,7 +30,7 @@ public:
         build(2 * node + 1, mid + 1, end, d);
         tree[node] = merge_info(tree[2 * node], tree[2 * node + 1]);
     }
-    void update(int node, int start, int end, int idx, ll newd) {
+    void update(int node, int start, int end, int idx, LL newd) {
         if (start == end) {
             tree[node].tot = newd;
             tree[node].msuf = newd;
@@ -49,8 +49,8 @@ public:
         Info p2 = query(2 * node + 1, mid + 1, end, l, r);
         return merge_info(p1, p2);
     }
-    void build_init(vector<ll>& d) { if (n > 0) build(1, 0, n - 1, d); }
-    void upd(int idx, ll newd) { if (n > 0) update(1, 0, n - 1, idx, newd); }
+    void build_init(vector<LL>& d) { if (n > 0) build(1, 0, n - 1, d); }
+    void upd(int idx, LL newd) { if (n > 0) update(1, 0, n - 1, idx, newd); }
     Info get(int l, int r) {
         if (n == 0 || l > r) return {0, 0};
         return query(1, 0, n - 1, l, r);
@@ -72,16 +72,16 @@ int main() {
             g[i][j] = s[j] - '0';
         }
     }
-    vector<vector<ll>> ft(k, vector<ll>(n + 1, 0LL));
-    auto ft_upd = [&](int c, int pos, ll val) {
+    vector<vector<LL>> ft(k, vector<LL>(n + 1, 0LL));
+    auto ft_upd = [&](int c, int pos, LL val) {
         for (int idx = pos + 1; idx <= n; idx += idx & -idx) ft[c][idx] += val;
     };
-    auto ft_pref = [&](int c, int pos) -> ll {
-        ll s = 0;
+    auto ft_pref = [&](int c, int pos) -> LL {
+        LL s = 0;
         for (int idx = pos + 1; idx > 0; idx -= idx & -idx) s += ft[c][idx];
         return s;
     };
-    auto get_cnt = [&](int c, int x, int y) -> ll {
+    auto get_cnt = [&](int c, int x, int y) -> LL {
         if (x > y) return 0;
         return ft_pref(c, y) - (x == 0 ? 0LL : ft_pref(c, x - 1));
     };
@@ -94,9 +94,9 @@ int main() {
     vector<vector<SegTree>> pair_sts(k, vector<SegTree>(k, SegTree(n)));
     for (int p = 0; p < k; p++) {
         for (int q = p + 1; q < k; q++) {
-            vector<ll> initd(n);
+            vector<LL> initd(n);
             for (int i = 0; i < n; i++) {
-                initd[i] = (ll)g[i][p] - g[i][q];
+                initd[i] = (LL)g[i][p] - g[i][q];
             }
             pair_sts[p][q].build_init(initd);
         }
@@ -110,15 +110,15 @@ int main() {
             int oldv = g[x][y];
             int newv = 1 - oldv;
             g[x][y] = newv;
-            ll delta = newv - oldv;
+            LL delta = newv - oldv;
             ft_upd(y, x, delta);
             // update all pairs involving column y
             for (int p = 0; p < y; p++) {
-                ll newd = (ll)g[x][p] - g[x][y];
+                LL newd = (LL)g[x][p] - g[x][y];
                 pair_sts[p][y].upd(x, newd);
             }
             for (int qq_ = y + 1; qq_ < k; qq_++) {
-                ll newd = (ll)g[x][y] - g[x][qq_];
+                LL newd = (LL)g[x][y] - g[x][qq_];
                 pair_sts[y][qq_].upd(x, newd);
             }
         } else {
@@ -128,17 +128,17 @@ int main() {
                 cout << 0 << '\n';
                 continue;
             }
-            ll ans = LLONG_MAX / 2;
+            LL ans = LLONG_MAX / 2;
             for (int j = l; j <= r; j++) {
-                ll cnt = get_cnt(j, x, y);
+                LL cnt = get_cnt(j, x, y);
                 ans = min(ans, cnt);
             }
             for (int j1 = l; j1 <= r; j1++) {
                 for (int j2 = j1 + 1; j2 <= r; j2++) {
-                    ll nleft = get_cnt(j1, x, y);
+                    LL nleft = get_cnt(j1, x, y);
                     Info infd = pair_sts[j1][j2].get(x, y);
-                    ll mdef = infd.msuf;
-                    ll mat = nleft - mdef;
+                    LL mdef = infd.msuf;
+                    LL mat = nleft - mdef;
                     ans = min(ans, mat);
                 }
             }
