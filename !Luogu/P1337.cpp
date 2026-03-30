@@ -1,3 +1,4 @@
+#include <cmath>
 #include <stdio.h>
 #include <math.h>
 #include <random>
@@ -18,6 +19,5 @@ int main() {
     scanf("%d", &n);
     for (int i = 1; i <= n; i++)
         scanf("%d%d%d", &a[i].x, &a[i].y, &a[i].w);
-    
     return 0;
 }
