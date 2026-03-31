@@ -20,22 +20,22 @@ fi;
 }
 
 n=20
-for ((;;)) do
+for ((s=1;s<=1;s++)) do
     echo $n > $IN
     # echo 5000000 >> $IN
     for ((i=1;i<=n;i++)) do
-        tr -dc 'a-c' </dev/urandom | head -c 10 >> $IN;
+        tr -dc 'a-z' </dev/urandom | head -c 5000000 >> $IN;
         # echo 5000000 >> $IN;
         # for ((j=1;j<=5000000;j++)) do
         #     echo $(($RANDOM%26+1)) >> $IN
         # done;
         echo >> $IN;
     done
-    ./std_gpt < $IN > $OUT1
-    ./std < $IN > $OUT2; check "zsy";
-    ./std_szs < $IN > $OUT2; check "szs";
-    ./std_wsy < $IN > $OUT2; check "wsy";
-    ./std_zzy < $IN > $OUT2; check "zzy";
+    # ./std_gpt < $IN > $OUT1
+    # ./std < $IN > $OUT2; check "zsy";
+    # ./std_szs < $IN > $OUT2; check "szs";
+    # ./std_wsy < $IN > $OUT2; check "wsy";
+    # ./std_zzy < $IN > $OUT2; check "zzy";
     echo "Pass #@"
 done
 

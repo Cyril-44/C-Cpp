@@ -9,12 +9,12 @@ int main() {
     scanf("%d", &T);
     while (T--) {
         scanf("%s", s+1);
-        n = strlen(n+1);
+        n = strlen(s+1);
         
         m = 0;
         for (int i = 1; i <= n; i++) {
-            if (seq[i] == seq[i-1]) ++a[m][1];
-            else a[++m] = {seq[i], 1};
+            if (s[i] == s[i-1]) ++a[m][1];
+            else a[++m] = {s[i], 1};
         }
 
         ans = m, top = 0;
