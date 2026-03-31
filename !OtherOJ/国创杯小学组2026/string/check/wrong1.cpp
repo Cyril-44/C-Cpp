@@ -1,15 +1,16 @@
 #include <cstdio>
+#include <cstring>
 #include <array>
-constexpr int N = 1000005;
-int seq[N];
+constexpr int N = 5000005;
+int f[N]; char s[N];
 std::array<int,2> sta[N], a[N];
 int main() {
     int T, n, m, top, ans;
     scanf("%d", &T);
     while (T--) {
-        scanf("%d", &n);
-        for (int i = 1; i <= n; i++) scanf("%d", &seq[i]);
-
+        scanf("%s", s+1);
+        n = strlen(n+1);
+        
         m = 0;
         for (int i = 1; i <= n; i++) {
             if (seq[i] == seq[i-1]) ++a[m][1];

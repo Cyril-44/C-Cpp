@@ -112,9 +112,11 @@ int main() {
     cin >> T;
     while (T--) {
         int n;
-        cin >> n;
+        string s;
+        cin >> s;
+        n = s.length();
         vector<ll> raw(n);
-        for (int i = 0; i < n; ++i) cin >> raw[i];
+        for (int i = 0; i < n; ++i) raw[i] = s[i] - 'a' + 1;
 
         // coordinate compression
         vector<ll> xs = raw;
