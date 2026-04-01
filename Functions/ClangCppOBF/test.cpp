@@ -1,6 +1,7 @@
+#include <bits/c++config.h>
 #include <bits/stdc++.h>
-#define endl '\n'
-
+#include <concepts>
+#include <type_traits>
 class FastIS {
     static constexpr size_t BUF_SIZ = 1 << 20;
     char buffer[BUF_SIZ];
@@ -13,15 +14,15 @@ public:
     }
     template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
     FastIS& operator>>(T& rhs) {
-        if  (std::is_same<T, bool>::value) {
+        if _GLIBCXX17_CONSTEXPR (std::is_same<T, bool>::value) {
             int ch = get();
             while (~ch && ch != '0' && ch != '1') ch = get();
             rhs = static_cast<bool>(ch & 1);
-        } else if  (std::is_same<T, char>::value) {
+        } else if _GLIBCXX17_CONSTEXPR (std::is_same<T, char>::value) {
             rhs = get();
             while (rhs == ' ' || rhs == '\r' || rhs == '\n') rhs = get();
-        } else if  (std::is_integral<T>::value) {
-            if  (std::is_unsigned<T>::value) {
+        } else if _GLIBCXX17_CONSTEXPR (std::is_integral<T>::value) {
+            if _GLIBCXX17_CONSTEXPR (std::is_unsigned<T>::value) {
                 int ch = get();
                 while (~ch && (ch < '0' || ch > '9')) ch = get();
                 for (rhs = 0; ch >= '0' && ch <= '9'; ch = get())
@@ -35,7 +36,7 @@ public:
                     rhs = (rhs << 3) + (rhs << 1) + (ch ^ '0');
                 rhs = flg ? -rhs : rhs;
             }
-        } else if  (std::is_floating_point<T>::value) {
+        } else if _GLIBCXX17_CONSTEXPR (std::is_floating_point<T>::value) {
             int ch = get();
             bool flg = false;
             while (~ch && (ch < '0' || ch > '9') && (ch ^ '-')) ch = get();
@@ -87,17 +88,17 @@ public:
     }
     template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
     FastOS& operator<<(T rhs) {
-        if  (std::is_same<T, char>::value)
+        if _GLIBCXX17_CONSTEXPR (std::is_same<T, char>::value)
             put(rhs);
-        else if  (std::is_integral<T>::value) {
-            if  (std::is_signed<T>::value)
+        else if _GLIBCXX17_CONSTEXPR (std::is_integral<T>::value) {
+            if _GLIBCXX17_CONSTEXPR (std::is_signed<T>::value)
                 if (rhs < 0) put('-'), rhs = -rhs;
             static uint8_t s[40];
             s[*s = 1] = rhs % 10;
             while (rhs /= 10) s[++(*s)] = rhs % 10;
             while (*s) put(s[(*s)--] | '0');
         }
-        else if  (std::is_floating_point<T>::value) {
+        else if _GLIBCXX17_CONSTEXPR (std::is_floating_point<T>::value) {
             if (rhs < 0) put('-'), rhs = -rhs;
             using Int = typename std::conditional<std::is_same<T, float>::value, std::uint32_t, std::uint64_t>::type;
             Int inte = static_cast<Int>(rhs);
@@ -122,23 +123,12 @@ public:
         return *this << s.c_str();
     }
 } fout;
+#ifdef MULTI_TEST_CASES
+auto __read_extra_test_cases = [](int x){fin >> x; return x;}();
+#endif
 int main() {
-    freopen("year.in", "r", stdin);
-    freopen("year.out", "w", stdout);
-    int C, t, a, b, c;
-    fin >> C >> t;
-    long long m, n;
-    for (int i = 1; i <= t; i++) {
-        fin >> m >> a >> b >> c >> n;
-        --m; n += m / a - m / b + m / c;
-        c /= b, b /= a;
-        long long ans = a * (n / (b * c - c + 1)) * (b * c);
-        n %= b * c - c + 1;
-        if (n) {
-            ans += a * ((n - 1) / (b - 1)) * b;
-            n = (n-1) % (b-1) + 1;
-            ans += a * n;
-        }
-        fout << ans << '\n';
-    }
+    double x;
+    fin >> x;
+    fout.setprecision(6) << x;
+    return 0;
 }
