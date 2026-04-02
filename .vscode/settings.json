@@ -20,5 +20,6 @@
         "--header-insertion=iwyu"
     ],
     // "cmake.sourceDirectory": "/home/cyril/code/Functions/clang-cpp-obf",
-    "C_Cpp.intelliSenseEngine": "disabled"
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "clangd.path": "clangd-18"
 }

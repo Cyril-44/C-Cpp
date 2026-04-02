@@ -1,0 +1,1313 @@
+/home/cyril/C-Cpp/Functions/ClangCppOBF/test.cpp:54:47: warning: for loop has empty body [-Wempty-body]
+   54 |         if (flg) {for (top = 0; s[top]; ++top); buf = s;}
+      |                                               ^
+/home/cyril/C-Cpp/Functions/ClangCppOBF/test.cpp:54:47: note: put the semicolon on a separate line to silence this warning
+Skipped pointer_to
+Skipped pointer_to
+Skipped assign
+Skipped deallocate
+Skipped _S_select_on_copy
+Skipped length
+Skipped copy
+Skipped copy
+Skipped _S_always_equal
+Skipped _S_propagate_on_move_assign
+Skipped _S_always_equal
+Skipped _S_propagate_on_move_assign
+Skipped _S_always_equal
+Skipped _S_always_equal
+Skipped max_size
+Skipped length
+Skipped assign
+Skipped _S_propagate_on_copy_assign
+Skipped _S_always_equal
+Skipped allocate
+Skipped length
+Skipped length
+Skipped length
+Skipped length
+Skipped length
+Skipped length
+Skipped length
+Skipped length
+Skipped length
+Skipped length
+Skipped compare
+Skipped _S_on_swap
+Skipped copy
+Skipped copy
+Skipped copy
+Skipped copy
+Skipped copy
+Skipped copy
+Skipped copy
+Skipped allocate
+Skipped assign
+Skipped allocate
+Skipped find
+Skipped compare
+Skipped find
+Skipped compare
+Skipped eq
+Skipped find
+Skipped find
+Skipped find
+Skipped eq
+Skipped find
+Skipped eq
+Skipped compare
+Skipped compare
+Skipped length
+Skipped compare
+Skipped length
+Skipped compare
+Skipped compare
+Skipped id
+Skipped length
+Skipped length
+Skipped length
+Skipped eof
+Skipped eq_int_type
+Skipped to_int_type
+Skipped to_int_type
+Skipped eq
+Skipped to_int_type
+Skipped to_int_type
+Skipped to_int_type
+Skipped to_int_type
+Skipped to_int_type
+Skipped eof
+Skipped eof
+Skipped eq_int_type
+Skipped to_int_type
+Skipped eof
+Skipped eof
+Skipped copy
+Skipped eq_int_type
+Skipped eof
+Skipped assign
+Skipped to_char_type
+Skipped copy
+Skipped to_int_type
+Skipped eq_int_type
+Skipped eof
+Skipped eof
+Skipped eof
+Skipped eof
+Skipped to_char_type
+Skipped eof
+Skipped eof
+Skipped eq_int_type
+Skipped eof
+Skipped find
+Skipped id
+Skipped find
+Skipped __is_signed
+Skipped __min
+Skipped __max
+Skipped find
+Skipped __is_signed
+Skipped __min
+Skipped __max
+Skipped _S_pad
+Skipped __is_signed
+Skipped copy
+Skipped __digits10
+Skipped assign
+Skipped move
+Skipped swap
+Skipped eq_int_type
+Skipped eof
+Skipped move
+Skipped swap
+Skipped swap
+Skipped eof
+Skipped eq_int_type
+Skipped to_char_type
+Skipped eq_int_type
+Skipped eof
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eof
+Skipped to_char_type
+Skipped to_int_type
+Skipped eof
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped to_char_type
+Skipped eq_int_type
+Skipped to_int_type
+Skipped eof
+Skipped to_char_type
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped to_char_type
+Skipped eq_int_type
+Skipped to_int_type
+Skipped eof
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped to_char_type
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eof
+Skipped eq_int_type
+Skipped eof
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eof
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eq_int_type
+Skipped eof
+Skipped eq_int_type
+Skipped eof
+Skipped eof
+Skipped eq_int_type
+Skipped eof
+Skipped eq_int_type
+Skipped _S_do_sanitize
+Skipped _S_whichbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_do_sanitize_val
+Skipped npos
+Skipped npos
+Skipped length
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped _S_maskbit
+Skipped eq
+Skipped eq
+Skipped allocate
+Skipped deallocate
+Skipped _S_select_on_copy
+Skipped _S_propagate_on_move_assign
+Skipped _S_always_equal
+Skipped construct
+Skipped destroy
+Skipped value
+Skipped _S_on_swap
+Skipped construct
+Skipped destroy
+Skipped allocate
+Skipped deallocate
+Skipped get_allocator
+Skipped _S_select_on_copy
+Skipped _S_propagate_on_copy_assign
+Skipped _S_propagate_on_move_assign
+Skipped max_size
+Skipped value
+Skipped _S_on_swap
+Skipped construct
+Skipped construct
+Skipped destroy
+Skipped _S_propagate_on_copy_assign
+Skipped _S_always_equal
+Skipped construct
+Skipped construct
+Skipped construct
+Skipped construct
+Skipped destroy
+Skipped _S_do_it
+[DEBUG] New mapping: Demical  -->  Demical_0  (Key: 0x562334fe2a40)
+[REPLACE] VisitNamedDecl @ 7:7   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: DIGITLEN  -->  DIGITLEN_1  (Key: 0x562334fe2bf8)
+[REPLACE] VisitNamedDecl @ 8:29   'DIGITLEN'  -->  'DIGITLEN_1'
+[DEBUG] New mapping: BASE  -->  BASE_2  (Key: 0x562334fe2d48)
+[REPLACE] VisitNamedDecl @ 9:31   'BASE'  -->  'BASE_2'
+[DEBUG] New mapping: BASE_I  -->  BASE_I_3  (Key: 0x562334fe2e58)
+[REPLACE] VisitNamedDecl @ 10:26   'BASE_I'  -->  'BASE_I_3'
+[DEBUG] New mapping: BASELEN  -->  BASELEN_4  (Key: 0x562334fe2f68)
+[REPLACE] VisitNamedDecl @ 11:26   'BASELEN'  -->  'BASELEN_4'
+[DEBUG] New mapping: sign  -->  sign_5  (Key: 0x562334fe3058)
+[REPLACE] VisitNamedDecl @ 12:10   'sign'  -->  'sign_5'
+[DEBUG] New mapping: a  -->  a_6  (Key: 0x562335007388)
+[REPLACE] VisitNamedDecl @ 13:27   'a'  -->  'a_6'
+[DEBUG] New mapping: normalize  -->  normalize_7  (Key: 0x562335007918)
+[REPLACE] VisitNamedDecl @ 18:35   'normalize'  -->  'normalize_7'
+[DEBUG] New mapping: T  -->  T_8  (Key: 0x562335007408)
+[REPLACE] VisitNamedDecl @ 18:20   'T'  -->  'T_8'
+[DEBUG] New mapping: x  -->  x_9  (Key: 0x562335007738)
+[REPLACE] VisitNamedDecl @ 18:61   'x'  -->  'x_9'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 18:57   'T'  -->  'T_8'
+[DEBUG] New mapping: i  -->  i_10  (Key: 0x56233501fb38)
+[REPLACE] VisitNamedDecl @ 19:21   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 19:28   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 19:32   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 19:42   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 20:17   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 20:24   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 20:37   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 20:39   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 20:45   'BASE_I'  -->  'BASE_I_3'
+[REPLACE] VisitDeclRefExpr @ 20:55   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 20:57   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 21:17   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 22:17   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 22:19   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 22:25   'BASE_I'  -->  'BASE_I_3'
+[REPLACE] VisitDeclRefExpr @ 22:33   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 22:35   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 22:43   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 22:45   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 22:50   'BASE_I'  -->  'BASE_I_3'
+[REPLACE] VisitDeclRefExpr @ 23:17   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 23:19   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 23:27   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 23:29   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 23:40   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 23:42   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 23:47   'BASE_I'  -->  'BASE_I_3'
+[REPLACE] VisitDeclRefExpr @ 23:59   'BASE_I'  -->  'BASE_I_3'
+[REPLACE] VisitDeclRefExpr @ 24:13   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 24:15   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 24:21   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 24:23   'i'  -->  'i_10'
+[REPLACE] VisitDeclRefExpr @ 24:28   'BASE_I'  -->  'BASE_I_3'
+[REPLACE] VisitDeclRefExpr @ 24:37   'BASE_I'  -->  'BASE_I_3'
+[REPLACE] VisitDeclRefExpr @ 24:47   'BASE_I'  -->  'BASE_I_3'
+[REPLACE] VisitMemberExpr @ 26:9   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 26:18   'x'  -->  'x_9'
+[DEBUG] New mapping: i  -->  i_11  (Key: 0x5623350209d8)
+[REPLACE] VisitNamedDecl @ 27:21   'i'  -->  'i_11'
+[REPLACE] VisitDeclRefExpr @ 27:28   'i'  -->  'i_11'
+[REPLACE] VisitDeclRefExpr @ 27:32   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 27:42   'i'  -->  'i_11'
+[REPLACE] VisitMemberExpr @ 28:13   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 28:15   'i'  -->  'i_11'
+[REPLACE] VisitDeclRefExpr @ 28:42   'x'  -->  'x_9'
+[REPLACE] VisitDeclRefExpr @ 28:44   'i'  -->  'i_11'
+[REPLACE] VisitMemberExpr @ 29:17   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 30:18   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 30:35   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 32:13   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 32:24   'sign'  -->  'sign_5'
+[DEBUG] New mapping: read  -->  read_12  (Key: 0x562335007be0)
+[REPLACE] VisitNamedDecl @ 35:18   'read'  -->  'read_12'
+[DEBUG] New mapping: FuncType  -->  FuncType_13  (Key: 0x562335007978)
+[REPLACE] VisitNamedDecl @ 34:20   'FuncType'  -->  'FuncType_13'
+[DEBUG] New mapping: method  -->  method_14  (Key: 0x562335007a28)
+[REPLACE] VisitNamedDecl @ 35:32   'method'  -->  'method_14'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 35:23   'FuncType'  -->  'FuncType_13'
+[DEBUG] New mapping: buf  -->  buf_15  (Key: 0x56233503f380)
+[REPLACE] VisitNamedDecl @ 36:21   'buf'  -->  'buf_15'
+[REPLACE] VisitDeclRefExpr @ 36:25   'DIGITLEN'  -->  'DIGITLEN_1'
+[DEBUG] New mapping: top  -->  top_16  (Key: 0x56233503f418)
+[REPLACE] VisitNamedDecl @ 37:13   'top'  -->  'top_16'
+[DEBUG] New mapping: ch  -->  ch_17  (Key: 0x56233503f4e8)
+[REPLACE] VisitNamedDecl @ 38:14   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 38:19   'method'  -->  'method_14'
+[REPLACE] VisitDeclRefExpr @ 39:17   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 39:29   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 39:43   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 39:54   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 39:59   'method'  -->  'method_14'
+[REPLACE] VisitDeclRefExpr @ 40:13   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 40:24   'buf'  -->  'buf_15'
+[REPLACE] VisitDeclRefExpr @ 40:28   'top'  -->  'top_16'
+[REPLACE] VisitDeclRefExpr @ 40:42   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 40:47   'method'  -->  'method_14'
+[REPLACE] VisitDeclRefExpr @ 41:17   'top'  -->  'top_16'
+[REPLACE] VisitDeclRefExpr @ 41:23   'DIGITLEN'  -->  'DIGITLEN_1'
+[REPLACE] VisitDeclRefExpr @ 41:36   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 41:49   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 42:13   'buf'  -->  'buf_15'
+[REPLACE] VisitDeclRefExpr @ 42:17   'top'  -->  'top_16'
+[REPLACE] VisitDeclRefExpr @ 42:26   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 42:30   'ch'  -->  'ch_17'
+[REPLACE] VisitDeclRefExpr @ 42:35   'method'  -->  'method_14'
+[REPLACE] VisitDeclRefExpr @ 43:9   'buf'  -->  'buf_15'
+[REPLACE] VisitDeclRefExpr @ 43:13   'top'  -->  'top_16'
+[REPLACE] VisitDeclRefExpr @ 44:16   'buf'  -->  'buf_15'
+[REPLACE] VisitCXXConstructorDecl (RD) @ 46:12   'Demical'  -->  'Demical_0'
+[REPLACE] VisitCXXConstructorDecl (Init) @ 46:69   'sign'  -->  'sign_5'
+[REPLACE] VisitCXXConstructorDecl (Init) @ 46:78   'a'  -->  'a_6'
+[DEBUG] New mapping: x  -->  x_18  (Key: 0x562335007c58)
+[REPLACE] VisitNamedDecl @ 46:32   'x'  -->  'x_18'
+[DEBUG] New mapping: y  -->  y_19  (Key: 0x562335007ec8)
+[REPLACE] VisitNamedDecl @ 46:64   'y'  -->  'y_19'
+[REPLACE] VisitDeclRefExpr @ 46:74   'x'  -->  'x_18'
+[REPLACE] VisitDeclRefExpr @ 46:80   'y'  -->  'y_19'
+[REPLACE] VisitCXXConstructorDecl (RD) @ 47:5   'Demical'  -->  'Demical_0'
+[REPLACE] VisitCXXConstructorDecl (Init) @ 47:48   'sign'  -->  'sign_5'
+[DEBUG] New mapping: _s  -->  _s_20  (Key: 0x5623350080d8)
+[REPLACE] VisitNamedDecl @ 47:25   '_s'  -->  '_s_20'
+[DEBUG] New mapping: flg  -->  flg_21  (Key: 0x562335008158)
+[REPLACE] VisitNamedDecl @ 47:41   'flg'  -->  'flg_21'
+[DEBUG] New mapping: s  -->  s_22  (Key: 0x56233504c708)
+[REPLACE] VisitNamedDecl @ 48:15   's'  -->  's_22'
+[REPLACE] VisitDeclRefExpr @ 48:39   '_s'  -->  '_s_20'
+[REPLACE] VisitDeclRefExpr @ 48:52   '_s'  -->  '_s_20'
+[REPLACE] VisitDeclRefExpr @ 48:59   '_s'  -->  '_s_20'
+[REPLACE] VisitDeclRefExpr @ 49:14   's'  -->  's_22'
+[REPLACE] VisitDeclRefExpr @ 50:14   '_s'  -->  '_s_20'
+[REPLACE] VisitMemberExpr @ 50:25   'sign'  -->  'sign_5'
+[DEBUG] New mapping: _buf  -->  _buf_23  (Key: 0x56233504cd38)
+[REPLACE] VisitNamedDecl @ 51:21   '_buf'  -->  '_buf_23'
+[REPLACE] VisitDeclRefExpr @ 51:26   'DIGITLEN'  -->  'DIGITLEN_1'
+[DEBUG] New mapping: buf  -->  buf_24  (Key: 0x56233504cdd0)
+[REPLACE] VisitNamedDecl @ 52:15   'buf'  -->  'buf_24'
+[DEBUG] New mapping: top  -->  top_25  (Key: 0x56233504ce68)
+[REPLACE] VisitNamedDecl @ 53:13   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 54:13   'flg'  -->  'flg_21'
+[REPLACE] VisitDeclRefExpr @ 54:24   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 54:33   's'  -->  's_22'
+[REPLACE] VisitDeclRefExpr @ 54:35   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 54:43   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 54:49   'buf'  -->  'buf_24'
+[REPLACE] VisitDeclRefExpr @ 54:55   's'  -->  's_22'
+[REPLACE] VisitDeclRefExpr @ 56:13   'buf'  -->  'buf_24'
+[REPLACE] VisitDeclRefExpr @ 56:19   '_buf'  -->  '_buf_23'
+[REPLACE] VisitDeclRefExpr @ 57:18   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 57:27   's'  -->  's_22'
+[REPLACE] VisitDeclRefExpr @ 57:29   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 57:37   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 58:21   's'  -->  's_22'
+[REPLACE] VisitDeclRefExpr @ 58:23   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 58:37   's'  -->  's_22'
+[REPLACE] VisitDeclRefExpr @ 58:39   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 59:17   'buf'  -->  'buf_24'
+[REPLACE] VisitDeclRefExpr @ 59:21   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 59:28   's'  -->  's_22'
+[REPLACE] VisitDeclRefExpr @ 59:30   'top'  -->  'top_25'
+[DEBUG] New mapping: i  -->  i_26  (Key: 0x56233504d7b0)
+[REPLACE] VisitNamedDecl @ 62:18   'i'  -->  'i_26'
+[DEBUG] New mapping: j  -->  j_27  (Key: 0x56233504d850)
+[REPLACE] VisitNamedDecl @ 62:25   'j'  -->  'j_27'
+[REPLACE] VisitDeclRefExpr @ 62:29   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 62:36   'i'  -->  'i_26'
+[REPLACE] VisitDeclRefExpr @ 62:40   'j'  -->  'j_27'
+[REPLACE] VisitDeclRefExpr @ 62:43   'i'  -->  'i_26'
+[REPLACE] VisitDeclRefExpr @ 62:50   'j'  -->  'j_27'
+[REPLACE] VisitDeclRefExpr @ 63:13   'buf'  -->  'buf_24'
+[REPLACE] VisitDeclRefExpr @ 63:17   'i'  -->  'i_26'
+[REPLACE] VisitDeclRefExpr @ 63:23   'buf'  -->  'buf_24'
+[REPLACE] VisitDeclRefExpr @ 63:27   'j'  -->  'j_27'
+[REPLACE] VisitDeclRefExpr @ 63:33   'buf'  -->  'buf_24'
+[REPLACE] VisitDeclRefExpr @ 63:37   'i'  -->  'i_26'
+[REPLACE] VisitDeclRefExpr @ 63:43   'buf'  -->  'buf_24'
+[REPLACE] VisitDeclRefExpr @ 63:47   'j'  -->  'j_27'
+[REPLACE] VisitMemberExpr @ 64:9   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 64:19   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 64:25   'BASELEN'  -->  'BASELEN_4'
+[REPLACE] VisitDeclRefExpr @ 64:40   'BASELEN'  -->  'BASELEN_4'
+[DEBUG] New mapping: i  -->  i_28  (Key: 0x56233504e108)
+[REPLACE] VisitNamedDecl @ 65:21   'i'  -->  'i_28'
+[DEBUG] New mapping: j  -->  j_29  (Key: 0x56233504e1b8)
+[REPLACE] VisitNamedDecl @ 65:28   'j'  -->  'j_29'
+[REPLACE] VisitDeclRefExpr @ 65:35   'i'  -->  'i_28'
+[REPLACE] VisitMemberExpr @ 65:39   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 65:49   'i'  -->  'i_28'
+[DEBUG] New mapping: bs  -->  bs_30  (Key: 0x56233504e420)
+[REPLACE] VisitNamedDecl @ 66:22   'bs'  -->  'bs_30'
+[DEBUG] New mapping: k  -->  k_31  (Key: 0x56233504e4e8)
+[REPLACE] VisitNamedDecl @ 67:23   'k'  -->  'k_31'
+[REPLACE] VisitDeclRefExpr @ 67:27   'BASELEN'  -->  'BASELEN_4'
+[REPLACE] VisitDeclRefExpr @ 67:37   'j'  -->  'j_29'
+[REPLACE] VisitDeclRefExpr @ 67:41   'top'  -->  'top_25'
+[REPLACE] VisitDeclRefExpr @ 67:49   'k'  -->  'k_31'
+[REPLACE] VisitDeclRefExpr @ 67:52   'j'  -->  'j_29'
+[REPLACE] VisitDeclRefExpr @ 67:59   'k'  -->  'k_31'
+[REPLACE] VisitMemberExpr @ 68:17   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 68:19   'i'  -->  'i_28'
+[REPLACE] VisitDeclRefExpr @ 68:25   'bs'  -->  'bs_30'
+[REPLACE] VisitDeclRefExpr @ 68:31   'buf'  -->  'buf_24'
+[REPLACE] VisitDeclRefExpr @ 68:35   'j'  -->  'j_29'
+[REPLACE] VisitDeclRefExpr @ 68:46   'bs'  -->  'bs_30'
+[REPLACE] VisitCXXConstructorDecl (RD) @ 72:5   'Demical'  -->  'Demical_0'
+[REPLACE] VisitCXXConstructorDecl (Init) @ 72:17   'sign'  -->  'sign_5'
+[DEBUG] New mapping: T  -->  T_32  (Key: 0x562335008408)
+[REPLACE] VisitNamedDecl @ 73:20   'T'  -->  'T_32'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 73:75   'T'  -->  'T_32'
+[REPLACE] VisitCXXConstructorDecl (RD) @ 73:99   'Demical'  -->  'Demical_0'
+[REPLACE] VisitCXXConstructorDecl (Init) @ 73:114   'sign'  -->  'sign_5'
+[DEBUG] New mapping: x  -->  x_33  (Key: 0x562335008890)
+[REPLACE] VisitNamedDecl @ 73:109   'x'  -->  'x_33'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 73:107   'T'  -->  'T_32'
+Skipped value
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 74:28   'T'  -->  'T_32'
+[REPLACE] VisitDeclRefExpr @ 74:41   'x'  -->  'x_33'
+[REPLACE] VisitMemberExpr @ 75:13   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 75:26   'x'  -->  'x_33'
+[REPLACE] VisitDeclRefExpr @ 75:31   'x'  -->  'x_33'
+[REPLACE] VisitDeclRefExpr @ 76:16   'x'  -->  'x_33'
+[REPLACE] VisitMemberExpr @ 77:13   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 77:28   'x'  -->  'x_33'
+[REPLACE] VisitDeclRefExpr @ 77:32   'BASE'  -->  'BASE_2'
+[REPLACE] VisitDeclRefExpr @ 78:13   'x'  -->  'x_33'
+[REPLACE] VisitDeclRefExpr @ 78:18   'BASE'  -->  'BASE_2'
+[DEBUG] New mapping: N  -->  N_34  (Key: 0x562335008a90)
+[REPLACE] VisitNamedDecl @ 82:17   'N'  -->  'N_34'
+[REPLACE] VisitCXXConstructorDecl (RD) @ 82:20   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: bit  -->  bit_35  (Key: 0x562335008c28)
+[REPLACE] VisitNamedDecl @ 82:43   'bit'  -->  'bit_35'
+[REPLACE] VisitDeclRefExpr @ 82:40   'N'  -->  'N_34'
+[DEBUG] New mapping: tp  -->  tp_36  (Key: 0x56233504f310)
+[REPLACE] VisitNamedDecl @ 83:23   'tp'  -->  'tp_36'
+[DEBUG] New mapping: base  -->  base_37  (Key: 0x56233504f3a0)
+[REPLACE] VisitNamedDecl @ 84:17   'base'  -->  'base_37'
+[REPLACE] VisitTagTypeLoc @ 84:9   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: long_up  -->  long_up_38  (Key: 0x562335050e68)
+[REPLACE] VisitNamedDecl @ 85:30   'long_up'  -->  'long_up_38'
+[REPLACE] VisitTagTypeLoc @ 85:22   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 85:73   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 85:107   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 86:16   'bit'  -->  'bit_35'
+[REPLACE] VisitDeclRefExpr @ 87:13   'tp'  -->  'tp_36'
+[REPLACE] VisitDeclRefExpr @ 87:18   'bit'  -->  'bit_35'
+[REPLACE] VisitDeclRefExpr @ 88:13   'bit'  -->  'bit_35'
+[REPLACE] VisitDeclRefExpr @ 89:22   'base'  -->  'base_37'
+[REPLACE] VisitDeclRefExpr @ 89:29   'tp'  -->  'tp_36'
+[REPLACE] VisitDeclRefExpr @ 90:13   'base'  -->  'base_37'
+[REPLACE] VisitDeclRefExpr @ 90:21   'long_up'  -->  'long_up_38'
+[REPLACE] VisitCXXConstructorDecl (RD) @ 93:5   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: s  -->  s_39  (Key: 0x562335008e68)
+[REPLACE] VisitNamedDecl @ 93:25   's'  -->  's_39'
+[REPLACE] VisitTagTypeLoc @ 93:38   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 93:46   's'  -->  's_39'
+[REPLACE] VisitCXXConstructorDecl (RD) @ 94:5   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: s  -->  s_40  (Key: 0x562335009078)
+[REPLACE] VisitNamedDecl @ 94:32   's'  -->  's_40'
+[REPLACE] VisitTagTypeLoc @ 94:45   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 94:53   's'  -->  's_40'
+[REPLACE] VisitMemberExpr @ 95:47   'a'  -->  'a_6'
+[DEBUG] New mapping: in  -->  in_41  (Key: 0x562335009348)
+[REPLACE] VisitNamedDecl @ 100:17   'in'  -->  'in_41'
+[REPLACE] VisitTagTypeLoc @ 100:32   'Demical'  -->  'Demical_0'
+[REPLACE] VisitMemberExpr @ 100:40   'read'  -->  'read_12'
+[DEBUG] New mapping: c_str  -->  c_str_42  (Key: 0x562335009418)
+[REPLACE] VisitNamedDecl @ 102:18   'c_str'  -->  'c_str_42'
+[DEBUG] New mapping: buffer  -->  buffer_43  (Key: 0x5623350575f0)
+[REPLACE] VisitNamedDecl @ 103:21   'buffer'  -->  'buffer_43'
+[REPLACE] VisitDeclRefExpr @ 103:28   'DIGITLEN'  -->  'DIGITLEN_1'
+[REPLACE] VisitMemberExpr @ 104:13   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 105:13   'buffer'  -->  'buffer_43'
+[REPLACE] VisitDeclRefExpr @ 106:13   'buffer'  -->  'buffer_43'
+[REPLACE] VisitDeclRefExpr @ 107:20   'buffer'  -->  'buffer_43'
+[DEBUG] New mapping: top  -->  top_44  (Key: 0x562335057950)
+[REPLACE] VisitNamedDecl @ 109:13   'top'  -->  'top_44'
+[REPLACE] VisitMemberExpr @ 110:13   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 110:19   'buffer'  -->  'buffer_43'
+[REPLACE] VisitDeclRefExpr @ 110:26   'top'  -->  'top_44'
+[DEBUG] New mapping: buf  -->  buf_45  (Key: 0x562335057c30)
+[REPLACE] VisitNamedDecl @ 111:14   'buf'  -->  'buf_45'
+[REPLACE] VisitDeclRefExpr @ 111:18   'BASELEN'  -->  'BASELEN_4'
+[DEBUG] New mapping: it  -->  it_46  (Key: 0x562335057cc8)
+[REPLACE] VisitNamedDecl @ 112:14   'it'  -->  'it_46'
+[REPLACE] VisitMemberExpr @ 112:19   'a'  -->  'a_6'
+[DEBUG] New mapping: y  -->  y_47  (Key: 0x5623350699a8)
+[REPLACE] VisitNamedDecl @ 112:41   'y'  -->  'y_47'
+[REPLACE] VisitDeclRefExpr @ 112:46   'it'  -->  'it_46'
+[DEBUG] New mapping: i  -->  i_48  (Key: 0x562335069b98)
+[REPLACE] VisitNamedDecl @ 113:18   'i'  -->  'i_48'
+[REPLACE] VisitDeclRefExpr @ 113:22   'BASELEN'  -->  'BASELEN_4'
+[REPLACE] VisitDeclRefExpr @ 113:35   'i'  -->  'i_48'
+[REPLACE] VisitDeclRefExpr @ 113:45   'i'  -->  'i_48'
+[REPLACE] VisitDeclRefExpr @ 113:48   'buf'  -->  'buf_45'
+[REPLACE] VisitDeclRefExpr @ 113:52   'i'  -->  'i_48'
+[REPLACE] VisitDeclRefExpr @ 113:58   'y'  -->  'y_47'
+[REPLACE] VisitDeclRefExpr @ 113:73   'y'  -->  'y_47'
+[DEBUG] New mapping: i  -->  i_49  (Key: 0x56233506a020)
+[REPLACE] VisitNamedDecl @ 114:18   'i'  -->  'i_49'
+[REPLACE] VisitDeclRefExpr @ 114:25   'i'  -->  'i_49'
+[REPLACE] VisitDeclRefExpr @ 114:29   'BASELEN'  -->  'BASELEN_4'
+[REPLACE] VisitDeclRefExpr @ 114:38   'i'  -->  'i_49'
+[REPLACE] VisitDeclRefExpr @ 114:47   'buf'  -->  'buf_45'
+[REPLACE] VisitDeclRefExpr @ 114:51   'i'  -->  'i_49'
+[REPLACE] VisitDeclRefExpr @ 114:70   'i'  -->  'i_49'
+[REPLACE] VisitDeclRefExpr @ 114:74   'BASELEN'  -->  'BASELEN_4'
+[REPLACE] VisitDeclRefExpr @ 114:83   'i'  -->  'i_49'
+[REPLACE] VisitDeclRefExpr @ 114:88   'buffer'  -->  'buffer_43'
+[REPLACE] VisitDeclRefExpr @ 114:95   'top'  -->  'top_44'
+[REPLACE] VisitDeclRefExpr @ 114:104   'buf'  -->  'buf_45'
+[REPLACE] VisitDeclRefExpr @ 114:108   'i'  -->  'i_49'
+[REPLACE] VisitDeclRefExpr @ 115:16   'it'  -->  'it_46'
+[REPLACE] VisitDeclRefExpr @ 115:20   'it'  -->  'it_46'
+[REPLACE] VisitMemberExpr @ 115:26   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 115:39   'it'  -->  'it_46'
+[REPLACE] VisitDeclRefExpr @ 115:45   'y'  -->  'y_47'
+[REPLACE] VisitDeclRefExpr @ 115:50   'it'  -->  'it_46'
+[DEBUG] New mapping: i  -->  i_50  (Key: 0x56233506c520)
+[REPLACE] VisitNamedDecl @ 116:22   'i'  -->  'i_50'
+[REPLACE] VisitDeclRefExpr @ 116:26   'BASELEN'  -->  'BASELEN_4'
+[REPLACE] VisitDeclRefExpr @ 116:39   'i'  -->  'i_50'
+[REPLACE] VisitDeclRefExpr @ 116:49   'i'  -->  'i_50'
+[REPLACE] VisitDeclRefExpr @ 116:52   'buf'  -->  'buf_45'
+[REPLACE] VisitDeclRefExpr @ 116:56   'i'  -->  'i_50'
+[REPLACE] VisitDeclRefExpr @ 116:62   'y'  -->  'y_47'
+[REPLACE] VisitDeclRefExpr @ 116:77   'y'  -->  'y_47'
+[DEBUG] New mapping: i  -->  i_51  (Key: 0x56233506c9a8)
+[REPLACE] VisitNamedDecl @ 117:22   'i'  -->  'i_51'
+[REPLACE] VisitDeclRefExpr @ 117:29   'i'  -->  'i_51'
+[REPLACE] VisitDeclRefExpr @ 117:33   'BASELEN'  -->  'BASELEN_4'
+[REPLACE] VisitDeclRefExpr @ 117:42   'i'  -->  'i_51'
+[REPLACE] VisitDeclRefExpr @ 117:47   'buffer'  -->  'buffer_43'
+[REPLACE] VisitDeclRefExpr @ 117:54   'top'  -->  'top_44'
+[REPLACE] VisitDeclRefExpr @ 117:63   'buf'  -->  'buf_45'
+[REPLACE] VisitDeclRefExpr @ 117:67   'i'  -->  'i_51'
+[REPLACE] VisitDeclRefExpr @ 119:9   'buffer'  -->  'buffer_43'
+[REPLACE] VisitDeclRefExpr @ 119:16   'top'  -->  'top_44'
+[REPLACE] VisitDeclRefExpr @ 120:16   'buffer'  -->  'buffer_43'
+[DEBUG] New mapping: to_string  -->  to_string_52  (Key: 0x5623350096b0)
+[REPLACE] VisitNamedDecl @ 123:24   'to_string'  -->  'to_string_52'
+[DEBUG] New mapping: x  -->  x_53  (Key: 0x562335009598)
+[REPLACE] VisitNamedDecl @ 123:49   'x'  -->  'x_53'
+[REPLACE] VisitTagTypeLoc @ 123:40   'Demical'  -->  'Demical_0'
+[REPLACE] VisitMemberExpr @ 123:75   'c_str'  -->  'c_str_42'
+[REPLACE] VisitDeclRefExpr @ 123:73   'x'  -->  'x_53'
+[DEBUG] New mapping: IStream  -->  IStream_54  (Key: 0x5623350097b0)
+[REPLACE] VisitNamedDecl @ 125:23   'IStream'  -->  'IStream_54'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 126:12   'IStream'  -->  'IStream_54'
+[DEBUG] New mapping: is  -->  is_55  (Key: 0x562335009890)
+[REPLACE] VisitNamedDecl @ 126:41   'is'  -->  'is_55'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 126:32   'IStream'  -->  'IStream_54'
+[DEBUG] New mapping: x  -->  x_56  (Key: 0x562335009978)
+[REPLACE] VisitNamedDecl @ 126:54   'x'  -->  'x_56'
+[REPLACE] VisitTagTypeLoc @ 126:45   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 127:9   'x'  -->  'x_56'
+[REPLACE] VisitTagTypeLoc @ 127:13   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 127:21   'x'  -->  'x_56'
+[REPLACE] VisitDeclRefExpr @ 127:30   'is'  -->  'is_55'
+[REPLACE] VisitDeclRefExpr @ 127:49   'is'  -->  'is_55'
+[REPLACE] VisitDeclRefExpr @ 128:16   'is'  -->  'is_55'
+[DEBUG] New mapping: OStream  -->  OStream_57  (Key: 0x562335015198)
+[REPLACE] VisitNamedDecl @ 130:23   'OStream'  -->  'OStream_57'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 131:12   'OStream'  -->  'OStream_57'
+[DEBUG] New mapping: os  -->  os_58  (Key: 0x562335015280)
+[REPLACE] VisitNamedDecl @ 131:41   'os'  -->  'os_58'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 131:32   'OStream'  -->  'OStream_57'
+[DEBUG] New mapping: x  -->  x_59  (Key: 0x562335015300)
+[REPLACE] VisitNamedDecl @ 131:60   'x'  -->  'x_59'
+[REPLACE] VisitTagTypeLoc @ 131:51   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 131:72   'os'  -->  'os_58'
+[REPLACE] VisitMemberExpr @ 131:80   'c_str'  -->  'c_str_42'
+[REPLACE] VisitDeclRefExpr @ 131:78   'x'  -->  'x_59'
+[DEBUG] New mapping: abs  -->  abs_60  (Key: 0x562335015720)
+[REPLACE] VisitNamedDecl @ 132:27   'abs'  -->  'abs_60'
+[REPLACE] VisitTagTypeLoc @ 132:19   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_61  (Key: 0x562335015618)
+[REPLACE] VisitNamedDecl @ 132:39   'x'  -->  'x_61'
+[REPLACE] VisitTagTypeLoc @ 132:31   'Demical'  -->  'Demical_0'
+[REPLACE] VisitMemberExpr @ 132:46   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 132:44   'x'  -->  'x_61'
+[REPLACE] VisitDeclRefExpr @ 132:67   'x'  -->  'x_61'
+[REPLACE] VisitTagTypeLoc @ 133:12   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 133:47   'Demical'  -->  'Demical_0'
+[REPLACE] VisitMemberExpr @ 133:56   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 133:62   'a'  -->  'a_6'
+[REPLACE] VisitTagTypeLoc @ 134:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_62  (Key: 0x562335015970)
+[REPLACE] VisitNamedDecl @ 134:45   'x'  -->  'x_62'
+[REPLACE] VisitTagTypeLoc @ 134:36   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 134:63   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 134:81   'x'  -->  'x_62'
+[REPLACE] VisitTagTypeLoc @ 135:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_63  (Key: 0x562335015b48)
+[REPLACE] VisitNamedDecl @ 135:47   'x'  -->  'x_63'
+[REPLACE] VisitTagTypeLoc @ 135:38   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 135:69   'x'  -->  'x_63'
+[REPLACE] VisitTagTypeLoc @ 136:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_64  (Key: 0x562335015d20)
+[REPLACE] VisitNamedDecl @ 136:45   'x'  -->  'x_64'
+[REPLACE] VisitTagTypeLoc @ 136:36   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 136:63   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 136:81   'x'  -->  'x_64'
+[REPLACE] VisitTagTypeLoc @ 137:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_65  (Key: 0x562335015e88)
+[REPLACE] VisitNamedDecl @ 137:45   'x'  -->  'x_65'
+[REPLACE] VisitTagTypeLoc @ 137:36   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 137:63   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 137:81   'x'  -->  'x_65'
+[REPLACE] VisitTagTypeLoc @ 138:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_66  (Key: 0x562335015fe0)
+[REPLACE] VisitNamedDecl @ 138:45   'x'  -->  'x_66'
+[REPLACE] VisitTagTypeLoc @ 138:36   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 138:63   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 138:81   'x'  -->  'x_66'
+[REPLACE] VisitTagTypeLoc @ 139:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_67  (Key: 0x562335016138)
+[REPLACE] VisitNamedDecl @ 139:47   'x'  -->  'x_67'
+[REPLACE] VisitTagTypeLoc @ 139:38   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 139:76   'x'  -->  'x_67'
+[REPLACE] VisitDeclRefExpr @ 139:80   'x'  -->  'x_67'
+[REPLACE] VisitTagTypeLoc @ 140:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_68  (Key: 0x562335016298)
+[REPLACE] VisitNamedDecl @ 140:45   'x'  -->  'x_68'
+[REPLACE] VisitTagTypeLoc @ 140:36   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 140:79   'x'  -->  'x_68'
+[REPLACE] VisitDeclRefExpr @ 140:83   'x'  -->  'x_68'
+[REPLACE] VisitTagTypeLoc @ 141:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_69  (Key: 0x5623350163f0)
+[REPLACE] VisitNamedDecl @ 141:45   'x'  -->  'x_69'
+[REPLACE] VisitTagTypeLoc @ 141:36   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 141:63   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 141:81   'x'  -->  'x_69'
+[DEBUG] New mapping: x  -->  x_70  (Key: 0x562335016548)
+[REPLACE] VisitNamedDecl @ 142:43   'x'  -->  'x_70'
+[REPLACE] VisitTagTypeLoc @ 142:34   'Demical'  -->  'Demical_0'
+[REPLACE] VisitMemberExpr @ 142:61   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 142:71   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 142:69   'x'  -->  'x_70'
+[REPLACE] VisitMemberExpr @ 142:79   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 142:86   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 142:84   'x'  -->  'x_70'
+[DEBUG] New mapping: x  -->  x_71  (Key: 0x562335016718)
+[REPLACE] VisitNamedDecl @ 143:43   'x'  -->  'x_71'
+[REPLACE] VisitTagTypeLoc @ 143:34   'Demical'  -->  'Demical_0'
+[REPLACE] VisitMemberExpr @ 143:61   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 143:71   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 143:69   'x'  -->  'x_71'
+[REPLACE] VisitMemberExpr @ 143:79   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 143:86   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 143:84   'x'  -->  'x_71'
+[DEBUG] New mapping: x  -->  x_72  (Key: 0x562335016870)
+[REPLACE] VisitNamedDecl @ 144:43   'x'  -->  'x_72'
+[REPLACE] VisitTagTypeLoc @ 144:34   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 144:70   'x'  -->  'x_72'
+[REPLACE] VisitDeclRefExpr @ 144:83   'x'  -->  'x_72'
+[DEBUG] New mapping: x  -->  x_73  (Key: 0x5623350169c8)
+[REPLACE] VisitNamedDecl @ 145:42   'x'  -->  'x_73'
+[REPLACE] VisitTagTypeLoc @ 145:33   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 145:60   'x'  -->  'x_73'
+[DEBUG] New mapping: x  -->  x_74  (Key: 0x562335016b20)
+[REPLACE] VisitNamedDecl @ 146:43   'x'  -->  'x_74'
+[REPLACE] VisitTagTypeLoc @ 146:34   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 146:61   'x'  -->  'x_74'
+[REPLACE] VisitDeclRefExpr @ 146:75   'x'  -->  'x_74'
+[DEBUG] New mapping: T  -->  T_75  (Key: 0x562335016c60)
+[REPLACE] VisitNamedDecl @ 147:24   'T'  -->  'T_75'
+[DEBUG] New mapping: x  -->  x_76  (Key: 0x562335016d40)
+[REPLACE] VisitNamedDecl @ 147:66   'x'  -->  'x_76'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 147:63   'T'  -->  'T_75'
+[DEBUG] New mapping: y  -->  y_77  (Key: 0x562335016dc0)
+[REPLACE] VisitNamedDecl @ 147:84   'y'  -->  'y_77'
+[REPLACE] VisitTagTypeLoc @ 147:75   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 147:96   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 147:104   'x'  -->  'x_76'
+[REPLACE] VisitDeclRefExpr @ 147:110   'y'  -->  'y_77'
+[DEBUG] New mapping: T  -->  T_78  (Key: 0x5623350170c8)
+[REPLACE] VisitNamedDecl @ 148:24   'T'  -->  'T_78'
+[DEBUG] New mapping: x  -->  x_79  (Key: 0x562335017180)
+[REPLACE] VisitNamedDecl @ 148:72   'x'  -->  'x_79'
+[REPLACE] VisitTagTypeLoc @ 148:63   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_80  (Key: 0x562335017230)
+[REPLACE] VisitNamedDecl @ 148:84   'y'  -->  'y_80'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 148:81   'T'  -->  'T_78'
+[REPLACE] VisitDeclRefExpr @ 148:96   'x'  -->  'x_79'
+[REPLACE] VisitTagTypeLoc @ 148:101   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 148:109   'y'  -->  'y_80'
+[DEBUG] New mapping: T  -->  T_81  (Key: 0x562335017548)
+[REPLACE] VisitNamedDecl @ 149:24   'T'  -->  'T_81'
+[DEBUG] New mapping: x  -->  x_82  (Key: 0x562335017630)
+[REPLACE] VisitNamedDecl @ 149:66   'x'  -->  'x_82'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 149:63   'T'  -->  'T_81'
+[DEBUG] New mapping: y  -->  y_83  (Key: 0x5623350176b0)
+[REPLACE] VisitNamedDecl @ 149:84   'y'  -->  'y_83'
+[REPLACE] VisitTagTypeLoc @ 149:75   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 149:96   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 149:104   'x'  -->  'x_82'
+[REPLACE] VisitDeclRefExpr @ 149:110   'y'  -->  'y_83'
+[DEBUG] New mapping: T  -->  T_84  (Key: 0x562335017978)
+[REPLACE] VisitNamedDecl @ 150:24   'T'  -->  'T_84'
+[DEBUG] New mapping: x  -->  x_85  (Key: 0x562335017a30)
+[REPLACE] VisitNamedDecl @ 150:72   'x'  -->  'x_85'
+[REPLACE] VisitTagTypeLoc @ 150:63   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_86  (Key: 0x562335017ae0)
+[REPLACE] VisitNamedDecl @ 150:84   'y'  -->  'y_86'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 150:81   'T'  -->  'T_84'
+[REPLACE] VisitDeclRefExpr @ 150:96   'x'  -->  'x_85'
+[REPLACE] VisitTagTypeLoc @ 150:101   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 150:109   'y'  -->  'y_86'
+[DEBUG] New mapping: T  -->  T_87  (Key: 0x562335017db8)
+[REPLACE] VisitNamedDecl @ 151:24   'T'  -->  'T_87'
+[DEBUG] New mapping: x  -->  x_88  (Key: 0x562335017ea0)
+[REPLACE] VisitNamedDecl @ 151:65   'x'  -->  'x_88'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 151:62   'T'  -->  'T_87'
+[DEBUG] New mapping: y  -->  y_89  (Key: 0x562335017f20)
+[REPLACE] VisitNamedDecl @ 151:83   'y'  -->  'y_89'
+[REPLACE] VisitTagTypeLoc @ 151:74   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 151:95   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 151:103   'x'  -->  'x_88'
+[REPLACE] VisitDeclRefExpr @ 151:108   'y'  -->  'y_89'
+[DEBUG] New mapping: T  -->  T_90  (Key: 0x5623350181e8)
+[REPLACE] VisitNamedDecl @ 152:24   'T'  -->  'T_90'
+[DEBUG] New mapping: x  -->  x_91  (Key: 0x5623350182a0)
+[REPLACE] VisitNamedDecl @ 152:71   'x'  -->  'x_91'
+[REPLACE] VisitTagTypeLoc @ 152:62   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_92  (Key: 0x562335018350)
+[REPLACE] VisitNamedDecl @ 152:83   'y'  -->  'y_92'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 152:80   'T'  -->  'T_90'
+[REPLACE] VisitDeclRefExpr @ 152:95   'x'  -->  'x_91'
+[REPLACE] VisitTagTypeLoc @ 152:99   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 152:107   'y'  -->  'y_92'
+[DEBUG] New mapping: T  -->  T_93  (Key: 0x562335018628)
+[REPLACE] VisitNamedDecl @ 153:24   'T'  -->  'T_93'
+[DEBUG] New mapping: x  -->  x_94  (Key: 0x562335018710)
+[REPLACE] VisitNamedDecl @ 153:66   'x'  -->  'x_94'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 153:63   'T'  -->  'T_93'
+[DEBUG] New mapping: y  -->  y_95  (Key: 0x562335018790)
+[REPLACE] VisitNamedDecl @ 153:84   'y'  -->  'y_95'
+[REPLACE] VisitTagTypeLoc @ 153:75   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 153:96   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 153:104   'x'  -->  'x_94'
+[REPLACE] VisitDeclRefExpr @ 153:110   'y'  -->  'y_95'
+[DEBUG] New mapping: T  -->  T_96  (Key: 0x562335018a58)
+[REPLACE] VisitNamedDecl @ 154:24   'T'  -->  'T_96'
+[DEBUG] New mapping: x  -->  x_97  (Key: 0x562335018b10)
+[REPLACE] VisitNamedDecl @ 154:72   'x'  -->  'x_97'
+[REPLACE] VisitTagTypeLoc @ 154:63   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_98  (Key: 0x562335018bc0)
+[REPLACE] VisitNamedDecl @ 154:84   'y'  -->  'y_98'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 154:81   'T'  -->  'T_96'
+[REPLACE] VisitDeclRefExpr @ 154:96   'x'  -->  'x_97'
+[REPLACE] VisitTagTypeLoc @ 154:101   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 154:109   'y'  -->  'y_98'
+[DEBUG] New mapping: T  -->  T_99  (Key: 0x562335018e98)
+[REPLACE] VisitNamedDecl @ 155:24   'T'  -->  'T_99'
+[DEBUG] New mapping: x  -->  x_100  (Key: 0x562335018f80)
+[REPLACE] VisitNamedDecl @ 155:65   'x'  -->  'x_100'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 155:62   'T'  -->  'T_99'
+[DEBUG] New mapping: y  -->  y_101  (Key: 0x562335019000)
+[REPLACE] VisitNamedDecl @ 155:83   'y'  -->  'y_101'
+[REPLACE] VisitTagTypeLoc @ 155:74   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 155:95   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 155:103   'x'  -->  'x_100'
+[REPLACE] VisitDeclRefExpr @ 155:108   'y'  -->  'y_101'
+[DEBUG] New mapping: T  -->  T_102  (Key: 0x5623350192c8)
+[REPLACE] VisitNamedDecl @ 156:24   'T'  -->  'T_102'
+[DEBUG] New mapping: x  -->  x_103  (Key: 0x562335019380)
+[REPLACE] VisitNamedDecl @ 156:71   'x'  -->  'x_103'
+[REPLACE] VisitTagTypeLoc @ 156:62   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_104  (Key: 0x562335019430)
+[REPLACE] VisitNamedDecl @ 156:83   'y'  -->  'y_104'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 156:80   'T'  -->  'T_102'
+[REPLACE] VisitDeclRefExpr @ 156:95   'x'  -->  'x_103'
+[REPLACE] VisitTagTypeLoc @ 156:99   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 156:107   'y'  -->  'y_104'
+[DEBUG] New mapping: T  -->  T_105  (Key: 0x562335019708)
+[REPLACE] VisitNamedDecl @ 157:24   'T'  -->  'T_105'
+[DEBUG] New mapping: x  -->  x_106  (Key: 0x5623350197f0)
+[REPLACE] VisitNamedDecl @ 157:66   'x'  -->  'x_106'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 157:63   'T'  -->  'T_105'
+[DEBUG] New mapping: y  -->  y_107  (Key: 0x562335019870)
+[REPLACE] VisitNamedDecl @ 157:84   'y'  -->  'y_107'
+[REPLACE] VisitTagTypeLoc @ 157:75   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 157:96   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 157:104   'x'  -->  'x_106'
+[REPLACE] VisitDeclRefExpr @ 157:110   'y'  -->  'y_107'
+[DEBUG] New mapping: T  -->  T_108  (Key: 0x562335019b38)
+[REPLACE] VisitNamedDecl @ 158:24   'T'  -->  'T_108'
+[DEBUG] New mapping: x  -->  x_109  (Key: 0x562335019bf0)
+[REPLACE] VisitNamedDecl @ 158:72   'x'  -->  'x_109'
+[REPLACE] VisitTagTypeLoc @ 158:63   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_110  (Key: 0x562335019ca0)
+[REPLACE] VisitNamedDecl @ 158:84   'y'  -->  'y_110'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 158:81   'T'  -->  'T_108'
+[REPLACE] VisitDeclRefExpr @ 158:96   'x'  -->  'x_109'
+[REPLACE] VisitTagTypeLoc @ 158:101   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 158:109   'y'  -->  'y_110'
+[DEBUG] New mapping: T  -->  T_111  (Key: 0x562335019f78)
+[REPLACE] VisitNamedDecl @ 159:24   'T'  -->  'T_111'
+[REPLACE] VisitTagTypeLoc @ 159:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_112  (Key: 0x56233501a060)
+[REPLACE] VisitNamedDecl @ 159:68   'x'  -->  'x_112'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 159:65   'T'  -->  'T_111'
+[DEBUG] New mapping: y  -->  y_113  (Key: 0x56233501a0e0)
+[REPLACE] VisitNamedDecl @ 159:86   'y'  -->  'y_113'
+[REPLACE] VisitTagTypeLoc @ 159:77   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 159:98   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 159:106   'x'  -->  'x_112'
+[REPLACE] VisitDeclRefExpr @ 159:111   'y'  -->  'y_113'
+[DEBUG] New mapping: T  -->  T_114  (Key: 0x56233501a3e8)
+[REPLACE] VisitNamedDecl @ 160:24   'T'  -->  'T_114'
+[REPLACE] VisitTagTypeLoc @ 160:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_115  (Key: 0x56233501a4a0)
+[REPLACE] VisitNamedDecl @ 160:74   'x'  -->  'x_115'
+[REPLACE] VisitTagTypeLoc @ 160:65   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_116  (Key: 0x56233501a550)
+[REPLACE] VisitNamedDecl @ 160:86   'y'  -->  'y_116'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 160:83   'T'  -->  'T_114'
+[REPLACE] VisitDeclRefExpr @ 160:98   'x'  -->  'x_115'
+[REPLACE] VisitTagTypeLoc @ 160:102   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 160:110   'y'  -->  'y_116'
+[DEBUG] New mapping: T  -->  T_117  (Key: 0x56233501a868)
+[REPLACE] VisitNamedDecl @ 161:24   'T'  -->  'T_117'
+[REPLACE] VisitTagTypeLoc @ 161:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_118  (Key: 0x56233501a920)
+[REPLACE] VisitNamedDecl @ 161:70   'x'  -->  'x_118'
+[REPLACE] VisitTagTypeLoc @ 161:61   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_119  (Key: 0x56233501a9d0)
+[REPLACE] VisitNamedDecl @ 161:82   'y'  -->  'y_119'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 161:79   'T'  -->  'T_117'
+[REPLACE] VisitDeclRefExpr @ 161:94   'x'  -->  'x_118'
+[REPLACE] VisitTagTypeLoc @ 161:99   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 161:107   'y'  -->  'y_119'
+[DEBUG] New mapping: T  -->  T_120  (Key: 0x56233501ace0)
+[REPLACE] VisitNamedDecl @ 162:24   'T'  -->  'T_120'
+[REPLACE] VisitTagTypeLoc @ 162:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_121  (Key: 0x56233501adc0)
+[REPLACE] VisitNamedDecl @ 162:68   'x'  -->  'x_121'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 162:65   'T'  -->  'T_120'
+[DEBUG] New mapping: y  -->  y_122  (Key: 0x56233501ae40)
+[REPLACE] VisitNamedDecl @ 162:86   'y'  -->  'y_122'
+[REPLACE] VisitTagTypeLoc @ 162:77   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 162:98   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 162:106   'x'  -->  'x_121'
+[REPLACE] VisitDeclRefExpr @ 162:111   'y'  -->  'y_122'
+[DEBUG] New mapping: T  -->  T_123  (Key: 0x56233501b108)
+[REPLACE] VisitNamedDecl @ 163:24   'T'  -->  'T_123'
+[REPLACE] VisitTagTypeLoc @ 163:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_124  (Key: 0x56233501b1c0)
+[REPLACE] VisitNamedDecl @ 163:74   'x'  -->  'x_124'
+[REPLACE] VisitTagTypeLoc @ 163:65   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_125  (Key: 0x56233501b270)
+[REPLACE] VisitNamedDecl @ 163:86   'y'  -->  'y_125'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 163:83   'T'  -->  'T_123'
+[REPLACE] VisitDeclRefExpr @ 163:98   'x'  -->  'x_124'
+[REPLACE] VisitTagTypeLoc @ 163:102   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 163:110   'y'  -->  'y_125'
+[DEBUG] New mapping: T  -->  T_126  (Key: 0x56233501b548)
+[REPLACE] VisitNamedDecl @ 164:24   'T'  -->  'T_126'
+[REPLACE] VisitTagTypeLoc @ 164:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_127  (Key: 0x56233501b600)
+[REPLACE] VisitNamedDecl @ 164:70   'x'  -->  'x_127'
+[REPLACE] VisitTagTypeLoc @ 164:61   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_128  (Key: 0x56233501b6b0)
+[REPLACE] VisitNamedDecl @ 164:82   'y'  -->  'y_128'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 164:79   'T'  -->  'T_126'
+[REPLACE] VisitDeclRefExpr @ 164:94   'x'  -->  'x_127'
+[REPLACE] VisitTagTypeLoc @ 164:99   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 164:107   'y'  -->  'y_128'
+[DEBUG] New mapping: T  -->  T_129  (Key: 0x56233501b980)
+[REPLACE] VisitNamedDecl @ 165:24   'T'  -->  'T_129'
+[REPLACE] VisitTagTypeLoc @ 165:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_130  (Key: 0x56233501ba60)
+[REPLACE] VisitNamedDecl @ 165:68   'x'  -->  'x_130'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 165:65   'T'  -->  'T_129'
+[DEBUG] New mapping: y  -->  y_131  (Key: 0x56233501bae0)
+[REPLACE] VisitNamedDecl @ 165:86   'y'  -->  'y_131'
+[REPLACE] VisitTagTypeLoc @ 165:77   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 165:98   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 165:106   'x'  -->  'x_130'
+[REPLACE] VisitDeclRefExpr @ 165:111   'y'  -->  'y_131'
+[DEBUG] New mapping: T  -->  T_132  (Key: 0x56233501bda8)
+[REPLACE] VisitNamedDecl @ 166:24   'T'  -->  'T_132'
+[REPLACE] VisitTagTypeLoc @ 166:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_133  (Key: 0x56233501be60)
+[REPLACE] VisitNamedDecl @ 166:74   'x'  -->  'x_133'
+[REPLACE] VisitTagTypeLoc @ 166:65   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_134  (Key: 0x56233501bf10)
+[REPLACE] VisitNamedDecl @ 166:86   'y'  -->  'y_134'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 166:83   'T'  -->  'T_132'
+[REPLACE] VisitDeclRefExpr @ 166:98   'x'  -->  'x_133'
+[REPLACE] VisitTagTypeLoc @ 166:102   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 166:110   'y'  -->  'y_134'
+[DEBUG] New mapping: T  -->  T_135  (Key: 0x56233501c1e8)
+[REPLACE] VisitNamedDecl @ 167:24   'T'  -->  'T_135'
+[REPLACE] VisitTagTypeLoc @ 167:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_136  (Key: 0x56233501c2a0)
+[REPLACE] VisitNamedDecl @ 167:70   'x'  -->  'x_136'
+[REPLACE] VisitTagTypeLoc @ 167:61   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_137  (Key: 0x56233501c350)
+[REPLACE] VisitNamedDecl @ 167:82   'y'  -->  'y_137'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 167:79   'T'  -->  'T_135'
+[REPLACE] VisitDeclRefExpr @ 167:94   'x'  -->  'x_136'
+[REPLACE] VisitTagTypeLoc @ 167:99   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 167:107   'y'  -->  'y_137'
+[DEBUG] New mapping: T  -->  T_138  (Key: 0x56233501c620)
+[REPLACE] VisitNamedDecl @ 168:24   'T'  -->  'T_138'
+[REPLACE] VisitTagTypeLoc @ 168:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_139  (Key: 0x56233501c700)
+[REPLACE] VisitNamedDecl @ 168:68   'x'  -->  'x_139'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 168:65   'T'  -->  'T_138'
+[DEBUG] New mapping: y  -->  y_140  (Key: 0x56233501c780)
+[REPLACE] VisitNamedDecl @ 168:86   'y'  -->  'y_140'
+[REPLACE] VisitTagTypeLoc @ 168:77   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 168:98   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 168:106   'x'  -->  'x_139'
+[REPLACE] VisitDeclRefExpr @ 168:111   'y'  -->  'y_140'
+[DEBUG] New mapping: T  -->  T_141  (Key: 0x56233501ca48)
+[REPLACE] VisitNamedDecl @ 169:24   'T'  -->  'T_141'
+[REPLACE] VisitTagTypeLoc @ 169:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_142  (Key: 0x56233501cb00)
+[REPLACE] VisitNamedDecl @ 169:74   'x'  -->  'x_142'
+[REPLACE] VisitTagTypeLoc @ 169:65   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_143  (Key: 0x56233501cbb0)
+[REPLACE] VisitNamedDecl @ 169:86   'y'  -->  'y_143'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 169:83   'T'  -->  'T_141'
+[REPLACE] VisitDeclRefExpr @ 169:98   'x'  -->  'x_142'
+[REPLACE] VisitTagTypeLoc @ 169:102   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 169:110   'y'  -->  'y_143'
+[DEBUG] New mapping: T  -->  T_144  (Key: 0x56233501ce88)
+[REPLACE] VisitNamedDecl @ 170:24   'T'  -->  'T_144'
+[REPLACE] VisitTagTypeLoc @ 170:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_145  (Key: 0x56233501cf40)
+[REPLACE] VisitNamedDecl @ 170:70   'x'  -->  'x_145'
+[REPLACE] VisitTagTypeLoc @ 170:61   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_146  (Key: 0x56233501cff0)
+[REPLACE] VisitNamedDecl @ 170:82   'y'  -->  'y_146'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 170:79   'T'  -->  'T_144'
+[REPLACE] VisitDeclRefExpr @ 170:94   'x'  -->  'x_145'
+[REPLACE] VisitTagTypeLoc @ 170:99   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 170:107   'y'  -->  'y_146'
+[DEBUG] New mapping: T  -->  T_147  (Key: 0x56233501d2c0)
+[REPLACE] VisitNamedDecl @ 171:24   'T'  -->  'T_147'
+[REPLACE] VisitTagTypeLoc @ 171:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_148  (Key: 0x56233501d3a0)
+[REPLACE] VisitNamedDecl @ 171:68   'x'  -->  'x_148'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 171:65   'T'  -->  'T_147'
+[DEBUG] New mapping: y  -->  y_149  (Key: 0x56233501d420)
+[REPLACE] VisitNamedDecl @ 171:86   'y'  -->  'y_149'
+[REPLACE] VisitTagTypeLoc @ 171:77   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 171:98   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 171:106   'x'  -->  'x_148'
+[REPLACE] VisitDeclRefExpr @ 171:111   'y'  -->  'y_149'
+[DEBUG] New mapping: T  -->  T_150  (Key: 0x56233501d6e8)
+[REPLACE] VisitNamedDecl @ 172:24   'T'  -->  'T_150'
+[REPLACE] VisitTagTypeLoc @ 172:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_151  (Key: 0x56233501d7a0)
+[REPLACE] VisitNamedDecl @ 172:74   'x'  -->  'x_151'
+[REPLACE] VisitTagTypeLoc @ 172:65   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_152  (Key: 0x56233501d850)
+[REPLACE] VisitNamedDecl @ 172:86   'y'  -->  'y_152'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 172:83   'T'  -->  'T_150'
+[REPLACE] VisitDeclRefExpr @ 172:98   'x'  -->  'x_151'
+[REPLACE] VisitTagTypeLoc @ 172:102   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 172:110   'y'  -->  'y_152'
+[DEBUG] New mapping: T  -->  T_153  (Key: 0x56233501db28)
+[REPLACE] VisitNamedDecl @ 173:24   'T'  -->  'T_153'
+[REPLACE] VisitTagTypeLoc @ 173:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_154  (Key: 0x56233501dbe0)
+[REPLACE] VisitNamedDecl @ 173:70   'x'  -->  'x_154'
+[REPLACE] VisitTagTypeLoc @ 173:61   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_155  (Key: 0x56233501dc90)
+[REPLACE] VisitNamedDecl @ 173:82   'y'  -->  'y_155'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 173:79   'T'  -->  'T_153'
+[REPLACE] VisitDeclRefExpr @ 173:94   'x'  -->  'x_154'
+[REPLACE] VisitTagTypeLoc @ 173:99   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 173:107   'y'  -->  'y_155'
+[DEBUG] New mapping: T  -->  T_156  (Key: 0x56233501df60)
+[REPLACE] VisitNamedDecl @ 174:24   'T'  -->  'T_156'
+[REPLACE] VisitTagTypeLoc @ 174:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_157  (Key: 0x56233501e040)
+[REPLACE] VisitNamedDecl @ 174:68   'x'  -->  'x_157'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 174:65   'T'  -->  'T_156'
+[DEBUG] New mapping: y  -->  y_158  (Key: 0x56233501e0c0)
+[REPLACE] VisitNamedDecl @ 174:86   'y'  -->  'y_158'
+[REPLACE] VisitTagTypeLoc @ 174:77   'Demical'  -->  'Demical_0'
+[REPLACE] VisitTagTypeLoc @ 174:98   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 174:106   'x'  -->  'x_157'
+[REPLACE] VisitDeclRefExpr @ 174:111   'y'  -->  'y_158'
+[DEBUG] New mapping: T  -->  T_159  (Key: 0x56233501e388)
+[REPLACE] VisitNamedDecl @ 175:24   'T'  -->  'T_159'
+[REPLACE] VisitTagTypeLoc @ 175:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_160  (Key: 0x56233501e440)
+[REPLACE] VisitNamedDecl @ 175:74   'x'  -->  'x_160'
+[REPLACE] VisitTagTypeLoc @ 175:65   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_161  (Key: 0x56233501e4f0)
+[REPLACE] VisitNamedDecl @ 175:86   'y'  -->  'y_161'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 175:83   'T'  -->  'T_159'
+[REPLACE] VisitDeclRefExpr @ 175:98   'x'  -->  'x_160'
+[REPLACE] VisitTagTypeLoc @ 175:102   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 175:110   'y'  -->  'y_161'
+[DEBUG] New mapping: T  -->  T_162  (Key: 0x56233501e7c8)
+[REPLACE] VisitNamedDecl @ 176:24   'T'  -->  'T_162'
+[REPLACE] VisitTagTypeLoc @ 176:41   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_163  (Key: 0x56233501e880)
+[REPLACE] VisitNamedDecl @ 176:70   'x'  -->  'x_163'
+[REPLACE] VisitTagTypeLoc @ 176:61   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: y  -->  y_164  (Key: 0x56233501e930)
+[REPLACE] VisitNamedDecl @ 176:82   'y'  -->  'y_164'
+[REPLACE] VisitTemplateTypeParmTypeLoc @ 176:79   'T'  -->  'T_162'
+[REPLACE] VisitDeclRefExpr @ 176:94   'x'  -->  'x_163'
+[REPLACE] VisitTagTypeLoc @ 176:99   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 176:107   'y'  -->  'y_164'
+[DEBUG] New mapping: x  -->  x_165  (Key: 0x56233501ec18)
+[REPLACE] VisitNamedDecl @ 177:42   'x'  -->  'x_165'
+[REPLACE] VisitTagTypeLoc @ 177:33   'Demical'  -->  'Demical_0'
+[REPLACE] VisitMemberExpr @ 178:13   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 178:24   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 178:22   'x'  -->  'x_165'
+[REPLACE] VisitMemberExpr @ 179:14   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 179:24   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 179:22   'x'  -->  'x_165'
+[REPLACE] VisitMemberExpr @ 180:13   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 180:27   'x'  -->  'x_165'
+[REPLACE] VisitMemberExpr @ 181:13   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 181:26   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 181:24   'x'  -->  'x_165'
+[REPLACE] VisitMemberExpr @ 182:15   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 182:13   'x'  -->  'x_165'
+[REPLACE] VisitMemberExpr @ 182:26   'a'  -->  'a_6'
+[DEBUG] New mapping: i  -->  i_166  (Key: 0x56233508b708)
+[REPLACE] VisitNamedDecl @ 183:21   'i'  -->  'i_166'
+[REPLACE] VisitMemberExpr @ 183:25   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 183:37   'i'  -->  'i_166'
+[REPLACE] VisitDeclRefExpr @ 183:68   'i'  -->  'i_166'
+[REPLACE] VisitMemberExpr @ 184:17   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 184:19   'i'  -->  'i_166'
+[REPLACE] VisitMemberExpr @ 184:26   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 184:24   'x'  -->  'x_165'
+[REPLACE] VisitDeclRefExpr @ 184:28   'i'  -->  'i_166'
+[REPLACE] VisitMemberExpr @ 185:17   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 185:19   'i'  -->  'i_166'
+[REPLACE] VisitMemberExpr @ 185:26   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 185:24   'x'  -->  'x_165'
+[REPLACE] VisitDeclRefExpr @ 185:28   'i'  -->  'i_166'
+[REPLACE] VisitTagTypeLoc @ 189:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_167  (Key: 0x56233501ed70)
+[REPLACE] VisitNamedDecl @ 189:47   'x'  -->  'x_167'
+[REPLACE] VisitTagTypeLoc @ 189:38   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: help_array  -->  help_array_168  (Key: 0x56233508c430)
+[REPLACE] VisitNamedDecl @ 190:33   'help_array'  -->  'help_array_168'
+[DEBUG] New mapping: func  -->  func_169  (Key: 0x5623350c01c8)
+[REPLACE] VisitNamedDecl @ 191:27   'func'  -->  'func_169'
+[DEBUG] New mapping: a  -->  a_170  (Key: 0x5623350c0638)
+[REPLACE] VisitNamedDecl @ 191:55   'a'  -->  'a_170'
+[DEBUG] New mapping: x  -->  x_171  (Key: 0x5623350c08a8)
+[REPLACE] VisitNamedDecl @ 191:87   'x'  -->  'x_171'
+[DEBUG] New mapping: y  -->  y_172  (Key: 0x5623350c0b18)
+[REPLACE] VisitNamedDecl @ 191:119   'y'  -->  'y_172'
+[DEBUG] New mapping: fx  -->  fx_173  (Key: 0x5623350c0b98)
+[REPLACE] VisitNamedDecl @ 191:133   'fx'  -->  'fx_173'
+[DEBUG] New mapping: fy  -->  fy_174  (Key: 0x5623350c0c18)
+[REPLACE] VisitNamedDecl @ 191:148   'fy'  -->  'fy_174'
+[DEBUG] New mapping: digits  -->  digits_175  (Key: 0x5623350c0e38)
+[REPLACE] VisitNamedDecl @ 192:20   'digits'  -->  'digits_175'
+[REPLACE] VisitDeclRefExpr @ 192:36   'x'  -->  'x_171'
+[REPLACE] VisitDeclRefExpr @ 192:46   'y'  -->  'y_172'
+[REPLACE] VisitDeclRefExpr @ 193:13   'a'  -->  'a_170'
+[REPLACE] VisitDeclRefExpr @ 193:22   'digits'  -->  'digits_175'
+[REPLACE] VisitDeclRefExpr @ 194:23   'a'  -->  'a_170'
+[REPLACE] VisitDeclRefExpr @ 194:34   'a'  -->  'a_170'
+[DEBUG] New mapping: i  -->  i_176  (Key: 0x5623350ccf18)
+[REPLACE] VisitNamedDecl @ 195:25   'i'  -->  'i_176'
+[REPLACE] VisitDeclRefExpr @ 195:32   'i'  -->  'i_176'
+[REPLACE] VisitDeclRefExpr @ 195:36   'digits'  -->  'digits_175'
+[REPLACE] VisitDeclRefExpr @ 195:46   'i'  -->  'i_176'
+[REPLACE] VisitDeclRefExpr @ 196:21   'i'  -->  'i_176'
+[REPLACE] VisitDeclRefExpr @ 196:25   'x'  -->  'x_171'
+[REPLACE] VisitDeclRefExpr @ 196:35   'a'  -->  'a_170'
+[REPLACE] VisitDeclRefExpr @ 196:37   'i'  -->  'i_176'
+[REPLACE] VisitDeclRefExpr @ 196:43   'x'  -->  'x_171'
+[REPLACE] VisitDeclRefExpr @ 196:45   'i'  -->  'i_176'
+[REPLACE] VisitDeclRefExpr @ 196:50   'fx'  -->  'fx_173'
+[REPLACE] VisitDeclRefExpr @ 197:21   'i'  -->  'i_176'
+[REPLACE] VisitDeclRefExpr @ 197:25   'y'  -->  'y_172'
+[REPLACE] VisitDeclRefExpr @ 197:35   'a'  -->  'a_170'
+[REPLACE] VisitDeclRefExpr @ 197:37   'i'  -->  'i_176'
+[REPLACE] VisitDeclRefExpr @ 197:43   'y'  -->  'y_172'
+[REPLACE] VisitDeclRefExpr @ 197:45   'i'  -->  'i_176'
+[REPLACE] VisitDeclRefExpr @ 197:50   'fy'  -->  'fy_174'
+[REPLACE] VisitMemberExpr @ 200:13   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 200:24   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 200:22   'x'  -->  'x_167'
+[REPLACE] VisitDeclRefExpr @ 201:26   'x'  -->  'x_167'
+[REPLACE] VisitMemberExpr @ 202:17   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 202:41   'x'  -->  'x_167'
+[REPLACE] VisitMemberExpr @ 202:44   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 204:17   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 204:31   'func'  -->  'func_169'
+[REPLACE] VisitDeclRefExpr @ 204:36   'help_array'  -->  'help_array_168'
+[REPLACE] VisitMemberExpr @ 204:48   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 204:53   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 204:51   'x'  -->  'x_167'
+[REPLACE] VisitMemberExpr @ 205:19   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 205:29   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 205:27   'x'  -->  'x_167'
+[REPLACE] VisitDeclRefExpr @ 206:26   'x'  -->  'x_167'
+[REPLACE] VisitMemberExpr @ 207:17   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 207:40   'x'  -->  'x_167'
+[REPLACE] VisitMemberExpr @ 207:43   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 209:17   'func'  -->  'func_169'
+[REPLACE] VisitDeclRefExpr @ 209:22   'help_array'  -->  'help_array_168'
+[REPLACE] VisitMemberExpr @ 209:34   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 209:39   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 209:37   'x'  -->  'x_167'
+[REPLACE] VisitDeclRefExpr @ 210:14   'func'  -->  'func_169'
+[REPLACE] VisitDeclRefExpr @ 210:19   'help_array'  -->  'help_array_168'
+[REPLACE] VisitMemberExpr @ 210:31   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 210:36   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 210:34   'x'  -->  'x_167'
+[REPLACE] VisitMemberExpr @ 211:9   'normalize'  -->  'normalize_7'
+[REPLACE] VisitDeclRefExpr @ 211:19   'help_array'  -->  'help_array_168'
+[REPLACE] VisitTagTypeLoc @ 214:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_177  (Key: 0x56233501eed0)
+[REPLACE] VisitNamedDecl @ 214:47   'x'  -->  'x_177'
+[REPLACE] VisitTagTypeLoc @ 214:38   'Demical'  -->  'Demical_0'
+[REPLACE] VisitMemberExpr @ 215:9   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 215:34   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 215:43   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 215:41   'x'  -->  'x_177'
+[DEBUG] New mapping: help_array  -->  help_array_178  (Key: 0x5623350d2940)
+[REPLACE] VisitNamedDecl @ 216:41   'help_array'  -->  'help_array_178'
+[REPLACE] VisitMemberExpr @ 216:52   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 216:65   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 216:63   'x'  -->  'x_177'
+[DEBUG] New mapping: i  -->  i_179  (Key: 0x5623350fe6a8)
+[REPLACE] VisitNamedDecl @ 217:21   'i'  -->  'i_179'
+[REPLACE] VisitDeclRefExpr @ 217:28   'i'  -->  'i_179'
+[REPLACE] VisitMemberExpr @ 217:32   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 217:42   'i'  -->  'i_179'
+[DEBUG] New mapping: j  -->  j_180  (Key: 0x5623350fe8f0)
+[REPLACE] VisitNamedDecl @ 218:25   'j'  -->  'j_180'
+[REPLACE] VisitDeclRefExpr @ 218:32   'j'  -->  'j_180'
+[REPLACE] VisitMemberExpr @ 218:38   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 218:36   'x'  -->  'x_177'
+[REPLACE] VisitDeclRefExpr @ 218:48   'j'  -->  'j_180'
+[REPLACE] VisitDeclRefExpr @ 219:17   'help_array'  -->  'help_array_178'
+[REPLACE] VisitDeclRefExpr @ 219:28   'i'  -->  'i_179'
+[REPLACE] VisitDeclRefExpr @ 219:32   'j'  -->  'j_180'
+[REPLACE] VisitMemberExpr @ 219:45   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 219:47   'i'  -->  'i_179'
+[REPLACE] VisitMemberExpr @ 219:54   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 219:52   'x'  -->  'x_177'
+[REPLACE] VisitDeclRefExpr @ 219:56   'j'  -->  'j_180'
+[REPLACE] VisitDeclRefExpr @ 220:21   'help_array'  -->  'help_array_178'
+[REPLACE] VisitDeclRefExpr @ 220:32   'i'  -->  'i_179'
+[REPLACE] VisitDeclRefExpr @ 220:34   'j'  -->  'j_180'
+[REPLACE] VisitDeclRefExpr @ 220:40   'BASE'  -->  'BASE_2'
+[REPLACE] VisitDeclRefExpr @ 221:21   'help_array'  -->  'help_array_178'
+[REPLACE] VisitDeclRefExpr @ 221:32   'i'  -->  'i_179'
+[REPLACE] VisitDeclRefExpr @ 221:34   'j'  -->  'j_180'
+[REPLACE] VisitDeclRefExpr @ 221:42   'help_array'  -->  'help_array_178'
+[REPLACE] VisitDeclRefExpr @ 221:53   'i'  -->  'i_179'
+[REPLACE] VisitDeclRefExpr @ 221:55   'j'  -->  'j_180'
+[REPLACE] VisitDeclRefExpr @ 221:60   'BASE'  -->  'BASE_2'
+[REPLACE] VisitDeclRefExpr @ 222:21   'help_array'  -->  'help_array_178'
+[REPLACE] VisitDeclRefExpr @ 222:32   'i'  -->  'i_179'
+[REPLACE] VisitDeclRefExpr @ 222:34   'j'  -->  'j_180'
+[REPLACE] VisitDeclRefExpr @ 222:40   'BASE'  -->  'BASE_2'
+[REPLACE] VisitMemberExpr @ 225:9   'normalize'  -->  'normalize_7'
+[REPLACE] VisitDeclRefExpr @ 225:19   'help_array'  -->  'help_array_178'
+[REPLACE] VisitTagTypeLoc @ 228:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_181  (Key: 0x56233501f030)
+[REPLACE] VisitNamedDecl @ 228:47   'x'  -->  'x_181'
+[REPLACE] VisitTagTypeLoc @ 228:38   'Demical'  -->  'Demical_0'
+[REPLACE] VisitMemberExpr @ 229:15   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 229:13   'x'  -->  'x_181'
+[REPLACE] VisitMemberExpr @ 230:13   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 230:26   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 230:24   'x'  -->  'x_181'
+[REPLACE] VisitTagTypeLoc @ 230:61   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: digits  -->  digits_182  (Key: 0x562335100ff8)
+[REPLACE] VisitNamedDecl @ 231:16   'digits'  -->  'digits_182'
+[REPLACE] VisitMemberExpr @ 231:23   'a'  -->  'a_6'
+[REPLACE] VisitMemberExpr @ 231:36   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 231:34   'x'  -->  'x_181'
+[DEBUG] New mapping: tp  -->  tp_183  (Key: 0x562335101268)
+[REPLACE] VisitNamedDecl @ 232:17   'tp'  -->  'tp_183'
+[REPLACE] VisitTagTypeLoc @ 232:9   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: help_array  -->  help_array_184  (Key: 0x562335101520)
+[REPLACE] VisitNamedDecl @ 233:41   'help_array'  -->  'help_array_184'
+[REPLACE] VisitMemberExpr @ 233:52   'a'  -->  'a_6'
+[DEBUG] New mapping: sn  -->  sn_185  (Key: 0x562335101748)
+[REPLACE] VisitNamedDecl @ 234:14   'sn'  -->  'sn_185'
+[REPLACE] VisitMemberExpr @ 234:37   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 234:46   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 234:44   'x'  -->  'x_181'
+[REPLACE] VisitMemberExpr @ 235:9   'sign'  -->  'sign_5'
+[DEBUG] New mapping: div  -->  div_186  (Key: 0x562335101bb8)
+[REPLACE] VisitNamedDecl @ 236:26   'div'  -->  'div_186'
+[REPLACE] VisitDeclRefExpr @ 236:30   'digits'  -->  'digits_182'
+[DEBUG] New mapping: i  -->  i_187  (Key: 0x562335102ee8)
+[REPLACE] VisitNamedDecl @ 237:21   'i'  -->  'i_187'
+[REPLACE] VisitDeclRefExpr @ 237:25   'digits'  -->  'digits_182'
+[REPLACE] VisitDeclRefExpr @ 237:37   'i'  -->  'i_187'
+[REPLACE] VisitDeclRefExpr @ 237:68   'i'  -->  'i_187'
+[DEBUG] New mapping: l  -->  l_188  (Key: 0x562335103148)
+[REPLACE] VisitNamedDecl @ 238:17   'l'  -->  'l_188'
+[DEBUG] New mapping: r  -->  r_189  (Key: 0x562335103250)
+[REPLACE] VisitNamedDecl @ 238:23   'r'  -->  'r_189'
+[REPLACE] VisitDeclRefExpr @ 238:25   'BASE'  -->  'BASE_2'
+[DEBUG] New mapping: mid  -->  mid_190  (Key: 0x5623351033b8)
+[REPLACE] VisitNamedDecl @ 238:36   'mid'  -->  'mid_190'
+[REPLACE] VisitDeclRefExpr @ 239:20   'l'  -->  'l_188'
+[REPLACE] VisitDeclRefExpr @ 239:25   'r'  -->  'r_189'
+[REPLACE] VisitDeclRefExpr @ 240:17   'mid'  -->  'mid_190'
+[REPLACE] VisitDeclRefExpr @ 240:24   'l'  -->  'l_188'
+[REPLACE] VisitDeclRefExpr @ 240:28   'r'  -->  'r_189'
+[REPLACE] VisitDeclRefExpr @ 241:27   'help_array'  -->  'help_array_184'
+[REPLACE] VisitDeclRefExpr @ 241:47   'help_array'  -->  'help_array_184'
+[DEBUG] New mapping: j  -->  j_191  (Key: 0x56233511f398)
+[REPLACE] VisitNamedDecl @ 242:29   'j'  -->  'j_191'
+[REPLACE] VisitDeclRefExpr @ 242:36   'j'  -->  'j_191'
+[REPLACE] VisitMemberExpr @ 242:42   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 242:40   'x'  -->  'x_181'
+[REPLACE] VisitDeclRefExpr @ 242:52   'j'  -->  'j_191'
+[REPLACE] VisitDeclRefExpr @ 243:21   'help_array'  -->  'help_array_184'
+[REPLACE] VisitDeclRefExpr @ 243:32   'i'  -->  'i_187'
+[REPLACE] VisitDeclRefExpr @ 243:36   'j'  -->  'j_191'
+[REPLACE] VisitDeclRefExpr @ 243:49   'mid'  -->  'mid_190'
+[REPLACE] VisitMemberExpr @ 243:57   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 243:55   'x'  -->  'x_181'
+[REPLACE] VisitDeclRefExpr @ 243:59   'j'  -->  'j_191'
+[REPLACE] VisitMemberExpr @ 244:20   'normalize'  -->  'normalize_7'
+[REPLACE] VisitDeclRefExpr @ 244:17   'tp'  -->  'tp_183'
+[REPLACE] VisitDeclRefExpr @ 244:30   'help_array'  -->  'help_array_184'
+[REPLACE] VisitDeclRefExpr @ 245:21   'tp'  -->  'tp_183'
+[REPLACE] VisitDeclRefExpr @ 245:33   'r'  -->  'r_189'
+[REPLACE] VisitDeclRefExpr @ 245:37   'mid'  -->  'mid_190'
+[REPLACE] VisitDeclRefExpr @ 246:22   'l'  -->  'l_188'
+[REPLACE] VisitDeclRefExpr @ 246:26   'mid'  -->  'mid_190'
+[REPLACE] VisitDeclRefExpr @ 248:23   'help_array'  -->  'help_array_184'
+[REPLACE] VisitDeclRefExpr @ 248:43   'help_array'  -->  'help_array_184'
+[DEBUG] New mapping: j  -->  j_192  (Key: 0x562335120ce8)
+[REPLACE] VisitNamedDecl @ 249:25   'j'  -->  'j_192'
+[REPLACE] VisitDeclRefExpr @ 249:32   'j'  -->  'j_192'
+[REPLACE] VisitMemberExpr @ 249:38   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 249:36   'x'  -->  'x_181'
+[REPLACE] VisitDeclRefExpr @ 249:48   'j'  -->  'j_192'
+[REPLACE] VisitDeclRefExpr @ 250:17   'help_array'  -->  'help_array_184'
+[REPLACE] VisitDeclRefExpr @ 250:28   'i'  -->  'i_187'
+[REPLACE] VisitDeclRefExpr @ 250:32   'j'  -->  'j_192'
+[REPLACE] VisitDeclRefExpr @ 250:45   'r'  -->  'r_189'
+[REPLACE] VisitMemberExpr @ 250:51   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 250:49   'x'  -->  'x_181'
+[REPLACE] VisitDeclRefExpr @ 250:53   'j'  -->  'j_192'
+[REPLACE] VisitMemberExpr @ 251:16   'normalize'  -->  'normalize_7'
+[REPLACE] VisitDeclRefExpr @ 251:13   'tp'  -->  'tp_183'
+[REPLACE] VisitDeclRefExpr @ 251:26   'help_array'  -->  'help_array_184'
+[REPLACE] VisitDeclRefExpr @ 252:22   'tp'  -->  'tp_183'
+[REPLACE] VisitDeclRefExpr @ 253:13   'div'  -->  'div_186'
+[REPLACE] VisitDeclRefExpr @ 253:17   'i'  -->  'i_187'
+[REPLACE] VisitDeclRefExpr @ 253:22   'r'  -->  'r_189'
+[REPLACE] VisitMemberExpr @ 255:9   'sign'  -->  'sign_5'
+[REPLACE] VisitDeclRefExpr @ 255:16   'sn'  -->  'sn_185'
+[REPLACE] VisitMemberExpr @ 256:9   'normalize'  -->  'normalize_7'
+[REPLACE] VisitDeclRefExpr @ 256:19   'div'  -->  'div_186'
+[REPLACE] VisitTagTypeLoc @ 259:12   'Demical'  -->  'Demical_0'
+[DEBUG] New mapping: x  -->  x_193  (Key: 0x56233501f188)
+[REPLACE] VisitNamedDecl @ 259:40   'x'  -->  'x_193'
+[REPLACE] VisitTagTypeLoc @ 259:32   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 260:13   'x'  -->  'x_193'
+[DEBUG] New mapping: tp  -->  tp_194  (Key: 0x5623351229c8)
+[REPLACE] VisitNamedDecl @ 261:17   'tp'  -->  'tp_194'
+[REPLACE] VisitTagTypeLoc @ 261:9   'Demical'  -->  'Demical_0'
+[REPLACE] VisitDeclRefExpr @ 261:22   'abs'  -->  'abs_60'
+[REPLACE] VisitMemberExpr @ 262:18   'sign'  -->  'sign_5'
+[REPLACE] VisitMemberExpr @ 263:19   'a'  -->  'a_6'
+[REPLACE] VisitDeclRefExpr @ 263:17   'x'  -->  'x_193'
+[REPLACE] VisitDeclRefExpr @ 264:17   'x'  -->  'x_193'
+[REPLACE] VisitDeclRefExpr @ 264:38   'tp'  -->  'tp_194'
+[REPLACE] VisitDeclRefExpr @ 265:13   'tp'  -->  'tp_194'
+[REPLACE] VisitDeclRefExpr @ 265:19   'tp'  -->  'tp_194'
+[REPLACE] VisitDeclRefExpr @ 266:13   'x'  -->  'x_193'
+[REPLACE] VisitTagTypeLoc @ 266:18   'Demical'  -->  'Demical_0'
+1 warning generated.

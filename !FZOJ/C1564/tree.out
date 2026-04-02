@@ -1,0 +1,78 @@
+LastNode = 0, L(0) + M(0) + R(0)
+Node 1 connected with 0 nodes.
+LastNode = 0, L(0) + M(0) + R(0)
+Node 2 connected with 0 nodes.
+LastNode = 0, L(0) + M(0) + R(0)
+Node 3 connected with 0 nodes.
+LastNode = 0, L(0) + M(0) + R(0)
+Node 4 connected with 0 nodes.
+LastNode = 0, L(0) + M(0) + R(0)
+Node 5 connected with 0 nodes.
+LastNode = 0, L(0) + M(0) + R(0)
+Node 6 connected with 0 nodes.
+LastNode = 0, L(0) + M(0) + R(0)
+Node 7 connected with 0 nodes.
+LastNode = 0, L(0) + M(0) + R(0)
+Node 8 connected with 0 nodes.
+(sum[5] -= 1)LastNode = 1, L(0) + M(1) + R(0)
+(1==>1)LastNode = 5, L(0) + M(3) + R(3)
+(2==>6)LastNode = 3, L(0) + M(1) + R(0)
+(3==>1)LastNode = 5, L(0) + M(3) + R(3)
+(4==>6)LastNode = 5, L(0) + M(3) + R(3)
+(5==>6)LastNode = 5, L(0) + M(3) + R(3)
+(6==>6)LastNode = 5, L(0) + M(3) + R(3)
+(7==>6)LastNode = 5, L(0) + M(3) + R(3)
+(8==>6)(sum[5] -= 2)LastNode = 0, L(0) + M(0) + R(0)
+(1==>0)LastNode = 0, L(0) + M(0) + R(0)
+(2==>0)LastNode = 3, L(0) + M(1) + R(0)
+(3==>1)LastNode = 0, L(0) + M(0) + R(0)
+(4==>0)LastNode = 0, L(0) + M(0) + R(0)
+(5==>0)LastNode = 6, L(0) + M(1) + R(1)
+(6==>2)LastNode = 6, L(0) + M(1) + R(1)
+(7==>2)LastNode = 0, L(0) + M(0) + R(0)
+(8==>0)LastNode = 0, L(0) + M(0) + R(0)
+0
+LastNode = 0, L(0) + M(0) + R(0)
+0
+LastNode = 0, L(0) + M(0) + R(0)
+0
+LastNode = 6, L(0) + M(1) + R(1)
+2
+LastNode = 1, L(0) + M(1) + R(0)
+(1==>1)LastNode = 2, L(0) + M(1) + R(0)
+(2==>1)LastNode = 3, L(0) + M(1) + R(0)
+(3==>1)LastNode = 4, L(0) + M(1) + R(1)
+(4==>2)LastNode = 5, L(0) + M(1) + R(0)
+(5==>1)LastNode = 6, L(0) + M(1) + R(1)
+(6==>2)LastNode = 6, L(0) + M(1) + R(1)
+(7==>2)LastNode = 4, L(0) + M(1) + R(1)
+(8==>2)LastNode = 0, L(0) + M(0) + R(0)
+(1==>0)LastNode = 0, L(0) + M(0) + R(0)
+(2==>0)LastNode = 3, L(0) + M(1) + R(0)
+(3==>1)LastNode = 0, L(0) + M(0) + R(0)
+(4==>0)LastNode = 0, L(0) + M(0) + R(0)
+(5==>0)LastNode = 6, L(0) + M(1) + R(1)
+(6==>2)LastNode = 6, L(0) + M(1) + R(1)
+(7==>2)LastNode = 8, L(0) + M(1) + R(0)
+(8==>1)LastNode = 0, L(0) + M(0) + R(0)
+0
+LastNode = 3, L(0) + M(1) + R(0)
+1
+LastNode = 1, L(0) + M(1) + R(0)
+(1==>1)LastNode = 5, L(0) + M(1) + R(2)
+(2==>3)LastNode = 3, L(0) + M(1) + R(0)
+(3==>1)LastNode = 5, L(0) + M(1) + R(2)
+(4==>3)LastNode = 5, L(0) + M(1) + R(2)
+(5==>3)LastNode = 6, L(0) + M(1) + R(1)
+(6==>2)LastNode = 6, L(0) + M(1) + R(1)
+(7==>2)LastNode = 8, L(0) + M(1) + R(0)
+(8==>1)(sum[5] -= 0)LastNode = 5, L(1) + M(3) + R(2)
+(1==>6)LastNode = 5, L(1) + M(3) + R(2)
+(2==>6)LastNode = 3, L(0) + M(1) + R(0)
+(3==>1)LastNode = 5, L(1) + M(3) + R(2)
+(4==>6)LastNode = 5, L(1) + M(3) + R(2)
+(5==>6)LastNode = 5, L(1) + M(3) + R(2)
+(6==>6)LastNode = 5, L(1) + M(3) + R(2)
+(7==>6)LastNode = 8, L(0) + M(1) + R(0)
+(8==>1)LastNode = 5, L(1) + M(3) + R(2)
+6
