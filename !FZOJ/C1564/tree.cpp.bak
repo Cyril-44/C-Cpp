@@ -1,0 +1,33 @@
+
+    inline int query(int u) {
+        sync(u);
+        int ans = -tr[u].thisl;
+        { // 找 u 下面的极长 on 和（on下拉到点记录）
+            bool lastjmp = true;
+            for (int v = u; ; v = tr[v].fa) {
+                if (lastjmp) {
+                    if (tr[tr[v].rs].allon) ans += tr[tr[v].rs].suml;
+                    else { ans += getFront(tr[v].rs); break; }
+                    if (tr[v].on) ans += tr[v].thisl;
+                    else break;
+                }
+                lastjmp = tr[tr[v].fa].ls == v;
+                if (tr[tr[v].fa].ls != v && tr[tr[v].fa].rs != v) break;
+            }
+        }
+        while (u) {
+            bool lastjmp = true;
+            for (; ; u = tr[u].fa) {
+                if (lastjmp) {
+                    if (tr[tr[u].ls].allon) ans += tr[tr[u].ls].suml;
+                    else return ans += getBack(tr[u].ls);
+                    ans += tr[u].thisl;
+                    if (!tr[u].on) return ans;
+                }
+                lastjmp = tr[tr[u].fa].rs == u;
+                if (tr[tr[u].fa].ls != u && tr[tr[u].fa].rs != u) break;
+            }
+            u = tr[u].fa;
+        }
+        return ans;
+    }

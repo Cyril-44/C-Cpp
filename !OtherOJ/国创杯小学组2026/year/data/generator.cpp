@@ -103,11 +103,18 @@ void (*testGen[])(const string&, int) = {
 };
 int main(int argc, char** argv) {
     registerGen(argc, argv, 1);
+    if (has_opt("help")) return suppressEnsureNoUnusedOpts(), puts(
+        "Generate samples to down/, data to tests/.\n"
+        "Options:\n"
+        "    --id=<x>    ----    if given, the generator will only generates the specific test case <x>.\n"
+        "    --help      ----    Print this help.\n"
+        "\e[31mCaution\e[0m: The generator won't automatically clear or create the down/ and tests/ folder."), 0;
+    int generateOneTest = opt<int>("id", -1);
     int testId = 1, subtaskId = 0, sampleId = 2;
     for (int endId : SubtaskConfig) {
-        if (SampleConfig[subtaskId]) testGen[subtaskId]("down/year" + to_string(sampleId++) + ".in", testId);
+        if (generateOneTest == -1 && SampleConfig[subtaskId]) testGen[subtaskId]("down/year" + to_string(sampleId++) + ".in", testId);
         for (; testId <= endId; testId++)
-            testGen[subtaskId]("tests/dat" + to_string(testId) + ".in", testId);
+            if (generateOneTest == -1 || generateOneTest == testId) testGen[subtaskId]("tests/dat" + to_string(testId) + ".in", testId);
         ++subtaskId;
     }
 }
