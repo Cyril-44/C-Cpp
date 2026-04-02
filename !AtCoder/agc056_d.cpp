@@ -1,31 +1,25 @@
 #include <cstdio>
 #include <cstdint>
 #include <algorithm>
+#include <vector>
 constexpr int N = 5005;
 int a[N];
-int64_t os[N], es[N];
 int main() {
     int n;
-    int64_t l, r;
+    int64_t l, r, x = 0, ans = 9e18;
     scanf("%d%ld%ld", &n, &l, &r);
     for (int i = 1; i <= n; i++)
-        scanf("%d", &a[i]);
+        scanf("%d", &a[i]), x += a[i];
+    x -= l + r;
     std::sort(a+1, a+1 + n);
     for (int i = 1; i <= n; i++) {
-        os[i] = os[i-1], es[i] = es[i-1];
-        (i & 1) ? (os[i] += a[i]) : (es[i] += a[i]);
+        std::vector<int64_t> vec; vec.reserve(n);
+        for (int j = 1; j <= n; j++) if (i != j) vec.push_back(a[j]);
+        vec.insert(std::lower_bound(vec.begin(), vec.end(), x + a[i]), x + a[i]);
+        int64_t sum = 0;
+        for (int j = 1; j < n; j += 2) sum += vec[j] - vec[j-1];
+        ans = std::min(ans, sum);
     }
-    for (int alice = 1; alice <= n; alice++) {
-        for (int bob = 1; bob <= n; bob++) {
-            if (alice == bob) continue;
-            int mn = std::min(alice, bob), mx = std::max(alice, bob);
-            int64_t av = os[mn-1] + es[mx-1]-es[mn] + os[n]-os[mx] + a[alice],
-                    bv = es[mn-1] + os[mx-1]-os[mn] + es[n]-es[mx] + a[bob];
-            if (l <= av && av <= r && l <= bv && bv <= r) {
-                puts("Alice"); return 0;
-            }
-        }
-    }
-    puts("Bob");
+    puts(ans <= r - l ? "Alice" : "Bob");
     return 0;
 }

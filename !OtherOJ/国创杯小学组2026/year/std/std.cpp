@@ -1,131 +1,25 @@
 #include <bits/stdc++.h>
-#define endl '\n'
 
-class FastIS {
-    static constexpr size_t BUF_SIZ = 1 << 20;
-    char buffer[BUF_SIZ];
-    char *p1, *p2;
-    FILE *src;
-public:
-    FastIS(FILE* f = stdin) : p1(nullptr), p2(nullptr), src(f) {}
-    __attribute__((always_inline)) inline int get() {
-        return (p1 == p2) && (p2 = (p1 = buffer) + fread(buffer, 1, BUF_SIZ, src), p1 == p2) ? EOF : *p1++;
-    }
-    template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
-    FastIS& operator>>(T& rhs) {
-        if  (std::is_same<T, bool>::value) {
-            int ch = get();
-            while (~ch && ch != '0' && ch != '1') ch = get();
-            rhs = static_cast<bool>(ch & 1);
-        } else if  (std::is_same<T, char>::value) {
-            rhs = get();
-            while (rhs == ' ' || rhs == '\r' || rhs == '\n') rhs = get();
-        } else if  (std::is_integral<T>::value) {
-            if  (std::is_unsigned<T>::value) {
-                int ch = get();
-                while (~ch && (ch < '0' || ch > '9')) ch = get();
-                for (rhs = 0; ch >= '0' && ch <= '9'; ch = get())
-                    rhs = (rhs << 3) + (rhs << 1) + (ch ^ '0');
-            } else {
-                int ch = get();
-                bool flg = false;
-                while (~ch && (ch < '0' || ch > '9') && (ch ^ '-')) ch = get();
-                if (ch == '-') ch = get(), flg = true;
-                for (rhs = 0; ch >= '0' && ch <= '9'; ch = get())
-                    rhs = (rhs << 3) + (rhs << 1) + (ch ^ '0');
-                rhs = flg ? -rhs : rhs;
-            }
-        } else if  (std::is_floating_point<T>::value) {
-            int ch = get();
-            bool flg = false;
-            while (~ch && (ch < '0' || ch > '9') && (ch ^ '-')) ch = get();
-            if (ch == '-') ch = get(), flg = true;
-            using Int = typename std::conditional<std::is_same<T, float>::value, std::uint32_t, std::uint64_t>::type;
-            Int integer;
-            for (integer = 0; ch >= '0' && ch <= '9'; ch = get())
-                integer = (integer << 3) + (integer << 1) + (ch ^ '0');
-            rhs = integer;
-            if (ch == '.') {
-                Int base = 1;
-                for (ch = get(); ch >= '0' && ch <= '9'; ch = get())
-                    rhs += (ch ^ '0') * (1. / (base *= 10));
-            }
-            if (flg) rhs = -rhs;
-        } else throw;
-        return *this;
-    }
-    FastIS& operator>>(char *s) {
-        int ch = get();
-        while (~ch && (ch == ' ' || ch == '\r' || ch == '\n')) ch = get();
-        while (~ch && (ch != ' ' && ch != '\r' && ch != '\n'))
-            *s++ = ch, ch = get();
-        return *this;
-    }
-} fin;
-class FastOS {
-    static constexpr size_t BUF_SIZ = 1 << 20;
-    static constexpr double EPS = 1e-9;
-    char buffer[BUF_SIZ], *p;
-    const char *pt;
-    FILE *dest;
-    int prec;
-public:
-    FastOS(FILE* f = stdout) : p(buffer), pt(buffer + BUF_SIZ), dest(f), prec(-1) { setvbuf(dest, nullptr, _IONBF, 0); }
-    ~FastOS() { flush(); fclose(dest); }
-    FastOS& flush() {
-        fwrite(buffer, p - buffer, 1, dest);
-        return *this;
-    }
-    FastOS& put(int c) {
-        *p++ = c;
-        if (p == pt) fwrite(buffer, BUF_SIZ, 1, dest), p = buffer;
-        return *this;
-    }
-    FastOS& setprecision(const int& new_prec) {
-        prec = new_prec;
-        return *this;
-    }
-    template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
-    FastOS& operator<<(T rhs) {
-        if  (std::is_same<T, char>::value)
-            put(rhs);
-        else if  (std::is_integral<T>::value) {
-            if  (std::is_signed<T>::value)
-                if (rhs < 0) put('-'), rhs = -rhs;
-            static uint8_t s[40];
-            s[*s = 1] = rhs % 10;
-            while (rhs /= 10) s[++(*s)] = rhs % 10;
-            while (*s) put(s[(*s)--] | '0');
-        }
-        else if  (std::is_floating_point<T>::value) {
-            if (rhs < 0) put('-'), rhs = -rhs;
-            using Int = typename std::conditional<std::is_same<T, float>::value, std::uint32_t, std::uint64_t>::type;
-            Int inte = static_cast<Int>(rhs);
-            T frac = rhs - inte;
-            *this << inte;
-            if (prec > 0 || (prec < 0 && frac > EPS)) {
-                put('.');
-                for (int i = 0; (prec > 0 && i < prec) || (prec < 0 && frac > EPS); i++) {
-                    int digit = static_cast<int>(frac *= 10);
-                    put(digit | '0');
-                    frac -= digit;
-                }
-            }
-        } else throw;
-        return *this;
-    }
-    FastOS& operator<<(char* s) {
-        while (*s) put(*s++);
-        return *this;
-    }
-    FastOS& operator<<(const std::string &s) {
-        return *this << s.c_str();
-    }
-} fout;
+class __i{static constexpr size_t b=1<<20;char c[b];char*d,*e;FILE*f;public:__i(FILE*g=stdin):d(nullptr),e(nullptr),f(g){}inline int h(){return(d==e)&&(e=(d=c)+fread(c,1,b,f),d==e)?EOF:*d++;}template<typename i,typename=typename std::enable_if<std::is_arithmetic<i>::value>::type>__i&operator>>(i&j){if(std::is_same<i,bool>::value){int k=h();while(~k&&k!='0'&&k!='1')k=h();j=static_cast<bool>(k&1);}else if(std::is_same<i,char>::value){j=h();while(j==' '||j=='\r'||j=='\n')j=h();}else if(std::is_integral<i>::value){if(std::is_unsigned<i>::value){int l=h();while(~l&&(l<'0'||l>'9'))l=h();for(j=0;l>='0'&&l<='9';l=h())j=(j<<3)+(j<<1)+(l^'0');}else{int m=h();bool n=false;while(~m&&(m<'0'||m>'9')&&(m^'-'))m=h();if(m=='-')m=h(),n=true;for(j=0;m>='0'&&m<='9';m=h())j=(j<<3)+(j<<1)+(m^'0');j=n?-j:j;}}else if(std::is_floating_point<i>::value){int o=h();bool p=false;while(~o&&(o<'0'||o>'9')&&(o^'-'))o=h();if(o=='-')o=h(),p=true;using q=typename std::conditional<std::is_same<i,float>::value,std::uint32_t,std::uint64_t>::type;q r;for(r=0;o>='0'&&o<='9';o=h())r=(r<<3)+(r<<1)+(o^'0');j=r;if(o=='.'){q s=1;for(o=h();o>='0'&&o<='9';o=h())j+=(o^'0')*(1./(s*=10));}if(p)j=-j;}else throw;return*this;}__i&operator>>(char*t){int u=h();while(~u&&(u==' '||u=='\r'||u=='\n'))u=h();while(~u&&(u!=' '&&u!='\r'&&u!='\n'))*t++=u,u=h();return*this;}}fin;class __o{static constexpr size_t x=1<<20;static constexpr double y=1e-9;char z[x],*A;const char*B;FILE*C;int D;public:__o(FILE*E=stdout):A(z),B(z+x),C(E),D(-1){setvbuf(C,nullptr,_IONBF,0);}~__o(){F();fclose(C);}__o&F(){fwrite(z,A-z,1,C);return*this;}__o&G(int H){*A++=H;if(A==B)fwrite(z,x,1,C),A=z;return*this;}__o&I(const int&J){D=J;return*this;}template<typename K,typename=typename std::enable_if<std::is_arithmetic<K>::value>::type>__o&operator<<(K L){if(std::is_same<K,char>::value)G(L);else if(std::is_integral<K>::value){if(std::is_signed<K>::value)if(L<0)G('-'),L=-L;static uint8_t M[40];M[*M=1]=L%10;while(L/=10)M[++(*M)]=L%10;while(*M)G(M[(*M)--]|'0');}else if(std::is_floating_point<K>::value){if(L<0)G('-'),L=-L;using N=typename std::conditional<std::is_same<K,float>::value,std::uint32_t,std::uint64_t>::type;N O=static_cast<N>(L);K P=L-O;*this<<O;if(D>0||(D<0&&P>y)){G('.');for(int Q=0;(D>0&&Q<D)||(D<0&&P>y);Q++){int R=static_cast<int>(P*=10);G(R|'0');P-=R;}}}else throw;return*this;}__o&operator<<(char*S){while(*S)G(*S++);return*this;}__o&operator<<(const std::string&T){return*this<<T.c_str();}}fout;
+
+/* template<typename T> inline void in(T &x) {
+    char ch = getchar();
+    while (ch < '0' || ch > '9') ch = getchar();
+    for (x = 0; ch >= '0' && ch <= '9'; ch = getchar())
+        x = (x << 3) + (x << 1) + (ch ^ '0');
+}
+template<typename T> inline void out(T x) {
+    static int sta[20];
+    sta[sta[0] = 1] = x % 10;
+    while (x /= 10) sta[++sta[0]] = x % 10;
+    while (sta[0]) putchar(sta[sta[0]--] | '0');
+    putchar('\n');
+} */
 int main() {
     freopen("year.in", "r", stdin);
     freopen("year.out", "w", stdout);
     int C, t, a, b, c;
+    // in(C), in(t);
     fin >> C >> t;
     long long m, n;
     for (int i = 1; i <= t; i++) {
