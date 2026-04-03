@@ -20,7 +20,7 @@ if ! diff -q $OUT1 $OUT2 >/dev/null; then
 fi;
 }
 
-# n=20
+# n=8
 # for ((s=1;s<=1;s++)) do
 #     echo $n > $IN
 #     # echo 5000000 >> $IN
@@ -46,31 +46,42 @@ fi;
 
 
 
-echo 1 > $IN;
-echo $((5*5*5*5*5*5)) >> $IN
+# echo 1 > $IN;
+# echo $((5*5*5*5*5*5)) >> $IN
 
 # 枚举所有 a[1..8] ∈ [1..8]
-for a1 in {a..e}; do
-for a2 in {a..e}; do
-for a3 in {a..e}; do
-for a4 in {a..e}; do
-for a5 in {a..e}; do
-for a6 in {a..e}; do
-# for a7 in {a..f}; do
-# for a8 in {1..5}; do
-# for a9 in {1..5}; do
-# for a10 in {1..5}; do
+for a1 in {a..b}; do
+for a2 in {a..b}; do
+for a3 in {a..b}; do
+for a4 in {a..b}; do
+for a5 in {a..b}; do
+for a6 in {a..b}; do
+for a7 in {a..b}; do
+for a8 in {a..b}; do
+for a9 in {a..b}; do
+for a10 in {a..b}; do
+for a11 in {a..b}; do
+for a12 in {a..b}; do
+for a13 in {a..b}; do
+for a14 in {a..b}; do
+for a15 in {a..b}; do
+for a16 in {a..b}; do
     echo 1 > $IN;
-    echo "$a1$a2$a3$a4$a5$a6" >> $IN
+    echo "$a1$a2$a3$a4$a5$a6$a7$a8$a9$a10$a11$a12$a13$a14$a15$a16" >> $IN
     ./bf < $IN > $OUT1
-    ./std < $IN > $OUT2
+    ./wrong4_pxb < $IN > $OUT2
     if ! diff -q $OUT1 $OUT2 >/dev/null; then
-        echo "$a1$a2$a3$a4$a5$a6" >> $HACK
+        echo "$a1$a2$a3$a4$a5$a6$a7$a8$a9$a10$a11$a12$a13$a14$a15$a16" >> $HACK;
+        echo Exp: >> $HACK;
+        cat $OUT1 >> $HACK;
+        echo Found: >> $HACK;
+        cat $OUT2 >> $HACK;
     fi
 #     echo "10 $a1 $a2 $a3 $a4 $a5 $a6 $a7 $a8 $a9 $a10" >> $IN
 
-# done; done; done;
-# done;
+done; done; done; done; done; done
+done; done; done;
+done;
 done; done; done; done; done; done
 # 比较
 echo "All $cnt tests passed!"
