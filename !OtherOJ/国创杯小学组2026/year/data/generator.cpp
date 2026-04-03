@@ -46,8 +46,8 @@ inline pair<int64_t, int64_t> mngen(const pair<int64_t, int64_t> &mLmt, const pa
     }
     }
 }
-inline pair<int64_t, int64_t> mngenEasy(pair<int64_t,int64_t>, pair<int64_t,int64_t> nLmt, int a, int b, int c) {
-    return {c * rnd.next((int64_t)1, (int64_t)1e9), rnd.next(nLmt.first, nLmt.second)};
+inline pair<int64_t, int64_t> mngenEasy(pair<int64_t,int64_t> mLmt, pair<int64_t,int64_t> nLmt, int a, int b, int c) {
+    return {c * rnd.next((mLmt.first + c - 1) / c, mLmt.second / c), rnd.next(nLmt.first, nLmt.second)};
 }
 
 inline tuple<int,int,int> abcgen(const int limit) {
@@ -57,49 +57,39 @@ inline tuple<int,int,int> abcgen(const int limit) {
     return {a, b, c};
 }
 
-void (*testGen[])(const string&, int) = {
-    // m 1000, n 1, abc 100
-    [](const string &path, int Tid) { ofstream file(path); file << Tid << ' ';
-        const int T = path.find("down") == string::npos ? int(2e6) : 100;
-        file << T << '\n';
-        for (int t = 1; t <= T; t++) {
-            auto [a, b, c] = abcgen(100);
-            auto [m, n] = mngen({1, 1000}, {1, 1}, a, b, c);
-            file << m << ' ' << a << ' ' << b << ' ' << c << ' ' << n << '\n';
-        }
-    },
-#define Header [](const string &path, int Tid) { \
-    ofstream file(path); file << Tid << ' '; \
-    vector<tuple<int64_t,int,int,int,int>> out;
-#define Footer \
-        out.emplace_back(m, a, b, c, n); \
-        leftn -= n; \
-    } file << out.size() << '\n'; \
-    for (const auto &[m, a, b, c, n] : out) \
-        file << m << ' ' << a << ' ' << b << ' ' << c << ' ' << n << '\n'; \
+#define Header [](const string &path, int Tid) { ofstream file(path); file << Tid << ' ';
+#define Generator1(M, N, SN, ABC) [](const string &path, int Tid) { ofstream file(path); file << Tid << ' ';            \
+    int leftn = SN;                                                                                                     \
+    std::vector<int> alln;                                                                                              \
+    vector<tuple<int64_t, int, int, int, int>> out;                                                                     \
+    for (int s = 10; s <= N; s *= 10) alln.push_back(s);                                                                \
+    while (leftn > 10) {                                                                                                \
+        auto [a, b, c] = abcgen(ABC);                                                                                   \
+        auto [m, n] = mngen({1, M}, {1, rnd.any(alln)}, a, b, c);                                                       \
+        while (!alln.empty() && alln.back() > leftn - n) alln.pop_back();                                               \
+        out.emplace_back(m, a, b, c, n), leftn -= n;                                                                    \
+    }                                                                                                                   \
+    file << out.size() << '\n';                                                                                         \
+    for (const auto &[m, a, b, c, n] : out) file << m << ' ' << a << ' ' << b << ' ' << c << ' ' << n << '\n';          \
 }
-#define Generator1(M, N, SN, ABC) Header \
-    int leftn = SN; std::vector<int> alln; \
-    for (int s = 10; s <= N; s *= 10) alln.push_back(s); \
-    while (leftn > 10) { \
-        auto [a, b, c] = abcgen(ABC); \
-        auto [m, n] = mngen({1, M}, {1, rnd.any(alln)}, a, b, c); \
-        while (!alln.empty() && alln.back() > leftn - n) alln.pop_back(); \
-    Footer
-#define Generator2(SN, SSN, GFunc) Header \
-    out.reserve(5e6); \
-    int64_t leftn = path.find("down") == string::npos ? SN : SSN; \
-    while (leftn > (int)5e8) { \
-        auto [a, b, c] = abcgen(1e6); \
-        auto [m, n] = GFunc({1, 1e15}, {5e8, 1e9}, a, b, c); \
-    Footer
+#define Generator2(T1, T2, M, N, ABC, GFunc) [](const string &path, int Tid) { ofstream file(path); file << Tid << ' '; \
+    int64_t T = path.find("down") == string::npos ? T1 : T2;                                                            \
+    file << T << '\n';                                                                                                  \
+    while (T--) {                                                                                                       \
+        auto [a, b, c] = abcgen(ABC);                                                                                   \
+        auto [m, n] = GFunc({1, M}, {(N + 1) / 2, N}, a, b, c);                                                         \
+        file << m << ' ' << a << ' ' << b << ' ' << c << ' ' << n << '\n';                                              \
+    }                                                                                                                   \
+}
 
+void (*testGen[])(const string&, int) = {
+    Generator2(3e6, 1e3, 1e3, 1, 1e2, mngenEasy),
     Generator1(1e3,  1e2, 1e3, 1e3),
     Generator1(1e6,  1e3, 1e4, 1e6),
     Generator1(1e15, 1e5, 1e6, 1e6),
-    Generator2(1e15, 1e12, mngenEasy),
-    Generator2(1e14, 1e12, mngen),
-    Generator2(1e15, 1e12, mngen)
+    Generator2(3e6, 1e3, 1e15, 1e9, 1e6, mngenEasy),
+    Generator2(3e5, 1e3, 1e15, 1e9, 1e6, mngen),
+    Generator2(3e6, 1e3, 1e15, 1e9, 1e6, mngen)
 };
 int main(int argc, char** argv) {
     registerGen(argc, argv, 1);
@@ -112,9 +102,14 @@ int main(int argc, char** argv) {
     int generateOneTest = opt<int>("id", -1);
     int testId = 1, subtaskId = 0, sampleId = 2;
     for (int endId : SubtaskConfig) {
-        if (generateOneTest == -1 && SampleConfig[subtaskId]) testGen[subtaskId]("down/year" + to_string(sampleId++) + ".in", testId);
-        for (; testId <= endId; testId++)
+        if (generateOneTest == -1 && SampleConfig[subtaskId]) {
+            std::cout << "Generating Sample " << sampleId << "..." << std::endl;
+            testGen[subtaskId]("down/year" + to_string(sampleId++) + ".in", testId);
+        }
+        for (; testId <= endId; testId++) {
+            std::cout << "Generating Testcase " << testId << "..." << std::endl;
             if (generateOneTest == -1 || generateOneTest == testId) testGen[subtaskId]("tests/dat" + to_string(testId) + ".in", testId);
+        }
         ++subtaskId;
     }
 }
