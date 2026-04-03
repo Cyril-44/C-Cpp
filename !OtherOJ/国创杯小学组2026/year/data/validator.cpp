@@ -17,13 +17,14 @@ constexpr int MapToSubTask[]{0,1,1,2,2,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,7,7,7
     ensuref(sumn <= (int64_t)SN, "Sum of n exceeded!"); \
 }
 void (*check[])() = {
-    Checker(2e6, 1e3,  1,   1e7,  1e2, ),
-    Checker(2e6, 1e3,  1e2, 1e3,  1e3, ),
-    Checker(2e6, 1e6,  1e3, 1e4,  1e6, ),
-    Checker(2e6, 1e15, 1e5, 1e6,  1e6, ),
-    Checker(2e6, 1e15, 1e9, 2e15, 1e6, ensuref(m % c == 0, "m %% c")),
-    Checker(2e5, 1e15, 1e9, 2e14, 1e6, ),
-    Checker(2e6, 1e15, 1e9, 2e15, 1e6, ),
+    //      t    m     n    sumn  abc  SP.B
+    Checker(3e6, 1e3,  1,   1e7,  1e2, ),
+    Checker(3e6, 1e3,  1e2, 1e3,  1e3, ),
+    Checker(3e6, 1e6,  1e3, 1e4,  1e6, ),
+    Checker(3e6, 1e15, 1e5, 1e6,  1e6, ),
+    Checker(3e6, 1e15, 1e9, 3e15, 1e6, ensuref(m % c == 0, "m %% c")),
+    Checker(3e5, 1e15, 1e9, 3e14, 1e6, ),
+    Checker(3e6, 1e15, 1e9, 3e15, 1e6, ),
 };
 int main(int argc, char** argv) {
     registerValidation(argc, argv);
