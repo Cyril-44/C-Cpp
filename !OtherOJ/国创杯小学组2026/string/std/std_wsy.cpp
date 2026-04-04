@@ -22,7 +22,7 @@ inline bool check(int l, int r) {
 
 int main() {
 	int T;
-	scanf("%d", &T);
+	scanf("%*d%d", &T);
 	pw[0] = 1;
 	for (int i = 1; i < N; i++) pw[i] = pw[i - 1] * B;
 	while (T--) {
