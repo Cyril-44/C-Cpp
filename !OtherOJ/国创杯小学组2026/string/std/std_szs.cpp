@@ -64,6 +64,7 @@ int main(){
 	ls[0]=1;
 	for(int i=1;i<=5000000;i++)
 		ls[i]=ls[i-1]*1ll*b%mod;
+	read();
 	int t=read();
 	while(t--)cl();
 	return 0;
