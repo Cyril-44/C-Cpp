@@ -38,11 +38,11 @@ inline std::string genRand(int len) {
     for (int i = 0; i < len; i++) res[i] = rnd.next('a', 'z');
     return res;
 }
-inline std::string gen(int len, const int w, const int incProb, const int contProb, const int startState = -1) {
+inline std::string gen(int len, const int w0, const int w1, const int incProb, const int contProb, const int startState = -1) {
     std::string res; res.reserve(len);
     for (bool state = ~startState ? startState : rnd.next(0, 1); len > 0; state ^= 1) {
         if (len < 6) state = 0;
-        int curlen = rnd.wnext(state ? 6 : 1, len, w);
+        int curlen = rnd.wnext(state ? 6 : 1, len, state ? w1 : w0);
         if (state) {
             std::string now = genHack(curlen, incProb, contProb);
             if (rnd.next(0, 1)) std::reverse(now.begin(), now.end());
@@ -100,14 +100,14 @@ inline std::string genB(int len, const int w, const int contProb) {
 }
 void (*testGen[]) Gen {
     Generator(1e3, 4e7, 5e6, -100, std::string(n, 'a')),
-    Generator(2,   20,  10,  0, gen(n, 26, 70, 40, 1)),
-    Generator(5,   500, 200, 0, gen(n, -4, 20, 60)),
-    Generator(15,  5e4, 5e3, 5, gen(n, -4, 15, 65)),
+    Generator(2,   20,  10,  0, gen(n, 0, 26, 70, 40, 1)),
+    Generator(5,   500, 200, 0, gen(n, -20, -4, 20, 60)),
+    Generator(15,  5e4, 5e3, 5, gen(n, -20, -4, 15, 65)),
     Generator(1e2, 2e6, 1e5, -4, genB(n, -4, 85)),
     Generator(1e2, 4e7, 5e6, -10, genB(n, -10, 95)),
     Generator(1e2, 4e7, 5e6, -10, genRand(n)),
-    Generator(1e2, 2e6, 1e5, -4, gen(n, -4, 10, 75)),
-    Generator(1e2, 4e7, 5e6, -10, gen(n, -10, 5,  85))
+    Generator(1e2, 2e6, 1e5, -4, gen(n, -20, -4, 10, 75)),
+    Generator(1e2, 4e7, 5e6, -10, gen(n, -40, -10, 5,  85))
 };
 void (*sampleGen[]) Gen {
     testGen[1],
