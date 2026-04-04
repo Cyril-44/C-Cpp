@@ -55,7 +55,7 @@ namespace PAM{
     }
 }
 int main(){
-    int t;scanf("%d",&t);
+    int t;scanf("%*d%d",&t);
     while(t--) PAM::wk();
     return 0;
 }
