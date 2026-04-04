@@ -3,7 +3,7 @@ using namespace std;
 int t,n,top,ans;
 char s[5000005],st[5000005];
 int main(){
-    cin>>t;
+    cin>>n>>t;
     while(t--){
         scanf("%s",s+1);
         n=strlen(s+1);

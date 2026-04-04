@@ -6,7 +6,7 @@ int f[N], sta[N], a[N][3];
 char s[N];
 int main() {
     int T, n, m, top;
-    scanf("%d", &T);
+    scanf("%*d%d", &T);
     while (T--) {
         scanf("%s", s+1);
         n = strlen(s+1);

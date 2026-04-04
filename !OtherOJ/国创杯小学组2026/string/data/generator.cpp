@@ -57,7 +57,11 @@ inline std::string genB(int len, const int w, const int contProb) {
     std::string res; res.reserve(len);
     for (bool state = rnd.next(0, 1); len > 0; state ^= 1) {
         int curlen = rnd.wnext(1, len, w);
-        if (state) res += genPal(curlen, 100, contProb, res.empty() ? 'a' : res.back() + 1);
+        if (state) {
+            char startChar = res.empty() ? 'a' : res.back() + 1;
+            curlen = std::min(curlen, 'z' - startChar << 1 | 1);
+            res += genPal(curlen, 100, contProb, res.empty() ? 'a' : res.back() + 1);
+        }
         else {
             for (int i = 1; i <= curlen; i++) {
                 char ch = rnd.next('a', 'x');
@@ -84,13 +88,13 @@ inline std::string genB(int len, const int w, const int contProb) {
 void (*testGen[]) Gen {
     Generator(1e3, 4e7, 5e6, -100, std::string(n, 'a')),
     Generator(2,   20,  10,  0, gen(n, 26, 70, 40, 1)),
-    Generator(5,   500, 200, 0, gen(n, 2,  20, 60)),
-    Generator(15,  5e4, 5e3, 5, gen(n, 2,  15, 65)),
-    Generator(1e2, 2e6, 1e5, -2, genB(n, 2, 85)),
-    Generator(1e2, 4e7, 5e6, -5, genB(n, 5, 95)),
-    Generator(1e2, 4e7, 5e6, -5, genRand(n)),
-    Generator(1e2, 2e6, 1e5, -2, gen(n, 5, 10, 75)),
-    Generator(1e2, 4e7, 5e6, -5, gen(n, 5, 5,  85))
+    Generator(5,   500, 200, 0, gen(n, -4, 20, 60)),
+    Generator(15,  5e4, 5e3, 5, gen(n, -4, 15, 65)),
+    Generator(1e2, 2e6, 1e5, -25, genB(n, -4, 85)),
+    Generator(1e2, 4e7, 5e6, -50, genB(n, -10, 95)),
+    Generator(1e2, 4e7, 5e6, -50, genRand(n)),
+    Generator(1e2, 2e6, 1e5, -25, gen(n, -10, 10, 75)),
+    Generator(1e2, 4e7, 5e6, -50, gen(n, -10, 5,  85))
 };
 void (*sampleGen[]) Gen {
     testGen[1],
@@ -112,7 +116,7 @@ int main(int argc, char **argv) {
         "    --help      ----    Print this help.\n"
         "\e[31mCaution\e[0m: The generator won't automatically clear or create the down/ and tests/ folder."), 0;
     int generateOneTest = opt<int>("id", 0);
-    int testId = 1, subtaskId = 0, sampleId = 3, sampleCount = 0;
+    int testId = 1, subtaskId = 0, sampleId = 2, sampleCount = 0;
     for (int endId : SubtaskConfig) {
         for (; testId <= endId; testId++)
             if (generateOneTest == 0 || generateOneTest == testId) {
