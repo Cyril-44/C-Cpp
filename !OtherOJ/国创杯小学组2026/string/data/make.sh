@@ -8,14 +8,14 @@ echo Data Generated.
 
 for ((i=1; i<=25; i++)) do
   echo Validating data $i...
-#   ./validator < tests/dat$i.in;
+  ./validator < tests/dat$i.in;
   echo Running on data $i...
   ./std < tests/dat$i.in > tests/dat$i.ans;
 done
 
-for ((i=1; i<=7; i++)) do
+for ((i=2; i<=7; i++)) do
   echo Validating down $i...
-#   ./validator < down/string$i.in;
+  ./validator < down/string$i.in;
   echo Running on down $i...
   ./std < down/string$i.in > down/string$i.ans;
 done

@@ -56,20 +56,33 @@ inline std::string gen(int len, const int w, const int incProb, const int contPr
 inline std::string genB(int len, const int w, const int contProb) {
     std::string res; res.reserve(len);
     for (bool state = rnd.next(0, 1); len > 0; state ^= 1) {
-        int curlen = rnd.wnext(1, len, w);
         if (state) {
-            char startChar = res.empty() ? 'a' : res.back() + 1;
-            curlen = std::min(curlen, 'z' - startChar << 1 | 1);
-            res += genPal(curlen, 100, contProb, res.empty() ? 'a' : res.back() + 1);
+            int curlen = 0;
+            std::string s;
+            char ch = rnd.next('a', 'y');
+            if (!res.empty()) ch += ch >= res.back();
+            for (bool start = true; ch <= 'z' && curlen * 2 + 1 <= len; ++ch) {
+                if (rnd.next(0, 100) > contProb) {
+                    if (start) start = false;
+                    else continue;
+                }
+                s += ch, ++curlen;
+            }
+            if (!s.empty()) {
+                res += s;
+                s.pop_back(), std::reverse(s.begin(), s.end()), res += s;
+            }
+            len -= res.length();
         }
         else {
+            int curlen = rnd.wnext(1, len, w);
             for (int i = 1; i <= curlen; i++) {
-                char ch = rnd.next('a', 'x');
-                ch += ch >= res.back();
+                char ch = rnd.next('a', 'y');
+                if (!res.empty()) ch += ch >= res.back();
                 res += ch;
             }
+            len -= curlen;
         }
-        len -= curlen;
     }
     return res;
 }
@@ -90,11 +103,11 @@ void (*testGen[]) Gen {
     Generator(2,   20,  10,  0, gen(n, 26, 70, 40, 1)),
     Generator(5,   500, 200, 0, gen(n, -4, 20, 60)),
     Generator(15,  5e4, 5e3, 5, gen(n, -4, 15, 65)),
-    Generator(1e2, 2e6, 1e5, -25, genB(n, -4, 85)),
-    Generator(1e2, 4e7, 5e6, -50, genB(n, -10, 95)),
-    Generator(1e2, 4e7, 5e6, -50, genRand(n)),
-    Generator(1e2, 2e6, 1e5, -25, gen(n, -10, 10, 75)),
-    Generator(1e2, 4e7, 5e6, -50, gen(n, -10, 5,  85))
+    Generator(1e2, 2e6, 1e5, -4, genB(n, -4, 85)),
+    Generator(1e2, 4e7, 5e6, -10, genB(n, -10, 95)),
+    Generator(1e2, 4e7, 5e6, -10, genRand(n)),
+    Generator(1e2, 2e6, 1e5, -4, gen(n, -4, 10, 75)),
+    Generator(1e2, 4e7, 5e6, -10, gen(n, -10, 5,  85))
 };
 void (*sampleGen[]) Gen {
     testGen[1],
