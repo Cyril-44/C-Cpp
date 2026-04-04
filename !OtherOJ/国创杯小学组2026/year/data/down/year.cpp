@@ -1,4 +1,18 @@
 #include <bits/stdc++.h>
 class __i{static constexpr size_t b=1<<20;char c[b];char*d,*e;FILE*f;public:__i(FILE*g=stdin):d(nullptr),e(nullptr),f(g){}inline int get(){return(d==e)&&(e=(d=c)+fread(c,1,b,f),d==e)?EOF:*d++;}template<typename i,typename=typename std::enable_if<std::is_arithmetic<i>::value>::type>__i&operator>>(i&j){if(std::is_same<i,bool>::value){int k=get();while(~k&&k!='0'&&k!='1')k=get();j=static_cast<bool>(k&1);}else if(std::is_same<i,char>::value){j=get();while(j==' '||j=='\r'||j=='\n')j=get();}else if(std::is_integral<i>::value){if(std::is_unsigned<i>::value){int l=get();while(~l&&(l<'0'||l>'9'))l=get();for(j=0;l>='0'&&l<='9';l=get())j=(j<<3)+(j<<1)+(l^'0');}else{int m=get();bool n=false;while(~m&&(m<'0'||m>'9')&&(m^'-'))m=get();if(m=='-')m=get(),n=true;for(j=0;m>='0'&&m<='9';m=get())j=(j<<3)+(j<<1)+(m^'0');j=n?-j:j;}}else if(std::is_floating_point<i>::value){int o=get();bool p=false;while(~o&&(o<'0'||o>'9')&&(o^'-'))o=get();if(o=='-')o=get(),p=true;using q=typename std::conditional<std::is_same<i,float>::value,std::uint32_t,std::uint64_t>::type;q r;for(r=0;o>='0'&&o<='9';o=get())r=(r<<3)+(r<<1)+(o^'0');j=r;if(o=='.'){q s=1;for(o=get();o>='0'&&o<='9';o=get())j+=(o^'0')*(1./(s*=10));}if(p)j=-j;}else throw;return*this;}__i&operator>>(char*t){int u=get();while(~u&&(u==' '||u=='\r'||u=='\n'))u=get();while(~u&&(u!=' '&&u!='\r'&&u!='\n'))*t++=u,u=get();return*this;}}fin;class __o{static constexpr size_t x=1<<20;static constexpr double y=1e-9;char z[x],*A;const char*B;FILE*C;int D;public:__o(FILE*E=stdout):A(z),B(z+x),C(E),D(-1){setvbuf(C,nullptr,_IONBF,0);}~__o(){flush();fclose(C);}__o&flush(){fwrite(z,A-z,1,C);return*this;}__o&put(int H){*A++=H;if(A==B)fwrite(z,x,1,C),A=z;return*this;}__o&setprecision(const int&J){D=J;return*this;}template<typename K,typename=typename std::enable_if<std::is_arithmetic<K>::value>::type>__o&operator<<(K L){if(std::is_same<K,char>::value)put(L);else if(std::is_integral<K>::value){if(std::is_signed<K>::value)if(L<0)put('-'),L=-L;static uint8_t M[40];M[*M=1]=L%10;while(L/=10)M[++(*M)]=L%10;while(*M)put(M[(*M)--]|'0');}else if(std::is_floating_point<K>::value){if(L<0)put('-'),L=-L;using N=typename std::conditional<std::is_same<K,float>::value,std::uint32_t,std::uint64_t>::type;N O=static_cast<N>(L);K P=L-O;*this<<O;if(D>0||(D<0&&P>y)){put('.');for(int Q=0;(D>0&&Q<D)||(D<0&&P>y);Q++){int R=static_cast<int>(P*=10);put(R|'0');P-=R;}}}else throw;return*this;}__o&operator<<(char*S){while(*S)put(*S++);return*this;}__o&operator<<(const std::string&T){return*this<<T.c_str();}}fout;
+using namespace std;
 
+int main() {
+    int C, t;
+    long long m, a, b, c, n;
+    fin >> C >> t;
+    while (t--) {
+        fin >> m >> a >> b >> c >> n;
 
+        long long ans = 0;
+        // Calculate the answer here.
+        // (Write your code here.)
+
+        fout << ans << '\n';
+    }
+}
