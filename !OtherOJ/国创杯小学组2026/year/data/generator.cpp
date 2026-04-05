@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 #include "testlib.h"
 using namespace std;
-constexpr int SubtaskConfig[] = {2,4,6,10,14,18,25};
-constexpr int SampleConfig[] =  {1,1,1,1 ,1 ,1 ,0 };
 
 inline int64_t calc(int64_t m, int a, int b, int c) {
     return m / a - m / b + m / c;
@@ -51,8 +49,8 @@ inline pair<int64_t, int64_t> mngenEasy(pair<int64_t,int64_t> mLmt, pair<int64_t
 }
 
 inline tuple<int,int,int> abcgen(const int limit) {
-    int a = rnd.next(1, limit / 4);
-    int b = a * rnd.next(2, limit / a / 2);
+    int a = rnd.wnext(1, limit / 4, -8);
+    int b = a * rnd.wnext(2, limit / a / 2, -4);
     int c = b * rnd.next(2, limit / b);
     return {a, b, c};
 }
@@ -87,10 +85,12 @@ void (*testGen[])(const string&, int) = {
     Generator1(1e3,  1e2, 1e3, 1e3),
     Generator1(1e6,  1e3, 1e4, 1e6),
     Generator1(1e15, 1e5, 1e6, 1e6),
-    Generator2(3e6, 1e3, 1e15, 1e9, 1e6, mngenEasy),
-    Generator2(3e5, 1e3, 1e15, 1e9, 1e6, mngen),
-    Generator2(3e6, 1e3, 1e15, 1e9, 1e6, mngen)
+    Generator2(3e5, 1e3, 1e15, 1e9, 1e8, mngen),
+    Generator2(3e6, 1e3, 1e15, 1e9, 1e8, mngenEasy),
+    Generator2(3e6, 1e3, 1e15, 1e9, 1e8, mngen)
 };
+constexpr int SubtaskConfig[] = {5,10,13,18,21,22,25};
+constexpr int SampleConfig[] =  {1,1,1,1 ,1 ,1 ,0 };
 int main(int argc, char** argv) {
     registerGen(argc, argv, 1);
     if (has_opt("help")) return suppressEnsureNoUnusedOpts(), puts(

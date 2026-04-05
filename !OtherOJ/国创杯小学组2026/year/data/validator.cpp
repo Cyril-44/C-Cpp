@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #include "testlib.h"
-constexpr int MapToSubTask[]{0,1,1,2,2,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,7,7,7};
+constexpr int MapToSubTask[]{0,1,1,1,1,1,2,2,2,2,2,3,3,3,4,4,4,4,4,5,5,5,6,7,7,7};
 #define Checker(T, M, N, SN, ABC, AddOns) []() {                        \
     int t = inf.readInt(1, (int)T, "t"); inf.readEoln();                \
     int64_t sumn = 0;                                                   \
@@ -22,8 +22,8 @@ void (*check[])() = {
     Checker(3e6, 1e3,  1e2, 1e3,  1e3, ),
     Checker(3e6, 1e6,  1e3, 1e4,  1e6, ),
     Checker(3e6, 1e15, 1e5, 1e6,  1e6, ),
-    Checker(3e6, 1e15, 1e9, 3e15, 1e6, ensuref(m % c == 0, "m %% c")),
     Checker(3e5, 1e15, 1e9, 3e14, 1e6, ),
+    Checker(3e6, 1e15, 1e9, 3e15, 1e6, ensuref(m % c == 0, "m %% c")),
     Checker(3e6, 1e15, 1e9, 3e15, 1e6, ),
 };
 int main(int argc, char** argv) {

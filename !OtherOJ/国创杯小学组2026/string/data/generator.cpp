@@ -99,22 +99,22 @@ inline std::string genB(int len, const int w, const int contProb) {
     int n = sn; file << str << '\n';                                                                    \
 }
 void (*testGen[]) Gen {
-    Generator(1e3, 4e7, 5e6, -100, std::string(n, 'a')),
-    Generator(2,   20,  10,  0, gen(n, 0, 26, 70, 40, 1)),
-    Generator(5,   500, 200, 0, gen(n, -20, -4, 20, 60)),
-    Generator(15,  5e4, 5e3, 5, gen(n, -20, -4, 15, 65)),
-    Generator(1e2, 2e6, 1e5, -4, genB(n, -4, 85)),
-    Generator(1e2, 4e7, 5e6, -10, genB(n, -10, 95)),
-    Generator(1e2, 4e7, 5e6, -10, genRand(n)),
-    Generator(1e2, 2e6, 1e5, -4, gen(n, -20, -4, 10, 75)),
-    Generator(1e2, 4e7, 5e6, -10, gen(n, -40, -10, 5,  85))
+    Generator(1e2, 1e7, 5e6, -100, std::string(n, 'a')),
+    Generator(2,  20,  10,  0,   gen(n, 0, 26, 70, 40, 1)),
+    Generator(5,  500, 200, 0,   gen(n, -20, -4, 20, 60)),
+    Generator(15, 5e4, 5e3, 5,   gen(n, -20, -4, 15, 65)),
+    Generator(50, 2e6, 1e5, -4,  genB(n, -4, 85)),
+    Generator(10, 1e7, 5e6, -9, genB(n, -10, 95)),
+    Generator(2,  1e7, 5e6, -9, genRand(n)),
+    Generator(50, 2e6, 1e5, -4, gen(n, -20, -4, 10, 75)),
+    Generator(10, 1e7, 5e6, -9, gen(n, -40, -10, 5,  85))
 };
 void (*sampleGen[]) Gen {
     testGen[1],
     testGen[2],
     testGen[3],
     testGen[4],
-    Generator(1e2, 2e6, 1e5, -2, genRand(n)),
+    Generator(2, 2e5, 1e5, -2, genRand(n)),
     testGen[7]
 };
 constexpr int SubtaskConfig[] {1, 2, 4, 7, 9, 12, 15, 19, 25};
