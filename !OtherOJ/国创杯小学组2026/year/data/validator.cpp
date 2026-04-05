@@ -22,9 +22,9 @@ void (*check[])() = {
     Checker(3e6, 1e3,  1e2, 1e3,  1e3, ),
     Checker(3e6, 1e6,  1e3, 1e4,  1e6, ),
     Checker(3e6, 1e15, 1e5, 1e6,  1e6, ),
-    Checker(3e5, 1e15, 1e9, 3e14, 1e6, ),
-    Checker(3e6, 1e15, 1e9, 3e15, 1e6, ensuref(m % c == 0, "m %% c")),
-    Checker(3e6, 1e15, 1e9, 3e15, 1e6, ),
+    Checker(3e5, 1e15, 1e9, 3e14, 1e8, ),
+    Checker(3e6, 1e15, 1e9, 3e15, 1e8, ensuref(m % c == 0, "m %% c")),
+    Checker(3e6, 1e15, 1e9, 3e15, 1e8, ),
 };
 int main(int argc, char** argv) {
     registerValidation(argc, argv);
