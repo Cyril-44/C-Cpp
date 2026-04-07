@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #include "testlib.h"
-#define Generator(N, Qr, P, w, Agent)                                                                                  \
+#define Generator(N, Qr1, Qr2, prob, P, Agent)                                                                         \
     [](const std::string &path, const int Tid) {                                                                       \
         std::ofstream fin(path + ".in"), fans(path + ".ans");                                                          \
         fin << Tid << '\n';                                                                                            \
@@ -14,22 +14,21 @@
         std::vector<std::pair<char, int>> anss;                                                                        \
         anss.reserve(n);                                                                                               \
         while (l <= r) {                                                                                               \
-            int p = rnd.next(0, std::min(r - l, int(P))), qr = std::min((int)Qr, (r - l) / 2 + 1),                     \
-                ans = rnd.wnext(1, qr, w), k;                                                                          \
+            int p = rnd.next(0, int(P)),                                                                               \
+                qr = std::min(rnd.next(0, 100) <= prob ? (int)Qr1 : (int)Qr2, (r - l) / 2 + 1),                        \
+                ans = rnd.next(std::max(1, qr / 5), qr), k;                                                            \
             std::set<int64_t> st;                                                                                      \
             bool lst = true, rst = true, lst0 = true, rst0 = true, same = false;                                       \
             int64_t lval, rval;                                                                                        \
             auto calc = [&](int pos) { return 1ll * a[pos] * a[l + (pos - l + p) % (r - l + 1)]; };                    \
-            for (k = 1; (lst || rst) && k <= ans; k++) {                                                               \
+            for (k = 1; k <= ans; k++) {                                                                               \
                 lval = calc(l + k - 1);                                                                                \
                 rval = calc(r - k + 1);                                                                                \
                 lst0 = lst, rst0 = rst;                                                                                \
                 lst &= st.insert(lval).second;                                                                         \
                 rst &= st.insert(rval).second;                                                                         \
-                if (lval == rval) {                                                                                    \
-                    same = true;                                                                                       \
-                    break;                                                                                             \
-                }                                                                                                      \
+                if (lval == rval) { same = true; break; }                                                              \
+                if (!lst && !rst) break;                                                                               \
             }                                                                                                          \
             bool type = rnd.next(2);                                                                                   \
             if (same) {                                                                                                \
@@ -57,7 +56,7 @@
                 ques.emplace_back(p, calc(l + (k - 1) - 1));                                                           \
                 anss.emplace_back('L', k - 1);                                                                         \
                 l += (k - 1);                                                                                          \
-            } else {                                                                                                   \
+            } else if (rst0) {                                                                                         \
                 ques.emplace_back(p, calc(r - (k - 1) + 1));                                                           \
                 anss.emplace_back('R', k - 1);                                                                         \
                 r -= (k - 1);                                                                                          \
@@ -71,21 +70,22 @@
         for (const auto &[c, x] : anss) fans << c << ' ' << x << '\n';                                                 \
     }
 void (*testGen[])(const std::string&, const int) {
-    Generator(10, 3, 1e9, 0, ),
-    Generator(1e3, 1e2, 1e9, -40, ),
-    Generator(1e5, 1e3, 1e9, 5, ),
-    Generator(1e6, 1, 1e9, 0, for (int i = 2; i <= n; i++) a[i] = a[1]),
-    Generator(1e6, 10, 1e9, 0, ),
-    Generator(1e6, 1e3, 0, -40, ),
-    Generator(1e6, 1e3, 1e9, -40, )
+    //        n    Qr1 Qr2  prob P
+    Generator(10,  3,   6,   50,  1e6, ),
+    Generator(1e3, 10,  3e2, 99,  1e6, ),
+    Generator(1e5, 300, 5e3, 99,  1e6, ),
+    Generator(1e6, 1,   0,   100, 1e6, for (int i = 2; i <= n; i++) a[i] = a[1]),
+    Generator(1e6, 10,  0,   100, 1e6, ),
+    Generator(1e6, 40,  5e4, 99,  0,   ),
+    Generator(1e6, 40,  5e4, 99,  1e6, )
 };
 void (*sampleGen[])(const std::string&, const int) {
     testGen[1],
-    Generator(4e4, 1e3, 1e9, 5, ),
-    Generator(4e4, 1, 1e9, 0, for (int i = 2; i <= n; i++) a[i] = a[1]),
-    Generator(4e4, 10, 1e9, 0, ),
-    Generator(4e4, 1e3, 0, -40, ),
-    Generator(4e4, 1e3, 1e9, -40, )
+    Generator(5e4, 300, 1e3, 98,  1e6, ),
+    Generator(5e4, 1,   0,   100, 1e6, for (int i = 2; i <= n; i++) a[i] = a[1]),
+    Generator(5e4, 10,  0,   100, 1e6, ),
+    Generator(5e4, 40,  1e3, 98,  0,   ),
+    Generator(5e4, 40,  1e3, 98,  1e6, )
 };
 constexpr int SubtaskConfig[] {1,2,4,5,8,12,20};
 constexpr int SampleConfig[] {2,3,5,6,9,13};
