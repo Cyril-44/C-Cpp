@@ -15,8 +15,8 @@
         anss.reserve(n);                                                                                               \
         while (l <= r) {                                                                                               \
             int p = rnd.next(0, int(P)),                                                                               \
-                qr = std::min(rnd.next(0, 100) <= prob ? (int)Qr1 : (int)Qr2, (r - l) / 2 + 1),                        \
-                ans = rnd.next(std::max(1, qr / 5), qr), k;                                                            \
+                qr = std::min(rnd.next() <= (prob) ? (int)Qr1 : (int)Qr2, (r - l) / 2 + 1),                            \
+                ans = rnd.next(std::max(1, qr / 10), qr), k;                                                           \
             std::set<int64_t> st;                                                                                      \
             bool lst = true, rst = true, lst0 = true, rst0 = true, same = false;                                       \
             int64_t lval, rval;                                                                                        \
@@ -70,22 +70,22 @@
         for (const auto &[c, x] : anss) fans << c << ' ' << x << '\n';                                                 \
     }
 void (*testGen[])(const std::string&, const int) {
-    //        n    Qr1 Qr2  prob P
-    Generator(10,  3,   6,   50,  1e6, ),
-    Generator(1e3, 10,  3e2, 99,  1e6, ),
-    Generator(1e5, 300, 5e3, 99,  1e6, ),
-    Generator(1e6, 1,   0,   100, 1e6, for (int i = 2; i <= n; i++) a[i] = a[1]),
-    Generator(1e6, 10,  0,   100, 1e6, ),
-    Generator(1e6, 40,  5e4, 99,  0,   ),
-    Generator(1e6, 40,  5e4, 99,  1e6, )
+    //        n    Qr1  Qr2  prob P
+    Generator(10,  3,   6,   0.5,   1e6, ),
+    Generator(1e3, 10,  3e2, 0.999, 1e6, ),
+    Generator(1e5, 300, 1e4, 0.999, 1e6, ),
+    Generator(1e6, 1,   0,   1,     1e6, for (int i = 2; i <= n; i++) a[i] = a[1]),
+    Generator(1e6, 10,  0,   1,     1e6, ),
+    Generator(1e6, 20,  1e5, 0.999, 0,   ),
+    Generator(1e6, 20,  1e5, 0.999, 1e6, )
 };
 void (*sampleGen[])(const std::string&, const int) {
     testGen[1],
-    Generator(5e4, 300, 1e3, 98,  1e6, ),
-    Generator(5e4, 1,   0,   100, 1e6, for (int i = 2; i <= n; i++) a[i] = a[1]),
-    Generator(5e4, 10,  0,   100, 1e6, ),
-    Generator(5e4, 40,  1e3, 98,  0,   ),
-    Generator(5e4, 40,  1e3, 98,  1e6, )
+    Generator(5e4, 300, 1e3, 0.999,  1e6, ),
+    Generator(5e4, 1,   0,   1,      1e6, for (int i = 2; i <= n; i++) a[i] = a[1]),
+    Generator(5e4, 10,  0,   1,      1e6, ),
+    Generator(5e4, 40,  5e3, 0.999,  0,   ),
+    Generator(5e4, 40,  5e3, 0.999,  1e6, )
 };
 constexpr int SubtaskConfig[] {1,2,4,5,8,12,20};
 constexpr int SampleConfig[] {2,3,5,6,9,13};
