@@ -5,7 +5,7 @@
 #include <bitset>
 #include <vector>
 #include "FastIO.cpp"
-class Demical {
+class Decimal {
     constexpr static size_t DIGITLEN = 1 << 17;
     constexpr static unsigned BASE = 1e9;
     constexpr static int BASE_I = 1e9;
@@ -44,8 +44,8 @@ template <typename FuncType>
         buf[top] = '\0';
         return buf;
     }
-    inline Demical(const bool &x, const std::vector<unsigned> &y) : sign(x), a(y) {}
-    Demical(const char *_s, const bool &flg) : sign(false) {
+    inline Decimal(const bool &x, const std::vector<unsigned> &y) : sign(x), a(y) {}
+    Decimal(const char *_s, const bool &flg) : sign(false) {
         char *s = const_cast<char*>((*_s ^ '-') ? (_s) : (_s + 1));
         if (*s == '0') return;
         if (*_s == '-') sign = true;
@@ -70,8 +70,8 @@ template <typename FuncType>
         }
     }
 public:
-    Demical() : sign(false) {}
-template <typename T, typename = typename std::enable_if<std::is_integral<T>::value, bool>::type> Demical(T x) : sign(false) {
+    Decimal() : sign(false) {}
+template <typename T, typename = typename std::enable_if<std::is_integral<T>::value, bool>::type> Decimal(T x) : sign(false) {
         if (std::is_signed<T>::value && x < 0)
             sign = true, x = -x;
         while (x) {
@@ -80,10 +80,10 @@ template <typename T, typename = typename std::enable_if<std::is_integral<T>::va
         }
     }
 
-template<size_t N> Demical(std::bitset<N> bit) {
+template<size_t N> Decimal(std::bitset<N> bit) {
         unsigned long tp;
-        Demical base(1);
-        static const Demical long_up = (sizeof(unsigned long) == 8UL) ? Demical("18446744073709551616") : Demical("4294967296");
+        Decimal base(1);
+        static const Decimal long_up = (sizeof(unsigned long) == 8UL) ? Decimal("18446744073709551616") : Decimal("4294967296");
         while (bit.any()) {
             tp = bit & static_cast<unsigned long>(-1);
             bit >>= (sizeof(unsigned long) == 8UL) ? 64 : 32;
@@ -91,14 +91,14 @@ template<size_t N> Demical(std::bitset<N> bit) {
             base *= long_up;
         }
     }
-    Demical(const char *s) { *this = Demical(s, false); }
-    Demical(const std::string &s) { *this = Demical(s.c_str(), false); }
+    Decimal(const char *s) { *this = Decimal(s, false); }
+    Decimal(const std::string &s) { *this = Decimal(s.c_str(), false); }
     explicit operator bool () const { return !a.empty(); }
 
 // #ifdef _FASTIO
-//     inline void in() { *this = Demical(read(FastIO::nc), true); }
+//     inline void in() { *this = Decimal(read(FastIO::nc), true); }
 // #else
-    inline void in() { *this = Demical(read(getchar), true); }
+    inline void in() { *this = Decimal(read(getchar), true); }
 // #endif
     inline char* c_str() const { // Temporary, Coverable and Unstable
         static char buffer[DIGITLEN];
@@ -121,61 +121,61 @@ template<size_t N> Demical(std::bitset<N> bit) {
         return buffer;
     }
 
-    friend std::string to_string(const Demical &x) { return std::string(x.c_str()); }
+    friend std::string to_string(const Decimal &x) { return std::string(x.c_str()); }
 
     template<typename IStream>
-    friend IStream& operator>>(IStream &is, Demical &x) {
-        x = Demical(x.read([&is]()->int {return is.get();}), true);
+    friend IStream& operator>>(IStream &is, Decimal &x) {
+        x = Decimal(x.read([&is]()->int {return is.get();}), true);
         return is;
     }
     template<typename OStream>
-    friend OStream& operator<<(OStream &os, const Demical &x) { return os << x.c_str(); }
-    friend inline Demical abs(Demical x) { x.sign = false; return x; }
-    inline Demical operator-() const { return Demical(!sign, a); }
-    inline Demical operator+(const Demical &x) const { return Demical(*this) += x; }
-    inline Demical& operator-=(const Demical &x) { return *this += -x; }
-    inline Demical operator-(const Demical &x) const { return Demical(*this) + -x; }
-    inline Demical operator*(const Demical &x) const { return Demical(*this) *= x; }
-    inline Demical operator/(const Demical &x) const { return Demical(*this) /= x; }
-    inline Demical& operator%=(const Demical &x) { return *this -= *this / x * x; }
-    inline Demical operator%(const Demical &x) const { return *this - *this / x * x; }
-    inline Demical operator^(const Demical &x) const { return Demical(*this) ^= x; }
-    inline bool operator==(const Demical &x) const { return sign == x.sign && a == x.a; }
-    inline bool operator!=(const Demical &x) const { return sign != x.sign || a != x.a; }
-    inline bool operator<=(const Demical &x) const { return *this == x || *this < x; }
-    inline bool operator>(const Demical &x) const { return x < *this; }
-    inline bool operator>=(const Demical &x) const { return x == *this || x < *this; }
-    template <typename T> friend inline bool operator==(const T &x, const Demical &y) { return Demical(x) == y; }
-    template <typename T> friend inline bool operator==(const Demical &x, const T &y) { return x == Demical(y); }
-    template <typename T> friend inline bool operator!=(const T &x, const Demical &y) { return Demical(x) != y; }
-    template <typename T> friend inline bool operator!=(const Demical &x, const T &y) { return x != Demical(y); }
-    template <typename T> friend inline bool operator<(const T &x, const Demical &y) { return Demical(x) < y; }
-    template <typename T> friend inline bool operator<(const Demical &x, const T &y) { return x < Demical(y); }
-    template <typename T> friend inline bool operator<=(const T &x, const Demical &y) { return Demical(x) <= y; }
-    template <typename T> friend inline bool operator<=(const Demical &x, const T &y) { return x <= Demical(y); }
-    template <typename T> friend inline bool operator>(const T &x, const Demical &y) { return Demical(x) > y; }
-    template <typename T> friend inline bool operator>(const Demical &x, const T &y) { return x > Demical(y); }
-    template <typename T> friend inline bool operator>=(const T &x, const Demical &y) { return Demical(x) >= y; }
-    template <typename T> friend inline bool operator>=(const Demical &x, const T &y) { return x >= Demical(y); }
-    template <typename T> friend inline Demical operator+(const T &x, const Demical &y) { return Demical(x) + y; }
-    template <typename T> friend inline Demical operator+(const Demical &x, const T &y) { return x + Demical(y); }
-    template <typename T> friend inline Demical& operator+=(Demical &x, const T &y) { return x += Demical(y); }
-    template <typename T> friend inline Demical operator-(const T &x, const Demical &y) { return Demical(x) - y; }
-    template <typename T> friend inline Demical operator-(const Demical &x, const T &y) { return x - Demical(y); }
-    template <typename T> friend inline Demical& operator-=(Demical &x, const T &y) { return x -= Demical(y); }
-    template <typename T> friend inline Demical operator*(const T &x, const Demical &y) { return Demical(x) * y; }
-    template <typename T> friend inline Demical operator*(const Demical &x, const T &y) { return x * Demical(y); }
-    template <typename T> friend inline Demical& operator*=(Demical &x, const T &y) { return x *= Demical(y); }
-    template <typename T> friend inline Demical operator/(const T &x, const Demical &y) { return Demical(x) / y; }
-    template <typename T> friend inline Demical operator/(const Demical &x, const T &y) { return x / Demical(y); }
-    template <typename T> friend inline Demical& operator/=(Demical &x, const T &y) { return x /= Demical(y); }
-    template <typename T> friend inline Demical operator%(const T &x, const Demical &y) { return Demical(x) % y; }
-    template <typename T> friend inline Demical operator%(const Demical &x, const T &y) { return x % Demical(y); }
-    template <typename T> friend inline Demical& operator%=(Demical &x, const T &y) { return x %= Demical(y); }
-    template <typename T> friend inline Demical operator^(const T &x, const Demical &y) { return Demical(x) ^ y; }
-    template <typename T> friend inline Demical operator^(const Demical &x, const T &y) { return x ^ Demical(y); }
-    template <typename T> friend inline Demical& operator^=(Demical &x, const T &y) { return x ^= Demical(y); }
-    inline bool operator<(const Demical &x) const {
+    friend OStream& operator<<(OStream &os, const Decimal &x) { return os << x.c_str(); }
+    friend inline Decimal abs(Decimal x) { x.sign = false; return x; }
+    inline Decimal operator-() const { return Decimal(!sign, a); }
+    inline Decimal operator+(const Decimal &x) const { return Decimal(*this) += x; }
+    inline Decimal& operator-=(const Decimal &x) { return *this += -x; }
+    inline Decimal operator-(const Decimal &x) const { return Decimal(*this) + -x; }
+    inline Decimal operator*(const Decimal &x) const { return Decimal(*this) *= x; }
+    inline Decimal operator/(const Decimal &x) const { return Decimal(*this) /= x; }
+    inline Decimal& operator%=(const Decimal &x) { return *this -= *this / x * x; }
+    inline Decimal operator%(const Decimal &x) const { return *this - *this / x * x; }
+    inline Decimal operator^(const Decimal &x) const { return Decimal(*this) ^= x; }
+    inline bool operator==(const Decimal &x) const { return sign == x.sign && a == x.a; }
+    inline bool operator!=(const Decimal &x) const { return sign != x.sign || a != x.a; }
+    inline bool operator<=(const Decimal &x) const { return *this == x || *this < x; }
+    inline bool operator>(const Decimal &x) const { return x < *this; }
+    inline bool operator>=(const Decimal &x) const { return x == *this || x < *this; }
+    template <typename T> friend inline bool operator==(const T &x, const Decimal &y) { return Decimal(x) == y; }
+    template <typename T> friend inline bool operator==(const Decimal &x, const T &y) { return x == Decimal(y); }
+    template <typename T> friend inline bool operator!=(const T &x, const Decimal &y) { return Decimal(x) != y; }
+    template <typename T> friend inline bool operator!=(const Decimal &x, const T &y) { return x != Decimal(y); }
+    template <typename T> friend inline bool operator<(const T &x, const Decimal &y) { return Decimal(x) < y; }
+    template <typename T> friend inline bool operator<(const Decimal &x, const T &y) { return x < Decimal(y); }
+    template <typename T> friend inline bool operator<=(const T &x, const Decimal &y) { return Decimal(x) <= y; }
+    template <typename T> friend inline bool operator<=(const Decimal &x, const T &y) { return x <= Decimal(y); }
+    template <typename T> friend inline bool operator>(const T &x, const Decimal &y) { return Decimal(x) > y; }
+    template <typename T> friend inline bool operator>(const Decimal &x, const T &y) { return x > Decimal(y); }
+    template <typename T> friend inline bool operator>=(const T &x, const Decimal &y) { return Decimal(x) >= y; }
+    template <typename T> friend inline bool operator>=(const Decimal &x, const T &y) { return x >= Decimal(y); }
+    template <typename T> friend inline Decimal operator+(const T &x, const Decimal &y) { return Decimal(x) + y; }
+    template <typename T> friend inline Decimal operator+(const Decimal &x, const T &y) { return x + Decimal(y); }
+    template <typename T> friend inline Decimal& operator+=(Decimal &x, const T &y) { return x += Decimal(y); }
+    template <typename T> friend inline Decimal operator-(const T &x, const Decimal &y) { return Decimal(x) - y; }
+    template <typename T> friend inline Decimal operator-(const Decimal &x, const T &y) { return x - Decimal(y); }
+    template <typename T> friend inline Decimal& operator-=(Decimal &x, const T &y) { return x -= Decimal(y); }
+    template <typename T> friend inline Decimal operator*(const T &x, const Decimal &y) { return Decimal(x) * y; }
+    template <typename T> friend inline Decimal operator*(const Decimal &x, const T &y) { return x * Decimal(y); }
+    template <typename T> friend inline Decimal& operator*=(Decimal &x, const T &y) { return x *= Decimal(y); }
+    template <typename T> friend inline Decimal operator/(const T &x, const Decimal &y) { return Decimal(x) / y; }
+    template <typename T> friend inline Decimal operator/(const Decimal &x, const T &y) { return x / Decimal(y); }
+    template <typename T> friend inline Decimal& operator/=(Decimal &x, const T &y) { return x /= Decimal(y); }
+    template <typename T> friend inline Decimal operator%(const T &x, const Decimal &y) { return Decimal(x) % y; }
+    template <typename T> friend inline Decimal operator%(const Decimal &x, const T &y) { return x % Decimal(y); }
+    template <typename T> friend inline Decimal& operator%=(Decimal &x, const T &y) { return x %= Decimal(y); }
+    template <typename T> friend inline Decimal operator^(const T &x, const Decimal &y) { return Decimal(x) ^ y; }
+    template <typename T> friend inline Decimal operator^(const Decimal &x, const T &y) { return x ^ Decimal(y); }
+    template <typename T> friend inline Decimal& operator^=(Decimal &x, const T &y) { return x ^= Decimal(y); }
+    inline bool operator<(const Decimal &x) const {
         if (sign && !x.sign) return true; // - < +
         if (!sign && x.sign) return false; // + > -
         if (sign) return -x < -*this; // -a < -b => b < a
@@ -187,7 +187,7 @@ template<size_t N> Demical(std::bitset<N> bit) {
         }
         return false;
     }
-    inline Demical& operator+=(const Demical &x) {
+    inline Decimal& operator+=(const Decimal &x) {
         static std::vector<int> help_array;
         const static auto func = [](std::vector<int>& a, const std::vector<unsigned>& x, const std::vector<unsigned>& y, const int &fx, const int &fy)->void {
             size_t digits(std::max(x.size(), y.size()));
@@ -212,7 +212,7 @@ template<size_t N> Demical(std::bitset<N> bit) {
         normalize(help_array);
         return *this;
     }
-    inline Demical& operator*=(const Demical &x) {
+    inline Decimal& operator*=(const Decimal &x) {
         sign = static_cast<bool>(sign ^ x.sign);
         std::vector<unsigned long long> help_array(a.size() + x.a.size() + 1);
         for (size_t i = 0; i < a.size(); i++)
@@ -226,11 +226,11 @@ template<size_t N> Demical(std::bitset<N> bit) {
         normalize(help_array);
         return *this;
     }
-    inline Demical& operator/=(const Demical &x) {
+    inline Decimal& operator/=(const Decimal &x) {
         if (x.a.empty()) throw std::domain_error("Division by zero.");   // Throw an exception when x=0
-        if (a.size() < x.a.size()) return *this = std::move(Demical());
+        if (a.size() < x.a.size()) return *this = std::move(Decimal());
         size_t digits(a.size() - x.a.size() + 1);
-        Demical tp;
+        Decimal tp;
         std::vector<unsigned long long> help_array(a.size());
         bool sn = static_cast<bool>(sign ^ x.sign);
         sign = false;
@@ -257,14 +257,14 @@ template<size_t N> Demical(std::bitset<N> bit) {
         normalize(div);
         return *this;
     }
-    inline Demical& operator^=(Demical x) {
+    inline Decimal& operator^=(Decimal x) {
         if (x < 0) throw std::range_error("Negative Exponent.");
-        Demical tp = abs(*this);
+        Decimal tp = abs(*this);
         *this = (sign ? -1 : 1);
         while (!x.a.empty()) {
             if (x % 2 == 1) *this *= tp;
             tp *= tp;
-            x /= Demical(2);
+            x /= Decimal(2);
         }
         return *this;
     }

@@ -50,29 +50,31 @@ struct MaxCostMaxFlow {
     const int n, S, T;
 };
 
-signed main() {
+int main() {
     int n, k;
     scanf("%d%d", &n, &k);
-    std::vector<std::pair<int,int>> ranges(n);
+    std::vector<std::tuple<int,int,int>> ranges(n);
     std::vector<int> all(n * 2);
     for (int i = 0; i < n; i++) {
-        scanf("%d%d", &ranges[i].first, &ranges[i].second);
-        if (ranges[i].first > ranges[i].second) std::swap(ranges[i].first, ranges[i].second);
-        all[i<<1] = ranges[i].first;
-        all[i<<1|1] = ranges[i].second;
+        int x0, y0, x1, y1;
+        scanf("%d%d%d%d", &x0, &y0, &x1, &y1);
+        if (x0 > x1) std::swap(x0, x1), std::swap(y0, y1);
+        all[i<<1] = x0;
+        all[i<<1|1] = x1;
+        ranges[i] = {x0, x1, std::floor(std::sqrt(1ll*(x1-x0)*(x1-x0) + 1ll*(y1-y0)*(y1-y0)))};
     }
     std::sort(all.begin(), all.end());
     all.erase(std::unique(all.begin(), all.end()), all.end());
-    std::sort(ranges.begin(), ranges.end());
-    int S = all.size(), T = all.size() + 1;
+    int S = all.size() << 1, T = all.size() << 1 | 1;
     MaxCostMaxFlow mcmf(T, S, T);
     mcmf.add(S, 0, k, 0);
-    for (int i = 1; i < (int)all.size(); i++)
+    for (int i = 1; i < (int)all.size() * 2; i++)
         mcmf.add(i-1, i, k, 0);
     for (int i = 0; i < n; i++) {
-        mcmf.add(std::lower_bound(all.begin(), all.end(), ranges[i].first) - all.begin(), 
-                 std::lower_bound(all.begin(), all.end(), ranges[i].second) - all.begin(),
-                 1, ranges[i].second - ranges[i].first);
+        int l = int(std::lower_bound(all.begin(), all.end(), std::get<0>(ranges[i])) - all.begin()) << 1,
+            r = int(std::lower_bound(all.begin(), all.end(), std::get<1>(ranges[i])) - all.begin()) << 1;
+        (l == r) ? (++r) : (++l);
+        mcmf.add(l, r, 1, std::get<2>(ranges[i]));
     }
     mcmf.add(S-1, T, k, 0);
     printf("%d\n", mcmf().second);
