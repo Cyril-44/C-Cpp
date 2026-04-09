@@ -20,7 +20,7 @@ struct MaxCostMaxFlow {
             for (const auto &[v, cap, cost, bak] : g[u]) {
                 if (cap && dis[v] < dis[u] + cost) {
                     dis[v] = dis[u] + cost;
-                    if (!vis[v]) que[tl++] = v;
+                    if (!vis[v]) que[tl++] = v, vis[v] = true;
                 }
             }
         }
