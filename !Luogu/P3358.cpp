@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#define int long long
 struct MaxCostMaxFlow {
     MaxCostMaxFlow(int n, int s, int t) : g(n+1), head(n+1), dis(n+1), vis(n+1), maxcost(), maxflow(), n(n), S(s), T(t) {}
     inline bool bfs() {
@@ -14,7 +13,7 @@ struct MaxCostMaxFlow {
                     if (!vis[v]) q.push(v), vis[v] = true;
                 }
         }
-        return dis[T] != (int)0x8080808080808080;
+        return dis[T] != (int)0x80808080;
     }
     inline void add(int fr, int to, int cap, int cost) {
         g[fr].emplace_back(to, g[to].size(), cap, cost);
@@ -53,11 +52,12 @@ struct MaxCostMaxFlow {
 
 signed main() {
     int n, k;
-    scanf("%lld%lld", &n, &k);
+    scanf("%d%d", &n, &k);
     std::vector<std::pair<int,int>> ranges(n);
     std::vector<int> all(n * 2);
     for (int i = 0; i < n; i++) {
-        scanf("%lld%lld", &ranges[i].first, &ranges[i].second);
+        scanf("%d%d", &ranges[i].first, &ranges[i].second);
+        if (ranges[i].first > ranges[i].second) std::swap(ranges[i].first, ranges[i].second);
         all[i<<1] = ranges[i].first;
         all[i<<1|1] = ranges[i].second;
     }
@@ -75,6 +75,6 @@ signed main() {
                  1, ranges[i].second - ranges[i].first);
     }
     mcmf.add(S-1, T, k, 0);
-    printf("%lld\n", mcmf().second);
+    printf("%d\n", mcmf().second);
     return 0;
 }
