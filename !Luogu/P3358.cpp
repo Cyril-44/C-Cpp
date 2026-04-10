@@ -20,8 +20,8 @@ struct MaxCostMaxFlow {
         g[to].emplace_back(fr, g[fr].size() - 1, 0, -cost);
     }
     int dfs(int u, int infl) {
-        if (u == T) return infl;
         vis[u] = true;
+        if (u == T) return infl;
         int outfl = 0;
         for (int &i = head[u]; i < (int)g[u].size(); i++) {
             auto &[v, bak, cap, cost] = g[u][i];
@@ -32,15 +32,17 @@ struct MaxCostMaxFlow {
                     outfl += fl, infl -= fl;
                     cap -= fl, std::get<2>(g[v][bak]) += fl;
                     if (!infl) break;
-                }
+                } else dis[v] = 0x80808080;
             }
         }
-        vis[u] = false;
         return outfl;
     }
     inline std::pair<int,int> operator()() {
         if (__builtin_expect(maxcost, 0)) return {maxflow, maxcost};
-        while (bfs()) maxflow += dfs(S, std::numeric_limits<int>::max());
+        while (bfs()) {
+            do vis.assign(n+1, false), maxflow += dfs(S, std::numeric_limits<int>::max());
+            while (vis[T]);
+        }
         return {maxflow, maxcost};
     }
     std::vector<std::vector<std::tuple<int,int,int,int>>> g;
