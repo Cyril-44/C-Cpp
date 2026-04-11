@@ -6,14 +6,14 @@ echo Generating all data...
 ./generator $TOKEN
 echo Data Generated.
 
-for ((i=1; i<=25; i++)) do
+for ((i=1; i<=20; i++)) do
   echo Validating data $i...
   ./validator < tests/dat$i.in;
   echo Running on data $i...
   ./std < tests/dat$i.in > tests/dat$i.ans;
 done
 
-for ((i=2; i<=7; i++)) do
+for ((i=2; i<=6; i++)) do
   echo Validating down $i...
   ./validator < down/year$i.in;
   echo Running on down $i...

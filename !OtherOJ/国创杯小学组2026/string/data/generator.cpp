@@ -17,7 +17,7 @@ inline std::string genHack(int len, const int incProb, const int contProb) {
     int l1 = rnd.wnext(2, len - 4, -26);
     int l2 = rnd.wnext(1, (len - l1) / 2 - 1, -26);
     int l3 = rnd.wnext(1, len - l1 - 2 * l2 - 1, -10);
-    int l4 = rnd.wnext(1, len - l1 - 2 * l2 - 1, -10);
+    int l4 = rnd.wnext(1, std::min(len - l1 - 2 * l2 - 1, len - l1 - l2*2 - l3), -10);
     std::string base = // [l1](l3)[l2](l4)[l2]
         std::string(l1, ch) + 
         genPal(l3, incProb, contProb, ch + 1) + 
@@ -39,6 +39,7 @@ inline std::string genRand(int len) {
     return res;
 }
 inline std::string gen(int len, const int w0, const int w1, const int incProb, const int contProb, const int startState = -1) {
+    int n =len;
     std::string res; res.reserve(len);
     for (bool state = ~startState ? startState : rnd.next(0, 1); len > 0; state ^= 1) {
         if (len < 6) state = 0;
@@ -51,6 +52,7 @@ inline std::string gen(int len, const int w0, const int w1, const int incProb, c
         else res += genRand(curlen);
         len -= curlen;
     }
+    assert(len == 0);
     return res;
 }
 inline std::string genB(int len, const int w, const int contProb) {
@@ -93,32 +95,30 @@ inline std::string genB(int len, const int w, const int contProb) {
     int t = T, sn = SN;                                                                                 \
     file << taskId << ' ' << t << '\n';                                                                 \
     while (--t > 0) {                                                                                   \
-        int n = rnd.wnext((int)std::max(1ll, sn - (long long)(N) * t), std::min(sn - t, int(N)), w);    \
+        int n = rnd.wnext((int)std::max(1ll, sn  - (long long)(N) * t), std::min(sn - t, int(N)), w);    \
         sn -= n; file << str << '\n';                                                                   \
     }                                                                                                   \
     int n = sn; file << str << '\n';                                                                    \
 }
 void (*testGen[]) Gen {
     Generator(1e2, 1e7, 5e6, -100, std::string(n, 'a')),
-    Generator(2,  20,  10,  0,   gen(n, 0, 26, 70, 40, 1)),
-    Generator(5,  500, 200, 0,   gen(n, -20, -4, 20, 60)),
-    Generator(15, 5e4, 5e3, 5,   gen(n, -20, -4, 15, 65)),
-    Generator(50, 2e6, 1e5, -4,  genB(n, -4, 85)),
+    Generator(2,  20,  10,  0,  gen(n, 0, 26, 70, 40, 1)),
+    Generator(5,  500, 200, 0,  gen(n, -20, -4, 20, 60)),
+    Generator(15, 5e4, 5e3, 5,  gen(n, -20, -4, 15, 65)),
     Generator(10, 1e7, 5e6, -9, genB(n, -10, 95)),
-    Generator(2,  1e7, 5e6, -9, genRand(n)),
-    Generator(50, 2e6, 1e5, -4, gen(n, -20, -4, 10, 75)),
-    Generator(10, 1e7, 5e6, -9, gen(n, -40, -10, 5,  85))
+    Generator(2,  1e7, 5e6, 0,  genRand(n)),
+    Generator(10, 1e7, 5e6, -9, gen(n, -40, -10, 5, 85))
 };
 void (*sampleGen[]) Gen {
     testGen[1],
     testGen[2],
     testGen[3],
     testGen[4],
-    Generator(2, 2e5, 1e5, -2, genRand(n)),
-    testGen[7]
+    Generator(2, 2e5, 1e5, 0, genRand(n)),
+    Generator(10, 1e6, 5e5, -9, genRand(n)),
 };
-constexpr int SubtaskConfig[] {1, 2, 4, 7, 9, 12, 15, 19, 25};
-constexpr int SampleConfig[] {2, 3, 5, 8, 13, 16};
+constexpr int SubtaskConfig[] {1,3,7,12,15,16,20};
+constexpr int SampleConfig[] {2,4,8,13,16,17};
 int main(int argc, char **argv) {
     registerGen(argc, argv, 1);
     if (has_opt("help")) return suppressEnsureNoUnusedOpts(), puts(

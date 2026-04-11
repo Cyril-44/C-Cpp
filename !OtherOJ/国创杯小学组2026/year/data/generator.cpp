@@ -44,10 +44,6 @@ inline pair<int64_t, int64_t> mngen(const pair<int64_t, int64_t> &mLmt, const pa
     }
     }
 }
-inline pair<int64_t, int64_t> mngenEasy(pair<int64_t,int64_t> mLmt, pair<int64_t,int64_t> nLmt, int a, int b, int c) {
-    return {c * rnd.next((mLmt.first + c - 1) / c, mLmt.second / c), rnd.next(nLmt.first, nLmt.second)};
-}
-
 inline tuple<int,int,int> abcgen(const int limit) {
     int a = rnd.wnext(1, limit / 4, -8);
     int b = a * rnd.wnext(2, limit / a / 2, -4);
@@ -70,27 +66,25 @@ inline tuple<int,int,int> abcgen(const int limit) {
     file << out.size() << '\n';                                                                                         \
     for (const auto &[m, a, b, c, n] : out) file << m << ' ' << a << ' ' << b << ' ' << c << ' ' << n << '\n';          \
 }
-#define Generator2(T1, T2, M, N, ABC, GFunc) [](const string &path, int Tid) { ofstream file(path); file << Tid << ' '; \
+#define Generator2(T1, T2, M, N, ABC) [](const string &path, int Tid) { ofstream file(path); file << Tid << ' ';        \
     int64_t T = path.find("down") == string::npos ? T1 : T2;                                                            \
     file << T << '\n';                                                                                                  \
     while (T--) {                                                                                                       \
         auto [a, b, c] = abcgen(ABC);                                                                                   \
-        auto [m, n] = GFunc({1, M}, {(N + 1) / 2, N}, a, b, c);                                                         \
+        auto [m, n] = mngen({1, M}, {(N + 1) / 2, N}, a, b, c);                                                         \
         file << m << ' ' << a << ' ' << b << ' ' << c << ' ' << n << '\n';                                              \
     }                                                                                                                   \
 }
 
 void (*testGen[])(const string&, int) = {
-    Generator2(3e6, 1e3, 1e3, 1, 1e2, mngenEasy),
+    Generator2(3e5, 1e3, 1e3, 1, 1e2),
     Generator1(1e3,  1e2, 1e3, 1e3),
     Generator1(1e6,  1e3, 1e4, 1e6),
     Generator1(1e15, 1e5, 1e6, 1e6),
-    Generator2(3e5, 1e3, 1e15, 1e9, 1e8, mngen),
-    Generator2(3e6, 1e3, 1e15, 1e9, 1e8, mngenEasy),
-    Generator2(3e6, 1e3, 1e15, 1e9, 1e8, mngen)
+    Generator2(3e5, 1e3, 1e15, 1e9, 1e8),
 };
-constexpr int SubtaskConfig[] = {5,10,13,18,21,22,25};
-constexpr int SampleConfig[] =  {1,1,1,1 ,1 ,1 ,0 };
+constexpr int SubtaskConfig[] = {4,8,10,14,20};
+constexpr int SampleConfig[] =  {1,1, 1, 1, 1};
 int main(int argc, char** argv) {
     registerGen(argc, argv, 1);
     if (has_opt("help")) return suppressEnsureNoUnusedOpts(), puts(

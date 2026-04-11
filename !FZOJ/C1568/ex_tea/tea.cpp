@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-constexpr int N = 200005, B = 154, MOD = (int)1e9 + 9;
-int a[N], b[N], c[N];
-unsigned base[N];
+constexpr int N = 200005, B1 = 154, B2 = 233, MOD = (int)1e9 + 9;
+int a[N], ans[N];
+unsigned pw1[N], pw2[N];
 std::bitset<N> on;
 struct FastI {
     char buf[1 << 20], *p1, *p2;
@@ -20,34 +20,21 @@ struct FastI {
 inline unsigned calcHash(int *a, int n) {
     unsigned ans = 0;
     for (int i = 1; i <= n; i++)
-        if ((ans += 1ull * a[i] * base[i-1] % MOD) >= MOD)
+        if ((ans += 1ull * a[i] * pw1[i-1] % MOD) >= MOD)
             ans -= MOD;
     return ans;
 }
-void calBF(int n, int m) {
-    std::vector<int> v1, v2;
-    for (int i = 1; i <= n; i++) {
-        v1.push_back(a[i]);
-        v2.push_back(a[i]);
-        if (on[i]) {
-            std::vector<int> t1(v1), t2(v2);
-            reverse(t1.begin(), t1.end());
-            reverse(t2.begin(), t2.end());
-            for (int j = 0; j < i; j++) {
-                if (v1[j] > t2[j]) { v1 = t2; break; }
-                else if (v1[j] < t2[j]) break;
-            }
-            for (int j = i - 1; j >= 0; j--) {
-                if (v2[j] > t1[j]) { v2 = t1; break; }
-                else if (v2[j] < t1[j]) break;
-            }
-        }
-    }
-    for (int i = n; i > 0; i--) a[i] = v1.back(), v1.pop_back();
-    printf("%d\n", calcHash(a, n));
-}
+int n;
+uint64_t fHashPre[N], fHashSuf[N], gHashPre[N];
+// fpre 记录往后拼接的，fsuf 记录往前拼接的
+/*
+相当于每个开启的点隔开，切成若干段
+从左到右，将每一段添加到构造串的左边或者右边
+每次贪心去比较即可，选字典序小的。
+注意到比较的时候可以先拎出来 LCP 然后比较下一位。
+*/
 inline void solveSingle() {
-    int n, m;
+    int m;
     fin(n), fin(m);
     on.set();
     for (int i = 1; i <= n; i++) fin(a[i]);
@@ -55,39 +42,35 @@ inline void solveSingle() {
         fin(bi);
         on.reset(bi);
     }
-    if (n <= 2000) return calBF(n, m);
-
-    static int _a[N], premn[N];
-    memcpy(_a, a, sizeof(int) * (n+1));
-    std::sort(_a+1, _a+1+n);
-    _a[0] = std::unique(_a+1, _a+1+n)-_a;
+    int cl = n, cr = n, len = 0; // Constructed (l, r]
     for (int i = 1; i <= n; i++) {
-        a[i] = std::lower_bound(_a+1, _a+*_a, a[i]) - _a;
-        premn[i] = i == 1 ? a[i] : premn[i-1];
-        if (on[i]) premn[i] = std::min(premn[i], a[i]);
-    }
-    
-    b[0] = c[0] = 0;
-    bool state = false;
-    for (int i = n; i > 0; i--) {
-        if ((on[i] || state) && a[i] == premn[i]) {
-            b[++b[0]] = a[i];
-            state = true;
+        ++len;
+        if (on[i]) {
+            for (int j = i - len + 1, l = n - cl, r = cr - n; j <= i; j++, l++, r++) {
+                fHashSuf[l+1] = fHashPre[l] * B2 + a[j];
+                fHashPre[r+1] = fHashPre[r] + a[j] * pw2[r];
+            }
+            int l = 0, r = cr - cl + len;
+            const int L = cl - len, R = cl;
+            for (int mid; l <= r; ) {
+                mid = l + r >> 1;
+#define calc(Pos) (Pos + mid > n) ?                                    \
+    fHashSuf[n - Pos] * pw2[Pos + mid - n] + fHashPre[Pos + mid - n] : \
+    fHashSuf[n - Pos] - fHashSuf[n - (Pos + mid)] * pw2[mid]
+                uint64_t leftHash = calc(L), rightHash = calc(R);
+                if (leftHash == rightHash) r = mid - 1;
+                else l = mid + 1;
+            }
+            if (l == cr - cl + len || 1);
         }
-        else c[++c[0]] = a[i], state = false;
     }
-    memcpy(a+1, b+1, sizeof(int) * b[0]);
-    std::reverse(c+1, c+1+c[0]);
-    memcpy(a+b[0]+1, c+1, sizeof(int) * c[0]);
-    // for (int i = 1; i <= n; i++) printf("%d%c", a[i], " \n"[i==n]);
-    for (int i = 1; i <= n; i++)
-        a[i] = _a[a[i]];
-    printf("%u\n", calcHash(a, n));
 }
 
 int main() {
-    for (int i = base[0] = 1; i <= 200000; i++)
-        base[i] = 1ull * base[i-1] * B % MOD;
+    for (int i = pw1[0] = pw2[0] = 1; i <= 200000; i++) {
+        pw1[i] = 1ull * pw1[i-1] * B1 % MOD;
+        pw2[i] = 1ull * pw2[i-1] * B2 % MOD;
+    }
     int tid, T;
     fin(tid), fin(T);
     while (T--) solveSingle();
