@@ -11,6 +11,7 @@ struct MCostFlow {
         dis[S] = 0;
         for (std::queue<int> q({S}); !q.empty(); q.pop()) {
             int u = q.front();
+            vis[u] = false;
             for (const auto &[v, bak, cap, cost] : g[u])
                 if (cap && Comp{}(dis[u] + cost, dis[v])) {
                     dis[v] = dis[u] + cost;
@@ -61,7 +62,7 @@ int main() {
     int n, m;
     scanf("%d%d", &n, &m);
     int S = 0, T = n + 2;
-    MCostFlow<int64_t,int64_t> mcmf(T, S, T);
+    MCostFlow<int,int64_t> mcmf(T, S, T);
     mcmf.add(S, 1, INF, 0), mcmf.add(n+1, T, INF, 0);
     for (int i = 1, ai; i <= n; i++) {
         scanf("%d", &ai);
