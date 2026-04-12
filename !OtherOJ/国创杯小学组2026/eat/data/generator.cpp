@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #include "testlib.h"
-#define Generator(N, Qr1, Qr2, prob, P, Agent)                                                                         \
+#define Generator(N, Qr1, Qr2, prob, P, OMIT, Agent)                                                                         \
     [](const std::string &path, const int Tid) {                                                                       \
         std::ofstream fin(path + ".in"), fans(path + ".ans");                                                          \
         fin << Tid << '\n';                                                                                            \
@@ -62,33 +62,32 @@
                 r -= (k - 1);                                                                                          \
             }                                                                                                          \
         }                                                                                                              \
-        int omitCnt = rnd.next(0, std::min(2, (int)ques.size()));                                                      \
+        int omitCnt = rnd.next(0, std::min(OMIT, (int)ques.size()));                                                   \
+        bool empty = false;                                                                                            \
+        if (omitCnt == 0) empty = true, ++omitCnt;                                                                     \
         for (int i = omitCnt; i--;) ques.pop_back(), anss.pop_back();                                                  \
-        fin << n << ' ' << ques.size() << '\n';                                                                        \
+        fin << n << ' ' << (int)(ques.size() + empty) << '\n';                                                         \
         for (int i = 1; i <= n; i++) fin << a[i] << (i == n ? '\n' : ' ');                                             \
         for (const auto &[x, y] : ques) fin << x << ' ' << y << '\n';                                                  \
         for (const auto &[c, x] : anss) fans << c << ' ' << x << '\n';                                                 \
+        if (empty) fin << rnd.next(0, int(P)) << ' ' << rnd.next(0l, (int64_t)1e18) << '\n', fans << "F\n";            \
     }
 void (*testGen[])(const std::string&, const int) {
-    //        n    Qr1  Qr2  prob P
-    Generator(10,  3,   6,   0.5,    1e6, ),
-    Generator(1e3, 10,  3e2, 0.999,  1e6, ),
-    Generator(1e5, 300, 1e4, 0.7,    1e6, ),
-    Generator(1e6, 1,   0,   1,      1e6, for (int i = 2; i <= n; i++) a[i] = a[1]),
-    Generator(1e6, 10,  0,   1,      1e6, ),
-    Generator(1e6, 20,  3e5, 0.9999, 0,   ),
-    Generator(1e6, 20,  3e5, 0.9999, 1e6, )
+    //        n    Qr1  Qr2  prob    P    OMIT
+    Generator(10,  3,   6,   0.5,    1e6, 4, ),
+    Generator(5e3, 20,  100, 0.7,    1e6, 4, ),
+    Generator(1e6, 1,   0,   1,      1e6, 0, for (int i = 2; i <= n; i++) a[i] = a[1]),
+    Generator(1e6, 20,  3e5, 0.9999, 0,   4, ),
+    Generator(1e6, 20,  3e5, 0.9999, 1e6, 4, )
 };
 void (*sampleGen[])(const std::string&, const int) {
+    testGen[0],
     testGen[1],
-    Generator(5e4, 300, 1e3, 0.999,  1e6, ),
-    Generator(5e4, 1,   0,   1,      1e6, for (int i = 2; i <= n; i++) a[i] = a[1]),
-    Generator(5e4, 10,  0,   1,      1e6, ),
-    Generator(5e4, 40,  5e3, 0.999,  0,   ),
-    Generator(5e4, 40,  5e3, 0.999,  1e6, )
+    Generator(5e4, 40,  5e3, 0.999,  0,   4, ),
+    Generator(5e4, 40,  5e3, 0.999,  1e6, 4, )
 };
-constexpr int SubtaskConfig[] {1,2,4,5,8,12,20};
-constexpr int SampleConfig[] {2,3,5,6,9,13};
+constexpr int SubtaskConfig[] {1,4,5,10,20};
+constexpr int SampleConfig[] {1,2,6,11};
 int main(int argc, char **argv) {
     registerGen(argc, argv, 1);
     if (has_opt("help")) return suppressEnsureNoUnusedOpts(), puts(
@@ -99,7 +98,7 @@ int main(int argc, char **argv) {
         "    --help      ----    Print this help.\n"
         "\e[31mCaution\e[0m: The generator won't automatically clear or create the down/ and tests/ folder."), 0;
     int generateOneTest = opt<int>("id", 0);
-    int testId = 1, subtaskId = 0, sampleId = 3, sampleCount = 0;
+    int testId = 1, subtaskId = 0, sampleId = 2, sampleCount = 0;
     for (int endId : SubtaskConfig) {
         for (; testId <= endId; testId++)
             if (generateOneTest == 0 || generateOneTest == testId) {
