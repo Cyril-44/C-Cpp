@@ -15,7 +15,7 @@ for ((i=1; i<=20; i++)) do
 done
 rm tests/dat.out;
 
-for ((i=2; i<=8; i++)) do
+for ((i=2; i<=5; i++)) do
   echo Validating down $i...
   ./validator --ans=down/eat$i.ans < down/eat$i.in;
   echo Running on down $i...

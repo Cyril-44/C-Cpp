@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
-constexpr int N = 200005, B1 = 154, B2 = 233, MOD = (int)1e9 + 9;
-int a[N], ans[N];
-unsigned pw1[N], pw2[N];
+constexpr int N = 200005;
+constexpr unsigned B1 = 154, B2 = (int)1e9+7, MOD = (int)1e9 + 9;
+int a[N], ans[N << 1];
+unsigned pw1[N];
+uint64_t pw2[N];
 std::bitset<N> on;
 struct FastI {
     char buf[1 << 20], *p1, *p2;
@@ -25,7 +27,7 @@ inline unsigned calcHash(int *a, int n) {
     return ans;
 }
 int n;
-uint64_t fHashPre[N], fHashSuf[N], gHashPre[N];
+uint64_t fHashPre[N], fHashSuf[N], fHashSuf2[N], gHashPre[N];
 // fpre 记录往后拼接的，fsuf 记录往前拼接的
 /*
 相当于每个开启的点隔开，切成若干段
@@ -46,37 +48,51 @@ inline void solveSingle() {
     for (int i = 1; i <= n; i++) {
         ++len;
         if (on[i]) {
-            for (int j = i - len + 1, l = n - cl, r = cr - n; j <= i; j++, l++, r++) {
-                fHashSuf[l+1] = fHashPre[l] * B2 + a[j];
-                fHashPre[r+1] = fHashPre[r] + a[j] * pw2[r];
+            for (int p = i-len+1, j = n-cl, k = cr-n, l = cl, r = cr+1; p <= i; p++, j++, k++, l--, r++) {
+                fHashSuf[j+1] = fHashSuf[j] + a[p] * pw2[j];
+                fHashPre[k+1] = fHashPre[k] * B2 + a[p];
+                ans[l] = ans[r] = a[p];
+                // printf("pos %d and %d --> %d\n", l, r, a[p]);
             }
             int l = 0, r = cr - cl + len;
             const int L = cl - len, R = cl;
             for (int mid; l <= r; ) {
                 mid = l + r >> 1;
-#define calc(Pos) (Pos + mid > n) ?                                    \
-    fHashSuf[n - Pos] * pw2[Pos + mid - n] + fHashPre[Pos + mid - n] : \
-    fHashSuf[n - Pos] - fHashSuf[n - (Pos + mid)] * pw2[mid]
-                uint64_t leftHash = calc(L), rightHash = calc(R);
-                if (leftHash == rightHash) r = mid - 1;
-                else l = mid + 1;
+#define calc(hash, base, Pos) ((Pos + mid > n) ?                                    \
+        (hash = fHashSuf[n - Pos] * pw2[Pos + mid - n] + fHashPre[Pos + mid - n],   \
+         base = 1) :                                                                \
+        (hash = fHashSuf[n - Pos] - fHashSuf[n - (Pos + mid)],                      \
+         base = pw2[n - (Pos + mid)]))
+                uint64_t leftHash, rightHash, leftBase, rightBase;
+                calc(leftHash, leftBase, L), calc(rightHash, rightBase, R);
+                leftHash *= rightBase, rightHash *= leftBase;
+                if (leftHash == rightHash) l = mid + 1;
+                else r = mid - 1;
             }
-            if (l == cr - cl + len || 1);
+            // printf("Now [%d,%d] c[%d,%d]\n", i-len+1, i, cl, cr);
+            // printf("Checking pos %d (%d) and pos %d (%d)\n", L+l, a[L+l], R+l, a[R+l]);
+            if (l <= cr - cl + len && ans[L+l] < ans[R+l]) cl -= len;
+            else cr += len;
+            len = 0;
         }
     }
+    for (int i = n - len + 1; i <= n; i++) ans[++cr] = a[i];
+    // for (int i = cl+1; i <= cr; i++)
+    //     printf("%d%c", ans[i], " \n"[i==cr]);
+    printf("%u\n", calcHash(ans + cl, n));
 }
 
 int main() {
     for (int i = pw1[0] = pw2[0] = 1; i <= 200000; i++) {
         pw1[i] = 1ull * pw1[i-1] * B1 % MOD;
-        pw2[i] = 1ull * pw2[i-1] * B2 % MOD;
+        pw2[i] = pw2[i-1] * B2;
     }
     int tid, T;
     fin(tid), fin(T);
     while (T--) solveSingle();
     return 0;
 
-    int n;
+    /* int n;
     scanf("%d", &n);
     std::iota(a+1, a+1+n, 1);
     for (int i = 1; i <= n; i++) {
@@ -85,7 +101,7 @@ int main() {
             a[j] = -a[j];
         for (int i = 1; i <= n; i++)
             printf("%d%c", a[i], i==n?'\n':' ');
-    }
+    } */
 
     return 0;
 }

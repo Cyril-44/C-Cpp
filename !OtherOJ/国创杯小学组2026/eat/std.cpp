@@ -22,7 +22,8 @@ int main() {
             ++tl, --tr;
         }
         if (calc(tl) == x) printf("L %d\n", tl - l + 1), l = tl+1;
-        else printf("R %d\n", r - tr + 1), r = tr-1;
+        else if (calc(tr) == x) printf("R %d\n", r - tr + 1), r = tr-1;
+        else puts("F");
     }
     return 0;
 }
