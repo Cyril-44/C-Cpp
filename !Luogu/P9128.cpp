@@ -32,31 +32,31 @@ int main() {
                 // fx + fy + 2 sum[y] sz[x] < fy + fx + 2 sum[x] sz[y]
                 return suma[y] * size[x] < suma[x] * size[y];
             });
-            for (int i = 0, v, t = 0; i < (int)g[u].size(); i++) {
+            for (int i = 0, v, t = 1; i < (int)g[u].size(); i++) {
                 v = g[u][i];
-                f[u][0] += t * suma[v] + a[v] + f[v][0];
-                printf("+%d * %ld\n", t, suma[v]);
+                f[u][0] += t * suma[v] + f[v][0];
                 t += 2 * size[v];
             }
             f[u][1] = INF;
             int64_t sufSuma = 0;
-            for (int i = (int)g[u].size() - 1, v, t = 2 * size[u] - 2; i >= 0; i--) {
-                v = g[u][i]; t -= size[v];
+            for (int i = (int)g[u].size() - 1, v, t = 2 * size[u] - 1; i >= 0; i--) {
+                v = g[u][i]; t -= 2 * size[v];
                 if (f[v][1] != INF)
                     f[u][1] = std::min(f[u][1],  // v 放到最后，那 v 后面的每一个 v 都提前 2*sz[v]
-                        f[u][0] - sufSuma * 2 * size[v] - t * suma[i] - f[v][0]
-                                + (size[u] - size[v] - 1) * 2 * suma[i] + f[v][1]
+                        f[u][0] - sufSuma * 2 * size[v] - t * suma[v] - f[v][0]
+                                + (size[u] * 2 - size[v] * 2 - 1) * suma[v] + f[v][1]
                     );
+                // printf("f[%d][1] tries   %ld - 2*%ld*%d - %d*%ld - %ld + (%d*2-%d*2-1)*%ld + %ld\n", u, f[u][0], sufSuma, size[v], t, suma[v], f[v][0], size[u], size[v], suma[v], f[v][1]);
                 sufSuma += suma[v];
             }
         }
         else {
-            f[u][0] = a[u];
-            f[u][1] = dep[u] == mxdep ? a[u] : INF;
+            f[u][0] = 0;
+            f[u][1] = dep[u] == mxdep ? 0 : INF;
         }
     }
-    for (int i = 1; i <= n; i++)
-        printf("%ld %ld\n", f[i][0], f[i][1]);
+    // for (int i = 1; i <= n; i++)
+    //     printf("%ld %ld\n", f[i][0], f[i][1]);
     printf("%d ", 2*n - 2 - T*mxdep);
     printf("%ld\n", f[1][T]);
     return 0;
