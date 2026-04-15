@@ -10,7 +10,7 @@
 				"-Wall",
 				"-Wextra",
 				"-Wconversion",
-				"-Wpedantic",
+				// "-Wpedantic",
 				// "-Wfloat-conversion",
 				"-Wshadow",
 				// "-Wsign-conversion",

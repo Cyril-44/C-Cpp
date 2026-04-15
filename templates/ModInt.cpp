@@ -1,5 +1,6 @@
 #include <bits/c++config.h>
 #include <bits/stdc++.h>
+#include <type_traits>
 template <typename T>
 T modInv(const T& x, const T& y) { // x * u ≡ 1 (mod y)
     assert(x != 0);
@@ -13,13 +14,18 @@ T modInv(const T& x, const T& y) { // x * u ≡ 1 (mod y)
     return u;
 }
 
-template<typename Mod>
-class MB {
-    using Int = typename std::enable_if<std::is_signed<typename std::decay<decltype(Mod::value)>::type>::value, typename std::decay<decltype(Mod::value)>::type>::type;
+template<class Mod, typename Mod::value_type Default = 0>
+requires requires(typename Mod::value_type a, typename Mod::value_type b) {
+    { a + b } -> std::same_as<typename Mod::value_type>;
+    { a - b } -> std::same_as<typename Mod::value_type>;
+    { a * b } -> std::same_as<typename Mod::value_type>;
+    { a % b } -> std::same_as<typename Mod::value_type>;
+} class ModInt {
+    using Int = Mod::value_type;
+    inline static constexpr Int mod() { return Mod::value; }
     Int value;
-    constexpr static Int mod() { return Mod::value; }
-    template<typename T> T normalize(T x) {
-        if _GLIBCXX17_CONSTEXPR (std::is_unsigned<T>::value)
+    template<typename T> inline Int normalize(T x) {
+        if constexpr (std::is_unsigned_v<T>)
             return static_cast<Int>(x < mod() ? x : x % mod());
         else {
             Int res = static_cast<Int>(-mod() < x && x < mod() ? x : x % mod());
@@ -27,94 +33,76 @@ class MB {
         }
     }
 public:
-    constexpr MB() : value() {}
-    template<typename T> MB(const T &rhs) { value = normalize(rhs); }
-    template<typename T> explicit operator T() const { return static_cast<T>(value); }
-    const Int& operator()() const { return value; }
-    MB& operator+=(const MB& rhs) {
+    constexpr inline ModInt() : value(Default) {}
+    template<typename T> inline ModInt(const T &rhs) { value = normalize(rhs); }
+    template<typename T> inline explicit operator T() const { return static_cast<T>(value); }
+    inline Int operator()() const { return value; }
+    inline ModInt& operator+=(const ModInt& rhs) {
         if ((value += rhs.value) >= mod()) value -= mod();
         return *this;
     }
-    MB& operator-=(const MB& rhs) {
+    inline ModInt& operator-=(const ModInt& rhs) {
         if ((value -= rhs.value) < 0) value += mod();
         return *this;
     }
-    MB& operator*=(const MB& rhs) {
-        if _GLIBCXX17_CONSTEXPR (std::is_same<Int, int>::value)
+    inline ModInt& operator*=(const ModInt& rhs) {
+        if constexpr (std::is_same_v<Int, int>)
             value = normalize((uint64_t)value * rhs.value);
-        else if _GLIBCXX17_CONSTEXPR (std::is_same<Int, int64_t>::value)
+        else if constexpr (std::is_same_v<Int, int64_t>)
             value = normalize((unsigned __int128)value * rhs.value);
         else 
             value = normalize(value * rhs.value);
         return *this;
     }
-    MB& operator/=(const MB& rhs) { return *this *= MB(modInv(rhs.value, mod())); }
-    template<typename T> typename std::enable_if<std::is_integral<T>::value, MB>::type& operator^=(T rhs) {
-        if (rhs < 0) return *this = MB(modInv(static_cast<Int>(1), (*this ^ (-rhs))()));
-        MB tmp = *this;
+    inline ModInt& operator/=(const ModInt& rhs) { return *this *= ModInt(modInv(rhs.value, mod())); }
+    template<std::integral T> inline ModInt& operator^=(T rhs) {
+        if (rhs < 0) return *this = ModInt(modInv(static_cast<Int>(1), (*this ^ (-rhs))()));
+        ModInt tmp = *this;
         for (*this = static_cast<Int>(1); rhs; rhs >>= 1) {
             if (rhs & 1) *this *= tmp;
             tmp *= tmp;
         }
         return *this;
     }
-    MB operator-() const { return MB(-value); }
-    MB& operator++() { return *this += 1; }
-    MB& operator--() { return *this -= 1; }
-    MB operator++(int) { MB tmp = *this; ++*this; return tmp; }
-    MB operator--(int) { MB tmp = *this; --*this; return tmp; }
-    MB operator+(const MB& rhs) const { return MB(*this) += rhs; }
-    MB operator-(const MB& rhs) const { return MB(*this) -= rhs; }
-    MB operator*(const MB& rhs) const { return MB(*this) *= rhs; }
-    MB operator/(const MB& rhs) const { return MB(*this) /= rhs; }
-    bool operator==(const MB& rhs) const { return value == rhs.value; }
-    bool operator!=(const MB& rhs) const { return value != rhs.value; }
-    bool operator<=(const MB& rhs) const { return value <= rhs.value; }
-    bool operator>=(const MB& rhs) const { return value >= rhs.value; }
-    bool operator<(const MB& rhs) const { return value < rhs.value; }
-    bool operator>(const MB& rhs) const { return value > rhs.value; }
-    bool operator!() const { return value; }
-    template<typename IStream, typename T> friend IStream& operator>>(IStream& , MB<T>& );
-    template<typename OStream, typename T> friend OStream& operator<<(OStream& , const MB<T>& );
-    template<typename U> friend MB operator+(const MB& lhs, const U& rhs) { return lhs + MB(rhs); }
-    template<typename U> friend MB operator+(const U& lhs, const MB& rhs) { return MB(lhs) + rhs; }
-    template<typename U> friend MB operator-(const MB& lhs, const U& rhs) { return lhs - MB(rhs); }
-    template<typename U> friend MB operator-(const U& lhs, const MB& rhs) { return MB(lhs) - rhs; }
-    template<typename U> friend MB operator*(const MB& lhs, const U& rhs) { return lhs * MB(rhs); }
-    template<typename U> friend MB operator*(const U& lhs, const MB& rhs) { return MB(lhs) * rhs; }
-    template<typename U> friend MB operator/(const MB& lhs, const U& rhs) { return lhs / MB(rhs); }
-    template<typename U> friend MB operator/(const U& lhs, const MB& rhs) { return MB(lhs) / rhs; }
-    template<typename U> friend typename std::enable_if<std::is_integral<U>::value, MB>::type operator^(MB lhs, const U& rhs) { return lhs ^= rhs; }
-    template<typename U> friend MB operator+=(MB& lhs, const U& rhs) { return lhs += MB(rhs); }
-    template<typename U> friend MB operator-=(MB& lhs, const U& rhs) { return lhs -= MB(rhs); }
-    template<typename U> friend MB operator*=(MB& lhs, const U& rhs) { return lhs *= MB(rhs); }
-    template<typename U> friend MB operator/=(MB& lhs, const U& rhs) { return lhs /= MB(rhs); }
-    template<typename U> friend MB operator==(const MB& lhs, const U& rhs) { return lhs == MB(rhs); }
-    template<typename U> friend MB operator==(const U& lhs, const MB& rhs) { return MB(lhs) == rhs; }
-    template<typename U> friend MB operator!=(const MB& lhs, const U& rhs) { return lhs != MB(rhs); }
-    template<typename U> friend MB operator!=(const U& lhs, const MB& rhs) { return MB(lhs) != rhs; }
-    template<typename U> friend MB operator<=(const MB& lhs, const U& rhs) { return lhs <= MB(rhs); }
-    template<typename U> friend MB operator<=(const U& lhs, const MB& rhs) { return MB(lhs) <= rhs; }
-    template<typename U> friend MB operator>=(const MB& lhs, const U& rhs) { return lhs >= MB(rhs); }
-    template<typename U> friend MB operator>=(const U& lhs, const MB& rhs) { return MB(lhs) >= rhs; }
-    template<typename U> friend MB operator<(const MB& lhs, const U& rhs) { return lhs < MB(rhs); }
-    template<typename U> friend MB operator<(const U& lhs, const MB& rhs) { return MB(lhs) < rhs; }
-    template<typename U> friend MB operator>(const MB& lhs, const U& rhs) { return lhs > MB(rhs); }
-    template<typename U> friend MB operator>(const U& lhs, const MB& rhs) { return MB(lhs) > rhs; }
+    inline ModInt operator-() const { return ModInt(-value); }
+    inline ModInt& operator++() { return *this += 1; }
+    inline ModInt& operator--() { return *this -= 1; }
+    inline ModInt operator++(int) { ModInt tmp = *this; ++*this; return tmp; }
+    inline ModInt operator--(int) { ModInt tmp = *this; --*this; return tmp; }
+    inline ModInt operator+(const ModInt& rhs) const { return ModInt(*this) += rhs; }
+    inline ModInt operator-(const ModInt& rhs) const { return ModInt(*this) -= rhs; }
+    inline ModInt operator*(const ModInt& rhs) const { return ModInt(*this) *= rhs; }
+    inline ModInt operator/(const ModInt& rhs) const { return ModInt(*this) /= rhs; }
+    inline ModInt operator^(const ModInt& rhs) const { return ModInt(*this) ^= rhs; }
+    inline bool operator==(const ModInt& rhs) const { return value == rhs.value; }
+    inline bool operator!=(const ModInt& rhs) const { return value != rhs.value; }
+    inline bool operator<=(const ModInt& rhs) const { return value <= rhs.value; }
+    inline bool operator>=(const ModInt& rhs) const { return value >= rhs.value; }
+    inline bool operator<(const ModInt& rhs) const { return value < rhs.value; }
+    inline bool operator>(const ModInt& rhs) const { return value > rhs.value; }
+    inline bool operator!() const { return value; }
+    template<typename U> inline friend ModInt operator+(const U& lhs, const ModInt& rhs) { return ModInt(lhs) + rhs; }
+    template<typename U> inline friend ModInt operator-(const U& lhs, const ModInt& rhs) { return ModInt(lhs) - rhs; }
+    template<typename U> inline friend ModInt operator*(const U& lhs, const ModInt& rhs) { return ModInt(lhs) * rhs; }
+    template<typename U> inline friend ModInt operator/(const U& lhs, const ModInt& rhs) { return ModInt(lhs) / rhs; }
+    template<typename U> inline friend ModInt operator==(const U& lhs, const ModInt& rhs) { return ModInt(lhs) == rhs; }
+    template<typename U> inline friend ModInt operator!=(const U& lhs, const ModInt& rhs) { return ModInt(lhs) != rhs; }
+    template<typename U> inline friend ModInt operator<=(const U& lhs, const ModInt& rhs) { return ModInt(lhs) <= rhs; }
+    template<typename U> inline friend ModInt operator>=(const U& lhs, const ModInt& rhs) { return ModInt(lhs) >= rhs; }
+    template<typename U> inline friend ModInt operator<(const U& lhs, const ModInt& rhs) { return ModInt(lhs) < rhs; }
+    template<typename U> inline friend ModInt operator>(const U& lhs, const ModInt& rhs) { return ModInt(lhs) > rhs; }
+    template<typename IStream> inline friend IStream& operator>>(IStream& is, ModInt& lhs) {
+        is >> lhs.value;
+        lhs.value = lhs.normalize(lhs.value);
+        return is;
+    }
+    template<typename OStream> friend inline OStream& operator<<(OStream& os, const ModInt& rhs) { return os << rhs.value; }
 };
-template<typename IStream, typename T>
-IStream& operator>>(IStream& is, MB<T>& lhs) {
-    typename MB<T>::Int val; is >> val;
-    lhs.value = lhs.normalize(val);
-    return is;
-}
-template<typename OStream, typename T>
-OStream& operator<<(OStream& os, const MB<T>& rhs) { return os << rhs.value; }
 constexpr auto MOD = (int)1e9 + 7;
-using Mint = MB<std::integral_constant<decltype(MOD), MOD>>;
-// struct Dynamic_ModInt { using type = int; static type value; };
-// ModType &Mod = Dynamic_ModInt::value;
-// using Modular = Modular_Base<Dynamic_ModInt>;
+using Mint = ModInt<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
+// struct Dynamic_ModInt { using value_type = int; static value_type value; };
+// Dynamic_ModInt::value_type &Mod = Dynamic_ModInt::value;
+// using Mint = ModInt<Dynamic_ModInt>;
 struct Fact {
     Fact(const int &n) : fact(n+1, Mint(1)), invfact(n+1), size(n) {
         fact[0] = 1;
@@ -139,5 +127,6 @@ private:
 int main() {
     1 + Mint(1);
     Mint abc = 1;
+    abc += 2;
     return 0;
 }
