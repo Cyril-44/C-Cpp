@@ -19,3 +19,4 @@ do
   cd ../..
 done
 cp statement.pdf Final/down/
+cp solution.pdf Final/std/
