@@ -47,3 +47,20 @@ echo "Generating Sample 3 (Large)..."
 echo "All done! Data is in ./data"
 
 rm std gen val
+cp ../tuackCodeTheme.tmTheme .
+cp ../NNOI_Default_template.typ .default.temp.typ
+echo "#include \"statement.typ\"" >> .default.temp.typ
+pandoc statement.typ -o statement.tex --highlight-style=none
+typst compile .default.temp.typ statement.pdf
+cp ../NNOI_Default_template.typ .default.temp.typ
+echo "#include \"solution.typ\"" >> .default.temp.typ
+pandoc solution.typ -o solution.tex --highlight-style=none
+typst compile .default.temp.typ solution.pdf
+
+name=$(basename "$PWD")
+clean=${name%_NNOI}
+rm -f ${clean}_data.zip
+zip -r ${clean}_data.zip data/ samples/ statement.tex statement.pdf solution.tex solution.pdf
+
+rm statement.pdf statement.tex solution.pdf solution.tex tuackCodeTheme.tmTheme .default.temp.typ
+rm -rf data/ samples/
