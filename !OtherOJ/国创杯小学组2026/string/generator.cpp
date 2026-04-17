@@ -1,0 +1,146 @@
+#include "testlib.h"
+#include <bits/stdc++.h>
+inline std::string genPal(int len, const int incProb, const int contProb, const char startChar) {
+    std::string res; res.resize(len);
+    char ch = rnd.wnext(startChar, 'z', -10);
+    for (int i = 0, cur; i < (len+1) / 2; i++) {
+        if (ch < 'z' && (cur = rnd.next(0, 100)) <= incProb) ++ch;
+        if (ch < 'z' && cur > contProb) {i--; continue;}
+        res[i] = ch;
+    }
+    std::reverse_copy(res.begin(), res.begin() + len / 2, res.begin() + (len + 1) / 2);
+    return res;
+}
+inline std::string genHack(int len, const int incProb, const int contProb) {
+    assert(len >= 6); // aababa
+    char ch = rnd.wnext('a', 'y', -26);
+    int l1 = rnd.wnext(2, len - 4, -26);
+    int l2 = rnd.wnext(1, (len - l1) / 2 - 1, -26);
+    int l3 = rnd.wnext(1, len - l1 - 2 * l2 - 1, -10);
+    int l4 = rnd.wnext(1, std::min(len - l1 - 2 * l2 - 1, len - l1 - l2*2 - l3), -10);
+    std::string base = // [l1](l3)[l2](l4)[l2]
+        std::string(l1, ch) + 
+        genPal(l3, incProb, contProb, ch + 1) + 
+        std::string(l2, ch) + 
+        genPal(l4, incProb, contProb, ch + 1) + 
+        std::string(l2, ch);
+    len -= l1 + l3 + l2 + l4 + l2;
+    for (bool state = rnd.next(0, 1); len > 0; state ^= 1) {
+        int curlen = rnd.wnext(1, len, -5);
+        if (state) base += genPal(curlen, incProb, contProb, ch + 1);
+        else       base += std::string(curlen, ch);
+        len -= curlen;
+    }
+    return base;
+}
+inline std::string genRand(int len) {
+    std::string res; res.resize(len);
+    for (int i = 0; i < len; i++) res[i] = rnd.next('a', 'z');
+    return res;
+}
+inline std::string gen(int len, const int w0, const int w1, const int incProb, const int contProb, const int startState = -1) {
+    int n =len;
+    std::string res; res.reserve(len);
+    for (bool state = ~startState ? startState : rnd.next(0, 1); len > 0; state ^= 1) {
+        if (len < 6) state = 0;
+        int curlen = rnd.wnext(state ? 6 : 1, len, state ? w1 : w0);
+        if (state) {
+            std::string now = genHack(curlen, incProb, contProb);
+            if (rnd.next(0, 1)) std::reverse(now.begin(), now.end());
+            res += now;
+        }
+        else res += genRand(curlen);
+        len -= curlen;
+    }
+    assert(len == 0);
+    return res;
+}
+inline std::string genB(int len, const int w, const int contProb) {
+    std::string res; res.reserve(len);
+    for (bool state = rnd.next(0, 1); len > 0; state ^= 1) {
+        if (state) {
+            int curlen = 0;
+            std::string s;
+            char ch = rnd.next('a', 'y');
+            if (!res.empty()) ch += ch >= res.back();
+            for (bool start = true; ch <= 'z' && curlen * 2 + 1 <= len; ++ch) {
+                if (rnd.next(0, 100) > contProb) {
+                    if (start) start = false;
+                    else continue;
+                }
+                s += ch, ++curlen;
+            }
+            if (!s.empty()) {
+                res += s;
+                s.pop_back(), std::reverse(s.begin(), s.end()), res += s;
+            }
+            len -= res.length();
+        }
+        else {
+            int curlen = rnd.wnext(1, len, w);
+            for (int i = 1; i <= curlen; i++) {
+                char ch = rnd.next('a', 'y');
+                if (!res.empty()) ch += ch >= res.back();
+                res += ch;
+            }
+            len -= curlen;
+        }
+    }
+    return res;
+}
+
+#define Gen (const std::string &path, const int taskId)
+#define Generator(T, SN, N, w, str) [] Gen {                                                            \
+    std::ofstream file(path);                                                                           \
+    int t = T, sn = SN;                                                                                 \
+    file << taskId << ' ' << t << '\n';                                                                 \
+    while (--t > 0) {                                                                                   \
+        int n = rnd.wnext((int)std::max(1ll, sn  - (long long)(N) * t), std::min(sn - t, int(N)), w);    \
+        sn -= n; file << str << '\n';                                                                   \
+    }                                                                                                   \
+    int n = sn; file << str << '\n';                                                                    \
+}
+void (*testGen[]) Gen {
+    Generator(1e2, 1e7, 5e6, -100, std::string(n, 'a')),
+    Generator(2,  20,  10,  0,  gen(n, 0, 26, 70, 40, 1)),
+    Generator(5,  500, 200, 0,  gen(n, -20, -4, 20, 60)),
+    Generator(15, 5e4, 5e3, 5,  gen(n, -20, -4, 15, 65)),
+    Generator(10, 1e7, 5e6, -9, genB(n, -10, 95)),
+    Generator(2,  1e7, 5e6, 0,  genRand(n)),
+    Generator(10, 1e7, 5e6, -9, gen(n, -40, -10, 5, 85))
+};
+void (*sampleGen[]) Gen {
+    testGen[1],
+    testGen[2],
+    testGen[3],
+    testGen[4],
+    Generator(2, 2e5, 1e5, 0, genRand(n)),
+    Generator(10, 1e6, 5e5, -9, genRand(n)),
+};
+constexpr int SubtaskConfig[] {1,3,7,12,15,16,20};
+constexpr int SampleConfig[] {2,4,8,13,16,17};
+int main(int argc, char **argv) {
+    registerGen(argc, argv, 1);
+    if (has_opt("help")) return suppressEnsureNoUnusedOpts(), puts(
+        "Generate samples to down/, data to tests/.\n"
+        "Options:\n"
+        "    --id=<x>    ----    If given, the generator will only generates the specific test case <x>.\n"
+        "                        If <x> is negative, it's absolute value refers to a sample ID.\n"
+        "    --help      ----    Print this help.\n"
+        "\e[31mCaution\e[0m: The generator won't automatically clear or create the down/ and tests/ folder."), 0;
+    int generateOneTest = opt<int>("id", 0);
+    int testId = 1, subtaskId = 0, sampleId = 2, sampleCount = 0;
+    for (int endId : SubtaskConfig) {
+        for (; testId <= endId; testId++)
+            if (generateOneTest == 0 || generateOneTest == testId) {
+                std::cout << "Generating Test Case " << testId << "..." << std::endl;
+                testGen[subtaskId]("tests/dat" + std::to_string(testId) + ".in", testId);
+            }
+        ++subtaskId;
+    }
+    for (const auto &sgen : sampleGen)
+        if (generateOneTest == 0 || -generateOneTest == sampleId) {
+            std::cout << "Generating Sample " << sampleId << "..." << std::endl;
+            sgen("down/string" + std::to_string(sampleId++) + ".in", SampleConfig[sampleCount++]);
+        }
+}
