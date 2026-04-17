@@ -8,7 +8,7 @@ inline int64_t calc(int64_t m, int a, int b, int c) {
 inline int64_t solve(int64_t m, int a, int b, int c, int64_t n) {
     --m; n += m / a - m / b + m / c;
     c /= b, b /= a;
-    int64_t ans = a * (n / (b * c - c + 1)) * (b * c);
+    int64_t ans =` a * (n / (b * c - c + 1)) * (b * c);
     n %= b * c - c + 1;
     if (n) {
         ans += a * ((n - 1) / (b - 1)) * b;
@@ -83,8 +83,8 @@ void (*testGen[])(const string&, int) = {
     Generator1(1e15, 1e5, 1e6, 1e6),
     Generator2(3e5, 1e3, 1e15, 1e9, 1e8),
 };
-constexpr int SubtaskConfig[] = {4,8,10,14,20};
-constexpr int SampleConfig[] =  {1,1, 1, 1, 1};
+constexpr int SubtaskConfig[] = {2,4,5,7,10};
+constexpr int SampleConfig[] =  {1,1,1,1, 1};
 int main(int argc, char** argv) {
     registerGen(argc, argv, 1);
     if (has_opt("help")) return suppressEnsureNoUnusedOpts(), puts(

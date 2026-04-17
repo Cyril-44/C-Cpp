@@ -27,11 +27,11 @@ void (*val[])() {
     Checker(1e6, 1e6, , CheckC),
     Checker(1e6, 1e6, , )
 };
-constexpr int MapToSubtask[]{1,2,2,2,3,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5};
+constexpr int MapToSubtask[]{1,2,2,2,2,3,4,4,5,5};
 int main(int argc, char **argv) {
     registerValidation(argc, argv);
     prepareOpts(argc, argv);
     ans.init(opt<std::string>("ans"), _answer);
-    int C = inf.readInt(1, 20, "TestID"); inf.readEoln();
+    int C = inf.readInt(1, 10, "TestID"); inf.readEoln();
     val[MapToSubtask[C-1]-1]();
 }
