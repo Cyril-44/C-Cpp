@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+echo Compiling eat executables...
+g++ -std=c++2a generator.cpp -o generator -O2 -I..
+g++ -std=c++2a validator.cpp -o validator -O2 -I..
+g++ -std=c++2a std.cpp -o std -O2 -Wno-unused-result
+
 TOKEN=raBfcfOwRyCN9gyLt9QhMiJNx6y81rRyDeWf1C7y---WTZAKIOI---mfeSrPEVQlEr6jAC3qG89x7SxNzLe5iL9wbqSV6x
 echo Generating all data...
 ./generator $TOKEN
@@ -15,6 +20,7 @@ for ((i=1; i<=10; i++)) do
 done
 rm tests/dat.out;
 
+cp -r down.default.d/* down/
 for ((i=2; i<=5; i++)) do
   echo Validating down $i...
   ./validator --ans=down/eat$i.ans < down/eat$i.in;
@@ -22,3 +28,5 @@ for ((i=2; i<=5; i++)) do
   ./std < down/eat$i.in > down/eat.out;
 done
 rm down/eat.out;
+
+rm generator validator std

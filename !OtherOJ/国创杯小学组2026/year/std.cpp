@@ -16,8 +16,8 @@ template<typename T> inline void out(T x) {
     putchar('\n');
 } */
 int main() {
-    freopen("year.in", "r", stdin);
-    freopen("year.out", "w", stdout);
+    // freopen("year.in", "r", stdin);
+    // freopen("year.out", "w", stdout);
     int C, t, a, b, c;
     // in(C), in(t);
     fin >> C >> t;

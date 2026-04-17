@@ -8,7 +8,7 @@ inline int64_t calc(int64_t m, int a, int b, int c) {
 inline int64_t solve(int64_t m, int a, int b, int c, int64_t n) {
     --m; n += m / a - m / b + m / c;
     c /= b, b /= a;
-    int64_t ans =` a * (n / (b * c - c + 1)) * (b * c);
+    int64_t ans = a * (n / (b * c - c + 1)) * (b * c);
     n %= b * c - c + 1;
     if (n) {
         ans += a * ((n - 1) / (b - 1)) * b;
