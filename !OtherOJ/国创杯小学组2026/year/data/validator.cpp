@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #include "testlib.h"
-constexpr int MapToSubTask[]{1,1,1,1,2,2,2,2,3,3,4,4,4,4,5,5,5,5,5,5};
+constexpr int MapToSubTask[]{1,1,2,2,3,4,4,5,5,5};
 #define Checker(T, M, N, SN, ABC) []() {                                \
     int t = inf.readInt(1, (int)T, "t"); inf.readEoln();                \
     int64_t sumn = 0;                                                   \
@@ -25,7 +25,7 @@ void (*check[])() = {
 };
 int main(int argc, char** argv) {
     registerValidation(argc, argv);
-    int testid = inf.readInt(1, 20, "tid"); inf.readSpace();
+    int testid = inf.readInt(1, 10, "tid"); inf.readSpace();
     check[MapToSubTask[testid - 1] - 1]();
     inf.readEof();
     return 0;

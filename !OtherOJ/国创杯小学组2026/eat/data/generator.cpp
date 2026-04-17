@@ -86,8 +86,8 @@ void (*sampleGen[])(const std::string&, const int) {
     Generator(5e4, 40,  5e3, 0.999,  0,   4, ),
     Generator(5e4, 40,  5e3, 0.999,  1e6, 4, )
 };
-constexpr int SubtaskConfig[] {1,4,5,10,20};
-constexpr int SampleConfig[] {1,2,6,11};
+constexpr int SubtaskConfig[] {1,5,6,8,10};
+constexpr int SampleConfig[] {1,2,7,9};
 int main(int argc, char **argv) {
     registerGen(argc, argv, 1);
     if (has_opt("help")) return suppressEnsureNoUnusedOpts(), puts(
