@@ -7,7 +7,7 @@
 #include <queue>
 constexpr int N = 5005;
 int h[N], oud[N], all[N];
-char g[N][N];
+char allg[N][N];
 // 将 d 中的 (x, x) ==> (x-1, x+1) 实质上是减少一个三元环。
 int64_t mxTri(int64_t n) {
     int64_t mnred = (n & 1) ? 
@@ -48,15 +48,15 @@ int main() {
         }
         std::iota(oud+1, oud+1 + n-cn, 0);
         for (int i = 1; i < n; i++) { // 向后面连接 oud[i] 个点，剩余的点连向自己。
-            g[i+1][i+1] = 0;
+            allg[i+1][i+1] = 0;
             std::iota(all+1, all+1+n-i, i+1);
             std::sort(all+1, all+1+n-i, [](int x,int y){ return oud[x] < oud[y]; }); // 连向自己要 --oud，尽量挑大的去减
-            for (int j = 1; j <= oud[i]; j++) g[all[j]][i] = '0';
-            for (int j = oud[i]+1; j <= n-i; j++) g[all[j]][i] = '1', --oud[all[j]];
+            for (int j = 1; j <= oud[i]; j++) allg[all[j]][i] = '0';
+            for (int j = oud[i]+1; j <= n-i; j++) allg[all[j]][i] = '1', --oud[all[j]];
         }
         puts("Yes");
         for (int i = 2; i <= n; i++)
-            puts(g[i] + 1);
+            puts(allg[i] + 1);
     }
     return 0;
 }
