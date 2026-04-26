@@ -1,124 +1,138 @@
 #include <bits/stdc++.h>
-template <typename b>
-b modInv(const b& c, const b& d) { // x * u ≡ 1 (mod y)
-    assert(d != 0);
-    b e = 0, f = 1, g = c, h = d, i;
-    while (g != 0) {
-        i = h / g;
-        std::swap(g, h -= i * g);
-        std::swap(e -= i * f, f);
-    }
-    assert(h == 1);
-    return e;
-}
+using namespace std;
 
-template<class k, typename k::value_type l = 0>
-requires requires(typename k::value_type m, typename k::value_type n) {
-    { m + n } -> std::same_as<typename k::value_type>;
-    { m - n } -> std::same_as<typename k::value_type>;
-    { m * n } -> std::same_as<typename k::value_type>;
-    { m % n } -> std::same_as<typename k::value_type>;
-} class ModInt {
-    using o = k::value_type;
-    inline static constexpr o p() { return k::value; }
-    o q;
-    template<typename s> inline s r(s t) {
-        if constexpr (std::is_unsigned_v<s>)
-            return static_cast<o>(t < p() ? t : t % p());
-        else {
-            o u = static_cast<o>(-p() < t && t < p() ? t : t % p());
-            return (u < 0 ? u + p() : u);
+const long long a = (long long)-4e18;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int c;
+    int d;
+    cin >> c >> d;
+
+    vector<int> e(c + 1);
+    for (int f = 1; f <= c; ++f) cin >> e[f];
+
+    vector<vector<int>> g(c + 1);
+    for (int h = 0; h < c - 1; ++h) {
+        int i, j;
+        cin >> i >> j;
+        g[i].push_back(j);
+        g[j].push_back(i);
+    }
+
+    // Root the tree at 1, compute parent and depth
+    const int k = 20; // since n <= 3e5, 2^19 < 3e5 < 2^20
+    vector<int> l(c + 1, 0);
+    vector<array<int, k>> m(c + 1);
+    vector<int> n(c + 1, 0);
+
+    // BFS or DFS to set parent and depth
+    {
+        queue<int> o;
+        o.push(1);
+        n[1] = 0;
+        l[1] = 0;
+        while (!o.empty()) {
+            int p = o.front(); o.pop();
+            for (int q : g[p]) {
+                if (q == n[p]) continue;
+                n[q] = p;
+                l[q] = l[p] + 1;
+                o.push(q);
+            }
         }
     }
-public:
-    constexpr inline ModInt() : q(l) {}
-    template<typename v> inline ModInt(const v &w) { q = r(w); }
-    template<typename x> inline explicit operator x() const { return static_cast<x>(q); }
-    inline o operator()() const { return q; }
-    inline ModInt& operator+=(const ModInt& y) {
-        if ((q += y.value) >= p()) q -= p();
-        return *this;
+
+    // build up table
+    for (int r = 1; r <= c; ++r) {
+        m[r][0] = n[r];
     }
-    inline ModInt& operator-=(const ModInt& z) {
-        if ((q -= z.value) < 0) q += p();
-        return *this;
-    }
-    inline ModInt& operator*=(const ModInt& A) {
-        if constexpr (std::is_same_v<o, int>)
-            q = r((uint64_t)q * A.q);
-        else if constexpr (std::is_same_v<o, int64_t>)
-            q = r((unsigned __int128)q * A.q);
-        else 
-            q = r(q * A.q);
-        return *this;
-    }
-    inline ModInt& operator/=(const ModInt& B) { return *this *= ModInt(modInv(B.q, p())); }
-    template<std::integral C> inline ModInt& operator^=(C D) {
-        if (D < 0) return *this = ModInt(modInv(static_cast<o>(1), (*this ^ (-D))()));
-        ModInt E = *this;
-        for (*this = static_cast<o>(1); D; D >>= 1) {
-            if (D & 1) *this *= E;
-            E *= E;
+    for (int s = 1; s < k; ++s) {
+        for (int t = 1; t <= c; ++t) {
+            int u = m[t][s - 1];
+            m[t][s] = (u ? m[u][s - 1] : 0);
         }
-        return *this;
     }
-    inline ModInt operator-() const { return ModInt(-q); }
-    inline ModInt& operator++() { return *this += 1; }
-    inline ModInt& operator--() { return *this -= 1; }
-    inline ModInt operator++(int) { ModInt F = *this; ++*this; return F; }
-    inline ModInt operator--(int) { ModInt G = *this; --*this; return G; }
-    inline ModInt operator+(const ModInt& H) const { return ModInt(*this) += H; }
-    inline ModInt operator-(const ModInt& I) const { return ModInt(*this) -= I; }
-    inline ModInt operator*(const ModInt& J) const { return ModInt(*this) *= J; }
-    inline ModInt operator/(const ModInt& K) const { return ModInt(*this) /= K; }
-    inline ModInt operator^(const ModInt& L) const { return ModInt(*this) ^= L; }
-    inline bool operator==(const ModInt& M) const { return q == M.value; }
-    inline bool operator!=(const ModInt& N) const { return q != N.value; }
-    inline bool operator<=(const ModInt& O) const { return q <= O.value; }
-    inline bool operator>=(const ModInt& P) const { return q >= P.value; }
-    inline bool operator<(const ModInt& Q) const { return q < Q.value; }
-    inline bool operator>(const ModInt& R) const { return q > R.value; }
-    inline bool operator!() const { return q; }
-    template<typename S> inline friend ModInt operator+(const S& T, const ModInt& U) { return ModInt(T) + U; }
-    template<typename V> inline friend ModInt operator-(const V& W, const ModInt& X) { return ModInt(W) - X; }
-    template<typename Y> inline friend ModInt operator*(const Y& Z, const ModInt& _) { return ModInt(Z) * _; }
-    template<typename ab> inline friend ModInt operator/(const ab& bb, const ModInt& cb) { return ModInt(bb) / cb; }
-    template<typename db> inline friend ModInt operator==(const db& eb, const ModInt& fb) { return ModInt(eb) == fb; }
-    template<typename gb> inline friend ModInt operator!=(const gb& hb, const ModInt& ib) { return ModInt(hb) != ib; }
-    template<typename jb> inline friend ModInt operator<=(const jb& kb, const ModInt& lb) { return ModInt(kb) <= lb; }
-    template<typename mb> inline friend ModInt operator>=(const mb& nb, const ModInt& ob) { return ModInt(nb) >= ob; }
-    template<typename pb> inline friend ModInt operator<(const pb& qb, const ModInt& rb) { return ModInt(qb) < rb; }
-    template<typename sb> inline friend ModInt operator>(const sb& tb, const ModInt& ub) { return ModInt(tb) > ub; }
-    template<typename vb> inline friend vb& operator>>(vb& wb, ModInt& xb) {
-        wb >> xb.value;
-        xb.value = xb.normalize(xb.value);
-        return wb;
+
+    auto v = [&](int w, int x) {
+        // move dist steps up from u
+        for (int y = 0; y < k && w; ++y) {
+            if (x & (1 << y)) {
+                w = m[w][y];
+                if (!w) break;
+            }
+        }
+        return w;
+    };
+
+    // DP array
+    vector<long long> z(c + 1, a);
+    z[1] = 0; // sequence starts at root with sum 0
+    long long A = 0;
+
+    // We need an order where parent is processed before child: BFS order is fine
+    vector<int> B;
+    B.reserve(c);
+    {
+        queue<int> C;
+        C.push(1);
+        vector<int> D(c + 1, 0);
+        D[1] = 1;
+        while (!C.empty()) {
+            int E = C.front(); C.pop();
+            B.push_back(E);
+            for (int F : g[E]) {
+                if (!D[F]) {
+                    D[F] = 1;
+                    C.push(F);
+                }
+            }
+        }
     }
-    template<typename yb> friend inline yb& operator<<(yb& zb, const ModInt& Ab) { return zb << Ab.value; }
-};
-constexpr auto MOD = (int)1e9 + 7;
-using Mint = ModInt<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
-// struct Dynamic_ModInt { using value_type = int; static value_type value; };
-// Dynamic_ModInt::value_type &Mod = Dynamic_ModInt::value;
-// using Mint = ModInt<Dynamic_ModInt>;
-struct Fact {
-    Fact(const int &Hb) : Eb(Hb+1, Mint(1)), Fb(Hb+1), Gb(Hb) {
-        Eb[0] = 1;
-        for (int Ib = 1; Ib <= Hb; Ib++) Eb[Ib] = Eb[Ib-1] * Ib;
-        Fb[Hb] = Mint(1) / Eb[Hb];
-        for (int Jb = Hb; Jb >= 1; Jb--) Fb[Jb-1] = Fb[Jb] * Jb;
+
+    // Random generator
+    mt19937_64 G(chrono::steady_clock::now().time_since_epoch().count());
+    const int H = 40; // can be tuned
+
+    for (int I = 0; I < (int)B.size(); ++I) {
+        int J = B[I];
+        if (J == 1) continue;
+
+        long long K = a;
+
+        // candidate 1: root, if within L
+        if (l[J] <= d) {
+            long long L = z[1] + (long long)(e[1] % e[J]);
+            if (L > K) K = L;
+        }
+
+        // candidate 2: parent
+        int M = n[J];
+        if (M != 0 && l[J] - l[M] >= 1 && l[J] - l[M] <= d && z[M] != a) {
+            long long N = z[M] + (long long)(e[M] % e[J]);
+            if (N > K) K = N;
+        }
+
+        // random ancestors within distance <= L
+        int O = min(d, l[J]);
+        if (O > 1) {
+            uniform_int_distribution<int> P(1, O);
+            for (int Q = 0; Q < H; ++Q) {
+                int R = P(G);
+                int S = v(J, R);
+                if (!S) continue;
+                if (z[S] == a) continue;
+                long long T = z[S] + (long long)(e[S] % e[J]);
+                if (T > K) K = T;
+            }
+        }
+
+        z[J] = K;
+        if (z[J] > A) A = z[J];
     }
-    Mint C(const int &Lb, const int &Mb) const {
-        if (Lb < 0 || Mb < 0 || Lb < Mb) return 0;
-        if (Lb > Gb) throw std::out_of_range("Expected n < " + std::to_string(Gb) + ", but found n = " + std::to_string(Lb) + ".");
-        return Eb[Lb] * Fb[Mb] * Fb[Lb - Mb];
-    }
-    Mint A(const int &Ob, const int &Pb) const {
-        if (Ob < 0 || Pb < 0 || Ob < Pb) return 0;
-        if (Ob > Gb) throw std::out_of_range("Expected n < " + std::to_string(Gb) + ", but found n = " + std::to_string(Ob) + ".");
-        return Eb[Ob] * Fb[Ob - Pb];
-    }
-private:
-    std::vector<Mint> Eb, Fb;
-    const int Gb;
-};
+
+    cout << A << "\n";
+    return 0;
+}
