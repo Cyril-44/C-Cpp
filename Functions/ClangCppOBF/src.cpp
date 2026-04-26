@@ -1,124 +1,138 @@
 #include <bits/stdc++.h>
-template <typename T>
-T modInv(const T& x, const T& y) { // x * u ≡ 1 (mod y)
-    assert(x != 0);
-    T u = 0, v = 1, a = x, m = y, t;
-    while (a != 0) {
-        t = m / a;
-        std::swap(a, m -= t * a);
-        std::swap(u -= t * v, v);
-    }
-    assert(m == 1);
-    return u;
-}
+using namespace std;
 
-template<class Mod, typename Mod::value_type Default = 0>
-requires requires(typename Mod::value_type a, typename Mod::value_type b) {
-    { a + b } -> std::same_as<typename Mod::value_type>;
-    { a - b } -> std::same_as<typename Mod::value_type>;
-    { a * b } -> std::same_as<typename Mod::value_type>;
-    { a % b } -> std::same_as<typename Mod::value_type>;
-} class ModInt {
-    using Int = Mod::value_type;
-    inline static constexpr Int mod() { return Mod::value; }
-    Int value;
-    template<typename T> inline T normalize(T x) {
-        if constexpr (std::is_unsigned_v<T>)
-            return static_cast<Int>(x < mod() ? x : x % mod());
-        else {
-            Int res = static_cast<Int>(-mod() < x && x < mod() ? x : x % mod());
-            return (res < 0 ? res + mod() : res);
+const long long NEG_INF = (long long)-4e18;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    int L;
+    if (!(cin >> n >> L)) return 0;
+
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; ++i) cin >> a[i];
+
+    vector<vector<int>> g(n + 1);
+    for (int i = 0; i < n - 1; ++i) {
+        int u, v;
+        cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    // Root the tree at 1, compute parent and depth
+    const int LOG = 20; // since n <= 3e5, 2^19 < 3e5 < 2^20
+    vector<int> depth(n + 1, 0);
+    vector<array<int, LOG>> up(n + 1);
+    vector<int> parent(n + 1, 0);
+
+    // BFS or DFS to set parent and depth
+    {
+        queue<int> q;
+        q.push(1);
+        parent[1] = 0;
+        depth[1] = 0;
+        while (!q.empty()) {
+            int u = q.front(); q.pop();
+            for (int v : g[u]) {
+                if (v == parent[u]) continue;
+                parent[v] = u;
+                depth[v] = depth[u] + 1;
+                q.push(v);
+            }
         }
     }
-public:
-    constexpr inline ModInt() : value(Default) {}
-    template<typename T> inline ModInt(const T &rhs) { value = normalize(rhs); }
-    template<typename T> inline explicit operator T() const { return static_cast<T>(value); }
-    inline Int operator()() const { return value; }
-    inline ModInt& operator+=(const ModInt& rhs) {
-        if ((value += rhs.value) >= mod()) value -= mod();
-        return *this;
+
+    // build up table
+    for (int i = 1; i <= n; ++i) {
+        up[i][0] = parent[i];
     }
-    inline ModInt& operator-=(const ModInt& rhs) {
-        if ((value -= rhs.value) < 0) value += mod();
-        return *this;
-    }
-    inline ModInt& operator*=(const ModInt& rhs) {
-        if constexpr (std::is_same_v<Int, int>)
-            value = normalize((uint64_t)value * rhs.value);
-        else if constexpr (std::is_same_v<Int, int64_t>)
-            value = normalize((unsigned __int128)value * rhs.value);
-        else 
-            value = normalize(value * rhs.value);
-        return *this;
-    }
-    inline ModInt& operator/=(const ModInt& rhs) { return *this *= ModInt(modInv(rhs.value, mod())); }
-    template<std::integral T> inline ModInt& operator^=(T rhs) {
-        if (rhs < 0) return *this = ModInt(modInv(static_cast<Int>(1), (*this ^ (-rhs))()));
-        ModInt tmp = *this;
-        for (*this = static_cast<Int>(1); rhs; rhs >>= 1) {
-            if (rhs & 1) *this *= tmp;
-            tmp *= tmp;
+    for (int k = 1; k < LOG; ++k) {
+        for (int i = 1; i <= n; ++i) {
+            int mid = up[i][k - 1];
+            up[i][k] = (mid ? up[mid][k - 1] : 0);
         }
-        return *this;
     }
-    inline ModInt operator-() const { return ModInt(-value); }
-    inline ModInt& operator++() { return *this += 1; }
-    inline ModInt& operator--() { return *this -= 1; }
-    inline ModInt operator++(int) { ModInt tmp = *this; ++*this; return tmp; }
-    inline ModInt operator--(int) { ModInt tmp = *this; --*this; return tmp; }
-    inline ModInt operator+(const ModInt& rhs) const { return ModInt(*this) += rhs; }
-    inline ModInt operator-(const ModInt& rhs) const { return ModInt(*this) -= rhs; }
-    inline ModInt operator*(const ModInt& rhs) const { return ModInt(*this) *= rhs; }
-    inline ModInt operator/(const ModInt& rhs) const { return ModInt(*this) /= rhs; }
-    inline ModInt operator^(const ModInt& rhs) const { return ModInt(*this) ^= rhs; }
-    inline bool operator==(const ModInt& rhs) const { return value == rhs.value; }
-    inline bool operator!=(const ModInt& rhs) const { return value != rhs.value; }
-    inline bool operator<=(const ModInt& rhs) const { return value <= rhs.value; }
-    inline bool operator>=(const ModInt& rhs) const { return value >= rhs.value; }
-    inline bool operator<(const ModInt& rhs) const { return value < rhs.value; }
-    inline bool operator>(const ModInt& rhs) const { return value > rhs.value; }
-    inline bool operator!() const { return value; }
-    template<typename U> inline friend ModInt operator+(const U& lhs, const ModInt& rhs) { return ModInt(lhs) + rhs; }
-    template<typename U> inline friend ModInt operator-(const U& lhs, const ModInt& rhs) { return ModInt(lhs) - rhs; }
-    template<typename U> inline friend ModInt operator*(const U& lhs, const ModInt& rhs) { return ModInt(lhs) * rhs; }
-    template<typename U> inline friend ModInt operator/(const U& lhs, const ModInt& rhs) { return ModInt(lhs) / rhs; }
-    template<typename U> inline friend ModInt operator==(const U& lhs, const ModInt& rhs) { return ModInt(lhs) == rhs; }
-    template<typename U> inline friend ModInt operator!=(const U& lhs, const ModInt& rhs) { return ModInt(lhs) != rhs; }
-    template<typename U> inline friend ModInt operator<=(const U& lhs, const ModInt& rhs) { return ModInt(lhs) <= rhs; }
-    template<typename U> inline friend ModInt operator>=(const U& lhs, const ModInt& rhs) { return ModInt(lhs) >= rhs; }
-    template<typename U> inline friend ModInt operator<(const U& lhs, const ModInt& rhs) { return ModInt(lhs) < rhs; }
-    template<typename U> inline friend ModInt operator>(const U& lhs, const ModInt& rhs) { return ModInt(lhs) > rhs; }
-    template<typename IStream> inline friend IStream& operator>>(IStream& is, ModInt& lhs) {
-        is >> lhs.value;
-        lhs.value = lhs.normalize(lhs.value);
-        return is;
+
+    auto kth_ancestor = [&](int u, int dist) {
+        // move dist steps up from u
+        for (int k = 0; k < LOG && u; ++k) {
+            if (dist & (1 << k)) {
+                u = up[u][k];
+                if (!u) break;
+            }
+        }
+        return u;
+    };
+
+    // DP array
+    vector<long long> f(n + 1, NEG_INF);
+    f[1] = 0; // sequence starts at root with sum 0
+    long long ans = 0;
+
+    // We need an order where parent is processed before child: BFS order is fine
+    vector<int> order;
+    order.reserve(n);
+    {
+        queue<int> q;
+        q.push(1);
+        vector<int> vis(n + 1, 0);
+        vis[1] = 1;
+        while (!q.empty()) {
+            int u = q.front(); q.pop();
+            order.push_back(u);
+            for (int v : g[u]) {
+                if (!vis[v]) {
+                    vis[v] = 1;
+                    q.push(v);
+                }
+            }
+        }
     }
-    template<typename OStream> friend inline OStream& operator<<(OStream& os, const ModInt& rhs) { return os << rhs.value; }
-};
-constexpr auto MOD = (int)1e9 + 7;
-using Mint = ModInt<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
-// struct Dynamic_ModInt { using value_type = int; static value_type value; };
-// Dynamic_ModInt::value_type &Mod = Dynamic_ModInt::value;
-// using Mint = ModInt<Dynamic_ModInt>;
-struct Fact {
-    Fact(const int &n) : fact(n+1, Mint(1)), invfact(n+1), size(n) {
-        fact[0] = 1;
-        for (int i = 1; i <= n; i++) fact[i] = fact[i-1] * i;
-        invfact[n] = Mint(1) / fact[n];
-        for (int i = n; i >= 1; i--) invfact[i-1] = invfact[i] * i;
+
+    // Random generator
+    mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+    const int SAMPLES = 40; // can be tuned
+
+    for (int idx = 0; idx < (int)order.size(); ++idx) {
+        int u = order[idx];
+        if (u == 1) continue;
+
+        long long best = NEG_INF;
+
+        // candidate 1: root, if within L
+        if (depth[u] <= L) {
+            long long cand = f[1] + (long long)(a[1] % a[u]);
+            if (cand > best) best = cand;
+        }
+
+        // candidate 2: parent
+        int p = parent[u];
+        if (p != 0 && depth[u] - depth[p] >= 1 && depth[u] - depth[p] <= L && f[p] != NEG_INF) {
+            long long cand = f[p] + (long long)(a[p] % a[u]);
+            if (cand > best) best = cand;
+        }
+
+        // random ancestors within distance <= L
+        int maxd = min(L, depth[u]);
+        if (maxd > 1) {
+            uniform_int_distribution<int> dist(1, maxd);
+            for (int s = 0; s < SAMPLES; ++s) {
+                int d = dist(rng);
+                int v = kth_ancestor(u, d);
+                if (!v) continue;
+                if (f[v] == NEG_INF) continue;
+                long long cand = f[v] + (long long)(a[v] % a[u]);
+                if (cand > best) best = cand;
+            }
+        }
+
+        f[u] = best;
+        if (f[u] > ans) ans = f[u];
     }
-    Mint C(const int &n, const int &m) const {
-        if (n < 0 || m < 0 || n < m) return 0;
-        if (n > size) throw std::out_of_range("Expected n < " + std::to_string(size) + ", but found n = " + std::to_string(n) + ".");
-        return fact[n] * invfact[m] * invfact[n - m];
-    }
-    Mint A(const int &n, const int &m) const {
-        if (n < 0 || m < 0 || n < m) return 0;
-        if (n > size) throw std::out_of_range("Expected n < " + std::to_string(size) + ", but found n = " + std::to_string(n) + ".");
-        return fact[n] * invfact[n - m];
-    }
-private:
-    std::vector<Mint> fact, invfact;
-    const int size;
-};
+
+    cout << ans << "\n";
+    return 0;
+}
