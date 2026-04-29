@@ -80,16 +80,21 @@ struct Splay {
     inline void rotate(int u) {
         bool t = type(u); int f = tr[u].fa;
         bool tf = type(f); int anc = tr[f].fa;
-        tr[f].ch[t] = tr[u].ch[!t], tr[tr[u].ch[!t]].fa = f;    // u.fa ---[t]--> u.!t
-        tr[u].ch[!t] = f, tr[f].fa = u;                         // u ---[!t]--> u.fa
-        if (anc) tr[anc].ch[tf] = u, tr[u].fa = u;              // u.fa.fa ---[tf]--> u
+        int &chnt = tr[u].ch[!t];
+        tr[f].ch[t] = chnt; if (chnt) tr[chnt].fa = f; // u.fa ---[t]--> u.!t
+        chnt = f, tr[f].fa = u;                        // u ---[!t]--> u.fa
+        if (anc) tr[anc].ch[tf] = u, tr[u].fa = anc;   // u.fa.fa ---[tf]--> u
+        pushup(f);
+        pushup(u);
     }
     inline void splay(int u, int top = 0) {
         sync(u);
         while (tr[u].fa != top) {
             if (tr[tr[u].fa].fa != top)
                 rotate(type(u) == type(tr[u].fa) ? tr[u].fa : u);
-            rotate(u);
+
+
+                rotate(u);
         }
         if (!top) rt = u;
     }
@@ -157,8 +162,8 @@ int main(int argc, char** argv) {
         std::vector<int> rts; rts.reserve(v[i].size());
         for (auto j : v[i]) {
             // printf("([%d], %ld, sp%d)", j.first, j.second, j.first - lastPos);
-            f.splay(j.first);       // with a guard
-            f.operate(0, 1, f.rt, j.second);    // Right += j.second
+            f.splay(j.first); // with a guard
+            f.operate(0, 1, f.rt, j.second); // Right += j.second
             rts.push_back(j.first + 1);
             // f.debug(ret.first); printf("| ");
         }
@@ -167,9 +172,11 @@ int main(int argc, char** argv) {
             f.splay(rts[i-1]);
             f.splay(rts[i]+1, rts[i-1]);
             int u = f.lower_bound(f.tr[rts[i]+1].Lc, f.getval());
-            if (u) f.operate(1, 0, u, )
+            if (u) f.splay(u, rts[i]+1);
+            else u = rts[i]+1;
+            f.operate(1, 0, u, f.getval()); // Left += premn
         }
-        f.rt = rts.front();
+        
         // f.debug(f.rt); putchar('\n');
     }
     printf("%ld\n", -f.getval());
