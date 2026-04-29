@@ -4,6 +4,7 @@
 #include <numeric>
 #include <cstring>
 #include <cassert>
+#include <unordered_map>
 constexpr int _N = 20, N = 1<<_N;
 int n;
 int a[N], b[N];
@@ -55,6 +56,7 @@ inline void orfwt() {
                 c[i+j+k] += c[i+j];
 }
 int main() {
+    const int sz = sizeof(std::unordered_map<int,int>);
     scanf("%d", &n); n = 1 << n;
     // dfs(0);
     fwt();
