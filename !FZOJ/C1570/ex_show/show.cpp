@@ -5,7 +5,26 @@
 #include <random>
 #include <algorithm>
 #include <map>
-constexpr int N = 1000005;
+#include <stack>
+constexpr int N = 1005;
+struct FastI {
+    char buf[1 << 20], *p1, *p2;
+    FastI() : p1(), p2() {}
+    [[gnu::always_inline]] inline char gc() {
+        if (p1 == p2) p2 = (p1=buf) + fread(buf, 1, sizeof buf, stdin);
+        return *p1++;
+    }
+    template<typename T>
+    inline void operator()(T &x) {
+        char ch = gc();
+        bool flg{};
+        while ((ch < '0' || ch > '9') && (ch != '-')) ch = gc();
+        if (ch == '-') flg = true, ch = gc();
+        for (x = 0; ch >= '0' && ch <= '9'; ch = gc())
+            x = (x << 3) + (x << 1) + (ch ^ '0');
+        if (flg) x = -x;
+    }
+} in;
 struct Point {
     int x, y, v;
     inline bool operator<(const Point &o) const { return x + y < o.x + o.y; }
@@ -20,93 +39,87 @@ struct Point {
 换一种方式去理解这个 DP，考虑 j 是高度，那么有 F[i][j] = min(F[i-1][1]...F[i-1][j]) + Sum[i][j]，其中 Sum[i][j] 是 sum_{k=1}^j A[i][k]。
 那么我们只需要每个转移做一个 Prefix-Min，然后去加上前缀和即可。
 直接暴力 Prefix-Min，暴力加即可。
-可以使用线段树二分去模拟 Treap 的 lower_bound 分裂。
+可以使用线段树二分去模拟 Treap/Splay 的 lower_bound 分裂。
 */
 
-struct Treap {
+struct Splay {
+#define Lc ch[0]
+#define Rc ch[1]
+#define DOCHILD for (int t = 0; t ^ 2; t++)
     constexpr static int64_t COV_DFT = (1ll << 62) - 1;
-    std::mt19937 rng;
-    int totcnt;
-    Treap() : rng(std::random_device{}()), totcnt(), rt() {}
     struct Node {
-        int ls, rs, cnt;
-        int64_t val, lmx, rmn, add, cov;
-        uint64_t weight;
+        int fa, ch[2], cnt;
+        int64_t val, rg[2], add, cov;
         inline void pull(int64_t p, int64_t c) {
-            if (c != COV_DFT) val = lmx = rmn = cov = c, add = 0;
-            if (p) val += p, lmx += p, rmn += p, add += p;
+            if (c != COV_DFT) val = rg[0] = rg[1] = cov = c, add = 0;
+            if (p) val += p, rg[0] += p, rg[1] += p, add += p;
         }
-    } tr[N << 2];
-    int rt;
+    } tr[N];
+    int totcnt, rt;
+    Splay() : totcnt(), rt() {}
     inline void pushup(int u) {
-        tr[u].cnt = tr[tr[u].ls].cnt + 1 + tr[tr[u].rs].cnt;
-        tr[u].lmx = tr[u].ls ? tr[tr[u].ls].lmx : tr[u].val;
-        tr[u].rmn = tr[u].rs ? tr[tr[u].rs].rmn : tr[u].val;
+        DOCHILD { tr[u].rg[t] = tr[u].ch[t] ? tr[tr[u].ch[t]].rg[t] : tr[u].val; }
+        tr[u].cnt = tr[tr[u].Lc].cnt + 1 + tr[tr[u].Rc].cnt;
     }
     inline void pushdown(int u) {
-        if (tr[u].add == 0 && tr[u].cov == COV_DFT) return;
-        if (tr[u].ls) tr[tr[u].ls].pull(tr[u].add, tr[u].cov);
-        if (tr[u].rs) tr[tr[u].rs].pull(tr[u].add, tr[u].cov);
+        if (!tr[u].add && tr[u].cov == COV_DFT) return;
+        DOCHILD { if (tr[u].ch[t]) tr[tr[u].ch[t]].pull(tr[u].add, tr[u].cov); }
         tr[u].add = 0, tr[u].cov = COV_DFT;
     }
-    inline int alloc() {
-        tr[++totcnt] = { 0,0, 1, 0ll,0ll,0ll,0ll, COV_DFT, rng() };
+    inline int alloc(int fa, int ls=0, int rs=0) {
+        tr[++totcnt] = {fa, {ls, rs}, 0, 0ll, {0ll,0ll}, 0ll,COV_DFT};
+        pushup(totcnt);
         return totcnt;
     }
-    inline void push_back() {
-        rt = merge(rt, alloc());
+    inline void sync(int u) {
+        std::stack<int> sta;
+        for (; u; u = tr[u].fa) sta.push(u);
+        for (; !sta.empty(); sta.pop()) pushdown(sta.top());
     }
-    int merge(int u, int v) {
-        if (!u || !v) return u | v;
-        if (tr[u].weight < tr[v].weight)
-            return pushdown(u), tr[u].rs = merge(tr[u].rs, v), pushup(u), u;
-        return pushdown(v), tr[v].ls = merge(u, tr[v].ls), pushup(v), v;
+    inline bool type(int u) { return tr[tr[u].fa].Rc == u; }
+    inline void rotate(int u) {
+        bool t = type(u); int f = tr[u].fa;
+        bool tf = type(f); int anc = tr[f].fa;
+        tr[f].ch[t] = tr[u].ch[!t], tr[tr[u].ch[!t]].fa = f;    // u.fa ---[t]--> u.!t
+        tr[u].ch[!t] = f, tr[f].fa = u;                         // u ---[!t]--> u.fa
+        if (anc) tr[anc].ch[tf] = u, tr[u].fa = u;              // u.fa.fa ---[tf]--> u
     }
-    std::pair<int,int> lower_bound(int u, int64_t w) { // Find the first position to insert w, and split into 2 parts
-        if (tr[u].lmx <= w) return {0, u};
-        if (tr[u].rmn > w) return {u, 0};
-        pushdown(u);
-        if (w > tr[u].val) {
-            auto ret = lower_bound(tr[u].ls, w);
-            tr[u].ls = ret.second;
-            pushup(u);
-            return {ret.first, u};
+    inline void splay(int u, int top = 0) {
+        sync(u);
+        while (tr[u].fa != top) {
+            if (tr[tr[u].fa].fa != top)
+                rotate(type(u) == type(tr[u].fa) ? tr[u].fa : u);
+            rotate(u);
         }
-        auto ret = lower_bound(tr[u].rs, w);
-        tr[u].rs = ret.first;
-        pushup(u);
-        return {u, ret.second};
+        if (!top) rt = u;
     }
-    std::pair<int,int> split(int u, int w) { // Split the tree to {lsize=w, r}
-        if (w == 0) return {0, u};
-        if (tr[u].cnt == w) return {u, 0};
-        // if (tr[u].cnt < w) assert(0);
-        pushdown(u);
-        if (tr[tr[u].ls].cnt >= w) {
-            auto ret = split(tr[u].ls, w);
-            tr[u].ls = ret.second;
-            pushup(u);
-            return {ret.first, u};
+    inline void build(int num) {
+        rt = alloc(0);
+        for (; num--; rt = tr[rt].Rc) tr[rt].Rc = alloc(rt);
+        splay(rt);
+    }
+    inline int lower_bound(int u, int64_t w) {
+        sync(u);
+        while (u) {
+            pushdown(u);
+            if (tr[u].Lc && tr[tr[u].Lc].rg[1] <= w) u = tr[u].Lc;
+            if (tr[u].val <= w) return u;
+            u = tr[u].Lc;
         }
-        auto ret = split(tr[u].rs, w - tr[tr[u].ls].cnt - 1);
-        tr[u].rs = ret.first;
-        pushup(u);
-        return {u, ret.second};
+        return 0; // reach end
     }
-    inline int64_t inquireLast(int u) { return tr[u].rmn; }
-    void debug(int u) {
-        if (!u) return;
-        pushdown(u);
-        assert(!tr[u].ls || tr[u].weight < tr[tr[u].ls].weight);
-        assert(!tr[u].rs || tr[u].weight < tr[tr[u].rs].weight);
-        debug(tr[u].ls);
-        printf(" %ld[%d] ", tr[u].val, tr[u].cnt);
-        debug(tr[u].rs);
+    inline void operate(bool type, bool child, int u, int64_t val) { // Operate u->ch, 0:add, 1:cov
+        int64_t op[2]{0, COV_DFT};
+        op[type] = val;
+        if (tr[u].ch[child]) tr[tr[u].ch[child]].pull(op[0], op[1]);
     }
-} f; // 当前这一列的 dp 数组
+    inline int64_t getval() { return tr[rt].val; }
+} f;
+
 std::map<int,int64_t> v[N];
 namespace BF {
-    int64_t f[25][25], s[25][25];
+    constexpr int N = 5;
+    int64_t f[N][N], s[N][N];
     inline int64_t work(int n, int m) {
         for (int i = 1; i <= n; i++) {
             int64_t premn = 0;
@@ -115,59 +128,50 @@ namespace BF {
                 f[i][j] = (premn = std::min(premn, f[i-1][j])) + s[i][j];
             }
         }
-        for (int i = 1; i <= n; i++)
+        /* for (int i = 1; i <= n; i++)
             for (int j = 1; j <= m; j++)
                 printf("%ld%c", f[i][j], " \n"[j==m]);
         for (int i = 1; i <= n; i++)
             for (int j = 1; j <= m; j++)
-                printf("%ld%c", s[i][j], " \n"[j==m]);
+                printf("%ld%c", s[i][j], " \n"[j==m]); */
         return f[n][m];
     }
 }
 int main(int argc, char** argv) {
     int n, m, k;
-    scanf("%d%d%d", &n, &m, &k);
+    in(n), in(m), in(k);
     int64_t sum = 0;
     for (int i = 1; i <= k; i++) {
         int a, b, c, d, p;
-        scanf("%d%d%d%d%d", &a, &b, &c, &d, &p);
+        in(a), in(b), in(c), in(d), in(p);
         v[a][d] += p;
         v[b][c] -= p;
         // printf("(%d,%d)+=%d\n(%d,%d)-=%d\n", a,d,p,b,c,p);
         sum += p;
     }
-    if (argc > 1 && !strcmp(argv[1], "dbg")) return printf("%ld\n", - BF::work(n, m)), 0;
-    for (int i = 0; i <= m; i++) f.push_back();
+    if (false && argc > 1 && !strcmp(argv[1], "dbg")) return (n<=2000&&printf("%ld\n", - BF::work(n, m))), 0;
+    f.build(m + 1);
     // f.debug(f.rt); putchar('\n');
     int64_t ans;
     for (int i = 1; i <= n; i++) {
-        std::vector<int> rts; rts.reserve(1 + v[i].size());
-        rts.push_back(f.rt);
-        int lastPos = 0;
+        std::vector<int> rts; rts.reserve(v[i].size());
         for (auto j : v[i]) {
             // printf("([%d], %ld, sp%d)", j.first, j.second, j.first - lastPos);
-            auto ret = f.split(rts.back(), j.first - lastPos);
-            lastPos = j.first;
-            rts.pop_back();
-            rts.push_back(ret.first);
-            rts.push_back(ret.second);
-            f.tr[rts.back()].pull(j.second, Treap::COV_DFT);
+            f.splay(j.first);       // with a guard
+            f.operate(0, 1, f.rt, j.second);    // Right += j.second
+            rts.push_back(j.first + 1);
             // f.debug(ret.first); printf("| ");
         }
         // f.debug(rts.back()); putchar('\n');
-        if (i == n) ans = f.inquireLast(rts.back());
-        std::reverse(rts.begin(), rts.end());
-        while (rts.size() > 1) {
-            int u1 = rts.back(); rts.pop_back();
-            int u2 = rts.back(); rts.pop_back();
-            int64_t last = f.inquireLast(u1);
-            auto ret = f.lower_bound(u2, last);
-            f.tr[ret.first].pull(0, last);
-            rts.push_back(f.merge(u1, f.merge(ret.first, ret.second)));
+        for (int i = 1; i < (int)v[i].size(); i++) {
+            f.splay(rts[i-1]);
+            f.splay(rts[i]+1, rts[i-1]);
+            int u = f.lower_bound(f.tr[rts[i]+1].Lc, f.getval());
+            if (u) f.operate(1, 0, u, )
         }
         f.rt = rts.front();
         // f.debug(f.rt); putchar('\n');
     }
-    printf("%ld\n", -ans);
+    printf("%ld\n", -f.getval());
     return 0;
 }
