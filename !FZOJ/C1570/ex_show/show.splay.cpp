@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <map>
 #include <stack>
-constexpr int N = 1005;
+constexpr int N = 1000005;
 struct FastI {
     char buf[1 << 20], *p1, *p2;
     FastI() : p1(), p2() {}
@@ -83,7 +83,7 @@ struct Splay {
         int &chnt = tr[u].ch[!t];
         tr[f].ch[t] = chnt; if (chnt) tr[chnt].fa = f; // u.fa ---[t]--> u.!t
         chnt = f, tr[f].fa = u;                        // u ---[!t]--> u.fa
-        if (anc) tr[anc].ch[tf] = u, tr[u].fa = anc;   // u.fa.fa ---[tf]--> u
+        tr[u].fa = anc; if (anc) tr[anc].ch[tf] = u;   // u.fa.fa ---[tf]--> u
         pushup(f);
         pushup(u);
     }
@@ -92,15 +92,13 @@ struct Splay {
         while (tr[u].fa != top) {
             if (tr[tr[u].fa].fa != top)
                 rotate(type(u) == type(tr[u].fa) ? tr[u].fa : u);
-
-
-                rotate(u);
+            rotate(u);
         }
         if (!top) rt = u;
     }
     inline void build(int num) {
         rt = alloc(0);
-        for (; num--; rt = tr[rt].Rc) tr[rt].Rc = alloc(rt);
+        for (; --num; rt = tr[rt].Rc) tr[rt].Rc = alloc(rt);
         splay(rt);
     }
     inline int lower_bound(int u, int64_t w) {
@@ -108,8 +106,8 @@ struct Splay {
         while (u) {
             pushdown(u);
             if (tr[u].Lc && tr[tr[u].Lc].rg[1] <= w) u = tr[u].Lc;
-            if (tr[u].val <= w) return u;
-            u = tr[u].Lc;
+            else if (tr[u].val <= w) return u;
+            else u = tr[u].Rc;
         }
         return 0; // reach end
     }
@@ -117,8 +115,16 @@ struct Splay {
         int64_t op[2]{0, COV_DFT};
         op[type] = val;
         if (tr[u].ch[child]) tr[tr[u].ch[child]].pull(op[0], op[1]);
+        splay(tr[u].ch[child]);
     }
     inline int64_t getval() { return tr[rt].val; }
+    void debug(int u) {
+        if (!u) return;
+        pushdown(u);
+        debug(tr[u].Lc);
+        printf("%ld ", tr[u].val);
+        debug(tr[u].Rc);
+    }
 } f;
 
 std::map<int,int64_t> v[N];
@@ -145,40 +151,47 @@ namespace BF {
 int main(int argc, char** argv) {
     int n, m, k;
     in(n), in(m), in(k);
-    int64_t sum = 0;
     for (int i = 1; i <= k; i++) {
         int a, b, c, d, p;
         in(a), in(b), in(c), in(d), in(p);
         v[a][d] += p;
         v[b][c] -= p;
         // printf("(%d,%d)+=%d\n(%d,%d)-=%d\n", a,d,p,b,c,p);
-        sum += p;
     }
     if (false && argc > 1 && !strcmp(argv[1], "dbg")) return (n<=2000&&printf("%ld\n", - BF::work(n, m))), 0;
     f.build(m + 1);
     // f.debug(f.rt); putchar('\n');
-    int64_t ans;
     for (int i = 1; i <= n; i++) {
+        if (v[i].empty()) continue;
         std::vector<int> rts; rts.reserve(v[i].size());
         for (auto j : v[i]) {
-            // printf("([%d], %ld, sp%d)", j.first, j.second, j.first - lastPos);
+            // printf("([%d], %ld)", j.first, j.second);
             f.splay(j.first); // with a guard
             f.operate(0, 1, f.rt, j.second); // Right += j.second
-            rts.push_back(j.first + 1);
-            // f.debug(ret.first); printf("| ");
+            rts.push_back(j.first);
+            // f.debug(f.tr[f.rt].Rc); printf("| ");
         }
-        // f.debug(rts.back()); putchar('\n');
-        for (int i = 1; i < (int)v[i].size(); i++) {
-            f.splay(rts[i-1]);
-            f.splay(rts[i]+1, rts[i-1]);
-            int u = f.lower_bound(f.tr[rts[i]+1].Lc, f.getval());
-            if (u) f.splay(u, rts[i]+1);
-            else u = rts[i]+1;
-            f.operate(1, 0, u, f.getval()); // Left += premn
+        // f.debug(f.rt); putchar('\n');
+        for (int j = 1; j < (int)v[i].size(); j++) {
+            f.splay(rts[j-1]);
+            f.splay(rts[j]+1, rts[j-1]);
+            int u = f.lower_bound(f.tr[rts[j]+1].Lc, f.getval());
+            if (u) f.splay(u, rts[j]+1);
+            else u = rts[j]+1;
+            // f.debug(u);
+            // printf("{%d[%d]%d} ", rts[j-1], u, rts[j]+1);
+            f.operate(1, 0, u, f.getval()); // Left = premn
+            // printf("(==>%ld)", f.getval()); f.debug(f.tr[rts[j]+1].Lc); printf("| ");
         }
-        
+        f.splay(rts.back());
+        int u = f.lower_bound(f.tr[f.rt].Rc, f.getval());
+        // printf("{%d} ", u);
+        if (u) f.splay(u, f.rt), f.operate(1, 0, u, f.getval()); // Left = premn
+        else f.operate(1, 1, f.rt, f.getval()); // Right = premn
+        // printf("(==>%ld)", f.getval()); f.debug(f.tr[f.rt].Rc); putchar('\n');
         // f.debug(f.rt); putchar('\n');
     }
+    f.splay(m+1);
     printf("%ld\n", -f.getval());
     return 0;
 }
