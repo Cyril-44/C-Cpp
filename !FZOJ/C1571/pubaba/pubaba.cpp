@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <algorithm>
-#include <numeric>
+#include <cstdint>
 struct FastI {
     char buf[1 << 20], *p1, *p2;
     FastI() : p1(), p2() {}
@@ -16,37 +16,32 @@ struct FastI {
             x = (x << 3) + (x << 1) + (ch ^ '0');
     }
 } in;
-constexpr int N = 50005;
-std::pair<int,int> a[N];
-#define L first
-#define R second
+constexpr int N = 5000005;
 int64_t lsum[N], rsum[N];
+int lcnt[N], rcnt[N];
 int main() {
     int n, m;
     int64_t S;
     in(n), in(m), in(S);
-    for (int i = 1; i <= m; i++) {
-        in(a[i].L), in(a[i].R);
-        if (a[i].L > n) return puts("-1"), 0;
-        lsum[i] = lsum[i-1] + a[i].L;
-        rsum[i] = rsum[i-1] + a[i].R;
+    for (int i = 1, l, r; i <= m; i++) {
+        in(l), in(r);
+        lsum[l] += l, rsum[r] += r;
+        ++lcnt[l], ++rcnt[r];
     }
-    std::sort(a+1, a+1 + m);
-    if (! ( std::accumulate(a+1, a+1+m, 0ll, [](const int64_t acc, const std::pair<int,int> p){ return acc + p.L; }) <= S && 
-            std::accumulate(a+1, a+1+m, 0ll, [](const int64_t acc, const std::pair<int,int> p){ return acc + p.R; }) >= S ))
-        return puts("-1"), 0;
-    int64_t ans = 0;
-    for (int i = 1; i <= n; i++) {
-        int64_t sum = 0;
-        for (int j = 1; j <= m; j++)
-            if (a[j].L > (n - i + 1)) sum += a[j].L - (n - i + 1);
-        int tmp = n - i + 1, mx = m;
+    for (int i = 1; i <= n; i++) rsum[i] += rsum[i-1], rcnt[i] += rcnt[i-1];
+    for (int i = n; i >= 1; i--) lsum[i] += lsum[i+1], lcnt[i] += lcnt[i+1];
+    if (lsum[1] > S || rsum[n] < S) return puts("-1"), 0;
+    uint64_t ans = 0;
+    for (int i = n; i >= 1; i--) {
+        /* int64_t sum1 = 0, sum2 = 0;
         for (int j = 1; j <= m; j++) {
-            if (tmp < a[j].L) break;
-            --mx, tmp -= a[j].L;
-        }
-        ans ^= std::min((int64_t)mx, (S - sum) / (n - i + 1)) * i;
-        printf("%ld%c", std::min((int64_t)mx, (S - sum) / (n - i + 1)), " \n"[i==n]);
+            sum1 += std::max(0, a[j].L - (n-i+1));
+            sum2 += std::max(0, (n-i+1) - a[j].R);
+        } */
+        uint64_t sum1 = lsum[i] - 1l*i * lcnt[i],
+                 sum2 =-rsum[i] + 1l*i * rcnt[i];
+        ans ^= std::min((S - sum1) / i, m - (sum2 + i - 1) / i) * (n - i + 1);
+        // printf("%ld %ld\n", (S-sum1)/(n-i+1), m - (sum2 + n-i+1 - 1)/(n-i+1), " \n"[i==n]);
     }
     printf("%ld\n", ans);
     return 0;

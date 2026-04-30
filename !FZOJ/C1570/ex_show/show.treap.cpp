@@ -82,15 +82,15 @@ struct Treap {
         if (tr[u].rmn > w) return {u, 0};
         pushdown(u);
         if (w > tr[u].val) {
-            auto [ll, lr] = std::move(lower_bound(tr[u].ls, w));
-            tr[u].ls = lr;
+            auto ret = std::move(lower_bound(tr[u].ls, w));
+            tr[u].ls = ret.second;
             pushup(u);
-            return {ll, u};
+            return {ret.first, u};
         }
-        auto [rl, rr] = std::move(lower_bound(tr[u].rs, w));
-        tr[u].rs = rl;
+        auto ret = std::move(lower_bound(tr[u].rs, w));
+        tr[u].rs = ret.first;
         pushup(u);
-        return {u, rr};
+        return {u, ret.second};
     }
     std::pair<int,int> split(int u, int w) { // Split the tree to {lsize=w, r}
         if (w == 0) return {0, u};
@@ -98,15 +98,15 @@ struct Treap {
         // if (tr[u].cnt < w) assert(0);
         pushdown(u);
         if (tr[tr[u].ls].cnt >= w) {
-            auto [ll, lr] = std::move(split(tr[u].ls, w));
-            tr[u].ls = lr;
+            auto ret = std::move(split(tr[u].ls, w));
+            tr[u].ls = ret.second;
             pushup(u);
-            return {ll, u};
+            return {ret.first, u};
         }
-        auto [rl, rr] = std::move(split(tr[u].rs, w - tr[tr[u].ls].cnt - 1));
-        tr[u].rs = rl;
+        auto ret = std::move(split(tr[u].rs, w - tr[tr[u].ls].cnt - 1));
+        tr[u].rs = ret.first;
         pushup(u);
-        return {u, rr};
+        return {u, ret.second};
     }
     inline int64_t inquireLast(int u) { return tr[u].rmn; }
     void debug(int u) {
