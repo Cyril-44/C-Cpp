@@ -8,4 +8,3 @@ int main() {
     n = strlen(s);
     return 0;
 }
-110710170601
