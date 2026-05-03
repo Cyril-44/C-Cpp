@@ -4,15 +4,15 @@
 struct FastI {
     char buf[1 << 20], *p1, *p2;
     FastI() : p1(), p2() {}
-    [[gnu::always_inline]] inline char gc() {
+    [[gnu::always_inline]] inline char get() {
         if (p1 == p2) p2 = (p1=buf) + fread(buf, 1, sizeof buf, stdin);
         return *p1++;
     }
     template<typename T>
     inline void operator()(T &x) {
-        char ch = gc();
-        while (ch < '0' || ch > '9') ch = gc();
-        for (x = 0; ch >= '0' && ch <= '9'; ch = gc())
+        char ch = get();
+        while (ch < '0' || ch > '9') ch = get();
+        for (x = 0; ch >= '0' && ch <= '9'; ch = get())
             x = (x << 3) + (x << 1) + (ch ^ '0');
     }
 } in;
