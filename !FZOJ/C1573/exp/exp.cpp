@@ -43,6 +43,8 @@ g[l][r] += C(z[l,r]-1, z[l,p-1]) * g[l][p-1] * g[p+1][r] * (p - l + 1) ,
            {左右两边的操作自由组合}                            {选择的k在[l,p]中才有贡献}
 f[l][r] += C(z[l,r]-1, z[l,p-1]) * g[l][p-1] * g[p+1][r] * (p-l)*(p-l+1)/2 + f[l][p-1] * g[p+1][r] * (p - l + 1) + f[p+1][r] * g[l][p-1] * (p - l + 1)
            {<-----          所有的方案数            --->}    {贡献是0+1+...+p-l} {<-----               前面的贡献乘上方案数                         ------>}
+
+因为最终 len=n 会算重，所以最后一组单独计算，把最后一个 . 填成 X
 */
 long double C[N][N], f[N][N], g[N][N];
 int dotsum[N];
@@ -71,9 +73,9 @@ int main() {
             // printf("%*s\n", n*2, s+1);
             for (int i = 1; i <= 2*n; i++)
                 dotsum[i] = dotsum[i-1] + (s[i] == '.');
-            memset(f, 0, sizeof f);
+            memset(f, 0, sizeof f);memset(g, 0, sizeof g);
             for (int i = 1; i <= 2*n+1; i++)
-                g[i][i-1] = 1; // 初始方案
+                g[i][i-1] = 1; // 初始方案 
             for (int len = 1; len <= n; len++) {
                 for (int i = 1, j = len; j <= 2*n; i++, j++) {
                     f[i][j] = 0, g[i][j] = 0;
@@ -81,17 +83,17 @@ int main() {
                     if (zij_1 < 0) { g[i][j] = 1; continue; }
                     for (int k = i; k <= j; k++) if (s[k] == '.') {
                         f[i][j] += C[zij_1][zlp1] * (
-                            g[i][k-1] * g[k+1][j] * ((k-i)*(k-i-1)/2) +
+                            g[i][k-1] * g[k+1][j] * ((k-i)*(k-i+1)/2) +
                             (k-i+1) * (f[i][k-1] * g[k+1][j] + g[i][k-1] * f[k+1][j])
                         );
                         g[i][j] += C[zij_1][zlp1] * g[i][k-1] * g[k+1][j] * (k-i+1);
-                        printf("f,g[%d][%d] trans from %d, += C(%d,%d) * (%Lg*%Lg*%d + %d*(%Lg*%Lg+%Lg*%Lg)) = %Lg, %Lg\n", 
+                        /* fprintf(stderr, "f,g[%d][%d] trans from %d, += C(%d,%d) * (%Lg*%Lg*%d + %d*(%Lg*%Lg+%Lg*%Lg)) = %Lg, %Lg\n", 
                             i, j, k, zij_1, zlp1, 
                             g[i][k-1], g[k+1][j], (k-i)*(k-i+1)/2,
                             (k-i+1), f[i][k-1], g[k+1][j], g[i][k-1], f[k+1][j], C[zij_1][zlp1] * (
                             g[i][k-1] * g[k+1][j] * ((k-i)*(k-i+1)/2) +
                             (k-i+1) * (f[i][k-1] * g[k+1][j] + g[i][k-1] * f[k+1][j])
-                        ), C[zij_1][zlp1] * g[i][k-1] * g[k+1][j] * (k-i+1));
+                        ), C[zij_1][zlp1] * g[i][k-1] * g[k+1][j] * (k-i+1)); */
                         ++zlp1;
                     }
                     // printf(" (%Lg,%Lg)", f[i][j], g[i][j]);
@@ -100,7 +102,7 @@ int main() {
             }
             long double ans = 0.;
             for (int i = 1; i <= n; i++) {
-                if (s[i] == '.') ans += f[i][i+n-2] * n + g[i][i+n-2] * n*(n-1)/2;
+                if (s[i] == '.') ans += f[i+1][i+n-1] * n + g[i+1][i+n-1] * (n*(n-1)/2);
                 // ans += f[i][i+n-1];
             }
             for (int cnt = dotsum[n]; cnt--; ) ans /= n;
