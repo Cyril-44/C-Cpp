@@ -75,7 +75,10 @@ int main() {
                 rx = std::max(a[pos].X, rx);
                 if (rx - lx > 1) break;
             }
-            int64_t mxIdx1[2]{a[pos].X, 0}, mxIdx2[2]{a[pos].X, 0};
+            for (int i = 0; i < pos; i++)
+                if (a[i+1].X != a[i].X && a[i+1].Y - 2*a[i].Y < abs(a[i+1].X - a[i].X))
+                    goto br;
+            /* int64_t mxIdx1[2]{a[pos].X, 0}, mxIdx2[2]{a[pos].X, 0};
             int64_t mxVal1[2]{a[pos].X - a[pos].Y}, mxVal2[2]{a[pos].X + a[pos].Y};
             for (int i = pos - 1; i > 0; i--) { // Any j (>i) satisfies |xj-xi| > yj-2yi ==> answer=n-1
                 int64_t mx1 = (mxIdx1[0] == a[i].X) ? (mxIdx1[1] ? mxVal1[1] : -(1ll<<60)) : mxVal1[0],
@@ -96,7 +99,7 @@ int main() {
                 } else if (cur2 > mxVal2[0] && a[i].X != mxIdx2[0])
                     mxIdx2[1] = a[i].X, mxVal2[1] = cur2;
                 assert(mxIdx1[0] != mxIdx1[1]), assert(mxIdx2[0] != mxIdx2[1]);
-            }
+            } */
             // 捕捉了最后一个极差 > 1 的点的时候，前面一定是最多走了 a[pos].Y 步
             for (int i = pos + 1; i <= n; i++)
                 if (a[i].X != a[pos].X && a[i].Y - 2*a[pos].Y < abs(a[i].X - a[pos].X))
