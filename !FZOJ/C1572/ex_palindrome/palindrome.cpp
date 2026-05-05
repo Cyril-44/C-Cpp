@@ -15,7 +15,7 @@ struct Mint {
     inline Mint operator*(const Mint o) const { return Mint(1ull * val * o.val % MOD); }
     private: int val;
 } g[2][H][H][H];
-
+// cd 桌面 
 int main() {
     int n;
     scanf("%d", &n);
@@ -23,9 +23,7 @@ int main() {
         scanf("%d", &bi), ++cnt[bi];
     for (int i = 1; i <= H; i++) ++h[cnt[i]];
     for (int k = H; k > 2; k--) {
-        for (int i = 0; i <= H; ) {
-            g[i][1];
-        }
+        
     }
 
     Mint ans;

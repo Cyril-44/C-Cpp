@@ -14,6 +14,8 @@
 				// "-Wfloat-conversion",
 				"-Wshadow",
 				// "-Wsign-conversion",
+				"-Wno-unused-result",
+				"-Wno-parentheses",
 				"-D_GLIBCXX_DEBUG",
 				"-DDEBUG",
 				"-fsanitize=address,undefined",
@@ -38,6 +40,8 @@
 			"args": [
 				"-std=c++14",
 				"-Wall",
+				"-Wno-unused-result",
+				"-Wno-parentheses",
 				"-O2",
 				"${file}",
 				"-o",

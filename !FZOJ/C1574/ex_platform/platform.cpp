@@ -106,13 +106,17 @@ int main() {
     memcpy(a3+1, a+1, sizeof(*a) * n);
     memcpy(a4+1, a+1, sizeof(*a) * n);
     std::sort(a+1, a+1+n, [](const PNode &x, const PNode &y) { return x.R < y.R || x.R == y.R && x.L > y.L; });
-    std::sort(a2+1, a2+1+n, [](const PNode &x, const PNode &y) { return x.L < y.L || x.L == y.L && x.R > y.R; });
+    std::sort(a2+1, a2+1+n, [](const PNode &x, const PNode &y) { return x.R < y.R || x.R == y.R && x.L > y.L; });
     std::sort(a3+1, a3+1+n, [](const PNode &x, const PNode &y) { return x.L > y.L || x.L == y.L && x.R < y.R; });
     std::sort(a4+1, a4+1+n, [](const PNode &x, const PNode &y) { return x.R > y.R || x.R == y.R && x.L < y.L; });
-    dbgf("===== a1 =====");
+    dbgf("===== a1 =====\n");
     for (int i = 1; i <= n; i++) dbgf("%d %d\n", a[i].L, a[i].R);
-    dbgf("===== a2 =====");
+    dbgf("===== a2 =====\n");
     for (int i = 1; i <= n; i++) dbgf("%d %d\n", a2[i].L, a2[i].R);
+    dbgf("===== a3 =====\n");
+    for (int i = 1; i <= n; i++) dbgf("%d %d\n", a3[i].L, a3[i].R);
+    dbgf("===== a4 =====\n");
+    for (int i = 1; i <= n; i++) dbgf("%d %d\n", a4[i].L, a4[i].R);
     UnionFind dsu(n);
     int64_t ans = 0;
     while (dsu.size(1) != n) {
@@ -132,8 +136,8 @@ int main() {
             for (int i = 1; i <= n; i++) {
                 int id = dsu.find(a2[i].id);
                 auto res = f.sum(a2[i].Lid + 1);
-                if (res[0].id && (res[0].v -= a2[i].L) >= a2[i].R - a2[i].L) res[0].id = 0;
-                if (res[1].id && (res[1].v -= a2[i].L) >= a2[i].R - a2[i].L) res[1].id = 0;
+                if (res[0].id) res[0].v -= a2[i].L;
+                if (res[1].id) res[1].v -= a2[i].L;
                 update(mn[id], res, id);
                 f.upd(a2[i].Rid, a2[i].R, id);
             }
@@ -143,8 +147,8 @@ int main() {
             for (int i = 1; i <= n; i++) {
                 int id = dsu.find(a3[i].id);
                 auto res = f.sum(a3[i].Rid - 1);
-                if (res[0].id && (res[0].v = a3[i].R - res[0].v) >= a3[i].R - a3[i].L) res[0].id = 0;
-                if (res[1].id && (res[1].v = a3[i].R - res[1].v) >= a3[i].R - a3[i].L) res[1].id = 0;
+                if (res[0].id) res[0].v = a3[i].R - res[0].v;
+                if (res[1].id) res[1].v = a3[i].R - res[1].v;
                 update(mn[id], res, id);
                 f.upd(a3[i].Lid, a3[i].L, id);
             }
