@@ -84,7 +84,7 @@ int main() {
             long long z;
             int id1;
             if (x.id1 == id)
-                z = x.mx2, id1 = x.id2;
+                z = x.mx2, id1 = x.id2; 
             else
                 z = x.mx1, id1 = x.id1;
             z = -z;
