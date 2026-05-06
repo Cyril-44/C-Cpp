@@ -28,6 +28,7 @@ inline int calc(int n) {
 }
 int main() {
     int n;
+    uint a;
     scanf("%d", &n);
     base[0] = 1;
     for (int i = 1; i <= n; i++) base[i] = base[i-1] * MOD;
