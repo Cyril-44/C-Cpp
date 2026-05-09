@@ -1,0 +1,15 @@
+#!/bin/bash
+
+problem="P12543"
+grader_name="P12543_grader"
+
+if [[ "$1" == *"c"* ]]; then
+    g++ -std=gnu++17 -O2 -Wall -pipe -static -o "${problem}" "${grader_name}.cpp" "${problem}.cpp"
+fi
+
+memory=2097152  # 2GB
+stack_size=2097152  # 2GB
+
+ulimit -v "${memory}"
+ulimit -s "${stack_size}"
+"./${problem}"
