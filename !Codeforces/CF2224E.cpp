@@ -21,7 +21,7 @@ template<typename b>concept IntegerWithI128=std::integral<b>||std::same_as<b,__i
 FastOS ferr(stderr);
 constexpr int N = 500005; // TO BE MODIFIED!!!
 vector<int> g[N];
-int fa[N], sf[N], d[N], ord[N];
+int fa[N], sf[N], l[N], d[N], ord[N];
 int64_t sum[N];
 using i128 = __int128;
 constexpr i128 TOP = 1e18;
@@ -33,7 +33,7 @@ i128 exgcd(i128 a, i128 b, i128& x, i128& y) {
 }
 void dfs(int u, int& real, i128 m, i128 lcm) {
     if (!d[u]) { real = u; return; }
-    if (~lcm || lcm > TOP) { lcm = -1; goto bf; }
+    if (lcm == -1 || lcm > TOP) { lcm = -1; goto bf; }
     if (i128 gcd = __gcd(lcm, (i128)d[u]), nlcm = lcm / gcd * d[u]; nlcm != lcm) {
         real = u;
         for (int& v : g[u]) {
@@ -41,14 +41,16 @@ void dfs(int u, int& real, i128 m, i128 lcm) {
             // x \equiv sf[v] (mod d[u])
             if ((m - sf[v]) % gcd) continue;
             i128 x, y;
-            exgcd(m, sf[v], x, y);
-            i128 nm = ((sf[v] * y + d[u]) % nlcm + nlcm) * ((m - sf[v]) / gcd) % nlcm;
-            ferr << u << "-->" << v << ": " << nm << ' ' << nlcm << '\n';
+            exgcd(lcm, d[u], x, y);
+            i128 nm = ((d[u] * (y * ((m - sf[v]) / gcd)) + sf[v]) % nlcm + nlcm) % nlcm;
+            // ferr << lcm << ' ' << d[u] << ' ' << m << ' ' << sf[v] << ' ' << x << ' ' << y << ' ';
+            // ferr << u << "-->" << v << ": " << nm << ' ' << nlcm << '\n';
             dfs(v, v, nm, nlcm);
         }
         return;
     }
-bf: dfs(g[u][(m + sum[u]) % d[u]], real, m, lcm);
+bf: // ferr << "Fallback Bruteforce at " << u << " with m=" << m << ", lcm=" << lcm << '\n';
+    dfs(g[u][(m + sum[u]) % d[u]], real, m, lcm);
 }
 inline void solveSingleTestCase() {
     int n, q;
@@ -64,13 +66,14 @@ inline void solveSingleTestCase() {
     For (i, 2, n) {
         fin >> sum[i];
         sum[i] += sum[fa[i]];
-        sf[i] = (sum[i] - ord[i] + d[fa[i]]) % d[fa[i]];
+        sf[i] = ((ord[i] - sum[fa[i]]) % d[fa[i]] + d[fa[i]]) % d[fa[i]];
     }
-    { int fku; dfs(1, fku, 1, 1); }
+    // For (i, 1, n) ferr << ord[i] << ' ' << sum[i] << ' ' << sf[i] << '\n';
+    int fku; dfs(1, fku, 1, 1);
     Rep (q) {
         int64_t m;
         fin >> m;
-        int u = 1;
+        int u = fku;
         // ferr << "Inquire " << m << ": ";
         while (d[u]) {
             // ferr << '[' << u << ']' << ((m + sum[u]) % d[u]) << "th ";
