@@ -1,138 +1,150 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
+#include <string>
+#include <concepts>
+#include <type_traits>
 
-const long long a = (long long)-4e18;
-
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    int c;
-    int d;
-    cin >> c >> d;
-
-    vector<int> e(c + 1);
-    for (int f = 1; f <= c; ++f) cin >> e[f];
-
-    vector<vector<int>> g(c + 1);
-    for (int h = 0; h < c - 1; ++h) {
-        int i, j;
-        cin >> i >> j;
-        g[i].push_back(j);
-        g[j].push_back(i);
+// 定义一个概念来匹配所有整数类型，包括 __int128
+template <typename b>
+concept IntegerWithI128 = std::integral<b> || std::same_as<b, __int128_t> || std::same_as<b, __uint128_t>;
+class FastIS {
+    static constexpr size_t d = 1 << 20;
+    char e[d];
+    char *f = nullptr, *g = nullptr;
+    FILE *h;
+public:
+    inline FastIS(FILE *i = stdin) : h(i) {}
+    [[gnu::always_inline]] inline char get() {
+        if (f == g) {
+            f = e;
+            g = e + fread(e, 1, d, h);
+            if (f == g) return EOF;
+        }
+        return *f++;
     }
-
-    // Root the tree at 1, compute parent and depth
-    const int k = 20; // since n <= 3e5, 2^19 < 3e5 < 2^20
-    vector<int> l(c + 1, 0);
-    vector<array<int, k>> m(c + 1);
-    vector<int> n(c + 1, 0);
-
-    // BFS or DFS to set parent and depth
-    {
-        queue<int> o;
-        o.push(1);
-        n[1] = 0;
-        l[1] = 0;
-        while (!o.empty()) {
-            int p = o.front(); o.pop();
-            for (int q : g[p]) {
-                if (q == n[p]) continue;
-                n[q] = p;
-                l[q] = l[p] + 1;
-                o.push(q);
+    inline FastIS& operator>>(bool& k) {
+        int l = get();
+        while (~l && l != '0' && l != '1') l = get();
+        k = (l == '1');
+        return *this;
+    }
+    inline FastIS& operator>>(char& m) {
+        m = get();
+        while (m == ' ' || m == '\r' || m == '\n' || m == '\t') m = get();
+        return *this;
+    }
+    template <IntegerWithI128 n>
+    inline FastIS& operator>>(n& o) {
+        int p = get();
+        bool q = false;
+        while (~p && (p < '0' || p > '9') && p != '-') p = get();
+        if constexpr (std::is_signed_v<n> || std::same_as<n, __int128_t>) {
+            if (p == '-') { q = true; p = get(); }
+        }
+        o = 0;
+        while (p >= '0' && p <= '9') {
+            o = (o << 3) + (o << 1) + (p ^ '0');
+            p = get();
+        }
+        if (q) o = -o;
+        return *this;
+    }
+    template <std::floating_point r>
+    inline FastIS& operator>>(r& s) {
+        int t = get();
+        bool u = false;
+        while (~t && (t < '0' || t > '9') && t != '-') t = get();
+        if (t == '-') { u = true; t = get(); }
+        
+        __uint128_t v = 0;
+        while (t >= '0' && t <= '9') {
+            v = (v << 3) + (v << 1) + (t ^ '0');
+            t = get();
+        }
+        s = static_cast<r>(v);
+        if (t == '.') {
+            r w = 1.0;
+            for (t = get(); t >= '0' && t <= '9'; t = get()) {
+                s += (t ^ '0') * (w /= 10.0);
             }
         }
+        if (u) s = -s;
+        return *this;
     }
-
-    // build up table
-    for (int r = 1; r <= c; ++r) {
-        m[r][0] = n[r];
+    inline FastIS& operator>>(char *x) {
+        int y = get();
+        while (~y && (y <= ' ')) y = get();
+        while (~y && (y > ' ')) *x++ = y, y = get();
+        *x = '\0';
+        return *this;
     }
-    for (int s = 1; s < k; ++s) {
-        for (int t = 1; t <= c; ++t) {
-            int u = m[t][s - 1];
-            m[t][s] = (u ? m[u][s - 1] : 0);
+} fin;
+class FastOS {
+    static constexpr size_t d = 1 << 20;
+    char e[d], *f = e;
+    FILE *g;
+    int h = -1;
+public:
+    inline FastOS(FILE *i = stdout) : g(i) { setvbuf(g, nullptr, _IONBF, 0); }
+    inline ~FastOS() { flush(); }
+    inline void flush() {
+        fwrite(e, 1, f - e, g);
+        f = e;
+    }
+    [[gnu::always_inline]] inline void put(char l) {
+        if (f == e + d) flush();
+        *f++ = l;
+    }
+    inline FastOS& setprecision(int n) { h = n; return *this; }
+    inline FastOS& operator<<(char o) { put(o); return *this; }
+    inline FastOS& operator<<(const char *p) {
+        while (*p) put(*p++);
+        return *this;
+    }
+    FastOS& operator<<(const std::string &q) {
+        for (char r : q) put(r);
+        return *this;
+    }
+    template <IntegerWithI128 s>
+    inline FastOS& operator<<(s t) {
+        if (t == 0) { put('0'); return *this; }
+        s u = t;
+        if constexpr (std::is_signed_v<s> || std::same_as<s, __int128_t>) {
+            if (u < 0) { put('-'); u = -u; }
         }
+        static char v[64];
+        int w = 0;
+        while (u) {
+            v[w++] = static_cast<char>(u % 10) ^ '0';
+            u /= 10;
+        }
+        while (w) put(v[--w]);
+        return *this;
     }
-
-    auto v = [&](int w, int x) {
-        // move dist steps up from u
-        for (int y = 0; y < k && w; ++y) {
-            if (x & (1 << y)) {
-                w = m[w][y];
-                if (!w) break;
+    template <std::floating_point x>
+    inline FastOS& operator<<(x y) {
+        if (y < 0) { put('-'); y = -y; }
+        __uint128_t z = static_cast<__uint128_t>(y);
+        *this << z;
+        x A = y - static_cast<x>(z);
+        if (h >= 0 || A > 1e-12) {
+            put('.');
+            int B = (h >= 0) ? h : 6; // 默认6位精度
+            while (B--) {
+                A *= 10;
+                int C = static_cast<int>(A);
+                put(C ^ '0');
+                A -= C;
             }
         }
-        return w;
-    };
-
-    // DP array
-    vector<long long> z(c + 1, a);
-    z[1] = 0; // sequence starts at root with sum 0
-    long long A = 0;
-
-    // We need an order where parent is processed before child: BFS order is fine
-    vector<int> B;
-    B.reserve(c);
-    {
-        queue<int> C;
-        C.push(1);
-        vector<int> D(c + 1, 0);
-        D[1] = 1;
-        while (!C.empty()) {
-            int E = C.front(); C.pop();
-            B.push_back(E);
-            for (int F : g[E]) {
-                if (!D[F]) {
-                    D[F] = 1;
-                    C.push(F);
-                }
-            }
-        }
+        return *this;
     }
-
-    // Random generator
-    mt19937_64 G(chrono::steady_clock::now().time_since_epoch().count());
-    const int H = 40; // can be tuned
-
-    for (int I = 0; I < (int)B.size(); ++I) {
-        int J = B[I];
-        if (J == 1) continue;
-
-        long long K = a;
-
-        // candidate 1: root, if within L
-        if (l[J] <= d) {
-            long long L = z[1] + (long long)(e[1] % e[J]);
-            if (L > K) K = L;
-        }
-
-        // candidate 2: parent
-        int M = n[J];
-        if (M != 0 && l[J] - l[M] >= 1 && l[J] - l[M] <= d && z[M] != a) {
-            long long N = z[M] + (long long)(e[M] % e[J]);
-            if (N > K) K = N;
-        }
-
-        // random ancestors within distance <= L
-        int O = min(d, l[J]);
-        if (O > 1) {
-            uniform_int_distribution<int> P(1, O);
-            for (int Q = 0; Q < H; ++Q) {
-                int R = P(G);
-                int S = v(J, R);
-                if (!S) continue;
-                if (z[S] == a) continue;
-                long long T = z[S] + (long long)(e[S] % e[J]);
-                if (T > K) K = T;
-            }
-        }
-
-        z[J] = K;
-        if (z[J] > A) A = z[J];
-    }
-
-    cout << A << "\n";
+} fout;
+#ifdef MULTI_TEST_CASES
+auto __read_extra_test_cases = [](int x){fin >> x; return x;}();
+#endif
+int bb() {
+    double cb;
+    fin >> cb;
+    fout.setprecision(6) << cb;
     return 0;
 }
