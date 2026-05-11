@@ -1,0 +1,26 @@
+0 0 0
+0 10 0
+1 20 1
+1 2 1 0 1 0 1-->2: 0 2
+1 2 1 1 1 0 1-->3: 1 2
+Inquire 4: [1]0th 
+0 0 0
+0 1 0
+0 3 2
+1 4 0
+2 5 1
+1 5 1
+2 6 2
+0 10 0
+0 12 0
+0 14 0
+1 3 1 0 1 0 1-->2: 0 3
+Fallback Bruteforce at 2 with m=0, lcm=3
+Fallback Bruteforce at 4 with m=0, lcm=3
+1 3 1 1 1 0 1-->6: 1 3
+1 3 1 2 1 0 1-->7: 2 3
+Inquire 1: [1]1th 
+Inquire 2: [1]2th 
+Inquire 3: [1]0th 
+Inquire 4: [1]1th 
+Inquire 5: [1]2th 
