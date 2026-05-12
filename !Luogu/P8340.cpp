@@ -1,15 +1,19 @@
 #include <cstdio>
 #include <cmath>
-#include <algorithm>
+#include <cstring>
 constexpr int N = 500005;
 #define For(i, s, t) for (int i = (s); i <= (t); ++i)
 #define roF(i, t, s) for (int i = (t); i >= (s); --i)
 int f[N], g[N], pw2[N], M; // f[i] 表示可以表示区间 [1,i] 且选中的数和为 i 的方案数（即刚好选不了 i+1 的方案数）
 inline void add(int &x, int y) { if ((x += y) >= M) x -= M; }
 inline void sub(int &x, int y) { if ((x -= y) < 0) x += M; }
+inline int sqrt2(int n) {
+    int res = sqrt(2*n);
+    while (res * (res+1) / 2 > n) --res;
+    return res;
+}
 void solve(int n) {
-    if (!n) return;
-    int m = sqrt(2 * n);
+    if (n <= 1) return;
     solve(n >> 1);
     /* 考虑最终的 f 通过容斥去计算。合法的方案数肯定就是
         f[i] = 互异拆分数 - sum j=1 to i-2 (f[j] * (有元素[j+2,i]，做01背包求容量为 i-j 的方案数))
@@ -22,6 +26,15 @@ void solve(int n) {
        333333211
 
     */
+    memset(g, 0, sizeof(int) * (n+1));
+    roF (i, sqrt2(n), 1) {
+        roF (j, n, i) g[j] = g[j - i];
+        roF (j, i-1, 0) g[j] = 0;
+        for (int j = 0; j + (j+2)*i <= n; j++)
+            add(g[j + (j+2)*i], f[j]);
+        For (j, i, n) add(g[j], g[j - i]);
+    }
+    For (i, n/2 + 1, n) sub(f[i], g[i]);
 }
 int main() {
     int n;
@@ -34,13 +47,19 @@ int main() {
        +++   3  发现就是一个钦定最大值后，
        ++    2  从 1~最大值 都 **必须至少选择一个** 的完全背包。
        44321 */
-    int m = sqrt(2 * n);
     f[0] = 1; // 目前的 f 就是互异拆分数
-    roF (i, m, 1) {
-        roF (j, n, i) f[j] = f[j - i]; // 先做一遍 01背包 保证选。
+    roF (i, sqrt2(n), 1) {
+        roF (j, n, i + 1) f[j] = f[j - i]; // 先做一遍 01背包 保证选。
+        roF (j, i, 1) f[j] = 0;
         For (j, i, n) add(f[j], f[j - i]);
     }
     solve(n);
+    int sum = 0;
+    For (i, 0, n-1)
+        add(sum, 1l * f[i] * pw2[n-i-1] % M);
+    int ans = pw2[n];
+    sub(ans, sum);
+    printf("%d\n", ans);
     /* f[1] = f[3] = 1; // f[i] 表示 可以表示区间 [1,i] 的方案数
     for (int i = 3; i <= n; i++)
         for (int k = n; k >= i - 1; k--)
