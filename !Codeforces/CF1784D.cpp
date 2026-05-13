@@ -29,25 +29,32 @@ using Mint = ModInt<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
 struct Fact{Fact(const int&T):E(T+1,Mint(1)),H(T+1),v(T){E[0]=1;for(int J=1;J<=T;J++)E[J]=E[J-1]*J;H[T]=Mint(1)/E[T];for(int J=T;J>=1;J--)H[J-1]=H[J]*J;}Mint C(const int&T,const int&I)const{if(T<0||I<0||T<I)return 0;if(T>v)throw std::out_of_range("\u0045\u0078\u0070\u0065\u0063\u0074\u0065\u0064\u0020\u006E\u0020\u003C\u0020"+std::to_string(v)+"\u002C\u0020\u0062\u0075\u0074\u0020\u0066\u006F\u0075\u006E\u0064\u0020\u006E\u0020\u003D\u0020"+std::to_string(T)+"\u002E");return E[T]*H[I]*H[T-I];}Mint A(const int&T,const int&I)const{if(T<0||I<0||T<I)return 0;if(T>v)throw std::out_of_range("\u0045\u0078\u0070\u0065\u0063\u0074\u0065\u0064\u0020\u006E\u0020\u003C\u0020"+std::to_string(v)+"\u002C\u0020\u0062\u0075\u0074\u0020\u0066\u006F\u0075\u006E\u0064\u0020\u006E\u0020\u003D\u0020"+std::to_string(T)+"\u002E");return E[T]*H[T-I];}private:std::vector<Mint>E,H;const int v;};
 
 Fact F(1 << N);
-Mint f[2][1<<N], g[1<<N];
-
+Mint f[2][1<<N];
+/* 对于一个已经固定下来的路径 1=a0 < a1 < a2 < a3 < ... < an，每一个 ai 都代表一个区域的最大值。
+ *** 考虑知道这个之后如何去计算原来序列的方案数。
+ * 从后往前分析。对于 an，有 2^n 种放置方法。an-1 一定是 an 的对手。
+ * an-2 肯定是在与 an, an-1 组成的框互补的那个框里面。
+ * 框里面其实相当于选择一些数 C(2^n - ai - 2^{n-i}, 2^{n-i} - 1)，然后再去排列，也就是 (2^{n-i})!。
+ * 整体的其实也就出来了，全部给它乘起来就行。
+ *** 考虑知道这个之后如何去计算所有的 a1..an 序列的 f 的和。
+ * 设计 DP 状态 F(x,i) 表示 ai = x 的时候只考虑 1 < a1 < a2 < ... < ai 的 a_{1..i} 在 f 中的贡献的和。
+ * F(x,i) = f_i(x) * \sum_{y=1}^{x-1} F(y,i-1)，其中 f_i(x) 表示 a_i 在 f 中的贡献（就是上面两个式子的乘积）。
+ *** 注意设置初始值的时候，f(\{\}) 本身就有一个 2^n 的贡献。这意味着应该设置 F(0,1)=2^n。
+ * 注意要使用前缀和优化哦。
+ */
 inline void solveSingleTestCase() {
     int n;
     cin >> n;
-    For (i, 1, 1<<n)
-        For (j, 0, n-1)
-            g[i] += F.A(i, i);
-    f[n&1][1] = 1;
-    roF (k, n-1, 0) {
-        memset(f[k&1], 0, sizeof f >> 1);
-        For (i, 1, 1<<n)
-            For (j, 1, std::min(i, 1<<k))
-                f[k&1][i] += f[k&1^1][i-j] * F.A(j,j);
+    f[0][1] = 1 << n;
+    For (i, 1, n) {
+        For (x, 1, 1<<n) f[i&1^1][x] += f[i&1^1][x-1];
+        memset(f[i&1], 0, sizeof(*f[i&1]) * (i + 1));
+        For (x, i+1, 1<<n) f[i&1][x] = f[i&1^1][x - 1] * F.C((1<<n) - x - (1<<n-i), (1<<n-i) - 1) * F.A(1<<n-i, 1<<n-i);
+        For (x, 1, 1<<n) cerr << f[i&1][x] << '(' << F.C((1<<n) - x - (1<<n-i), (1<<n-i) - 1) << ',' << F.A(1<<n-i, 1<<n-i) << ')' << ' ';
+        cerr << std::endl;
     }
-    For (i, 1, 1<<n) {
-        cout << (1<<n) * f[0][i] * F.C(1<<n, i) * F.A((1<<n) - i, (1<<n) - i) << '\n';
-        cerr << "f[0][i]=" << f[0][i] << '\n';
-    }
+    For (i, 1, 1 << n)
+        cout << f[n&1][i] << '\n';
 }
 int main() {
     cin.tie(nullptr) -> sync_with_stdio(false);
