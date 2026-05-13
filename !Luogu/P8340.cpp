@@ -29,7 +29,6 @@ void solve(int n) {
     memset(g, 0, sizeof(int) * (n+1));
     roF (i, sqrt2(n), 1) {
         roF (j, n, i) g[j] = g[j - i];
-        roF (j, i-1, 0) g[j] = 0;
         for (int j = 0; j + (j+2)*i <= n; j++)
             add(g[j + (j+2)*i], f[j]);
         For (j, i, n) add(g[j], g[j - i]);
@@ -49,9 +48,8 @@ int main() {
        44321 */
     f[0] = 1; // 目前的 f 就是互异拆分数
     roF (i, sqrt2(n), 1) {
-        roF (j, n, i + 1) f[j] = f[j - i]; // 先做一遍 01背包 保证选。
-        roF (j, i, 1) f[j] = 0;
-        For (j, i, n) add(f[j], f[j - i]);
+        roF (j, n, i) f[j] = f[j - i]; // 先做一遍 01背包 保证选。
+        For (j, i + 1, n) add(f[j], f[j - i]);
     }
     solve(n);
     int sum = 0;
