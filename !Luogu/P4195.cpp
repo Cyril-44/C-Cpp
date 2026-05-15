@@ -2,6 +2,7 @@
 #include <cstring>
 #include <cmath>
 #include <unordered_map>
+#include <cassert>
 constexpr int N = 1 << 16;
 inline int qpow(int b, int n, const int mod) {
     int res = 1;
@@ -16,11 +17,17 @@ inline int gcd(int x, int y) {
     while (y) z = x, x = y, y = z % y;
     return x;
 }
+int exgcd(int a, int b, int64_t& x, int64_t& y) {
+    if (!b) { x = 1, y = 0; return a; }
+    int g = exgcd(b, a % b, y, x);
+    y -= a / b * x;
+    return g; 
+}
 // Find the min non-negative x such that a^x===b (mod m)
 // or -1 representing no solution.
 // Needs m to be a prime number and a to be a positive integer.
 inline int solvePrime(const int a, const int b, const int m) {
-    if (b == 1) return 0; // a^0 = 1
+    if (b == 1 || m == 1) return 0; // a^0 = 1
     int B = sqrt(m);
     std::unordered_map<int, int> mp;
     int now = 1;
@@ -44,8 +51,9 @@ inline int solvePrime(const int a, const int b, const int m) {
     return -1;
 }
 inline int solve(int a, int b, int m) {
+    b %= m;
     int D = 1, _m = m, d;
-    if (b == 1) return 0;
+    if (b == 1 || m == 1) return 0;
     int now = 1, n;
     for (n = 1; (d = gcd(a, m)) != 1; n++) {
         m /= d, D *= d;
@@ -53,12 +61,19 @@ inline int solve(int a, int b, int m) {
         now = 1ul*now * a % _m;
         if (now == b) return n;
     }
-    return n + solvePrime()
+    --n;
+    int64_t inv, _; // get a^{-n} mod m
+    int gcd = exgcd(qpow(a, n, m), m, inv, _);
+    assert(gcd == 1);
+    inv = ((inv % m) + m) % m;
+    int res = solvePrime(a, 1l*b * inv % m, m);
+    if (res == -1) return -1;
+    return n + res;
 }
 int main() {
     int a, b, m;
     while (scanf("%d%d%d", &a, &m, &b) && m) {
-        int res = solvePrime(a, b, m);
+        int res = solve(a, b, m);
         if (res != -1) printf("%d\n", res);
         else puts("No Solution");
     }
