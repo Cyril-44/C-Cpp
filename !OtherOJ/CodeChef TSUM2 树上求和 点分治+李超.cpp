@@ -38,12 +38,13 @@ struct SegSegTr {
             if (tr[u](mid) < s(mid)) std::swap(s, tr[u]);
             if (tr[u](l) < s(l)) u = u<<1, r = mid;
             else if (tr[u](r) < s(r)) u=u<<1|1, l = mid+1;
+            else return;
         }
         if (tr[u](l) < s(l)) tr[u] = s;
     }
-    inline void insert(int k, int b) { pull(1, 0, tot, Line{k, b}); }
+    inline void insert(int k, int b) { pull(1, 1, tot, Line{k, b}); }
     inline int inquireMxval(int pos) {
-        int mx = tr[1](pos), u = 1, l = 0, r = tot;
+        int mx = tr[1](pos), u = 1, l = 1, r = tot;
         while (l != r) {
             int mid = l + r >> 1;
             if (pos <= mid) u = u<<1, r = mid;
@@ -70,7 +71,7 @@ void dfsUpd(int u, int fa, int dep, int sum, int val) { // 统计贡献，{v} �
 void solve(int u, int fa) {
     getCentroid(u = getCentroid(u, fa), fa); // 确保是以 u 为根
     f.init(sz[u]);
-    for (int v : g[u]) if (!ban[v] && v != fa) {
+    for (int v : g[u]) if (!ban[v]) {
         dfsUpd(v, u, 1, w[u], w[u]);
         dfsIns(v, u, 0, 0, 0);
     }
@@ -84,12 +85,12 @@ void solve(int u, int fa) {
     }
     std::reverse(g[u].begin(), g[u].end());
     ban[u] = true;
-    // for (int v : g[u])
+    for (int v : g[u]) if (!ban[v]) solve(v, u);
 }
 inline void solveSingle() {
     int n;
     scanf("%d", &n);
-    memset(ban+1, 0, sizeof(int) * n);
+    memset(ban+1, 0, sizeof(bool) * n);
     for (int i = 1; i <= n; i++) {
         g[i].clear();
         scanf("%d", &w[i]);
@@ -100,7 +101,8 @@ inline void solveSingle() {
         g[v].push_back(u);
     }
     ans = -1e9;
-    
+    solve(1, 0);
+    printf("%d\n", ans);
 }
 int main() {
     int T;
