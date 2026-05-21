@@ -68,8 +68,11 @@ int main() {
                     for (int l = k & 1, Up = std::min(k, h[val - 1]); l <= Up; l += 2) // 构造 "ababa" 的数量
                         fnow[i + (k-l)/2][j + l][k - l] += g[i][j][k] * C[k][l] * C[h[val-1]][l];
     }
-
     Mint ans;
     printf("%d %d\n", std::accumulate(cnt+1, cnt+1+H, 0, [](int acc, int x){return acc + x*(x+1)/2;}), int(ans));
     return 0;
 }
+/*
+.l-date-time .date
+
+*/

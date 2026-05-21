@@ -1,139 +1,139 @@
 #include <bits/stdc++.h>
+int a;
+int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;
 template <typename T>
-constexpr T modInv(T x, T y) { // x * u ≡ 1 (mod y)
-    assert(x != 0);
-    T u = 0, v = 1, a = x, m = y, t;
-    while (a != 0) {
-        t = m / a;
-        std::swap(a, m -= t * a);
-        std::swap(u -= t * v, v);
-    }
-    assert(m == 1);
-    return u;
-}
-
-template<class Mod, typename Mod::value_type Default = 0>
-requires std::integral<typename Mod::value_type> || 
-requires(typename Mod::value_type a, typename Mod::value_type b) {
-    // 1. 基础算术操作 (你原本定义的)
-    { a + b } -> std::same_as<typename Mod::value_type>;
-    { a - b } -> std::same_as<typename Mod::value_type>;
-    { a * b } -> std::same_as<typename Mod::value_type>;
-    { a % b } -> std::same_as<typename Mod::value_type>;
-    // 2. 复合赋值操作 (+=, -=, *=, %=)
-    { a += b } -> std::same_as<typename Mod::value_type&>;
-    { a -= b } -> std::same_as<typename Mod::value_type&>;
-    { a *= b } -> std::same_as<typename Mod::value_type&>;
-    { a %= b } -> std::same_as<typename Mod::value_type&>;
-    // 3. 构造与赋值约束 (确保 Default = 0 以及常规初始化能通过)
-    requires std::is_default_constructible_v<typename Mod::value_type>;
-    requires std::is_copy_constructible_v<typename Mod::value_type>;
-    requires std::is_move_constructible_v<typename Mod::value_type>;
-    requires std::is_assignable_v<typename Mod::value_type&, int>; // 确保能从 0 构造/赋值
-    // 4. 比较操作 (==, !=)
-    requires std::equality_comparable<typename Mod::value_type>;
-} class MI {
-    using Int = Mod::value_type;
-    inline static constexpr Int mod() { return Mod::value; }
-    Int value;
-    template<typename T> inline constexpr Int normalize(T x) {
-        if constexpr (std::is_unsigned_v<T>)
-            return static_cast<Int>(x < mod() ? x : x % mod());
-        else {
-            Int res = static_cast<Int>(-mod() < x && x < mod() ? x : x % mod());
-            return (res < 0 ? res + mod() : res);
-        }
-    }
+concept IntegerWithI128 = std::integral<T> || std::same_as<T, __int128_t> || std::same_as<T, __uint128_t>;
+class FastIS {
+    static constexpr size_t BUF_SIZ = 1 << 20;
+    char buffer[BUF_SIZ];
+    char *p1 = nullptr, *p2 = nullptr;
+    FILE *src;
 public:
-    constexpr inline MI() : value(Default) {}
-    template<typename T> inline constexpr MI(const T &rhs) { value = normalize(rhs); }
-    template<typename T> inline explicit constexpr operator T() const { return static_cast<T>(value); }
-    inline constexpr Int operator()() const { return value; }
-    inline constexpr MI& operator+=(const MI& rhs) {
-        if ((value += rhs.value) >= mod()) value -= mod();
+    FastIS(FILE *f = stdin) : src(f) {}
+    [[gnu::always_inline]] char get() {
+        if (p1 == p2) {
+            p1 = buffer;
+            p2 = buffer + fread(buffer, 1, BUF_SIZ, src);
+            if (p1 == p2) return EOF;
+        }
+        return *p1++;
+    }
+    FastIS& operator>>(bool& rhs) {
+        int ch = get();
+        while (~ch && ch != '0' && ch != '1') ch = get();
+        rhs = (ch == '1');
         return *this;
     }
-    inline constexpr MI& operator-=(const MI& rhs) {
-        if ((value -= rhs.value) < 0) value += mod();
+    FastIS& operator>>(char& rhs) {
+        rhs = get();
+        while (rhs == ' ' || rhs == '\r' || rhs == '\n' || rhs == '\t') rhs = get();
         return *this;
     }
-    inline constexpr MI& operator*=(const MI& rhs) {
-        if constexpr (std::is_same_v<Int, int>)
-            value = normalize((uint64_t)value * rhs.value);
-        else if constexpr (std::is_same_v<Int, int64_t>)
-            value = normalize((unsigned __int128)value * rhs.value);
-        else 
-            value = normalize(value * rhs.value);
+    template <IntegerWithI128 T>
+    FastIS& operator>>(T& rhs) {
+        int ch = get();
+        bool neg = false;
+        while (~ch && (ch < '0' || ch > '9') && ch != '-') ch = get();
+        if constexpr (std::is_signed_v<T> || std::same_as<T, __int128_t>) {
+            if (ch == '-') { neg = true; ch = get(); }
+        }
+        rhs = 0;
+        while (ch >= '0' && ch <= '9') {
+            rhs = (rhs << 3) + (rhs << 1) + (ch ^ '0');
+            ch = get();
+        }
+        if (neg) rhs = -rhs;
         return *this;
     }
-    inline constexpr MI& operator/=(const MI& rhs) { return *this *= MI(modInv(rhs.value, mod())); }
-    template<std::integral T> inline constexpr MI& operator^=(T rhs) {
-        if (rhs < 0) return *this = MI(modInv(static_cast<Int>(1), (*this ^ (-rhs))()));
-        MI tmp = *this;
-        for (*this = static_cast<Int>(1); rhs; rhs >>= 1) {
-            if (rhs & 1) *this *= tmp;
-            tmp *= tmp;
+    template <std::floating_point T>
+    FastIS& operator>>(T& rhs) {
+        int ch = get();
+        bool neg = false;
+        while (~ch && (ch < '0' || ch > '9') && ch != '-') ch = get();
+        if (ch == '-') { neg = true; ch = get(); }
+        
+        __uint128_t integer = 0;
+        while (ch >= '0' && ch <= '9') {
+            integer = (integer << 3) + (integer << 1) + (ch ^ '0');
+            ch = get();
+        }
+        rhs = static_cast<T>(integer);
+        if (ch == '.') {
+            T base = 1.0;
+            for (ch = get(); ch >= '0' && ch <= '9'; ch = get()) {
+                rhs += (ch ^ '0') * (base /= 10.0);
+            }
+        }
+        if (neg) rhs = -rhs;
+        return *this;
+    }
+    FastIS& operator>>(char *s) {
+        int ch = get();
+        while (~ch && (ch <= ' ')) ch = get();
+        while (~ch && (ch > ' ')) *s++ = ch, ch = get();
+        *s = '\0';
+        return *this;
+    }
+} fin;
+
+class FastOutputStream {
+    static constexpr size_t BUF_SIZ = 1 << 20;
+    char buffer[BUF_SIZ], *p = buffer;
+    FILE *dest;
+    int prec = 6;
+public:
+    FastOutputStream(FILE *f = stdout) : dest(f) { setvbuf(dest, nullptr, _IONBF, 0); }
+    ~FastOutputStream() { flush(); }
+    void flush() {
+        fwrite(buffer, 1, p - buffer, dest);
+        p = buffer;
+    }
+    [[gnu::always_inline]] void put(char c) {
+        if (p == buffer + BUF_SIZ) flush();
+        *p++ = c;
+    }
+    FastOutputStream& setprecision(int n) { prec = n; return *this; }
+    FastOutputStream& operator<<(char c) { put(c); return *this; }
+    FastOutputStream& operator<<(const char *s) {
+        while (*s) put(*s++);
+        return *this;
+    }
+    FastOutputStream& operator<<(const std::string &s) {
+        for (char c : s) put(c);
+        return *this;
+    }
+    template <IntegerWithI128 T>
+    FastOutputStream& operator<<(T rhs) {
+        if (rhs == 0) { put('0'); return *this; }
+        T temp = rhs;
+        if constexpr (std::is_signed_v<T> || std::same_as<T, __int128_t>) {
+            if (temp < 0) { put('-'); temp = -temp; }
+        }
+        static char stack[64];
+        int top = 0;
+        while (temp) {
+            stack[top++] = static_cast<char>(temp % 10) ^ '0';
+            temp /= 10;
+        }
+        while (top) put(stack[--top]);
+        return *this;
+    }
+    template <std::floating_point T>
+    FastOutputStream& operator<<(T rhs) {
+        if (rhs < 0) { put('-'); rhs = -rhs; }
+        __uint128_t inte = static_cast<__uint128_t>(rhs);
+        *this << inte;
+        T frac = rhs - static_cast<T>(inte);
+        if (prec > 0 || frac > 1e-12) {
+            put('.');
+            int count = prec;
+            while (count--) {
+                frac *= 10;
+                int digit = static_cast<int>(frac);
+                put(digit ^ '0');
+                frac -= digit;
+            }
         }
         return *this;
     }
-    inline constexpr MI operator-() const { return MI(-value); }
-    inline constexpr MI& operator++() { return *this += 1; }
-    inline constexpr MI& operator--() { return *this -= 1; }
-    inline constexpr MI operator++(int) { MI tmp = *this; ++*this; return tmp; }
-    inline constexpr MI operator--(int) { MI tmp = *this; --*this; return tmp; }
-    inline constexpr MI operator+(const MI& rhs) const { return MI(*this) += rhs; }
-    inline constexpr MI operator-(const MI& rhs) const { return MI(*this) -= rhs; }
-    inline constexpr MI operator*(const MI& rhs) const { return MI(*this) *= rhs; }
-    inline constexpr MI operator/(const MI& rhs) const { return MI(*this) /= rhs; }
-    template<std::integral T> inline constexpr MI operator^(const T rhs) const { return MI(*this) ^= rhs; }
-    inline constexpr bool operator==(const MI& rhs) const { return value == rhs.value; }
-    inline constexpr bool operator!=(const MI& rhs) const { return value != rhs.value; }
-    inline constexpr bool operator!() const { return !value; }
-    template<typename U> inline constexpr friend MI operator+(const U& lhs, const MI& rhs) { return MI(lhs) + rhs; }
-    template<typename U> inline constexpr friend MI operator-(const U& lhs, const MI& rhs) { return MI(lhs) - rhs; }
-    template<typename U> inline constexpr friend MI operator*(const U& lhs, const MI& rhs) { return MI(lhs) * rhs; }
-    template<typename U> inline constexpr friend MI operator/(const U& lhs, const MI& rhs) { return MI(lhs) / rhs; }
-    template<typename U> inline constexpr friend MI operator==(const U& lhs, const MI& rhs) { return MI(lhs) == rhs; }
-    template<typename U> inline constexpr friend MI operator!=(const U& lhs, const MI& rhs) { return MI(lhs) != rhs; }
-    template<typename U> inline constexpr friend MI operator<=(const U& lhs, const MI& rhs) { return MI(lhs) <= rhs; }
-    template<typename U> inline constexpr friend MI operator>=(const U& lhs, const MI& rhs) { return MI(lhs) >= rhs; }
-    template<typename U> inline constexpr friend MI operator<(const U& lhs, const MI& rhs) { return MI(lhs) < rhs; }
-    template<typename U> inline constexpr friend MI operator>(const U& lhs, const MI& rhs) { return MI(lhs) > rhs; }
-    template<typename IStream> inline friend IStream& operator>>(IStream& is, MI& lhs) {
-        is >> lhs.value;
-        lhs.value = lhs.normalize(lhs.value);
-        return is;
-    }
-    template<typename OStream> friend inline OStream& operator<<(OStream& os, const MI& rhs) { return os << rhs.value; }
-};
-constexpr auto MOD = (int)1e9 + 7;
-using Mint = MI<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
-// struct Dynamic_ModInt { using value_type = int; static value_type value; };
-// Dynamic_ModInt::value_type &Mod = Dynamic_ModInt::value;
-// using Mint = ModInt<Dynamic_ModInt>;
-struct Fact {
-    inline Fact(const int n) : fact(n+1, Mint(1)), invfact(n+1), size(n) {
-        fact[0] = 1;
-        for (int i = 1; i <= n; i++) fact[i] = fact[i-1] * i;
-        invfact[n] = Mint(1) / fact[n];
-        for (int i = n; i >= 1; i--) invfact[i-1] = invfact[i] * i;
-    }
-    inline Mint C(int n, int m) const {
-        if (n < 0 || m < 0 || n < m) [[unlikely]] return 0;
-        if (n > size) [[unlikely]] throw std::out_of_range("Expected n < " + std::to_string(size) + ", but found n = " + std::to_string(n) + ".");
-        return fact[n] * invfact[m] * invfact[n - m];
-    }
-    inline Mint A(int n, int m) const {
-        if (n < 0 || m < 0 || n < m) [[unlikely]] return 0;
-        if (n > size) [[unlikely]] throw std::out_of_range("Expected n < " + std::to_string(size) + ", but found n = " + std::to_string(n) + ".");
-        return fact[n] * invfact[n - m];
-    }
-    inline Mint F(int n) const {
-        if (n < 0) [[unlikely]] return 0;
-        if (n > size) [[unlikely]] throw std::out_of_range("Expected n < " + std::to_string(size) + ", but found n = " + std::to_string(n) + ".");
-        return fact[n];
-    }
-private:
-    std::vector<Mint> fact, invfact;
-    const int size;
-};
+} fout;

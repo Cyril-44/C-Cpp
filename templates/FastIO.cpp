@@ -12,8 +12,8 @@ class FastIS {
     char *p1 = nullptr, *p2 = nullptr;
     FILE *src;
 public:
-    inline FastIS(FILE *f = stdin) : src(f) {}
-    [[gnu::always_inline]] inline char get() {
+    FastIS(FILE *f = stdin) : src(f) {}
+    [[gnu::always_inline]] char get() {
         if (p1 == p2) {
             p1 = buffer;
             p2 = buffer + fread(buffer, 1, BUF_SIZ, src);
@@ -21,19 +21,19 @@ public:
         }
         return *p1++;
     }
-    inline FastIS& operator>>(bool& rhs) {
+    FastIS& operator>>(bool& rhs) {
         int ch = get();
         while (~ch && ch != '0' && ch != '1') ch = get();
         rhs = (ch == '1');
         return *this;
     }
-    inline FastIS& operator>>(char& rhs) {
+    FastIS& operator>>(char& rhs) {
         rhs = get();
         while (rhs == ' ' || rhs == '\r' || rhs == '\n' || rhs == '\t') rhs = get();
         return *this;
     }
     template <IntegerWithI128 T>
-    inline FastIS& operator>>(T& rhs) {
+    FastIS& operator>>(T& rhs) {
         int ch = get();
         bool neg = false;
         while (~ch && (ch < '0' || ch > '9') && ch != '-') ch = get();
@@ -49,7 +49,7 @@ public:
         return *this;
     }
     template <std::floating_point T>
-    inline FastIS& operator>>(T& rhs) {
+    FastIS& operator>>(T& rhs) {
         int ch = get();
         bool neg = false;
         while (~ch && (ch < '0' || ch > '9') && ch != '-') ch = get();
@@ -70,7 +70,7 @@ public:
         if (neg) rhs = -rhs;
         return *this;
     }
-    inline FastIS& operator>>(char *s) {
+    FastIS& operator>>(char *s) {
         int ch = get();
         while (~ch && (ch <= ' ')) ch = get();
         while (~ch && (ch > ' ')) *s++ = ch, ch = get();
@@ -79,34 +79,34 @@ public:
     }
 } fin;
 
-class FastOS {
+class FastOutputStream {
     static constexpr size_t BUF_SIZ = 1 << 20;
     char buffer[BUF_SIZ], *p = buffer;
     FILE *dest;
-    int prec = -1;
+    int prec = 6;
 public:
-    inline FastOS(FILE *f = stdout) : dest(f) { setvbuf(dest, nullptr, _IONBF, 0); }
-    inline ~FastOS() { flush(); }
-    inline void flush() {
+    FastOutputStream(FILE *f = stdout) : dest(f) { setvbuf(dest, nullptr, _IONBF, 0); }
+    ~FastOutputStream() { flush(); }
+    void flush() {
         fwrite(buffer, 1, p - buffer, dest);
         p = buffer;
     }
-    [[gnu::always_inline]] inline void put(char c) {
+    [[gnu::always_inline]] void put(char c) {
         if (p == buffer + BUF_SIZ) flush();
         *p++ = c;
     }
-    inline FastOS& setprecision(int n) { prec = n; return *this; }
-    inline FastOS& operator<<(char c) { put(c); return *this; }
-    inline FastOS& operator<<(const char *s) {
+    FastOutputStream& setprecision(int n) { prec = n; return *this; }
+    FastOutputStream& operator<<(char c) { put(c); return *this; }
+    FastOutputStream& operator<<(const char *s) {
         while (*s) put(*s++);
         return *this;
     }
-    FastOS& operator<<(const std::string &s) {
+    FastOutputStream& operator<<(const std::string &s) {
         for (char c : s) put(c);
         return *this;
     }
     template <IntegerWithI128 T>
-    inline FastOS& operator<<(T rhs) {
+    FastOutputStream& operator<<(T rhs) {
         if (rhs == 0) { put('0'); return *this; }
         T temp = rhs;
         if constexpr (std::is_signed_v<T> || std::same_as<T, __int128_t>) {
@@ -122,14 +122,14 @@ public:
         return *this;
     }
     template <std::floating_point T>
-    inline FastOS& operator<<(T rhs) {
+    FastOutputStream& operator<<(T rhs) {
         if (rhs < 0) { put('-'); rhs = -rhs; }
         __uint128_t inte = static_cast<__uint128_t>(rhs);
         *this << inte;
         T frac = rhs - static_cast<T>(inte);
-        if (prec >= 0 || frac > 1e-12) {
+        if (prec > 0 || frac > 1e-12) {
             put('.');
-            int count = (prec >= 0) ? prec : 6; // 默认6位精度
+            int count = prec;
             while (count--) {
                 frac *= 10;
                 int digit = static_cast<int>(frac);
