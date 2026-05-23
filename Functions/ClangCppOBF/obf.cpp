@@ -1,137 +1,148 @@
-#include <bits/stdc++.h>
-int a;
-int b;int c;int d;int e;int f;int g;int h;int i;int j;int k;int l;int m;int n;int o;int p;int q;int r;int s;int t;int u;int v;int w;int x;int y;int z;int A;int B;int C;int D;int E;int F;int G;int H;int I;int J;int K;int L;int M;int N;int O;int P;int Q;int R;int S;int T;int U;int V;int W;int X;int Y;int Z;
-template <typename ab>
-concept IntegerWithI128 = std::integral<ab> || std::same_as<ab, __int128_t> || std::same_as<ab, __uint128_t>;
+#include <cstdio>
+#include <string>
+#include <concepts>
+#include <type_traits>
+int a,b,c,d,e,f,g,h,i,j,k,l,m,n;
+int o,p,q,r,s,t,u,v,w,x,y,z,A,B;
+int C,D,E,F,G,H,I,J,K,L,M,N,O,P;
+int Q,R,S,T,U,V,W,X,Y,Z,_;
+// 定义一个概念来匹配所有整数类型，包括 __int128
+template <typename bb>
+concept IntegerWithI128 = std::integral<bb> || std::same_as<bb, __int128_t> || std::same_as<bb, __uint128_t>;
 class FastInputStream {
-    static constexpr size_t cb = 1 << 20;
-    char db[cb];
-    char *eb = nullptr, *fb = nullptr;
-    FILE *gb;
+    static constexpr size_t db = 1 << 20;
+    char eb[db];
+    char *fb = nullptr, *gb = nullptr;
+    FILE *hb;
 public:
-    FastInputStream(FILE *hb = stdin) : gb(hb) {}
-    [[gnu::always_inline]] char ib() {
-        if (eb == fb) {
-            eb = db;
-            fb = db + fread(db, 1, cb, gb);
-            if (eb == fb) return EOF;
+    FastInputStream(FILE *ib = stdin) : hb(ib) {}
+    [[gnu::always_inline]] char get() {
+        if (fb == gb) {
+            fb = eb;
+            gb = eb + fread(eb, 1, db, hb);
+            if (fb == gb) return EOF;
         }
-        return *eb++;
+        return *fb++;
     }
-    FastInputStream& operator>>(bool& jb) {
-        int kb = ib();
-        while (~kb && kb != '0' && kb != '1') kb = ib();
-        jb = (kb == '1');
+    FastInputStream& operator>>(bool& kb) {
+        int lb = get();
+        while (~lb && lb != '0' && lb != '1') lb = get();
+        kb = (lb == '1');
         return *this;
     }
-    FastInputStream& operator>>(char& lb) {
-        lb = ib();
-        while (lb == ' ' || lb == '\r' || lb == '\n' || lb == '\t') lb = ib();
+    FastInputStream& operator>>(char& mb) {
+        mb = get();
+        while (mb == ' ' || mb == '\r' || mb == '\n' || mb == '\t') mb = get();
         return *this;
     }
-    template <IntegerWithI128 mb>
-    FastInputStream& operator>>(mb& nb) {
-        int ob = ib();
-        bool pb = false;
-        while (~ob && (ob < '0' || ob > '9') && ob != '-') ob = ib();
-        if constexpr (std::is_signed_v<mb> || std::same_as<mb, __int128_t>) {
-            if (ob == '-') { pb = true; ob = ib(); }
+    template <IntegerWithI128 nb>
+    FastInputStream& operator>>(nb& ob) {
+        int pb = get();
+        bool qb = false;
+        while (~pb && (pb < '0' || pb > '9') && pb != '-') pb = get();
+        if constexpr (std::is_signed_v<nb> || std::same_as<nb, __int128_t>) {
+            if (pb == '-') { qb = true; pb = get(); }
         }
-        nb = 0;
-        while (ob >= '0' && ob <= '9') {
-            nb = (nb << 3) + (nb << 1) + (ob ^ '0');
-            ob = ib();
+        ob = 0;
+        while (pb >= '0' && pb <= '9') {
+            ob = (ob << 3) + (ob << 1) + (pb ^ '0');
+            pb = get();
         }
-        if (pb) nb = -nb;
+        if (qb) ob = -ob;
         return *this;
     }
-    template <std::floating_point qb>
-    FastInputStream& operator>>(qb& rb) {
-        int sb = ib();
-        bool tb = false;
-        while (~sb && (sb < '0' || sb > '9') && sb != '-') sb = ib();
-        if (sb == '-') { tb = true; sb = ib(); }
+    template <std::floating_point rb>
+    FastInputStream& operator>>(rb& sb) {
+        int tb = get();
+        bool ub = false;
+        while (~tb && (tb < '0' || tb > '9') && tb != '-') tb = get();
+        if (tb == '-') { ub = true; tb = get(); }
         
-        __uint128_t ub = 0;
-        while (sb >= '0' && sb <= '9') {
-            ub = (ub << 3) + (ub << 1) + (sb ^ '0');
-            sb = ib();
+        __uint128_t vb = 0;
+        while (tb >= '0' && tb <= '9') {
+            vb = (vb << 3) + (vb << 1) + (tb ^ '0');
+            tb = get();
         }
-        rb = static_cast<qb>(ub);
-        if (sb == '.') {
-            qb vb = 1.0;
-            for (sb = ib(); sb >= '0' && sb <= '9'; sb = ib()) {
-                rb += (sb ^ '0') * (vb /= 10.0);
+        sb = static_cast<rb>(vb);
+        if (tb == '.') {
+            rb wb = 1.0;
+            for (tb = get(); tb >= '0' && tb <= '9'; tb = get()) {
+                sb += (tb ^ '0') * (wb /= 10.0);
             }
         }
-        if (tb) rb = -rb;
+        if (ub) sb = -sb;
         return *this;
     }
-    FastInputStream& operator>>(char *wb) {
-        int xb = ib();
-        while (~xb && (xb <= ' ')) xb = ib();
-        while (~xb && (xb > ' ')) *wb++ = xb, xb = ib();
-        *wb = '\0';
+    FastInputStream& operator>>(char *xb) {
+        int yb = get();
+        while (~yb && (yb <= ' ')) yb = get();
+        while (~yb && (yb > ' ')) *xb++ = yb, yb = get();
+        *xb = '\0';
         return *this;
     }
 } fin;
 
 class FastOutputStream {
-    static constexpr size_t Ab = 1 << 20;
-    char Bb[Ab], *Cb = Bb;
-    FILE *Db;
-    int Eb = 6;
+    static constexpr size_t Bb = 1 << 20;
+    char Cb[Bb], *Db = Cb;
+    FILE *Eb; long double Fb = 5e-6;
+    unsigned char Gb = 6;
 public:
-    FastOutputStream(FILE *Fb = stdout) : Db(Fb) { setvbuf(Db, nullptr, _IONBF, 0); }
+    FastOutputStream(FILE *Hb = stdout) : Eb(Hb) { setvbuf(Eb, nullptr, _IONBF, 0); }
     ~FastOutputStream() { flush(); }
     void flush() {
-        fwrite(Bb, 1, Cb - Bb, Db);
-        Cb = Bb;
+        fwrite(Cb, 1, Db - Cb, Eb);
+        Db = Cb;
     }
-    [[gnu::always_inline]] void put(char Ib) {
-        if (Cb == Bb + Ab) flush();
-        *Cb++ = Ib;
+    [[gnu::always_inline]] void put(char Kb) {
+        if (Db == Cb + Bb) flush();
+        *Db++ = Kb;
     }
-    FastOutputStream& Jb(int Kb) { Eb = Kb; return *this; }
-    FastOutputStream& operator<<(char Lb) { put(Lb); return *this; }
-    FastOutputStream& operator<<(const char *Mb) {
-        while (*Mb) put(*Mb++);
+    FastOutputStream& precision(int Mb) { 
+        Gb = Mb;
+        Fb = 0.5;
+        while (Mb--) Fb *= 0.1;
         return *this;
     }
-    FastOutputStream& operator<<(const std::string &Nb) {
-        for (char c : Nb) put(c);
+    FastOutputStream& operator<<(char Nb) { put(Nb); return *this; }
+    FastOutputStream& operator<<(const char *Ob) {
+        while (*Ob) put(*Ob++);
         return *this;
     }
-    template <IntegerWithI128 Ob>
-    FastOutputStream& operator<<(Ob Pb) {
-        if (Pb == 0) { put('0'); return *this; }
-        Ob Qb = Pb;
-        if constexpr (std::is_signed_v<Ob> || std::same_as<Ob, __int128_t>) {
-            if (Qb < 0) { put('-'); Qb = -Qb; }
+    FastOutputStream& operator<<(const std::string &Pb) {
+        for (char c : Pb) put(c);
+        return *this;
+    }
+    template <IntegerWithI128 Qb>
+    FastOutputStream& operator<<(Qb Rb) {
+        if (Rb == 0) { put('0'); return *this; }
+        Qb Sb = Rb;
+        if constexpr (std::is_signed_v<Qb> || std::same_as<Qb, __int128_t>) {
+            if (Sb < 0) { put('-'); Sb = -Sb; }
         }
-        static char Rb[64];
-        int Sb = 0;
-        while (Qb) {
-            Rb[Sb++] = static_cast<char>(Qb % 10) ^ '0';
-            Qb /= 10;
+        static char Tb[64];
+        int Ub = 0;
+        while (Sb) {
+            Tb[Ub++] = static_cast<char>(Sb % 10) ^ '0';
+            Sb /= 10;
         }
-        while (Sb) put(Rb[--Sb]);
+        while (Ub) put(Tb[--Ub]);
         return *this;
     }
-    template <std::floating_point Tb>
-    FastOutputStream& operator<<(Tb Ub) {
-        if (Ub < 0) { put('-'); Ub = -Ub; }
-        __uint128_t Vb = static_cast<__uint128_t>(Ub);
-        *this << Vb;
-        Tb Wb = Ub - static_cast<Tb>(Vb);
-        if (Eb > 0 || Wb > 1e-12) {
+    template <std::floating_point Vb>
+    FastOutputStream& operator<<(Vb Wb) {
+        Wb += Fb;
+        if (Wb < 0) { put('-'); Wb = -Wb; }
+        __uint128_t Xb = static_cast<__uint128_t>(Wb);
+        *this << Xb;
+        Vb Yb = Wb - static_cast<Vb>(Xb);
+        if (Gb > 0) {
             put('.');
-            int Xb = Eb;
-            while (Xb--) {
-                Wb *= 10;
-                int Yb = static_cast<int>(Wb);
-                put(Yb ^ '0');
-                Wb -= Yb;
+            for (unsigned Zb = Gb; Zb; --Zb) {
+                Yb *= 10;
+                int _b = static_cast<int>(Yb);
+                put(_b ^ '0');
+                Yb -= _b;
             }
         }
         return *this;

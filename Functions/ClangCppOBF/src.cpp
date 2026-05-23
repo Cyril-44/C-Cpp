@@ -1,6 +1,12 @@
-#include <bits/stdc++.h>
-int a;
-int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;int a;
+#include <cstdio>
+#include <string>
+#include <concepts>
+#include <type_traits>
+int a,c,b,d,fa,f,dsf,sa,df,czx,v,x,v,d;
+int a,c,b,d,fa,f,dsf,sa,df,czx,v,x,v,d;
+int a,c,b,d,fa,f,dsf,sa,df,czx,v,x,v,d;
+int a,c,b,d,fa,f,dsf,sa,df,czx,v;
+// 定义一个概念来匹配所有整数类型，包括 __int128
 template <typename T>
 concept IntegerWithI128 = std::integral<T> || std::same_as<T, __int128_t> || std::same_as<T, __uint128_t>;
 class FastIS {
@@ -79,8 +85,8 @@ public:
 class FastOutputStream {
     static constexpr size_t BUF_SIZ = 1 << 20;
     char buffer[BUF_SIZ], *p = buffer;
-    FILE *dest;
-    int prec = 6;
+    FILE *dest; long double base = 5e-6;
+    unsigned char prec = 6;
 public:
     FastOutputStream(FILE *f = stdout) : dest(f) { setvbuf(dest, nullptr, _IONBF, 0); }
     ~FastOutputStream() { flush(); }
@@ -92,7 +98,12 @@ public:
         if (p == buffer + BUF_SIZ) flush();
         *p++ = c;
     }
-    FastOutputStream& setprecision(int n) { prec = n; return *this; }
+    FastOutputStream& precision(int n) { 
+        prec = n;
+        base = 0.5;
+        while (n--) base *= 0.1;
+        return *this;
+    }
     FastOutputStream& operator<<(char c) { put(c); return *this; }
     FastOutputStream& operator<<(const char *s) {
         while (*s) put(*s++);
@@ -120,14 +131,14 @@ public:
     }
     template <std::floating_point T>
     FastOutputStream& operator<<(T rhs) {
+        rhs += base;
         if (rhs < 0) { put('-'); rhs = -rhs; }
         __uint128_t inte = static_cast<__uint128_t>(rhs);
         *this << inte;
         T frac = rhs - static_cast<T>(inte);
-        if (prec > 0 || frac > 1e-12) {
+        if (prec > 0) {
             put('.');
-            int count = prec;
-            while (count--) {
+            for (unsigned count = prec; count; --count) {
                 frac *= 10;
                 int digit = static_cast<int>(frac);
                 put(digit ^ '0');
