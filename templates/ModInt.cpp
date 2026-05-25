@@ -139,7 +139,7 @@ struct Fact {
 private:
     std::vector<Mint> fact, invfact;
     const int size;
-};
+} F(10000);
 constexpr Mint M1 = 1, M2 = 3, M3 = M1 + M2, M4 = M3 / M2, M5 = M4 ^ 4, M6 = M5 * M2, M7 = 4/M3, M8 = 9*M6, M9 = M8/1145154*M6 ^ 4;
 constexpr auto F1 = !M1;
 int main() {

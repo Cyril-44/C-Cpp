@@ -4,14 +4,15 @@ template<typename bb>constexpr inline bb modInv(bb cb,bb db){assert(cb!=0);bb eb
 // constexpr auto MOD = (int)1e9 + 7;
 // using Mint = MI<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
 struct Dynamic_ModInt { using value_type = int; static value_type value; };
-Dynamic_ModInt::value_type Dynamic_ModInt::value = 0;
+Dynamic_ModInt::value_type Dynamic_ModInt::value = (int)1e9 + 7;
 Dynamic_ModInt::value_type &Mod = Dynamic_ModInt::value;
 using Mint = MI<Dynamic_ModInt>;
 Mint sqrt(Mint x){return x^(-2);}struct Fact{Fact(const int Ec):Bc(Ec+1,Mint(1)),Cc(Ec+1),Dc(Ec){Bc[0]=1;for(int Fc=1;Fc<=Ec;Fc++)Bc[Fc]=Bc[Fc-1]*Fc;Cc[Ec]=Mint(1)/Bc[Ec];for(int Gc=Ec;Gc>=1;Gc--)Cc[Gc-1]=Cc[Gc]*Gc;}Mint C(int Ic,int Jc)const{if(Ic<0||Jc<0||Ic<Jc)[[unlikely]]return 0;if(Ic>Dc)[[unlikely]]throw std::out_of_range("Expected n < "+std::to_string(Dc)+", but found n = "+std::to_string(Ic)+".");return Bc[Ic]*Cc[Jc]*Cc[Ic-Jc];}Mint A(int Lc,int Mc)const{if(Lc<0||Mc<0||Lc<Mc)[[unlikely]]return 0;if(Lc>Dc)[[unlikely]]throw std::out_of_range("Expected n < "+std::to_string(Dc)+", but found n = "+std::to_string(Lc)+".");return Bc[Lc]*Cc[Lc-Mc];}Mint F(int Oc)const{if(Oc<0)[[unlikely]]return 0;if(Oc>Dc)[[unlikely]]throw std::out_of_range("Expected n < "+std::to_string(Dc)+", but found n = "+std::to_string(Oc)+".");return Bc[Oc];}private:std::vector<Mint>Bc,Cc;const int Dc;};
-Fact F(N);
+
+
 Mint C[N][N], f[N][N];
 #define For(i, s, t) for (int i = int(s); i <= (t); i++)
-#define roF(i, s, t) for (int i = int(s); i >= (t); i++)
+#define roF(i, s, t) for (int i = int(s); i >= (t); i--)
 /*
 经典 Observation：x 个相邻上升 <==> n-x 个上升段
 显然有 p^{-1}(x) = pos(x)，即 x 在排列中的位置
@@ -35,6 +36,7 @@ Mint C[N][N], f[N][N];
 int main() {
     int n;
     scanf("%d%d", &n, &Mod);
+    Fact F(N*N);
     For(i, 1, n) For(j, C[i][0] = C[i][i] = 1, i-1)
         C[i][j] = C[i-1][j-1] + C[i-1][j];
     For(i, 1, n) For(j, 1, n) f[i][j] = F.C(n + i*j - 1, n);
@@ -43,7 +45,7 @@ int main() {
     For(j, 1, n) For(i, 2, n) For(k, 1, i-1)
         f[i][j] -= f[k][j] * C[i][k];
     For(i, 1, n) For(j, 2, n) For(k, 1, j-1)
-        f[i][j] -= f[i][j] * C[n-k][n-j]; // 在 n-k 个拆分点中选 n-j 个拆分点，把合法的拆分开，那这些方案就是非法的
+        f[i][j] -= f[i][k] * C[n-k][n-j]; // 在 n-k 个拆分点中选 n-j 个拆分点，把合法的拆分开，那这些方案就是非法的
     For(j, 1, n) For(i, 2, n) For(k, 1, i-1)
         f[i][j] -= f[k][j] * C[n-k][n-i];
     roF(i, n, 1) roF(j, n, 1) printf("%d%c", f[i][j](), " \n"[j==1]);
