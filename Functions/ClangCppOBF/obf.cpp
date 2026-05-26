@@ -1,150 +1,216 @@
-#include <cstdio>
-#include <string>
-#include <concepts>
-#include <type_traits>
-int a,b,c,d,e,f,g,h,i,j,k,l,m,n;
-int o,p,q,r,s,t,u,v,w,x,y,z,A,B;
-int C,D,E,F,G,H,I,J,K,L,M,N,O,P;
-int Q,R,S,T,U,V,W,X,Y,Z,_;
-// 定义一个概念来匹配所有整数类型，包括 __int128
+#include <bits/stdc++.h>
 template <typename bb>
-concept IntegerWithI128 = std::integral<bb> || std::same_as<bb, __int128_t> || std::same_as<bb, __uint128_t>;
-class FastInputStream {
-    static constexpr size_t db = 1 << 20;
-    char eb[db];
-    char *fb = nullptr, *gb = nullptr;
-    FILE *hb;
-public:
-    FastInputStream(FILE *ib = stdin) : hb(ib) {}
-    [[gnu::always_inline]] char get() {
-        if (fb == gb) {
-            fb = eb;
-            gb = eb + fread(eb, 1, db, hb);
-            if (fb == gb) return EOF;
-        }
-        return *fb++;
+constexpr inline bb modInv(bb cb, bb db) { // x * u ≡ 1 (mod y)
+    assert(cb != 0);
+    bb eb = 0, fb = 1, gb = cb, hb = db, ib;
+    while (gb != 0) {
+        ib = hb / gb;
+        std::swap(gb, hb -= ib * gb);
+        std::swap(eb -= ib * fb, fb);
     }
-    FastInputStream& operator>>(bool& kb) {
-        int lb = get();
-        while (~lb && lb != '0' && lb != '1') lb = get();
-        kb = (lb == '1');
-        return *this;
-    }
-    FastInputStream& operator>>(char& mb) {
-        mb = get();
-        while (mb == ' ' || mb == '\r' || mb == '\n' || mb == '\t') mb = get();
-        return *this;
-    }
-    template <IntegerWithI128 nb>
-    FastInputStream& operator>>(nb& ob) {
-        int pb = get();
-        bool qb = false;
-        while (~pb && (pb < '0' || pb > '9') && pb != '-') pb = get();
-        if constexpr (std::is_signed_v<nb> || std::same_as<nb, __int128_t>) {
-            if (pb == '-') { qb = true; pb = get(); }
-        }
-        ob = 0;
-        while (pb >= '0' && pb <= '9') {
-            ob = (ob << 3) + (ob << 1) + (pb ^ '0');
-            pb = get();
-        }
-        if (qb) ob = -ob;
-        return *this;
-    }
-    template <std::floating_point rb>
-    FastInputStream& operator>>(rb& sb) {
-        int tb = get();
-        bool ub = false;
-        while (~tb && (tb < '0' || tb > '9') && tb != '-') tb = get();
-        if (tb == '-') { ub = true; tb = get(); }
-        
-        __uint128_t vb = 0;
-        while (tb >= '0' && tb <= '9') {
-            vb = (vb << 3) + (vb << 1) + (tb ^ '0');
-            tb = get();
-        }
-        sb = static_cast<rb>(vb);
-        if (tb == '.') {
-            rb wb = 1.0;
-            for (tb = get(); tb >= '0' && tb <= '9'; tb = get()) {
-                sb += (tb ^ '0') * (wb /= 10.0);
-            }
-        }
-        if (ub) sb = -sb;
-        return *this;
-    }
-    FastInputStream& operator>>(char *xb) {
-        int yb = get();
-        while (~yb && (yb <= ' ')) yb = get();
-        while (~yb && (yb > ' ')) *xb++ = yb, yb = get();
-        *xb = '\0';
-        return *this;
-    }
-} fin;
+    assert(hb == 1);
+    return eb;
+}
 
-class FastOutputStream {
-    static constexpr size_t Bb = 1 << 20;
-    char Cb[Bb], *Db = Cb;
-    FILE *Eb; long double Fb = 5e-6;
-    unsigned char Gb = 6;
+template<class kb, typename kb::value_type lb = 0>
+requires std::integral<typename kb::value_type>
+class MIB {
+    using mb = kb::value_type;
+    mb nb;
+    template<typename pb> constexpr mb ob(pb qb) {
+        if constexpr (std::is_unsigned_v<pb>)
+            return static_cast<mb>(qb < pb(rb()) ? qb : qb % pb(rb()));
+        else {
+            mb sb = static_cast<mb>(-rb() < qb && qb < rb() ? qb : qb % rb());
+            return (sb < 0 ? sb + rb() : sb);
+        }
+    }
 public:
-    FastOutputStream(FILE *Hb = stdout) : Eb(Hb) { setvbuf(Eb, nullptr, _IONBF, 0); }
-    ~FastOutputStream() { flush(); }
-    void flush() {
-        fwrite(Cb, 1, Db - Cb, Eb);
-        Db = Cb;
-    }
-    [[gnu::always_inline]] void put(char Kb) {
-        if (Db == Cb + Bb) flush();
-        *Db++ = Kb;
-    }
-    FastOutputStream& precision(int Mb) { 
-        Gb = Mb;
-        Fb = 0.5;
-        while (Mb--) Fb *= 0.1;
+    static constexpr mb rb() { return kb::value; }
+    constexpr MIB() : nb(lb) {}
+    template<typename tb> constexpr MIB(tb ub) { nb = ob(ub); }
+    template<typename vb> explicit constexpr operator vb() const { return static_cast<vb>(nb); }
+    constexpr mb operator()() const { return nb; }
+    constexpr MIB& operator+=(MIB wb) {
+        if ((nb += wb.nb) >= rb()) nb -= rb();
         return *this;
     }
-    FastOutputStream& operator<<(char Nb) { put(Nb); return *this; }
-    FastOutputStream& operator<<(const char *Ob) {
-        while (*Ob) put(*Ob++);
+    constexpr MIB& operator-=(MIB xb) {
+        if ((nb -= xb.nb) < 0) nb += rb();
         return *this;
     }
-    FastOutputStream& operator<<(const std::string &Pb) {
-        for (char c : Pb) put(c);
+    constexpr MIB& operator*=(MIB yb) {
+        if constexpr (std::is_same_v<mb, int>)
+            nb = ob((uint64_t)nb * yb.nb);
+        else if constexpr (std::is_same_v<mb, int64_t>)
+            nb = ob((unsigned __int128)nb * yb.nb);
+        else 
+            nb = ob(nb * yb.nb);
         return *this;
     }
-    template <IntegerWithI128 Qb>
-    FastOutputStream& operator<<(Qb Rb) {
-        if (Rb == 0) { put('0'); return *this; }
-        Qb Sb = Rb;
-        if constexpr (std::is_signed_v<Qb> || std::same_as<Qb, __int128_t>) {
-            if (Sb < 0) { put('-'); Sb = -Sb; }
-        }
-        static char Tb[64];
-        int Ub = 0;
-        while (Sb) {
-            Tb[Ub++] = static_cast<char>(Sb % 10) ^ '0';
-            Sb /= 10;
-        }
-        while (Ub) put(Tb[--Ub]);
-        return *this;
-    }
-    template <std::floating_point Vb>
-    FastOutputStream& operator<<(Vb Wb) {
-        Wb += Fb;
-        if (Wb < 0) { put('-'); Wb = -Wb; }
-        __uint128_t Xb = static_cast<__uint128_t>(Wb);
-        *this << Xb;
-        Vb Yb = Wb - static_cast<Vb>(Xb);
-        if (Gb > 0) {
-            put('.');
-            for (unsigned Zb = Gb; Zb; --Zb) {
-                Yb *= 10;
-                int _b = static_cast<int>(Yb);
-                put(_b ^ '0');
-                Yb -= _b;
-            }
+    constexpr MIB& operator/=(MIB zb) { return *this *= MIB(modInv(zb.nb, rb())); }
+    template<std::integral Ab> constexpr MIB& operator^=(Ab Bb) {
+        if (Bb < 0) return *this = MIB(modInv(static_cast<mb>(1), (*this ^ (-Bb))()));
+        MIB Cb = *this;
+        for (*this = static_cast<mb>(1); Bb; Bb >>= 1) {
+            if (Bb & 1) *this *= Cb;
+            Cb *= Cb;
         }
         return *this;
     }
-} fout;
+    constexpr MIB operator-() const { return MIB(-nb); }
+    constexpr MIB& operator++() { return *this += 1; }
+    constexpr MIB& operator--() { return *this -= 1; }
+    constexpr MIB operator++(int) { MIB Db = *this; ++*this; return Db; }
+    constexpr MIB operator--(int) { MIB Eb = *this; --*this; return Eb; }
+    constexpr MIB operator+(MIB Fb) const { return MIB(*this) += Fb; }
+    constexpr MIB operator-(MIB Gb) const { return MIB(*this) -= Gb; }
+    constexpr MIB operator*(MIB Hb) const { return MIB(*this) *= Hb; }
+    constexpr MIB operator/(MIB Ib) const { return MIB(*this) /= Ib; }
+    template<std::integral Jb> constexpr MIB operator^(const Jb Kb) const { return MIB(*this) ^= Kb; }
+    constexpr bool operator==(MIB Lb) const { return nb == Lb.nb; }
+    constexpr bool operator!=(MIB Mb) const { return nb != Mb.nb; }
+    constexpr bool operator!() const { return !nb; }
+    template<std::integral Nb> constexpr friend MIB operator+(Nb Ob, MIB Pb) { return MIB(Ob) + Pb; }
+    template<std::integral Qb> constexpr friend MIB operator-(Qb Rb, MIB Sb) { return MIB(Rb) - Sb; }
+    template<std::integral Tb> constexpr friend MIB operator*(Tb Ub, MIB Vb) { return MIB(Ub) * Vb; }
+    template<std::integral Wb> constexpr friend MIB operator/(Wb Xb, MIB Yb) { return MIB(Xb) / Yb; }
+    template<std::integral Zb> constexpr friend MIB operator==(Zb _b, MIB ac) { return MIB(_b) == ac; }
+    template<std::integral bc> constexpr friend MIB operator!=(bc cc, MIB dc) { return MIB(cc) != dc; }
+    template<std::integral ec> constexpr friend MIB operator<=(ec fc, MIB gc) { return MIB(fc) <= gc; }
+    template<std::integral hc> constexpr friend MIB operator>=(hc ic, MIB jc) { return MIB(ic) >= jc; }
+    template<std::integral kc> constexpr friend MIB operator<(kc lc, MIB mc) { return MIB(lc) < mc; }
+    template<std::integral nc> constexpr friend MIB operator>(nc oc, MIB pc) { return MIB(oc) > pc; }
+    template<typename qc> friend qc& operator>>(qc& rc, MIB& sc) {
+        rc >> sc.nb;
+        sc.nb = sc.normalize(sc.nb);
+        return rc;
+    }
+    template<typename tc> friend tc& operator<<(tc& uc, MIB vc) { return uc << vc.nb; }
+};
+template<class xc, typename xc::value_type yc = 0>
+requires requires(typename xc::value_type zc, typename xc::value_type Ac) {
+    // 1. 基础算术操作 (你原本定义的)
+    { zc + Ac } -> std::same_as<typename xc::value_type>;
+    { zc - Ac } -> std::same_as<typename xc::value_type>;
+    { zc * Ac } -> std::same_as<typename xc::value_type>;
+    { zc % Ac } -> std::same_as<typename xc::value_type>;
+    // 2. 复合赋值操作 (+=, -=, *=, %=)
+    { zc += Ac } -> std::same_as<typename xc::value_type&>;
+    { zc -= Ac } -> std::same_as<typename xc::value_type&>;
+    { zc *= Ac } -> std::same_as<typename xc::value_type&>;
+    { zc %= Ac } -> std::same_as<typename xc::value_type&>;
+    // 3. 构造与赋值约束 (确保 Default = 0 以及常规初始化能通过)
+    requires std::is_default_constructible_v<typename xc::value_type>;
+    requires std::is_copy_constructible_v<typename xc::value_type>;
+    requires std::is_move_constructible_v<typename xc::value_type>;
+    requires std::is_assignable_v<typename xc::value_type&, int>; // 确保能从 0 构造/赋值
+    // 4. 比较操作 (==, !=)
+    requires std::equality_comparable<typename xc::value_type>;
+} class MDB {
+    using Bc = xc::value_type;
+    Bc Cc;
+    template<std::integral Ec> constexpr Bc Dc(Ec Fc) {
+        if constexpr (std::is_unsigned_v<Ec>)
+            return static_cast<Bc>(Fc < Ec(Gc()) ? Fc : Fc % Ec(Gc()));
+        else {
+            Bc Hc = static_cast<Bc>(-Gc() < Fc && Fc < Gc() ? Fc : Fc % Gc());
+            return (Hc < 0 ? Hc + Gc() : Hc);
+        }
+    }
+public:
+    static constexpr Bc Gc() { return xc::value; }
+    constexpr MDB() : Cc(yc) {}
+    template<std::integral Ic> constexpr MDB(const Ic &Jc) { Cc = ob(Jc); }
+    template<std::integral Kc> explicit constexpr operator Kc() const { return static_cast<Kc>(Cc); }
+    constexpr Bc operator()() const { return Cc; }
+    constexpr MDB& operator+=(const MDB& Lc) {
+        if ((Cc += Lc.Cc) >= Gc()) Cc -= Gc();
+        return *this;
+    }
+    constexpr MDB& operator-=(const MDB& Mc) {
+        if ((Cc -= Mc.Cc) < 0) Cc += Gc();
+        return *this;
+    }
+    constexpr MDB& operator*=(const MDB& Nc) {
+        if constexpr (std::is_same_v<Bc, int>)
+            Cc = Dc((uint64_t)Cc * Nc.Cc);
+        else if constexpr (std::is_same_v<Bc, int64_t>)
+            Cc = Dc((unsigned __int128)Cc * Nc.Cc);
+        else 
+            Cc = Dc(Cc * Nc.Cc);
+        return *this;
+    }
+    constexpr MDB& operator/=(const MDB& Oc) { return *this *= MDB(modInv(Oc.Cc, Gc())); }
+    template<std::integral Pc> constexpr MDB& operator^=(Pc Qc) {
+        if (Qc < 0) return *this = MDB(modInv(static_cast<Bc>(1), (*this ^ (-Qc))()));
+        MDB Rc = *this;
+        for (*this = static_cast<Bc>(1); Qc; Qc >>= 1) {
+            if (Qc & 1) *this *= Rc;
+            Rc *= Rc;
+        }
+        return *this;
+    }
+    constexpr MDB operator-() const { return MDB(-Cc); }
+    constexpr MDB& operator++() { return *this += 1; }
+    constexpr MDB& operator--() { return *this -= 1; }
+    constexpr MDB operator++(int) { MDB Sc = *this; ++*this; return Sc; }
+    constexpr MDB operator--(int) { MDB Tc = *this; --*this; return Tc; }
+    constexpr MDB operator+(const MDB& Uc) const { return MDB(*this) += Uc; }
+    constexpr MDB operator-(const MDB& Vc) const { return MDB(*this) -= Vc; }
+    constexpr MDB operator*(const MDB& Wc) const { return MDB(*this) *= Wc; }
+    constexpr MDB operator/(const MDB& Xc) const { return MDB(*this) /= Xc; }
+    template<std::integral Yc> constexpr MDB operator^(const Yc Zc) const { return MDB(*this) ^= Zc; }
+    constexpr bool operator==(const MDB& _c) const { return Cc == _c.Cc; }
+    constexpr bool operator!=(const MDB& ad) const { return Cc != ad.Cc; }
+    constexpr bool operator!() const { return !Cc; }
+    template<typename bd> constexpr friend MDB operator+(const bd& cd, const MDB& dd) { return MDB(cd) + dd; }
+    template<typename ed> constexpr friend MDB operator-(const ed& fd, const MDB& gd) { return MDB(fd) - gd; }
+    template<typename hd> constexpr friend MDB operator*(const hd& id, const MDB& jd) { return MDB(id) * jd; }
+    template<typename kd> constexpr friend MDB operator/(const kd& ld, const MDB& md) { return MDB(ld) / md; }
+    template<typename nd> constexpr friend MDB operator==(const nd& od, const MDB& pd) { return MDB(od) == pd; }
+    template<typename qd> constexpr friend MDB operator!=(const qd& rd, const MDB& sd) { return MDB(rd) != sd; }
+    template<typename td> constexpr friend MDB operator<=(const td& ud, const MDB& vd) { return MDB(ud) <= vd; }
+    template<typename wd> constexpr friend MDB operator>=(const wd& xd, const MDB& yd) { return MDB(xd) >= yd; }
+    template<typename zd> constexpr friend MDB operator<(const zd& Ad, const MDB& Bd) { return MDB(Ad) < Bd; }
+    template<typename Cd> constexpr friend MDB operator>(const Cd& Dd, const MDB& Ed) { return MDB(Dd) > Ed; }
+    template<typename Fd> friend Fd& operator>>(Fd& Gd, MDB& Hd) {
+        Gd >> Hd.Cc;
+        Hd.Cc = Hd.Dc(Hd.Cc);
+        return Gd;
+    }
+    template<typename Id> friend Id& operator<<(Id& Jd, const MDB& Kd) { return Jd << Kd.Cc; }
+};
+constexpr auto MOD = (int)1e9 + 7;
+using Mint = MIB<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
+// struct Dynamic_ModInt { using value_type = int; static value_type value; };
+// Dynamic_ModInt::value_type &Mod = Dynamic_ModInt::value;
+// using Mint = ModInt<Dynamic_ModInt>;
+Mint sqrt(Mint Nd) { return Nd ^ (-2); }
+struct Fact {
+    Fact(const int n) : aa(n+1, Mint(1)), ia(n+1), sz(n) {
+        aa[0] = 1;
+        for (int i = 1; i <= n; i++) aa[i] = aa[i-1] * i;
+        ia[n] = Mint(1) / aa[n];
+        for (int i = n; i >= 1; i--) ia[i-1] = ia[i] * i;
+    }
+    Mint C(int n, int m) const {
+        if (n < 0 || m < 0 || n < m) [[unlikely]] return 0;
+        if (n > sz) [[unlikely]] throw std::out_of_range("Expected n < " + std::to_string(sz) + ", but found n = " + std::to_string(n) + ".");
+        return aa[n] * ia[m] * ia[n - m];
+    }
+    Mint A(int n, int m) const {
+        if (n < 0 || m < 0 || n < m) [[unlikely]] return 0;
+        if (n > sz) [[unlikely]] throw std::out_of_range("Expected n < " + std::to_string(sz) + ", but found n = " + std::to_string(n) + ".");
+        return aa[n] * ia[n - m];
+    }
+    Mint F(int n) const {
+        if (n < 0) [[unlikely]] return 0;
+        if (n > sz) [[unlikely]] throw std::out_of_range("Expected n < " + std::to_string(sz) + ", but found n = " + std::to_string(n) + ".");
+        return aa[n];
+    }
+private:
+    std::vector<Mint> aa, ia;
+    const int sz;
+};
+Fact F(1000000);
