@@ -27,7 +27,7 @@ static void dfs(int u, int pre) {
     f[u].resize(1, Vec(1, n+1));
     for (int v : g[u]) if (v != pre) {
         dfs(v, u);
-        std::vector<Vec> ff(1 + sz[u] + sz[v], Vec(n+1));
+        std::vector<Vec> ff(1 + sz[u] + sz[v], Vec(n+1)); 
         For(i, 0, sz[u]) For(j, 0, sz[v])
             ff[i+j] += f[u][i] * f[v][j] * C[i+j][i] * C[sz[u]-i + sz[v]-j][sz[u]-i];
         ff.swap(f[u]);
