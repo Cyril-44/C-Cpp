@@ -1,11 +1,11 @@
 #include <cstdio>
 #include <vector>
+#include <cstring>
 #include <algorithm>
 #include <bitset>
 #include <list>
-constexpr int N = 1/*00005*/, LGN = 17, MOD = (int)1e9 + 9;
+constexpr int N = 100005, LGN = 50, MOD = (int)1e9 + 9;
 std::vector<std::pair<int,int>> g[N];
-int n, m, k;
 struct ModInt {
     ModInt(int v=0) : val(v) {}
     ModInt operator-() const { return ModInt(!val ? 0 : MOD-val); }
@@ -17,84 +17,63 @@ struct ModInt {
     ModInt operator*(ModInt x) const { return ModInt(*this) *= x; }
     template<class T> constexpr explicit operator T() const { return static_cast<T>(val); }
     private: int val;
-} f[N][2];
-namespace BruteForce {
-constexpr int N = 10;
-std::bitset<N> curst, all[N];
-ModInt C[N][N];
-void getall(int u, int pre, int dep) {
-    if (dep > k) return;
-    curst.set(u);
-    for (auto [v, w] : g[u]) if (v != pre) getall(v, u, dep + w);
-}
-inline void work() {
-    for (int i = 1; i <= n; i++)
-        curst.reset(), getall(i, 0, 0), all[i] = curst;
-    for (int i = 1; i <= n; i++) {
-        C[i][0] = C[i][i] = 1;
-        for (int j = 1; j < i; j++) C[i][j] = C[i-1][j-1] + C[i-1][j];
+};
+ModInt qpow(ModInt b, int n) {
+    ModInt res = 1;
+    while (n) {
+        if (n & 1) res *= b;
+        b *= b, n >>= 1;
     }
-    ModInt ans = 0;
-    std::vector<unsigned> maskall[N];
-    for (unsigned mask = 0; !(mask>>n); mask++)
-        maskall[__builtin_popcount(mask)].push_back(mask << 1);
-    for (int i = 1; i <= n; i++) {
-        for (unsigned mask : maskall[i]) {
-            std::bitset<N> st; st.set();
-            for (int j = 1; j <= n; j++)
-                if (mask >> j & 1) st &= all[j];
-            int sz = st.count();
-            if (i & 1) ans += C[sz][m];
-            else ans -= C[sz][m];
-        }
-    }
-    printf("%d\n", int(ans));
+    return res;
 }
-} // namespace Bruteforce
+static ModInt fact[N], ifact[N];
+static struct _OnInit_Fact { _OnInit_Fact() {
+    fact[0] = 1;
+    for (int i = 1; i < N; i++) fact[i] = fact[i-1] * i;
+    ifact[N-1] = qpow(fact[N-1], MOD-2);
+    for (int i = N-1; i > 0; i--) ifact[i-1] = ifact[i] * i;
+} } _fact_initialization;
+inline static ModInt C(int x, int y) { if (x < y || x < 0 || y < 0) return 0; return fact[x] * ifact[y] * ifact[x - y]; }
+inline static void umin(int &x, int y) { (x > y) && (x = y); }
+inline static void umax(int &x, int y) { (x < y) && (x = y); }
+
+static int64_t dis[N];
+static int f[N][2], n, m, k;
+
 namespace PntDivide {
-    std::bitset<N> ban;
-    int sz[N], mnSubSz, totSz, centroid;
-    int64_t dis[N];
-    void getCentroid(int u, int pre) {
-        sz[u] = 1;
-        int now = 0;
-        for (auto [v, w] : g[u]) if (v != pre && !ban[v]) {
-            getCentroid(v, u);
-            sz[u] += sz[v];
-            now = std::min(now, sz[v]);
-        }
-        now = std::max(now, totSz - sz[u]);
+    static std::bitset<N> ban;
+    static int sz[N], mnSubSz, totSz, centroid;
+    static void getCentroid(int u, int pre) {
+        sz[u] = 1; int now = 0;
+        for (auto [v, w] : g[u]) if (v != pre && !ban[v])
+            getCentroid(v, u), sz[u] += sz[v], umax(now, sz[v]);
+        umax(now, totSz - sz[u]);
         if (now < mnSubSz) mnSubSz = now, centroid = u;
     }
     using PntRec = std::vector<std::pair<int64_t,int>>;
-    PntRec allpnts;
-    struct __On_Init { __On_Init() { allpnts.reserve(N); } } __initialization;
-    void calcSzDis(int u, int pre) {
+    static PntRec allpnts;
+    static struct __On_Init { __On_Init() { allpnts.reserve(N); } } __initialization;
+    static void calcSzDis(int u, int pre) {
         sz[u] = 1; allpnts.emplace_back(dis[u], u);
-        for (auto [v, w] : g[u]) if (v != pre && !ban[v]) {
-            dis[v] = dis[u] + w;
-            calcSzDis(v, u);
-            sz[u] += sz[v];
-        }
+        for (auto [v, w] : g[u]) if (v != pre && !ban[v])
+            dis[v] = dis[u] + w, calcSzDis(v, u), sz[u] += sz[v];
     }
-    inline void makeCentroid(int &u, int sz) {
-        totSz = sz, mnSubSz = sz;
-        getCentroid(u, 0);
-        u = centroid;
-        allpnts.clear();
-        dis[u] = 0;v
-        calcSzDis(u, 0);
+    static inline void makeCentroid(int &u, int totsz) {
+        totSz = totsz, mnSubSz = totsz; getCentroid(u, 0); u = centroid;
+        allpnts.clear(); dis[u] = 0; calcSzDis(u, 0);
     }
     bool upperBoundCmp(int x, const std::pair<int64_t,int>& pir) { return x < pir.first; }
-    void dfs(int u, int totsz) {
+    static void dfs(int u = 1, int totsz = n) {
         makeCentroid(u, totsz);
+        fprintf(stderr, "Centroid: %d\n", u);
         auto sortedall = allpnts;
         std::list<PntRec> all;
         int idx = 1;
-        for (auto [v, w] : g[u]) if (!ban[u]) {
+        for (auto [v, w] : g[u]) if (!ban[v]) {
             std::sort(allpnts.data()+idx, allpnts.data()+idx+sz[v]);
             all.emplace_back(allpnts.data()+idx, allpnts.data()+idx+sz[v]);
             std::inplace_merge(allpnts.data(), allpnts.data()+idx, allpnts.data()+idx+sz[v]);
+            idx += sz[v];
         }
         for (PntRec pnts : all) {
             for (const auto &[d, v] : pnts) {
@@ -103,16 +82,20 @@ namespace PntDivide {
                          - std::max(0, int(std::upper_bound(pnts.begin(), pnts.end(), k - d, upperBoundCmp) - pnts.begin() - 1));
             }
         }
-        f[u][0] += std::max(0, int(std::upper_bound(allpnts.begin(), allpnts.end(), k-d, upperBoundCmp) - allpnts.begin() - 1));
+        fprintf(stderr, "Node %d: ", u);
+        for (auto [w, v] : allpnts) fprintf(stderr, "(%lld,%d)", w, v);
+        fprintf(stderr, " {+= %d}\n", std::max(0, int(std::upper_bound(allpnts.begin(), allpnts.end(), k, upperBoundCmp) - allpnts.begin() - 1)));
+        f[u][0] += std::max(0, int(std::upper_bound(allpnts.begin(), allpnts.end(), k, upperBoundCmp) - allpnts.begin() - 1));
         ban[u] = true;
-        for (auto [v, w] : g[u]) if (!ban[u]) dfs(v, sz[v]);
+        for (auto [v, w] : g[u]) if (!ban[v]) dfs(v, sz[v]);
     }
 } // namespace PntDivide
+
 namespace SegCombine {
-    constexpr int DOWN = 0, UP = 1e9;
+    constexpr int64_t DOWN = 0, UP = 1e14+1e9;
     struct Node { int sum, ls, rs; };
-    static Node tr[N * LGN];
-    int tot;
+    static std::vector<Node> tr(N * LGN);
+    static int tot;
     inline int alloc(int val = 0) {
         tr[++tot] = {val};
         return tot;
@@ -120,39 +103,41 @@ namespace SegCombine {
     inline void pushup(int u) {
         tr[u].sum = tr[tr[u].ls].sum + tr[tr[u].rs].sum;
     }
-    int combine(int u, int v, int l, int r) {
+    int combine(int u, int v, int64_t l, int64_t r) {
         if (!u || !v) return u | v;
         tr[u].sum += tr[v].sum;
         if (l != r) {
-            int mid = l + r >> 1;
+            int64_t mid = l + r >> 1;
             tr[u].ls = combine(tr[u].ls, tr[v].ls, l, mid);
             tr[u].rs = combine(tr[u].rs, tr[v].rs, mid+1, r);
         }
         return u;
     }
     struct SegTr {
-        int root, L, R, P;
-        int inq(int u, int l, int r) {
+        int root;
+        int64_t L, R, P;
+        int inq(int u, int64_t l, int64_t r) {
             if (!u) return 0;
             if (L <= l && r <= R) return tr[u].sum;
-            int mid = l + r >> 1, res = 0;
+            int64_t mid = l + r >> 1;
+            int res = 0;
             if (L <= mid) res += inq(tr[u].ls, l, mid);
             if (mid < R) res += inq(tr[u].rs, mid+1, r);
             return res;
         }
-        int inquire(int l, int r) {
+        int inquire(int64_t l, int64_t r) {
             L=l, R=r; return inq(root, DOWN, UP);
         }
         SegTr() : root() {}
-        void upd(int& u, int l, int r) {
+        void upd(int& u, int64_t l, int64_t r) {
             if (!u) u = alloc();
-            if (l == r) tr[u].sum++;
-            int mid = l + r >> 1;
+            if (l == r) { tr[u].sum++; return; }
+            int64_t mid = l + r >> 1;
             if (P <= mid) upd(tr[u].ls, l, mid);
             else upd(tr[u].rs, mid+1, r);
             pushup(u);
         }
-        void update(int pos) {
+        void update(int64_t pos) {
             P=pos; upd(root, DOWN, UP);
         }
         void merge(SegTr &oth) {
@@ -160,11 +145,14 @@ namespace SegCombine {
             oth.root = 0;
         }
     } fseg[N];
-    void dfs(int u, int pre = 0) {
+    void dfs(int u = 1, int pre = 0) {
         for (auto [v, w] : g[u]) if (v != pre) {
+            dis[v] = dis[u] + w;
             dfs(v, u);
+            if (pre) f[u][1] += fseg[v].inquire(dis[pre]+k+1, dis[u]+k);
             fseg[u].merge(fseg[v]);
         }
+        fseg[u].update(dis[u]);
     }
 } // namespace SegCombine
 int main() {
@@ -178,7 +166,14 @@ int main() {
             g[u].emplace_back(v, w);
             g[v].emplace_back(u, w);
         }
-        
+        memset(&f[1][0], 0, sizeof(ModInt) * 2*n);
+        PntDivide::dfs(); SegCombine::dfs();
+        ModInt ans = 0;
+        for (int i = 1; i <= n; i++) {
+            fprintf(stderr, "%d %d\n", f[i][0], f[i][1]);
+            ans += C(f[i][0], k) - C(f[i][0] - f[i][1], k);
+        }
+        printf("%d\n", int(ans));
     }
     return 0;
 }
