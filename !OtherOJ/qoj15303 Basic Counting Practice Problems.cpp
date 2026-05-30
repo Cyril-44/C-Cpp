@@ -35,42 +35,72 @@ static void dfs(int u, int pre) {
     }
     std::vector<Mint> fval(sz[u]+1);
     For(i, 0, sz[u]) fval[i] = (vec * f[u][i]).sum();
-    For(i, 0, sz[u]) For(j, i+1, n)
+    For(i, 1, sz[u]) For(j, i+1, n)
         ans[i][j] += fval[i] * C[j-1][i-1] * C[n-j][sz[u]-i];
     std::vector<Vec> ff(++sz[u] + 1, Vec(n+1));
     Vec mul(n+1); std::iota(&mul[0], &mul[n]+1, 0);
-    For(i, 0, sz[u]) {
+    For(i, 0, sz[u]-1) {
         ff[i] += f[u][i] * (sz[u]-i + 1);
         ff[i+1] += f[u][i] * mul * (i+1);
     }
     ff.swap(f[u]);
 }
 static inline void getInv(Mat m, int n) {
+    // 1. 初始化伴随矩阵 [A | I]
+    // 注意：C++ 数组通常从 0 开始，这里配合你的代码沿用 1 到 n 的习惯
     static Mint mat[N][N*2];
     For(i, 1, n) {
-        memcpy(&mat[i][1], &m[i][1], sizeof(Mint) * n);
-        mat[i][i+n] = 1;
-    }
-    int idx = 1;
-    For(v, 1, 2*n) {
-        if (!mat[idx][v]) continue;
-        For(j, v+1, 2*n) mat[idx][j] /= mat[idx][v];
-        mat[idx][v] = 1;
-        For(i, idx+1, n) {
-            For(j, v+1, 2*n) mat[i][j] -= mat[i][v] * mat[idx][j];
-            mat[i][v] = 0;
+        For(j, 1, n) {
+            mat[i][j] = m[i][j];
+            mat[i][j + n] = (i == j) ? 1 : 0; 
         }
-        if (++idx > n)
-            break;
     }
-    bool check = true;
-    For(i, 1, n) For(j, 1, 2*n) std::cout << mat[i][j] << " \n"[j==2*n];
-    std::cout << std::endl;
+
+    // 2. 高斯-约旦消元
     For(i, 1, n) {
-        For(j, 1, n) check &= mat[i][j]() == (i == j);
-        memcpy(&m[i][1], &mat[i][1], sizeof(Mint) * n);
+        // 寻找主元（如果 Mint 是模意义整数，只需找到一个非 0 的行即可）
+        int pivot = i;
+        For(r, i + 1, n) {
+            if (mat[r][i]() != 0) { // 假设 mat[r][i]() 返回底层数值
+                pivot = r;
+                break;
+            }
+        }
+
+        // 如果主元为 0，说明矩阵秩小于 n，不可逆
+        if (mat[pivot][i]() == 0) {
+            std::cerr << "Matrix is singular (not invertible)!" << std::endl;
+            assert(false);
+        }
+
+        // 交换当前行与主元行
+        if (pivot != i) {
+            For(j, 1, 2 * n) std::swap(mat[i][j], mat[pivot][j]);
+        }
+
+        // 主元行归一化：将 mat[i][i] 变为 1
+        Mint inv_pivot = Mint(1) / mat[i][i]; // 假设 Mint 支持除法
+        For(j, i, 2 * n) {
+            mat[i][j] = mat[i][j] * inv_pivot;
+        }
+
+        // 消去其他所有行（包括上方和下方的行）
+        For(r, 1, n) {
+            if (r != i && mat[r][i]() != 0) {
+                Mint factor = mat[r][i];
+                For(j, i, 2 * n) {
+                    mat[r][j] = mat[r][j] - factor * mat[i][j];
+                }
+            }
+        }
     }
-    assert(check);
+
+    // 3. 将右半部分的逆矩阵复制回 m
+    For(i, 1, n) {
+        For(j, 1, n) {
+            m[i][j] = mat[i][j + n];
+        }
+    }
 }
 int main() {
     std::cin.tie(nullptr) -> sync_with_stdio(false);
