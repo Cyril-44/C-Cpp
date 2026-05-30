@@ -1,216 +1,77 @@
-#include <bits/stdc++.h>
-template <typename bb>
-constexpr inline bb modInv(bb cb, bb db) { // x * u ≡ 1 (mod y)
-    assert(cb != 0);
-    bb eb = 0, fb = 1, gb = cb, hb = db, ib;
-    while (gb != 0) {
-        ib = hb / gb;
-        std::swap(gb, hb -= ib * gb);
-        std::swap(eb -= ib * fb, fb);
-    }
-    assert(hb == 1);
-    return eb;
+//括号序列
+#include<cstdio>
+//(a1 b1)(a2 b2)->(a,b)
+//a+b=a1+abs(b1-a2)+b2=max((a1-b1)+(a2+b2),(a1+b1)+(b2-a2))
+//需要左区间后缀的max(a-b),max(a+b)，右区间前缀的max(a+b),max(b-a) 
+int IdWClupj59T1HZd,GCZCn7DQCEZnx[300005],zDT4o9f2lJIQ8p[1000005],b4aGcZGiiGsx8AelR[100005],waFcOZcNF8e1,wTuOBoCWSAElMSP3A,ab8PJgj2_2Vd9S8u,YHuJoHeQ3vtSHpYt;
+bool DvmqbmOS0oB1H948Zt1c[100005];
+struct pvxdH8gmX_53Fo1nW{int QPFGnjnwwArGsUA0cEsT,J7IYy1gvVAHdg;}fJHmyeZPssN0758yvQJ[200005];
+void UByvVkJjpPAAE2sFH6(int kKHUPHxAbqcGQBfVW4k,int fnpBS_1cOLxiu5Rj){fJHmyeZPssN0758yvQJ[++IdWClupj59T1HZd]=(pvxdH8gmX_53Fo1nW){fnpBS_1cOLxiu5Rj,b4aGcZGiiGsx8AelR[kKHUPHxAbqcGQBfVW4k]},b4aGcZGiiGsx8AelR[kKHUPHxAbqcGQBfVW4k]=IdWClupj59T1HZd;}
+struct X92wdSt823g_w3
+{
+	int mbH8kkWyW2cMpzObG,ZddPyGVGfkcz8,OZmyx6TvlxeFkajXVT,bZKK7_UOWcrNIE8HX8,Q5JN982HspRNhK,ZLpdQeARL24GkfYy,mGZmbSaWXLHXgdyCFOn;
+	//a,b右左括号数,l1,l2前缀的max(a+b),max(b-a),r1,r2后缀的max(a+b),max(a-b)  
+}YxTU6JBemMDqnIIVkA[1200005];
+void sMbBzrk8Lg_KRF8ebI1(int GOPrQ5aQVI2rLxQK3,int oT6Uzmx6faIqXANJ)
+{
+	GCZCn7DQCEZnx[++YHuJoHeQ3vtSHpYt]=-1;//左括号
+	GCZCn7DQCEZnx[++YHuJoHeQ3vtSHpYt]=GOPrQ5aQVI2rLxQK3;zDT4o9f2lJIQ8p[GOPrQ5aQVI2rLxQK3]=YHuJoHeQ3vtSHpYt;
+	for(int XM1CdoPosb3p2xthG6O=b4aGcZGiiGsx8AelR[GOPrQ5aQVI2rLxQK3];XM1CdoPosb3p2xthG6O;XM1CdoPosb3p2xthG6O=fJHmyeZPssN0758yvQJ[XM1CdoPosb3p2xthG6O].J7IYy1gvVAHdg)
+	{
+		int JVY5IaSw87KE4O9q_gI=fJHmyeZPssN0758yvQJ[XM1CdoPosb3p2xthG6O].QPFGnjnwwArGsUA0cEsT;if(JVY5IaSw87KE4O9q_gI==oT6Uzmx6faIqXANJ)continue;
+		sMbBzrk8Lg_KRF8ebI1(JVY5IaSw87KE4O9q_gI,GOPrQ5aQVI2rLxQK3);
+	}
+	GCZCn7DQCEZnx[++YHuJoHeQ3vtSHpYt]=-2;//右括号 
 }
-
-template<class kb, typename kb::value_type lb = 0>
-requires std::integral<typename kb::value_type>
-class MIB {
-    using mb = kb::value_type;
-    mb nb;
-    template<typename pb> constexpr mb ob(pb qb) {
-        if constexpr (std::is_unsigned_v<pb>)
-            return static_cast<mb>(qb < pb(rb()) ? qb : qb % pb(rb()));
-        else {
-            mb sb = static_cast<mb>(-rb() < qb && qb < rb() ? qb : qb % rb());
-            return (sb < 0 ? sb + rb() : sb);
-        }
-    }
-public:
-    static constexpr mb rb() { return kb::value; }
-    constexpr MIB() : nb(lb) {}
-    template<typename tb> constexpr MIB(tb ub) { nb = ob(ub); }
-    template<typename vb> explicit constexpr operator vb() const { return static_cast<vb>(nb); }
-    constexpr mb operator()() const { return nb; }
-    constexpr MIB& operator+=(MIB wb) {
-        if ((nb += wb.nb) >= rb()) nb -= rb();
-        return *this;
-    }
-    constexpr MIB& operator-=(MIB xb) {
-        if ((nb -= xb.nb) < 0) nb += rb();
-        return *this;
-    }
-    constexpr MIB& operator*=(MIB yb) {
-        if constexpr (std::is_same_v<mb, int>)
-            nb = ob((uint64_t)nb * yb.nb);
-        else if constexpr (std::is_same_v<mb, int64_t>)
-            nb = ob((unsigned __int128)nb * yb.nb);
-        else 
-            nb = ob(nb * yb.nb);
-        return *this;
-    }
-    constexpr MIB& operator/=(MIB zb) { return *this *= MIB(modInv(zb.nb, rb())); }
-    template<std::integral Ab> constexpr MIB& operator^=(Ab Bb) {
-        if (Bb < 0) return *this = MIB(modInv(static_cast<mb>(1), (*this ^ (-Bb))()));
-        MIB Cb = *this;
-        for (*this = static_cast<mb>(1); Bb; Bb >>= 1) {
-            if (Bb & 1) *this *= Cb;
-            Cb *= Cb;
-        }
-        return *this;
-    }
-    constexpr MIB operator-() const { return MIB(-nb); }
-    constexpr MIB& operator++() { return *this += 1; }
-    constexpr MIB& operator--() { return *this -= 1; }
-    constexpr MIB operator++(int) { MIB Db = *this; ++*this; return Db; }
-    constexpr MIB operator--(int) { MIB Eb = *this; --*this; return Eb; }
-    constexpr MIB operator+(MIB Fb) const { return MIB(*this) += Fb; }
-    constexpr MIB operator-(MIB Gb) const { return MIB(*this) -= Gb; }
-    constexpr MIB operator*(MIB Hb) const { return MIB(*this) *= Hb; }
-    constexpr MIB operator/(MIB Ib) const { return MIB(*this) /= Ib; }
-    template<std::integral Jb> constexpr MIB operator^(const Jb Kb) const { return MIB(*this) ^= Kb; }
-    constexpr bool operator==(MIB Lb) const { return nb == Lb.nb; }
-    constexpr bool operator!=(MIB Mb) const { return nb != Mb.nb; }
-    constexpr bool operator!() const { return !nb; }
-    template<std::integral Nb> constexpr friend MIB operator+(Nb Ob, MIB Pb) { return MIB(Ob) + Pb; }
-    template<std::integral Qb> constexpr friend MIB operator-(Qb Rb, MIB Sb) { return MIB(Rb) - Sb; }
-    template<std::integral Tb> constexpr friend MIB operator*(Tb Ub, MIB Vb) { return MIB(Ub) * Vb; }
-    template<std::integral Wb> constexpr friend MIB operator/(Wb Xb, MIB Yb) { return MIB(Xb) / Yb; }
-    template<std::integral Zb> constexpr friend MIB operator==(Zb _b, MIB ac) { return MIB(_b) == ac; }
-    template<std::integral bc> constexpr friend MIB operator!=(bc cc, MIB dc) { return MIB(cc) != dc; }
-    template<std::integral ec> constexpr friend MIB operator<=(ec fc, MIB gc) { return MIB(fc) <= gc; }
-    template<std::integral hc> constexpr friend MIB operator>=(hc ic, MIB jc) { return MIB(ic) >= jc; }
-    template<std::integral kc> constexpr friend MIB operator<(kc lc, MIB mc) { return MIB(lc) < mc; }
-    template<std::integral nc> constexpr friend MIB operator>(nc oc, MIB pc) { return MIB(oc) > pc; }
-    template<typename qc> friend qc& operator>>(qc& rc, MIB& sc) {
-        rc >> sc.nb;
-        sc.nb = sc.normalize(sc.nb);
-        return rc;
-    }
-    template<typename tc> friend tc& operator<<(tc& uc, MIB vc) { return uc << vc.nb; }
-};
-template<class xc, typename xc::value_type yc = 0>
-requires requires(typename xc::value_type zc, typename xc::value_type Ac) {
-    // 1. 基础算术操作 (你原本定义的)
-    { zc + Ac } -> std::same_as<typename xc::value_type>;
-    { zc - Ac } -> std::same_as<typename xc::value_type>;
-    { zc * Ac } -> std::same_as<typename xc::value_type>;
-    { zc % Ac } -> std::same_as<typename xc::value_type>;
-    // 2. 复合赋值操作 (+=, -=, *=, %=)
-    { zc += Ac } -> std::same_as<typename xc::value_type&>;
-    { zc -= Ac } -> std::same_as<typename xc::value_type&>;
-    { zc *= Ac } -> std::same_as<typename xc::value_type&>;
-    { zc %= Ac } -> std::same_as<typename xc::value_type&>;
-    // 3. 构造与赋值约束 (确保 Default = 0 以及常规初始化能通过)
-    requires std::is_default_constructible_v<typename xc::value_type>;
-    requires std::is_copy_constructible_v<typename xc::value_type>;
-    requires std::is_move_constructible_v<typename xc::value_type>;
-    requires std::is_assignable_v<typename xc::value_type&, int>; // 确保能从 0 构造/赋值
-    // 4. 比较操作 (==, !=)
-    requires std::equality_comparable<typename xc::value_type>;
-} class MDB {
-    using Bc = xc::value_type;
-    Bc Cc;
-    template<std::integral Ec> constexpr Bc Dc(Ec Fc) {
-        if constexpr (std::is_unsigned_v<Ec>)
-            return static_cast<Bc>(Fc < Ec(Gc()) ? Fc : Fc % Ec(Gc()));
-        else {
-            Bc Hc = static_cast<Bc>(-Gc() < Fc && Fc < Gc() ? Fc : Fc % Gc());
-            return (Hc < 0 ? Hc + Gc() : Hc);
-        }
-    }
-public:
-    static constexpr Bc Gc() { return xc::value; }
-    constexpr MDB() : Cc(yc) {}
-    template<std::integral Ic> constexpr MDB(const Ic &Jc) { Cc = ob(Jc); }
-    template<std::integral Kc> explicit constexpr operator Kc() const { return static_cast<Kc>(Cc); }
-    constexpr Bc operator()() const { return Cc; }
-    constexpr MDB& operator+=(const MDB& Lc) {
-        if ((Cc += Lc.Cc) >= Gc()) Cc -= Gc();
-        return *this;
-    }
-    constexpr MDB& operator-=(const MDB& Mc) {
-        if ((Cc -= Mc.Cc) < 0) Cc += Gc();
-        return *this;
-    }
-    constexpr MDB& operator*=(const MDB& Nc) {
-        if constexpr (std::is_same_v<Bc, int>)
-            Cc = Dc((uint64_t)Cc * Nc.Cc);
-        else if constexpr (std::is_same_v<Bc, int64_t>)
-            Cc = Dc((unsigned __int128)Cc * Nc.Cc);
-        else 
-            Cc = Dc(Cc * Nc.Cc);
-        return *this;
-    }
-    constexpr MDB& operator/=(const MDB& Oc) { return *this *= MDB(modInv(Oc.Cc, Gc())); }
-    template<std::integral Pc> constexpr MDB& operator^=(Pc Qc) {
-        if (Qc < 0) return *this = MDB(modInv(static_cast<Bc>(1), (*this ^ (-Qc))()));
-        MDB Rc = *this;
-        for (*this = static_cast<Bc>(1); Qc; Qc >>= 1) {
-            if (Qc & 1) *this *= Rc;
-            Rc *= Rc;
-        }
-        return *this;
-    }
-    constexpr MDB operator-() const { return MDB(-Cc); }
-    constexpr MDB& operator++() { return *this += 1; }
-    constexpr MDB& operator--() { return *this -= 1; }
-    constexpr MDB operator++(int) { MDB Sc = *this; ++*this; return Sc; }
-    constexpr MDB operator--(int) { MDB Tc = *this; --*this; return Tc; }
-    constexpr MDB operator+(const MDB& Uc) const { return MDB(*this) += Uc; }
-    constexpr MDB operator-(const MDB& Vc) const { return MDB(*this) -= Vc; }
-    constexpr MDB operator*(const MDB& Wc) const { return MDB(*this) *= Wc; }
-    constexpr MDB operator/(const MDB& Xc) const { return MDB(*this) /= Xc; }
-    template<std::integral Yc> constexpr MDB operator^(const Yc Zc) const { return MDB(*this) ^= Zc; }
-    constexpr bool operator==(const MDB& _c) const { return Cc == _c.Cc; }
-    constexpr bool operator!=(const MDB& ad) const { return Cc != ad.Cc; }
-    constexpr bool operator!() const { return !Cc; }
-    template<typename bd> constexpr friend MDB operator+(const bd& cd, const MDB& dd) { return MDB(cd) + dd; }
-    template<typename ed> constexpr friend MDB operator-(const ed& fd, const MDB& gd) { return MDB(fd) - gd; }
-    template<typename hd> constexpr friend MDB operator*(const hd& id, const MDB& jd) { return MDB(id) * jd; }
-    template<typename kd> constexpr friend MDB operator/(const kd& ld, const MDB& md) { return MDB(ld) / md; }
-    template<typename nd> constexpr friend MDB operator==(const nd& od, const MDB& pd) { return MDB(od) == pd; }
-    template<typename qd> constexpr friend MDB operator!=(const qd& rd, const MDB& sd) { return MDB(rd) != sd; }
-    template<typename td> constexpr friend MDB operator<=(const td& ud, const MDB& vd) { return MDB(ud) <= vd; }
-    template<typename wd> constexpr friend MDB operator>=(const wd& xd, const MDB& yd) { return MDB(xd) >= yd; }
-    template<typename zd> constexpr friend MDB operator<(const zd& Ad, const MDB& Bd) { return MDB(Ad) < Bd; }
-    template<typename Cd> constexpr friend MDB operator>(const Cd& Dd, const MDB& Ed) { return MDB(Dd) > Ed; }
-    template<typename Fd> friend Fd& operator>>(Fd& Gd, MDB& Hd) {
-        Gd >> Hd.Cc;
-        Hd.Cc = Hd.Dc(Hd.Cc);
-        return Gd;
-    }
-    template<typename Id> friend Id& operator<<(Id& Jd, const MDB& Kd) { return Jd << Kd.Cc; }
-};
-constexpr auto MOD = (int)1e9 + 7;
-using Mint = MIB<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
-// struct Dynamic_ModInt { using value_type = int; static value_type value; };
-// Dynamic_ModInt::value_type &Mod = Dynamic_ModInt::value;
-// using Mint = ModInt<Dynamic_ModInt>;
-Mint sqrt(Mint Nd) { return Nd ^ (-2); }
-struct Fact {
-    Fact(const int n) : aa(n+1, Mint(1)), ia(n+1), sz(n) {
-        aa[0] = 1;
-        for (int i = 1; i <= n; i++) aa[i] = aa[i-1] * i;
-        ia[n] = Mint(1) / aa[n];
-        for (int i = n; i >= 1; i--) ia[i-1] = ia[i] * i;
-    }
-    Mint C(int n, int m) const {
-        if (n < 0 || m < 0 || n < m) [[unlikely]] return 0;
-        if (n > sz) [[unlikely]] throw std::out_of_range("Expected n < " + std::to_string(sz) + ", but found n = " + std::to_string(n) + ".");
-        return aa[n] * ia[m] * ia[n - m];
-    }
-    Mint A(int n, int m) const {
-        if (n < 0 || m < 0 || n < m) [[unlikely]] return 0;
-        if (n > sz) [[unlikely]] throw std::out_of_range("Expected n < " + std::to_string(sz) + ", but found n = " + std::to_string(n) + ".");
-        return aa[n] * ia[n - m];
-    }
-    Mint F(int n) const {
-        if (n < 0) [[unlikely]] return 0;
-        if (n > sz) [[unlikely]] throw std::out_of_range("Expected n < " + std::to_string(sz) + ", but found n = " + std::to_string(n) + ".");
-        return aa[n];
-    }
-private:
-    std::vector<Mint> aa, ia;
-    const int sz;
-};
-Fact F(1000000);
+void xQqxsrKHx3utponUP7HG(int oNAu5_PZ7__yq,int ciqSuZO4I5u5CitNYz)
+{
+	YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].mbH8kkWyW2cMpzObG=YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].ZddPyGVGfkcz8=0;YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].OZmyx6TvlxeFkajXVT=YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].bZKK7_UOWcrNIE8HX8=YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].Q5JN982HspRNhK=YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].ZLpdQeARL24GkfYy=YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].mGZmbSaWXLHXgdyCFOn=-1e9;
+	if(GCZCn7DQCEZnx[ciqSuZO4I5u5CitNYz]==-1)YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].ZddPyGVGfkcz8=1;else
+	if(GCZCn7DQCEZnx[ciqSuZO4I5u5CitNYz]==-2)YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].mbH8kkWyW2cMpzObG=1;else
+	if(!DvmqbmOS0oB1H948Zt1c[GCZCn7DQCEZnx[ciqSuZO4I5u5CitNYz]])YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].OZmyx6TvlxeFkajXVT=YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].Q5JN982HspRNhK=YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].ZLpdQeARL24GkfYy=YxTU6JBemMDqnIIVkA[oNAu5_PZ7__yq].bZKK7_UOWcrNIE8HX8=0;//黑点 
+}
+int iO31DJ1Vk2ZQ(int p2FCuSHT0vqURs,int WoOlSj85RA_v61){return p2FCuSHT0vqURs>WoOlSj85RA_v61?p2FCuSHT0vqURs:WoOlSj85RA_v61;}
+void AeBG92OUR25icZNcP(int jyY6CAbYg9SpHAWzy)
+{
+	int FlNPzjx71BugKHJ1=jyY6CAbYg9SpHAWzy<<1,JMgjD3ZGpLlQUxvh=jyY6CAbYg9SpHAWzy<<1|1;
+	if(YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].ZddPyGVGfkcz8>YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].mbH8kkWyW2cMpzObG)
+	 YxTU6JBemMDqnIIVkA[jyY6CAbYg9SpHAWzy].mbH8kkWyW2cMpzObG=YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].mbH8kkWyW2cMpzObG,YxTU6JBemMDqnIIVkA[jyY6CAbYg9SpHAWzy].ZddPyGVGfkcz8=YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].ZddPyGVGfkcz8-YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].mbH8kkWyW2cMpzObG+YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].ZddPyGVGfkcz8;else
+	 YxTU6JBemMDqnIIVkA[jyY6CAbYg9SpHAWzy].mbH8kkWyW2cMpzObG=YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].mbH8kkWyW2cMpzObG+YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].mbH8kkWyW2cMpzObG-YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].ZddPyGVGfkcz8,YxTU6JBemMDqnIIVkA[jyY6CAbYg9SpHAWzy].ZddPyGVGfkcz8=YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].ZddPyGVGfkcz8;
+	YxTU6JBemMDqnIIVkA[jyY6CAbYg9SpHAWzy].OZmyx6TvlxeFkajXVT=iO31DJ1Vk2ZQ(YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].OZmyx6TvlxeFkajXVT,iO31DJ1Vk2ZQ(YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].OZmyx6TvlxeFkajXVT+YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].mbH8kkWyW2cMpzObG-YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].ZddPyGVGfkcz8,YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].bZKK7_UOWcrNIE8HX8+YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].mbH8kkWyW2cMpzObG+YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].ZddPyGVGfkcz8));
+	YxTU6JBemMDqnIIVkA[jyY6CAbYg9SpHAWzy].bZKK7_UOWcrNIE8HX8=iO31DJ1Vk2ZQ(YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].bZKK7_UOWcrNIE8HX8,YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].bZKK7_UOWcrNIE8HX8-YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].mbH8kkWyW2cMpzObG+YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].ZddPyGVGfkcz8);
+	YxTU6JBemMDqnIIVkA[jyY6CAbYg9SpHAWzy].Q5JN982HspRNhK=iO31DJ1Vk2ZQ(YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].Q5JN982HspRNhK,iO31DJ1Vk2ZQ(YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].Q5JN982HspRNhK-YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].mbH8kkWyW2cMpzObG+YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].ZddPyGVGfkcz8,YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].ZLpdQeARL24GkfYy+YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].mbH8kkWyW2cMpzObG+YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].ZddPyGVGfkcz8));
+	YxTU6JBemMDqnIIVkA[jyY6CAbYg9SpHAWzy].ZLpdQeARL24GkfYy=iO31DJ1Vk2ZQ(YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].ZLpdQeARL24GkfYy,YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].ZLpdQeARL24GkfYy+YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].mbH8kkWyW2cMpzObG-YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].ZddPyGVGfkcz8);
+	YxTU6JBemMDqnIIVkA[jyY6CAbYg9SpHAWzy].mGZmbSaWXLHXgdyCFOn=iO31DJ1Vk2ZQ(iO31DJ1Vk2ZQ(YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].Q5JN982HspRNhK+YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].bZKK7_UOWcrNIE8HX8,YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].ZLpdQeARL24GkfYy+YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].OZmyx6TvlxeFkajXVT),iO31DJ1Vk2ZQ(YxTU6JBemMDqnIIVkA[FlNPzjx71BugKHJ1].mGZmbSaWXLHXgdyCFOn,YxTU6JBemMDqnIIVkA[JMgjD3ZGpLlQUxvh].mGZmbSaWXLHXgdyCFOn));
+}
+void VjXxkxOg_7a9(int zP3MIscVG4VA9s,int SwZnp0rkXyi35mZ,int UozCcHQD_rbIVQ9ywI)
+{
+	if(SwZnp0rkXyi35mZ==UozCcHQD_rbIVQ9ywI){xQqxsrKHx3utponUP7HG(zP3MIscVG4VA9s,SwZnp0rkXyi35mZ);return;}
+	int KOjOC70eUWl0tAr=SwZnp0rkXyi35mZ+UozCcHQD_rbIVQ9ywI>>1;
+	VjXxkxOg_7a9(zP3MIscVG4VA9s<<1,SwZnp0rkXyi35mZ,KOjOC70eUWl0tAr);VjXxkxOg_7a9(zP3MIscVG4VA9s<<1|1,KOjOC70eUWl0tAr+1,UozCcHQD_rbIVQ9ywI);
+	AeBG92OUR25icZNcP(zP3MIscVG4VA9s);
+}
+void aWCiutAOjPEMWTiTX(int qLaZiMasjSd6,int ldm76AvjQy44v,int ZZtGmlHFdoUjM,int gbR932qPQ7L3PAsKNQbo)
+{
+	if(ldm76AvjQy44v==ZZtGmlHFdoUjM){xQqxsrKHx3utponUP7HG(qLaZiMasjSd6,ldm76AvjQy44v);return;}
+	int mFJgj82nQxFHLW8Y=ldm76AvjQy44v+ZZtGmlHFdoUjM>>1;
+	if(gbR932qPQ7L3PAsKNQbo<=mFJgj82nQxFHLW8Y)aWCiutAOjPEMWTiTX(qLaZiMasjSd6<<1,ldm76AvjQy44v,mFJgj82nQxFHLW8Y,gbR932qPQ7L3PAsKNQbo);else aWCiutAOjPEMWTiTX(qLaZiMasjSd6<<1|1,mFJgj82nQxFHLW8Y+1,ZZtGmlHFdoUjM,gbR932qPQ7L3PAsKNQbo);
+	AeBG92OUR25icZNcP(qLaZiMasjSd6);
+}
+int HHo7L8vSFrGPx0()
+{
+	scanf("%d",&waFcOZcNF8e1);
+	for(int gfsDh6xlV9kUD7H=1,d8JugFp2YGGmthSrba,mTwi_2Q9hs1cRfQnqIl;gfsDh6xlV9kUD7H<waFcOZcNF8e1;gfsDh6xlV9kUD7H++)
+	{
+		scanf("%d%d",&d8JugFp2YGGmthSrba,&mTwi_2Q9hs1cRfQnqIl);
+		UByvVkJjpPAAE2sFH6(d8JugFp2YGGmthSrba,mTwi_2Q9hs1cRfQnqIl),UByvVkJjpPAAE2sFH6(mTwi_2Q9hs1cRfQnqIl,d8JugFp2YGGmthSrba);
+	}
+	sMbBzrk8Lg_KRF8ebI1(1,0);ab8PJgj2_2Vd9S8u=waFcOZcNF8e1;
+	VjXxkxOg_7a9(1,1,YHuJoHeQ3vtSHpYt); 
+	scanf("%d",&wTuOBoCWSAElMSP3A);
+	for(int CZ_THhuMQThV=1,jbBM7iTWw4yGq;CZ_THhuMQThV<=wTuOBoCWSAElMSP3A;CZ_THhuMQThV++)
+	{
+		scanf("%d",&jbBM7iTWw4yGq),ab8PJgj2_2Vd9S8u+=DvmqbmOS0oB1H948Zt1c[jbBM7iTWw4yGq]?1:-1,DvmqbmOS0oB1H948Zt1c[jbBM7iTWw4yGq]^=1,aWCiutAOjPEMWTiTX(1,1,YHuJoHeQ3vtSHpYt,zDT4o9f2lJIQ8p[jbBM7iTWw4yGq]);
+		if(ab8PJgj2_2Vd9S8u==1)printf("0\n");else
+		printf("%d\n",YxTU6JBemMDqnIIVkA[1].mGZmbSaWXLHXgdyCFOn);
+	}
+}
