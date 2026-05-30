@@ -2,9 +2,9 @@
 #include <vector>
 #include <cstring>
 #include <algorithm>
-#include <bitset>
+#include <stack>
 #include <list>
-constexpr int N = 100005, LGN = 50, MOD = (int)1e9 + 9;
+constexpr int N = 100005, LGN = 25, MOD = (int)1e9 + 9;
 std::vector<std::pair<int,int>> g[N];
 struct ModInt {
     ModInt(int v=0) : val(v) {}
@@ -41,7 +41,7 @@ static int64_t dis[N];
 static int f[N][2], n, m, k;
 
 namespace PntDivide {
-    static std::bitset<N> ban;
+    static bool ban[N];
     static int sz[N], mnSubSz, totSz, centroid;
     static void getCentroid(int u, int pre) {
         sz[u] = 1; int now = 0;
@@ -65,40 +65,48 @@ namespace PntDivide {
     bool upperBoundCmp(int x, const std::pair<int64_t,int>& pir) { return x < pir.first; }
     static void dfs(int u = 1, int totsz = n) {
         makeCentroid(u, totsz);
-        fprintf(stderr, "Centroid: %d\n", u);
+        // fprintf(stderr, "Centroid: %d\n", u);
         auto sortedall = allpnts;
         std::list<PntRec> all;
         int idx = 1;
         for (auto [v, w] : g[u]) if (!ban[v]) {
             std::sort(allpnts.data()+idx, allpnts.data()+idx+sz[v]);
             all.emplace_back(allpnts.data()+idx, allpnts.data()+idx+sz[v]);
-            std::inplace_merge(allpnts.data(), allpnts.data()+idx, allpnts.data()+idx+sz[v]);
             idx += sz[v];
         }
+        std::sort(allpnts.begin(), allpnts.end());
         for (PntRec pnts : all) {
             for (const auto &[d, v] : pnts) {
                 if (d > k) break;
-                f[v][0] += std::max(0, int(std::upper_bound(allpnts.begin(), allpnts.end(), k - d, upperBoundCmp) - allpnts.begin() - 1))
-                         - std::max(0, int(std::upper_bound(pnts.begin(), pnts.end(), k - d, upperBoundCmp) - pnts.begin() - 1));
+                f[v][0] += (std::upper_bound(allpnts.begin(), allpnts.end(), k - d, upperBoundCmp) - allpnts.begin())
+                         - (std::upper_bound(pnts.begin(), pnts.end(), k - d, upperBoundCmp) - pnts.begin());
             }
         }
-        fprintf(stderr, "Node %d: ", u);
-        for (auto [w, v] : allpnts) fprintf(stderr, "(%lld,%d)", w, v);
-        fprintf(stderr, " {+= %d}\n", std::max(0, int(std::upper_bound(allpnts.begin(), allpnts.end(), k, upperBoundCmp) - allpnts.begin() - 1)));
-        f[u][0] += std::max(0, int(std::upper_bound(allpnts.begin(), allpnts.end(), k, upperBoundCmp) - allpnts.begin() - 1));
+        // fprintf(stderr, "Node %d: ", u);
+        // for (auto [w, v] : allpnts) fprintf(stderr, "(%lld,%d)", w, v);
+        // fprintf(stderr, " {+= %d}\n", int(std::upper_bound(allpnts.begin(), allpnts.end(), k, upperBoundCmp) - allpnts.begin()));
+        f[u][0] += std::upper_bound(allpnts.begin(), allpnts.end(), k, upperBoundCmp) - allpnts.begin();
         ban[u] = true;
         for (auto [v, w] : g[u]) if (!ban[v]) dfs(v, sz[v]);
+    }
+    inline void init(int n) {
+        memset(&f[1][0], 0, sizeof(ModInt) * 2*n);
+        memset(PntDivide::ban + 1, 0, n);
     }
 } // namespace PntDivide
 
 namespace SegCombine {
-    constexpr int64_t DOWN = 0, UP = 1e14+1e9;
+    constexpr int64_t DOWN = 0, UP = 1e15;
     struct Node { int sum, ls, rs; };
     static std::vector<Node> tr(N * LGN);
+    static std::stack<int> bin;
     static int tot;
     inline int alloc(int val = 0) {
-        tr[++tot] = {val};
-        return tot;
+        int u;
+        if (bin.empty()) u = ++tot;
+        else u = bin.top(), bin.pop();
+        tr[u] = {val, 0, 0};
+        return u;
     }
     inline void pushup(int u) {
         tr[u].sum = tr[tr[u].ls].sum + tr[tr[u].rs].sum;
@@ -111,6 +119,7 @@ namespace SegCombine {
             tr[u].ls = combine(tr[u].ls, tr[v].ls, l, mid);
             tr[u].rs = combine(tr[u].rs, tr[v].rs, mid+1, r);
         }
+        bin.push(v);
         return u;
     }
     struct SegTr {
@@ -145,11 +154,19 @@ namespace SegCombine {
             oth.root = 0;
         }
     } fseg[N];
+    inline void init(int n) {
+        for (int i = 1; i <= n; i++) fseg[i].root = 0;
+        tot = 0; std::stack<int>().swap(bin);
+    }
     void dfs(int u = 1, int pre = 0) {
+        // fprintf(stderr, "Dis[%d] = %lld\n", u, dis[u]);
         for (auto [v, w] : g[u]) if (v != pre) {
             dis[v] = dis[u] + w;
             dfs(v, u);
-            if (pre) f[u][1] += fseg[v].inquire(dis[pre]+k+1, dis[u]+k);
+            if (pre) {
+                f[u][1] += fseg[v].inquire(dis[pre]+k+1, dis[u]+k);
+                // fprintf(stderr, "f[%d][1] += %d  (%lld,%lld]\n", u, fseg[v].inquire(dis[pre]+k+1, dis[u]+k), dis[pre]+k, dis[u]+k);
+            }
             fseg[u].merge(fseg[v]);
         }
         fseg[u].update(dis[u]);
@@ -166,12 +183,13 @@ int main() {
             g[u].emplace_back(v, w);
             g[v].emplace_back(u, w);
         }
-        memset(&f[1][0], 0, sizeof(ModInt) * 2*n);
+        PntDivide::init(n); SegCombine::init(n);
         PntDivide::dfs(); SegCombine::dfs();
         ModInt ans = 0;
+        f[1][1] = f[1][0];
         for (int i = 1; i <= n; i++) {
-            fprintf(stderr, "%d %d\n", f[i][0], f[i][1]);
-            ans += C(f[i][0], k) - C(f[i][0] - f[i][1], k);
+            ans += C(f[i][0], m) - C(f[i][0] - f[i][1], m);
+            // fprintf(stderr, "%d %d +%d -%d %d\n", f[i][0], f[i][1], int(C(f[i][0], m)), int(C(f[i][0] - f[i][1], m)), int(ans));
         }
         printf("%d\n", int(ans));
     }
