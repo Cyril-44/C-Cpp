@@ -37,6 +37,8 @@ struct PolyBase {
     PolyBase& operator-=(const PolyBase& x) { for (uint i = 0; i < N; i++) a[i] -= x.a[i]; return *this; }
     PolyBase& operator*=(const PolyBase& x) { dft(); x.dft(); oper<OPMul>(x); idft(); x.idft(); return *this; }
     PolyBase& operator/=(const PolyBase& x) { return *this *= !x; }
+    PolyBase& operator*=(const T val) { for (uint i = 0; i < N; i++) a[i] *= val; return *this; }
+    PolyBase& operator/=(const T val) { for (uint i = 0; i < N; i++) a[i] /= val; return *this; }
     PolyBase operator!() const {
         PolyBase f, g;
         f[0] = T(1) / a[0];
@@ -48,20 +50,22 @@ struct PolyBase {
         }
         return f;
     }
-    PolyBase& convolute(PolyBase &x) { dft(); x.dft(); *this *= x; idft(); x.idft(); return *this; }
     template<class OP> requires requires (OP op, T x, T y) { {op(x,y)} -> std::convertible_to<T>; }
     PolyBase& oper(const PolyBase& x, OP op=OP{}, const uint n = N) { for (uint i = 0; i < n; i++) a[i] = op(a[i], x.a[i]); return *this; }
-    friend PolyBase operator+(PolyBase x, const PolyBase &y) { return x += y; }
-    friend PolyBase operator-(PolyBase x, const PolyBase &y) { return x -= y; }
-    friend PolyBase operator*(PolyBase x, const PolyBase &y) { return x *= y; }
-    friend PolyBase operator/(PolyBase x, const PolyBase &y) { return x /= y; }
-    friend PolyBase polyConvolute(PolyBase x, const PolyBase &y) { return x.convolute(y); }
+    friend PolyBase operator+(PolyBase x, const PolyBase& y) { return x += y; }
+    friend PolyBase operator-(PolyBase x, const PolyBase& y) { return x -= y; }
+    template<class U> friend PolyBase operator*(PolyBase x, const U &y) { return x *= y; }
+    template<class U> friend PolyBase operator/(PolyBase x, const U &y) { return x /= y; }
+    friend PolyBase operator*(const T val, const PolyBase& x) { return x * val; }
+    friend PolyBase operator/(const T val, const PolyBase& x) { return x / val; }
     template<class OP> requires requires (OP op, T x, T y) { {op(x,y)} -> std::convertible_to<T>; }
-    friend PolyBase polyOper(PolyBase x, const PolyBase &y, OP op=OP{}) { return x.oper(y, op); }
+    friend PolyBase polyOper(PolyBase x, const PolyBase& y, OP op=OP{}) { return x.oper(y, op); }
     T& operator[](uint pos) { return a[pos]; }
     const T& operator[](uint pos) const { return a[pos]; }
+    void assign(T val) { std::fill(a, a+N, val); }
 private: mutable T a[N]{};
 };
+
 template<class T> struct ComplexOmega { T operator()(uint n) const { return {cos(2*M_PI / n), sin(2*M_PI / n)}; } };
 template<uint N, class B=std::complex<double>> using Poly = PolyBase<B, ComplexOmega<B>, N>;
 
@@ -138,8 +142,8 @@ int main() {
         fin >> v;
         b[i] = v;
     }
-    a.convolute(b);
-    a = a* b;
+    a *= b;
+    a *= 1;
     fout.precision(0);
     for (int i = 0; i <= n+m; i++)
         fout << a[i] << ' ';
