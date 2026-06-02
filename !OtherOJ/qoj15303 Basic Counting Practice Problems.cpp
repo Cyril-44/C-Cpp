@@ -81,7 +81,10 @@ static void dfs(int u, int pre) {
     f[u].assign(1, base_pos0_1);
     for (int v : g[u]) if (v != pre) { dfs(v, u);
         std::vector<Vec> ff(1 + sz[u] + sz[v], Vec(n));
-        For(i, 0, sz[u]) For(j, 0, sz[v]) ff[i+j] += f[u][i] * f[v][j] * C[i+j][i] * C[sz[u]-i + sz[v]-j][sz[u]-i];
+        For(i, 0, sz[u]) For(j, 0, sz[v]) {
+            std::cerr << f[u][i] << ' ' << f[v][j] << " f["  << u << "][" << i << "]*f[" << v << "][" << j << "]*(" << i+j << "," << i << ")*(" << sz[u]-i + sz[v]-j << "," << sz[u]-i << ") ==> ff[" << i+j << "]" << std::endl;
+            ff[i+j] += f[u][i] * f[v][j] * C[i+j][i] * C[sz[u]-i + sz[v]-j][sz[u]-i];
+        }
         ff.swap(f[u]);
         sz[u] += sz[v];
         // std::cerr << "After " << v << "-->" << u << " updated, the f[u] becomes: " << std::endl; 
@@ -95,7 +98,7 @@ static void dfs(int u, int pre) {
     // f[u][0] = base_pos0_1;
     for (int i = sz[u] - 1; i >= 0; i--)
         f[u][i+1] += f[u][i] * base_pos1_1 * (i+1),
-        f[u][i] += f[u][i] * (sz[u]-i+1);
+        f[u][i] += f[u][i] * (sz[u]-i);
     std::cerr << "fval[" << u << "] = " << fval << ".\n"
               << "Ans["  << u << "] = " << ans[u] << ".\n"
               << "After adding u:\n" << f[u];
