@@ -6,7 +6,7 @@ using Mint = MIB<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
 Mint sqrt(Mint Nd){return Nd^(-2);}struct Fact{Fact(const int n):aa(n+1,Mint(1)),ia(n+1),sz(n){aa[0]=1;for(int i=1;i<=n;i++)aa[i]=aa[i-1]*i;ia[n]=Mint(1)/aa[n];for(int i=n;i>=1;i--)ia[i-1]=ia[i]*i;}Mint C(int n,int m)const{if(n<0||m<0||n<m)[[unlikely]]return 0;if(n>sz)[[unlikely]]throw std::out_of_range("Expected n < "+std::to_string(sz)+", but found n = "+std::to_string(n)+".");return aa[n]*ia[m]*ia[n-m];}Mint A(int n,int m)const{if(n<0||m<0||n<m)[[unlikely]]return 0;if(n>sz)[[unlikely]]throw std::out_of_range("Expected n < "+std::to_string(sz)+", but found n = "+std::to_string(n)+".");return aa[n]*ia[n-m];}Mint F(int n)const{if(n<0)[[unlikely]]return 0;if(n>sz)[[unlikely]]throw std::out_of_range("Expected n < "+std::to_string(sz)+", but found n = "+std::to_string(n)+".");return aa[n];}private:std::vector<Mint>aa,ia;const int sz;};
 // Fact F(1000000);
 
-constexpr int N = 70;
+constexpr int N = 705;
 #define For(i, s, t) for (int i = (s); i <= (t); i++)
 using Vec = std::valarray<Mint>;
 using Mat = Mint[N][N];
@@ -33,16 +33,16 @@ static inline void getInv(Mat m, int n) {
             For(j, i, 2*n-1) mat[r][j] = mat[r][j] - factor * mat[i][j];
         }
     }
-    For(i, 0, n-1) {
-        std::cerr << '{';
-        For(j, 0, n-1) std::cerr << mat[i][j] << (j<n-1 ? ", " : " || ");
-        For(j, n, n*2-1) std::cerr << mat[i][j] << (j<n*2-1 ? ", " : "}\n");
-    }
     For(i, 0, n-1) memcpy(m[i], mat[i]+n, sizeof(**m) * n);
-    For(i, 0, n-1) {
-        std::cerr << '{';
-        For(j, 0, n-1) std::cerr << m[i][j] << (j<n-1 ? ", " : "}\n");
-    }
+    // For(i, 0, n-1) {
+    //     std::cerr << '{';
+    //     For(j, 0, n-1) std::cerr << mat[i][j] << (j<n-1 ? ", " : " || ");
+    //     For(j, n, n*2-1) std::cerr << mat[i][j] << (j<n*2-1 ? ", " : "}\n");
+    // }
+    // For(i, 0, n-1) {
+    //     std::cerr << '{';
+    //     For(j, 0, n-1) std::cerr << m[i][j] << (j<n-1 ? ", " : "}\n");
+    // }
 }
 /* f[i][j][k] 表示以 i 为根的子树，走点权<=j的情况下，有 k 个点可达。
  * 可以得到转移式 f[u][j1+j2][k1+k2] += f[v1][j1][k1] * f[v2][j2][k2] * C(j1+j2, j1) * C(sz[v1]-j1 + sz[v2]-j2, sz[v1]-j1)
@@ -54,19 +54,21 @@ static inline void getInv(Mat m, int n) {
  * 然后就发现，在枚举 j1, j2 的情况下，第三维的 k 事实上是一个加法卷积，复杂度 O(n^2)，总复杂度 O(n^4)。
  * 于是考虑使用点值加速，第三维的 O(n^2) -> O(n)
  * 现在考虑具体的加速方法，我们带入一个范德蒙德矩阵，具体来说就是一个 A_{i,j} = x_i^j 的矩阵，
-   这个矩阵乘上第三维的转置向量，就得到了一个点值表达向量，事实上就是 [F(x0), F(x1), F(x2), ..., F(xn)] 其中 F 代表 f[i][j] 的生成函数
+   这个矩阵乘上第三维的转置向量，就得到了一个点值表达向量，事实上就是 [F(x0), F(x1), F(x2), ..., F(xn-1)] 其中 F 代表 f[i][j] 的生成函数
  * 然后，我们发现需要使用拉插之类的~~丑陋~~的东西，去弄出来原来的值，时间就爆炸了。
- * 但是！我们会发现一个点，那就是，我们事实上需要的只是一个 \sum_k q[k] * f[u][j][k]，也就是，两个向量的点积。
- * 不妨将这个值 fval[i][j] 记录为 Q * F[i][j]^T，然后我们来看我们求的点值表达向量 Fval[i][j] = Mat * F[i][j]^T，那我们只需要——
-   变成 F[i][j]^T = Mat^{-1} * Fval[i][j] ====> fval[i][j] = Q * Mat^{-1} * Fval[i][j]
- * 有了这个 Key Observation，我们就能知道，在预处理了 Q * Mat^{-1} 之后，我们计算 fval[i][j] 就非常的 easy 了，然后来看最终的 ans 表达式：
- * ans[i][j'] = fval[i][j] * C(j'-1, j-1) * C(n-j', sz[u]-j)
+ * 但是！我们会发现一个点，那就是，我们事实上需要的只是一个 \sum_k q[k+1] * f[u][j][k]，也就是，两个向量的点积。（这里的 k+1 的 1 意义是未加入的 u）
+ * 不妨将这个值 fval[i][j] 记录为 Q * F[i][j]^T，然后我们来看我们求的点值表达向量 Fval[i][j] = A * F[i][j]^T，那我们只需要——
+   变成 F[i][j]^T = A^{-1} * Fval[i][j] ====> fval[i][j] = Q * A^{-1} * Fval[i][j]
+ * 有了这个 Key Observation，我们就能知道，在预处理了 Q * A^{-1} 之后，我们计算 fval[i][j] 就非常的 easy 了，然后来看最终的 ans 表达式：
+ * ans[i][j'] = fval[i][j] * C(j'-1, j) * C(n-j', sz[u]-j) * (n-sz[u]-1)!
 -+---------------------------------------------------------------------------------------------------------------------------
  * 现在考虑一个小细节，就是如何加入点 u。
  * 加入点 u 需要和计算答案时将点 u 的点权放到最大区分开来，不要混淆了。
  * 直接将 u 视作一个单独的子树，其容量为 1。那也就是加入一个 vec[j][k], 其 vec[1][1]=1。
- * 形式化一点，那就是
- * f
+ * 但是！有一个很重要的细节需要我们去注意，就是“阻断”或者说“退化”。
+ * 具体来说，我们如果把限制 j 放到小于 u 的点权，那 u 相当于也不可达，整个子树方案就被阻断了！
+ * 遇到这种情况的话，我们不能再做卷积了，现在只有 f[u][j][0] 会有贡献，贡献就是子树的所有方案数，也就是 \sum f'[u][j][0..n]
+ * 具体转移去看代码吧，大体意思就是说限制放大一点就没得玩了。
  */
 static int n, sz[N];
 std::ostream& operator<<(std::ostream& os, const Vec &a) { os << '['; For(i, 0, n-1) os << a[i] << (i<n-1 ? ", " : "]"); return os; }
@@ -82,7 +84,7 @@ static void dfs(int u, int pre) {
     for (int v : g[u]) if (v != pre) { dfs(v, u);
         std::vector<Vec> ff(1 + sz[u] + sz[v], Vec(n));
         For(i, 0, sz[u]) For(j, 0, sz[v]) {
-            std::cerr << f[u][i] << ' ' << f[v][j] << " f["  << u << "][" << i << "]*f[" << v << "][" << j << "]*(" << i+j << "," << i << ")*(" << sz[u]-i + sz[v]-j << "," << sz[u]-i << ") ==> ff[" << i+j << "]" << std::endl;
+            // std::cerr << f[u][i] << ' ' << f[v][j] << " f["  << u << "][" << i << "]*f[" << v << "][" << j << "]*(" << i+j << "," << i << ")*(" << sz[u]-i + sz[v]-j << "," << sz[u]-i << ") ==> ff[" << i+j << "]" << std::endl;
             ff[i+j] += f[u][i] * f[v][j] * C[i+j][i] * C[sz[u]-i + sz[v]-j][sz[u]-i];
         }
         ff.swap(f[u]);
@@ -90,7 +92,7 @@ static void dfs(int u, int pre) {
         // std::cerr << "After " << v << "-->" << u << " updated, the f[u] becomes: " << std::endl; 
         // For(i, 0, sz[u]) std::cerr << f[u][i] << std::endl;
     }
-    std::cerr << "Leaving node " << u << ", and calculated\n" << f[u];
+    // std::cerr << "Leaving node " << u << ", and calculated\n" << f[u];
     std::vector<Mint> fval(sz[u]+1);
     For(i, 0, sz[u]) fval[i] = (vec * f[u][i]).sum();
     For(i, 0, sz[u]) For(j, i+1, n) ans[u][j] += fval[i] * C[j-1][i] * C[n-j][sz[u]-i] * fact[n-sz[u]-1];
@@ -98,10 +100,10 @@ static void dfs(int u, int pre) {
     // f[u][0] = base_pos0_1;
     for (int i = sz[u] - 1; i >= 0; i--)
         f[u][i+1] += f[u][i] * base_pos1_1 * (i+1),
-        f[u][i] += f[u][i] * (sz[u]-i);
-    std::cerr << "fval[" << u << "] = " << fval << ".\n"
-              << "Ans["  << u << "] = " << ans[u] << ".\n"
-              << "After adding u:\n" << f[u];
+        f[u][i] = base_pos0_1 * f[u][i][1] * (sz[u]-i);
+    // std::cerr << "fval[" << u << "] = " << fval << ".\n"
+    //           << "Ans["  << u << "] = " << ans[u] << ".\n"
+    //           << "After adding u:\n" << f[u];
 }
 int main() {
     std::cin.tie(nullptr) -> sync_with_stdio(false);
@@ -128,11 +130,11 @@ int main() {
     getInv(m, n);
     vec.resize(n);
     For(k, 0, n-1) For(j, 0, n-1) vec[j] += q[k+1] * m[k][j];
-    Mat xx{};
-    For(k, 0, n-1) For(i, 0, n-1) For(j, 0, n-1) xx[i][j] += tmp[i][k] * m[k][j];
-    std::cerr << "Wish to get an Epsilon Matrix:" << std::endl;
-    For(i, 0, n-1) For(j, 0, n-1) std::cerr << xx[i][j] << " \n"[j==n-1];
-    std::cerr << "\"Q\" Matrix: " << vec << std::endl;
+    // Mat xx{};
+    // For(k, 0, n-1) For(i, 0, n-1) For(j, 0, n-1) xx[i][j] += tmp[i][k] * m[k][j];
+    // std::cerr << "Wish to get an Epsilon Matrix:" << std::endl;
+    // For(i, 0, n-1) For(j, 0, n-1) std::cerr << xx[i][j] << " \n"[j==n-1];
+    // std::cerr << "\"Q\" Matrix: " << vec << std::endl;
     dfs(1, 0);
     For(i, 1, n) std::cout << ans[i] << '\n';
     return 0;
