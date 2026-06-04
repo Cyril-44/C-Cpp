@@ -77,7 +77,7 @@ int main() {
         scanf("%d", &a[i]);
     fs.build();
     for (int op, l, r, v; q--; ) {
-        scanf("%d%d%d", &op, &l, &r);
+        scanf("%d%d%d", &op, &l, &r);l
         if (op == 1) {
             scanf("%d", &v);
             fs.update(l, r, v);

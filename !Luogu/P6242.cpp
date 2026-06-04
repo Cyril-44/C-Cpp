@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
-#include <bits/stdc++.h>
 using namespace std;
 #define umax(x, y) ((x) = std::max((x), (y)))
 #ifdef DEBUG
@@ -32,8 +31,7 @@ struct Node {
 	// 更新树上懒标记
 		umax(add.hmx, add.mx + t.hmx);
 		umax(add.hx, add.x + t.hx);
-		add.mx += t.mx, add.x += t.x
-		;
+		add.mx += t.mx, add.x += t.x;
 	}
 } tr[N << 2];
 void pushdown(int u) {
@@ -104,7 +102,7 @@ void updmn(int u, int l, int r) {
 		if (tr[u].mx2 < X && X < tr[u].mx) { // second_max < modify < max
 			// debug("Updating [%d, %d] with data %d (%d, %d, %d, %d, %d)", l, r, u, tr[u].sum, tr[u].mx, tr[u].mx2, tr[u].mxcnt, tr[u].hmx);
 			tr[u].sum -= (tr[u].mx - X) * tr[u].mxcnt; // 变为对于 max 加上 (modify - max)
-			tr[u].add.mx += X - tr[u].mx;
+			tr[u].add.mx -= tr[u].mx - X;
 			tr[u].mx = X;
 			// debug(" to (%d, %d, %d, %d, %d)\n", tr[u].sum, tr[u].mx, tr[u].mx2, tr[u].mxcnt, tr[u].hmx);
 			return;
