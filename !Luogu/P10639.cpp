@@ -101,7 +101,7 @@ public:
         if (l == r) return tr[u].set(a[l]);
         int mid = l + r >> 1;
         build(u<<1, l, mid); build(u<<1|1, mid+1, r);
-        pushup(u);
+        pushup(u); tr[u].length = tr[u<<1].length + tr[u<<1|1].length;
     }
     void updateAdd(int l, int r, int64_t x) { L=l,R=r,X=x; updadd(1,1,n); }
     void checkMin(int l, int r, int64_t x) { L=l,R=r,X=x; updmn(1,1,n); }
@@ -115,6 +115,18 @@ int main() {
     for (int i = 1; i <= n; i++)
         scanf("%d", &a[i]);
     fs.build();
-    
+    int m; scanf("%d", &m);
+    for (int op, l, r, x; m--; ) {
+        scanf("%d%d%d", &op, &l, &r);
+        if (op <= 3) scanf("%d", &x);
+        switch (op) {
+        case 1: fs.updateAdd(l, r, x); break;
+        case 2: fs.checkMax(l, r, x); break;
+        case 3: fs.checkMin(l, r, x); break;
+        case 4: printf("%lld\n", fs.inquireSum(l, r)); break;
+        case 5: printf("%lld\n", fs.inquireMax(l, r)); break;
+        case 6: printf("%lld\n", fs.inquireMin(l, r)); break;
+        }
+    }
     return 0;
 }
