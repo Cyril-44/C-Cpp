@@ -40,6 +40,7 @@ void work(int n) {
             dp[i][i][p] = (a[i] <= p);
         }
     }
+    for (int i = 1; i <= n; i++) printf("%d\n", a[i]);
     for (int p = n; p >= 0; p--) {
         for (int i = n; i >= 1; i--) {
             if (a[i] > p) continue;
