@@ -20,15 +20,15 @@ class SegBeats {
         std::vector<Data>* operator->() { return &vec; }
         void addsome2(Data& dat, int64_t v) { sum += v * dat.cnt; dat += v; }
         void set(int64_t val) { vec = {{val, 0, 1}}, sum = val, length = 1; }
-        void apply(int64_t mnadd, int64_t mxadd, int64_t add) {
+        void apply(int64_t _mnadd, int64_t _mxadd, int64_t _add) {
+            mnadd += _mnadd, mxadd += _mxadd, add += _add;
             if (vec.size() == 1) {
-                assert(mnadd == mxadd);
-                addsome2(vec.front(), mxadd);
+                addsome2(vec.front(), _mnadd + _mxadd + add);
                 return;
             }
-            addsome2(vec.front(), mxadd), addsome2(vec.back(), mnadd);
-            sum += add * (length - vec.front().cnt - vec.back().cnt);
-            for (int i = 1; i+1 < (int)vec.size(); i++) vec[i] += add;
+            addsome2(vec.front(), _mnadd), addsome2(vec.back(), _mxadd);
+            sum += _add * (length - vec.front().cnt - vec.back().cnt);
+            for (int i = 1; i+1 < (int)vec.size(); i++) vec[i] += _add;
         }
     } tr[N << 2];
     void pushup(int u) {
@@ -45,18 +45,20 @@ class SegBeats {
     }
     int L, R; int64_t X;
     void pushdown(int u) {
-        int64_t lmnadd, lmxadd, ladd, rmnadd, rmxadd, radd;
-        lmnadd = tr[u<<1]->front() == tr[u]->front() ? tr[u].mnadd : tr[u].add;
-        lmxadd = tr[u<<1]->back() == tr[u]->back() ? tr[u].mxadd : tr[u].add;
-        ladd = tr[u].add;
-        tr[u<<1].apply(lmnadd, lmxadd, ladd);
-        rmnadd = tr[u<<1|1]->front() == tr[u]->front() ? tr[u].mnadd : tr[u].add;
-        rmxadd = tr[u<<1|1]->back() == tr[u]->back() ? tr[u].mxadd : tr[u].add;
-        radd = tr[u].add;
-        tr[u<<1|1].apply(rmnadd, rmxadd, radd);
+        if (tr[u].add) {
+            tr[u<<1].apply(
+                tr[u<<1]->front() == tr[u]->front() ? tr[u].mnadd : tr[u].add, 
+                tr[u<<1]->back() == tr[u]->back() ? tr[u].mxadd : tr[u].add,
+                tr[u].add);
+            tr[u<<1|1].apply(
+                tr[u<<1|1]->front() == tr[u]->front() ? tr[u].mnadd : tr[u].add,
+                tr[u<<1|1]->back() == tr[u]->back() ? tr[u].mxadd : tr[u].add,
+                tr[u].add);
+            tr[u].add = 0;
+        }
     }
     void updadd(int u, int l, int r) {
-        if (L <= l && r <= R) return tr[u].apply(X,X,X);
+        if (L <= l && r <= R) return tr[u].apply(0,0,X);
         int mid = l + r >> 1;
         pushdown(u);
         if (L <= mid) updadd(u<<1, l, mid);
@@ -64,15 +66,15 @@ class SegBeats {
         pushup(u);
     }
     void updmx(int u, int l, int r) { // CheckMax
-        if (tr[u]->size() == 1) return tr[u].apply(X,X,X);
-        if (tr[u]->front().val < X && X < std::next(tr[u]->begin())->val) // min < X < se_min
-            return tr[u].addsome2(tr[u]->front(), X - tr[u]->front().val); // += X-min
+        if (tr[u]->front().val >= X) return;
+        if (tr[u]->size() == 1 || tr[u]->front().val < X && X < std::next(tr[u]->begin())->val) // min < X < se_min
+            return tr[u].apply(X - tr[u]->front().val, 0, 0); // += X-min
         int mid = l + r >> 1; pushdown(u); updmx(u<<1, l, mid); updmx(u<<1|1, mid+1, r); pushup(u);
     }
     void updmn(int u, int l, int r) { // CheckMin
-        if (tr[u]->size() == 1) return tr[u].apply(X,X,X);
-        if (tr[u]->back().val > X && X > std::next(tr[u]->rbegin())->val) // max > X > se_max
-            return tr[u].addsome2(tr[u]->back(), X - tr[u]->back().val); // += X-max
+        if (tr[u]->back().val <= X) return;
+        if (tr[u]->size() == 1 || tr[u]->back().val > X && X > std::next(tr[u]->rbegin())->val) // max > X > se_max
+            return tr[u].apply(0, X - tr[u]->front().val, 0); // += X-max
         int mid = l + r >> 1; pushdown(u); updmn(u<<1, l, mid); updmn(u<<1|1, mid+1, r); pushup(u);
     }
     int64_t inqsum(int u, int l, int r) {
