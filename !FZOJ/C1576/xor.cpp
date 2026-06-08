@@ -11,7 +11,7 @@ constexpr int N = 100000;
 constexpr int N = 100;
 #define debug(...) fprintf(stderr, __VA_ARGS__)
 #endif
-uint64_t a[N];
+uint64_t original_tree[N];
 template<class T> inline void in(T &x) {
     char ch = getchar();
     while (ch < '0' || ch > '9') ch = getchar();
@@ -41,8 +41,8 @@ struct Trie {
             if (!tr[u].ch[s]) tr[u].ch[s] = alloc();
             u = tr[u].ch[s];
             ++tr[u].sum;
+            debug("%d(%d)\n", u, tr[u].sum);
         }
-        debug("%d(%d)\n", u, tr[u].sum);
         if (tr[u].sum - 1) allsums.erase(allsums.find(tr[u].sum - 1));
         allsums.insert(tr[u].sum);
     }
@@ -90,19 +90,19 @@ int main() {
             k &= k-1;
         } */
         for (int i = 1; i <= n; i++) {
-            in(a[i]);
+            in(original_tree[i]);
             for (int j = 0; j < (int)mask.size(); j++)
-                trie[j].insert(a[i] & mask[j]);
+                trie[j].insert(original_tree[i] & mask[j]);
         }
         for (int x, y; m--;) {
             in(x), in(y);
             int ans = 0;
             for (int j = 0; j < (int)mask.size(); j++) {
-                trie[j].erase(a[x] & mask[j]);
+                trie[j].erase(original_tree[x] & mask[j]);
                 trie[j].insert(y & mask[j]);
                 ans = std::max(ans, trie[j]());
             }
-            a[x] = y;
+            original_tree[x] = y;
             printf("%d\n", ans);
         }
     }
