@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <cassert>
 constexpr int N = 500005;
-int a[N], n;
+int graph_a[N], n;
 class SegBeats {
     struct Node {
         struct Data {
@@ -98,7 +98,7 @@ class SegBeats {
     }
 public:
     void build(int u = 1, int l = 1, int r = n) {
-        if (l == r) return tr[u].set(a[l]);
+        if (l == r) return tr[u].set(graph_a[l]);
         int mid = l + r >> 1;
         build(u<<1, l, mid); build(u<<1|1, mid+1, r);
         pushup(u); tr[u].length = tr[u<<1].length + tr[u<<1|1].length;
@@ -113,7 +113,7 @@ public:
 int main() {
     scanf("%d", &n);
     for (int i = 1; i <= n; i++)
-        scanf("%d", &a[i]);
+        scanf("%d", &graph_a[i]);
     fs.build();
     int m; scanf("%d", &m);
     for (int op, l, r, x; m--; ) {
