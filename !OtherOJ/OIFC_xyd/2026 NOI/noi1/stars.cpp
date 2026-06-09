@@ -5,13 +5,13 @@
 #include <map>
 #include <vector>
 #include <iostream>
-constexpr int N = 15;
+constexpr int N = 1005;
 #define For(i, s, t) for (int i = (s); i <= (t); ++i)
 #define roF(i, s, t) for (int i = (s); i >= (t); --i)
-int p[N], len;
-int perm[N];
+int p[N], n, len;
+int perm[N]; // 以 i 开头的排列 p[i..i+len-1] 的阶乘数
 unsigned fact[15];
-inline unsigned calc(int i) {
+inline unsigned calcPerm(int i) { // 计算 p[i..i+len-1] 的阶乘数
     unsigned res = 0;
     for (int j = 0; j < len; j++)
         for (int k = j+1; k < len; k++)
@@ -20,31 +20,64 @@ inline unsigned calc(int i) {
 }
 struct UpdateNode { int idx; unsigned pre, nxt; };
 using Update = UpdateNode[20];
-Update upds[N];
-
-struct MoImpl {
+Update upds[N]; // 每一个更新（swap p[x],p[y]）所影响到的所有 perm[] 的值
+inline int calcRepeated(int i) { // 计算以 [i+1, i+len-1] 开头中有多少排列与以 i 开头的排列相等
+    int res = 0;
+    for (int j = 1; j < len; j++) res += perm[i] == perm[i+j];
+    return res;
+}
+struct BIT {
+    int tr[N], orig[N];
+    void add(int p, int val) { for (; p <= n; p += p & -p) tr[p] += val; }
+    void modify(int p, int val) { modify(p, val - orig[p]); orig[p] = val; }
+    int sum(int p) { int res = 0; for (; p; p -= p & -p) res += tr[p]; return res; }
+    int sum(int l, int r) { return sum(r) - sum(l - 1); }
+} frep; // 重复排列的数量，支持区间求和
+int BSz;
+struct Query {
+    int l, r, t, lid, rid;
+    friend bool operator<(const Query& x, const Query& y) { return x.lid > y.lid || x.lid == y.lid && (x.rid > y.rid || x.rid == y.rid && x.t > y.t); }
+} que[N];
+struct MoImpl { // 莫队的实现
     int cnt[N]; // 将贡献 C(x,2) 拆成 0 + 1 + 2 + ... + (x-1)，每次加入贡献的增量就是 cnt[x]-1
     int64_t ans;
+    int l, r, t;
     void addPerm(unsigned permCode) { ans += cnt[permCode]++; }
     void delPerm(unsigned permCode) { ans += --cnt[permCode]; }
-    void patch(Update upd) { For (i, 0, 2*len-1) perm[upd[i].idx] = upd[i].nxt; }
+#define chk(expr...) (l <= upds[t][i].idx && upds[t][i].idx <= r) && ((expr), 1)
+    /*让时间前进*/ void patch() { ++t; For (i, 0, upds[t].sz-1) chk(delPerm(upds[t][i].pre)), perm[upds[t][i].idx] = upds[t][i].nxt, chk(addPerm(upds[t][i].nxt)); }
+    /*让时间后退*/ void unpatch() { For (i, 0, upds[t].sz-1) chk(delPerm(upds[t][i].nxt)), perm[upds[t][i].idx] = upds[t][i].pre, chk(addPerm(upds[t][i].pre)); --t; }
+    void update(int ql, int qr, int qt) {
+        while (l > ql) addPerm(perm[--l]);
+        while (r < qr) addPerm(perm[++r]);
+        while (l < ql) delPerm(perm[l++]);
+        while (r > qr) addPerm(perm[r--]);
+        while (t < qt) patch();
+        while (t > qt) unpatch();
+    }
+    int64_t inquire() const { return ans; }
 };
+int64_t ans[N]; // ans 的贡献拆分成：{l~r 所有数对的数量（允许重叠）} - {l~r 中重叠数对的贡献} + {多减去的，在 r-len+1...r 这个范围内多算出来的 重叠数对}
+// 如果把合法点对描述在平面直角坐标系上，那就是 s1-s2+s3 ![](https://cdn.luogu.com.cn/upload/image_hosting/0njcu9hp.png)
 int main() {
     freopen("stars.in", "r", stdin);
     freopen("stars.out", "w", stdout);
     std::cin.tie(nullptr) -> sync_with_stdio(false);
     fact[0] = 1;
     For(i, 1, 10) fact[i] = fact[i-1] * i;
-    int n, m; std::cin >> n >> m >> len;
+    int m; std::cin >> n >> m >> len;
     For(i, 1, n) std::cin >> p[i];
-    For(i, 1, n-len+1) perm[i] = calc(i);
+    For(i, 1, n-len+1) perm[i] = calcPerm(i);
+    For(i, 1, n-len+1) frep.modify(i, calcRepeated(i));
+    int ts = 0;
     for (int op, x, y; m--; ) {
         std::cin >> op >> x >> y;
         if (op == 1) {
             std::swap(p[x], p[y]);
-            For (i, std::max(1, x-len+1), std::min(x, n-len+1)) perm[i] = calc(i);
-            For (i, std::max(1, y-len+1), std::min(y, n-len+1)) perm[i] = calc(i);
-
+            For (i, std::max(1, x-len+1), std::min(x, n-len+1)) perm[i] = calcPerm(i);
+            For (i, std::max(1, y-len+1), std::min(y, n-len+1)) perm[i] = calcPerm(i);
+            For (i, std::max(1, x-len+1), std::min(x+len-1, n-len+1)) frep.modify(i, calcRepeated(i));
+            For (i, std::max(1, y-len+1), std::min(y+len-1, n-len+1)) frep.modify(i, calcRepeated(i));
         }
         else {
             std::map<unsigned, std::vector<int>> mp;

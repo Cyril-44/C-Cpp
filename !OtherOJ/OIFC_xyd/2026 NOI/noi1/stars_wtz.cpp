@@ -73,7 +73,7 @@ struct BIT {
     }
 } bit;
 int ck, qc;
-int calc(int x) {
+int calcPerm(int x) {
     int res = 0;
     for (int i = 1; i < k && x + i <= n - k + 1; i++) res += (t[x] == t[x + i]);
     return res;
@@ -90,7 +90,7 @@ void upd(int c) {
     t[c] = tmp;
 }
 void upd2(int c) {
-    bit.modify(c, calc(c));
+    bit.modify(c, calcPerm(c));
 }
 ll ans[N];
 int main() {
@@ -100,7 +100,7 @@ int main() {
     fac[0] = 1;
     for (int i = 1; i <= k; i++) fac[i] = fac[i - 1] * i;
     for (int i = 1; i <= n; i++) scanf("%d", &p[i]);
-    for (int i = n - k + 1; i >= 1; i--) ori[i] = t[i] = idx(p + i), bit.modify(i, calc(i));
+    for (int i = n - k + 1; i >= 1; i--) ori[i] = t[i] = idx(p + i), bit.modify(i, calcPerm(i));
     int tmp, qid = 0;
     for (int i = 1; i <= m; i++) {
         scanf("%d%d%d", &op, &x, &y);
