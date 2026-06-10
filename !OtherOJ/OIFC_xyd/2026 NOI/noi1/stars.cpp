@@ -74,7 +74,7 @@ int main() {
     For(i, 1, n) std::cin >> p[i];
     For(i, 1, n-len+1) perm[i] = calcPerm(i);
     For(i, 1, n-len+1) frep.modify(i);
-    int ts = 0, qs = 0;
+    int ts = 0, qs = 0, tm = 0;
     for (int op, x, y; m--; ) {
         std::cin >> op >> x >> y;
         if (op == 1) {
@@ -91,7 +91,9 @@ int main() {
             For (i, std::max(1, y-len+1), std::min(y+len-1, n-len+1)) frep.modify(i);
         }
         else {
-            ques[++qs] = {x, y, ts, int(x / B), int(y / B), qs};
+            y -= len-1;
+            if (y < x) { ans[++tm] = 0; continue; }
+            ques[++qs] = {x, y, ts, int(x / B), int(y / B), ++tm};
             ans[qs] = -frep.sum(x, y) + ;
         }
     }
