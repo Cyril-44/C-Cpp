@@ -1,0 +1,50 @@
+{
+  "name": "hltv-live-score",
+  "displayName": "HLTV Live Score",
+  "version": "1.0.0",
+  "publisher": "hscyril",
+  "engines": {
+    "vscode": "^1.120.0"
+  },
+  "activationEvents": [
+    "onView:hltvLive",
+    "onView:hltvUpcoming",
+    "onCommand:hltv.openMatchDetail"
+  ],
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "hltvLive",
+          "name": "HLTV Live Matches"
+        },
+        {
+          "id": "hltvUpcoming",
+          "name": "HLTV Upcoming Matches"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "hltv.openMatchDetail",
+        "title": "Open Match Detail"
+      }
+    ]
+  },
+  "main": "./out/extension.js",
+  "description": "",
+  "scripts": {
+    "compile": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.17.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.120.0"
+  }
+}

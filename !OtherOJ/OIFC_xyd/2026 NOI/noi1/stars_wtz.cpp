@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cmath>
 using namespace std;
 typedef long long ll;
 const int N = 100010, B = 5000;
@@ -31,6 +32,7 @@ struct MoQueue {
         ans -= a[t[x]];
     }
     void addck() {
+        y1(1);
         c++;
         for (const Data &x : u[c]) {
             if (l <= x.cur && x.cur <= r) delval(x.cur);
