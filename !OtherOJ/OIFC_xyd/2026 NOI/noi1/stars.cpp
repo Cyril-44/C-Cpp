@@ -5,8 +5,7 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
-#include <cassert>
-constexpr int N = 1005;
+constexpr int N = 100005, M = 3700000;
 #define For(i, s, t) for (int i = (s); i <= (t); ++i)
 int p[N], n, len;
 unsigned fact[15], perm[N]; // 以 i 开头的排列 p[i..i+len-1] 的阶乘数
@@ -32,7 +31,7 @@ inline int calcRepeated(int i) { // 计算以 [i+1, i+len-1] 开头中有多少�
 }
 inline int mend(int x, int y) {
     int res = 0;
-    For(i, y+1, std::min(x+len-1, n-len+1))
+    For(i, y+1, std::min(y+len-1, n-len+1))
         For(j, std::max(x, i-len+1), y)
             res += perm[i] == perm[j];
     return res;
@@ -50,11 +49,11 @@ struct Query {
     friend bool operator<(const Query& x, const Query& y) { return x.lid > y.lid || x.lid == y.lid && (x.rid > y.rid || x.rid == y.rid && x.t > y.t); }
 } ques[N];
 struct MoImpl { // 莫队的实现
-    int cnt[N]; // 将贡献 C(x,2) 拆成 0 + 1 + 2 + ... + (x-1)，每次加入贡献的增量就是 cnt[x]-1
+    int cnt[M]; // 将贡献 C(x,2) 拆成 0 + 1 + 2 + ... + (x-1)，每次加入贡献的增量就是 cnt[x]-1
     int64_t ans;
     int l = 1, r = 0, t;
-    void addPerm(unsigned permCode) { ans += cnt[permCode]++; }
-    void delPerm(unsigned permCode) { ans -= --cnt[permCode]; }
+    [[gnu::always_inline]] void addPerm(unsigned permCode) { ans += cnt[permCode]++; }
+    [[gnu::always_inline]] void delPerm(unsigned permCode) { ans -= --cnt[permCode]; }
 #define chk(expr...) (l <= upd.idx && upd.idx <= r) && ((expr), 1)
     /*让时间前进*/ void patch() { ++t; for(const auto &upd : upds[t]) chk(delPerm(upd.pre)), perm[upd.idx] = upd.nxt, chk(addPerm(upd.nxt)); }
     /*让时间后退*/ void unpatch() { for(const auto &upd : upds[t]) chk(delPerm(upd.nxt)), perm[upd.idx] = upd.pre, chk(addPerm(upd.pre)); --t; }
@@ -76,13 +75,13 @@ int main() {
     fact[0] = 1;
     For(i, 1, 10) fact[i] = fact[i-1] * i;
     int m; std::cin >> n >> m >> len;
-    int B = std::pow(n, 2./3.);
     For(i, 1, n) std::cin >> p[i];
     For(i, 1, n-len+1) perm[i] = calcPerm(i);
     memset(perm + (n - len + 2), -1, sizeof(int) * (len-1));
     For(i, 1, n-len+1) frep.modify(i);
+    int B = std::pow(n + 2*m, 2./3.);
     int ts = 0, qs = 0, tm = 0;
-    For (i, 1, n-len+1) fprintf(stderr, "%d%c", perm[i], " \n"[i==n-len+1]);
+    // For (i, 1, n-len+1) fprintf(stderr, "%d%c", perm[i], " \n"[i==n-len+1]);
     // For (i, 1, n-len+1) fprintf(stderr, "%d%c", frep.sum(i,i), " \n"[i==n-len+1]);
     for (int op, x, y; m--; ) {
         std::cin >> op >> x >> y;
@@ -92,14 +91,17 @@ int main() {
             if (x > y) std::swap(x, y);
             if (y - x <= len) {
                 For (i, std::max(1, x-len+1), std::min(y, n-len+1)) update(upds[ts], i);
-                For (i, std::max(1, x-len+1), std::min(y+len-1, n-len+1)) frep.modify(i);
-                fprintf(stderr, "*** ");
+                For (i, std::max(1, x-2*len+1), std::min(y, n-len+1)) frep.modify(i);
+                // fprintf(stderr, "*** ");
+            } else {
+                For(i, std::max(1, x-len+1), std::min(x, n-len+1)) update(upds[ts], i);
+                For(i, std::max(1, y-len+1), std::min(y, n-len+1)) update(upds[ts], i);
+                For(i, std::max(1, x-2*len+1), std::min(x, n-len+1)) frep.modify(i);
+                For(i, std::max(1, y-2*len+1), std::min(y, n-len+1)) frep.modify(i);
             }
-            For (i, std::max(1, x-len+1), std::min(x, n-len+1)) update(upds[ts], i);
-            For (i, std::max(1, y-len+1), std::min(y, n-len+1)) update(upds[ts], i);
-            For (i, std::max(1, x-2*len+1), std::min(x, n-len+1)) frep.modify(i);
-            For (i, std::max(1, y-2*len+1), std::min(y, n-len+1)) frep.modify(i);
-            For (i, 1, n-len+1) fprintf(stderr, "%d%c", perm[i], " \n"[i==n-len+1]);
+            // For(i, 1, n-len+1) fprintf(stderr, "%d%c", perm[i], " \n"[i==n-len+1]);
+            // for(const auto &j : upds[ts]) { fprintf(stderr, "(%d <%u >%u)", j.idx, j.pre, j.nxt); }
+            // fprintf(stderr, "\n");
             // For (i, 1, n-len+1) fprintf(stderr, "%d%c", frep.sum(i,i), " \n"[i==n-len+1]);
         }
         else {
@@ -107,16 +109,19 @@ int main() {
             if (y - x + 1 < len) { ans[++tm] = 0; continue; }
             ques[++qs] = {x, y, ts, int(x / B), int(y / B), ++tm};
             ans[tm] = -frep.sum(x, y) + mend(x, y);
-            fprintf(stderr, "Time %d, ans = -%lld + %lld\n", tm, frep.sum(x, y), mend(x, y));
+            // fprintf(stderr, "Time %d, ans = -%lld + %lld\n", ts, frep.sum(x, y), mend(x, y));
         }
     }
-    mo.t = qs;
+    mo.t = ts;
     std::sort(ques+1, ques+1+qs);
     For(i, 1, qs) {
         mo.update(ques[i].l, ques[i].r, ques[i].t);
         ans[ques[i].id] += mo.ans;
-        For(i, 0, 4) fprintf(stderr, "[#%d: %d]", i, mo.cnt[i]);
-        fprintf(stderr, "Time %d, ans += %lld\n", ques[i].id, mo.ans);
+        // fprintf(stderr, "Query [%d,%d]$%d ", ques[i].l, ques[i].r, ques[i].t);
+        // fprintf(stderr, "[%d,%d]$%d ", mo.l, mo.r, mo.t);
+        // For(i, 0, 4) fprintf(stderr, "[#%d: %d]", i, mo.cnt[i]);
+        // For (i, 1, n-len+1) fprintf(stderr, "%d%c", perm[i], " \n"[i==n-len+1]);
+        // fprintf(stderr, " Query %d, ans += %lld\n", ques[i].id, mo.ans);
     }
     For(i, 1, tm) std::cout << ans[i] << '\n';
     return 0;
