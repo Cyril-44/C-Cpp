@@ -13,12 +13,15 @@
         "*.tbl": "cpp"
     },
     "clangd.arguments": [
-        "--background-index",
         "--clang-tidy",
         "--completion-style=detailed",
-        "--header-insertion=iwyu"
+        "--header-insertion=iwyu",
+        "--index=false",
+        "--background-index=false"
     ],
     // "cmake.sourceDirectory": "/home/cyril/code/Functions/clang-cpp-obf",
-    "C_Cpp.intelliSenseEngine": "disabled",
-    "clangd.path": "/usr/bin/clangd-22"
+    "C_Cpp.intelliSenseEngine": "default",
+    "clangd.path": "/usr/bin/clangd-22",
+    "clangd.checkUpdates": false,
+    "C_Cpp.renameInCurrentFileOnly": true
 }
