@@ -19,6 +19,7 @@
 				"-D_GLIBCXX_DEBUG",
 				"-DDEBUG",
 				"-fsanitize=address,undefined",
+                "-fno-sanitize-recover=all",
 				"-fno-omit-frame-pointer",
 				"-fdiagnostics-color=always",
 				"-g3",
