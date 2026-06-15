@@ -11,9 +11,9 @@ f[i][j] 表示考虑了 A[i] 的前 i 大，选了 j 个后，当前答案和为
 */
 int main() {
     int T, n, m, k;
-    For(i, 0, 1500) {
+    For(i, 0, N-1) {
         C[i][0] = C[i][i] = 1;
-        For(j, i, i-1) C[i][j] = C[i-1][j-1] + C[i-1][j];
+        For(j, 1, i-1) C[i][j] = C[i-1][j-1] + C[i-1][j];
     }
     scanf("%d", &T);
     while (T--) {
@@ -21,12 +21,13 @@ int main() {
         For(i, 1, n) scanf("%d", a+i);
         For(i, 1, n) scanf("%d", b+i);
         std::sort(a+1, a+1+n, [](Mint x, Mint y) { return x() > y(); });
+        std::sort(b+1, b+1+n, [](Mint x, Mint y) { return x() > y(); });
         {
             Mint fsum[N];
-            fsum[0] = 1;
+            fa[0][0] = 1;
             For(i, 1, n) {
-                fa[i][0] = 1;
-                For(j, 1, i) {
+                fa[i][1] = a[i];
+                For(j, 2, i) {
                     fa[i][j] = fsum[j-1] * a[i];
                     fsum[j-1] += fa[i][j-1];
                 }
@@ -35,38 +36,42 @@ int main() {
         }
         {
             Mint fsum[N], gsum[N];
-            gsum[0] = 1;
             For(i, 1, n) {
-                For(j, 1, i) {
+                fb[i][1] = b[i], gb[i][1] = 1;
+                For(j, 2, i) {
                     fb[i][j] = fsum[j-1] + gsum[j-1] * b[i];
                     gb[i][j] = gsum[j-1];
-                    fsum[j-1] += fb[i][j];
-                    gsum[j-1] += gb[i][j];
+                    fsum[j-1] += fb[i][j-1];
+                    gsum[j-1] += gb[i][j-1];
                 }
+                fsum[i] += fb[i][i];
+                gsum[i] += gb[i][i];
             }
         }
-        Mint ans[N];
-        { // 计算：A 里面选 k-1 个最大的，B 选一个
-            Mint ffa[N]; // A 选 i 个的答案和
-            For(i, 1, n)
-                For(j, 0, n - std::max(i, k-1)) // 再额外选 j 个
-                    ffa[k-1 + j] += fa[i][k-1] * C[n-i][j];
-            Mint ffb[N]; // B 选 i 个的答案和
-            For(i, 1, n)
-                For(j, 0, n - i) // 再额外选 j 个
-                    ffb[1 + j] += fb[i][1] * C[n-i][j];
-            For(i, 1, n)
-                roF(j, n, 1)
-                    ans[i+j] += ffa[i] * ffb[j];
+        // For(i, 1, n) For(j, 1, i) printf("%d%c", fa[i][j], " \n"[j==i]);
+        // For(i, 1, n) For(j, 1, i) printf("%d%c", fb[i][j], " \n"[j==i]);
+        // For(i, 1, n) For(j, 1, i) printf("%d%c", gb[i][j], " \n"[j==i]);
+        Mint ans;
+        if (k-1 <= n) { // 计算：A 里面选 k-1 个最大的，B 选一个
+            Mint ffa[N], ffb[N]; // A,B 选 i 个的答案和
+            For(i, k-1, n) For(j, 0, n - i) ffa[k-1 + j] += fa[i][k-1] * C[n-i][j]/* , printf("ffa[%d] += fa[%d][%d] * (%d,%d)\n", k-1+j, i, k-1, n-i, j) */;
+            For(i, 1, n) For(j, 0, n - i) ffb[1 + j] += fb[i][1] * C[n-i][j]; // 额外 j 个
+            For(i, std::max(0, m-n), std::min(n, m-1)) ans += ffa[i] * ffb[m - i];
+            // For(i, 1, n) printf("%d%c", ffa[i], " \n"[i==n]);
+            // For(i, 1, n) printf("%d%c", ffb[i], " \n"[i==n]);
+            // fprintf(stderr, "ans=%d\n", ans);
         }
         { // 计算：A 里面选 k-x 最大的，B 选 x(至少有2个有效) 个
-            Mint ffa[N], ffb1[N], ffb[N];
-            For(i, 1, n) For(j, i, n) ffa[i] += fa[j][i];
-            For(i, 2, n) For(j, i, n) ffb1[i] += fb[j][i];
-            For(i, 2, n) For(j, 0, n-i) ffb[i+j] += ffb1[i] * C[n-i][j];
-            For(i, 1, n) roF(j, n, 2) ans[i+j] += ffa[i] * ffb[j];
+            Mint ffa[N], ffb[N];
+            For(x, 2, std::min(n, k)) {
+                int target = m - (k-x);
+                Mint ffa; For(i, k-x, n) ffa += fa[i][k-x];
+                Mint ffb; For(i, x, n) ffb += fb[i][x] * C[n-i][target - x];
+                // fprintf(stderr, "A{%d} B{%d~%d} %d * %d\n", k-x, x, std::min(target, n), ffa, ffb);
+                ans += ffa * ffb;
+            }
         }
-        printf("%d\n", std::accumulate(ans+1, ans+1+n, Mint()));
+        printf("%d\n", ans);
         
     }
     return 0;
