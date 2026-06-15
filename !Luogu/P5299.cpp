@@ -10,6 +10,10 @@ Mint C[N][N], fa[N][N], fb[N][N], gb[N][N], a[N], b[N];
 f[i][j] 表示考虑了 A[i] 的前 i 大，选了 j 个后，当前答案和为 f[i][j] 
 */
 int main() {
+#ifdef DEBUG
+    freopen("P5299_testdata/4.in", "r", stdin);
+    freopen("P5299.out", "w", stdout);
+#endif
     int T, n, m, k;
     For(i, 0, N-1) {
         C[i][0] = C[i][i] = 1;
@@ -66,7 +70,7 @@ int main() {
             For(x, 2, std::min(n, k)) {
                 int target = m - (k-x);
                 Mint ffa; For(i, k-x, n) ffa += fa[i][k-x];
-                Mint ffb; For(i, x, n) ffb += fb[i][x] * C[n-i][target - x];
+                Mint ffb; For(i, x, n) if (target-x <= n-i) ffb += fb[i][x] * C[n-i][target - x];
                 // fprintf(stderr, "A{%d} B{%d~%d} %d * %d\n", k-x, x, std::min(target, n), ffa, ffb);
                 ans += ffa * ffb;
             }
