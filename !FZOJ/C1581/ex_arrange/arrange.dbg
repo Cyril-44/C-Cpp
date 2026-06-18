@@ -1,0 +1,1 @@
+arrange: /home/cyril/C-Cpp/!FZOJ/C1581/ex_arrange/arrange.cpp:50: pii_t cut(int): Assertion `tr[u].sz > 1' failed.
