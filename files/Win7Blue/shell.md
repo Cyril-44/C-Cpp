@@ -28,8 +28,6 @@ echo 1 > /proc/sys/kernel/sysrq
 echo c > /proc/sysrq-trigger
 ```
 
-`pxbakioi%%%orz%%%wtz10.07.19wtzzhy80`
-
 Capture 
 ```sh
 llks -s -m /usr/local/bin/llkk.cnf -o /tmp/xxxxxxxx
@@ -40,10 +38,10 @@ su noi -s /bin/sh
 x11vnc -viewonly -display :0 -rfbauth ~/.vnc/passwd &
 ```
 
-`Ew2IEOEcEkTD4aBYwukD` (227 WTZ)
+`Ew2IEOEcEkTD4aBYwukD` (227)
 `1b2uns3wOz0OxNS2mODb` (226 PXB)
 `KZb3MSs0tHcWnCIb12XZ` (226 WSY)
-`DH6gxMPAvBq7BllvoyBY` (226 WTZ)
+`DH6gxMPAvBq7BllvoyBY` (226)
 `JPtJjLGMXlt3GJ0QVETS` (226 SZS)
 `be1HH4Vod8DTEkWGvyZj` (226 CZ)
 `od/ooUroBxjycWjlhw7u` (226 ZZY)
