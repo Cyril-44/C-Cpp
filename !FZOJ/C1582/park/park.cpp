@@ -41,6 +41,9 @@ void build(int u = 1, int l = 1, int r = n) {
         tr[u].pre = tr[u].suf = tr[u].cur = {(tr[u].sum = {d[l], lim[l]})};
         return;
     }
+    int mid = l + r >> 1;
+    build(u<<1, l, mid);
+    build(u<<1|1, mid+1, r);
     tr[u].sum = tr[ls].sum + tr[rs].sum;
     auto lv = tr[ls].suf, rv = tr[rs].pre;
     std::sort(lv.rbegin(), lv.rend(), cmpl);
@@ -60,7 +63,7 @@ void build(int u = 1, int l = 1, int r = n) {
     for (int il = 0; il < (int)lv.size(); il++) {
         for (; ir < (int)rv.size() && rv[ir].lmt - rv[ir].add >= lv[il].lmt; ir++)
             if (rv[ir].add > mx.add) mx = rv[ir];
-        if (~mx.add) tr[u].cur.emplace_back(mx + rv[ir]);
+        if (~mx.add) tr[u].cur.emplace_back(mx + lv[il]);
     }
 } { // Calc pre := L.pre + (L.sum + R.pre)
     tr[u].pre = tr[ls].pre;
@@ -99,8 +102,8 @@ class Inquire {
         }
     }
 public:
-    inline int64_t operator()(int x, int l, int r) {
-        ans = preSufmx = x = x, L = l, R = r;
+    inline int64_t operator()(int x_, int l, int r) {
+        ans = preSufmx = x = x_, L = l, R = r;
         inq(1, 1, n);
     }
 };
@@ -112,8 +115,8 @@ int main() {
     for (int i = 1; i <= n; i++) std::cin >> lim[i];
     build();
     for (int l, r, x; q--; ) {
-        scanf("%d%d%d", &l, &r, &x);
-        printf("%lld\n", Inquire{}(x, l, r));
+        std::cin >> l >> r >> x;
+        std::cout << Inquire{}(x, l, r) << '\n';
     }
     return 0;
 }
