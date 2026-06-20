@@ -15,19 +15,21 @@ inline int monoins(int x) { // 返回前面第一个比它小的
 }
 int lid[N], lfn[N], rid[N], rfn[N]; // 按照 LRU，RLU 的顺序遍历得到的节点序列
 int sz[N], sum[N];
-int64_t fill[N], fillfa[N]; // 填充当前子树需要最少的水量 / 填充高度到父亲需要的最小的水量
-void init(int u, int64_t f) {
+int64_t fill[N], fillfa[N], lsum[N], rsum[N]; // 填充当前子树需要最少增水量 / 填充高度到父亲需要的最小增水量
+void init(int u) {
     if (!u) return;
     init(son[u][0]), init(son[u][1]);
     sz[u] = 1 + sz[son[u][0]] + sz[son[u][1]];
+    fill[u] = fillfa[son[u][0]] + fillfa[son[u][1]];
+    fillfa[u] = 1ll * (h[fa[u][0]] - h[u]) * sz[u];
 }
-void initl(int u, int64_t f) {
+void initl(int u) {
     static int ts;
     if (!u) return;
     initl(son[u][0]), initl(son[u][1]);
     lid[++ts] = u, lfn[u] = ts;
 }
-void initr(int u, int64_t f) {
+void initr(int u) {
     static int ts;
     if (!u) return;
     initr(son[u][1]), initr(son[u][0]);
@@ -53,5 +55,7 @@ int main() {
         for (int i = 1; i <= n; i++)
             fa[i][k] = fa[fa[i][k-1]][k-1]; 
     initl(rt), initr(rt);
+    for (int i = 1; i <= n; i++) lsum[i] = lsum[i-1] + fill[lid[i]];
+    for (int i = 1; i <= n; i++) rsum[i] = rsum[i-1] + fill[rid[i]];
     return 0;
 }
