@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <algorithm>
 constexpr int N = 200005;
 int n, d[N], lim[N];
 int64_t dsum[N];
@@ -20,13 +21,15 @@ struct Node {
     std::vector<Op> pre, suf, cur;
     Op sum;
 } tr[N << 2];
-bool cmp(const Node::Op &x, const Node::Op &y) { return x.add < y.add; }
-bool cmpl(const Node::Op &x, const Node::Op &y) { return x.lmt < y.lmt; }
-bool cmpr(const Node::Op &x, const Node::Op &y) { return x.lmt - x.add < y.lmt - y.add; }
 #define ls (u<<1)
 #define rs (u<<1|1)
+std::ostream& operator<<(std::ostream& os, const std::vector<Node::Op>& vec) {
+    for (const auto &op : vec) os << "(+" << op.add << ", " << op.lmt << ") ";
+    return os;
+}
 inline void unique(std::vector<Node::Op>& vec) {
-    std::sort(vec.rbegin(), vec.rend(), cmp);
+    std::sort(vec.begin(), vec.end(), [] (const Node::Op &x, const Node::Op &y) { return x.add > y.add || x.add == y.add && x.lmt > y.lmt; });
+    // std::cerr << "    { " << vec << "}\n==> ";
     int64_t semx = -1;
     int tot = 0;
     for (int i = 0; i < (int)vec.size(); i++) {
@@ -35,6 +38,7 @@ inline void unique(std::vector<Node::Op>& vec) {
         vec[tot++] = vec[i];
     }
     vec.resize(tot);
+    // std::cerr << "{ " << vec << "}\n" << std::endl;
 }
 void build(int u = 1, int l = 1, int r = n) {
     if (l == r) {
@@ -46,8 +50,8 @@ void build(int u = 1, int l = 1, int r = n) {
     build(u<<1|1, mid+1, r);
     tr[u].sum = tr[ls].sum + tr[rs].sum;
     auto lv = tr[ls].suf, rv = tr[rs].pre;
-    std::sort(lv.rbegin(), lv.rend(), cmpl);
-    std::sort(rv.rbegin(), rv.rend(), cmpr);
+    std::sort(lv.begin(), lv.end(), [] (const Node::Op &x, const Node::Op &y) { return x.lmt > y.lmt; });
+    std::sort(rv.begin(), rv.end(), [] (const Node::Op &x, const Node::Op &y) { return x.lmt - x.add > y.lmt - y.add; });
     tr[u].cur.reserve(lv.size() + rv.size());
 {   // When: Min(l2, l1+a2) = l2
     Node::Op mx{-1, 0};
@@ -63,15 +67,15 @@ void build(int u = 1, int l = 1, int r = n) {
     for (int il = 0; il < (int)lv.size(); il++) {
         for (; ir < (int)rv.size() && rv[ir].lmt - rv[ir].add >= lv[il].lmt; ir++)
             if (rv[ir].add > mx.add) mx = rv[ir];
-        if (~mx.add) tr[u].cur.emplace_back(mx + lv[il]);
+        if (~mx.add) tr[u].cur.emplace_back(lv[il] + mx);
     }
 } { // Calc pre := L.pre + (L.sum + R.pre)
     tr[u].pre = tr[ls].pre;
-    tr[u].pre.reserve(tr[ls].pre.size() + tr[rs].pre.size());
+    tr[u].pre.reserve(tr[ls].pre.size() + rv.size());
     for (const auto &rvec : rv) tr[u].pre.emplace_back(tr[ls].sum + rvec);
 } { // Calc suf := (L.suf + R.sum) + R.suf
     tr[u].suf = tr[rs].suf;
-    tr[u].suf.reserve(tr[ls].suf.size() + tr[rs].suf.size());
+    tr[u].suf.reserve(lv.size() + tr[rs].suf.size());
     for (const auto &lvec : lv) tr[u].suf.emplace_back(lvec + tr[rs].sum);
 }   unique(tr[u].pre), unique(tr[u].suf), unique(tr[u].cur);
 }
@@ -85,7 +89,12 @@ inline int64_t calcMx(const std::vector<Node::Op> &vec, int64_t x) { // 在一�
     int64_t ans = -1;
     if (r >= 0) ans = std::max(ans, x + vec[r]);
     if (l < (int)vec.size()) ans = std::max(ans, x + vec[l]);
-    // assert(~ans);
+    assert(~ans);
+    /* int64_t ans2 = -1;
+    for (const auto &op : vec) {
+        ans2 = std::max(ans2, x + op);
+    }
+    assert(ans == ans2); */
     return ans;
 }
 class Inquire {
@@ -93,22 +102,25 @@ class Inquire {
     int x, L, R;
     void inq(int u, int l, int r) { // 线段树查询
         if (L <= l && r <= R) {
+            ans = std::max(ans, calcMx(tr[u].cur, x));
+            ans = std::max(ans, preSufmx);
             ans = std::max(ans, calcMx(tr[u].pre, preSufmx));
+            std::cerr << "[" << l << ", " << r << "]: " << preSufmx << ", " << calcMx(tr[u].cur, x) << ' ' << calcMx(tr[u].pre, preSufmx) << std::endl;
             preSufmx = std::max(preSufmx + tr[u].sum, calcMx(tr[u].suf, x));
-        } else {
+        } else {  
             int mid = l + r >> 1;
-            inq(u<<1, l, mid);
-            inq(u<<1|1, mid+1, r);
+            if (L <= mid) inq(u<<1, l, mid);
+            if (mid < R) inq(u<<1|1, mid+1, r);
         }
     }
 public:
     inline int64_t operator()(int x_, int l, int r) {
         ans = preSufmx = x = x_, L = l, R = r;
         inq(1, 1, n);
+        return ans;
     }
 };
 int main() {
-    freopen("park1.in", "r", stdin);
     std::cin.tie(nullptr)->sync_with_stdio(false);
     int q; std::cin >> n >> q;
     for (int i = 1; i <= n; i++) std::cin >> d[i], dsum[i] = dsum[i-1] + d[i];
@@ -116,6 +128,7 @@ int main() {
     build();
     for (int l, r, x; q--; ) {
         std::cin >> l >> r >> x;
+        std::cerr << "Inquire " << x << " at [" << l << ", " << r << "]" << std::endl;
         std::cout << Inquire{}(x, l, r) << '\n';
     }
     return 0;
