@@ -20,7 +20,7 @@
         "--background-index=false"
     ],
     // "cmake.sourceDirectory": "/home/cyril/code/Functions/clang-cpp-obf",
-    "C_Cpp.intelliSenseEngine": "disabled",
+    "C_Cpp.intelliSenseEngine": "default",
     "clangd.path": "/usr/bin/clangd-22",
     "clangd.checkUpdates": false,
     "C_Cpp.renameInCurrentFileOnly": true
