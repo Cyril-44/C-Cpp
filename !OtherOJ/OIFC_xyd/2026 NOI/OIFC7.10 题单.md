@@ -1,0 +1,6 @@
+1. [Laker Strike](https://www.luogu.com.cn/problem/P13346)
+0. [摆放 Slaganje](https://www.luogu.com.cn/problem/P15568)
+0. [JOI 国的节日 2](https://www.luogu.com.cn/problem/P9330)
+0. [Not a work of Idol](https://qoj.ac/problem/11114)
+0. [Super Backpack](https://qoj.ac/problem/14123)
+0. [Tree Vertices XOR](https://atcoder.jp/contests/agc052/tasks/agc052_f)
