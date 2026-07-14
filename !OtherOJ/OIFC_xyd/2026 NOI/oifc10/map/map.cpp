@@ -4,6 +4,7 @@
 #include <bitset>
 #include <vector>
 #include <numeric>
+#include <iostream>
 constexpr int N = 2000;
 #define Rep(i, n) for (int i = 0; i < n; i++)
 using Vec2 = std::pair<int,int>;
@@ -18,7 +19,7 @@ inline Vec2& operator-=(Vec2& a, Vec2 b) { a.X-=b.X, a.Y-=b.Y; return a; }
 inline bool parallel(Vec2 a, Vec2 b) { return 1ll * a.X * b.Y == 1ll * a.Y * b.X; }
 
 constexpr int Dr[4][2]{{-1,0},{0,1},{1,0},{0,-1}};
-std::bitset<N*N> mp, flg; // flg[id] 表示以 id 为根的连通块内，环向量集合是否线性无关。
+std::bitset<N*N> mp, vis;
 inline bool read() {
     char ch = getchar_unlocked();
     while (ch != '#' && ch != '.') ch = getchar_unlocked();
@@ -26,10 +27,12 @@ inline bool read() {
 }
 inline int p2id(int x, int y) { return x * N + y; }
 inline Vec2 id2p(int i) { return {i / N, i % N}; }
+std::ostream& operator<<(std::ostream& os, const Vec2& o) {
+    return os << '(' << o.X << ' ' << o.Y << ')';
+}
 
 struct UFS {
-    int fa[N];
-    void init(int n, int m) { Rep(i, n) std::iota(fa+i*N, fa+i*N+m, i*N); }
+    int fa[N*N];
     int find(int u) { return u == fa[u] ? u : (fa[u] = find(fa[u])); }
     bool join(int u, int v) {
         u = find(u), v = find(v);
@@ -38,18 +41,28 @@ struct UFS {
     }
 } ufs;
 
-std::vector<std::pair<int, Vec2>> g[N];
+std::vector<std::pair<int, Vec2>> g[N*N];
 Vec2 wsum[N*N]; // 从根到当前点的树上路径和
-Vec2 now; int rt;
+Vec2 base[N*N]; int flg[N*N], rt; // flg[id] 表示以 id 为根的连通块内，环向量集合状态，0 表示没有，1 表示有一个，-1 表示有多于两个
 void dfs(int u, int fa) {
-    if (flg[rt]) return;
-    if (wsum[u].X || wsum[u].Y) {
-        if (!now.X && !now.Y) now = wsum[u];
-        else if (!parallel(wsum[u], now)) flg[rt] = true; // 线性无关
-    }
+    if (flg[rt] == -1) return;
+    vis[u] = true;
     for (const auto &[v, w] : g[u]) if (v != fa) {
-        wsum[v] = wsum[u] + w;
-        dfs(v, u);
+        if (vis[v]) {
+            Vec2 ring = wsum[v] - wsum[u] - w;
+            if (ring.X || ring.Y) {
+                // std::cerr << "Fetched valid ring " << ring << " on node " << id2p(u) << " with root " << id2p(rt) << std::endl;
+                if (!base[rt].X && !base[rt].Y) base[rt] = ring, flg[rt] = 1;
+                else if (!parallel(ring, base[rt])) {
+                    flg[rt] = -1; // 线性无关
+                    return;
+                }
+            }
+        } else {
+            wsum[v] = wsum[u] + w;
+            dfs(v, u);
+            if (flg[rt] == -1) return;
+        }
     }
 }
 
@@ -67,31 +80,49 @@ inline void solveSingle() {
         if (y < 0) y = m-1, w.Y = -1;
         else if (y >= m) y = 0, w.Y = 1;
     };
-    ufs.init(n, m);
-    Rep(i, n) Rep(j, m) if(read()) mp.set(p2id(i, j));
+    Rep(i, n) Rep(j, m) {
+        int id = p2id(i, j);
+        mp[id] = read();
+        flg[id] = 0;
+        vis[id] = false;
+        ufs.fa[id] = id;
+        wsum[id] = base[id] = {};
+        g[id].clear();
+    }
     scanf("%d", &k);
     Rep(i, n) Rep(j, m) {
         int id = p2id(i, j);
         if (mp[id])
             for (auto drc : Dr) {
-                int ti = i + drc[0], tj = j + drc[1]; Vec2 w;
+                int ti = i + drc[0], tj = j + drc[1]; Vec2 w{};
                 fixCoord(ti, tj, w);
                 int tid = p2id(ti, tj);
-                if (mp[tid]) ufs.join(id, tid), g[id].emplace_back(tid, w);
+                if (mp[tid]) {
+                    ufs.join(id, tid), g[id].emplace_back(tid, w);
+                    // std::cerr << Vec2(i,j) << "-->" << Vec2(ti,tj) << "  " << w << std::endl;
+                }
             }
     }
     Rep(i, n) Rep(j, m) {
         int id = p2id(i, j);
-        if (ufs.fa[id] == id) dfs(id, 0);
+        if (mp[id] && ufs.fa[id] == id) dfs(rt = id, -1);
     }
     Rep(_, k) {
-        int sx, sy, tx, ty;
-        scanf("%d%d%d%d", &sx, &sy, &tx, &ty);
-        int sid = p2id(sx, sy), tid = p2id(tx, ty);
-        if (sid == tid) puts("Bread");
-        else if (ufs.find(sid) != ufs.find(tid)) puts("Map");
+        int64_t sx, sy, tx, ty;
+        scanf("%ld%ld%ld%ld", &sx, &sy, &tx, &ty);
+        int sid = p2id(sx % n, sy % m), tid = p2id(tx % n, ty % m);
+        if (sx == tx && sy == ty) puts("Bread");
         else {
-            Vec2 delta = Vec2(tx/n - sx/n, ty/n - sy/n);
+            int root = ufs.find(sid);
+            if (root != ufs.find(tid)) puts("Map"); // 不在同一连通块
+            else if (flg[root] == -1) puts("Bread"); // 在同一连通块，且线性无关（可通往任意点）
+            else {
+                Vec2 delta = Vec2(tx/n - sx/n, ty/m - sy/m) - wsum[tid] + wsum[sid];
+                if (!delta.X && !delta.Y) puts("Bread"); // 特殊情况，内部块可以直接到达
+                else if (flg[root] == 0) puts("Map"); // 根本无法跨矩阵
+                else if (parallel(delta, base[root])) puts("Bread"); // 只有一组基底，必须线性相关才行
+                else puts("Map");
+            }
         }
     }
 }
