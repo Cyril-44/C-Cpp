@@ -70,14 +70,15 @@ namespace BF {
         }
         if (fa) {
             int mu = chain[dep[u]/2 + 1];
-            fprintf(stderr, "%d: d=%d, %ld %ld, ans<-%ld-%ld+%ld+%ld-%ld (mu=%d)\n",
-                    u, dep[u], w1, w2, sumrt, 1ll*dep[u] * sz[u], w2, sumofp(u), sumofp(mu), mu);
-            ans = std::min(ans, sumrt - (int64_t)dep[u] * sz[u] + w2 + sumofp(u) - sumofp(mu));
+            // fprintf(stderr, "%d: d=%d, %ld %ld, ans<-%ld-%ld+%ld+%ld-%ld=%ld (mu=%d)\n",
+            //         u, dep[u], w1, w2, sumrt, 1ll*dep[u] * sz[u], w2, sumofp(u), sumofp(mu), sumrt - (int64_t)dep[u] * sz[u] + w2 + sumofp(u) - sumofp(mu), mu);
+            ans = std::min(ans, sumrt - sum[mu] + w2 + sumofp(u));
         }
         for (int v : g[u]) if (v != fa)
             dfs2(v, u, w1, w2);
     }
     inline int64_t calc(int a) {
+        // fprintf(stderr, "Calculating a=%d...\n", a);
         dep[a] = 0; 
         dfs1(a, 0);
         sumrt = sum[a], ans = sumrt;
@@ -113,9 +114,9 @@ int main() {
             g[v].push_back(u);
         }
         switch (o) {
-        case 1: out(BF::work1()); break;
+        case 1: if (n <= 4000) out(BF::work1()); else return 0; break;
         case 2: out(BF::work2()); break;
-        case 3: for (auto v : BF::work3()) out(v), out.put(' ');
+        case 3: if (n <= 4000) for (auto v : BF::work3()) out(v), out.put(' '); else return 0;
         }
         out.put('\n');
     }
