@@ -63,35 +63,50 @@ inline void initf2() {
     int u = seHson;
     while (hson[u]) u = hson[u];
     for (int i = mxsz[centroid]; i >= 1; i--) {
-        if (size[centroid] - i >= size[seHson])
-            f2[i] = centroid; // 重心不变
-        else {
-            while (!isCentroid(u, n - i)) u = fa[u];
-            f2[i] = u;
-        }
+        while (u != centroid && !isCentroid(u, n - i)) u = fa[u];
+        f2[i] = u;
     }
 }
 int64_t ans;
 inline void chk(int cen, int sz, int rt = 0) {
-    if (cen != rt) cen = fa[cen];
-    if (isCentroid(cen, sz)) ans += cen;
-}
-void calc(int u, bool flg) { // flg 代表 u 是否位于根的重儿子子树中
-    if (u != centroid) {
-        ans += subcen[u];
-        chk(subcen[u], size[u], u);
-        if (flg) {
-            ans += f2[size[u]];
-            chk(f2[size[u]], n - size[u]);
-        } else {
-            ans += f1[size[u]];
-            chk(f1[size[u]], n - size[u]);
+    if (cen != rt && fa[cen]) {
+        cen = fa[cen];
+        if (isCentroid(cen, sz)) {
+            ans += cen;
+            fprintf(stderr, "+%d", cen);
         }
     }
-    if (!hson[u]) return;
-    calc(hson[u], flg);
-    for (int v : g[u]) if (v != fa[u] && v != hson[u])
-        calc(v, false);
+}
+void calc(int u, bool flg = false) { // flg 代表 u 是否位于根的重儿子子树中
+    if (u != centroid) {
+        fprintf(stderr, "On node %d: ", u);
+        { // 先处理以 u 为根的子树就
+            int r = subcen[u];
+            ans += r;;
+            if (r != u && isCentroid(fa[r], size[u]))
+                ans += fa[r];
+        }
+        if (flg) {
+            int r = f2[size[u]];
+            ans += r;;
+            if (r != centroid && (fa[r] == centroid ? 
+                std::max(mxsz[centroid] - size[u], size[seHson]) <= (n - size[u]) / 2 :
+                isCentroid(fa[r], n - size[u])
+            )) ans += fa[r];
+        } else {
+            int r = f1[size[u]];
+            ans += r;;
+            if (r != centroid && (fa[r] == centroid ? 
+                mxsz[centroid] <= (n - size[u]) / 2 : 
+                isCentroid(fa[r], n - size[u])
+            )) ans += fa[r];
+        }
+        for (int v : g[u]) if (v != fa[u]) calc(v, flg);
+    } else {
+        calc(hson[u], true);
+        for (int v : g[u]) if (v != fa[u] && v != hson[u])
+            calc(v, false);
+    }
 }
 int main() {
     int T;
@@ -111,7 +126,7 @@ int main() {
             if (v != hson[centroid] && size[v] > size[seHson])
                 seHson = v;
         initf1(), initf2();
-        ans = 0; calc(centroid, true);
+        ans = 0; calc(centroid);
         printf("%lld\n", ans);
     }
     return 0;
