@@ -5,7 +5,7 @@ using namespace std;
 int main(int argc, char* argv[]) {
     registerTestlibCmd(argc, argv);
 
-    int T = inf.readInt(1, 6, "T");
+    int T = inf.readInt(1, 1000, "T");
 
     for (int tc = 1; tc <= T; ++tc) {
         int n = inf.readInt(1, 100000, "n");
