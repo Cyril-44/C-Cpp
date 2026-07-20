@@ -88,14 +88,14 @@ void calc(int u, bool flg = false) { // flg 代表 u 是否位于根的重儿子
         }
         if (flg) {
             int r = f2[size[u]];
-            ans += r;;
+            ans += r;
             if (r != centroid && (fa[r] == centroid ? 
                 std::max(mxsz[centroid] - size[u], size[seHson]) <= (n - size[u]) / 2 :
                 isCentroid(fa[r], n - size[u])
             )) ans += fa[r];
         } else {
             int r = f1[size[u]];
-            ans += r;;
+            ans += r;
             if (r != centroid && (fa[r] == centroid ? 
                 mxsz[centroid] <= (n - size[u]) / 2 : 
                 isCentroid(fa[r], n - size[u])
