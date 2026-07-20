@@ -34,24 +34,17 @@ int main() {
             int x = qs.top(), y = qt.top();
             qs.pop(), qt.pop();
             if (x == y) {
+                // fprintf(stderr, "Spec #%d: %d\n", (int)ops1.size()+1, x);
                 ins(ops1, 0, x, a[x].t);
                 continue;
             }
-            qs.erase(ps[y]);
-            qt.erase(pt[x]);
+            qs.erase(ps[y]), qt.erase(pt[x]);
             auto op1 = [&] {
                 ins(ops1, 0, x, a[x].t); // sx --> tx
-                ins(ops2, 0, y, a[y].t); // tx --> ty
+                if (a[x].t != a[y].t) ops2.emplace_back(0, y, a[y].t); // tx --> ty
                 ins(ops2, 1, x, y);
                 a[y].t = a[x].t; // sy --> tx
                 push(y);
-            };
-            auto op2 = [&] {
-                ins(ops1, 0, x, a[y].t); // sx --> ty
-                ins(ops1, 0, y, a[y].t); // sy --> ty
-                ins(ops1, 1, x, y);
-                a[x].s = a[y].t; // ty --> tx
-                push(x);
             };
             auto op3 = [&] {
                 ins(ops1, 0, x, a[y].s); // sx --> sy
@@ -60,13 +53,8 @@ int main() {
                 a[x].s = a[y].s; // sy --> tx
                 push(x);
             };
-            if (a[x].s < a[x].t) {
-                if (a[y].s <= a[x].s && a[x].t <= a[y].t) op1();
-            } else if (a[y].s > a[y].t) op2();
-            else if (a[x].s <= a[y].t) {
-                if (a[x].t >= a[y].s) op1();
-                else op3();
-            } else op2();
+            if (a[x].t <= a[y].s) op3();
+            else op1();
         }
         printf("%lld %zu\n", ans, ops1.size() + ops2.size());
         std::reverse(ops2.begin(), ops2.end());
