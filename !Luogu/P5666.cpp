@@ -82,14 +82,14 @@ void calc(int u, bool flg = false) { // flg 代表 u 是否位于根的重儿子
         fprintf(stderr, "On node %d: ", u);
         { // 先处理以 u 为根的子树就
             int r = subcen[u];
-            ans += r;;
+            ans += r;
             if (r != u && isCentroid(fa[r], size[u]))
                 ans += fa[r];
         }
         if (flg) {
             int r = f2[size[u]];
             ans += r;
-            if (r != centroid && (fa[r] == centroid ? 
+            if (r != centroid && (fa[r] == centroid ?   
                 std::max(mxsz[centroid] - size[u], size[seHson]) <= (n - size[u]) / 2 :
                 isCentroid(fa[r], n - size[u])
             )) ans += fa[r];
