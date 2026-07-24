@@ -441,32 +441,6 @@ def repeatFactory(r:int):
     return f
 
 
-# Assign explicit test functions for badges 1..20
-try:
-    BADGES[1].test_fn = divisibleFactory(10)  # Clean Ten
-    BADGES[2].test_fn = digitComplexFactory(2)  # Digit Complex 2
-    BADGES[3].test_fn = digitComplexFactory(3)
-    BADGES[4].test_fn = digitComplexFactory(4)
-    BADGES[5].test_fn = digitComplexFactory(5)
-    BADGES[6].test_fn = digitComplexFactory(6)
-    BADGES[7].test_fn = digitComplexFactory(7)
-    BADGES[8].test_fn = digitComplexFactory(8)
-    BADGES[9].test_fn = digitComplexFactory(9)
-    BADGES[10].test_fn = repeatFactory(4)
-    BADGES[11].test_fn = repeatFactory(5)
-    BADGES[12].test_fn = repeatFactory(6)
-    BADGES[13].test_fn = repeatFactory(7)
-    BADGES[14].test_fn = repeatFactory(8)
-    BADGES[15].test_fn = repeatFactory(9)
-    BADGES[16].test_fn = is_prime
-    BADGES[17].test_fn = divisibleFactory(2)
-    BADGES[18].test_fn = divisibleFactory(3)
-    BADGES[19].test_fn = divisibleFactory(5)
-    BADGES[20].test_fn = divisibleFactory(7)
-except Exception:
-    # Defensive: if BADGES not fully built, skip assignments
-    pass
-
 
 BADGES = [None]
 BADGES.append(Badge('Clean Ten', 'Ends with 0.', 30000001, 2, divisibleFactory(10)))
