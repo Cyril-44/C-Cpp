@@ -9,6 +9,9 @@ Files created under rngdle/:
 Usage:
   python3 -m rngdle.main
 
+Note: when building a frozen executable (PyInstaller) the package must import using absolute imports. If you see an ImportError like "attempted relative import with no known parent package" when running the built binary, ensure rngdle/main.py uses absolute imports (this repository's main.py is configured accordingly).
+
+
 Build executable (local, Ubuntu 20.04+):
   1. Ensure Python 3 installed (Ubuntu 20.04 default python3 is fine).
   2. Run: ./build_exe.sh
