@@ -1,0 +1,4 @@
+rich
+readchar
+pyfiglet
+# If you used other libs elsewhere, add them here (e.g., numpy)
