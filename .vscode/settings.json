@@ -23,5 +23,6 @@
     "C_Cpp.intelliSenseEngine": "default",
     "clangd.path": "/usr/bin/clangd-22",
     "clangd.checkUpdates": false,
-    "C_Cpp.renameInCurrentFileOnly": true
+    "C_Cpp.renameInCurrentFileOnly": true,
+    "python-envs.defaultEnvManager": "ms-python.python:system"
 }

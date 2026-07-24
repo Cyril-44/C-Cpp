@@ -1,3 +1,4 @@
+pyinstaller
 rich
 readchar
 pyfiglet

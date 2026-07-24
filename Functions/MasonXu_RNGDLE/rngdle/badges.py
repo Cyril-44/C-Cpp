@@ -441,6 +441,104 @@ def repeatFactory(r:int):
     return f
 
 
+# helper to build difference-based badge functions (Steps/Slopes/Hills/Dunes/Mountain/Mesa/Valley/Canyon)
+def make_diff_fn(key: str):
+    def f(x:int):
+        s9,a = buildA(x)
+        diff = [0]*9
+        for i in range(1,9):
+            diff[i] = a[i+1] - a[i]
+        if key == 'Steps':
+            for i in range(1,9):
+                if diff[i] < 0: return False
+            return True
+        if key == 'Slopes':
+            for i in range(1,9):
+                if diff[i] > 0: return False
+            return True
+        if key == 'Hills':
+            for i in range(1,8):
+                if diff[i]*diff[i+1] >= 0: return False
+            return True
+        if key == 'Dunes':
+            for i in range(1,8):
+                if diff[i]*diff[i+1] > 0: return False
+            return True
+        if key in ('Mountain','Mesa','Valley','Canyon'):
+            atl = 1
+            if key in ('Mesa','Canyon'):
+                atl = 0
+            mtp = 1
+            if key in ('Valley','Canyon'):
+                mtp = -1
+            xl = xr = 0
+            for i in range(1,9):
+                if diff[i]*mtp >= atl:
+                    xl += 1
+                else:
+                    break
+            for i in range(8,0,-1):
+                if diff[i]*mtp <= -atl:
+                    xr += 1
+                else:
+                    break
+            return xl + xr >= 8
+        return False
+    return f
+
+
+# helper to build contiguous/consecutive badge functions (Consecutive/Contiguous/Alternator/Two Contiguous Pair etc.)
+def make_cont_fn(key: str):
+    def f(x:int):
+        s9,a = buildA(x)
+        diff = [0]*9
+        for i in range(1,9):
+            diff[i] = a[i+1] - a[i]
+        ava1, ava2 = 1, -1
+        if key.startswith('Contiguous'):
+            ava1 = ava2 = 0
+        cur = 0
+        maxx = 0
+        for j in range(1,9):
+            cur += 1
+            if diff[j] != ava1 and diff[j] != ava2:
+                cur = 0
+            if j == 8 or diff[j] != diff[j+1]:
+                maxx = max(maxx, cur)
+                cur = 0
+        if key in ('Consecutive 3','Contiguous 3'):
+            return maxx >= 2
+        if key in ('Consecutive 2','Contiguous 2'):
+            return maxx >= 1
+        if key in ('Consecutive 4','Contiguous 4'):
+            return maxx >= 3
+        if key in ('Consecutive 5','Contiguous 5'):
+            return maxx >= 4
+        if key in ('Consecutive 6','Contiguous 6'):
+            return maxx >= 5
+        if key in ('Consecutive 7','Contiguous 7'):
+            return maxx >= 6
+        if key in ('Consecutive 8','Contiguous 8'):
+            return maxx >= 7
+        if key == 'Consecutive 9':
+            return maxx >= 8
+        if key == 'Alternator':
+            for i in range(1,9):
+                if (diff[i] + 20) % 2 == 0:
+                    return False
+            return True
+        if key == 'Two Contiguous Pair':
+            cnt = sum(1 for i in range(1,9) if diff[i] == 0)
+            return cnt >= 2
+        if key == 'Three Contiguous Pair':
+            cnt = sum(1 for i in range(1,9) if diff[i] == 0)
+            return cnt >= 3
+        if key == 'Four Contiguous Pair':
+            cnt = sum(1 for i in range(1,9) if diff[i] == 0)
+            return cnt >= 4
+        return False
+    return f
+
 
 BADGES = [None]
 BADGES.append(Badge('Clean Ten', 'Ends with 0.', 30000001, 2, divisibleFactory(10)))
@@ -463,30 +561,30 @@ BADGES.append(Badge('High Man', 'Divisible by 2.', 150000001, 2, divisibleFactor
 BADGES.append(Badge('Basketball Champion', 'Divisible by 3.', 100000000, 2, divisibleFactory(3)))
 BADGES.append(Badge('ICU', 'Divisible by 5.', 60000001, 2, divisibleFactory(5)))
 BADGES.append(Badge('Monitor', 'Divisible by 7.', 42857143, 2, divisibleFactory(7)))
-BADGES.append(Badge('Li Yin Yang', 'Divisible by 11.', 27272727, 2, (lambda x: _badge_test(BADGES[21], x))))
-BADGES.append(Badge('Duck Neck', 'Divisible by 13.', 23076923, 2, (lambda x: _badge_test(BADGES[22], x))))
-BADGES.append(Badge('Old Hill', 'Divisible by 15.', 20000000, 2, (lambda x: _badge_test(BADGES[23], x))))
-BADGES.append(Badge('Negro', 'Divisible by 17.', 17647059, 2, (lambda x: _badge_test(BADGES[24], x))))
-BADGES.append(Badge('Big Plate Chicken', 'Divisible by 19.', 15789474, 2, (lambda x: _badge_test(BADGES[25], x))))
-BADGES.append(Badge('Chicken Dust', 'Divisible by 23.', 13043478, 2, (lambda x: _badge_test(BADGES[26], x))))
-BADGES.append(Badge('Kevin (Divisible)', 'Divisible by 27.', 11111111, 2, (lambda x: _badge_test(BADGES[27], x))))
-BADGES.append(Badge('Plus Seven', 'Divisible by 29.', 10344828, 2, (lambda x: _badge_test(BADGES[28], x))))
-BADGES.append(Badge('Blue Archive', 'Divisible by 31.', 9677419, 2, (lambda x: _badge_test(BADGES[29], x))))
-BADGES.append(Badge('Iron Ke', 'Divisible by 37.', 8108108, 2, (lambda x: _badge_test(BADGES[30], x))))
-BADGES.append(Badge('Chicken Neck', 'Divisible by 41.', 7317073, 2, (lambda x: _badge_test(BADGES[31], x))))
-BADGES.append(Badge('Mason Xu', 'Divisible by 43.', 6976744, 2, (lambda x: _badge_test(BADGES[32], x))))
-BADGES.append(Badge('Red Chicken', 'Divisible by 47.', 6382979, 2, (lambda x: _badge_test(BADGES[33], x))))
-BADGES.append(Badge('ZnSO4', 'Divisible by 49.', 6122449, 2, (lambda x: _badge_test(BADGES[34], x))))
-BADGES.append(Badge('Even Steven', 'All digits are even.', 390626, 1, (lambda x: _badge_test(BADGES[35], x))))
-BADGES.append(Badge('Odd Todd', 'All digits are odd.', 781250, 1, (lambda x: _badge_test(BADGES[36], x))))
-BADGES.append(Badge('Homo 3', 'Contains 114.', 2794201, 3, (lambda x: _badge_test(BADGES[37], x))))
-BADGES.append(Badge('Homo 4', 'Contains 1145.', 249977, 3, (lambda x: _badge_test(BADGES[38], x))))
-BADGES.append(Badge('Homo 5', 'Contains 11451.', 21999, 3, (lambda x: _badge_test(BADGES[39], x))))
-BADGES.append(Badge('Full Homo', 'Contains 114514.', 1900, 3, (lambda x: _badge_test(BADGES[40], x))))
-BADGES.append(Badge('Half Homo B-Side', 'Contains 1919.', 248090, 3, (lambda x: _badge_test(BADGES[41], x))))
-BADGES.append(Badge('Homo B-Side', 'Contains 1919810.', 160, 3, (lambda x: _badge_test(BADGES[42], x))))
-BADGES.append(Badge('Kevin', 'Contains 27.', 29962957, 3, (lambda x: _badge_test(BADGES[43], x))))
-BADGES.append(Badge('O Kevin', 'Contains 15.', 29962957, 3, (lambda x: _badge_test(BADGES[44], x))))
+BADGES.append(Badge('Li Yin Yang', 'Divisible by 11.', 27272727, 2, divisibleFactory(11)))
+BADGES.append(Badge('Duck Neck', 'Divisible by 13.', 23076923, 2, divisibleFactory(13)))
+BADGES.append(Badge('Old Hill', 'Divisible by 15.', 20000000, 2, divisibleFactory(15)))
+BADGES.append(Badge('Negro', 'Divisible by 17.', 17647059, 2, divisibleFactory(17)))
+BADGES.append(Badge('Big Plate Chicken', 'Divisible by 19.', 15789474, 2, divisibleFactory(19)))
+BADGES.append(Badge('Chicken Dust', 'Divisible by 23.', 13043478, 2, divisibleFactory(23)))
+BADGES.append(Badge('Kevin (Divisible)', 'Divisible by 27.', 11111111, 2, divisibleFactory(27)))
+BADGES.append(Badge('Plus Seven', 'Divisible by 29.', 10344828, 2, divisibleFactory(29)))
+BADGES.append(Badge('Blue Archive', 'Divisible by 31.', 9677419, 2, divisibleFactory(31)))
+BADGES.append(Badge('Iron Ke', 'Divisible by 37.', 8108108, 2, divisibleFactory(37)))
+BADGES.append(Badge('Chicken Neck', 'Divisible by 41.', 7317073, 2, divisibleFactory(41)))
+BADGES.append(Badge('Mason Xu', 'Divisible by 43.', 6976744, 2, divisibleFactory(43)))
+BADGES.append(Badge('Red Chicken', 'Divisible by 47.', 6382979, 2, divisibleFactory(47)))
+BADGES.append(Badge('ZnSO4', 'Divisible by 49.', 6122449, 2, divisibleFactory(49)))
+BADGES.append(Badge('Even Steven', 'All digits are even.', 390626, 1, lambda x: sum(digitCounts(buildA(x)[1])[i] for i in [1,3,5,7,9]) == 0))
+BADGES.append(Badge('Odd Todd', 'All digits are odd.', 781250, 1, lambda x: sum(digitCounts(buildA(x)[1])[i] for i in [0,2,4,6,8]) == 0))
+BADGES.append(Badge('Homo 3', 'Contains 114.', 2794201, 3, containsFactory('114')))
+BADGES.append(Badge('Homo 4', 'Contains 1145.', 249977, 3, containsFactory('1145')))
+BADGES.append(Badge('Homo 5', 'Contains 11451.', 21999, 3, containsFactory('11451')))
+BADGES.append(Badge('Full Homo', 'Contains 114514.', 1900, 3, containsFactory('114514')))
+BADGES.append(Badge('Half Homo B-Side', 'Contains 1919.', 248090, 3, containsFactory('1919')))
+BADGES.append(Badge('Homo B-Side', 'Contains 1919810.', 160, 3, containsFactory('1919810')))
+BADGES.append(Badge('Kevin', 'Contains 27.', 29962957, 3, containsFactory('27')))
+BADGES.append(Badge('O Kevin', 'Contains 15.', 29962957, 3, containsFactory('15')))
 BADGES.append(Badge('Almost Balanced', 'The number of even and odd digits differs 1.', 147656250, 1, (lambda x: _badge_test(BADGES[45], x))))
 BADGES.append(Badge('Consecutive 3', 'Contains 3 adjust consecutive digits in order.', 30406795, 4, (lambda x: _badge_test(BADGES[46], x))))
 BADGES.append(Badge('Consecutive 2', 'Contains 2 adjust consecutive digits in order.', 239251563, 4, (lambda x: _badge_test(BADGES[47], x))))
@@ -504,31 +602,31 @@ BADGES.append(Badge('Contiguous 6', 'Contains 6 adjust same digits.', 11101, 4, 
 BADGES.append(Badge('Contiguous 7', 'Contains 7 adjust same digits.', 841, 4, (lambda x: _badge_test(BADGES[59], x))))
 BADGES.append(Badge('Contiguous 8', 'Contains 8 adjust same digits.', 58, 4, (lambda x: _badge_test(BADGES[60], x))))
 BADGES.append(Badge('Alternator', 'Digits strictly alternate between even add odd.', 1171875, 4, (lambda x: _badge_test(BADGES[61], x))))
-BADGES.append(Badge('Six Seven', 'Contains 67.', 20552997, 3, (lambda x: _badge_test(BADGES[62], x))))
-BADGES.append(Badge('Six Seven (Divisible)', 'Divisible by 67.', 4477612, 2, (lambda x: _badge_test(BADGES[63], x))))
+BADGES.append(Badge('Six Seven', 'Contains 67.', 20552997, 3, containsFactory('67')))
+BADGES.append(Badge('Six Seven (Divisible)', 'Divisible by 67.', 4477612, 2, divisibleFactory(67)))
 BADGES.append(Badge('Two Pair', 'Contains two different pairs.', 257081418, 1, (lambda x: _badge_test(BADGES[64], x))))
 BADGES.append(Badge('Two Contiguous Pair', 'Contains two contiguous different pairs.', 56068582, 4, (lambda x: _badge_test(BADGES[65], x))))
 BADGES.append(Badge('Three Pair', 'Contains three different pairs.', 109006128, 1, (lambda x: _badge_test(BADGES[66], x))))
 BADGES.append(Badge('Three Contiguous Pair', 'Contains three contiguous different pairs.', 11427538, 4, (lambda x: _badge_test(BADGES[67], x))))
 BADGES.append(Badge('Four Pair', 'Contains four different pairs.', 10478160, 1, (lambda x: _badge_test(BADGES[68], x))))
 BADGES.append(Badge('Four Contiguous Pair', 'Contains four contiguous different pairs.', 1507306, 4, (lambda x: _badge_test(BADGES[69], x))))
-BADGES.append(Badge('Second Power', 'A perfect square.', 10001, 0, (lambda x: _badge_test(BADGES[70], x))))
-BADGES.append(Badge('Third Power', 'A perfect cube.', 272, 0, (lambda x: _badge_test(BADGES[71], x))))
-BADGES.append(Badge('Fourth Power', 'A perfect fourth power.', 42, 0, (lambda x: _badge_test(BADGES[72], x))))
+BADGES.append(Badge('Second Power', 'A perfect square.', 10001, 0, lambda x: (int(math.isqrt(x)) ** 2) == x))
+BADGES.append(Badge('Third Power', 'A perfect cube.', 272, 0, lambda x: (int(round(x ** (1/3))) ** 3) == x))
+BADGES.append(Badge('Fourth Power', 'A perfect fourth power.', 42, 0, lambda x: (int(round(x ** 0.25)) ** 4) == x))
 BADGES.append(Badge('High Power', 'A perfect fifth or more power.', 27, 0, (lambda x: _badge_test(BADGES[73], x))))
 BADGES.append(Badge('Wide', 'Contains both 0 and 9.', 92051322, 0, (lambda x: _badge_test(BADGES[74], x))))
 BADGES.append(Badge('Slim', 'Max and min digits differ not greater than 3.', 550458, 0, (lambda x: _badge_test(BADGES[75], x))))
 BADGES.append(Badge('Palindrome', 'Reads the same forwards and backwards.', 30000, 0, (lambda x: _badge_test(BADGES[76], x))))
-BADGES.append(Badge('Clean Hundred', 'Ends in 00.', 3000001, 2, (lambda x: _badge_test(BADGES[77], x))))
-BADGES.append(Badge('Clean Thousand', 'Ends in 000.', 300001, 2, (lambda x: _badge_test(BADGES[78], x))))
-BADGES.append(Badge('Clean Ten Thousand', 'Ends in 0000.', 30001, 2, (lambda x: _badge_test(BADGES[79], x))))
-BADGES.append(Badge('Clean Hundred Thousand', 'Ends in 00000.', 3001, 2, (lambda x: _badge_test(BADGES[80], x))))
-BADGES.append(Badge('Clean Million', 'Ends in 000000.', 301, 2, (lambda x: _badge_test(BADGES[81], x))))
-BADGES.append(Badge('Clean Ten Million', 'Ends in 0000000.', 31, 2, (lambda x: _badge_test(BADGES[82], x))))
-BADGES.append(Badge('Clean Hundred Million', 'Ends in 00000000.', 4, 2, (lambda x: _badge_test(BADGES[83], x))))
-BADGES.append(Badge('Binary Soul', 'Contains only 0s and 1s.', 256, 1, (lambda x: _badge_test(BADGES[84], x))))
-BADGES.append(Badge('Low Ball', 'Contains only digits from 0 to 4.', 1171876, 1, (lambda x: _badge_test(BADGES[85], x))))
-BADGES.append(Badge('High Roller', 'Contains only digits from 5 to 9 expect for the first digit.', 1171875, 1, (lambda x: _badge_test(BADGES[86], x))))
+BADGES.append(Badge('Clean Hundred', 'Ends in 00.', 3000001, 2, divisibleFactory(100)))
+BADGES.append(Badge('Clean Thousand', 'Ends in 000.', 300001, 2, divisibleFactory(1000)))
+BADGES.append(Badge('Clean Ten Thousand', 'Ends in 0000.', 30001, 2, divisibleFactory(10000)))
+BADGES.append(Badge('Clean Hundred Thousand', 'Ends in 00000.', 3001, 2, divisibleFactory(100000)))
+BADGES.append(Badge('Clean Million', 'Ends in 000000.', 301, 2, divisibleFactory(1000000)))
+BADGES.append(Badge('Clean Ten Million', 'Ends in 0000000.', 31, 2, divisibleFactory(10000000)))
+BADGES.append(Badge('Clean Hundred Million', 'Ends in 00000000.', 4, 2, divisibleFactory(100000000)))
+BADGES.append(Badge('Binary Soul', 'Contains only 0s and 1s.', 256, 1, lambda x: digitCounts(buildA(x)[1])[0] + digitCounts(buildA(x)[1])[1] == 9))
+BADGES.append(Badge('Low Ball', 'Contains only digits from 0 to 4.', 1171876, 1, lambda x: sum(digitCounts(buildA(x)[1])[i] for i in range(0,5)) == 9))
+BADGES.append(Badge('High Roller', 'Contains only digits from 5 to 9 expect for the first digit.', 1171875, 1, lambda x: sum(digitCounts(buildA(x)[1])[i] for i in range(5,10)) == 8))
 BADGES.append(Badge('Steps', 'Digits never decrease.', 22308, 4, (lambda x: _badge_test(BADGES[87], x))))
 BADGES.append(Badge('Slopes', 'Digits never increase.', 220, 4, (lambda x: _badge_test(BADGES[88], x))))
 BADGES.append(Badge('Mountain', 'Digits ascend to a peak and then descend.', 28662, 4, (lambda x: _badge_test(BADGES[89], x))))
@@ -537,8 +635,8 @@ BADGES.append(Badge('Valley', 'Digits descend to a trough and then ascend.', 532
 BADGES.append(Badge('Canyon', 'Digits fall to a floor, then rise (flat stretches allowed).', 161292, 4, (lambda x: _badge_test(BADGES[92], x))))
 BADGES.append(Badge('Hills', 'Digits strictly alternate between rising and falling.', 8461713, 4, (lambda x: _badge_test(BADGES[93], x))))
 BADGES.append(Badge('Dunes', 'Rises and falls keep alternating (flat stretches allowed).', 40436845, 4, (lambda x: _badge_test(BADGES[94], x))))
-BADGES.append(Badge('Divisible by 3', 'All digits are divisible by 3.', 65536, 1, (lambda x: _badge_test(BADGES[95], x))))
-BADGES.append(Badge('Abyss', 'Contains no 0s.', 129140163, 1, (lambda x: _badge_test(BADGES[96], x))))
+BADGES.append(Badge('Divisible by 3', 'All digits are divisible by 3.', 65536, 1, lambda x: digitCounts(buildA(x)[1])[0] + digitCounts(buildA(x)[1])[3] + digitCounts(buildA(x)[1])[6] + digitCounts(buildA(x)[1])[9] == 9))
+BADGES.append(Badge('Abyss', 'Contains no 0s.', 129140163, 1, lambda x: digitCounts(buildA(x)[1])[0] == 0))
 BADGES.append(Badge('Void', 'Contains exactly 1 "0".', 114791256, 1, (lambda x: _badge_test(BADGES[97], x))))
 BADGES.append(Badge('Hydrogen', 'Contains exactly 1 "1".', 119574225, 1, (lambda x: _badge_test(BADGES[98], x))))
 BADGES.append(Badge('Helium', 'Contains exactly 1 "2".', 119574225, 1, (lambda x: _badge_test(BADGES[99], x))))
@@ -552,14 +650,14 @@ BADGES.append(Badge('Fluorine', 'Contains exactly 1 "9".', 114791256, 1, (lambda
 BADGES.append(Badge('Mini Echo', 'Contains an adjacent 2-digit repeat.', 16346101, 0, (lambda x: _badge_test(BADGES[107], x))))
 BADGES.append(Badge('Medium Echo', 'Contains an adjacent 3-digit repeat.', 1110001, 0, (lambda x: _badge_test(BADGES[108], x))))
 BADGES.append(Badge('Major Echo', 'Contains an adjacent 4-digit repeat.', 57001, 0, (lambda x: _badge_test(BADGES[109], x))))
-BADGES.append(Badge('Mini Palindrome 3', 'Contains a palindrome of 3 digits.', 156510931, 0, (lambda x: _badge_test(BADGES[110], x))))
-BADGES.append(Badge('Mini Palindrome 4', 'Contains a palindrome of 4 digits.', 17565718, 0, (lambda x: _badge_test(BADGES[111], x))))
-BADGES.append(Badge('Mini Palindrome 5', 'Contains a palindrome of 5 digits.', 14710441, 0, (lambda x: _badge_test(BADGES[112], x))))
-BADGES.append(Badge('Mini Palindrome 6', 'Contains a palindrome of 6 digits.', 1198264, 0, (lambda x: _badge_test(BADGES[113], x))))
-BADGES.append(Badge('Mini Palindrome 7', 'Contains a palindrome of 7 digits.', 899131, 0, (lambda x: _badge_test(BADGES[114], x))))
-BADGES.append(Badge('Mini Palindrome 8', 'Contains a palindrome of 8 digits.', 59998, 0, (lambda x: _badge_test(BADGES[115], x))))
-BADGES.append(Badge('Binary Clean', 'Divisible by 1024.', 292969, 2, (lambda x: _badge_test(BADGES[116], x))))
-BADGES.append(Badge('Double Binary Clean', 'Divisible by 1048576.', 286, 2, (lambda x: _badge_test(BADGES[117], x))))
+BADGES.append(Badge('Mini Palindrome 3', 'Contains a palindrome of 3 digits.', 156510931, 0, (lambda x: (lambda s9,a: any(all(a[i+j]==a[i+k-1-j] for j in range(3//2)) for i in range(1, 10-3+1)) )(*buildA(x)))))
+BADGES.append(Badge('Mini Palindrome 4', 'Contains a palindrome of 4 digits.', 17565718, 0, (lambda x: (lambda s9,a: any(all(a[i+j]==a[i+k-1-j] for j in range(4//2)) for i in range(1, 10-4+1)) )(*buildA(x)))))
+BADGES.append(Badge('Mini Palindrome 5', 'Contains a palindrome of 5 digits.', 14710441, 0, (lambda x: (lambda s9,a: any(all(a[i+j]==a[i+k-1-j] for j in range(5//2)) for i in range(1, 10-5+1)) )(*buildA(x)))))
+BADGES.append(Badge('Mini Palindrome 6', 'Contains a palindrome of 6 digits.', 1198264, 0, (lambda x: (lambda s9,a: any(all(a[i+j]==a[i+k-1-j] for j in range(6//2)) for i in range(1, 10-6+1)) )(*buildA(x)))))
+BADGES.append(Badge('Mini Palindrome 7', 'Contains a palindrome of 7 digits.', 899131, 0, (lambda x: (lambda s9,a: any(all(a[i+j]==a[i+k-1-j] for j in range(7//2)) for i in range(1, 10-7+1)) )(*buildA(x)))))
+BADGES.append(Badge('Mini Palindrome 8', 'Contains a palindrome of 8 digits.', 59998, 0, (lambda x: (lambda s9,a: any(all(a[i+j]==a[i+k-1-j] for j in range(8//2)) for i in range(1, 10-8+1)) )(*buildA(x)))))
+BADGES.append(Badge('Binary Clean', 'Divisible by 1024.', 292969, 2, divisibleFactory(1024)))
+BADGES.append(Badge('Double Binary Clean', 'Divisible by 1048576.', 286, 2, divisibleFactory(1048576)))
 BADGES.append(Badge('Harshed Number', 'Divisible by the sum of its own digits.', 19647577, 0, (lambda x: _badge_test(BADGES[118], x))))
 BADGES.append(Badge('Beginner Feather', 'The sum of its digits is not greater than 25.', 19085851, 0, (lambda x: _badge_test(BADGES[119], x))))
 BADGES.append(Badge('Beginner Heavy', 'The sum of its digits is not less than 50.', 24237105, 0, (lambda x: _badge_test(BADGES[120], x))))
@@ -580,22 +678,23 @@ BADGES.append(Badge('Echo Form+', 'Contains an adjust 2-digit repeat for 4 times
 BADGES.append(Badge('Echo Form Echo Form', 'Contains an adjust 3-digit repeat for 3 times.', 300, 0, (lambda x: _badge_test(BADGES[135], x))))
 BADGES.append(Badge('Consecutive Pairs', 'Contains 3 pairs that are consecutive in value.', 9601368, 1, (lambda x: _badge_test(BADGES[136], x))))
 BADGES.append(Badge('Airplane', 'Contains 2 triplets that are consecutive in value.', 2978906, 1, (lambda x: _badge_test(BADGES[137], x))))
-BADGES.append(Badge('Zipper', 'Two digits alternating perfectly.', 30, 0, (lambda x: _badge_test(BADGES[138], x))))
+BADGES.append(Badge('Zipper', 'Two digits alternating perfectly.', 30, 0, lambda x: (lambda s9,a: (a[1]==a[3]==a[5]==a[7]==a[9] and a[2]==a[4]==a[6]==a[8]))(*buildA(x))))
 BADGES.append(Badge('Three Triplet', 'Contains three different triplet.', 60480, 1, (lambda x: _badge_test(BADGES[139], x))))
 BADGES.append(Badge('Triple Airplane', 'Contains 3 triplets that are consecutive in value.', 4480, 1, (lambda x: _badge_test(BADGES[140], x))))
 BADGES.append(Badge('Consecutive Pairs+', 'Contains 4 pairs that are consecutive in value.', 370440, 1, (lambda x: _badge_test(BADGES[141], x))))
 BADGES.append(Badge('Neutrality', 'The number of reverse pairs equal to order pairs.', 12979991, 0, (lambda x: _badge_test(BADGES[142], x))))
 BADGES.append(Badge('Even Spacing (Absolute)', 'All digits have the same absolute spacing.', 848, 4, (lambda x: _badge_test(BADGES[143], x))))
 BADGES.append(Badge('Almost Sorted', 'The number of reverse pairs or order pairs is exactly 1.', 94943, 0, (lambda x: _badge_test(BADGES[144], x))))
-BADGES.append(Badge('Skipping', 'No two digits differ by 1.', 3182417, 1, (lambda x: _badge_test(BADGES[145], x))))
-BADGES.append(Badge('Six Six Six', 'Contains 666.', 1649217, 3, (lambda x: _badge_test(BADGES[146], x))))
-BADGES.append(Badge('Calender', 'Contains 365.', 2794201, 3, (lambda x: _badge_test(BADGES[147], x))))
-BADGES.append(Badge('Emergency', 'Contains 911.', 1798200, 3, (lambda x: _badge_test(BADGES[148], x))))
-BADGES.append(Badge('Not Found', 'Contains 404.', 1786266, 3, (lambda x: _badge_test(BADGES[149], x))))
-BADGES.append(Badge('Slience in Sea', 'Contains 543.', 1798200, 3, (lambda x: _badge_test(BADGES[150], x))))
-BADGES.append(Badge('Hopscotch', 'A digit appears at every other position (3 times).', 13940401, 0, (lambda x: _badge_test(BADGES[151], x))))
-BADGES.append(Badge('Hyper Hopscotch', 'A digit appears at every other position (4 times).', 869431, 0, (lambda x: _badge_test(BADGES[152], x))))
-BADGES.append(Badge('Ultra Hopscotch', 'A digit appears at every other position (5 times).', 30000, 0, (lambda x: _badge_test(BADGES[153], x))))
+BADGES.append(Badge('Skipping', 'No two digits differ by 1.', 3182417, 1, lambda x: (lambda b: all(not (b[i] and b[i+1]) for i in range(0,9)))(digitCounts(buildA(x)[1]))))
+BADGES.append(Badge('Six Six Six', 'Contains 666.', 1649217, 3, containsFactory('666')))
+BADGES.append(Badge('Calender', 'Contains 365.', 2794201, 3, containsFactory('365')))
+BADGES.append(Badge('Emergency', 'Contains 911.', 1798200, 3, containsFactory('911')))
+BADGES.append(Badge('Not Found', 'Contains 404.', 1786266, 3, containsFactory('404')))
+BADGES.append(Badge('Slience in Sea', 'Contains 543.', 1798200, 3, containsFactory('543')))
+BADGES.append(Badge('Hopscotch', 'A digit appears at every other position (3 times).', 13940401, 0, lambda x: any((buildA(x)[1][i] == buildA(x)[1][i+2] == buildA(x)[1][i+4]) for i in range(1,6))))
+BADGES.append(Badge('Hyper Hopscotch', 'A digit appears at every other position (4 times).', 869431, 0, lambda x: any((buildA(x)[1][i] == buildA(x)[1][i+2] == buildA(x)[1][i+4] == buildA(x)[1][i+6]) for i in range(1,4))))
+BADGES.append(Badge('Ultra Hopscotch', 'A digit appears at every other position (5 times).', 30000, 0, lambda x: buildA(x)[1][1] == buildA(x)[1][3] == buildA(x)[1][5] == buildA(x)[1][7] == buildA(x)[1][9]))
+BADGES.append(Badge('Slience in Sea 69 56', 'Contains 543.', 30, TYPE_CONTAIN, containsFactory('5436956')))
 
 # Assign explicit test functions for badges 1..20 (handwritten batch)
 try:

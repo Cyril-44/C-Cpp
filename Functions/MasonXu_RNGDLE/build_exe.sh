@@ -1,30 +1,23 @@
 #!/usr/bin/env bash
-set -euo pipefail
-# Local build script: creates a virtualenv, installs deps, runs PyInstaller
-# Usage: ./build_exe.sh
+set -e
 
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-venv="$HERE/.venv_build"
-rm -rf "$venv" build dist rngdle_cli.spec || true
-python3 -m venv "$venv"
-# shellcheck source=/dev/null
-source "$venv/bin/activate"
-python -m pip install --upgrade pip
-pip install -r "$HERE/requirements.txt"
-# Install PyInstaller last to avoid version conflicts
-pip install pyinstaller
+IMAGE_NAME="rngdle-builder"
+CONTAINER_NAME="rngdle_build"
+OUT_DIR="$(pwd)/out"
 
-# Build one-file console executable named rngdle_cli
-pyinstaller --onefile --name rngdle_cli --console rngdle/main.py
+echo "==> Step 1: Building Docker image: ${IMAGE_NAME}"
+docker build -t "${IMAGE_NAME}" -f docker-build/Dockerfile .
 
-# Result: dist/rngdle_cli
-echo "Built: dist/rngdle_cli"
+echo "==> Step 2: Running build container"
+docker run --name "${CONTAINER_NAME}" "${IMAGE_NAME}"
 
-# Optional: copy to project root
-cp dist/rngdle_cli "$HERE/"
-echo "Executable copied to: $HERE/rngdle_cli"
+echo "==> Step 3: Copying artifact out of container"
+mkdir -p "${OUT_DIR}"
+# The Dockerfile copies the built artifact to /out inside the image; pull it from container
+docker cp "${CONTAINER_NAME}:/out/rngdle_cli" "${OUT_DIR}/rngdle_cli"
 
-# Deactivate
-deactivate
+echo "==> Step 4: Cleaning up container"
+docker rm "${CONTAINER_NAME}" >/dev/null
 
-echo "Done. Test with: ./rngdle_cli" 
+echo "✔ Build successful!"
+echo "✔ Output file: ${OUT_DIR}/rngdle_cli"
