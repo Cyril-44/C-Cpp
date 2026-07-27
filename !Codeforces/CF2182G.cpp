@@ -22,6 +22,8 @@ namespace BF {
         roFv(i, u) sufProd[i-1] = sufProd[i] * f[v][k-2], prod[i] = preProd[i] * sufProd[i];
         Forv(i, u) For(x, 1, n) f[u][x] += prod[i] * f[v][x-1];
         For(x, 1, n) f[u][x] *= fact[g[u].size() - 1];
+        fprintf(stderr, "#%d: ", u);
+        For(l, 0, n) fprintf(stderr, "%d%c", f[u][l], " \n"[l==n]);
     }
     inline void work() {
         memset(f, 0, sizeof f); dfs(1);
@@ -32,7 +34,7 @@ struct DP {
     Mint *arr=nullptr, mul=1, imul=1, add=0;
     int len=1; // 数组长度
     Mint operator[](int p) const { if (p >= len) p = len - 1; return arr[p] * mul + add; }
-    void get(const DP&x) { mul = x.mul, add = x.add, len = x.len + 1; }
+    void get(const DP&x) { mul = x.mul, add = x.add, imul = x.imul, len = x.len + 1; }
     void operator*=(Mint m) {
         if (m()) add *= m, mul *= m, imul /= m;
         else memset(arr, 0, sizeof(Mint) * len), add=0, mul=imul=1;
@@ -53,10 +55,10 @@ void dfs1(int u) {
 }
 void dfs2(int u) {
     if (!lson[u]) {
-        f[u] += 1;
-    fprintf(stderr, "=== Node %d === mul %d === add %d === len %d ===\n", u, f[u].mul, f[u].add, f[u].len);
+        f[u].apply(0, 1);
+        /* fprintf(stderr, "#%d *%d +%d l%d: ", u, f[u].mul, f[u].add, f[u].len);
         For(l, 0, len[u])
-            fprintf(stderr, "%d%c", f[u][l], " \n"[l==len[u]]);
+            fprintf(stderr, "%d%c", f[u][l], " \n"[l==len[u]]); */
         return;
     }
     static Mint preProd[N], sufProd[N], prod[N]; // 计算 f[v][k-2] 的前缀积和后缀积，方便计算 \prod v!=v0 f[v][k-2]
@@ -68,18 +70,25 @@ void dfs2(int u) {
     Forv(i, u) if (v == lson[u]) {
         f[u].get(f[v]); // 复制长儿子系数
         f[u] *= prod[i];
+        f[u].apply(0, 0);
         break;
     }
-    Forv(i, u) if (v != lson[u])
+    Forv(i, u) if (v != lson[u]) {
+        static Mint ftmp[N];
         For(x, 0, len[v]) {
-            fprintf(stderr, "v=%d f[%d][%d] <== %d + %d * %d\n", v, u, x+1, f[u][x+1], f[v][x], prod[i]);
-            f[u].apply(x+1, f[u][x+1] + f[v][x] * prod[i]);
+            // fprintf(stderr, "v=%d f[%d][%d] <== %d + %d * %d\n", v, u, x+1, f[u][x+1], f[v][x], prod[i]);
+            ftmp[x+1] = f[u][x+1] + f[v][x] * prod[i];
         }
+        // 后面的都是 f[u][x+1] += f[v][len[v]] * prod[i]
+        f[u] += f[v][len[v]] * prod[i];
+        For(x, 0, len[v]+1)
+            f[u].apply(x, ftmp[x]);
+    }
     f[u] *= fact[g[u].size() - 1];
     
-    fprintf(stderr, "=== Node %d === mul %d === add %d === len %d ===\n", u, f[u].mul, f[u].add, f[u].len);
+    /* fprintf(stderr, "#%d *%d +%d l%d: ", u, f[u].mul, f[u].add, f[u].len);
     For(l, 0, len[u])
-        fprintf(stderr, "%d%c", f[u][l], " \n"[l==len[u]]);
+        fprintf(stderr, "%d%c", f[u][l], " \n"[l==len[u]]); */
 }
 int main() {
     fact[0] = 1;
@@ -95,9 +104,15 @@ int main() {
             g[fa[u]].push_back(u);
             if (fa[u] != u-1) ischain = false;
         }
+        /* if (T >= 100 && _t != 1470) continue;
+        if (_t == 1470) {
+            printf("%d %d\n", n, k);
+            For(u, 2, n) printf("%d%c", fa[u], " \n"[u==n]);
+        } */
         if (k == 1) printf("%d\n", ischain ? 1 : 0);
-        else {
+        else { //BF::work();
             memset(len, 0, sizeof(int) * (n+1));
+            memset(lson, 0, sizeof(int) * (n+1));
             memset(_f, 0, sizeof(Mint) * (n+1));
             roF(i, n, 2) {
                 len[fa[i]] = std::max(len[fa[i]], len[i] + 1);
