@@ -20,9 +20,10 @@ rngdle — Python 移植与可打包的 TUI 抽卡程序
 
 源码结构（重要文件）
 - rngdle/cli.py — 主交互与渲染（Rich 驱动）
-- rngdle/utils.py — badge 检测与 EP/rank 计算（与 original.cpp 对齐）
-- rngdle/badges.py — badge 数据
+- rngdle/rngdle.py — 随机数生成和检测的逻辑
+- rngdle/badges.py — 核心 badge 计算逻辑
 - hook-readchar.py — PyInstaller hook，用于打包 readchar 元数据
+- original.cpp — 保留 @MasonXu 的原版 CPP 文件
 
 反馈与测试
 - 在真实终端运行后，如遇界面错位、颜色或按键行为不符，请把终端输出 / Traceback 粘贴到 issue 中。欢迎说明目标终端与 Python 版本以便复现调试。
