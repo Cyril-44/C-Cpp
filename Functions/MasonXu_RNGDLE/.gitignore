@@ -1,0 +1,4 @@
+.venv_build
+out/
+rngdle/__pycache__
+rngdle_rolls_*
