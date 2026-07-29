@@ -536,7 +536,7 @@ def consecutive_or_contiguous(length: int, allow_flat: bool):
 # ---------------------------------------------------------------------------
 # 构建 BADGES 列表（全部使用独立工厂）
 # ---------------------------------------------------------------------------
-BADGES = [
+BADGES = [None,
 Badge('Clean Ten',               'Ends with 0.',                               30000001, divisible(10)),
 Badge('Digit Complex 2',         'Use exactly 2 different digits.',            6886,     digit_complex(2)),
 Badge('Digit Complex 3',         'Use exactly 3 different digits.',            653400,   digit_complex(3)),
@@ -690,10 +690,8 @@ Badge('Slience in Sea',          'Contains 543.',                              1
 Badge('Hopscotch',               'Digit every other position ×3.',             13940401, hopscotch()),
 Badge('Hyper Hopscotch',         'Digit every other position ×4.',             869431,   hyper_hopscotch()),
 Badge('Ultra Hopscotch',         'Digit every other position ×5.',             30000,    ultra_hopscotch()),
-Badge('Slience in Sea 69 56',    'Contains 5436956.',                          30,       contains('5436956')),
+Badge('Slience in Sea 69 56',    'Contains 5436956.',                          30,       contains('5436956'))
 ]
-
-MAX_BADGE_INDEX = len(BADGES) - 1
 
 def have_badge(x: int, y: int) -> bool:
     if y < 1 or y >= len(BADGES):

@@ -29,17 +29,105 @@ console = Console()
 BLOCK = '█'
 SPACE = ' '
 DIGITS = {
-    '0': [' ███ ', '█   █', '█   █', '█   █', ' ███ '],
-    '1': ['  █  ', ' ██  ', '  █  ', '  █  ', ' ███ '],
-    '2': [' ███ ', '█   █', '  ██ ', ' █   ', '█████'],
-    '3': [' ███ ', '█   █', '  ██ ', '█   █', ' ███ '],
-    '4': ['█  █ ', '█  █ ', '█████', '   █ ', '   █ '],
-    '5': ['█████', '█    ', '████ ', '    █', '████ '],
-    '6': [' ███ ', '█    ', '████ ', '█   █', ' ███ '],
-    '7': ['█████', '   █ ', '  █  ', ' █   ', '█    '],
-    '8': [' ███ ', '█   █', ' ███ ', '█   █', ' ███ '],
-    '9': [' ███ ', '█   █', ' ████', '    █', ' ███ '],
-    ' ': ['     ', '     ', '     ', '     ', '     '],
+    '0': [
+        " ██████ ",
+        "██    ██",
+        "██    ██",
+        "██    ██",
+        "██    ██",
+        "██    ██",
+        " ██████ ",
+    ],
+    '1': [
+        "   ██   ",
+        " ████   ",
+        "   ██   ",
+        "   ██   ",
+        "   ██   ",
+        "   ██   ",
+        " ██████ ",
+    ],
+    '2': [
+        " ██████ ",
+        "██    ██",
+        "      ██",
+        "  ████  ",
+        "██      ",
+        "██      ",
+        "████████",
+    ],
+    '3': [
+        " ██████ ",
+        "██    ██",
+        "      ██",
+        "  █████ ",
+        "      ██",
+        "██    ██",
+        " ██████ ",
+    ],
+    '4': [
+        "██    ██",
+        "██    ██",
+        "██    ██",
+        "████████",
+        "      ██",
+        "      ██",
+        "      ██",
+    ],
+    '5': [
+        "████████",
+        "██      ",
+        "██      ",
+        "███████ ",
+        "      ██",
+        "██    ██",
+        " ██████ ",
+    ],
+    '6': [
+        " ██████ ",
+        "██      ",
+        "██      ",
+        "███████ ",
+        "██    ██",
+        "██    ██",
+        " ██████ ",
+    ],
+    '7': [
+        "████████",
+        "      ██",
+        "     ██ ",
+        "    ██  ",
+        "   ██   ",
+        "  ██    ",
+        " ██     ",
+    ],
+    '8': [
+        " ██████ ",
+        "██    ██",
+        "██    ██",
+        " ██████ ",
+        "██    ██",
+        "██    ██",
+        " ██████ ",
+    ],
+    '9': [
+        " ██████ ",
+        "██    ██",
+        "██    ██",
+        " ███████",
+        "      ██",
+        "      ██",
+        " ██████ ",
+    ],
+    ' ': [          # 空位（用于未揭晓或前导空格）
+        "        ",
+        "        ",
+        "        ",
+        "        ",
+        "        ",
+        "        ",
+        "        ",
+    ],
 }
 
 
@@ -51,10 +139,10 @@ def render_big_number_text(
     s: str,
     revealed_mask: List[bool],
     confirmed_style: str = 'bold white',
-    rolling_style: str = 'grey50',
+    rolling_style: str = 'grey30',
 ) -> Text:
     rows = []
-    for row in range(5):
+    for row in range(7):
         line = Text('')
         for idx, ch in enumerate(s):
             pat = DIGITS.get(ch, DIGITS[' '])[row]
@@ -65,7 +153,7 @@ def render_big_number_text(
     out = Text('')
     for i, rt in enumerate(rows):
         out.append(rt)
-        if i != 4:
+        if i != 6:
             out.append('\n')
     return out
 
@@ -251,7 +339,7 @@ def main():
 
     try:
         console.clear()
-        console.rule("MasonXu RNGDLE - Enter: draw, q: quit, l: list badges")
+        console.rule("MasonXu RNGDLE - [Enter] [q] [l] [n] [c]")
         kw = KeyWatcher()
         badges_history: List[Tuple[str, str, str, int]] = []   # newest first
         roll_history: List[Tuple[str, int, str, int]] = []     # (number, ep, label, rk)
@@ -269,11 +357,11 @@ def main():
             console.print(Columns([history_panel, stats_panel], equal=False, expand=True))
 
             console.clear()
-            console.rule("MasonXu RNGDLE - Enter: draw, q: quit, l: list badges | e: export CSV")
+            console.rule("MasonXu RNGDLE - \[Enter] \[q] \[l] \[n] \[c]")
             console.print(Columns([history_panel, stats_panel], equal=False, expand=True))
             console.print(
-                '\nPress Enter to draw, l to list, q to quit, e to export CSV, n to fast roll'
-                '    (Up/Down/PageUp/PageDown to scroll history)',
+                '\nPress [bright_white on grey23]Enter[/] to draw, [bright_white on grey23]l[/] to list, [bright_white on grey23]q[/] to quit, [bright_white on grey23]e[/] to export CSV, [bright_white on grey23]n[/] to fast roll, [bright_white on grey23]c[/] to inquire a number'
+                '    ([bright_white on grey23]Up[/]/[bright_white on grey23]Down[/]/[bright_white on grey23]PageUp[/]/[bright_white on grey23]PageDown[/] to scroll history)',
                 style='bold'
             )
 
@@ -309,8 +397,6 @@ def main():
                 roll_history.insert(0, (res["display_number_str"], res["total_ep"], res["overall_label"], res["rk"]))
                 continue
 
-
-
             if k == 'e':
                 try:
                     fname = f"rngdle_rolls_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
@@ -337,6 +423,85 @@ def main():
                 readchar.readkey()
                 continue
 
+            if k == 'c':
+                console.print("\n[bold cyan]Query mode[/] - Enter Inquire Number (Enter with null to cancel):")
+                try:
+                    if is_tty and orig_attrs is not None:
+                        termios.tcsetattr(fd, termios.TCSADRAIN, orig_attrs)
+                    raw = input("> ").strip()
+                except Exception:
+                    raw = ""
+
+                if not raw:
+                    continue
+
+                num_str = ''.join(c for c in raw if c.isdigit())
+                if not num_str:
+                    console.print("[red]Invalid Input[/]")
+                    time.sleep(0.8)
+                    continue
+
+                query_str = num_str[-n_digits:].rjust(n_digits, '0')
+
+                # ---------- 调用 evaluate_roll ----------
+                res = evaluate_roll(query_str, n_digits=n_digits, flg=True)
+
+                total_ep           = res["total_ep"]
+                obtained           = res["obtained_badges"]
+                overall_label      = res["overall_label"]
+                overall_style      = res["overall_style"]
+                rk                 = res["rk"]
+                display_number_str = res["display_number_str"]
+
+                top_bottom = top_bottom_text(rk)
+
+                # 大数字渲染
+                revealed_mask = [True] * len(display_number_str)
+                number_render = render_big_number_text(display_number_str, revealed_mask)
+
+                # 徽章列表（仅用于本次查询显示，不写入全局 history）
+                query_badges = [(name, lbl, st, ep) for _, name, _, ep, lbl, st in obtained]
+                query_scroll = 0
+
+                counts = Counter(lbl for _, lbl, _, _ in query_badges)
+                counts_str = ', '.join(f"{k}:{v}" for k, v in counts.items()) if counts else ''
+
+                # ---------- 使用 Live 静态展示（无动画、不写入历史） ----------
+                with Live(console=console, screen=True, refresh_per_second=15) as live:
+                    while True:
+                        left_panel = Panel(
+                            Align.center(number_render),
+                            border_style=overall_style,
+                            box=box.HEAVY
+                        )
+                        bottom_panel = Panel(
+                            Text(
+                                f"EP: {total_ep} | {overall_label} • {top_bottom} | "
+                                f"Badges: {len(query_badges)} {counts_str}",
+                                style=overall_style
+                            ),
+                            padding=(0, 1)
+                        )
+                        left_group = Group(left_panel, bottom_panel)
+                        right = build_badge_table(query_badges, query_scroll, console.size.height - 6)
+
+                        live.update(Columns([left_group, right], equal=True, expand=True))
+
+                        key = readchar.readkey()
+                        if key == readchar.key.UP:
+                            query_scroll = max(0, query_scroll - 1)
+                        elif key == readchar.key.DOWN:
+                            query_scroll = min(max(0, len(query_badges) - 1), query_scroll + 1)
+                        elif key == readchar.key.PAGE_UP:
+                            query_scroll = max(0, query_scroll - (console.size.height // 2))
+                        elif key == readchar.key.PAGE_DOWN:
+                            query_scroll = min(max(0, len(query_badges) - 1),
+                                               query_scroll + (console.size.height // 2))
+                        elif key in ('\r', '\n', 'q'):
+                            break
+
+                continue
+
             # ---- draw ----
             badges_history.clear()
             scroll = 0
@@ -346,10 +511,10 @@ def main():
 
             with Live(console=console, screen=True, refresh_per_second=20) as live:
                 full_skip = False
+                kw.start_once()
                 for pos in range(n_digits):
-                    kw.start_once()
                     skip_flag = False
-                    for _ in range(10):
+                    for _ in range(10 if pos < n_digits - 1 else 15):
                         if kw.pop() is not None:
                             skip_flag = True
                             full_skip = True
@@ -357,15 +522,15 @@ def main():
                         disp_list = list(revealed)
                         disp_list[pos] = str(random.randint(0, 9))
                         disp = ''.join(disp_list)
-                        revealed_mask = [ch != ' ' for ch in revealed]
-                        display_str, display_mask = trim_leading_zeros(disp, revealed_mask)
+                        display_str = disp
+                        display_mask = [ch != ' ' for ch in revealed]
                         number_render = render_big_number_text(display_str, display_mask)
                         left_panel = Panel(Align.center(number_render), border_style='white')
                         bottom_panel = Panel(Text('EP: 0 | UNKNOWN', style='white'), padding=(0, 1))
                         left_group = Group(left_panel, bottom_panel)
                         right = build_badge_table(badges_history, scroll, console.size.height - 6)
                         live.update(Columns([left_group, right], equal=True, expand=True))
-                        time.sleep(0.06)
+                        time.sleep(0.1)
                     if skip_flag:
                         revealed[pos:] = list(s[pos:])
                         break
@@ -378,9 +543,6 @@ def main():
                 number_render = render_big_number_text(display_str, display_mask)
 
                 # Evaluate roll using the new helper.
-                # 如果你在 main loop 中维护了一个开关 compute_badges（默认 True），这里传入它；
-                # 否则直接传 True 来保留原有行为。
-                # 例如： compute_badges = True  # 在 main() 初始化处定义
                 res = evaluate_roll(final_disp, n_digits=n_digits, flg=True)
 
                 total_ep = res["total_ep"]
@@ -395,8 +557,8 @@ def main():
                         badges_history.insert(0, (rname, rlbl, rst, rep))
                 else:
                     for j, (idx, name, poss, ep, lbl, st) in enumerate(obtained):
-                        kw.start_once()
                         if kw.pop() is not None:
+                            # add every remaining badge (including the current one) at once
                             for _, rname, _, rep, rlbl, rst in obtained[j:]:
                                 badges_history.insert(0, (rname, rlbl, rst, rep))
                             break
@@ -409,7 +571,7 @@ def main():
                         left_group = Group(left_panel, bottom_panel)
                         right = build_badge_table(badges_history, scroll, console.size.height - 6)
                         live.update(Columns([left_group, right], equal=True, expand=True))
-                        time.sleep(0.12)
+                        time.sleep(0.3)
 
                 # final overall rarity (已经由 evaluate_roll 计算，但保留原有变量)
                 top_bottom = top_bottom_text(rk)
