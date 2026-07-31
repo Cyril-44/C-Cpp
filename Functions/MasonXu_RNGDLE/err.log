@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/cyril/C-Cpp/Functions/MasonXu_RNGDLE/rngdle/main.py", line 5, in <module>
+    main()
+  File "/home/cyril/C-Cpp/Functions/MasonXu_RNGDLE/rngdle/cli.py", line 540, in main
+    res = evaluate_roll(s, n_digits=n_digits, flg=True)
+  File "/home/cyril/C-Cpp/Functions/MasonXu_RNGDLE/rngdle/rngdle.py", line 185, in evaluate_roll
+    display_number_str, _ = trim_leading_zeros(final_number_str, [ch != ' ' for ch in final_number_str])
+TypeError: trim_leading_zeros() takes 1 positional argument but 2 were given
