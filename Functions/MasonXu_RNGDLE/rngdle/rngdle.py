@@ -145,15 +145,14 @@ def ranks_lookup(sum_points: int) -> int:
     return rk
 
 
-def trim_leading_zeros(s: str, revealed_mask: List[bool]) -> Tuple[str, List[bool]]:
-    """Trim leading zeros/spaces. All-zero → ('0', [True])."""
+def trim_leading_zeros(s: str) -> str:
     n = len(s)
     start = 0
     while start < n and s[start] in ('0', ' '):
         start += 1
     if start >= n:
-        return '0', [True]
-    return s[start:], revealed_mask[start:]
+        return '0'
+    return s[start:]
 
 def evaluate_roll(final_number_str: str, n_digits: int = 9, flg: bool = True) -> dict:
     """
@@ -183,7 +182,7 @@ def evaluate_roll(final_number_str: str, n_digits: int = 9, flg: bool = True) ->
 
     rk = ranks_lookup(total_ep)
     overall_label, overall_style = overall_rarity_from_rk(rk)
-    display_number_str, _ = trim_leading_zeros(final_number_str, [ch != ' ' for ch in final_number_str])
+    display_number_str = trim_leading_zeros(final_number_str)
 
     return {
         "display_number_str": display_number_str,
