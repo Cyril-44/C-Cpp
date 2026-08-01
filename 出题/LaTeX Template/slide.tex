@@ -1,0 +1,205 @@
+\documentclass{beamer}
+% 1. 必须在 \documentclass{beamer} 之后，立即通知 beamer 采用专业/原生的数学字体
+\usefonttheme{professionalfonts} 
+
+% 2. 引入基础数学宏包
+\usepackage{amsmath}
+
+% 3. 引入 unicode-math 并配置 Latin Modern 字体
+\usepackage{unicode-math}
+\setmainfont{Latin Modern Roman}
+\setmathfont{latinmodern-math.otf} % 确保这一行生效
+
+
+%\documentclass[aspectratio=169]{beamer} % 使用 16:9 宽屏比例
+\usepackage{ctex, hyperref}
+\usepackage[T1]{fontenc}
+
+% other packages
+\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+
+\title{计数选讲}
+\author{pupil256}
+\date{2026.08.??}
+\subtitle{}
+\institute{ASDFZ}
+\usepackage{CNU}
+
+% defs
+\def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
+\def\env#1{\texttt{\color{blue}\footnotesize #1}}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{halfgray}{gray}{0.55}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{deepblue},
+    emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
+    stringstyle=\color{deepgreen},
+    numbers=left,
+    numberstyle=\small\color{halfgray},
+    rulesepcolor=\color{red!20!green!20!blue!20},
+    frame=shadowbox,
+}
+
+
+\begin{document}
+    
+    \begin{frame}
+        \titlepage
+    \end{frame}
+
+    \begin{frame}{}
+
+        若无特殊说明，序列的下标均从 $1$ 开始，且计数问题的答案均需要对平凡大质数取模。
+		
+	\end{frame}
+
+    \begin{frame}
+        \tableofcontents[sectionstyle=show,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+    \end{frame}
+
+    \section{ABC215H}
+	
+	\begin{frame}{Statement}{\href{hhttps://atcoder.jp/contests/abc215/tasks/abc215_h}{ABC215H Cabbage Master}}
+
+        Difficulty: Easy
+
+        现有 $n$ 种商品和 $m$ 个人，第 $i$ 种商品有 $a_{i}$ 件，而第 $i$ 个人想购买 $b_{i}$ 件商品，但他只接受种类属于集合 $S_{i}$ 的商品。计算最少需要销毁多少件商品才能使得无法满足所有人的需求，以及销毁商品的方案数（同种商品也相互区分）。
+
+        $n \leq 20, m \leq 10^{4}$。
+		
+	\end{frame}
+
+    \begin{frame}{Solution}{\href{hhttps://atcoder.jp/contests/abc215/tasks/abc215_h}{ABC215H Cabbage Master}}
+
+        这个过程类似二分图匹配，因此考虑使用 Hall 定理解决第一个问题。枚举商品集合 $T$，记接受集合 $T$ 中的商品的人构成集合 $P_{T}$，则最少销毁商品数目为 $k = \min_{\varnothing \neq T \subset U, P_{T} \neq \varnothing}(\sum\limits_{i \in T}a_{i} - \sum\limits_{j \in P_{T}}b_{j} + 1)$。
+
+        \pause
+        
+        现在计算答案就是容易的了。找出所有取到上式 $\min$ 的集合 $T$，则 $T$ 从中任取 $k$ 件商品即可满足要求。但这样会算重复，因此我们考虑统计出有多少商品种类集合 $T^{\prime}$ 在取遍集合内每一种商品的情况下可以满足要求，然后容斥推知从每个集合从中任取商品的方案数需要乘上的系数。
+
+        \pause
+
+        上述若干过程均可以使用高维差分/前后缀和解决。时间复杂度 $\mathcal{O}(n2^{n} + m)$。
+		
+	\end{frame}
+
+    \section{CF1799H}
+
+    \begin{frame}{Statement}{\href{https://codeforces.com/problemset/problem/1799/H}{CF1799H Tree Cutting}}
+
+        Difficulty: Easy
+
+        有一棵 $n$ 个点的无根树。需要执行以下操作 $k$ 次：
+
+        \begin{itemize}
+            \item 选择当前连通块上的一条边，将其断开分裂成两个连通块并舍弃其中一个连通块。
+        \end{itemize}
+
+        要求执行第 $i$ 次操作后留下的连通块大小恰好为 $s_{i}$，计算执行操作的方案数。
+
+        $n \leq 5 \times 10^{3}, k \leq 6$。
+		
+	\end{frame}
+
+    \begin{frame}{Solution}{\href{https://codeforces.com/problemset/problem/1799/H}{CF1799H Tree Cutting}}
+
+        任意钦定一个根做树上 dp。注意到 $k$ 非常小。计算出每次操作后要求连通块大小减少多少，并状压记录这 $k$ 个条件是否在子树内得到执行。
+
+        \pause
+        
+        不难发现断开一条边后有两种操作：
+
+        \pause
+
+        \begin{enumerate}
+            \item 保留子树：连通块大小\textbf{变为}当前子树大小减去子数内已经被移除的连通块大小。这次操作后，不能再操作子树补，也就是要求转移到父亲前在这次操作之后的操作都已经完成。
+
+            \pause
+            
+            \item 保留子树补：连通块大小\textbf{减小}当前子树大小减去子数内已经被移除的连通块大小。这次操作后，不能再操作子树内，也就是要求转移到父亲前在这次操作之后的操作仍未进行。
+        \end{enumerate}
+
+        \pause
+        
+        可以根据状压的集合计算出子数内已经被移除的连通块大小。合并儿子时枚举子集即可做到 $\mathcal{O}(n3^{k})$。
+		
+	\end{frame}
+
+    \section{CF1930G}
+
+    \begin{frame}{Statement}{\href{https://codeforces.com/problemset/problem/1930/G}{CF1930G Prefix Max Set Counting}}
+
+        Difficulty: Easy
+
+        给定一棵 $n$ 个点的有根树，根为 $1$。计算本质不同的“可行的 dfs 序列仅保留前缀最大值后得到的新序列”的个数。
+        
+        $n \leq 10^{6}$。
+		
+	\end{frame}
+
+    \begin{frame}{Solution}{\href{https://codeforces.com/problemset/problem/1930/G}{CF1930G Prefix Max Set Counting}}
+
+        将每个节点的所有儿子按照子数内最大值从小到大排序，按照这个顺序 dfs 得到的序列保留前缀最大值得到新序列，则所有可能成为答案的序列一定是这个序列的子序列。
+
+        \pause
+
+        这个问题树上 dp 做到 $\mathcal{O}(n^2)$ 后不太方便优化，因此考虑在这个 dfs 序列上 dp。记 $f_{i}$ 表示当前以 $i$ 结尾的本质不同序列的个数，记祖先中最大的数为 $x$，显然 $x > i$ 时 $f_{i} = 0$。
+
+        \pause
+
+        否则，我们可以从点 $x$ 或点 $x$ 每个儿子的子树中的最大值 $y$（要求 $x \leq y \leq i$）中转移过来，使用树状树组容易做到 $\mathcal{O}(n \log n)$。
+
+        \pause
+
+        Bonus: 树上 dp 也可以优化到这个复杂度，并且可以计算出每个子树的答案。如何优化？
+    
+	\end{frame}
+
+    \section{ARC133E}
+
+    \begin{frame}{Statement}{\href{https://atcoder.jp/contests/arc133/tasks/arc133_e}{ARC133E Cyclic Medians}}
+
+        Difficulty: Easy
+
+        给定 $x$，对于所有长度为 $n$ 的值域为 $[1,V]$ 的序列 $A$ 和长度为 $m$ 的值域相同的序列 $B$ 的组合（下标从 $0$ 开始），计算经过以下操作后得到的 $x$ 的和：
+
+        \begin{itemize}
+            \item 对于 $i = 0,1,\dots,nm-1$，执行 $x \leftarrow \operatorname{median}(x,A_{i \bmod n},B_{i \bmod m})$。
+        \end{itemize}
+
+        $n,m,V,x \leq 2 \times 10^{5}$。
+		
+	\end{frame}
+
+    \begin{frame}{Solution}{\href{https://atcoder.jp/contests/arc133/tasks/arc133_e}{ARC133E Cyclic Medians}}
+
+        对于这种操作比较奇怪不好处理的问题，不妨将其转化为值域为 $[0,1]$（对于 $lim = 1,2,\dots,V-1$ 计算答案，并记 $a^{\prime} = [a > lim]$）的新问题。
+        
+        \pause
+        
+        此时，若 $p = q$ 则 $\operatorname{median}(x^{\prime},p,q) = p$ 否则 $\operatorname{median}(x^{\prime},p,q) = x^{\prime}$。这启示我们关注最大的满足 $A^{\prime}_{i} \neq B^{\prime}_{i}$ 的下标 $i$。
+
+        \pause
+        
+        \begin{enumerate}
+            \item 如果这样的下标不存在，$x^{\prime}$ 就始终不变。容易计算符合条件的序列数；
+            
+            \pause
+            
+            \item 如果这样的下标存在，直接计算不太方便，但是我们会惊奇地发现，$lim = i$ 时 $x^{\prime}$ 变为 $0$ 的方案数等于 $lim = n-i$ 时 $x^{\prime}$ 变为 $1$ 的方案数，我们就可以整体计算了。
+        \end{enumerate}
+    
+	\end{frame}
+    
+	\begin{frame}{Special Thanks}
+		
+		Thank you for listening!
+		
+	\end{frame}
+
+\end{document}
