@@ -1,6 +1,4 @@
-
 #include<bits/stdc++.h>
-#include<windows.h>
 using namespace std;
 const long long MINN=1e8;
 const long long MAXN=4e8;
@@ -157,12 +155,57 @@ const int silence_in_sea=150;
 const int hopscotch_badge=151;
 const int hyper_hopscotch=152;
 const int ultra_hopscotch=153;
+const int excellent_disassembly=154;
+const int excellent_disassembly_plus=155;
+const int excellent_disassembly_plus_plus=156;
+const int arithmetic_sequence_3=157;
+const int arithmetic_sequence_4=158;
+const int arithmetic_sequence_5=159;
+const int biased_cognition=160;
+const int geometic_sequence_3=161;
+const int geometic_sequence_4=162;
+const int bookends_badge=163;
+const int thick_bookends=164;
+const int thicker_bookends=165;
+const int thickest_bookends=166;
+const int mirror_bookends=167;
+const int thick_mirror_bookends=168;
+const int paired_bookends=169;
+const int tripled_bookends=170;
+const int quadrupled_bookends=171;
+const int scramble_3=172;
+const int scramble_4=173;
+const int scramble_5=174;
+const int scramble_6=175;
+const int scramble_7=176;
+const int scramble_8=177;
+const int scramble_9=178;
+const int pi_slice_3=179;
+const int pi_slice_4=180;
+const int pi_slice_5=181;
+const int pi_slice_6=182;
+const int pi_slice_7=183;
+const int pi_slice_8=184;
+const int pi_slice_9=185;
+const int e_slice_3=186;
+const int e_slice_4=187;
+const int e_slice_5=188;
+const int e_slice_6=189;
+const int e_slice_7=190;
+const int e_slice_8=191;
+const int e_slice_9=192;
+const int homo_shards=193;
+const int pronic_number=194;
+const int triangle_number=195;
+const int fibonacci_number=196;
+const int odd_badge=197;
 
 const int type_special=0;
 const int type_needab=1;
 const int type_divide=2;
 const int type_contain=3;
 const int type_differ=4;
+const int type_matching=5;
 
 typedef unsigned long long ull;
 ull seed;
@@ -175,11 +218,223 @@ ull xs64()
     return seed;
 }
 
+long long total_pt=0;
+
 void askuser();
+void rolln(int);
+void game_save();
+bool game_load();
+
+
+#ifdef _WIN32
+
+#include<windows.h>
+
+const int BLACK=0;
+const int BLUE=1;
+const int GREEN=2;
+const int CYAN=3;
+const int RED=4;
+const int PURPLE=5;
+const int YELLOW=6;
+const int WHITE=7;
+const int GRAY=8;
+const int LIGHTBLUE=9;
+const int LIGHTGREEN=10;
+const int LIGHTCYAN=11;
+const int LIGHTRED=12;
+const int LIGHTPURPLE=13;
+const int LIGHTYELLOW=14;
+const int LIGHTWHITE=15;
+
+int cOl1=7,cOl2=0;
 
 void setcolor(int x)
 {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),x);
+    cOl1=x;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),cOl1+16*cOl2);
+}
+
+void setbg(int x)
+{
+    cOl2=x;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),cOl1+16*cOl2);
+}
+
+void mysleep(int x)
+{
+    Sleep(x);
+}
+
+void systemcls()
+{
+    system("cls");
+}
+
+void settitle(const string& x)
+{
+    SetConsoleTitleA(x.c_str());
+}
+
+#else
+
+const int BLACK=0;
+const int RED=1;
+const int GREEN=2;
+const int YELLOW=3;
+const int BLUE=4;
+const int PURPLE=5;
+const int CYAN=6;
+const int WHITE=7;
+const int GRAY=8;
+const int LIGHTRED=9;
+const int LIGHTGREEN=10;
+const int LIGHTYELLOW=11;
+const int LIGHTBLUE=12;
+const int LIGHTPURPLE=13;
+const int LIGHTCYAN=14;
+const int LIGHTWHITE=15;
+
+int cOl1 = 7, cOl2 = 0;
+
+void setcolor(int x)
+{
+    cOl1 = x;
+    printf("\033[%dm", 30 + (cOl1 % 8));
+    if (cOl1 >= 8)
+        printf("\033[1m");
+    fflush(stdout);
+}
+
+void setbg(int x)
+{
+    cOl2 = x;
+    printf("\033[%dm", 40 + (cOl2 % 8));
+    fflush(stdout);
+}
+
+void mysleep(int x)
+{
+    struct timespec req;
+    req.tv_sec = x / 1000;
+    req.tv_nsec = (x % 1000) * 1000000;
+
+    nanosleep(&req, nullptr);
+}
+
+void systemcls()
+{
+    system("clear");
+}
+
+void settitle(const string& x)
+{
+    cout << "\033]0;" << x << "\007";
+    cout.flush();
+}
+
+#endif
+
+
+bool o_stream[1000005];
+int o_streamn=0;
+bool i_stream[1000005];
+int i_streamn=0;
+
+void odouble(double x)
+{
+    if(x>-0.00001)
+        o_stream[++o_streamn]=0;
+    else
+        o_stream[++o_streamn]=1,x=-x;
+    int pt=0;
+    while(x>9.999)
+        pt++,x/=10;
+    for(int i=0; i<9; i++)
+        o_stream[++o_streamn]=((pt>>i)&1);
+    for(int i=0; i<16; i++)
+    {
+        if(x>4.999)
+            o_stream[++o_streamn]=1,x-=5;
+        else
+            o_stream[++o_streamn]=0;
+        x*=2;
+    }
+}
+
+double idouble()
+{
+
+    bool neg=i_stream[++i_streamn];
+    int pt=0;
+    for(int i=0; i<9; i++)
+        pt|=(i_stream[++i_streamn]<<i);
+    double x=0;
+
+    for(int i=16; i>=1; i--)
+    {
+        x/=2;
+        if(i_stream[i_streamn+i])
+            x+=5;
+    }
+    i_streamn+=16;
+    for(int i=1; i<=pt; i++)
+        x*=10;
+    if(neg)
+        x=-x;
+    return x;
+}
+
+void obool(bool x)
+{
+    o_stream[++o_streamn]=x;
+}
+
+bool ibool()
+{
+    return i_stream[++i_streamn];
+}
+
+void oint(int x)
+{
+    for(int i=1; i<=32; i++)
+    {
+        o_stream[++o_streamn]=x&1;
+        x>>=1;
+    }
+}
+
+int iint()
+{
+    int x=0;
+    for(int i=1; i<=32; i++)
+    {
+        x<<=1;
+        x|=i_stream[i_streamn+33-i];
+    }
+    i_streamn+=32;
+    return x;
+}
+
+void olonglong(long long x)
+{
+    for(int i=1; i<=64; i++)
+    {
+        o_stream[++o_streamn]=x&1;
+        x>>=1;
+    }
+}
+
+long long ilonglong()
+{
+    long long x=0;
+    for(int i=1; i<=64; i++)
+    {
+        x<<=1;
+        x|=i_stream[i_streamn+65-i];
+    }
+    i_streamn+=64;
+    return x;
 }
 
 struct badge
@@ -198,6 +453,7 @@ int prmn=0;
 void initprime()
 {
     for(long long i=2; i<=400000000; i++)
+
     {
         if(!notp[i])
         {
@@ -231,24 +487,6 @@ void inithighpower()
     sort(highpower+1,highpower+highpowern+1);
 }
 
-
-
-const int BLACK=0;
-const int BLUE=1;
-const int GREEN=2;
-const int CYAN=3;
-const int RED=4;
-const int PURPLE=5;
-const int YELLOW=6;
-const int WHITE=7;
-const int GRAY=8;
-const int LIGHTBLUE=9;
-const int LIGHTGREEN=10;
-const int LIGHTCYAN=11;
-const int LIGHTRED=12;
-const int LIGHTPURPLE=13;
-const int LIGHTYELLOW=14;
-const int LIGHTWHITE=15;
 
 int printrarity(long long x)
 {
@@ -307,6 +545,28 @@ int printrarity(long long x)
     return 8;
 }
 
+int getrarity(long long x)
+{
+    if(x>3e7)
+        return 1;
+    if(x>3e6)
+        return 2;
+    if(x>3e5)
+        return 3;
+    if(x>3e4)
+        return 4;
+    if(x>3e3)
+        return 5;
+    if(x>300)
+        return 6;
+    if(x>30)
+        return 7;
+    return 8;
+}
+
+int raritycolor[20]= {0,GREEN,LIGHTYELLOW,BLUE,PURPLE,RED,LIGHTCYAN,LIGHTRED,LIGHTGREEN,LIGHTYELLOW,YELLOW};
+string rarityname[20]= {"","Common","Unusual","Rare","Epic","Legendary","Mythic","Ultra","Super","Worst Trash","Trash"};
+string rarityname_big[20]= {"","COMMON","UNUSUAL","RARE","EPIC","LEGENDARY","MYTHIC","ULTRA","SUPER","WORST TRASH","TRASH"};
 long long pw10[20];
 
 bool iscontain(long long x,long long y,int yn)
@@ -329,6 +589,19 @@ int havebadge(long long x,int y)
 {
     if(badge[y].testtype==type_special)
     {
+        if(y>=pronic_number && y<=triangle_number)
+        {
+            if(y==pronic_number)
+            {
+                long long xx=sqrt(x);
+                return xx*(xx+1)==x;
+            }
+            if(y==triangle_number)
+            {
+                long long xx=sqrt(2*x);
+                return xx*(xx+1)==x*2;
+            }
+        }
         if(y==prime_badge)
         {
             primequerycnt++;
@@ -382,26 +655,32 @@ int havebadge(long long x,int y)
             a[i]=tmp%10;
             tmp/=10;
         }
-        if(y>=hopscotch_badge && y<=ultra_hopscotch)
+        if(y>=scramble_3 && y<=scramble_9)
         {
-            if(y==hopscotch_badge)
+            int k=y-scramble_3+3;
+            int b[10]= {0,0,0,0,0,0,0,0,0,0};
+            for(int i=1; i<k; i++)
+                b[a[i]]++;
+            for(int i=k; i<=9; i++)
             {
-                for(int i=1; i<=5; i++)
-                    if(a[i]==a[i+2] && a[i+2]==a[i+4])
-                        return 1;
-                return 0;
+                b[a[i]]++;
+                bool flag=1;
+                int cnt=0;
+                for(int j=0; j<=9; j++)
+                    if(b[j]>=2)
+                    {
+                        flag=0;
+                        break;
+                    }
+                if(!flag)
+                    continue;
+                for(int j=0; j<9; j++)
+                    cnt+=(b[j] && b[j+1]);
+                if(cnt==k-1)
+                    return 1;
+                b[a[i-k+1]]--;
             }
-            if(y==hyper_hopscotch)
-            {
-                for(int i=1; i<=3; i++)
-                    if(a[i]==a[i+2] && a[i+2]==a[i+4] && a[i+4]==a[i+6])
-                        return 1;
-                return 0;
-            }
-            if(y==ultra_hopscotch)
-            {
-                return a[1]==a[3] && a[3]==a[5] && a[5]==a[7] && a[7]==a[9];
-            }
+            return 0;
         }
         if(y==neutrality_badge || y==almost_sorted)
         {
@@ -413,30 +692,6 @@ int havebadge(long long x,int y)
                 return cnt1==cnt2;
             if(y==almost_sorted)
                 return cnt1==1 || cnt2==1;
-        }
-        if(y==zipper_badge)
-        {
-            return a[1]==a[3] && a[3]==a[5] && a[5]==a[7] && a[7]==a[9] && a[2]==a[4] && a[4]==a[6]
-                   && a[6]==a[8];
-        }
-        if(y==echo_form)
-        {
-            for(int i=1; i<=4; i++)
-                if(a[i]==a[i+2] && a[i+2]==a[i+4] && a[i+1]==a[i+3] && a[i+3]==a[i+5])
-                    return 1;
-            return 0;
-        }
-        if(y==echo_form_plus)
-        {
-            for(int i=1; i<=2; i++)
-                if(a[i]==a[i+2] && a[i+2]==a[i+4] && a[i+4]==a[i+6] && a[i+1]==a[i+3] && a[i+3]==a[i+5]
-                        && a[i+5]==a[i+7])
-                    return 1;
-            return 0;
-        }
-        if(y==echo_form_echo_form)
-        {
-            return a[1]==a[4] && a[4]==a[7] && a[2]==a[5] && a[5]==a[8] && a[3]==a[6] && a[6]==a[9];
         }
         if(y>=beginner_feather && y<=grandmaster_heavy)
         {
@@ -465,6 +720,130 @@ int havebadge(long long x,int y)
         if(y==harshed_number)
         {
             return x%(a[1]+a[2]+a[3]+a[4]+a[5]+a[6]+a[7]+a[8]+a[9])==0;
+        }
+        if(y==wide_badge || y==slim_badge)
+        {
+            int maxx=-1,minn=10;
+            for(int i=1; i<=9; i++)
+            {
+                maxx=max(maxx,a[i]);
+                minn=min(minn,a[i]);
+            }
+            if(y==wide_badge)
+                return maxx-minn==9;
+            if(y==slim_badge)
+                return maxx-minn<=3;
+        }
+    }
+    if(badge[y].testtype==type_matching)
+    {
+        int a[10];
+        long long tmp=x;
+        for(int i=9; i>=1; i--)
+        {
+            a[i]=tmp%10;
+            tmp/=10;
+        }
+        if(y>=bookends_badge && y<=quadrupled_bookends)
+        {
+            if(y==bookends_badge)
+                return a[1]==a[9];
+            if(y==thick_bookends)
+                return a[1]==a[8] && a[2]==a[9];
+            if(y==thicker_bookends)
+                return a[1]==a[7] && a[2]==a[8] && a[3]==a[9];
+            if(y==thickest_bookends)
+                return a[1]==a[6] && a[2]==a[7] && a[3]==a[8] && a[4]==a[9];
+            if(y==mirror_bookends)
+                return a[1]==a[9] && a[2]==a[8];
+            if(y==thick_mirror_bookends)
+                return a[1]==a[9] && a[2]==a[8] && a[3]==a[7];
+            if(y==paired_bookends)
+                return a[1]==a[2] && a[8]==a[9];
+            if(y==tripled_bookends)
+                return a[1]==a[2] && a[2]==a[3] && a[7]==a[8] && a[8]==a[9];
+            if(y==quadrupled_bookends)
+                return a[1]==a[2] && a[2]==a[3] && a[3]==a[4] && a[6]==a[7] && a[7]==a[8] && a[8]==a[9];
+        }
+        if(y>=hopscotch_badge && y<=ultra_hopscotch)
+        {
+            if(y==hopscotch_badge)
+            {
+                for(int i=1; i<=5; i++)
+                    if(a[i]==a[i+2] && a[i+2]==a[i+4])
+                        return 1;
+                return 0;
+            }
+            if(y==hyper_hopscotch)
+            {
+                for(int i=1; i<=3; i++)
+                    if(a[i]==a[i+2] && a[i+2]==a[i+4] && a[i+4]==a[i+6])
+                        return 1;
+                return 0;
+            }
+            if(y==ultra_hopscotch)
+            {
+                return a[1]==a[3] && a[3]==a[5] && a[5]==a[7] && a[7]==a[9];
+            }
+        }
+        if(y==excellent_disassembly)
+        {
+            for(int i=1; i<=6; i++)
+                if(a[i]==a[i+1] && a[i+2]==a[i+3])
+                    return 1;
+            return 0;
+        }
+        if(y==excellent_disassembly_plus)
+        {
+            for(int i=1; i<=4; i++)
+                if(a[i]==a[i+1] && a[i+2]==a[i+4] && a[i+3]==a[i+5])
+                    return 1;
+            for(int i=1; i<=4; i++)
+                if(a[i]==a[i+2] && a[i+1]==a[i+3] && a[i+4]==a[i+5])
+                    return 1;
+            return 0;
+        }
+        if(y==excellent_disassembly_plus_plus)
+        {
+            for(int i=1; i<=2; i++)
+                if(a[i]==a[i+2] && a[i+1]==a[i+3] && a[i+4]==a[i+6] && a[i+5]==a[i+7])
+                    return 1;
+            return 0;
+        }
+        if(y==zipper_badge)
+        {
+            return a[1]==a[3] && a[3]==a[5] && a[5]==a[7] && a[7]==a[9] && a[2]==a[4] && a[4]==a[6]
+                   && a[6]==a[8];
+        }
+        if(y==echo_form)
+        {
+            for(int i=1; i<=4; i++)
+                if(a[i]==a[i+2] && a[i+2]==a[i+4] && a[i+1]==a[i+3] && a[i+3]==a[i+5])
+                    return 1;
+            return 0;
+        }
+        if(y==echo_form_plus)
+        {
+            for(int i=1; i<=2; i++)
+                if(a[i]==a[i+2] && a[i+2]==a[i+4] && a[i+4]==a[i+6] && a[i+1]==a[i+3] && a[i+3]==a[i+5]
+                        && a[i+5]==a[i+7])
+                    return 1;
+            return 0;
+        }
+        if(y==echo_form_echo_form)
+        {
+            return a[1]==a[4] && a[4]==a[7] && a[2]==a[5] && a[5]==a[8] && a[3]==a[6] && a[6]==a[9];
+        }
+        if(y==biased_cognition)
+        {
+            for(int i=1; i<=4; i++)
+                if(a[i]==a[i+3] && a[i+3]==a[i+5] && a[i+1]==a[i+4])
+                    return 1;
+            return 0;
+        }
+        if(y==palindrome_badge)
+        {
+            return (a[1]==a[9] && a[2]==a[8] && a[3]==a[7] && a[4]==a[6]);
         }
         if(y>=mini_palindrome_3 && y<=mini_palindrome_8)
         {
@@ -538,116 +917,154 @@ int havebadge(long long x,int y)
             }
             return 0;
         }
-        if(y==wide_badge || y==slim_badge)
-        {
-            int maxx=-1,minn=10;
-            for(int i=1; i<=9; i++)
-            {
-                maxx=max(maxx,a[i]);
-                minn=min(minn,a[i]);
-            }
-            if(y==wide_badge)
-                return maxx-minn==9;
-            if(y==slim_badge)
-                return maxx-minn<=3;
-        }
-        if(y==palindrome_badge)
-        {
-            return (a[1]==a[9] && a[2]==a[8] && a[3]==a[7] && a[4]==a[6]);
-        }
     }
     if(badge[y].testtype==type_divide)
     {
-        if(y==clean_ten)
-            return x%10==0;
-        if(y==high_man)
-            return x%2==0;
-        if(y==basketball_champion)
-            return x%3==0;
-        if(y==icu_badge)
-            return x%5==0;
-        if(y==monitor_badge)
-            return x%7==0;
-        if(y==li_yin_yang)
-            return x%11==0;
-        if(y==duck_neck)
-            return x%13==0;
-        if(y==old_hill)
-            return x%15==0;
-        if(y==negro_badge)
-            return x%17==0;
-        if(y==big_plate_chicken)
-            return x%19==0;
-        if(y==chicken_dust)
-            return x%23==0;
-        if(y==kevin_divisible)
-            return x%27==0;
-        if(y==plus_seven)
-            return x%29==0;
-        if(y==blue_archive)
-            return x%31==0;
-        if(y==iron_ke)
-            return x%37==0;
-        if(y==chicken_neck)
-            return x%41==0;
-        if(y==mason_xu)
-            return x%43==0;
-        if(y==red_chicken)
-            return x%47==0;
-        if(y==znso4_badge)
-            return x%49==0;
-        if(y==six_seven_divisible)
-            return x%67==0;
-        if(y==clean_hundred)
-            return x%100==0;
-        if(y==clean_thousand)
-            return x%1000==0;
-        if(y==clean_ten_thousand)
-            return x%10000==0;
-        if(y==clean_hundred_thousand)
-            return x%100000==0;
-        if(y==clean_million)
-            return x%1000000==0;
-        if(y==clean_ten_million)
-            return x%10000000==0;
-        if(y==clean_hundred_million)
-            return x%100000000==0;
-        if(y==binary_clean)
-            return x%1024==0;
-        if(y==double_binary_clean)
-            return x%1048576==0;
+        if(y<=znso4_badge)
+        {
+            if(y==clean_ten)
+                return x%10==0;
+            if(y==high_man)
+                return x%2==0;
+            if(y==basketball_champion)
+                return x%3==0;
+            if(y==icu_badge)
+                return x%5==0;
+            if(y==monitor_badge)
+                return x%7==0;
+            if(y==li_yin_yang)
+                return x%11==0;
+            if(y==duck_neck)
+                return x%13==0;
+            if(y==old_hill)
+                return x%15==0;
+            if(y==negro_badge)
+                return x%17==0;
+            if(y==big_plate_chicken)
+                return x%19==0;
+            if(y==chicken_dust)
+                return x%23==0;
+            if(y==kevin_divisible)
+                return x%27==0;
+            if(y==plus_seven)
+                return x%29==0;
+            if(y==blue_archive)
+                return x%31==0;
+            if(y==iron_ke)
+                return x%37==0;
+            if(y==chicken_neck)
+                return x%41==0;
+            if(y==mason_xu)
+                return x%43==0;
+            if(y==red_chicken)
+                return x%47==0;
+            if(y==znso4_badge)
+                return x%49==0;
+        }
+        if(y<fibonacci_number)
+        {
+            if(y==six_seven_divisible)
+                return x%67==0;
+            if(y==clean_hundred)
+                return x%100==0;
+            if(y==clean_thousand)
+                return x%1000==0;
+            if(y==clean_ten_thousand)
+                return x%10000==0;
+            if(y==clean_hundred_thousand)
+                return x%100000==0;
+            if(y==clean_million)
+                return x%1000000==0;
+            if(y==clean_ten_million)
+                return x%10000000==0;
+            if(y==clean_hundred_million)
+                return x%100000000==0;
+            if(y==binary_clean)
+                return x%1024==0;
+            if(y==double_binary_clean)
+                return x%1048576==0;
+        }
+        if(y==fibonacci_number)
+            return x==102334155 || x==165580141 || x==267914296;
+        if(y==odd_badge)
+            return x%2;
         return 0;
     }
     if(badge[y].testtype==type_contain)
     {
-        if(y==homo_3)
-            return iscontain(x,114,3);
-        if(y==homo_4)
-            return iscontain(x,1145,4);
-        if(y==homo_5)
-            return iscontain(x,11451,5);
-        if(y==full_homo)
-            return iscontain(x,114514,6);
-        if(y==half_homo_b_side)
-            return iscontain(x,1919,4);
-        if(y==homo_b_side)
-            return iscontain(x,1919810,7);
-        if(y==kevin_badge)
-            return iscontain(x,27,2);
-        if(y==o_kevin)
-            return iscontain(x,27,2);
-        if(y==six_seven)
-            return iscontain(x,67,2);
-        if(y==six_six_six)
-            return iscontain(x,666,3);
-        if(y==calender_badge)
-            return iscontain(x,365,3);
-        if(y==emergency_badge)
-            return iscontain(x,911,3);
-        if(y==not_found)
-            return iscontain(x,404,3);
-        if(y==silence_in_sea)
-            return iscontain(x,543,3);
+        if(y<=six_six_six)
+        {
+            if(y==homo_3)
+                return iscontain(x,114,3);
+            if(y==homo_4)
+                return iscontain(x,1145,4);
+            if(y==homo_5)
+                return iscontain(x,11451,5);
+            if(y==full_homo)
+                return iscontain(x,114514,6);
+            if(y==half_homo_b_side)
+                return iscontain(x,1919,4);
+            if(y==homo_b_side)
+                return iscontain(x,1919810,7);
+            if(y==kevin_badge)
+                return iscontain(x,27,2);
+            if(y==o_kevin)
+                return iscontain(x,15,2);
+            if(y==six_seven)
+                return iscontain(x,67,2);
+            if(y==six_six_six)
+                return iscontain(x,666,3);
+        }
+        if(y<pi_slice_3)
+        {
+            if(y==calender_badge)
+                return iscontain(x,365,3);
+            if(y==emergency_badge)
+                return iscontain(x,911,3);
+            if(y==not_found)
+                return iscontain(x,404,3);
+            if(y==silence_in_sea)
+                return iscontain(x,543,3);
+            if(y==geometic_sequence_3)
+                return iscontain(x,124,3) || iscontain(x,248,3) || iscontain(x,139,3) || iscontain(x,469,3)
+                       || iscontain(x,421,3) || iscontain(x,842,3) || iscontain(x,931,3) || iscontain(x,964,3);
+            if(y==geometic_sequence_4)
+                return iscontain(x,1248,4) || iscontain(x,8421,4);
+        }
+        if(y<=pi_slice_9)
+        {
+            if(y==pi_slice_3)
+                return iscontain(x,314,3);
+            if(y==pi_slice_4)
+                return iscontain(x,3141,4);
+            if(y==pi_slice_5)
+                return iscontain(x,31415,5);
+            if(y==pi_slice_6)
+                return iscontain(x,314159,6);
+            if(y==pi_slice_7)
+                return iscontain(x,3141592,7);
+            if(y==pi_slice_8)
+                return iscontain(x,31415926,8);
+            if(y==pi_slice_9)
+                return iscontain(x,314159265,9);
+        }
+        if(y<=e_slice_9)
+        {
+            if(y==e_slice_3)
+                return iscontain(x,271,3);
+            if(y==e_slice_4)
+                return iscontain(x,2718,4);
+            if(y==e_slice_5)
+                return iscontain(x,27182,5);
+            if(y==e_slice_6)
+                return iscontain(x,271828,6);
+            if(y==e_slice_7)
+                return iscontain(x,2718281,7);
+            if(y==e_slice_8)
+                return iscontain(x,27182818,8);
+            if(y==e_slice_9)
+                return iscontain(x,271828182,9);
+        }
     }
     int a[10];
     long long tmp=x;
@@ -673,6 +1090,8 @@ int havebadge(long long x,int y)
             return b[5]+b[6]+b[7]+b[8]+b[9]==8;
         if(y==divisible_by_3)
             return b[0]+b[3]+b[6]+b[9]==9;
+        if(y==homo_shards)
+            return b[1]>=3 && b[4]>=2 && b[5]>=1;
         int cnt=0,maxx=0;
         for(int i=0; i<=9; i++)
         {
@@ -782,6 +1201,28 @@ int havebadge(long long x,int y)
         int b[10];
         for(int i=1; i<=8; i++)
             b[i]=a[i+1]-a[i];
+        if(y>=arithmetic_sequence_3 && y<=arithmetic_sequence_5)
+        {
+            int cbo=0,maxx=0;
+            for(int i=1; i<=8; i++)
+            {
+                if(b[i]<=-2 || b[i]>=2)
+                    cbo++;
+                else
+                    cbo=0;
+                maxx=max(maxx,cbo);
+                if(b[i]!=b[i+1])
+                {
+                    cbo=0;
+                }
+            }
+            if(y==arithmetic_sequence_3)
+                return maxx>=2;
+            if(y==arithmetic_sequence_4)
+                return maxx>=3;
+            if(y==arithmetic_sequence_5)
+                return maxx>=4;
+        }
         if(y==even_spacing_absolute)
         {
             for(int i=1; i<=7; i++)
@@ -917,21 +1358,24 @@ int havebadge(long long x,int y)
 }
 
 int last_not_tested=0;
+bool is_first_test=1;
+
 
 void test(int x)
 {
     if(x==0)
-        x=last_not_tested;
+    {
+        x=1;
+        while(badge[x].poss!=-1 && x<=badgen)
+            x++;
+    }
     if(x>badgen)
     {
-        setcolor(LIGHTRED);
-        cout<<"All badges have been tested!\n";
-        setcolor(LIGHTGREEN);
-        cout<<"Now automaticly show badges:\n\n";
-        setcolor(7);
-        askuser();
+        if(is_first_test)
+            askuser();
         return;
     }
+    is_first_test=0;
     long long tgt=1e8+3e6;
     int fac=1;
     long long cnt=0;
@@ -941,17 +1385,20 @@ void test(int x)
             cnt++;
         if(i==tgt)
         {
-            printf("Calculating...  %d%%\n",fac);
+            cout<<badge[x].name<<" "<<fac<<"%\n";
             tgt+=3e6;
             fac+=1;
         }
     }
+    badge[x].poss=cnt;
+    systemcls();
+    test(0);
     cout<<x<<"-\""<<badge[x].name<<"\"\n";
     cout<<cnt<<"\n";
-    printf("(%.7f%%)",cnt*100.0/(MAXN-MINN+1));
+    printf("(%.7f%%)\n",cnt*100.0/(MAXN-MINN+1));
 }
 
-int maxcount=153;
+int maxcount=197;
 
 void init()
 {
@@ -963,7 +1410,7 @@ void init()
     badge[6]= {"Digit Complex 6","Use exactly 6 different digits.",120022560,type_needab};
     badge[7]= {"Digit Complex 7","Use exactly 7 different digits.",83825280,type_needab};
     badge[8]= {"Digit Complex 8","Use exactly 8 different digits.",19595520,type_needab};
-    badge[9]= {"Digit Complex 9","Use exactly 9 different digits.",1088640,type_needab};
+    badge[9]= {"Heterogeneous","No repeat digits.",1088640,type_needab};
     badge[10]= {"Repeat 4","A same digit exists 4 times.",24921841,type_needab};
     badge[11]= {"Repeat 5","A same digit exists 5 times.",2672761,type_needab};
     badge[12]= {"Repeat 6","A same digit exists 6 times.",192703,type_needab};
@@ -1030,7 +1477,7 @@ void init()
     badge[73]= {"High Power","A perfect fifth or more power.",27,type_special};
     badge[74]= {"Wide","Contains both 0 and 9.",92051322,type_special};
     badge[75]= {"Slim","Max and min digits differ not greater than 3.",550458,type_special};
-    badge[76]= {"Palindrome","Reads the same forwards and backwards.",30000,type_special};
+    badge[76]= {"Palindrome","Reads the same forwards and backwards.",30000,type_matching};
     badge[77]= {"Clean Hundred","Ends in 00.",3000001,type_divide};
     badge[78]= {"Clean Thousand","Ends in 000.",300001,type_divide};
     badge[79]= {"Clean Ten Thousand","Ends in 0000.",30001,type_divide};
@@ -1061,15 +1508,15 @@ void init()
     badge[104]= {"Nitrogen","Contains exactly 1 \"7\".",114791256,type_needab};
     badge[105]= {"Oxygen","Contains exactly 1 \"8\".",114791256,type_needab};
     badge[106]= {"Fluorine","Contains exactly 1 \"9\".",114791256,type_needab};
-    badge[107]= {"Mini Echo","Contains an adjacent 2-digit repeat.",16346101,type_special};
-    badge[108]= {"Medium Echo","Contains an adjacent 3-digit repeat.",1110001,type_special};
-    badge[109]= {"Major Echo","Contains an adjacent 4-digit repeat.",57001,type_special};
-    badge[110]= {"Mini Palindrome 3","Contains a palindrome of 3 digits.",156510931,type_special};
-    badge[111]= {"Mini Palindrome 4","Contains a palindrome of 4 digits.",17565718,type_special};
-    badge[112]= {"Mini Palindrome 5","Contains a palindrome of 5 digits.",14710441,type_special};
-    badge[113]= {"Mini Palindrome 6","Contains a palindrome of 6 digits.",1198264,type_special};
-    badge[114]= {"Mini Palindrome 7","Contains a palindrome of 7 digits.",899131,type_special};
-    badge[115]= {"Mini Palindrome 8","Contains a palindrome of 8 digits.",59998,type_special};
+    badge[107]= {"Mini Echo","Contains an adjacent 2-digit repeat.",16346101,type_matching};
+    badge[108]= {"Medium Echo","Contains an adjacent 3-digit repeat.",1110001,type_matching};
+    badge[109]= {"Major Echo","Contains an adjacent 4-digit repeat.",57001,type_matching};
+    badge[110]= {"Mini Palindrome 3","Contains a palindrome of 3 digits.",156510931,type_matching};
+    badge[111]= {"Mini Palindrome 4","Contains a palindrome of 4 digits.",17565718,type_matching};
+    badge[112]= {"Mini Palindrome 5","Contains a palindrome of 5 digits.",14710441,type_matching};
+    badge[113]= {"Mini Palindrome 6","Contains a palindrome of 6 digits.",1198264,type_matching};
+    badge[114]= {"Mini Palindrome 7","Contains a palindrome of 7 digits.",899131,type_matching};
+    badge[115]= {"Mini Palindrome 8","Contains a palindrome of 8 digits.",59998,type_matching};
     badge[116]= {"Binary Clean","Divisible by 1024.",292969,type_divide};
     badge[117]= {"Double Binary Clean","Divisible by 1048576.",286,type_divide};
     badge[118]= {"Harshed Number","Divisible by the sum of its own digits.",19647577,type_special};
@@ -1087,12 +1534,12 @@ void init()
     badge[130]= {"Turtle","All consecutive digits differ by at most 1.",15104,type_differ};
     badge[131]= {"Full House","Contains a triplet and a pair.",122770458,type_needab};
     badge[132]= {"Two Triplet","Contains two different triplet.",13851054,type_needab};
-    badge[133]= {"Echo Form","Contains an adjust 2-digit repeat for 3 times.",111001,type_special};
-    badge[134]= {"Echo Form+","Contains an adjust 2-digit repeat for 4 times.",571,type_special};
-    badge[135]= {"Echo Form Echo Form","Contains an adjust 3-digit repeat for 3 times.",300,type_special};
+    badge[133]= {"Echo Form","Contains an adjust 2-digit repeat for 3 times.",111001,type_matching};
+    badge[134]= {"Echo Form+","Contains an adjust 2-digit repeat for 4 times.",571,type_matching};
+    badge[135]= {"Echo Form Echo Form","Contains an adjust 3-digit repeat for 3 times.",300,type_matching};
     badge[136]= {"Consecutive Pairs","Contains 3 pairs that are consecutive in value.",9601368,type_needab};
     badge[137]= {"Airplane","Contains 2 triplets that are consecutive in value.",2978906,type_needab};
-    badge[138]= {"Zipper","Two digits alternating perfectly.",30,type_special};
+    badge[138]= {"Zipper","Two digits alternating perfectly.",30,type_matching};
     badge[139]= {"Three Triplet","Contains three different triplet.",60480,type_needab};
     badge[140]= {"Triple Airplane","Contains 3 triplets that are consecutive in value.",4480,type_needab};
     badge[141]= {"Consecutive Pairs+","Contains 4 pairs that are consecutive in value.",370440,type_needab};
@@ -1105,9 +1552,53 @@ void init()
     badge[148]= {"Emergency","Contains 911.",1798200,type_contain};
     badge[149]= {"Not Found","Contains 404.",1786266,type_contain};
     badge[150]= {"Slience in Sea","Contains 543.",1798200,type_contain};
-    badge[151]= {"Hopscotch","A digit appears at every other position (3 times).",13940401,type_special};
-    badge[152]= {"Hyper Hopscotch","A digit appears at every other position (4 times).",869431,type_special};
-    badge[153]= {"Ultra Hopscotch","A digit appears at every other position (5 times).",30000,type_special};
+    badge[151]= {"Hopscotch","A digit appears at every other position (3 times).",13940401,type_matching};
+    badge[152]= {"Hyper Hopscotch","A digit appears at every other position (4 times).",869431,type_matching};
+    badge[153]= {"Ultra Hopscotch","A digit appears at every other position (5 times).",30000,type_matching};
+    badge[154]= {"Excellent disassembly","Contains a substring like \"aabb\".",16564801,type_matching};
+    badge[155]= {"Excellent disassembly+","Contains a substring like \"ababcc\" or \"aabcbc\".",2300188,type_matching};
+    badge[156]= {"Excellent disassembly++","Contains a substring like \"ababcdcd\".",59701,type_matching};
+    badge[157]= {"Arithmetic Sequence 3","Contains a 3-character arithmetic sequence substring with a common difference of at least 2.",46042123,type_differ};
+    badge[158]= {"Arithmetic Sequence 4","Contains a 4-character arithmetic sequence substring with a common difference of at least 2.",1739957,type_differ};
+    badge[159]= {"Arithmetic Sequence 5","Contains a 5-character arithmetic sequence substring with a common difference of at least 2.",57999,type_differ};
+    badge[160]= {"Biased Cognition","Contains a substring like \"abcaba\".",1190164,type_matching};
+    badge[161]= {"Geometric sequence 3","Contains a 3-character geometric sequence substring with a common ratio of not 1.",16589808,type_contain};
+    badge[162]= {"Geometric sequence 4","Contains a 4-character geometric sequence substring with a common ratio of not 1.",399728,type_contain};
+    badge[163]= {"Bookends","The first digit matches the last digit.",30000000,type_matching};
+    badge[164]= {"Thick Bookends","The first 2 digits matches the last 2 digits.",3000000,type_matching};
+    badge[165]= {"Thicker Bookends","The first 3 digits matches the last 3 digits.",300000,type_matching};
+    badge[166]= {"Thickest Bookends","The first 4 digits matches the last 4 digits.",30000,type_matching};
+    badge[167]= {"Mirror Bookends","First 2 digits are reversed as the last 2.",3000000,type_matching};
+    badge[168]= {"Thick Mirror Bookends","First 3 digits are reversed as the last 3.",300000,type_matching};
+    badge[169]= {"Paired Bookends","Starts with a pair and ends with a pair.",3000000,type_matching};
+    badge[170]= {"Tripled Bookends","Starts with a triplet and ends with a triplet.",30000,type_matching};
+    badge[171]= {"Quadrupled Bookends","Starts with a quadruplet and ends with a quadruplet.",300,type_matching};
+    badge[172]= {"Scramble 3","Contains 3 adjacent digits that form a run when sorted.",46689710,type_special};
+    badge[173]= {"Scramble 4","Contains 4 adjacent digits that form a run when sorted.",12842111,type_special};
+    badge[174]= {"Scramble 5","Contains 5 adjacent digits that form a run when sorted.",4320061,type_special};
+    badge[175]= {"Scramble 6","Contains 6 adjacent digits that form a run when sorted.",1771110,type_special};
+    badge[176]= {"Scramble 7","Contains 7 adjacent digits that form a run when sorted.",847560,type_special};
+    badge[177]= {"Scramble 8","Contains 8 adjacent digits that form a run when sorted.",438480,type_special};
+    badge[178]= {"Scramble","All digits form a consecutive sequence when sorted.",241920,type_special};
+    badge[179]= {"Pi Slice 3","Contains 314.",2794201,type_contain};
+    badge[180]= {"Pi Slice 4","Contains 3141.",249977,type_contain};
+    badge[181]= {"Pi Slice 5","Contains 31415.",22000,type_contain};
+    badge[182]= {"Pi Slice 6","Contains 314159.",1900,type_contain};
+    badge[183]= {"Pi Slice 7","Contains 3141592.",160,type_contain};
+    badge[184]= {"Pi Slice 8","Contains 31415926.",13,type_contain};
+    badge[185]= {"Exactly Pi","Exactly 314159265.",1,type_contain};
+    badge[186]= {"E Slice 3","Contains 271.",2794201,type_contain};
+    badge[187]= {"E Slice 4","Contains 2718.",249977,type_contain};
+    badge[188]= {"E Slice 5","Contains 27182.",21999,type_contain};
+    badge[189]= {"E Slice 6","Contains 271828.",1900,type_contain};
+    badge[190]= {"E Slice 7","Contains 2718281.",160,type_contain};
+    badge[191]= {"E Slice 8","Contains 27182818.",13,type_contain};
+    badge[192]= {"Exactly E","Contains 271828182.",1,type_contain};
+    badge[193]= {"Homo Shards","Contains at least 3 \"1\"s, 2 \"4\"s and 1 \"5\".",1143212,type_needab};
+    badge[194]= {"Pronic Number","The product of 2 consecutive intergers (N*(N+1)).",10000,type_special};
+    badge[195]= {"Triangle Number","Can be expressed as N*(N+1)/2.",14142,type_special};
+    badge[196]= {"Fibonacci Number","Part of fibonacci sequence.",3,type_divide};
+    badge[197]= {"Odd","Not divisible by 2.",150000000,type_divide};
 
     badgen=0;
     while(badge[badgen+1].poss)
@@ -1126,7 +1617,9 @@ void init()
     for(int i=1; i<=badgen; i++)
         points[i]=100000/sqrt(badge[i].poss);
     seed=time(0);
-    system("title Submission Idle");
+    settitle("Submissiondle");
+    game_load();
+
 }
 char printstring[15]="%.?f%%";
 
@@ -1144,57 +1637,94 @@ long long quicktest(long long x)
 int ranks[1050]=
 {
     0,
-    65,66,67,69,71,72,72,73,74,74,75,75,75,75,76,76,77,77,78,79,
-    79,80,80,80,81,81,81,81,82,82,82,82,82,83,83,83,83,83,83,84,
-    84,84,84,85,85,85,85,85,85,86,86,87,87,87,87,87,88,88,88,88,
-    89,89,89,89,89,90,90,90,90,90,90,90,90,91,91,91,91,91,91,92,
-    92,92,92,92,92,92,93,93,93,93,93,93,93,93,94,94,94,94,94,95,
-    95,95,95,95,95,95,96,96,96,96,96,97,97,97,97,97,97,97,98,98,
-    98,98,98,98,98,99,99,99,99,99,99,99,100,100,100,100,100,100,100,100,
-    100,100,101,101,101,101,101,101,101,102,102,102,102,102,102,102,102,103,103,103,
-    103,103,103,103,103,104,104,104,104,104,104,104,105,105,105,105,105,105,105,105,
-    106,106,106,106,106,106,106,107,107,107,107,107,107,107,107,107,107,108,108,108,
-    108,108,108,108,108,109,109,109,109,109,109,109,109,109,110,110,110,110,110,110,
-    110,110,110,110,111,111,111,111,111,111,111,111,111,112,112,112,112,112,112,112,
-    112,112,113,113,113,113,113,113,113,113,113,114,114,114,114,114,114,114,114,115,
-    115,115,115,115,115,115,115,115,115,116,116,116,116,116,116,116,116,116,117,117,
-    117,117,117,117,117,117,117,117,117,118,118,118,118,118,118,118,118,118,119,119,
-    119,119,119,119,119,119,119,120,120,120,120,120,120,120,120,120,120,121,121,121,
-    121,121,121,121,121,121,122,122,122,122,122,122,122,122,122,123,123,123,123,123,
-    123,123,123,123,124,124,124,124,124,124,124,124,124,124,125,125,125,125,125,125,
-    125,125,125,126,126,126,126,126,126,126,126,126,127,127,127,127,127,127,127,127,
-    127,127,128,128,128,128,128,128,128,128,128,129,129,129,129,129,129,129,129,129,
-    130,130,130,130,130,130,130,130,130,131,131,131,131,131,131,131,131,131,132,132,
-    132,132,132,132,132,132,133,133,133,133,133,133,133,133,133,134,134,134,134,134,
-    134,134,134,134,135,135,135,135,135,135,135,135,135,136,136,136,136,136,136,136,
-    136,136,137,137,137,137,137,137,137,137,137,138,138,138,138,138,138,138,138,139,
-    139,139,139,139,139,139,139,140,140,140,140,140,140,140,140,141,141,141,141,141,
-    141,141,141,141,142,142,142,142,142,142,142,142,143,143,143,143,143,143,143,143,
-    144,144,144,144,144,144,144,144,145,145,145,145,145,145,145,145,146,146,146,146,
-    146,146,146,146,147,147,147,147,147,147,147,147,148,148,148,148,148,148,148,149,
-    149,149,149,149,149,149,149,150,150,150,150,150,150,150,150,151,151,151,151,151,
-    151,151,152,152,152,152,152,152,152,153,153,153,153,153,153,153,154,154,154,154,
-    154,154,154,155,155,155,155,155,155,155,156,156,156,156,156,156,156,157,157,157,
-    157,157,157,157,158,158,158,158,158,158,159,159,159,159,159,159,159,160,160,160,
-    160,160,160,161,161,161,161,161,161,162,162,162,162,162,162,163,163,163,163,163,
-    163,164,164,164,164,164,164,165,165,165,165,165,165,166,166,166,166,166,166,167,
-    167,167,167,167,167,168,168,168,168,168,168,169,169,169,169,169,170,170,170,170,
-    170,170,171,171,171,171,171,172,172,172,172,172,173,173,173,173,173,173,174,174,
-    174,174,174,175,175,175,175,175,176,176,176,176,176,177,177,177,177,177,178,178,
-    178,178,179,179,179,179,179,180,180,180,180,180,181,181,181,181,182,182,182,182,
-    183,183,183,183,183,184,184,184,184,185,185,185,185,186,186,186,186,187,187,187,
-    187,188,188,188,188,189,189,189,189,190,190,190,190,191,191,191,192,192,192,192,
-    193,193,193,193,194,194,194,195,195,195,196,196,196,196,197,197,197,198,198,198,
-    199,199,199,200,200,200,200,201,201,201,202,202,202,203,203,203,204,204,204,205,
-    205,206,206,206,207,207,207,208,208,208,209,209,210,210,210,211,211,212,212,212,
-    213,213,214,214,215,215,215,216,216,217,217,218,218,219,219,220,220,220,221,222,
-    222,223,223,224,224,225,225,226,226,227,227,228,228,229,230,230,231,231,232,233,
-    233,234,235,235,236,237,237,238,239,239,240,241,242,242,243,244,245,246,246,247,
-    248,249,250,251,252,253,254,255,255,256,258,259,260,261,262,263,264,265,267,268,
-    269,270,272,273,275,276,278,279,281,283,284,286,288,290,292,294,296,298,300,303,
-    305,307,310,313,315,318,321,324,328,331,335,339,343,347,352,357,361,367,372,378,
-    384,391,398,406,414,423,432,443,455,469,484,501,523,549,583,631,705,814,1011,
+    72,74,75,77,80,80,81,82,82,83,83,84,85,85,86,87,87,88,89,89,
+    89,90,90,90,90,91,91,91,92,92,92,93,93,93,93,94,94,95,95,95,
+    95,96,96,97,97,97,97,98,98,98,98,98,99,99,99,99,100,100,100,100,
+    100,100,101,101,101,101,102,102,102,102,103,103,103,103,103,104,104,104,104,104,
+    105,105,105,105,105,106,106,106,106,106,107,107,107,107,107,107,107,108,108,108,
+    108,108,108,109,109,109,109,109,109,110,110,110,110,110,110,111,111,111,111,111,
+    111,112,112,112,112,112,112,113,113,113,113,113,113,113,114,114,114,114,114,114,
+    114,115,115,115,115,115,115,115,115,116,116,116,116,116,116,116,117,117,117,117,
+    117,117,117,117,118,118,118,118,118,118,118,119,119,119,119,119,119,119,120,120,
+    120,120,120,120,120,120,121,121,121,121,121,121,121,122,122,122,122,122,122,122,
+    122,123,123,123,123,123,123,123,123,124,124,124,124,124,124,124,124,124,125,125,
+    125,125,125,125,125,125,126,126,126,126,126,126,126,126,127,127,127,127,127,127,
+    127,127,128,128,128,128,128,128,128,128,129,129,129,129,129,129,129,129,129,130,
+    130,130,130,130,130,130,130,131,131,131,131,131,131,131,131,132,132,132,132,132,
+    132,132,132,132,133,133,133,133,133,133,133,133,134,134,134,134,134,134,134,134,
+    134,135,135,135,135,135,135,135,135,136,136,136,136,136,136,136,136,136,137,137,
+    137,137,137,137,137,137,138,138,138,138,138,138,138,138,139,139,139,139,139,139,
+    139,139,139,140,140,140,140,140,140,140,140,141,141,141,141,141,141,141,141,141,
+    142,142,142,142,142,142,142,142,143,143,143,143,143,143,143,143,144,144,144,144,
+    144,144,144,144,144,145,145,145,145,145,145,145,145,146,146,146,146,146,146,146,
+    146,147,147,147,147,147,147,147,147,147,148,148,148,148,148,148,148,149,149,149,
+    149,149,149,149,149,149,150,150,150,150,150,150,150,150,151,151,151,151,151,151,
+    151,151,152,152,152,152,152,152,152,152,153,153,153,153,153,153,153,154,154,154,
+    154,154,154,154,154,155,155,155,155,155,155,155,155,156,156,156,156,156,156,156,
+    156,157,157,157,157,157,157,157,157,158,158,158,158,158,158,158,159,159,159,159,
+    159,159,159,160,160,160,160,160,160,160,160,161,161,161,161,161,161,161,162,162,
+    162,162,162,162,162,163,163,163,163,163,163,163,164,164,164,164,164,164,164,165,
+    165,165,165,165,165,165,166,166,166,166,166,166,166,167,167,167,167,167,167,167,
+    168,168,168,168,168,168,169,169,169,169,169,169,169,170,170,170,170,170,170,171,
+    171,171,171,171,171,171,172,172,172,172,172,172,173,173,173,173,173,173,173,174,
+    174,174,174,174,174,175,175,175,175,175,175,176,176,176,176,176,176,177,177,177,
+    177,177,177,178,178,178,178,178,178,179,179,179,179,179,179,180,180,180,180,180,
+    181,181,181,181,181,181,182,182,182,182,182,182,183,183,183,183,183,184,184,184,
+    184,184,185,185,185,185,185,185,186,186,186,186,186,187,187,187,187,187,188,188,
+    188,188,188,189,189,189,189,189,190,190,190,190,190,191,191,191,191,191,192,192,
+    192,192,192,193,193,193,193,194,194,194,194,194,195,195,195,195,196,196,196,196,
+    196,197,197,197,197,198,198,198,198,198,199,199,199,199,200,200,200,200,201,201,
+    201,201,202,202,202,202,203,203,203,203,204,204,204,204,205,205,205,205,206,206,
+    206,206,207,207,207,207,208,208,208,208,209,209,209,210,210,210,210,211,211,211,
+    212,212,212,213,213,213,213,214,214,214,215,215,215,216,216,216,216,217,217,217,
+    218,218,218,219,219,219,220,220,220,221,221,221,222,222,222,223,223,223,224,224,
+    225,225,225,226,226,226,227,227,228,228,228,229,229,230,230,230,231,231,232,232,
+    232,233,233,234,234,235,235,235,236,236,237,237,238,238,239,239,240,240,241,241,
+    241,242,242,243,244,244,245,245,246,246,247,247,248,248,249,249,250,251,251,252,
+    252,253,254,254,255,256,256,257,258,258,259,260,260,261,262,263,263,264,265,266,
+    266,267,268,269,270,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,
+    285,286,287,288,289,290,292,293,294,295,297,298,299,301,302,304,305,307,308,310,
+    311,313,315,317,318,320,322,324,326,328,330,333,335,337,340,342,345,347,350,353,
+    356,359,362,365,368,372,375,379,383,387,391,395,400,405,410,415,420,426,432,438,
+    445,452,460,468,478,488,499,512,526,542,560,581,605,635,675,731,810,926,1149,
 };
+
+int getpointlevel(int x)
+{
+    int l=0,r=999;
+    while(l<r)
+    {
+        int mid=(l+r+1)/2;
+        if(x>=ranks[mid])
+            l=mid;
+        else
+            r=mid-1;
+    }
+    return l;
+}
+int getpointrarity(int x)
+{
+    int l=getpointlevel(x);
+    if(l<1)
+        return 9;
+    if(l<10)
+        return 10;
+    if(l<500)
+        return 1;
+    if(l<750)
+        return 2;
+    if(l<900)
+        return 3;
+    if(l<950)
+        return 4;
+    if(l<975)
+        return 5;
+    if(l<990)
+        return 6;
+    if(l<995)
+        return 7;
+    return 8;
+}
 
 void showbadgelist()
 {
@@ -1209,28 +1739,45 @@ void showbadgelist()
         int x=printstring[2]-'0';
         for(int ii=max(x,2); ii<=9; ii++)
             cout<<" ";
-        cout<<" "<<badge[i].name<<"\n";
+        cout<<"\t"<<badge[i].name<<"\n";
     }
     cout<<"\n";
 }
 
 void askuser()
 {
-    cout<<"Input your submission ID(1e8~4e8):\n";
-    cout<<"Luogu/Codeforces/Atcoder+1e8\n";
-    cout<<"0 = Random\t1 = Show badge list\n";
+    setcolor(7);
+    cout<<"TOTAL pt: ";
+    setcolor(LIGHTWHITE);
+    cout<<total_pt<<"\n";
+    setcolor(LIGHTYELLOW);
+    cout<<"Only input 0 can increace TOTAL pt.\n";
+    setcolor(7);
+    cout<<"0 = Random\t1 = Show badge list\n2 = Random Many\t3 = Input\n";
     long long x;
     cin>>x;
-    if(x!=0 && x!=1 && (x<MINN || x>MAXN))
+    int svx=x;
+    if(x!=-1 && x!=0 && x!=1 && x!=2 && x!=3)
     {
         setcolor(RED);
-        cout<<"Error: Out of range ("<<MINN<<"~"<<MAXN<<")\n";
+        cout<<"Error: Out of range\n";
         setcolor(7);
         return;
     }
-    if(x==0)
+    if(x==0 || x==-1)
     {
-        x=xs64()%(MAXN-MINN+1)+MINN;
+        if(x==-1)
+        {
+            int tgt;
+            cin>>tgt;
+            if(tgt<1 || tgt>badgen)
+                tgt=badgen;
+            x=xs64()%(MAXN-MINN+1)+MINN;
+            while(!havebadge(x,tgt))
+                x=xs64()%(MAXN-MINN+1)+MINN;
+        }
+        else
+            x=xs64()%(MAXN-MINN+1)+MINN;
         int a[10];
         int tmp=x;
         for(int i=9; i>=1; i--)
@@ -1240,29 +1787,49 @@ void askuser()
         }
         for(int i=0; i<=8; i++)
         {
-            for(int j=1; j<=i+10; j++)
+            for(int j=1; j<=i/2+5; j++)
             {
-                system("cls");
+                systemcls();
                 setcolor(WHITE);
                 for(int ii=1; ii<=i; ii++)
                     cout<<a[ii];
                 setcolor(GRAY);
                 for(int ii=i+1; ii<=9; ii++)
                     cout<<xs64()%10;
-                Sleep(100);
+                mysleep(100);
             }
         }
         setcolor(WHITE);
-        system("cls");
+        systemcls();
         cout<<x;
-        Sleep(500);
+        mysleep(500);
     }
     if(x==1)
     {
-        system("cls");
+        systemcls();
         showbadgelist();
         askuser();
         return;
+    }
+    if(x==2)
+    {
+        cout<<"Input N:\n";
+        int y;
+        cin>>y;
+        if(y<1 || y>20)
+        {
+            cout<<"Error: Out of range (1~20)\n";
+            return;
+        }
+        rolln(y);
+        return;
+    }
+    if(x==3)
+    {
+
+        cout<<"Input your submission ID(1e8~4e8):\n";
+        cout<<"Luogu/Codeforces/Atcoder+1e8\n";
+        cin>>x;
     }
     setcolor(7);
     cout<<"\n\n";
@@ -1276,8 +1843,8 @@ void askuser()
         if(havebadge(x,i))
         {
             cnt++;
-            sleeptime=200*sqrt(9+cnt);
-            Sleep(sleeptime);
+            sleeptime=200*sqrt(2+cnt);
+            mysleep(sleeptime);
             cout<<badge[i].name<<"\n";
             cout<<"[";
             printstring[2]=printrarity(badge[i].poss)+'0';
@@ -1306,7 +1873,7 @@ void askuser()
                 sum+=points[i];
         }
     }
-    Sleep(sleeptime*2);
+    mysleep(sleeptime*2);
     cout<<"Earned ";
     setcolor(LIGHTCYAN);
     cout<<cnt;
@@ -1356,7 +1923,7 @@ void askuser()
     else if(rk<950)
     {
         col=PURPLE;
-        tit="PURPLE";
+        tit="EPIC";
     }
     else if(rk<975)
     {
@@ -1407,19 +1974,35 @@ void askuser()
         cout<<"%\n";
         setcolor(7);
     }
+    cout<<"\n";
+    if(svx==0)
+        total_pt+=sum;
+    cout<<"TOTAL pt: ";
+    setcolor(LIGHTWHITE);
+    cout<<total_pt;
+    game_save();
+    setcolor(7);
+    while(1);
 }
 int res[100000005];
 
 void randomtest(int n)
 {
+    if(maxcount!=badgen)
+    {
+        setcolor(LIGHTYELLOW);
+        cout<<"WARNING: maxcount!=badgen\n";
+        return;
+    }
     int tgt=n/100,pct=1;
+    cout<<"0% ";
     for(int i=1; i<=n; i++)
     {
         long long x=xs64()%(MAXN-MINN+1)+MINN;
         res[i]=quicktest(x);
         if(i==tgt)
         {
-            cout<<pct<<"%\n";
+            cout<<"\n"<<pct<<"% ";
             pct++;
             tgt+=n/100;
         }
@@ -1481,7 +2064,371 @@ void randomtest(int n)
             cout<<"\n";
     }
 }
+vector<int> nbbadge[105];
+long long nb[105];
+int nba[25][10];
+int nbsum[25];
 
+void rolln(int n)
+{
+    for(int i=1; i<=n; i++)
+        nb[i]=xs64()%(MAXN-MINN+1)+MINN;
+    int max_cnt=0;
+    for(int i=1; i<=n; i++)
+    {
+        nbbadge[i].clear();
+        for(int rj=badgen; rj>=1; rj--)
+        {
+            int j=badgeorder[rj];
+            if(havebadge(nb[i],j))
+                nbbadge[i].push_back(j);
+        }
+        max_cnt=max((int)max_cnt,(int)nbbadge[i].size());
+    }
+    for(int i=1; i<=n; i++)
+    {
+        int x=nb[i];
+        for(int j=9; j>=1; j--)
+        {
+            nba[i][j]=x%10;
+            x/=10;
+        }
+    }
+    for(int i=0; i<=8; i++)
+    {
+        for(int j=1; j<=i/2+5; j++)
+        {
+            systemcls();
+            for(int k=1; k<=n; k++)
+            {
+                setcolor(LIGHTWHITE);
+                for(int ii=1; ii<=i; ii++)
+                    cout<<nba[k][ii];
+                setcolor(GRAY);
+                for(int ii=i+1; ii<=9; ii++)
+                    cout<<xs64()%10;
+                cout<<"\n";
+            }
+            mysleep(100);
+        }
+    }
+    setcolor(LIGHTWHITE);
+    systemcls();
+    for(int i=1; i<=n; i++)
+        cout<<nb[i]<<"\n";
+    mysleep(1000);
+    for(int i=1; i<=max_cnt+1; i++)
+    {
+        systemcls();
+        for(int j=1; j<=n; j++)
+        {
+            setcolor(LIGHTWHITE);
+            cout<<nb[j]<<"\t";
+            if((int)nbbadge[j].size()<i)
+            {
+                cout<<nbsum[j];
+                setcolor(7);
+                cout<<" pt\t";
+                cout<<"Earned ";
+                setcolor(LIGHTCYAN);
+                cout<<nbbadge[j].size();
+                setcolor(7);
+                cout<<" badges\n\n";
+                continue;
+            }
+            int bg=nbbadge[j][i-1];
+            if(bg<=maxcount)
+                nbsum[j]+=points[bg];
+            cout<<nbsum[j];
+            setcolor(7);
+            cout<<" pt\t";
+            int br=getrarity(badge[bg].poss);
+            setcolor(raritycolor[br]);
+            cout<<badge[bg].name<<"\n";
+            setcolor(7);
+            cout<<"+ ";
+            setcolor(LIGHTWHITE);
+            cout<<(bg<=maxcount?points[bg]:0);
+            setcolor(7);
+            cout<<" pt\t| ";
+            cout<<badge[bg].desc<<"\n";
+        }
+        mysleep(200*sqrt(2+i));
+    }
+    int cursor=1;
+    while(1)
+    {
+        if(cursor>0)
+        {
+            systemcls();
+            for(int i=1; i<=n; i++)
+            {
+                setcolor(7);
+                cout<<"[";
+                int bg=getpointrarity(nbsum[i]);
+                setcolor(raritycolor[bg]);
+                cout<<nb[i];
+                setcolor(7);
+                cout<<"]\t";
+                setcolor(LIGHTWHITE);
+                cout<<nbsum[i];
+                setcolor(7);
+                cout<<" pt\t";
+                cout<<"Earned ";
+                setcolor(LIGHTCYAN);
+                cout<<nbbadge[i].size();
+                setcolor(7);
+                cout<<" badges\n";
+                setcolor(raritycolor[bg]);
+                cout<<rarityname_big[bg];
+                setcolor(7);
+                if(bg!=5)
+                    cout<<"\t";
+                cout<<" - ";
+                int bh=getpointlevel(nbsum[i]);
+                if(bh<500)
+                {
+                    cout<<"BOTTOM ";
+                    setcolor(LIGHTRED);
+                    printf("%.1f",(bh+1)/10.0);
+                    setcolor(7);
+                    cout<<"%\t";
+                }
+                else
+                {
+                    cout<<"TOP    ";
+                    setcolor(LIGHTGREEN);
+                    printf("%.1f",(1000-bh)/10.0);
+                    setcolor(7);
+                    cout<<"%\t";
+                }
+                if(i==cursor)
+                {
+                    setbg(BLUE);
+                }
+                setcolor(WHITE);
+                cout<<"More Detail>>";
+                setbg(0);
+                cout<<"\n";
+            }
+            cout<<"\n";
+            cout<<"Input your next move:\n";
+            cout<<"w - up   s - down   c - confrim\n";
+            char x;
+            cin>>x;
+            if(x=='w')
+            {
+                cursor--;
+                if(cursor<1)
+                    cursor+=n;
+            }
+            if(x=='s')
+            {
+                cursor++;
+                if(cursor>n)
+                    cursor-=n;
+            }
+            if(x=='c')
+                cursor=-cursor;
+        }
+        else
+        {
+            systemcls();
+            setcolor(7);
+            cout<<"[";
+            int bc=getpointrarity(nbsum[-cursor]);
+            setcolor(raritycolor[bc]);
+            cout<<nb[-cursor];
+            setcolor(7);
+            cout<<"]\n";
+            cout<<"\n----- BADGES -----\n\n";
+            for(int j=0; j<(int)nbbadge[-cursor].size(); j++)
+            {
+                setcolor(7);
+                int i=nbbadge[-cursor][j];
+                cout<<badge[i].name<<"\n";
+                int bg=getrarity(badge[i].poss);
+                cout<<"[";
+                setcolor(raritycolor[bg]);
+                cout<<rarityname[bg];
+                setcolor(7);
+                cout<<"]\n";
+                cout<<badge[i].desc<<"\n";
+                cout<<"Possibility: ";
+                printstring[2]=bg+'0';
+                printf(printstring,badge[i].poss*100.0/(MAXN-MINN+1));
+                cout<<"\n";
+                cout<<"+ ";
+                if(i<=maxcount)
+                {
+                    setcolor(LIGHTWHITE);
+                    cout<<points[i]<<" ";
+                }
+                else
+                {
+                    setcolor(LIGHTWHITE);
+                    cout<<0<<" ";
+                }
+                setcolor(7);
+                cout<<"pt\n\n";
+            }
+            setcolor(7);
+            cout<<"[";
+            setcolor(raritycolor[bc]);
+            cout<<nb[-cursor];
+            setcolor(7);
+            cout<<"]\n";
+            setcolor(LIGHTWHITE);
+            cout<<nbsum[-cursor]<<" ";
+            setcolor(7);
+            cout<<" pt\n";
+            setcolor(raritycolor[bc]);
+            cout<<rarityname_big[bc];
+            setcolor(7);
+            cout<<" - ";
+
+            int bh=getpointlevel(nbsum[-cursor]);
+            if(bh<500)
+            {
+                cout<<"BOTTOM ";
+                setcolor(LIGHTRED);
+                printf("%.1f",(bh+1)/10.0);
+                setcolor(7);
+                cout<<"%\t";
+            }
+            else
+            {
+                cout<<"TOP ";
+                setcolor(LIGHTGREEN);
+                printf("%.1f",(1000-bh)/10.0);
+                setcolor(7);
+                cout<<"%\t";
+            }
+            cout<<"\n\n";
+            setcolor(7);
+            cout<<"input any character to return.\n";
+            char x;
+            cin>>x;
+            cursor=-cursor;
+        }
+    }
+}
+void collecttrash(int n)
+{
+    int minn=1000;
+    for(int i=1; i<=100000; i++)
+    {
+        long long x=xs64()%(MAXN-MINN+1)+MINN;
+        int y=quicktest(x);
+        minn=min(minn,y);
+    }
+    for(int i=1; i<=1000000; i++)
+    {
+        long long x=xs64()%(MAXN-MINN+1)+MINN;
+        int y=quicktest(x);
+        if(y<=minn)
+        {
+            cout<<x<<" ";
+            minn=y;
+        }
+    }
+    cout<<"\n"<<"MIN: "<<minn;
+}
+
+int i_stream2[1000005],i_stream2n;
+int o_stream2[1000005],o_stream2n;
+
+void game_save()
+{
+    FILE *jol=fopen("save.jack","w");
+//    fprintf(jol,"TEST");
+    o_streamn=o_stream2n=0;
+
+    olonglong(total_pt);
+
+    for(int i=1; i<=o_streamn; i+=7)
+    {
+        bool x=0;
+        for(int j=i; j<i+7; j++)
+        {
+            x^=o_stream[j];
+            o_stream2[++o_stream2n]=o_stream[j];
+        }
+        o_stream2[++o_stream2n]=x;
+    }
+    for(int i=1; i<=o_stream2n; i+=6)
+    {
+        int charid=0;
+        for(int j=i; j<i+6; j++)
+        {
+            charid*=2;
+            if(i<=o_stream2n && o_stream2[j])
+                charid++;
+        }
+        if(charid<26)//0~25 -> A~Z
+            fprintf(jol,"%c",'A'+charid);
+        else if(charid<52)//26~51 -> a~z
+            fprintf(jol,"%c",'a'+charid-26);
+        else if(charid<62)//52~61 -> 0~9
+            fprintf(jol,"%c",'0'+charid-52);
+        else if(charid==62)//62 -> +
+            fprintf(jol,"+");
+        else//63 -> =
+            fprintf(jol,"=");
+    }
+    fclose(jol);
+}
+
+bool game_load()
+{
+    memset(i_stream,0,sizeof(i_stream));
+    FILE *jol=fopen("save.jack","r");
+    char x;
+    i_streamn=i_stream2n=0;
+    while(fscanf(jol,"%c",&x)==1)
+    {
+        i_stream2n+=6;
+        int charid=0;
+        if(x>='A' && x<='Z')
+            charid=x-'A';
+        else if(x>='a' && x<='z')
+            charid=x-'a'+26;
+        else if(x>='0' && x<='9')
+            charid=x-'0'+52;
+        else if(x=='+')
+            charid=62;
+        else
+            charid=63;
+
+        for(int i=0; i<6; i++)
+            i_stream2[i_stream2n-i]=(charid>>i)&1;
+    }
+    if(i_stream2n<10)
+    {
+        fclose(jol);
+        return 0;
+    }
+    for(int i=1; i+7<=i_stream2n; i+=8)
+    {
+        bool x=0;
+        for(int j=i; j<=i+7; j++)
+            x^=i_stream2[j];
+        if(x==1)
+        {
+            cout<<"ERROR\n";
+            fclose(jol);
+            return 0;
+        }
+        for(int j=i; j<=i+6; j++)
+            i_stream[++i_streamn]=i_stream2[j];
+    }
+    i_streamn=0;
+
+    total_pt=ilonglong();
+
+    fclose(jol);
+    return 1;
+}
 int main()
 {
     init();
@@ -1489,8 +2436,16 @@ int main()
     return 0;
 }
 /*
-351461503 153071803 180573857 285037537 306852083 308173571 284085203 185085317 206308463 208620641
-186048047 260268031 306150371 140317057 248038253 150758147 157425071 186046031 240258041 260482463
-280720381 302406473 138253051 268051681 186042061 308208473 170468407 208642081 257380537 153147307
-283047203 351730741 185180357
+308148604 268507208 205826846 350750318 364081481 142861406 306837064 305836408 370640384 368260738
+260748604 386028052 264028306 362853802 172570253 283028506 360528068 362508206 286074826 240730264
+173071364 280260847 148370317 368205862 173807503 304607386 358063802 307286038 170251703 140824708
+250841824 205805261 305370251 184182406 253046204 305375041 186082607 138068263 380530862 208368064
+206803186 140680718 173614037 204285038 306837406 240284186 138057053 250625708 264803863 380738206
+304260386 283502836 380253826 380620637 260372807 381482041 180680536 204268364 368240624 306826138
+386053802 268260518 371405731 281408206 146185084 306850286 260418208 280374824 260742506 361860418
+260528516 306173051 304637426 358062836 241640816 186180746 247360426 268061824 302641624 205802683
+286207486 368260582 180614807 305268368 268261408 286170268 140264182 307203517 286205861 372046072
+184620628 283026046 375037526 302538608 208624186 206853028 360720826 164806802 360841304 280536206
+280268074 241608604 382682506 208413083 286047284 204624038 208138261 240853058 148306486 364804628
+268206857 264720748 206472061
 */

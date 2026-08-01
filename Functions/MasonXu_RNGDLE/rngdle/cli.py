@@ -162,7 +162,7 @@ def render_big_number_text(
     return out
 
 def build_badge_table(
-    badges: List[Tuple[str, str, str, int]],  # (name, lbl, st, ep)
+    badges: List[Tuple[str, str, str, int, int]],  # (name, lbl, st, ep, poss)
     start: int,
     height: int,
 ) -> Panel:
@@ -192,7 +192,7 @@ def build_badge_table(
         bar_positions = set(range(bar_pos, bar_pos + bar_h))
 
     # ---- 内容行 ----
-    for i, (name, lbl, st, ep) in enumerate(badges[start:end]):
+    for i, (name, lbl, st, ep, poss) in enumerate(badges[start:end]):
         style = label_to_style(lbl)
 
         # 滚动条字符
@@ -416,9 +416,9 @@ def main():
             top_bottom = top_bottom_text(rk)
             number_render = render_big_number_text(display_number_str)
 
-            query_badges = [(name, lbl, st, ep) for _, name, _, ep, lbl, st in obtained]
+            query_badges = [(name, lbl, st, ep, poss) for _, name, poss, ep, lbl, st in obtained]
             query_scroll = 0
-            counts = Counter(lbl for _, lbl, _, _ in query_badges)
+            counts = Counter(lbl for _, lbl, _, _, _ in query_badges)
             counts_str = ', '.join(f"{k}:{v}" for k, v in counts.items()) if counts else ''
 
             while True:
