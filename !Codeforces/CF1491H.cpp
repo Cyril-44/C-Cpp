@@ -6,7 +6,7 @@
 constexpr int N = 100005, M = 320;
 #define For(i, s, t) for (int i = (s); i <= (t); i++)
 struct Blk {
-    int l, r, tag, modified;
+    int l, r, tag, modified, len;
 } blk[M];
 int n, B, Btop, p2id[N];
 struct Array {
@@ -24,27 +24,23 @@ inline void initBlk() {
     For(i, 1, n) {
         if (!cntdwn) {
             blk[Btop].r = i-1;
+            blk[Btop].len = B;
             cntdwn = B, ++Btop;
             blk[Btop].l = i;
         }
         p2id[i] = Btop;
         --cntdwn;
     }
-    if (cntdwn != B) blk[Btop].r = n;
-    else --Btop;
+    blk[Btop].r = n;
+    blk[Btop].len = B - cntdwn;
 }
 inline void rebuild(int id) {
-    if (blk[id].modified >= blk[id].r - blk[id].l + 1) return;
-    For(i, blk[id].l, blk[id].r) {
-        a[i] -= blk[id].tag;
-        if (a[i] < 1) a[i] = 1;
-    }
+    For(i, blk[id].l, blk[id].r) a[i] = std::max(a[i] - blk[id].tag, 1);
     blk[id].tag = 0;
     For(i, blk[id].l, blk[id].r)
         if (a[i] >= blk[id].l)
             b[i] = b[a[i]];
         else b[i] = a[i];
-    ++blk[id].modified;
 }
 int main() {
     int q;
@@ -59,29 +55,29 @@ int main() {
         if (t == 1) {
             scanf("%d", &x);
             if (p2id[l] == p2id[r]) {
-                For(i, l, r) a[i] -= x;
+                For(i, l, r) a[i] = std::max(1, a[i] - x);
                 rebuild(p2id[l]);
             } else {
-                For(i, l, blk[p2id[l]].r) a[i] -= x;
+                For(i, l, blk[p2id[l]].r) a[i] = std::max(1, a[i] - x);
                 rebuild(p2id[l]);
-                For(i, blk[p2id[r]].l, r) a[i] -= x;
+                For(i, blk[p2id[r]].l, r) a[i] = std::max(1, a[i] - x);
                 rebuild(p2id[r]);
-                For(i, p2id[l]+1, p2id[r]-1)
-                    blk[i].tag += x, rebuild(i);
+                For(i, p2id[l]+1, p2id[r]-1) {
+                    blk[i].tag = std::min(blk[i].tag + x, n);
+                    if (blk[i].modified <= blk[i].len) rebuild(i), ++blk[i].modified;
+                }
             }
         }
         else {
-            while (p2id[l] != p2id[r]) {
+            while (b(l) != b(r)) {
                 if (l > r) std::swap(l, r);
                 r = b(r);
             }
-            while (b(l) != b(r)) l = b(l), r = b(r);
-            while (a(l) != a(r)) {
+            while (l != r) {
                 if (l > r) std::swap(l, r);
                 r = a(r);
             }
-            if (l == r) printf("%d\n", l);
-            else printf("%d\n", a(l));
+            printf("%d\n", l);
         }
     }
     return 0;
