@@ -29,6 +29,7 @@ void initl(int u) {
     initl(son[u][0]), initl(son[u][1]);
     lid[++ts] = u, lfn[u] = ts;
 }
+
 void initr(int u) {
     static int ts;
     if (!u) return;
