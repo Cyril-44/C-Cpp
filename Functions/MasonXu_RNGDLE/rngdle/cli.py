@@ -392,7 +392,6 @@ def main():
 
     try:
         kw = KeyWatcher()
-        badges_history: List[Tuple[str, str, str, int]] = []   # newest first
         roll_history: List[Tuple[str, int, str, int]] = []     # (number, ep, label, rk)
         main_scroll = 0
 
@@ -466,7 +465,8 @@ def main():
                     break
 
         def do_draw_animation():
-            badges_history.clear()
+            # badges_history used only inside animation; keep local to avoid interfering with other screens
+            badges_history: List[Tuple[str, str, str, int, int]] = []   # newest first
             scroll = 0
             xid = random.randint(0, 10 ** n_digits - 1)
             s = str(xid).rjust(n_digits, '0')
@@ -511,18 +511,18 @@ def main():
 
             # ---------- 徽章揭示动画 ----------
             if full_skip:
-                for _, rname, _, rep, rlbl, rst in obtained:
-                    badges_history.insert(0, (rname, rlbl, rst, rep))
+                for _, rname, poss, rep, rlbl, rst in obtained:
+                    badges_history.insert(0, (rname, rlbl, rst, rep, poss))
             else:
                 current_ep = 0
                 for j, (idx, name, poss, ep, lbl, st) in enumerate(obtained):
                     if kw.pop() is not None:
                         # 一次性把剩余徽章全部加入
-                        for _, rname, _, rep, rlbl, rst in obtained[j:]:
-                            badges_history.insert(0, (rname, rlbl, rst, rep))
+                        for _, rname, poss, rep, rlbl, rst in obtained[j:]:
+                            badges_history.insert(0, (rname, rlbl, rst, rep, poss))
                         break
 
-                    badges_history.insert(0, (name, lbl, st, ep))
+                    badges_history.insert(0, (name, lbl, st, ep, poss))
                     current_ep += ep
 
                     term_h = console.size.height
@@ -553,14 +553,80 @@ def main():
             display_final_screen(res)
 
         def show_badge_list():
-            tbl = Table(title='Badge List', show_header=True)
-            tbl.add_column('ID', width=4)
-            tbl.add_column('Name')
-            tbl.add_column('Desc')
-            for i, b in enumerate(BADGES[1:], start=1):
-                tbl.add_row(str(i), b.name, b.desc)
-            live.update(Group(tbl, Text('\n(press any key to return)', style='dim')))
-            readchar.readkey()
+            # 构建 badges 列表为 (id, name, desc, poss)
+            badges = [(str(i), b.name, b.desc, getattr(b, 'poss', '')) for i, b in enumerate(BADGES[1:], start=1)]
+            scroll = 0
+            while True:
+                term_h = console.size.height
+                badge_h = max(5, term_h - 4)
+
+                tbl = Table(
+                    show_header=True,
+                    header_style="bold",
+                    box=None,
+                    pad_edge=False,
+                    expand=True,
+                    padding=(0, 0),
+                )
+                tbl.add_column("ID", width=4)
+                tbl.add_column("Name", ratio=3, no_wrap=True)
+                tbl.add_column("Desc", ratio=5)
+                tbl.add_column("Rarity", ratio=2, justify="center", no_wrap=True)
+                tbl.add_column("Poss", width=9, justify="right", no_wrap=True)
+                tbl.add_column("", width=1, justify="right")  # 滚动条
+
+                total = len(badges)
+                end = min(total, scroll + badge_h)
+
+                # 计算滚动条位置
+                if total <= badge_h or badge_h <= 0:
+                    bar_positions = set()
+                else:
+                    bar_h = max(1, int(badge_h * badge_h / total))
+                    max_start = max(1, total - badge_h)
+                    bar_pos = int((scroll / max_start) * (badge_h - bar_h)) if max_start > 0 else 0
+                    bar_positions = set(range(bar_pos, bar_pos + bar_h))
+
+                for i, (id_, name, desc, poss) in enumerate(badges[scroll:end]):
+                    # 计算徽章品质标签
+                    poss_val = poss if isinstance(poss, int) else None
+                    rarity_label, _ = rarity_for_poss(poss_val)
+                    rarity_style = label_to_style(rarity_label)
+
+                    if i in bar_positions:
+                        bar_char = Text("█", style="bright_cyan")
+                    else:
+                        bar_char = Text("│", style="dim")
+
+                    tbl.add_row(
+                        id_,
+                        Text(name, style='white'),
+                        desc,
+                        Text(rarity_label, style=rarity_style),
+                        str(poss),
+                        bar_char,
+                    )
+
+                # 补空行使滚动条对齐
+                for i in range(end - scroll, badge_h):
+                    bar_char = Text("█", style="bright_cyan") if i in bar_positions else Text("│", style="dim")
+                    tbl.add_row("", "", "", "", "", bar_char)
+
+                header = Text('Badge List (Up/Down/PageUp/PageDown to scroll) ', style='bold')
+                footer = Text('\n(press q or Enter to return)', style='dim')
+                live.update(Group(header, tbl, footer))
+
+                key = readchar.readkey()
+                if key == readchar.key.UP:
+                    scroll = max(0, scroll - 1)
+                elif key == readchar.key.DOWN:
+                    scroll = min(max(0, len(badges) - 1), scroll + 1)
+                elif key == readchar.key.PAGE_UP:
+                    scroll = max(0, scroll - (term_h // 2))
+                elif key == readchar.key.PAGE_DOWN:
+                    scroll = min(max(0, len(badges) - 1), scroll + (term_h // 2))
+                elif key in ('q', '\r', '\n'):
+                    break
 
         def export_csv():
             try:

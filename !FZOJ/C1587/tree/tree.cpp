@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #define For(i, s, t) for (int i = (s); i <= (t); i++)
 #define roF(i, s, t) for (int i = (s); i >= (t); i--)
-constexpr int N = 5;
+constexpr int N = 200005;
 int n, t, a[N];
 std::vector<int> g[N];
 int from[N]; // fr[i]: i 属于环上哪一个子树
@@ -54,6 +54,7 @@ namespace PntDivide {
         }
         if (mxid == -1) return;
         if (!a[u]) umax(mxDis[u], mxdeps[mxid]);
+        else for (const auto &subtr : subtrs) for (int v : subtr) if (!a[v]) umax(mxDis[v], dep[v]);
         if (mx2id == -1) return;
         for (int i = 0; i < sons.size(); i++) {
             int dis = i == mxid ? mxdeps[mx2id] : mxdeps[mxid];
@@ -126,19 +127,22 @@ int main() {
             g[fa].push_back(i);
             g[i].push_back(fa);
         }
-        
+        For(i, 1, n) scanf("%d", &a[i]);
+
+        memset(value, 0, sizeof(int) * (n+1));
         // Part I: 计算每个白点能到达最远黑点的距离
         //   Part I.1: 先计算树内的
-        memset(value, 0, sizeof(int) * (n+1));
         PntDivide::work1();
         memset(mxDep, -1, sizeof(int) * (t+1));
         For(i, 1, t) depth[i] = 0, dfs1(currentRing = i), mxDepNodes[i].clear();
-        For(i, 1, n) if (a[i] && depth[i] == mxDep[from[i]]) mxDepNodes[from[i]].push_back(i); 
+        For(i, 1, n) if (a[i] && depth[i] == mxDep[from[i]]) mxDepNodes[from[i]].push_back(i);
+        For(i, 1, t) printf("%d%c", mxDep[i], " \n"[i==t]);
+        For(i, 1, n) printf("%d%c", mxDis[i], " \n"[i==n]);
 struct DequeBase{
     bool empty() { return hd > tl; }
     void init(int *_arr) { hd=0, tl=-1, arr=_arr; }
-    void pop() { ++hd; }
     int front() { return q[hd]; }
+    void pop() { ++hd; }
     void chkge(int i) { while (!empty() && front() < i) pop(); }
     void chkle(int i) { while (!empty() && front() > i) pop(); }
 protected: int q[N], *arr, hd, tl;
@@ -170,7 +174,7 @@ static struct DequeNonEQ : public DequeBase {
             covR[i] = {deq.front(), dneq.front()};
             umax(mxExDis[i], disR[i] = arrR[deq.front()] - i);
         }
-        while (!deq.empty() && deq.front() < covR[t])
+        while (!deq.empty() && deq.front() < dneq.front())
             flgR[deq.front()] = true, deq.pop();
         // 再处理往左边走的
         For(i, 1, t) arrL[i] = mxDep[i] + 2*t - i;
@@ -185,11 +189,13 @@ static struct DequeNonEQ : public DequeBase {
             covL[i] = {dneq.front(), deq.front()};
             umax(mxExDis[i], disL[i] = arrL[deq.front()] - (t - i));
         }
-        while (!deq.empty() && deq.front() > covL[1])
+        while (!deq.empty() && deq.front() > dneq.front())
             flgL[deq.front()] = true, deq.pop();
         
         For(i, 1, n) if (!a[i])
             umax(mxDis[i], depth[i] + mxExDis[from[i]]);
+        For(i, 1, t) printf("%d%c", mxDep[i], " \n"[i==t]);
+        For(i, 1, n) printf("%d%c", mxDis[i], " \n"[i==n]);
 
         // Part II:
         PntDivide::work2();
