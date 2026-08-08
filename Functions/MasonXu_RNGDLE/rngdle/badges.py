@@ -1,4 +1,5 @@
 import math
+import random
 from dataclasses import dataclass
 from typing import Callable, List
 
@@ -698,3 +699,105 @@ def have_badge(x: int, y: int) -> bool:
         return False
     return BADGES[y].test(x)
 
+
+# ---------------------------------------------------------------------------
+# Compute exact poss counts at import time for badges that depend only on digit
+# counts. For badges that depend on specific digit positions or substrings, fall
+# back to the original poss value.
+# The total sample space is all 9-digit strings with leading zeros (10**9).
+# ---------------------------------------------------------------------------
+# Preserve original poss values for fallback
+for b in BADGES[1:]:
+    if b is not None:
+        b._raw_poss = getattr(b, 'poss', None)
+
+TOTAL_DIGITS = 9
+_fact = [1]
+for i in range(1, TOTAL_DIGITS + 1):
+    _fact.append(_fact[-1] * i)
+TOTAL_PERMS = 10 ** TOTAL_DIGITS  # 1e9
+
+# generate all compositions of TOTAL_DIGITS into 10 parts
+def _generate_compositions(n, k):
+    if k == 1:
+        yield [n]
+        return
+    for i in range(n + 1):
+        for tail in _generate_compositions(n - i, k - 1):
+            yield [i] + tail
+
+_counts = [0] * len(BADGES)
+_position_dependent = [False] * len(BADGES)
+
+# iterate compositions (C(18,9)=48620)
+for comp in _generate_compositions(TOTAL_DIGITS, 10):
+    # representative number: digits grouped in ascending order
+    rep_str = ''.join(str(d) * comp[d] for d in range(10))
+    rep_x = int(rep_str or '0')
+
+    # multinomial ways = 9! / prod(c!) * 10? Wait: number of distinct permutations of these 9 positions
+    # For each composition, number of sequences = 9! / prod(c!)
+    denom = 1
+    for c in comp:
+        denom *= _fact[c]
+    ways = _fact[TOTAL_DIGITS] // denom
+
+    # prepare one deterministic permutation for position-dependence check
+    digits = []
+    for d in range(10):
+        digits.extend([str(d)] * comp[d])
+
+    for idx in range(1, len(BADGES)):
+        b = BADGES[idx]
+        if b is None or _position_dependent[idx]:
+            continue
+        try:
+            rep_result = b.test(rep_x)
+        except Exception:
+            _position_dependent[idx] = True
+            continue
+
+        # if composition has more than one unique digit, test a shuffled permutation
+        perm_result = rep_result
+        if len(digits) > 1 and len(set(digits)) > 1:
+            seed = 0
+            for i, c in enumerate(comp):
+                seed = seed * 31 + c
+            rnd = random.Random(seed)
+            perm_digits = digits.copy()
+            rnd.shuffle(perm_digits)
+            perm_x = int(''.join(perm_digits))
+            try:
+                perm_result = b.test(perm_x)
+            except Exception:
+                _position_dependent[idx] = True
+                continue
+
+        if perm_result != rep_result:
+            # position-dependent; cannot count via digit-count enumeration
+            _position_dependent[idx] = True
+            _counts[idx] = 0
+            continue
+
+        if rep_result:
+            _counts[idx] += ways
+
+# Apply computed counts where possible; otherwise keep original
+for idx in range(1, len(BADGES)):
+    b = BADGES[idx]
+    if b is None:
+        continue
+    if not _position_dependent[idx] and _counts[idx] > 0:
+        b.poss = _counts[idx]
+    else:
+        b.poss = getattr(b, '_raw_poss', b.poss)
+
+# cleanup
+try:
+    del _fact
+    del _generate_compositions
+    del _counts
+    del _position_dependent
+    del rep_str, rep_x, denom, ways, digits
+except Exception:
+    pass
