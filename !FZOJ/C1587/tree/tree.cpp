@@ -2,21 +2,21 @@
 #define For(i, s, t) for (int i = (s); i <= (t); i++)
 #define roF(i, s, t) for (int i = (s); i >= (t); i--)
 constexpr int N = 200005;
-int n, t, a[N];
-std::vector<int> g[N];
-int from[N]; // fr[i]: i 属于环上哪一个子树
-int trsz[N]; // trsz[i]: 环上第 i 个子树大小
-int depth[N]; // dep[i]: i 在自己的树中的深度 (0-rooted)
-int mxDep[N]; // mxDep[i]: 环上第 i 个子树中最深的黑点的深度
-int mxExDis[N]; // mxExDis[i]: 环上点 i 经过环边到别的子树中黑点的最远距离
-int arrL[N<<1], arrR[N<<1]; // arr: 当前经过等差数列修补的 mxDep
-bool flgL[N<<1], flgR[N<<1]; // flg: 能作为备选贡献的 mxDep
-std::pair<int,int> covR[N], covL[N]; // cov: 在 i 下，能作为备选贡献的 mxDep 为 cov[i].first ~ cov[i].second
-int mxDis[N]; // mxDis[i]: 点 i 能到达最远的黑点的距离
-int disL[N<<1], disR[N<<1];
-int sumL[N<<1], sumR[N<<1];
-int value[N];
-int currentRing;
+static int n, t, a[N];
+static std::vector<int> g[N];
+static int from[N]; // fr[i]: i 属于环上哪一个子树
+static int trsz[N]; // trsz[i]: 环上第 i 个子树大小
+static int depth[N]; // dep[i]: i 在自己的树中的深度 (0-rooted)
+static int mxDep[N]; // mxDep[i]: 环上第 i 个子树中最深的黑点的深度
+static int mxExDis[N]; // mxExDis[i]: 环上点 i 经过环边到别的子树中黑点的最远距离
+static int arrL[N<<1], arrR[N<<1]; // arr: 当前经过等差数列修补的 mxDep
+static bool flgL[N<<1], flgR[N<<1]; // flg: 能作为备选贡献的 mxDep
+static std::pair<int,int> covR[N], covL[N]; // cov: 在 i 下，能作为备选贡献的 mxDep 为 cov[i].first ~ cov[i].second
+static int mxDis[N]; // mxDis[i]: 点 i 能到达最远的黑点的距离
+static int disL[N<<1], disR[N<<1];
+static int sumL[N<<1], sumR[N<<1];
+static int value[N];
+static int currentRing;
 inline void umax(int &x, int y) { if (x < y) x = y; }
 namespace PntDivide {
     bool vis[N];
@@ -55,12 +55,12 @@ namespace PntDivide {
         if (mxid == -1) return;
         if (!a[u]) umax(mxDis[u], mxdeps[mxid]);
         else for (const auto &subtr : subtrs) for (int v : subtr) if (!a[v]) umax(mxDis[v], dep[v]);
-        if (mx2id == -1) return;
-        for (int i = 0; i < sons.size(); i++) {
-            int dis = i == mxid ? mxdeps[mx2id] : mxdeps[mxid];
-            for (int vv : subtrs[i]) if (!a[vv])
-                umax(mxDis[vv], dep[vv] + dis);
-        }
+        if (mx2id != -1)
+            for (int i = 0; i < sons.size(); i++) {
+                int dis = i == mxid ? mxdeps[mx2id] : mxdeps[mxid];
+                for (int vv : subtrs[i]) if (!a[vv])
+                    umax(mxDis[vv], dep[vv] + dis);
+            }
         for (int v : sons) dfs1(v);
     }
     void dfs2(int u) {
@@ -79,17 +79,21 @@ namespace PntDivide {
             else if (mxdep == mx2v) mx2ids.push_back(idx);
             sons.push_back(v), mxdeps.push_back(mxdep);
         }
-        if (mxids.empty()) return;
         int add = 0, add2 = 0; // 在 mxids, mx2ids 上加的整体贡献次数
-        std::vector<bool> subs(sons.size()); // 减去环上某些子树的贡献
+        std::vector<int> subs(sons.size()); // 减去环上某些子树的贡献
+        if (mxids.empty()) return;
+        if (!a[u]) { // 处理根白点到子树黑点
+            if (mxDis[u] == mxv) for (const auto &subtr : subtrs) for (int v : subtr) if (a[v] && dep[v] == mxv) ++value[v];
+        } else { // 处理子树白点到根黑点 
+            for (const auto &subtr : subtrs) for (int v : subtr) if (!a[v] && dep[v] == mxDis[v]) ++value[u];
+        }
         for (int i = 0; i < sons.size(); i++) {
-            int v = sons[i];
             int dis = mxids.size() == 1 && mxv == mxdeps[i] ? mx2v : mxv;
             for (int vv : subtrs[i]) if (!a[vv])
                 if (mxDis[vv] == dep[vv] + dis) {
                     if (mxdeps[i] == mxv) {
                         if (mxids.size() == 1) add2++;
-                        else add++, subs[i] = true;
+                        else add++, subs[i]++; // =1 or ++? to be thought.
                     }
                     else add++;
                 }
@@ -129,22 +133,26 @@ int main() {
         }
         For(i, 1, n) scanf("%d", &a[i]);
 
+        memset(mxExDis, 0, sizeof(int) * (t+1));
+        memset(mxDis, 0, sizeof(int) * (n+1));
         memset(value, 0, sizeof(int) * (n+1));
+        memset(mxDep, -1, sizeof(int) * (t+1));
+        memset(flgL, 0, 2*t+1);
+        memset(flgR, 0, 2*t+1);
+        memset(sumL, 0, sizeof(int) * (2*t+1));
+        memset(sumR, 0, sizeof(int) * (2*t+1));
         // Part I: 计算每个白点能到达最远黑点的距离
         //   Part I.1: 先计算树内的
         PntDivide::work1();
-        memset(mxDep, -1, sizeof(int) * (t+1));
         For(i, 1, t) depth[i] = 0, dfs1(currentRing = i), mxDepNodes[i].clear();
         For(i, 1, n) if (a[i] && depth[i] == mxDep[from[i]]) mxDepNodes[from[i]].push_back(i);
-        For(i, 1, t) printf("%d%c", mxDep[i], " \n"[i==t]);
-        For(i, 1, n) printf("%d%c", mxDis[i], " \n"[i==n]);
 struct DequeBase{
     bool empty() { return hd > tl; }
     void init(int *_arr) { hd=0, tl=-1, arr=_arr; }
     int front() { return q[hd]; }
     void pop() { ++hd; }
-    void chkge(int i) { while (!empty() && front() < i) pop(); }
-    void chkle(int i) { while (!empty() && front() > i) pop(); }
+    void chkgt(int i) { while (!empty() && front() <= i) pop(); }
+    void chklt(int i) { while (!empty() && front() >= i) pop(); }
 protected: int q[N], *arr, hd, tl;
 };
 static struct DequeWithEQ : public DequeBase {
@@ -155,53 +163,61 @@ static struct DequeWithEQ : public DequeBase {
 } deq;
 static struct DequeNonEQ : public DequeBase {
     void push(int i) {
-        while (hd <= tl && arr[i] > arr[q[tl]]) --tl;
+        while (hd <= tl && arr[i] >= arr[q[tl]]) --tl;
         q[++tl] = i;
     }
 } dneq;
+        // 先处理往右边走的
         For(i, 1, t) arrR[i] = mxDep[i] + i;
         For(i, t+1, 2*t) arrR[i] = mxDep[i-t] + i;
-        memset(flgL, 0, 2*t+1);
-        memset(flgR, 0, 2*t+1);
-        // 先处理往右边走的
-        int range = (t-1)/2; // 最多走这么多条环边
+        int range = t/2; // 最多走这么多条环边
+        // printf("Dealing with right: %d\n",  range);
         deq.init(arrR); dneq.init(arrR);
         For(i, 1, range) deq.push(i), dneq.push(i);
-        For(i, 1, t) { // 处理跨树（经过环边）
-            deq.chkge(i), dneq.chkge(i);
+        For(i, 1, t) if (~mxDep[i]) { // 处理跨树（经过环边）
+            deq.chkgt(i), dneq.chkgt(i);
             deq.push(i+range), dneq.push(i+range);
             flgR[deq.front()] = true;
             covR[i] = {deq.front(), dneq.front()};
             umax(mxExDis[i], disR[i] = arrR[deq.front()] - i);
         }
-        while (!deq.empty() && deq.front() < dneq.front())
+        while (!deq.empty() && deq.front() <= dneq.front())
             flgR[deq.front()] = true, deq.pop();
         // 再处理往左边走的
         For(i, 1, t) arrL[i] = mxDep[i] + 2*t - i;
         For(i, t+1, 2*t) arrL[i] = mxDep[i-t] + 2*t - i;
-        range = t/2 - 1;
+        range = (t-1)/2;
+        // printf("Dealing with left: %d\n",  range);
         deq.init(arrL), dneq.init(arrL);
         roF(i, 2*t, 2*t - range + 1) deq.push(i), dneq.push(i);
-        roF(i, t, 1) {
-            deq.chkle(i+t), dneq.chkle(i+t);
+        roF(i, t, 1) if (~mxDep[i]) {
+            deq.chklt(i+t), dneq.chklt(i+t);
             deq.push(i+t-range), dneq.push(i+t-range);
             flgL[deq.front()] = true;
             covL[i] = {dneq.front(), deq.front()};
             umax(mxExDis[i], disL[i] = arrL[deq.front()] - (t - i));
         }
-        while (!deq.empty() && deq.front() > dneq.front())
+        while (!deq.empty() && deq.front() >= dneq.front())
             flgL[deq.front()] = true, deq.pop();
         
         For(i, 1, n) if (!a[i])
             umax(mxDis[i], depth[i] + mxExDis[from[i]]);
-        For(i, 1, t) printf("%d%c", mxDep[i], " \n"[i==t]);
-        For(i, 1, n) printf("%d%c", mxDis[i], " \n"[i==n]);
+#ifdef DEBUG
+        printf("MxDep: "); For(i, 1, t) printf("%d%c", mxDep[i], " \n"[i==t]);
+        printf("MxExDis: "); For(i, 1, t) printf("%d%c", mxExDis[i], " \n"[i==t]);
+        printf("MxDis: "); For(i, 1, n) printf("%d%c", mxDis[i], " \n"[i==n]);
+        printf("Lflg: "); For(i, 1, 2*t) printf("%d%c", (int)flgL[i], " \n"[i==2*t]);
+        printf("Lrg: "); For(i, 1, t) printf("[%d,%d]%c", (covL[i].first-1)%t+1, (covL[i].second-1)%t+1, " \n"[i==t]);
+        printf("Rflg: "); For(i, 1, 2*t) printf("%d%c", (int)flgR[i], " \n"[i==2*t]);
+        printf("Rrg: "); For(i, 1, t) printf("[%d,%d]%c", (covR[i].first-1)%t+1, (covR[i].second-1)%t+1, " \n"[i==t]);
+#endif
 
         // Part II:
         PntDivide::work2();
-        For(i, 1, t) {
-            if (disL[i] == mxDis[i]) ++sumL[covL[i].first], --sumL[covL[i].second+1];
-            if (disR[i] == mxDis[i]) ++sumR[covR[i].first], --sumR[covR[i].second+1];
+        // printf("After Point Divide Value: "); For(i, 1, n) printf("%d%c", value[i], " \n"[i==n]);
+        For(i, 1, n) if (!a[i]) {
+            if (disL[from[i]] + depth[i] == mxDis[i]) ++sumL[covL[from[i]].first], --sumL[covL[from[i]].second+1];
+            if (disR[from[i]] + depth[i] == mxDis[i]) ++sumR[covR[from[i]].first], --sumR[covR[from[i]].second+1];
         }
         For(i, 1, 2*t) {
             sumL[i] += sumL[i-1], sumR[i] += sumR[i-1];
@@ -209,7 +225,14 @@ static struct DequeNonEQ : public DequeBase {
             if (flgL[i]) for (int v : mxDepNodes[u]) value[v] += sumL[i];
             if (flgR[i]) for (int v : mxDepNodes[u]) value[v] += sumR[i];
         }
-        
+#ifdef DEBUG
+        printf("disL: "); For(i, 1, t) printf("%d%c", disL[i], " \n"[i==t]);
+        printf("disR: "); For(i, 1, t) printf("%d%c", disR[i], " \n"[i==t]);
+        printf("sumL: "); For(i, 1, 2*t) printf("%d%c", sumL[i], " \n"[i==2*t]);
+        printf("sumR: "); For(i, 1, 2*t) printf("%d%c", sumR[i], " \n"[i==2*t]);
+        printf("Final Value: "); For(i, 1, n) printf("%d%c", value[i], " \n"[i==n]);
+#endif
+
         printf("%d\n", *std::max_element(value+1, value+1+n));
     }
     return 0;
