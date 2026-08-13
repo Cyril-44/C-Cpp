@@ -1,3 +1,69 @@
+我将会给你一道 OI 题的题面，我的思路，代码以及错误数据。帮我查一查，这份代码中有什么核心逻辑上的问题导致输出的答案不正确。不考虑鲁棒性方面的内容。
+```markdown
+## Tree 题意
+
+给定一个基环树：
+
+* 环大小为 (t)，环节点编号 (1\sim t)，按顺序组成环。
+* 其余节点 (t+1\sim n)，每个节点有父亲 (f_i)，且 (f_i<i)。
+* 两点距离定义为环上的最短路径距离。
+* 每个点黑/白。
+
+删除一个黑点 (x)。
+
+对于一个白点 (y)：
+
+如果 (x) 是距离 (y) 最远的黑点之一：
+
+[
+dist(x,y)=\max_{黑点 z} dist(z,y)
+]
+
+那么 (y) 给 (x) 贡献 1。
+
+要求：
+
+[
+\max_x \sum_{白点 y}[x\text{ 是 }y\text{的最远黑点}]
+]
+
+输出这个最大贡献。
+
+---
+
+## 样例输入
+```
+#1
+1
+6 3
+3 4 2
+1 0 0 1 0 1
+```
+
+## 样例输出
+```
+#1
+2
+```
+
+## 样例解释
+
+无
+
+---
+
+## 数据范围（Hint）
+
+| 测试点编号 | $n \le$        | $t$      |
+|-----------|----------------|----------|
+| 1 ~ 2     | $10^3$         | $\le n$  |
+| 3 ~ 5     | $2 \times 10^5$ | $=1$     |
+| 6 ~ 7     | $2 \times 10^5$ | $\le 50$ |
+| 8 ~ 10    | $2 \times 10^5$ | $\le n$  |
+```
+思路：对于每个白点，将其对应的最远的黑点们 value += 1，取 max 黑点 value 即为答案。
+代码：
+```cpp
 #include <bits/stdc++.h>
 #define For(i, s, t) for (int i = (s); i <= (t); i++)
 #define roF(i, s, t) for (int i = (s); i >= (t); i--)
@@ -55,12 +121,12 @@ namespace PntDivide {
         if (mxid == -1) return;
         if (!a[u]) umax(mxDis[u], mxdeps[mxid]);
         else for (const auto &subtr : subtrs) for (int v : subtr) if (!a[v]) umax(mxDis[v], dep[v]);
-        if (mx2id != -1)
-            for (int i = 0; i < sons.size(); i++) {
-                int dis = i == mxid ? mxdeps[mx2id] : mxdeps[mxid];
-                for (int vv : subtrs[i]) if (!a[vv])
-                    umax(mxDis[vv], dep[vv] + dis);
-            }
+        if (mx2id == -1) return;
+        for (int i = 0; i < sons.size(); i++) {
+            int dis = i == mxid ? mxdeps[mx2id] : mxdeps[mxid];
+            for (int vv : subtrs[i]) if (!a[vv])
+                umax(mxDis[vv], dep[vv] + dis);
+        }
         for (int v : sons) dfs1(v);
     }
     void dfs2(int u) {
@@ -79,13 +145,11 @@ namespace PntDivide {
             else if (mxdep == mx2v) mx2ids.push_back(idx);
             sons.push_back(v), mxdeps.push_back(mxdep);
         }
+        if (mxids.empty()) return;
         int add = 0, add2 = 0; // 在 mxids, mx2ids 上加的整体贡献次数
         std::vector<int> subs(sons.size()); // 减去环上某些子树的贡献
-        if (mxids.empty()) return;
-        if (!a[u]) { // 处理根白点到子树黑点
-            if (mxDis[u] == mxv) for (const auto &subtr : subtrs) for (int v : subtr) if (a[v] && dep[v] == mxv) ++value[v];
-        } else { // 处理子树白点到根黑点 
-            for (const auto &subtr : subtrs) for (int v : subtr) if (!a[v] && dep[v] == mxDis[v]) ++value[u];
+        if (a[u]) { // 处理子树白点到根黑点 
+            for (const auto &subtr : subtrs) for (int v : subtr) if (dep[v] == mxDis[v]) ++value[u];
         }
         for (int i = 0; i < sons.size(); i++) {
             int dis = mxids.size() == 1 && mxv == mxdeps[i] ? mx2v : mxv;
@@ -93,7 +157,7 @@ namespace PntDivide {
                 if (mxDis[vv] == dep[vv] + dis) {
                     if (mxdeps[i] == mxv) {
                         if (mxids.size() == 1) add2++;
-                        else add++, subs[i]++; // =1 or ++? to be thought.
+                        else add++, subs[i]++;
                     }
                     else add++;
                 }
@@ -146,6 +210,7 @@ int main() {
         PntDivide::work1();
         For(i, 1, t) depth[i] = 0, dfs1(currentRing = i), mxDepNodes[i].clear();
         For(i, 1, n) if (a[i] && depth[i] == mxDep[from[i]]) mxDepNodes[from[i]].push_back(i);
+        For(i, 1, t) if (mxDep[i] == -1) mxDep[i] = 0x80000000;
 struct DequeBase{
     bool empty() { return hd > tl; }
     void init(int *_arr) { hd=0, tl=-1, arr=_arr; }
@@ -174,7 +239,7 @@ static struct DequeNonEQ : public DequeBase {
         // printf("Dealing with right: %d\n",  range);
         deq.init(arrR); dneq.init(arrR);
         For(i, 1, range) deq.push(i), dneq.push(i);
-        For(i, 1, t) if (~mxDep[i]) { // 处理跨树（经过环边）
+        For(i, 1, t) { // 处理跨树（经过环边）
             deq.chkgt(i), dneq.chkgt(i);
             deq.push(i+range), dneq.push(i+range);
             flgR[deq.front()] = true;
@@ -190,7 +255,7 @@ static struct DequeNonEQ : public DequeBase {
         // printf("Dealing with left: %d\n",  range);
         deq.init(arrL), dneq.init(arrL);
         roF(i, 2*t, 2*t - range + 1) deq.push(i), dneq.push(i);
-        roF(i, t, 1) if (~mxDep[i]) {
+        roF(i, t, 1) {
             deq.chklt(i+t), dneq.chklt(i+t);
             deq.push(i+t-range), dneq.push(i+t-range);
             flgL[deq.front()] = true;
@@ -237,3 +302,16 @@ static struct DequeNonEQ : public DequeBase {
     }
     return 0;
 }
+
+```
+
+Hack 样例：
+```
+1
+20 8
+1 9 9 9 11 13 4 11 10 14 17 15
+0 0 1 1 1 0 0 1 0 0 1 0 1 0 0 0 1 1 1 0
+```
+正确答案：6
+我的答案：5
+有一个很关键的信息，就是当我的程序处理，仅对于单颗树的情况时，会输出更大的数值。也就是我的点分治大概率错了
