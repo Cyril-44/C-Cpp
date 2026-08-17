@@ -9,3 +9,4 @@ Default.code-workspace
 .hmcl.json
 .hmcl/
 .clangd
+typst-x86_64-unknown-linux-musl/
