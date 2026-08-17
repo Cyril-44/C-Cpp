@@ -3,19 +3,19 @@
 
 #show: swufe-theme.with(
   aspect-ratio: "16-9",
-  lang: "zh", // ""en" for English, "zh" for Chinese
-  font: ("Times New Roman"),
+  lang: "en", // ""en" for English, "zh" for Chinese
+  font: ((name: "Palatino Linotype", covers: "latin-in-cjk"), "SimSun-ExtB"),
 
   // Basic information
   config-info(
-    title: [Typst Slide Theme for Southwest University of Finance and Economics Based on Touying],
-    subtitle: [基于Touying的西南财经大学Typst幻灯片模板],
-    short-title: [Typst Slide Theme for SWUFE Based on Touying],
-    authors: [雷超#super("1"), Lei Chao#super("1,2")],
-    author: [Presenter: Lei Chao],
+    title: [2026.8 讲题],
+    subtitle: [DS 专题选讲],
+    short-title: [2026.8 讲题],
+    authors: [Cyril],
+    author: [Presenter: Cyril],
     date: datetime.today(),
-    institution: ([#super("1")金融学院 西南财经大学], [#super("2")西南财经大学]),
-    // banner: #image("custom-image.png")
+    institution: ([安徽师范大学附属中学]),
+    banner: ""
   ),
 
   config-colors(
@@ -23,36 +23,41 @@
     primary-dark: rgb(0, 42, 70),
     secondary: rgb(255, 255, 255),
     neutral-lightest: rgb(255, 255, 255),
-    neutral-darkest: rgb(0, 0, 0),
+    neutral-darkest: rgb(0, 0, 0)
   ),
 )
+
 #title-slide()
 
 #outline-slide()
 
-= The section I
+= CF2182G
 
-== Slide I / i
+== Statement
 
-- Slide content.
-  - content point 1
-  - content point 2
-- Slide content.
+=== #link("https://www.luogu.com.cn/problem/CF2182G")[CF2182G]
+
+给定一颗 $n$ 个节点的树。
+
+定义一个好的排列为，将排列首尾相接成环后，相邻点的距离不超过 $k$.
+
+计算好的 DFS 序的个数。
+
+$k < n <= 3 times 10^5$.
 
 == Slide I / ii
 
 Slide content.
+$
+  f_i &=2 \
+#pause
+  &=3
+$
 
-= The section II
+= CF1572F
 
-== Slide II / i
-- Insert figure
-```typst
-#figure(
-  image("fig.png", width: auto, height: 80%),
-  caption: [Example Figure],
-)
-```
+== Statement
+
 
 
 == Slide II / ii
@@ -74,6 +79,5 @@ Slide content.
   caption: "Example Table",
 )
 
-= Last Section
-==
+= Conclusion
 #ending-slide("Thank You!")
