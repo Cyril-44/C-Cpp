@@ -23,8 +23,8 @@
   ),
 
   config-colors(
-    primary: rgb(1, 83, 139),
-    primary-dark: rgb(0, 42, 70),
+    primary: rgb("#8b0101"),
+    primary-dark: rgb("#460000"),
     secondary: rgb(255, 255, 255),
     neutral-lightest: rgb(255, 255, 255),
     neutral-darkest: rgb(0, 0, 0)
@@ -137,7 +137,7 @@ $n, q, g <= 2 times 10^ 5$.
 
 #strong[强制在线。]$n, m, q <= 2 times 10^5, 1 <= a_i, c <= n, 0 <= "A","B","C","D" < 2^32, 0 <= V_(i j) < 2^8$. 
 
-= LG P12845
+= LG P12485
 
 == Statement
 
