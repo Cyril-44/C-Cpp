@@ -9,12 +9,12 @@ mkdir -p "$OUTDIR"
 # cnt[i][j] = Subtask i, mode j 要生成多少个
 cnt=(
     "0 0 0 0 0"   # 占位：从下标1开始
-    "3 2 1 0 0"   # Subtask 1
-    "5 5 5 5 5"   # Subtask 2
+    "2 2 1 0 0"   # Subtask 1
+    "2 2 2 2 2"   # Subtask 2
     "2 2 2 2 2"   # Subtask 3
-    "4 4 4 4 4"   # Subtask 4
+    "2 2 2 2 2"   # Subtask 4
     "1 1 1 1 1"   # Subtask 5
-    "6 6 6 6 6"   # Subtask 6
+    "2 2 2 2 2"   # Subtask 6
 )
 
 # 可选：为不同 subtask 设置默认 n
