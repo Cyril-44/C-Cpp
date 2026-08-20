@@ -62,6 +62,7 @@
 			"args": [
 				"-std=c++17",
 				"-g2",
+				"-fsanitize=undefined",
 				// "-O2",
 				"${file}",
 				"-o",
@@ -83,7 +84,7 @@
 				"-Wall",
 				"-fdiagnostics-color=always",
 				"-I${workspaceFolder}",
-				"-g",
+				// "-g",
 				"-O2", 
 				"${file}",
 				"-o",

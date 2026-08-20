@@ -18,7 +18,7 @@ struct BIT2 {
     uint64_t sum(int p) const { return (p+1ull) * bit.sum(p) - biti.sum(p); }
     uint64_t sum(int l, int r) const { return sum(r) - sum(l-1); }
 } fs;
-Pii ranges[N], ufidx[N];
+Pii ranges[N+4], ufidx[N+4];
 int rangeTop = 0;
 int Mid;
 struct UFS { // Union Find Set
@@ -41,7 +41,7 @@ class CatTr {
     struct Node { // 优先队列里面的二元组 (v, i) 存的是当前端点为 v 的并查集代表 i
         std::priority_queue<Pii, std::vector<Pii>, std::greater<Pii>> ls;
         std::priority_queue<Pii> rs;
-    } tr[N << 2];
+    } tr[N + 4 << 2];
     int idx, mL, mR, uL, uR;
     void ins(int u, int l, int r) { // 插入第 idx 个区间 [mL, mR]
         int mid = l + r >> 1;
@@ -63,7 +63,7 @@ class CatTr {
             Mid = mid; // 帮助在 merge 的时候清理僵尸点
             while (!tr[u].ls.empty()) {
                 auto [v, j] = tr[u].ls.top();
-                if (v >= uL) break;
+                if (v > uL) break;
                 tr[u].ls.pop();
                 if (!uf.sz[j]) continue;
                 fs.upd(v, uL, -uf.sz[j]);
@@ -72,7 +72,7 @@ class CatTr {
             }
             while (!tr[u].rs.empty()) {
                 auto [v, j] = tr[u].rs.top();
-                if (v <= uR) break;
+                if (v < uR) break;
                 tr[u].rs.pop();
                 if (!uf.sz[j]) continue;
                 fs.upd(uR, v, -uf.sz[j]);
@@ -85,16 +85,16 @@ class CatTr {
             upd(u<<1|1, mid+1, r);
         } else {
             auto downgrade = [&](int i) { // 将区间 i 与 [uL, uR] 取并同时降级到下面的分治区间
-                if (ranges[i].L > mid || mid > ranges[i].R) return;
+                if (ranges[i].L > mid || mid >= ranges[i].R) return;
                 int rtidxl = uf.find(ufidx[i].L), rtidxr = uf.find(ufidx[i].R);
                 --uf.sz[rtidxl], --uf.sz[rtidxr];
+                // fprintf(stderr, "[%d, %d] -> ", ranges[i].L, ranges[i].R);
                 ranges[i] = {uf.pnt[rtidxl], uf.pnt[rtidxr]};
-                // assert(ranges[i].L <= ranges[i].R);
                 fs.upd(ranges[i].L, ranges[i].R, -1);
                 // fprintf(stderr, "[%d, %d] -> ", ranges[i].L, ranges[i].R);
                 ranges[i] = {std::max(ranges[i].L, uL), std::min(ranges[i].R, uR)};
                 // fprintf(stderr, "[%d, %d]\n", ranges[i].L, ranges[i].R);
-                // assert(ranges[i].L <= ranges[i].R);
+                assert(ranges[i].L <= ranges[i].R);
                 insert(i);
             };
             if (uR <= mid) {
@@ -120,7 +120,7 @@ class CatTr {
     }
 public:
     void insert(int i) { if (ranges[i].L != ranges[i].R) idx = i, mL = ranges[i].L, mR = ranges[i].R, ins(1, 1, N); }
-    void intersect(int l, int r) { if (l != r) uL = l, uR = r, upd(1, 1, N); }
+    void intersect(int l, int r) { uL = l, uR = r, upd(1, 1, N); }
 } f;
 int main() {
     int q, type, last = 0;
@@ -141,7 +141,7 @@ int main() {
             printf("%llu\n", ans);
             last = ans % 200001;
         }
-        if (q % 100 == 0) fprintf(stderr, "%d left\n", q / 100), fflush(stderr);
+        // if (q % 1000 == 0) fprintf(stderr, "%d left\n", q), fflush(stderr);
     }
     return 0;
 }
