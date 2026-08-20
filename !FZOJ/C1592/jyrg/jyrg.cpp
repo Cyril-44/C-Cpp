@@ -6,7 +6,7 @@ std::pair<int64_t,int> b[N];
 int64_t a[N];
 int n;
 class Seg {
-    int64_t mx[N], add[N];
+    int64_t mx[N << 2], add[N << 2];
     int L, R, P; int64_t X;
     void pushup(int u) {
         mx[u] = std::max(mx[u<<1], mx[u<<1|1]);

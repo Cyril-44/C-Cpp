@@ -83,7 +83,7 @@
 				"-Wall",
 				"-fdiagnostics-color=always",
 				"-I${workspaceFolder}",
-				"-g1",
+				"-g",
 				"-O2", 
 				"${file}",
 				"-o",
