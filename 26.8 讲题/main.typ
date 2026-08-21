@@ -1,7 +1,7 @@
 #import "@preview/touying-simpl-swufe:0.2.1": *
 #import "@preview/cuti:0.4.0": show-cn-fakebold
 #show: show-cn-fakebold
-#let show_sol = sys.inputs.at("sol", default: "false") == "true"
+#let show_sol = sys.inputs.at("preview", default: false) != "true"
 #let pause = if sys.inputs.at("no-pause", default: false) == "true" { 
   [] 
 } else { 
@@ -39,8 +39,6 @@
 #title-slide()
 
 == Abstract
-
-#let show_sol = true
 
 #if show_sol [
 这是一份 DS 选讲题单。可能涵盖了线段树、树链剖分、分块等数据结构。
