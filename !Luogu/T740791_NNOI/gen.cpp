@@ -97,14 +97,14 @@ int main(int argc, char ** argv) {
         ops = gen_ops(n,m,true);
     }
     else if (tp == 3) {
-        n = randint(990,1000);
-        m = randint(990,1000);
+        n = randint(999990,1000000);
+        m = randint(999990,1000000);
         a = gen_by_mode(n, pick_mode(5));
         ops = gen_ops(n,m,false);  // no swap
     }
     else if (tp == 4) {
-        n = randint(990,1000);
-        m = randint(990,1000);
+        n = randint(999990,1000000);
+        m = randint(999990,1000000);
         a = gen_by_mode(n, pick_mode(5));
         // force a[0] = 0
         int pos = find(a.begin(), a.end(), 0) - a.begin();
