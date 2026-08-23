@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 g++ std.cpp -o std -O2
-g++ gen.cpp -o gen -O2 -I/home/cyril/code/testlib
-g++ val.cpp -o val -O2 -I/home/cyril/code/testlib
+g++ gen.cpp -o gen -O2 -I/home/cyril/code/testlib -I/home/cyril/C-Cpp
+g++ val.cpp -o val -O2 -I/home/cyril/code/testlib -I/home/cyril/C-Cpp
 OUTDIR=data
 SAMP_DIR=samples
 rm -rf "$OUTDIR" "$SAMP_DIR"
@@ -10,11 +10,11 @@ mkdir -p "$OUTDIR" "$SAMP_DIR"
 
 # 定义 5 个 sub
 subs=(
-    "1:1,2,3,4,4,5,-1,-1"
-    "2:1,2,3,4,4,4,4,4,4,5,-1,-1"
-    "3:1,2,3,4,4,4,4,5,-1,-1"
-    "4:1,2,3,4,4,4,4,5,-1,-1"
-    "5:1,2,3,4,4,4,4,5,-1,-1"
+    "1:-1,-1"
+    "2:4,4,-1,-1"
+    "3:4,4,-1,-1"
+    "4:4,4,4,-1,-1"
+    "5:4,4,4,-1,-1"
 )
 
 idx=1
