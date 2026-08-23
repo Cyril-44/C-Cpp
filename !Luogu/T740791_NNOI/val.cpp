@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
             // You can enforce: all op_type == 2
             // But since we already read them, we need to re-read or store ops.
             // For simplicity, require n,m <= 1000 (like sample)
-            ensuref(n <= 1000 && m <= 1000, "sub3 requires n,m <= 1000");
+            ensuref(n <= 1000000 && m <= 1000000, "sub3 requires n,m <= 1000");
             break;
 
         case 4:
