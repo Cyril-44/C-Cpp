@@ -405,22 +405,37 @@ $n,q <= 2 times 10^5, a_i, v <= 10^12$
 $2<=n<=10^5, q<=10^5$.
 
 #if show_sol [
-#figure(
-  table(
-    columns: (1fr, 1fr, 1fr),
-    stroke: none,
-    align: center + horizon,
-    inset: .5em,
-    table.hline(stroke: 2pt),
-    [Name], [Age], [Major],
-    table.hline(stroke: 1pt),
-    [Zhang San], [23], [Finance],
-    [Li Si], [22], [Economics],
-    [Wang Wu], [24], [Accounting],
-    table.hline(stroke: 2pt),
-  ),
-  caption: "Example Table",
-)
+
+== Solution
+本题 \*35000. 不开玩笑。#pause
+
+令 $b_i = cases(-1 &"if" a_i < n+1, 0 &"if" a_i = n+1, 1 &"if" a_i > n+1)$, $"s"b_i=limits(sum)_(j=1)^i b_j$, 我们考虑一个 $forall "s"b_i >= 0$ 的循环移位，证明：$ forall "s"b_i >= 0 and |"LIS"| > n ==> n+1 in "LIS" $ #pause
+考虑反证。由条件可得选中的 $"LIS"$ 对应的 $b_i$ 集合有 $x$ 个 $-1$ 和 $y$ 个 $1$, \
+且 $x+y >= n+1$. 考虑最优情况选中 $b$ 最靠前的 $x$ 个 $-1$ 和最靠后的 $y$ 个 $1$. \ #pause
+$because y >= n-x+1, therefore$ 第 $n - (n-x+1) + 1$ 个 $1$ 对应的 $a_i$ 一定在 $"LIS"$ 中。\
+又 $because forall "s"b_i >= 0, therefore$ 第 $x$ 个 $1$ 一定出现在第 $x$ 个 $-1$ 之前。但是我们刚刚说明第 $x$ 个 $-1$ 和 $1$ 都在 $"LIS"$ 中，由 $"LIS"$ 性质可得第 $x$ 个 $1$ 一定在第 $x$ 个 $-1$ 之后。矛盾，$qed$.\ #pause
+所以我们证明了这样的移位 $"LIS"$ 对应的 $b_i$ 一定形如 $\{underbrace(-1\, dots\, -1, x), 0, underbrace(1\, dots\, 1, y)\}$ \
+满足 $x+y >= n ==> y >= n-x$. 后面至少有 $n-x$ 个 $1 ==> $ 前面至多 $x$ 个 $1$. #pagebreak()
+后面至少有 $n-x$ 个 $1 ==> $ 前面至多 $x$ 个 $1$. 但是前面有 $x$ 个 $-1$, 又根据 $forall b_i >= 0$ 我们能够知道前面至少有 $x$ 个 $1$, 所以事实上就是前面有 $x$ 个 $-1$ 和 $1$, 后面有 $n-x$ 个 $-1$ 和 $1$. 我们就得到了优美的 $"LIS"$ 形式。
+
+然后我们再考虑将这种优美的移位修正到 $n+1$ 为首项和 $n+1$ 为末项。此时由刚刚证得的结论，知道 $"LIS"$ 为别为 ${n+1, n+2, dots, 2n+1}$ 和 ${1, 2, dots, n+1}$.
+
+现在我们尝试证明，只要满足 $exists |"LIS"| > n, forall "s"b_i >= 0$ 且 $n+1$ 移位至最前和最后的时候能得到上述 $"LIS"$
+, 那么任何一种循环移位都无解。\
+构造证明，只需要取 $b_i=0$、$i$ 前面所有的 $-1$ 和 $i$ 后面所有的 $1$ 的位置（这些位置肯定是递增的），构成的 $"IS"$ 长度就是 $>n$ 的。\ #pagebreak()
+
+现在梳理一下流程：
++ 判断 $n+1$ 在最前面的移位是否 $forall "s"b_i >= 0$. 否：输出一个 $forall "s"b_i >= 0$ 的移位。\ #pause
+  考虑反证法证明构造正确性，如果其 $"LIS" > n$ 必然包含 $n+1$, 则可以移位之后说明 $n+1$ 在最前面的时候也有 $forall "s"b_i >= 0$, 矛盾，$qed$. #pause
++ 判断 $n+1$ 移位到首的时候 $"LIS"$ 是否为 $n+1~2n+1$. 否：输出当前移位。
++ 判断 $n+1$ 移位到末的时候 $"LIS"$ 是否为 $1~n+1$. 否：输出当前移位。#pause
+
+第 1 步可以破环成链，然后判断 $"s"b_1$ 是否为 $"s"b_(1~2n+1)$ 中的最小值即可。构造直接取全局最小的 $"s"b_i$ 点就行了，后面肯定有保证 $"s"b_i >= 0$ 的。#pause
+
+第 2、3 步可以维护 $1~n+1$ 和 $n+1~2n+1$ 两个环，每两个点之间距离的和。如果距离之和刚好等于单环长 $2n+1$，那么就是满的 $"LIS"$。
+
+此题终了。
+
 ]
 
 #ending-slide("Thank You!")
