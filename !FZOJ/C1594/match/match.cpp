@@ -35,15 +35,12 @@ struct Treap {
         auto [ul, tp] = split(rt, l - 1);
         auto [u, ur] = split(tp, r - l + 1);
         if (l == r) {
-            if (!tr[u].val) {
-                tr[u].val = 1;
-            }
+            tr[u].val = 1;
             rt = merge(merge(ul, u), ur);
         } else {
-            auto [u1, utp] = split(u, 1);
-            auto [u2, u3] = split(utp, r - l - 1);
-            tr[u3].val = 1;
-            rt = merge(merge(ul, u3), merge(merge(u1, u2), ur));
+            auto [u1, u2] = split(u, r - l);
+            tr[u2].val = 1;
+            rt = merge(merge(ul, u2), merge(u1, ur));
         }
     }
     int ans = 0;
@@ -51,6 +48,7 @@ struct Treap {
         if (!u) return;
         fetch(tr[u].ls);
         ans += tr[u].val;
+        printf("%d ", ans);
         fetch(tr[u].rs);
     }
     void print() { ans = 0; fetch(rt); printf("%d\n", ans); }
@@ -62,6 +60,7 @@ int main() {
     for (int i = 1, l, r; i <= n; i++) {
         scanf("%d%d", &l, &r);
         f.operate(l, r);
+        f.print();
     }
     f.print();
     return 0;
