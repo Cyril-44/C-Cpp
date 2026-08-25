@@ -42,6 +42,7 @@ int main() {
     scanf("%d", &n);
     For(i, 1, n) For(j, 1, n+1) scanf("%d", &x), m[i][j] = x;
     switch (guassElim(m, ans, n)) {
+        guassElim(double (*m)[105], double *ans, int n)
         case 1: For(i, 1, n) printf("x%d=%.2lf\n", i, ans[i]); break;
         case 0: puts("0"); break;
         case -1: puts("-1"); break;
