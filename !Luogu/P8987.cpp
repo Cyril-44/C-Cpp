@@ -21,7 +21,7 @@ struct ConvexHull { // Up Convex Hull, Maintaining min
     struct Line {
         int64_t k, b;
         int64_t operator()(int64_t x) const { return k * x + b; }
-        int64_t intersect(const Line &l) const { return (l.b - b) / (k - l.k); }
+        int64_t intersect(const Line &l) const { return (b - l.b) / (l.k - k); }
     } l[N];
     int64_t cuts[N];
     int top, cur;
@@ -40,9 +40,10 @@ struct ConvexHull { // Up Convex Hull, Maintaining min
     void init() { top = 0, cur = 1; }
 } minch;
 void search(int l, int r, int il, int ir) {
+    if (il > ir) return;
     if (l == r) {
         for (int i = il; i <= ir; i++)
-            swt[l].push_back(i);
+            swt[l].push_back(idxs[i]);
         return;
     }
     int mid = l + r >> 1;
@@ -51,11 +52,12 @@ void search(int l, int r, int il, int ir) {
         minch.add({-b[j], v[j]});
     int lidx = il, ridx = ir;
     for (int i = il; i <= ir; i++)
-        if (a[i] >= minch.inquire(i))
-            _idxs[lidx++] = i;
+        if (a[idxs[i]] >= minch.inquire(idxs[i]))
+            _idxs[lidx++] = idxs[i];
         else
-            _idxs[ridx--] = i;
-    std::reverse(_idxs+lidx, _idxs+ir+1);
+            _idxs[ridx--] = idxs[i];
+    std::copy(_idxs+il, _idxs+lidx, idxs+il);
+    std::reverse_copy(_idxs+lidx, _idxs+ir+1, idxs+lidx);
     search(l, mid, il, ridx);
     search(mid+1, r, lidx, ir);
 }
@@ -73,6 +75,7 @@ class SegTr {
         int minpos, maxpos; // 事实上 minmax 就是最前面和最后面的有效位置
         int add = 0; // 区间 +i 加了几次
         void pull(int64_t c, int a) {
+            if (cnt == 0) return; // 他妈的这个要注意 操了
             if (c != -1) {
                 cov = c, add = 0;
                 sum = 1ll * c * cnt;
@@ -100,7 +103,7 @@ class SegTr {
     }
     int L, R, P; int64_t X;
     void upd1(int u, int l, int r) { // 将 a_P 放进线段树
-        if (l == r) { tr[u] = {.sum=X, .val=l, .min=X, .max=X, .cov=-1, .cnt=1, .minpos=l, .maxpos=l, .add=0}; return; }
+        if (l == r) { tr[u].sum = tr[u].min = tr[u].max = X, tr[u].val = l, tr[u].cnt = 1; return; }
         int mid = l + r >> 1; pushdown(u);
         P <= mid ? upd1(u<<1, l, mid) : upd1(u<<1|1, mid+1, r);
         pushup(u);
@@ -109,7 +112,7 @@ class SegTr {
         if (tr[u].max <= X) return;
         if (tr[u].min > X) return tr[u].pull(X, 0);
         int mid = l + r >> 1; pushdown(u);
-        upd2(u<<1, l, mid); upd2(u<<1|2, mid+1, r);
+        upd2(u<<1, l, mid); upd2(u<<1|1, mid+1, r);
         pushup(u);
     }
     int64_t inq(int u, int l, int r) {
@@ -127,7 +130,18 @@ public:
     }
     void put(int pos, int64_t x) { P=pos, X=x; upd1(1, 1, n); }
     void update(int cnt) { tr[1].pull(-1, cnt); }
+    void chkmin(int64_t v) { X=v; upd2(1, 1, n); }
     int64_t inquire(int l, int r) { L=l, R=r; return inq(1, 1, n); }
+    void print(int u=1, int l=1, int r=n) {
+        if (l == r) fprintf(stderr, "%lld ", tr[u].sum);
+        else {
+            // fprintf(stderr, "{u=%d[%d~%d], %lld, %lld, [%lld, %lld], [%d, %d], %d}\n", u, l, r, tr[u].sum, tr[u].val, tr[u].min, tr[u].max, tr[u].minpos, tr[u].maxpos, tr[u].cnt);
+            pushdown(u);
+            int mid = l + r >> 1;
+            print(u<<1, l, mid);
+            print(u<<1|1, mid+1, r);
+        }
+    }
 } fs2;
 int main() {
     int q;
@@ -147,21 +161,32 @@ int main() {
         }
     }
     std::iota(idxs+1, idxs+1+n, 1);
-    search(1, n, 1, n);
+    for (int i = 1; i <= tm; i++) b[i] += b[i-1];
+    search(0, tm, 1, n);
     for (int i = 1; i <= n; i++)
         fs1base.upd(i, a[i]), fs1add.upd(i, i);
     curb = 0;
-    for (int i = 0; i < tm; i++) {
+    fs2.build();
+    for (int i = 0; i <= tm; i++) {
+        // fprintf(stderr, "Dealing at time %d\n", i);
         for (const auto &[l, r, qb] : qry[i]) {
+            // fprintf(stderr, "Met query [%d,%d], with %d +i ops, will move %d.\n", l, r, qb, qb - curb);
             if (curb < qb) fs2.update(qb - curb), curb = qb;
             printf("%lld\n", fs1base.sum(l, r) + fs1add.sum(l, r) * qb + fs2.inquire(l, r));
         }
         if (curb < b[i]) fs2.update(b[i] - curb), curb = b[i];
+        // fprintf(stderr, "chkmin %lld, Switching: ", v[i]);
+        fs2.chkmin(v[i]);
         for (int x : swt[i]) {
+            // fprintf(stderr, "%d ", x);
             fs1base.upd(x, -a[x]);
             fs1add.upd(x, -x);
             fs2.put(x, v[i]);
         }
+        // fprintf(stderr, "\n");
+        // fprintf(stderr, "f2 belike: ");
+        // fs2.print();
+        // fprintf(stderr, "\n");
     }
     return 0;
 }
