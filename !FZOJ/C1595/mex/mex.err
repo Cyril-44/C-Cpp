@@ -1,0 +1,19 @@
+Initial: 1
+Pos 2: Added 0
+Checking val=2: (1,1) 
+Checking val=3: (2,2) (1,3) 
+Pos 3: Added 1
+Checking val=3: (3,2) (1,2) 
+Pos 4: Added 2
+Checking val=3: (3,1) (2,1) 
+Checking val=4: (4,2) (3,3) (1,4) 
+Pos 5: Added 4
+Checking val=4: (5,2) (4,3) (2,4) 
+Pos 6: Added 3
+Checking val=4: (5,1) (4,1) (3,1) 
+Checking val=5: (5,1) (4,1) (3,1) (2,1) 
+Checking val=6: (6,2) (5,3) (4,5) (3,9) (1,16) 
+Pos 7: Added 0
+Checking val=6: (7,2) (6,3) (5,5) (4,9) (2,16) 
+Pos 8: Added 2
+Checking val=6: (8,2) (7,3) (6,5) (4,8) (2,14) 
