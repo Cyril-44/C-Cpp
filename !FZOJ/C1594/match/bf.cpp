@@ -13,6 +13,8 @@ inline void bf(int n) {
             f[j] = std::max(f[j], mnf + 1);
             mnf = std::max(mnf, tmp);
         }
+        for (int j = 1; j <= n; j++)
+            fprintf(stderr, "%d%c", f[j], " \n"[j==n]);
     }
     printf("%d\n", *std::max_element(f, f+1+n));
 }
