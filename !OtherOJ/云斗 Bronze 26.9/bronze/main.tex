@@ -1,0 +1,282 @@
+\documentclass{tuack}
+
+% ==================================================
+% 宏包与定义 (保持原样)
+% ==================================================
+\renewcommand{\figurename}{图}
+\definecolor{bronze}{HTML}{CD7F32} % 铜组颜色定义
+
+\def\thecontent { 目~~录 }
+\usepackage{xeCJK}
+\usepackage{xeCJKfntef}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{mathrsfs}
+\usepackage{epigraph}
+\usepackage{yhmath}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{algorithm}  
+\usepackage{algpseudocode}  
+\usepackage{import}
+\usepackage{diagbox}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  
+\renewcommand{\algorithmicensure}{\textbf{Output:}} 
+\newcommand \emptyDiag[2][]{
+	\diagbox[innerwidth=\widthof{#2}, height=\line, #1]{}{}
+}
+\DeclareMathSymbol{\mathinvertedexclamationmark}{\mathclose}{operators}{'074}
+\DeclareMathSymbol{\mathexclamationmark}{\mathclose}{operators}{'041}
+
+\makeatletter
+\newcommand{\raisedmathinvertedexclamationmark}{%
+  \mathclose{\mathpalette\raised@mathinvertedexclamationmark\relax}%
+}
+\newcommand{\raised@mathinvertedexclamationmark}[2]{%
+  \raisebox{\depth}{$\m@th#1\mathinvertedexclamationmark$}%
+}
+\begingroup\lccode`~=`! \lowercase{\endgroup
+  \def~}{\@ifnextchar`{\raisedmathinvertedexclamationmark\@gobble}{\mathexclamationmark}}
+\mathcode`!="8000
+\makeatother
+\def\mr#1#2#3{\multirow{#1}{#2}{#3}}
+\def\cm{\ding{51}}
+\def\xm{\ding{55}}
+\renewcommand{\figurename}{图}
+
+% ==================================================
+% 文档开始
+% ==================================================
+\begin{document}
+
+    % TODO: 在此处修改比赛标题年份和月份
+	\title{云斗 2026 年 9 月 \color{bronze}{ Bronze Round}}
+	\def\mytitle{云斗 2026 年 9 月 \color{bronze}{ Bronze Round}}
+	\def\theday{}
+	
+    % TODO: 在此处修改具体时间
+	\def\thetime{
+		时间：
+		2026 年 9 月 20 日
+	}
+
+% 页眉页脚设置
+\rhead{\parbox{\textwidth}{\raggedleft\textnormal{
+	\footnotesize
+	\ifdefined \theday
+		\theday
+	\fi
+	\nouppercase \rightmark
+}}}
+\lhead{\parbox{\textwidth}{\textnormal{\footnotesize\mytitle
+	\ifdefined\subtitle
+		\subtitle
+	\fi
+}}}
+\chead{}
+\lfoot{}
+\cfoot{\parbox{\textwidth}{
+	\centering \footnotesize {
+第 \thepage{} 页 ~~~~ 共 \pageref{LastPage} 页} } }
+\rfoot{}
+
+\thispagestyle{Cover}
+
+	\null
+	\begin{center}
+		\ifdefined\thetitle
+			\ifdefined\longtitle\centerline\fi{\yihao \bf \thetitle} \par
+		\fi
+		\ifdefined\subtitle
+			{\yihao \heiti \subtitle \par} \vskip 1em
+		\fi
+		\ifdefined\engtitle
+			{\yihao \heiti \engtitle \par} \vskip 1em
+		\fi
+		\ifdefined\theday
+			{\xiaoyi \kaishu \theday \par} \vskip 1em 
+		\fi
+		\ifdefined\thetime
+			{\sanhao \heiti \thetime \par}
+		\fi
+	\end{center}
+	\vskip 1em
+
+% ==================================================
+% 题目概览表格 (4道题)
+% ==================================================
+\begin{center}
+\begin{tabularx}{\the \textwidth}{
+		|p{0.18 \textwidth}|X|X|X|X|}
+	\hline
+        % TODO: 修改题目中文名称
+		题目名称& 异域旅行 & 分糖果 & 哥的拔河猜想 & 流水 \tabularnewline
+	\hline
+		题目类型&
+				传统型
+			&
+				传统型
+			&
+				传统型
+                &
+                传统型
+			\tabularnewline
+	\hline
+
+	    % TODO: 修改题目英文文件名 (用于文件IO)
+		可执行文件名&
+			
+				{\ttfamily travel }
+			&
+			
+				{\ttfamily candy }
+			&
+			
+				{\ttfamily theory }
+                &
+
+                {\ttfamily water }
+			\tabularnewline
+	\hline
+        % TODO: 修改时间限制
+		时间限制&
+			
+				1.0秒
+			&
+
+                1.0秒
+			&
+			
+				1.0秒
+                &
+
+                1.0秒
+			\tabularnewline
+	\hline
+        % TODO: 修改内存限制
+		内存限制&
+			
+				512 MiB
+			&
+			
+                512 MiB
+			&
+			
+    		    256 MiB
+            &
+
+                512 MiB
+			\tabularnewline
+	\hline
+		测试点数目& 20& 10& 20& 6 \tabularnewline
+	\hline
+		测试点等分& 是& 是& 是 &否\tabularnewline
+	\hline
+	
+\end{tabularx}
+\end{center}
+
+
+	提交源程序文件名
+	\begin{center}
+	\begin{tabularx}{\the \textwidth}{
+			|p{0.18 \textwidth}|X|X|X|X|}
+		\hline
+            % TODO: 对应上面的文件名修改 .cpp 文件名
+			对于C++ 语言&
+				
+					{\ttfamily travel.cpp }
+				&
+				
+					{\ttfamily candy.cpp }
+				&
+				
+					{\ttfamily theory.cpp }
+                &
+
+                        {\ttfamily water.cpp}
+				\tabularnewline
+		\hline
+	\end{tabularx}
+	\end{center}
+
+	编译选项
+	\begin{center}
+	\begin{tabularx}{\the \textwidth}{
+			|p{0.18 \textwidth}|X|X|X|X|}
+		
+		\hline
+			对于C++ 语言
+					&\multicolumn{3}{@{}X|}{\parbox{ \hsize }{ \centering\ttfamily -lm -O2 --std=c++14} }\tabularnewline
+		
+		\hline
+	\end{tabularx}
+	\end{center}
+
+
+	\textbf{注意事项：}
+
+\begin{enumerate}
+\item C++ 中函数main() 的返回值类型必须是int，值必须为0。
+\item 若无特殊说明，输入文件中同一行内的多个整数、浮点数、字符串等均使用一个空格进行分隔。
+\item 若无特殊说明，结果比较方式为忽略行末空格、文末回车后的全文比较。
+\item 程序可使用的栈空间大小与该题内存空间限制一致。
+\item 在终端下可使用命令 \texttt{ulimit -s unlimited} 将栈空间限制放大，但你使用的栈空间大小不应超过题目限制。
+\item 对于因未遵守以上规则对成绩造成的影响，相关申诉不予受理。
+
+% TODO: 如果有线上比赛链接，请在此处修改 URL
+\item 线上提交渠道: \href{https://yundouxueyuan.com/}{比赛链接}。注意，\textbf{线上提交也应采用文件输入输出}。
+
+\item 本场比赛全部题目、数据版权归\textbf{云斗学院©} 所有，任何单位或个人未经许可不得擅自转载或用于商业用途。
+
+\end{enumerate}
+\begin{center}
+    
+\vspace{0.1cm} 
+  % TODO: 确保目录下有 logo.png
+  \includegraphics[width=0.25\textwidth]{logo.png}
+
+  \vspace{0.1cm}
+\end{center}
+  
+
+\clearpage
+
+% ==================================================
+% 题目内容区域
+% ==================================================
+
+% --------------------------------------------------
+% 第一题 (A+B 样例模板)
+% --------------------------------------------------
+% 如果你习惯用单独的 .tex 文件，可以使用 \import{problems/}{A.tex}
+% 下面是直接在主文件中编写题目的样例：
+
+\import{problems/}{A.tex}
+
+\clearpage
+
+% --------------------------------------------------
+% 第二题 (复制上面的结构即可)
+% ----------------------------------------------------
+
+\import{problems/}{B.tex}
+
+\clearpage
+
+% --------------------------------------------------
+% 第三题
+% --------------------------------------------------
+
+\import{problems/}{C.tex}
+\clearpage
+
+% --------------------------------------------------
+% 第四题
+% --------------------------------------------------
+
+\import{problems/}{D.tex}
+\clearpage
+
+\end{document}
