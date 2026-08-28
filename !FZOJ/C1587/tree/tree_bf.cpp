@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 constexpr int N = 1005;
 int n, t, a[N];
@@ -25,7 +24,7 @@ inline void work() {
     for (int i = t+1, fa; i <= n; i++) {
         scanf("%d", &fa);
         g[fa].push_back(i);
-        g[i].push_back(fa);
+        g[i].push_back(fa); 
     }
     for (int i = 1; i <= n; i++) scanf("%d", a+i);
     memset(ans, 0, sizeof ans);
