@@ -75,7 +75,7 @@ namespace PntDivide {
             mxdep = -1, dfs3(v), subtrs.emplace_back().swap(nodes);
             if (mxdep > mxv) mx2v = mxv, mx2ids = mxids, mxv = mxdep, mxids = {idx};
             else if (mxdep == mxv) mxids.push_back(idx);
-            else if (mxdep > mx2v) mx2v = mxv, mx2ids = {idx};
+            else if (mxdep > mx2v) mx2v = mxdep, mx2ids = {idx};
             else if (mxdep == mx2v) mx2ids.push_back(idx);
             sons.push_back(v), mxdeps.push_back(mxdep);
         }
@@ -173,7 +173,7 @@ static struct DequeNonEQ : public DequeBase {
         int range = t/2; // 最多走这么多条环边
         // printf("Dealing with right: %d\n",  range);
         deq.init(arrR); dneq.init(arrR);
-        For(i, 1, range) deq.push(i), dneq.push(i);
+        For(i, 1, range) if (~mxDep[i]) deq.push(i), dneq.push(i);
         For(i, 1, t) if (~mxDep[i]) { // 处理跨树（经过环边）
             deq.chkgt(i), dneq.chkgt(i);
             deq.push(i+range), dneq.push(i+range);
