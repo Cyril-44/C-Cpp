@@ -37,7 +37,7 @@
 		{
 			"type": "shell",
 			"label": "Cpp Release Build",
-			"command": "/usr/bin/g++",
+			"command": "/usr/bin/g++-9",
 			"args": [
 				"-std=c++14",
 				"-Wall",

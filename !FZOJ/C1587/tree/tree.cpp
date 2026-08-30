@@ -47,7 +47,7 @@ namespace PntDivide {
         int mxid = -1, mx2id = -1;
         for (int v : g[u]) if (!vis[v]) {
             int idx = sons.size();
-            mxdep = -1, dfs3(v), subtrs.emplace_back().swap(nodes);
+            mxdep = -1; dfs3(v); subtrs.emplace_back(); subtrs.back().swap(nodes);
             if (mxid == -1 || mxdep >= mxdeps[mxid]) mx2id = mxid, mxid = idx;
             else if (mx2id == -1 || mxdep >= mxdeps[mx2id]) mx2id = idx;
             sons.push_back(v), mxdeps.push_back(mxdep);
@@ -72,7 +72,7 @@ namespace PntDivide {
         sons.reserve(g[u].size()), subtrs.reserve(g[u].size());
         for (int v : g[u]) if (!vis[v]) {
             int idx = sons.size();
-            mxdep = -1, dfs3(v), subtrs.emplace_back().swap(nodes);
+            mxdep = -1; dfs3(v); subtrs.emplace_back(); subtrs.back().swap(nodes);
             if (mxdep > mxv) mx2v = mxv, mx2ids = mxids, mxv = mxdep, mxids = {idx};
             else if (mxdep == mxv) mxids.push_back(idx);
             else if (mxdep > mx2v) mx2v = mxdep, mx2ids = {idx};
