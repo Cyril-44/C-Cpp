@@ -68,8 +68,8 @@ public:
     constexpr friend ModBase operator-(ModBase lv, const ModBase& rv) { return lv -= rv; }
     constexpr friend ModBase operator*(ModBase lv, const ModBase& rv) { return lv *= rv; }
     constexpr friend ModBase operator/(ModBase lv, const ModBase& rv) { return lv /= rv; }
-    constexpr friend ModBase operator==(ModBase lv, const ModBase& rv) { return lv.value == rv.value; }
-    constexpr friend ModBase operator!=(ModBase lv, const ModBase& rv) { return lv.value != rv.value; }
+    constexpr friend bool operator==(ModBase lv, const ModBase& rv) { return lv.value == rv.value; }
+    constexpr friend bool operator!=(ModBase lv, const ModBase& rv) { return lv.value != rv.value; }
     template<std::integral T> constexpr friend ModBase operator^(ModBase lv, const T rv) { return lv ^= rv; }
     template<typename IStream> friend IStream& operator>>(IStream& is, ModBase& lv) {
         is >> lv.value;

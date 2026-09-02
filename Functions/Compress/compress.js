@@ -201,3 +201,34 @@ function compressSingle(str) {
 	}
 	return ret;
 }
+
+console.log(compress(`struct FastI {
+    char buf[1 << 20], *p1{}, *p2{};
+    [[gnu::always_inline]] char gc() {
+        if (p1 == p2) p2 = (p1=buf) + fread(buf, 1, sizeof buf, stdin);
+        if (p1 == p2) return EOF;
+        return *p1++;
+    }
+    template<class T> void operator()(T &x) {
+        char ch = gc();
+        while (ch < '0' || ch > '9') ch = gc();
+        for (x = 0; ch >= '0' && ch <= '9'; ch = gc())
+            x = (x << 3) + (x << 1) + (ch ^ '0');
+    }
+} in;
+struct FastO {
+    char buf[1 << 20], *p1{buf};
+    const char *p2{buf + sizeof(buf)};
+    [[gnu::always_inline]] void pc(char ch) {
+        if (p1 == p2) fwrite(buf, sizeof buf, 1, stdout), p1=buf;
+        *p1++ = ch;
+    }
+    void flush() { fwrite(buf, p1-buf, 1, stdout), p1=buf; }
+    template<class T> void operator()(T x) {
+        static uint8_t sta[64];
+        sta[sta[0] = 1] = x % 10 | '0';
+        while (x /= 10) sta[++sta[0]] = x % 10 | '0';
+        while (sta[0]) pc(sta[sta[0]--]);
+    }
+    ~FastO() { flush(); }
+} out;`))
