@@ -3,7 +3,7 @@
 # 编译
 g++ std.cpp -o std -O2
 g++ gen.cpp -o gen -O2
-g++ val.cpp -o val -O2 -I/home/cyril/code/testlib
+g++ val.cpp -o val -O2 -I/home/cyril/code/testlib -I$HOME/C-Cpp
 
 mkdir -p data samples
 
