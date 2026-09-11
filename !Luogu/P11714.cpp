@@ -26,6 +26,6 @@ int main() {
     }
     for (unsigned s = 1; s < (1<<n); s++) {
         for (unsigned t = s; t; t = (t-1) & s) 
-
+            ;
     }
 }
