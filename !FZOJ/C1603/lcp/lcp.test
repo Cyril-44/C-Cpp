@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 5010;
+int n, m, a[N], nxt[N];
+void getnxt() {
+    nxt[0] = -1;
+    for (int i = 1; i <= n; i++) {
+        nxt[i] = nxt[i - 1];
+        while (nxt[i] >= 0) {
+            if (a[nxt[i] + 1] == a[i]) break;
+            nxt[i] = nxt[nxt[i]];
+        }
+        nxt[i]++;
+    }
+}
+int f[N][N], g[N], val[N];
+void upd(int &x, int y) {
+    x = max(x, y);
+}
+int main() {
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
+    for (int i = 2; i <= n; i++)
+        for (int j = 1; i + j - 1 <= n; j++)
+            if (a[j] == a[i + j - 1])
+                g[i]++;
+            else
+                break;
+    getnxt();
+    for (int i = 1; i <= n; i++)
+        for (int j = 2; j <= i - nxt[i] + 1; j++) val[i] += min(g[j], i - j + 1);
+    memset(f, 0xc0, sizeof(f));
+    f[0][0] = 0;
+    for (int i = 0; i <= m; i++) {
+        for (int j = 0; i + j <= m && j <= n; j++) {
+            // printf("%d ",f[i][j]);
+            if (j) upd(f[i + j - nxt[j]][nxt[j]], f[i][j] + val[j]);
+            if (j < n) upd(f[i][j + 1], f[i][j] + 1);
+        }
+        // putchar('\n');
+    }
+    printf("%d", f[m][0]);
+}
