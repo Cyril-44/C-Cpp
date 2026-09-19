@@ -3,17 +3,30 @@ template<typename T>constexpr inline T modInv(T x,T y){assert(x!=0);T u=0,v=1,a=
 constexpr auto MOD = 998244353;
 using Mint = MB<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
 constexpr int N = 5004, K = 6;
-Mint f[N][1<<K];
+Mint f[N][1<<K], tf[1<<K];
 std::vector<int> g[N];
-int singDel[K], del[1<<K], k;
+int sz[N], d[K], dsum[1<<K], k;
 void dfs(int u, int fa) {
+    sz[u] = 1; f[u][0] = 1;
     for (int v : g[u]) if (v != fa) dfs(v, u);
     for (int v : g[u]) if (v != fa) {
-        
+        sz[u] += sz[v];
+        memset(tf, 0, sizeof tf);
         for (int s = 0; s < (1<<k); s++) {
-            
+            for (int t = s; t; t = (t-1) & s)
+                tf[s] += f[u][t] * f[v][s^t];
+            tf[s] += f[u][0] * f[v][s];
+            memcpy(f[u], tf, sizeof tf);
         }
     }
+    for (int s = 0; s < (1<<k-1); s++)
+        for (int i = !s ? 0 : 32 - __builtin_clz(s); i < k; i++)
+            if (d[i] == sz[u] - dsum[s])
+                f[u][s | 1<<i] += f[u][s];
+    printf("%d: ", u);
+    for (int s = 0; s < (1<<k); s++)
+        printf("%d ", f[u][s]);
+    putchar('\n');
 }
 int main() {
     int n;
@@ -25,12 +38,12 @@ int main() {
     }
     scanf("%d", &k);
     for (int i = 0; i < k; i++)
-        scanf("%d", &singDel[i]);
+        scanf("%d", &d[i]);
     for (int i = k-1; i > 0; i--)
-        singDel[i] = singDel[i-1] - singDel[i];
-    singDel[0] = n - singDel[0];
+        d[i] = d[i-1] - d[i];
+    d[0] = n - d[0];
     for (int s = 1; s < (1<<k); s++)
-        del[s] = del[s&s-1] + singDel[__builtin_ctz(s)];
+        dsum[s] = dsum[s&s-1] + d[__builtin_ctz(s)];
     dfs(1, 0);
-    
+    printf("%d\n", f[1][(1<<k)-1]);
 }
