@@ -1,0 +1,349 @@
+% !TeX program = xelatex
+% latexmk -xelatex -shell-escape statement.tex
+\documentclass[12pt,a4paper,oneside]{ctexart}
+\usepackage{xeCJKfntef,xcolor,tabularx,array,multirow,bookmark,amsfonts,amsmath,bm,minted,hyperref,graphicx,enumitem,float,lastpage,fancyhdr,geometry,setspace}
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue}
+\setlength{\parindent}{2em}\linespread{1.3}\setcounter{secnumdepth}{0}\setlength{\headheight}{18pt}
+\setlist[itemize]{labelsep=1.1em,itemsep=0pt,parsep=1pt,itemindent=1.5em,topsep=0pt}
+\setlist[enumerate]{labelsep=1.1em,itemsep=0pt,parsep=1pt,itemindent=1.5em,topsep=0pt}
+\pagestyle{fancy}\renewcommand{\headrulewidth}{0.4pt}\renewcommand{\footrulewidth}{0pt}
+\lhead{NOIP 模拟赛}\chead{}\rhead{\rightmark}\lfoot{}\cfoot{\small 第 \thepage\ 页\quad 共 \pageref{LastPage} 页}\rfoot{}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\begin{document}
+\title{\heiti\zihao{1} NOIP 模拟赛}\author{ASDFZ}\date{2026年？月？日}\maketitle
+\begin{center}\small
+\begin{tabularx}{\textwidth}{|Y|Y|Y|Y|Y|}\hline
+题目名称 & 矩形 & 花海 & 深搜 & 中庸数\\\hline
+题目类型 & 传统型 & 传统型 & 传统型 & 传统型\\\hline
+目录 & \texttt{rect} & \texttt{flower} & \texttt{dfs} & \texttt{median}\\\hline
+可执行文件名 & \texttt{rect} & \texttt{flower} & \texttt{dfs} & \texttt{median}\\\hline
+输入文件名 & \texttt{rect.in} & \texttt{flower.in} & \texttt{dfs.in} & \texttt{median.in}\\\hline
+输出文件名 & \texttt{rect.out} & \texttt{flower.out} & \texttt{dfs.out} & \texttt{median.out}\\\hline
+时间限制 & 1 秒 & 3 秒 & 3 秒 & 3 秒\\\hline
+内存限制 & 512 MiB & 512 MiB & 512 MiB & 512 MiB\\\hline
+\end{tabularx}\end{center}
+\hspace{2em}提交源程序文件名
+\begin{center}\small\begin{tabularx}{\textwidth}{|p{100pt}|Y|Y|Y|Y|}\hline
+对 C++ 语言 & \texttt{rect.cpp} & \texttt{flower.cpp} & \texttt{dfs.cpp} & \texttt{median.cpp}\\\hline
+\end{tabularx}\end{center}
+\hspace{2em}编译选项
+\begin{center}\small\begin{tabularx}{\textwidth}{|p{100pt}|Y|}\hline
+对 C++ 语言 & \texttt{-O2 -std=c++14}\\\hline
+\end{tabularx}\end{center}
+\vspace{.8em}\hspace{1em}{\heiti 注意事项与提醒：}
+\begin{enumerate}[topsep=4pt,itemsep=2pt,parsep=2pt]
+\item 文件名（程序名和输入输出文件名）必须使用英文小写。
+\item C/C++ 中函数 main() 的返回类型必须是 int，程序正常结束时的返回值必须为 0。
+\item 若无特殊说明，结果的比较方式为全文比较（过滤行末空格及文末回车）。
+\item 程序可使用的栈内存空间限制与题目的内存限制一致。
+\end{enumerate}
+\thispagestyle{empty}\newpage
+\newpage\section{矩形}
+时间限制 $\text{1 s}$
+空间限制 $\text{512 MB}$
+\subsection*{题目描述}
+我们给你 $n$ 个矩形，第 $i$ 个矩形的左下角坐标为 $(xa_i,ya_i)$，右上角坐标为 $(xb_i,yb_i)$。
+$q$ 次操作，操作有以下两种类型：
+\begin{itemize}
+\item \texttt{Q l r} 代表求 $[l,r]$ 号矩形是否两两有公共点。
+\end{itemize}
+\begin{itemize}
+\item \texttt{C l r x y} 代表将 $[l,r]$ 号矩形 $x$ 坐标对应变化 $x$，$y$ 坐标对应变化 $y$。注意，不保证 $x,y$ 为正数。
+\end{itemize}
+\subsection*{输入格式}
+第一行两个数 $n,q$。
+后面 $n$ 行每行四个数，分别是 $xa_i,ya_i,xb_i,yb_i$。
+接着 $q$ 行，每行描述一个操作。
+\subsection*{输出格式}
+对于每组 \texttt{Q} 操作，如果两两有交点输出 \texttt{Yes}，否则输出 \texttt{No}。
+\subsection*{输入输出样例 1}
+\subsubsection*{输入 1}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+3 6
+0 0 2 2
+1 1 3 3
+4 4 5 5
+Q 1 2
+Q 1 3
+C 3 3 -3 -3
+Q 1 3
+C 2 2 10 0
+Q 1 3
+\end{minted}
+\subsubsection*{输出 1}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+Yes
+No
+Yes
+No
+\end{minted}
+\subsection*{说明/提示}
+本题捆绑测试。
+\begin{center}\small
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}\hline
+子任务 & 特殊性质 & 分值\\\hline
+$1$ & $1 \le n,q \le 100$ & $5$\\\hline
+$2$ & $1 \le n,q \le 3000$ & $25$\\\hline
+$3$ & 保证没有修改操作 & $20$\\\hline
+$4$ & $1 \le n,q \le 10^5$ & $30$\\\hline
+$5$ & 无特殊性质 & $20$\\\hline
+\end{tabularx}
+\end{center}
+对于 $100\%$ 的数据，$1 \le n,q \le 5 \times 10^5,-10^{10} \le xa_i,xb_i,ya_i,yb_i,x,y \le 10^{10}$。保证所有输入均为整数。
+\subsubsection*{对于样例 $2 \sim 6$}
+样例 $2 \sim 6$ 依次满足子任务 $1 \sim 5$ 的要求。
+\newpage\section{花海}
+时间限制 $\text{3 s}$
+空间限制 $\text{512 MB}$
+\subsection*{题目背景}
+\begin{quote}
+天空仍灿烂 它爱着大海
+
+情歌被打败 爱已不存在
+\end{quote}
+\subsection*{题目描述}
+果果前段时间刚刚认识了一些花，她想采一些花做一片花海。
+由于果果还小，她只认识 $n$ 种花，每种花的花瓣数量为 $a_i$。注意，由于每种花的区别不止在于花瓣数量，所以可能会存在不同种类的花 $a_i$ 相同。
+果果一共采了 $m$ 朵花，她知道第 $i$ 朵花每天会掉落 $d_i$ 瓣花瓣，即每 $\frac{1}{d_i}$ 天掉落一瓣花瓣。那么每朵花都终有一天会凋零。果果感到非常伤心，于是她只想知道恰好一半的花凋零是什么时候，即第 $\frac{m+1}{2}$ 朵凋零的花的时间。注意时间可以不是整数。为了简化题目，保证 $m$ 是奇数。
+但是果果突然发现，她不记得她采摘的 $m$ 朵花分别有多少花瓣了。她只能认为每朵花都有 $\frac{1}{n}$ 的概率有 $a_i$ 瓣花瓣。她也转为让你求恰好一半的花凋零的时间的期望。答案对 $10^9+7$ 取模。
+\subsection*{输入格式}
+第一行两个正整数 $n,m$，表示花的种数和采摘的花的数量。
+第二行 $n$ 个正整数，表示每种花的花瓣数量。
+第三行 $m$ 个正整数，表示每朵花的每天掉落的花瓣数。
+\subsection*{输出格式}
+输出一行一个整数，表示时间的期望对 $10^9+7$ 取模的结果。
+\subsection*{输入输出样例 1}
+\subsubsection*{输入 1}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+2 3
+4 5
+1 2 3
+\end{minted}
+\subsubsection*{输出 1}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+250000004
+\end{minted}
+\subsection*{输入输出样例 2}
+\subsubsection*{输入 2}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+3 3
+4 5 6
+1 2 3
+\end{minted}
+\subsubsection*{输出 2}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+500000006
+\end{minted}
+\subsection*{输入输出样例 3}
+\subsubsection*{输入 3}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+5 5
+4 5 6 10 2
+1 2 3 2 4
+\end{minted}
+\subsubsection*{输出 3}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+434986672
+\end{minted}
+\subsection*{说明/提示}
+\subsubsection*{【样例解释】}
+对于第一个样例，三朵花每天分别凋零 $1, 2, 3$ 瓣，考虑三朵花分别的花瓣数量：
+\begin{itemize}
+\item $4, 4, 4$：$t=2$ 的时候，三朵花剩余的瓣数分别为 $2, 0, 0$，恰好有两朵花凋谢。
+\item $4, 4, 5$：$t=2$ 的时候，三朵花剩余的瓣数分别为 $2, 0, 0$，恰好有两朵花凋谢。
+\item $4, 5, 4$：$t=2.5$ 的时候，三朵花剩余的瓣数分别为 $1.5, 0, 0$，恰好有两朵花凋谢。
+\item $(4, 5, 5)$, $(5, 4, 4)$, $(5, 4, 5)$, $(5, 5, 4)$, $(5, 5, 5)$ 的时候同理，恰好有两朵花凋谢的时间分别为 $t=2.5$, $t=2$, $t=2$, $t=2.5$, $t=2.5$。
+\end{itemize}
+综上，期望时间为 $\frac{2 + 2 + 2.5 + 2.5 + 2 + 2 + 2.5 + 2.5}{8} = \frac{9}{4}$，输出 $9 \cdot 4^{-1} \bmod (10^9+7) = 250000004$。
+\subsubsection*{【更多样例】}
+见下发文件 \texttt{flower.zip}。
+三个样例分别对应测试点 $6,13,16$ 的数据范围及性质。
+\subsubsection*{【数据范围】}
+对于 $100\%$ 的数据，保证 $1\le n,m\le 500$，且 $m$ 是奇数，$1\le a_i,d_i\le 10^9$。
+\begin{center}\small
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}\hline
+子任务编号 & $n,m$ & 特殊性质\\\hline
+$1\sim 2$ & $\le 6$ & \multirow{3}{*}{无}\\\cline{1-2}
+$3\sim 5$ & $\le 10$ & \\\cline{1-2}
+$6\sim 12$ & $\le 100$ & \\\hline
+$13\sim 15$ & \multirow{2}{*}{$\le 500$} & $d_i=1$\\\cline{1-1}\cline{3-3}
+$16\sim 20$ &  & 无\\\hline
+\end{tabularx}
+\end{center}
+\newpage\section{深搜}
+时间限制 $\text{3 s}$
+空间限制 $\text{512 MB}$
+\subsection*{题目描述}
+对于一个有根树，我们记 $f(v)$ 为对以 $v$ 为根的子树 dfs（可以以任意顺序访问儿子）能够得到的本质不同的“节点遍历序列去除非前缀最大值后形成的序列”的数量对 $10^{9} + 7$ 取模后的结果。
+给定一个 $n$ 个点的，下标从 $1$ 开始且以 $r$ 为根的树。
+当 $o = 1$ 时，请求出 $f(r)$；
+当 $o = 2$ 时，请求出 $f(1),f(2),\dots,f(n)$。
+\subsection*{输入格式}
+第一行三个正整数 $id,o,t$，其中 $id$ 表示测试点编号（特别地，样例中 $id = 0$），$t$ 表示数据组数。
+对于每组数据：
+第一行两个正整数 $n,r$。
+接下来 $n-1$ 行，每行两个正整数 $u,v$ 表示树上一条边的两个端点。
+\subsection*{输出格式}
+对于每组数据输出一行：
+若 $o = 1$，输出一个非负整数 $f(r)$；
+若 $o = 2$，输出 $n$ 个非负整数 $f(1),f(2),\dots,f(n)$。
+\subsection*{输入输出样例 1}
+\subsubsection*{输入 1}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+0 2 6
+1 1
+2 1
+1 2
+3 1
+1 2
+1 3
+3 1
+1 2
+2 3
+5 1
+1 2
+1 3
+1 4
+1 5
+10 1
+1 2
+2 3
+1 4
+2 5
+2 6
+4 7
+5 8
+4 9
+9 10
+\end{minted}
+\subsubsection*{输出 1}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+1
+1 1
+2 1 1
+1 1 1
+8 1 1 1 1
+6 4 1 2 1 1 1 1 1 1
+\end{minted}
+\subsection*{说明/提示}
+\subsubsection*{样例 $1$ 解释}
+第三组数据中 $f(1) = 2$，本质不同的序列如下：
+\begin{enumerate}
+\item $[1,3]$；
+\item $[1,2,3]$。
+\end{enumerate}
+第五组数据中 $f(1) = 8$，本质不同的序列如下：
+\begin{enumerate}
+\item $[1,5]$；
+\item $[1,2,5]$；
+\item $[1,3,5]$；
+\item $[1,4,5]$；
+\item $[1,2,3,5]$；
+\item $[1,2,4,5]$；
+\item $[1,3,4,5]$；
+\item $[1,2,3,4,5]$。
+\end{enumerate}
+第六组数据中 $f(1) = 6$，本质不同的序列如下：
+\begin{enumerate}
+\item $[1,4,9,10]$；
+\item $[1,4,7,9,10]$；
+\item $[1,2,5,8,9,10]$；
+\item $[1,2,6,8,9,10]$；
+\item $[1,2,3,5,8,9,10]$；
+\item $[1,2,3,6,8,9,10]$。
+\end{enumerate}
+\subsubsection*{样例 $2 \sim 11$}
+见下发文件。
+样例 $2,3$ 满足 $n \leq 8, \sum n \leq 8 \times 10^{3}$；
+样例 $4,5$ 满足 $n \leq 14, \sum n \leq 1.4 \times 10^{4}$；
+样例 $6,7$ 满足 $n \leq 3 \times 10^{3}, \sum n \leq 3 \times 10^{4}$；
+样例 $8,9$ 满足 $n \leq 1.5 \times 10^{5}, \sum n \leq 6 \times 10^{5}$；
+样例 $10,11$ 满足 $n \leq 5 \times 10^{5}, \sum n \leq 2 \times 10^{6}$；
+此外，样例 $2 \sim 11$ 满足：编号为奇数的样例中，$o = 1$；编号为偶数的样例中，$o = 2$。编号为奇数的样例输入与编号为偶数的样例输入在忽略 $o$ 的不同后是完全一致的。并且，这些样例中的树与具有特殊性质 $\text{B}$ 的正式测试点强度相同。
+\paragraph{数据规模与约定}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}\hline
+子任务编号 & $n \leq$ & $\sum n \leq$ & $o =$ & 特殊性质\\\hline
+$1$ & $8$ & $8 \times 10^{3}$ & \multirow{4}{*}{$2$} & \multirow{6}{*}{$\text{A}$}\\\cline{1-3}
+$2$ & $11$ & $1.1 \times 10^{4}$ &  & \\\cline{1-3}
+$3$ & $14$ & $1.4 \times 10^{4}$ &  & \\\cline{1-3}
+$4$ & $17$ & $1.7 \times 10^{4}$ &  & \\\cline{1-4}
+$5 \sim 7$ & \multirow{2}{*}{$3 \times 10^{3}$} & \multirow{2}{*}{$3 \times 10^{4}$} & $1$ & \\\cline{1-1}\cline{4-4}
+$8,9$ &  &  & $2$ & \\\hline
+$10 \sim 14$ & \multirow{3}{*}{$1.5 \times 10^{5}$} & \multirow{3}{*}{$6 \times 10^{5}$} & $1$ & 无\\\cline{1-1}\cline{4-5}
+$15,16$ &  &  & \multirow{2}{*}{$2$} & $\text{B}$\\\cline{1-1}\cline{5-5}
+$17,18$ &  &  &  & \multirow{2}{*}{无}\\\cline{1-4}
+$19 \sim 21$ & \multirow{4}{*}{$5 \times 10^{5}$} & \multirow{4}{*}{$2 \times 10^{6}$} & $1$ & \\\cline{1-1}\cline{4-5}
+$22$ &  &  & \multirow{3}{*}{$2$} & $\text{C}$\\\cline{1-1}\cline{5-5}
+$23$ &  &  &  & $\text{D}$\\\cline{1-1}\cline{5-5}
+$24,25$ &  &  &  & 无\\\hline
+\end{tabularx}
+\end{center}
+特殊性质 $\text{A}$：$t \leq 10^{3}$；
+特殊性质 $\text{B}$：树的形态随机；
+特殊性质 $\text{C}$：将树视作无根树后，树是链；
+特殊性质 $\text{D}$：将树视作无根树后，树是菊花图。
+树的形态随机过程如下：对于 $i = 2,3,\dots,n$，取 $f_{i} = \text{RAND}(1,i-1)$，然后在 $f_{i}$ 和 $i$ 之间连边，最后按照特定方式重新分配点编号（你无需关心编号分配方式）。注意：点的编号不是随机分配的。
+对于所有数据，$o \in \{1,2\},t \leq 10^{4},n \leq 5 \times 10^{5}, \sum n \leq 2 \times 10^{6}$。
+本题输入量和输出量均较大，请使用快速输入输出。下发文件中提供了一份快速输入输出整数的模板（\texttt{fastio.cpp}）。
+\newpage\section{中庸数}
+时间限制 $\text{3 s}$
+空间限制 $\text{512 MB}$
+\subsection*{题目背景}
+仙尊发现在三个数字中，第二大的数吸收了天地混元之气，而另外两个数字为灵珠和魔丸。
+\subsection*{题目描述}
+仙尊给你一个长度为 $n$ 的序列 $a$，然后进行 $q$ 次询问，每次给出一个目标数字 $k$，你需要进行如下操作若干次，使得序列 $a$ 的 $n$ 个元素都为 $k$。
+\begin{itemize}
+\item 选择三个连续数字 $a_{i-1},a_i,a_{i+1},i\in[2,n-1]$，满足其中至少有一个数字为 $k$。
+\item 修改 $a_{i-1}=a_i=a_{i+1}=\text{median}(a_{i-1},a_i,a_{i+1})$。
+\end{itemize}
+其中 $\text{median}(a,b,c)$ 表示 $a,b,c$ 三个数字的中位数。
+\subsection*{输入格式}
+第一行一个整数 $T$，为数据组数。
+对于每组数据：
+第一行两个正整数 $n, q$，表示序列长度和询问次数。
+第二行 $n$ 个正整数 $a_1, a_2, \cdots, a_n$ 。
+接下来 $q$ 行，每行一个整数 $k$，表示一次询问，询问目标数字为 $k$。
+\subsection*{输出格式}
+对于每组数据中的每次询问，输出一行一个整数，表示将所有数字都变为 $k$ 所需要使用的最少操作次数。
+如果无论如何都无法将所有数都变为 $k$，输出 \texttt{-1}。
+\subsection*{输入输出样例 1}
+\subsubsection*{输入 1}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+2
+6 2
+1 10 1 10 5 4
+4
+1
+8 2
+10 10 7 4 6 10 8 7
+10
+6
+\end{minted}
+\subsubsection*{输出 1}
+\begin{minted}[frame=single,framesep=8pt,breaklines]{text}
+-1
+4
+5
+6
+\end{minted}
+\subsection*{说明/提示}
+\paragraph{数据规模与约定}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}\hline
+子任务编号 & $n,q \leq$ & $\sum n,\sum q \leq$ & 特殊性质\\\hline
+$1$ & $10$ & $1 \times 10^{3}$ & \multirow{2}{*}{无}\\\cline{1-3}
+$2\sim 5$ & $200$ & $2 \times 10^{3}$ & \\\hline
+$6,7$ & \multirow{3}{*}{$2000$} & \multirow{3}{*}{$2 \times 10^{4}$} & $\text{A}$\\\cline{1-1}\cline{4-4}
+$8,9$ &  &  & $\text{B}$\\\cline{1-1}\cline{4-4}
+$10\sim 12$ &  &  & 无\\\hline
+$13 \sim 15$ & \multirow{3}{*}{$2 \times 10^{5}$} & \multirow{3}{*}{$10^{6}$} & $\text{A}$\\\cline{1-1}\cline{4-4}
+$16\sim 20$ &  &  & $\text{B}$\\\cline{1-1}\cline{4-4}
+$21\sim 25$ &  &  & 无\\\hline
+\end{tabularx}
+\end{center}
+特殊性质 $\text{A}$：$q\leq 10$。
+特殊性质 $\text{B}$：初始 $a$ 序列中所有数字都互不相同。
+对于所有测试点保证 $3 \leq n \leq 2 \times 10^5, 1 \leq q \leq 2 \times 10^5,\sum n \leq 10^6, \sum q \leq 10^6,1 \leq a_i \leq 2 \times 10^5,1\leq k \leq 2\times 10^5$。
+\end{document}
