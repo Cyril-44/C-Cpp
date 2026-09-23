@@ -1,0 +1,561 @@
+% xelatex -shell-escape statement.tex
+\documentclass[12pt,a4paper,oneside]{ctexart}
+\usepackage{xeCJKfntef,xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{bookmark}
+\usepackage{parallel}
+\usepackage{clrscode3e}
+\usepackage{lastpage}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{float}
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+citecolor=blue
+}
+\usepackage[english]{babel}
+\usepackage{setspace}
+\usepackage{geometry}
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+\usepackage{indentfirst}
+
+\setlength{\parindent}{2em}
+\linespread{1.3}
+\setcounter{secnumdepth}{0}
+
+\newcommand{\bfemph}[1]{\CJKunderdot{\textbf{#1}}}
+\renewcommand{\emph}[1]{\bfemph{#1}}
+\setlength{\headheight}{18pt}
+
+\setlist[itemize]{labelsep = 1.1em, itemsep = 0pt, parsep = 1pt, itemindent = 1.5em, topsep = 0pt}
+\setlist[enumerate]{labelsep = 1.1em, itemsep = 0pt, parsep = 1pt, itemindent = 1.5em, topsep = 0pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength{\headheight}{18pt}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\renewcommand{\subsectionmark}[1]{\markright{#1}}
+
+\lhead{NOIP 模拟赛}
+\chead{}
+\rhead{\rightmark}
+\lfoot{}
+\cfoot{\small 第 \thepage\ 页  \hspace{2em} 共 \pageref{LastPage} 页}
+\rfoot{}
+
+\newcommand{\ChineseprobA}{追忆仲夏夜花火}
+\newcommand{\ChineseprobB}{回文矩阵矩文回}
+\newcommand{\ChineseprobC}{后缀或值表达式}
+\newcommand{\ChineseprobD}{飞起玉龙三百万}
+\newcommand{\probA}{fireworks}
+\newcommand{\probB}{mat}
+\newcommand{\probC}{or}
+\newcommand{\probD}{dragon}
+
+\begin{document}
+  \title{\heiti\zihao{1} NOIP 模拟赛}
+  \author{ASDFZ}
+  \date{2025年？月？日}
+  \maketitle
+  \begin{center}
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+    \hline
+    题目名称 & \ChineseprobA & \ChineseprobB & \ChineseprobC & \ChineseprobD\\
+    \hline
+    题目类型 & 传统型 & 传统型 & 传统型 & 传统型\\
+    \hline
+    目录 & \texttt{\probA} & \texttt{\probB} & \texttt{\probC} & \texttt{\probD}\\
+    \hline
+    可执行文件名 & \texttt{\probA} & \texttt{\probB} & \texttt{\probC} & \texttt{\probD}\\
+    \hline
+    输入文件名 & \texttt{\probA.in} & \texttt{\probB.in} & \texttt{\probC.in} & \texttt{\probD.in}\\
+    \hline
+    输出文件名 & \texttt{\probA.out} & \texttt{\probB.out} & \texttt{\probC.out} & \texttt{\probD.out}\\
+    \hline
+    测试点时限 & 1.0 秒 & 1.5 秒 & 4.0 秒 & 4.5 秒\\
+    \hline
+    内存限制 & 512 MiB & 512 MiB & 512 MiB & 512 MiB\\
+    \hline
+    \end{tabularx}
+  \end{center}
+  \hspace{2em}提交源程序文件名
+  \begin{center}
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+    \hline
+    对C++语言 & \texttt{\probA.cpp} & \texttt{\probB.cpp} & \texttt{\probC.cpp} & \texttt{\probD.cpp}\\
+    \hline
+    \end{tabularx}
+  \end{center}
+  \hspace{2em}编译选项
+  \begin{center}
+    \begin{tabularx}{\textwidth}{|p{100pt}|X<{\centering}|}
+    \hline
+    对C++ 语言 & \texttt{-O2 -std=c++14} \\
+    \hline
+    \end{tabularx}
+  \end{center}
+  \vspace{.8em}
+  \hspace{1em}{\heiti 注意事项与提醒：}
+  \begin{enumerate}[topsep = 4pt]
+    \setlength{\labelsep}{1.1em}
+    \setlength{\itemsep}{2pt}
+    \setlength{\parsep}{2pt}
+    \setlength{\parskip}{2pt}
+    \setlength{\itemindent}{.5em}
+\item 文件名(程序名和输入输出文件名)必须使用英文小写。
+\item  C/C++ 中函数 main() 的返回类型必须是 int,程序正常结束时的返回值必须是 0。
+\item  若无特殊说明,结果的比较方式为全文比较(过滤行末空格及文末回车)。
+\item  程序可使用的栈内存空间限制与题目的内存限制一致。
+\item  只提供 Linux 格式的附加样例文件。
+\item  喧哗的同学请不要大声阿克，闷声发大财。
+  \end{enumerate}
+  \thispagestyle{empty}
+  \newpage
+  \section{\rm \ChineseprobA (\probA)}
+  
+\subsection*{题目背景}
+  
+花火绽放
+
+在孤独梦中
+
+点燃苍穹
+
+润湿了瞳孔
+
+想要去触动
+
+在你眼中的夏夜空
+
+——《夏夜空》
+
+时隔多年，夏夜空仍会出现在小 ${Y}$ 遥远的记忆里，但具体的景况已经模糊了，现在她想还原那时的景象，但是可能的情况太多，所以她想请你帮忙计算。
+
+  \subsection*{题目描述}
+
+  
+天空可以被看成一张 $n \times m$ 的网格图，最开始所有节点都处于未被点亮的状态。
+
+在第一个时刻点亮 $\left ( 1 , 1  \right ) $，此后每个时刻，都会由在上一个时刻被点亮的节点去继续点亮其它节点。
+
+对于 $y \le x$ 的节点 $\left ( x , y  \right ) $，它可以点亮位于 $\left ( x+1,y-1  \right ) $，$\left ( x+1,y  \right ) $ 和 $\left ( x+1,y+1  \right ) $ 的节点，对于 $x \le y$ 的节点 $\left ( x , y  \right ) $，它可以点亮位于 $\left ( x-1,y+1  \right ) $，$\left ( x,y+1  \right ) $ 和 $\left ( x+1,y+1  \right ) $ 的节点。
+
+一个节点可以点亮任意数目的其它节点，但一个节点只能被一个节点点亮，同时为了安全考虑，点亮时\textbf{不能}发生交叉。
+
+小 ${Y}$ 还记得最后 $n \times m$ 个节点\textbf{全部}被点亮，现在请你帮忙计算，有多少种可能的点亮方案，两种方案不同当且仅当存在一个节点在不同的时刻被点亮或被不同的节点点亮。
+1 (Copy)
+由于答案可能很大，你只需要回答它对一个正整数 $q$ 取模的结果。
+
+  \subsection*{输入格式}
+  
+从 $\text{fireworks.in}$ 输入。
+
+    一行三个正整数 $n,m,q$。
+
+  \subsection*{输出格式}
+  
+向 $\text{fireworks.out}$ 输出。
+
+  一行一个正整数，表示答案对 $q$ 取模后的结果。
+
+  \subsection*{样例 1 输入}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+3 3 1000000000
+\end{minted}
+  \subsection*{样例 1 输出}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+9
+\end{minted}
+  \subsection*{样例 2 输入}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+20 23 100007 
+\end{minted}
+  \subsection*{样例 2 输出}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+28504
+\end{minted}
+  \subsection*{样例 3 输入}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+6 7 131
+\end{minted}
+  \subsection*{样例 3 输出}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+44
+\end{minted}
+  \subsection*{样例 4 输入}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+412 998244353 998244353
+\end{minted}
+  \subsection*{样例 4 输出}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+391400454
+\end{minted}
+  \subsection*{样例 5 输入}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+412712 712412 711711119
+\end{minted}
+  \subsection*{样例 5 输出}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+174794886
+\end{minted}
+
+  \subsection*{数据规模与约定}
+
+对于所有数据，$1 \leq n \leq 5 \times 10^6 , 1 \leq m \leq 10^{18},  1 \leq q \leq 10^9+7$。
+
+  \begin{center}
+    \begin{tabularx}{12cm}{|c|c|c|c|X < {\centering}|}
+
+\hline
+测试点编号 & $n$ & $m$ & $q$ & 特殊性质 \\
+\hline
+$1$ & $\leq 10$ & $\leq 10$ & $\leq 10^9+7$  & 无 \\
+\hline
+$2$ & $\leq 10$ & $\leq 10^{18}$ & $\leq 10$  & 无 \\
+\hline
+$3$ & $\leq 100$ & $\leq 100$ & $\leq 10^9+7$ & 无 \\
+\hline
+$4$ & $\leq 100$ & $\leq 100$ & $\leq 10^9+7$ & $n=m$ \\
+\hline
+$5$ & $\leq 100$ & $\leq 10^{18}$ & $\leq 10$ & 无 \\
+\hline
+$6$ & $\leq 100$ & $\leq 10^{18}$ & $\leq 10^9+7$ & 无 \\
+\hline
+$7$ & $\leq 500$ & $\leq 500$ & $\leq 10^9+7$ & 无 \\
+\hline
+$8$ & $\leq 500$ & $\leq 500$ & $\leq 10^9+7$ & $n=m$ \\
+\hline 
+$9$ & $\leq 500$ & $\leq 10^{18}$ & $\leq 10$ & 无 \\
+\hline
+$10$ & $\leq 500$ & $\leq 10^{18}$ & $\leq 10^9+7$ & 无 \\
+\hline
+$11$ & $\leq 5 \times 10^3$ & $\leq 5 \times 10^6$ & $\leq 10$ & 无 \\
+\hline
+$12$ & $\leq 5 \times 10^3$ & $\leq 5 \times 10^6$ & $\leq 10^9+7$ & 无 \\
+\hline
+$13$ & $\leq 5 \times 10^3$ & $\leq 5 \times 10^3$ & $\leq 10^9+7$ & 无 \\
+\hline 
+$14$ & $\leq 5 \times 10^3$ & $\leq 5 \times 10^3$ & $\leq 10^9+7$ & $n=m$ \\
+\hline 
+$15$ & $\leq 5 \times 10^3$ & $\leq 10^{18}$ & $\leq 10$ & 无 \\
+\hline
+$16$ & $\leq 5 \times 10^3$ & $\leq 10^{18}$ & $\leq 10^9+7$ & 无 \\
+\hline
+$17$ & $\leq 5 \times 10^6$ & $\leq 5 \times 10^6$ & $\leq 10^9+7$ & $n=m$ \\
+\hline
+$18$ & $\leq 5 \times 10^6$ & $\leq 5 \times 10^6$ & $\leq 10^9+7$ & 无 \\
+\hline
+$19$ & $\leq 5 \times 10^6$ & $\leq 10^{18}$ & $\leq 10$ & 无 \\
+\hline
+$20$ & $\leq 5 \times 10^6$ & $\leq 10^{18}$ & $\leq 10^9+7$ & 无 \\
+\hline
+    \end{tabularx}
+  \end{center}
+  \newpage
+  \section{\rm \ChineseprobB (\probB)}
+  \subsection*{题目描述}
+  
+定义一个矩阵是\textbf{回文文回} 的，当且仅当\textbf{同时} 满足以下两个条件：
+
+\begin{itemize}
+    \item 存在一列字符串是回文串。
+    \item  存在一行字符串是回文串。
+\end{itemize}
+
+给定一个 $n \times m$ 字符矩阵 $A$，请找到其中一个面积最大的\textbf{回文文回} 子矩阵。
+
+\textbf{注意：} 这里子矩阵的定义为从一个矩阵当中选取某些\textbf{连续的} 行和某些\textbf{连续的} 列交叉位置所组成的新矩阵（保持行与列的相对顺序）。
+
+  \subsection*{输入格式}
+  
+从 $\text{mat.in}$ 输入。
+
+  一行两个正整数 $n,m$，表示矩阵的大小。
+
+接下来 $n$ 行，每行一个长度为 $m$ 的字符串，描述字符矩阵 $A$。
+
+  \subsection*{输出格式}
+  
+向 $\text{mat.out}$ 输出。
+
+  一行一个正整数，表示最大的\textbf{回文文回} 矩阵的面积。
+
+  \subsection*{样例 1 输入}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+5 5
+bwunk
+ktvnm
+lgdfo
+fmqgs
+dssus
+\end{minted}
+  \subsection*{样例 1 输出}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+6
+\end{minted}
+
+  \subsection*{样例 $2 \sim 7$ 输入}
+
+  详见选手文件夹下的 \text{\probB/\probB*.in} 文件。
+
+  \subsection*{样例 $2 \sim 7$ 输出}
+
+  详见选手文件夹下的 \text{\probB/\probB*.ans} 文件。
+
+  \subsection*{数据规模与约定}
+  
+对于所有的数据，满足 $1 \leq n,m \leq 3000$，矩阵中的所有字符均为小写字母。
+\begin{center}
+    \begin{tabularx}{10cm}{|c|c|X < {\centering}|}
+      \hline
+      测试点编号 & 数据范围 & 特殊性质  \\
+      \hline
+ $1 \sim 2$ & $1 \leq n,m \leq 10$ & 无  \\ 
+\hline
+ $3 \sim 5$ & $1 \leq n,m \leq 50$ & 无 \\  
+\hline
+ $6 \sim 10$ & $1 \leq n,m \leq 500$ & 无 \\
+\hline
+ $11 \sim 12$ & $n=1,1 \leq m \leq 3000$ & 无 \\
+\hline
+ $13$ & $1 \leq n,m \leq 3000$ & 矩阵中只有 a \\
+\hline
+ $14 \sim 18$ & $1 \leq n,m \leq 1000$ & 无 \\ 
+\hline
+ $19 \sim 20$ & $1 \leq n,m \leq 3000$ & 无 \\ 
+\hline
+    \end{tabularx}
+  \end{center}
+
+  
+  \newpage
+  \section{\rm \ChineseprobC (\probC)}
+
+  \subsection*{题目描述}
+
+
+我们现在有一个集合 $A$，其中的元素均为字符串 $S$，且满足以下条件：
+
+\begin{itemize}
+\item 只包含 $\texttt{0,1,|}$。
+
+\item 第一位是 $\texttt{1}$，每个 $\texttt{|}$ 后面的第一个字符都是 $\texttt{1}$。
+\end{itemize}
+
+现在我们定义集合 $B_{n}(n \geq 1)$，其中的元素均为字符串 $S$，且满足以下条件：
+
+\begin{itemize}
+    \item $S \in A$。
+
+    \item 将 $S$ 视作表达式，值为 $2^n-1$。
+\end{itemize}
+
+最后我们定义集合 $C_{n}(n \geq 1)$，其中的元素均为字符串 $S$，且满足以下条件：
+
+\begin{itemize}
+    \item $S \in A$。
+
+    \item  $S$ 有一个后缀 $T$ 满足 $T \in B_{n}$。
+\end{itemize}
+
+注意，这里要求的是 $S$ 的任意一个后缀 $T$，例如若 $S=\texttt{1001|1111}$，那么 $T=\texttt{111}$ 是合法的。
+
+现在给定 $k,n$，你需要求出满足以下条件的字符串 $S$ 的数量：
+
+\begin{itemize}
+    \item  $S \in C_{n}$。
+
+    \item $S$ 中 $\texttt{0,1}$ 的个数为 $k$ ，也就是说，数字字符的个数为 $k$。
+\end{itemize}
+
+对给定的 $M$ 取模。请注意：$M\in \textbf{\color{red}{\{2,4\}}}$
+
+
+  \subsection*{输入格式}
+
+从 $\text{or.in}$ 输入。
+
+第一行两个正整数 $c,t$，表示测试点编号和数据组数。对于样例，有 $c=0$。
+
+对于每组数据，输入一行三个正整数 $n,k,M$，意义见题面。
+
+  \subsection*{输出格式}
+
+向 $\text{or.out}$ 输出。
+
+对于每组数据，输出一行一个正整数，表示答案对 $M$ 取模的结果。请注意：$M\in \textbf{\color{red}{\{2,4\}}}$
+
+
+
+  \subsection*{样例 1 输入}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+0 3
+5 8 4
+2 6 4
+2 8 4
+\end{minted}
+  \subsection*{样例 1 输出}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+3
+0
+2
+\end{minted}
+
+
+   \subsection*{样例 $2 \sim 6$ 输入}
+
+  详见选手文件夹下的 \text{\probC/\probC*.in} 文件。
+
+  \subsection*{样例 $2 \sim 6$ 输出}
+
+  详见选手文件夹下的 \text{\probC/\probC*.ans} 文件。
+
+  \subsection*{数据规模与约定}
+
+    对于所有数据，满足 $1 \leq t \leq 10,1 \leq n \leq 10^{13},n+2 \leq k \leq 2 \times 10^{13},M\in \textbf{\color{red}{\{2,4\}}}$。
+
+  \begin{center}
+    \begin{tabularx}{10cm}{|c|c|c|c|X<{\centering}|}
+      \hline
+      测试点编号 & $t\le$ & $n \le$ & $k \le$ & 特殊性质  \\
+      \hline
+ $1,2$ & $3$ & $5$ & $10$ & 无  \\ 
+\hline
+ $3,4$ & $3$ & $8$ & $16$ & 无  \\ 
+\hline
+ $5,6$ & $3$ & $12$ & $20$ & 无  \\ 
+\hline
+ $7 \sim 9$ & $10$ & $2000$ & $3000$ & 无  \\ 
+\hline
+ $10 \sim 12$ & $10$ & $10^6$ & $2 \times 10^6$ & 无  \\ 
+\hline
+ $13,14$ & $10$ & $10^{13}$ & $2 \times 10^{13}$ & A  \\ 
+\hline
+ $15 \sim 17$ & $10$ & $10^{13}$ & $2 \times 10^{13}$ & B  \\ 
+\hline
+ $18 \sim 25$ & $10$ & $10^{13}$ & $2 \times 10^{13}$ & 无  \\ 
+\hline
+    \end{tabularx}
+  \end{center}
+
+特殊性质A：保证 $k\leq n+5$。
+
+特殊性质B：保证 $M=2$。
+\newpage
+
+\section{\rm \ChineseprobD (\probD)}
+
+\subsection*{题目背景}
+
+建议 $\textbf{仔细}$ 阅读题面再做题。
+
+真的是题目背景哦。
+
+\subsection*{题目描述}
+
+你是一位龙骑士。
+
+现在，你的面前有 $n$ 座岛，你在第一座岛上，第 $i$ 和第 $i+1$ 座岛之间有 $\textbf{两条方向相反的单向}$ $\textbf{道路}$。而这些岛又是奇特的，具体地，每当你第一次到达第 $i$ 座岛（包括第一座），$\textbf{无论你的龙在}$ $\textbf{什么地方}$，它的耐力值会加上 $a_{i}$。
+
+在岛之间移动有以下三种方式：
+
+\begin{itemize}
+
+\item 游泳。当你的龙满足其耐力值 $\geq d$ 时，可以消耗其 $d$ 的耐力值，花费 $t_{0}$ 的时间让 $\textbf{你和它}$ 从当前的第 $i$ 座岛移动到第 $i+1$ 座岛。
+
+\item 飞翔。当你的龙满足其耐力值 $>0$ 时，可以让它的耐力值变为 $0$，花费 $t_{1}$ 的时间让 $\textbf{你和它}$ 从当前的第 $i$ 座岛移动到第 $i+1$ 座岛。
+
+\item 走路。$\textbf{你}$ 可以通过单向道路移动，花费 $t_{2}$ 的时间。$\textbf{注意：每条单向道路你只可以走}$ $\textbf{一次，且龙不能通过道路移动。}$
+
+\end{itemize}
+
+$\textbf{注意：游泳和飞翔只有在你和龙在同一座岛上的时候才可以使用。}$
+
+经过长途跋涉，当你的龙到达第一座岛上时，它的耐力值已经变成了 $0$。作为龙骑士，为了爱护你的龙，请你计算出你的龙到达第 $n$ 座岛的最小时间。
+
+  \subsection*{输入格式}
+
+从 $\text{dragon.in}$ 读入。
+
+本题的测试点包含有多组测试数据。
+
+第一行包括两个正整数 $c,t$，表示测试点编号和数据组数。对于样例，有 $c=0$。
+
+对于每组数据，输入两行，第一行包括五个正整数 $n,d,t_0,t_1,t_2$，意义见题面。
+
+第二行包括 $n$ 个正整数 $a_{1},a_{2},\dots,a_{n}$，意义见题面。
+
+  \subsection*{输出格式}
+
+向 $\text{dragon.out}$ 输出。
+
+对于每组数据，输出一行，包含一个正整数，表示你的龙到达第 $n$ 座岛的最小时间。
+
+  \subsection*{样例 1 输入}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+0 3
+8 6 9 9 2
+6 8 7 6 8 6 6 6 
+10 4 5 10 10
+6 5 6 6 5 5 5 6 6 6 
+7 5 8 10 8
+5 6 5 6 6 6 7 
+\end{minted}
+  \subsection*{样例 1 输出}
+  \begin{minted}[frame=single, mathescape, linenos, rulecolor=blue, framesep=8pt, numbersep=8pt, numbers=none]{text}
+63
+45
+48
+\end{minted}
+
+  \subsection*{样例 $2 \sim 9$ 输入}
+
+  详见选手文件夹下的 \text{\probD/\probD*.in} 文件。
+
+  \subsection*{样例 $2 \sim 9$ 输出}
+
+  详见选手文件夹下的 \text{\probD/\probD*.ans} 文件。
+
+  \subsection*{数据规模与约定}
+
+    对于所有数据，$t=3,2 \leq n \leq 5
+\times 10^5, 1 \leq a_{i},d,t_0,t_1,t_2 \leq 1 \times 10^9$。
+
+    \begin{center}
+\begin{tabularx}{12cm}{|c|c|c|X<{\centering}|c|}
+\hline
+测试点编号 & $n$ & $a_{i},d,t_0,t_1,t_2$ & 特殊性质 \\
+\hline
+$1$ & $\leq 10$ & $\leq 10$ & $t_0 > t_1$ \\
+\hline
+$2$ & $\leq 10$ & $\leq 10$ & 无 \\
+\hline
+$3 \sim 5$ & $\leq 100$ & $\leq 10$ & 无 \\
+\hline
+$6 \sim 8$ & $\leq 1 \times 10^3$ & $\leq 100$ & 无 \\
+\hline
+$9 \sim 10$ & $\leq 1 \times 10^3$ & $\leq 1 \times 10^3$ &  无 \\
+\hline
+$11 \sim 16$ & $\leq 5 \times 10^4$ & $\leq 5 \times 10^4$ & 无  \\
+\hline
+$17 \sim 19$ & $\leq 2 \times 10^5$ & $\leq 2 \times 10^5$ & $t_0,t_2=1,t_1=1 \times 10^9$ \\
+\hline
+$20 \sim 22$ & $\leq 2 \times 10^5$ & $\leq 1 \times 10^9$ &  无 \\
+\hline
+$23 \sim 25$ & $\leq 5 \times 10^5$ & $\leq 1 \times 10^9$ &  无 \\
+\hline
+\end{tabularx}
+
+  \end{center}
+  
+\end{document}
