@@ -16,7 +16,7 @@ $1// #define LUOGU
 #define YESNO(j) cout << ((j) ? "Yes\n" : "No\n")
 #define EXIT(s...) return (cout << s), void();
 using namespace std;using pii_t=pair<int,int>;using pll_t=pair<int64_t,int64_t>;using veci_t=vector<int>;using vecl_t=vector<int64_t>;Inline int Popcnt(int x){return __builtin_popcount((unsigned)x);}Inline int Popcnt(unsigned x){return __builtin_popcount(x);}Inline int Popcnt(int64_t x){return __builtin_popcountll((uint64_t)x);}Inline int Popcnt(uint64_t x){return __builtin_popcountll(x);}Inline int Log2(int x){return 31-__builtin_clz((unsigned)x|1);}Inline int Log2(unsigned x){return 31-__builtin_clz(x|1);}Inline int Log2(int64_t x){return 63-__builtin_clzll((uint64_t)x|1);}Inline int Log2(uint64_t x){return 63-__builtin_clzll(x|1);}
-
+namespace Solution{
 $2#define MULTI_TEST_CASES
 
 constexpr int N = ${1000:0};
@@ -26,12 +26,13 @@ inline void solveSingleTestCase() {
     cin >> n$1004;
     $0
 }
+}
 int main() {
     cin.tie(nullptr) -> sync_with_stdio(false);
     int testCases = 1;
 #ifdef MULTI_TEST_CASES
     cin >> testCases;
 #endif
-    while (testCases--) solveSingleTestCase();
+    while (testCases--) Solution::solveSingleTestCase();
     return 0;
 }
