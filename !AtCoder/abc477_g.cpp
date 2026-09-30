@@ -24,78 +24,86 @@ constexpr int N = 2;
 #else
 constexpr int N = 200005;
 #endif
-int x[N];
-constexpr int B = 400;
-struct Query { int s, t, a, b, lid, rid, id; } q[N];
-int ans[N];
+constexpr int B = 640;
+int val[N], ans[N], n;
 vector<int> g[N];
+struct Query { int s, t, ex, a, b, lid, rid, id; } q[N];
 struct Sum {
     int a[N], b[N];
-    inline void add(int p, int x) {
-        a[p] += x, b[p / B] += x;
-    }
-    inline int sum(int l, int r) {
-        int lb = l / B, rb = r / B;
-        int sum = 0;
-        if (lb == rb) {
-            For(i, l, r) sum += a[i];
-        } else {
-            For(j, lb+1, rb-1) sum += b[j];
-            For(i, l, B*(lb+1)-1) sum += a[i];
-            For(i, B*rb, r) sum += a[i];
-        }
-        return sum;
-    }
+    inline void add(int p, int x) { a[p] += x, b[p / B] += x; }
+    inline int sum(int p) { int sum = 0, blk = p / B; For(i, 0, blk-1) sum += b[i]; For(i, blk*B, p) sum += a[i]; return sum; }
+    inline int sum(int l, int r) { return sum(r) - sum(l-1); }
 } fs;
-int seq[N*2], mp[N*2], top;
+struct DfbLCA {
+    constexpr static int K = 17;
+    int dfn[N], top, st[N][K+1];
+    inline int argu(int u, int v) const {
+        return dfn[u] < dfn[v] ? u : v;
+    }
+    void dfs(int u, int fa) {
+        dfn[u] = ++top, st[top][0] = fa;
+        for (int v : g[u]) if (v != fa) dfs(v, u);
+    }
+    inline void init() {
+        top = 0, dfs(1, 0);
+        For(k, 1, K)
+            For(i, 1, n - (1<<k)+1)
+                st[i][k] = argu(st[i][k-1], st[i+(1<<k-1)][k-1]);
+    }
+    inline int operator()(int u, int v) const {
+        if (u == v) return u;
+        u = dfn[u], v = dfn[v];
+        if (u > v) std::swap(u, v);
+        int k = __lg(v - u++);
+        return argu(st[u][k], st[v-(1<<k)+1][k]);
+    }
+} lca;
+int seq[N*2], mp[N][2], top;
 void dfs(int u, int fa) {
-    seq[++top] = u, mp[u] = top;
+    seq[++top] = u, mp[u][0] = top;
     for (int v : g[u]) if (v != fa) dfs(v, u);
-    seq[++top] = -u;
+    seq[++top] = u, mp[u][1] = top;
 }
-int cnt[N];
-void del(int);
-inline void add(int x) {
-    if (x < 0) return del(-x);
-    fs.add(cnt[x], -1);
-    ++cnt[x];
-    fs.add(cnt[x], 1);
-}
-inline void del(int x) {
-    if (x < 0) return add(-x);
-    fs.add(cnt[x], -1);
-    --cnt[x];
-    fs.add(cnt[x], 1);
+int cnt[N]; bool vis[N];
+inline void change(int x) {
+    fs.add(cnt[val[x]], -1);
+    cnt[val[x]] += vis[x] ? -1 : 1;
+    fs.add(cnt[val[x]], 1);
+    vis[x] = !vis[x];
 }
 inline void solveSingleTestCase() {
-    int n, m;
+    int m;
     cin >> n >> m;
-    For(i, 1, n) cin >> x[i];
+    For(i, 1, n) cin >> val[i];
     Repv(n-1, u, v) {
         cin >> u >> v;
         g[u].push_back(v);
         g[v].push_back(u);
     }
     dfs(1, 0);
+    lca.init();
     For(i, 1, m) {
-        cin >> q[i].a >> q[i].b >> q[i].s >> q[i].t;
-        q[i].a = seq[q[i].a], q[i].b = seq[q[i].b];
-        if (q[i].a > q[i].b) std::swap(q[i].a, q[i].b);
-        q[i].lid = q[i].a / B, q[i].rid = q[i].b / B;
-        q[i].id = i;
+        cin >> q[i].s >> q[i].t >> q[i].a >> q[i].b;
+        if (mp[q[i].s][0] > mp[q[i].t][0]) std::swap(q[i].s, q[i].t);
+        q[i].ex = lca(q[i].s, q[i].t);
+        if (q[i].s == q[i].ex)
+            q[i].s = mp[q[i].s][0], q[i].t = mp[q[i].t][0], q[i].ex = 0;
+        else
+            q[i].s = mp[q[i].s][1], q[i].t = mp[q[i].t][0];
+        q[i].lid = q[i].s / B, q[i].rid = q[i].t / B, q[i].id = i;
     }
     sort(q+1, q+1+m, [](const Query&x, const Query&y) {
-        return x.lid < y.lid;
+        return x.lid < y.lid || x.lid == y.lid && (x.lid & 1 ? x.rid > y.rid : x.rid < y.rid);
     });
     int l=1, r=0;
     For(i, 1, m) {
-        while (r < q[i].t) add(seq[++r]);
-        while (l > q[i].s) add(seq[--l]);
-        while (r > q[i].t) del(seq[r--]);
-        while (l < q[i].s) del(seq[l++]);
-        add(seq[q[i].s]);
+        while (r < q[i].t) change(seq[++r]);
+        while (l > q[i].s) change(seq[--l]);
+        while (r > q[i].t) change(seq[r--]);
+        while (l < q[i].s) change(seq[l++]);
+        if (q[i].ex) change(q[i].ex);
         ans[q[i].id] = fs.sum(q[i].a, q[i].b);
-        del(seq[q[i].s]);
+        if (q[i].ex) change(q[i].ex);
     }
     For(i, 1, m) cout << ans[i] << '\n';
 }
