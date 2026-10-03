@@ -21,14 +21,19 @@ $2#define MULTI_TEST_CASES
 
 constexpr int N = ${1000:0};
 $1001
+inline void globalInit() {
+    $1002
+}
+
 inline void solveSingleTestCase() {
-    ${1002:int} n$1003;
-    cin >> n$1004;
+    ${1003:int} n$1004;
+    cin >> n$1005;
     $0
 }
 }
 int main() {
     cin.tie(nullptr) -> sync_with_stdio(false);
+    Solution::globalInit();
     int testCases = 1;
 #ifdef MULTI_TEST_CASES
     cin >> testCases;

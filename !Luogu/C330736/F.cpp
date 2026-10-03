@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-$1// #define LUOGU
+#define LUOGU
 #if defined(ONLINE_JUDGE) && !defined(LUOGU)
 # pragma GCC optimize(2, 3, "inline", "unroll-loops", "fast-math", "inline-small-functions", "no-stack-protector", "delete-null-pointer-checks")
 # pragma GCC target("tune=native")
@@ -17,18 +17,25 @@ $1// #define LUOGU
 #define EXIT(s...) return (cout << s), void();
 using namespace std;using pii_t=pair<int,int>;using pll_t=pair<int64_t,int64_t>;using veci_t=vector<int>;using vecl_t=vector<int64_t>;Inline int Popcnt(int x){return __builtin_popcount((unsigned)x);}Inline int Popcnt(unsigned x){return __builtin_popcount(x);}Inline int Popcnt(int64_t x){return __builtin_popcountll((uint64_t)x);}Inline int Popcnt(uint64_t x){return __builtin_popcountll(x);}Inline int Log2(int x){return 31-__builtin_clz((unsigned)x|1);}Inline int Log2(unsigned x){return 31-__builtin_clz(x|1);}Inline int Log2(int64_t x){return 63-__builtin_clzll((uint64_t)x|1);}Inline int Log2(uint64_t x){return 63-__builtin_clzll(x|1);}
 namespace Solution{
-$2#define MULTI_TEST_CASES
+#define MULTI_TEST_CASES
 
-constexpr int N = ${1000:0};
-$1001
+constexpr int N = 1e6;
+unordered_map<uint64_t, int> mp;
 inline void globalInit() {
-    $1002
+    constexpr int num[]{2,0,2,9};
+    for (int k = 10; k <= N; k++) {
+        uint64_t val = 0;
+        for (int i = 0; i < 4; i++)
+            val = val * k + num[i];
+        mp[val] = k;
+    }
 }
 
 inline void solveSingleTestCase() {
-    ${1003:int} n$1004;
-    cin >> n$1005;
-    $0
+    uint64_t n;
+    cin >> n;
+    if (!mp.count(n)) cout << "035966_L3\n";
+    else cout << mp[n] << '\n';
 }
 }
 int main() {
