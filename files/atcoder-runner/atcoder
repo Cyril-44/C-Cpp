@@ -1,0 +1,902 @@
+#!/usr/bin/env python3
+"""A single executable: REVEL_SESSION -> concurrent Codex solves -> submissions."""
+import argparse
+import asyncio
+import base64
+import concurrent.futures
+import fcntl
+import functools
+import getpass
+import html
+import json
+import math
+import os
+import re
+import shutil
+import signal
+import subprocess
+import sys
+import tempfile
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+import unicodedata
+from contextlib import asynccontextmanager
+from datetime import datetime, timedelta, timezone
+from html.parser import HTMLParser
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+ORIGIN = "https://atcoder.jp"
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36")
+EFFORTS = {"low", "medium", "high", "xhigh", "max", "ultra"}
+LABEL = r"(?:[A-Z][0-9]*|Ex)"
+DISPLAY_TZ = timezone(timedelta(hours=8), "Asia/Shanghai")
+
+
+class Error(Exception):
+    pass
+
+
+class Cloudflare(Error):
+    pass
+
+
+def atomic(path, text):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, name = tempfile.mkstemp(dir=path.parent, prefix=".tmp-")
+    try:
+        os.fchmod(fd, 0o600)
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(text)
+        os.replace(name, path)
+    finally:
+        if os.path.exists(name):
+            os.unlink(name)
+
+
+def save(path, data):
+    atomic(path, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+
+
+def identifier(value):
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,79}", value):
+        raise Error("标识只能包含字母、数字、下划线和连字符。")
+    return value
+
+
+async def io(function, *args):
+    return await asyncio.get_running_loop().run_in_executor(
+        None, functools.partial(function, *args))
+
+
+@asynccontextmanager
+async def lock(folder):
+    folder.mkdir(parents=True, exist_ok=True)
+    with (folder / ".lock").open("a") as stream:
+        while True:
+            try:
+                fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                break
+            except BlockingIOError:
+                await asyncio.sleep(0.05)
+        try:
+            yield
+        finally:
+            fcntl.flock(stream, fcntl.LOCK_UN)
+
+
+class Node:
+    def __init__(self, tag="", attrs=(), raw=""):
+        self.tag, self.attrs, self.raw = tag, dict(attrs), raw
+        self.children = []
+
+    def nodes(self, tag=None):
+        if tag is None or self.tag == tag:
+            yield self
+        for child in self.children:
+            if isinstance(child, Node):
+                yield from child.nodes(tag)
+
+    def text(self):
+        return "".join(c.text() if isinstance(c, Node) else c for c in self.children)
+
+    def markup(self):
+        if self.raw.endswith("/>"):
+            return self.raw
+        return self.raw + "".join(c.markup() if isinstance(c, Node) else html.escape(c)
+                                 for c in self.children) + "</" + self.tag + ">"
+
+
+class Tree(HTMLParser):
+    VOID = {"br", "hr", "img", "input", "meta", "link", "area", "base", "wbr",
+            "source", "embed", "param", "track", "col"}
+
+    def __init__(self, source):
+        super().__init__(convert_charrefs=True)
+        self.root = Node()
+        self.stack = [self.root]
+        self.feed(source)
+
+    def handle_starttag(self, tag, attrs):
+        node = Node(tag, attrs, self.get_starttag_text())
+        self.stack[-1].children.append(node)
+        if tag not in self.VOID:
+            self.stack.append(node)
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag not in self.VOID:
+            self.handle_endtag(tag)
+
+    def handle_endtag(self, tag):
+        for i in range(len(self.stack) - 1, 0, -1):
+            if self.stack[i].tag == tag:
+                del self.stack[i:]
+                break
+
+    def handle_data(self, value):
+        self.stack[-1].children.append(value)
+
+
+def markdown(node):
+    if isinstance(node, str):
+        return node
+    tag = node.tag
+    if tag in {"script", "style"}:
+        return ""
+    if tag == "br":
+        return "\n"
+    if tag == "img":
+        url = urllib.parse.urljoin(ORIGIN, node.attrs.get("src", ""))
+        return "\n![" + node.attrs.get("alt", "") + "](" + url + ")\n"
+    if tag == "svg":
+        return "\n" + chr(96) * 3 + "xml\n" + node.markup() + "\n" + chr(96) * 3 + "\n"
+    content = "".join(markdown(c) for c in node.children)
+    if tag == "pre":
+        fence = chr(96) * max(3, 1 + max(
+            (len(s) for s in re.findall(chr(96) + "+", content)), default=0))
+        return "\n" + fence + "text\n" + content + (
+            "" if content.endswith("\n") else "\n") + fence + "\n"
+    if re.fullmatch("h[1-6]", tag):
+        return "\n" + "#" * int(tag[1]) + " " + content.strip() + "\n"
+    if tag == "var":
+        return "$" + content + "$"
+    if tag in {"sub", "sup"}:
+        return ("_" if tag == "sub" else "^") + "{" + content + "}"
+    if tag == "li":
+        return "\n- " + content.strip() + "\n"
+    if tag in {"td", "th"}:
+        return content.strip() + " | "
+    if tag in {"p", "div", "section", "ul", "ol", "tr", "table"}:
+        return "\n" + content.strip() + "\n"
+    return content
+
+
+def task_body(source):
+    tree = Tree(source).root
+    body = next((n for n in tree.nodes() if n.attrs.get("id") == "task-statement"), None)
+    if body is None:
+        raise Error("页面缺少 task-statement；检查比赛是否开始和 REVEL_SESSION 是否有效。")
+    body = next((n for n in body.nodes() if "lang-en" in n.attrs.get("class", "").split()), body)
+    return tree, body
+
+
+def statement(source, task_id, contest=None):
+    tree, body = task_body(source)
+    title = next((n.text().strip() for n in tree.nodes()
+                  if n.tag == "h2" or "h2" in n.attrs.get("class", "").split()), task_id)
+    limits = [n.text().strip() for n in tree.nodes("p") if "Time Limit:" in n.text()]
+    contest = contest or task_id.rsplit("_", 1)[0]
+    return "# " + title + "\n\n" + ORIGIN + "/contests/" + contest + "/tasks/" + task_id + \
+        "\n\n" + "\n".join(limits) + "\n\n" + markdown(body).strip() + "\n"
+
+
+def profile(config, score=None):
+    selected = config["default"]
+    if score is not None:
+        for rule in config.get("rules", []):
+            if rule["min"] <= score and (rule["max"] is None or score < rule["max"]):
+                selected = rule
+                break
+    if not selected.get("model") or selected.get("level") not in EFFORTS:
+        raise Error("模型配置需要 model 和有效的 level。")
+    return {"model": selected["model"], "level": selected["level"]}
+
+
+def task_list(source, contest):
+    tasks = {}
+    prefix = "/contests/" + contest + "/tasks/"
+    for anchor in Tree(source).root.nodes("a"):
+        path = urllib.parse.urlsplit(anchor.attrs.get("href", "")).path
+        label = anchor.text().strip()
+        if path.startswith(prefix) and re.fullmatch(LABEL, label) and path[len(prefix):] not in tasks:
+            task_id = path[len(prefix):]
+            tasks[task_id] = {"id": identifier(task_id), "label": label}
+    if not tasks:
+        raise Error("题目列表尚未公开或无法识别。")
+    return list(tasks.values())
+
+
+def contest_times(tree):
+    moments = [n.text().strip() for n in tree.nodes("time")
+               if "fixtime-full" in n.attrs.get("class", "").split()]
+    if not moments:
+        raise Error("比赛页没有公开开赛时间。")
+    dates = [datetime.fromisoformat(re.sub(r"([+-]\d\d)(\d\d)$", r"\1:\2", value))
+             for value in moments[:2]]
+    if any(value.tzinfo is None for value in dates):
+        raise Error("比赛时间缺少时区。")
+    start = dates[0].timestamp()
+    end = dates[1].timestamp() if len(dates) > 1 else None
+    if end is not None and end <= start:
+        raise Error("比赛结束时间必须晚于开始时间。")
+    return {"start": start, "end": end}
+
+
+def contest_info(source, contest, config):
+    tree = Tree(source).root
+    timings = contest_times(tree)
+    scores = {}
+    for table in tree.nodes("table"):
+        rows = [[n.text().strip() for n in row.children
+                 if isinstance(n, Node) and n.tag in {"td", "th"}]
+                for row in table.nodes("tr")]
+        for row in rows:
+            if len(row) == 2 and re.fullmatch(LABEL, row[0]) and re.fullmatch(r"\d+", row[1]):
+                scores[row[0]] = int(row[1])
+        if len(rows) >= 2 and rows[1] and rows[1][0] in {"Score", "配点"}:
+            for label, points in zip(rows[0][1:], rows[1][1:]):
+                if re.fullmatch(LABEL, label) and points.isdigit():
+                    scores[label] = int(points)
+    return {"contest": contest, **timings,
+            "tasks": [{"id": None, "label": label, "score": points,
+                       **profile(config, points)} for label, points in scores.items()]}
+
+
+def challenged(source):
+    return bool(re.search(r"cf-chl-|__cf_chl_|cf-turnstile|/cdn-cgi/challenge-platform/|"
+                          r"<title>\s*Just a moment|Attention Required!\s*\|\s*Cloudflare",
+                          source, re.I))
+
+
+class Redirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, url):
+        if urllib.parse.urlsplit(url).netloc not in {"atcoder.jp", "img.atcoder.jp"}:
+            raise Error("拒绝 AtCoder 以外的重定向。")
+        return super().redirect_request(req, fp, code, msg, headers, url)
+
+
+class Client:
+    def __init__(self, session, config):
+        if not session or re.search(r"[\r\n;]", session):
+            raise Error("REVEL_SESSION 为空或含非法字符。")
+        self.session, self.config = session, config
+
+    def _request(self, path, fields=None, image=False):
+        url = urllib.parse.urljoin(ORIGIN, path)
+        parsed = urllib.parse.urlsplit(url)
+        if parsed.scheme != "https" or parsed.netloc not in {"atcoder.jp", "img.atcoder.jp"}:
+            raise Error("只允许访问 AtCoder 页面和图片。")
+        headers = {"User-Agent": self.config.get("user_agent", UA)}
+        submission = parsed.path.rstrip("/").endswith("/submit")
+        if not image and parsed.netloc == "atcoder.jp":
+            headers.update({"Cookie": "REVEL_SESSION=" + self.session, "Referer": url})
+        data = urllib.parse.urlencode(fields).encode() if fields is not None else None
+        request = urllib.request.Request(url, data=data, headers=headers)
+        try:
+            with urllib.request.build_opener(Redirect()).open(
+                    request, timeout=self.config.get("http_timeout", 30)) as response:
+                body = response.read(32 * 1024 * 1024 + 1)
+                if len(body) > 32 * 1024 * 1024:
+                    raise Error("响应超过 32 MiB。")
+                kind = response.headers.get_content_type()
+                if image and kind.startswith("image/"):
+                    return response.url, body, kind
+                source = body.decode("utf-8", errors="replace")
+                if challenged(source):
+                    raise Cloudflare("Cloudflare 验证")
+                if urllib.parse.urlsplit(response.url).path.rstrip("/") in {"/login", "/signin"}:
+                    if submission:
+                        raise Cloudflare("提交页跳转到登录或验证页面")
+                    raise Error("页面要求登录；请检查 REVEL_SESSION 或 Cloudflare 验证状态。")
+                return response.url, source
+        except urllib.error.HTTPError as exc:
+            source = exc.read(1024 * 1024).decode("utf-8", errors="replace")
+            if challenged(source) or exc.headers.get("cf-mitigated") == "challenge" or \
+                    (submission and re.search(r"cf-challenge|captcha|turnstile", source, re.I)):
+                raise Cloudflare("Cloudflare 验证") from exc
+            raise Error("AtCoder HTTP " + str(exc.code)) from exc
+        except urllib.error.URLError as exc:
+            raise Error("AtCoder 网络请求失败：" + str(exc.reason)) from exc
+
+    async def get(self, path):
+        return (await io(self._request, path))[1]
+
+    async def submit_form(self, contest):
+        source = await self.get("/contests/" + contest + "/submit")
+        tree = Tree(source).root
+        forms = [n for n in tree.nodes("form")
+                 if urllib.parse.urlsplit(n.attrs.get("action", "")).path.rstrip("/").endswith("/submit")]
+        if not forms:
+            raise Error("没有找到提交表单；检查 REVEL_SESSION。")
+        fields = {n.attrs["name"]: n.attrs.get("value", "") for n in forms[0].nodes("input")
+                  if n.attrs.get("type") == "hidden" and "name" in n.attrs}
+        if not fields.get("csrf_token"):
+            raise Error("提交表单没有 CSRF token。")
+        containers = [n for n in forms[0].nodes()
+                      if n.attrs.get("name") == "data.LanguageId" or
+                      n.attrs.get("data-name") == "data.LanguageId"]
+        choices = [n for container in containers for n in container.nodes("option")
+                   if re.search(r"\bC\+\+\s*23\b", n.text(), re.I) and n.attrs.get("value")]
+        if not choices:
+            raise Error("提交表单没有 C++ 23。")
+        fields["data.LanguageId"] = choices[0].attrs["value"]
+        return fields
+
+    async def submit(self, contest, task, form, source):
+        fields = {**form, "data.TaskScreenName": task, "sourceCode": source.read_text()}
+        url, body = await io(self._request, "/contests/" + contest + "/submit", fields)
+        if not urllib.parse.urlsplit(url).path.startswith("/contests/" + contest + "/submissions"):
+            if re.search(r"cf-challenge|cf-turnstile|captcha|turnstile|人機|人机", body, re.I):
+                raise Cloudflare("提交需要 Cloudflare 验证")
+            alerts = [n.text().strip() for n in Tree(body).root.nodes()
+                      if "alert-danger" in n.attrs.get("class", "").split()]
+            raise Error("提交未被接受：" + ("; ".join(alerts) or "服务器没有返回提交记录页。"))
+        return url
+
+
+async def fetch(client, path, ui=None, key=None, image=False):
+    for retries in range(11):
+        try:
+            return await io(client._request, path, None, True) if image else await client.get(path)
+        except (Error, OSError) as exc:
+            if retries == 10:
+                raise Error("获取失败，已重试 10 次：" + str(exc)) from exc
+            if ui is not None:
+                status = "获取失败：" + str(exc) + "；5 秒后重试 " + str(retries + 1) + "/10"
+                if key is not None:
+                    ui.set(key, status)
+                else:
+                    ui.say(status)
+            await asyncio.sleep(5)
+
+
+async def solve(folder, output, selected, config):
+    prompt = (ROOT / "solver_prompt.md").read_text().replace("{{output}}", output.name)
+    with tempfile.TemporaryDirectory(prefix="atcoder-images-") as temp:
+        images = []
+        urls = re.findall(r"!\[[^\]]*\]\((https://[^)\s]+)\)", (folder / "statement.md").read_text())
+        client = Client("unused", config)
+        async def image(index, url):
+            result = await fetch(client, url, image=True)
+            if len(result) != 3:
+                raise Error("题目图片返回非图像内容。")
+            _, data, kind = result
+            suffix = {"image/png": ".png", "image/jpeg": ".jpg", "image/webp": ".webp",
+                      "image/gif": ".gif", "image/svg+xml": ".svg"}.get(kind)
+            if not suffix:
+                raise Error("题目图片格式不支持：" + kind)
+            path = Path(temp) / (str(index) + suffix)
+            path.write_bytes(data)
+            return path
+        images = await asyncio.gather(*(image(i, u) for i, u in enumerate(dict.fromkeys(urls))))
+        prompt += "\n本地图像临时路径：" + json.dumps([str(p) for p in images]) + "\n"
+        command = [config.get("codex", "codex"), "--no-daemon", "--ask-for-approval", "never",
+                   "exec", "--ignore-user-config", "--ephemeral", "--skip-git-repo-check",
+                   "--sandbox", "workspace-write", "--cd", str(folder), "--model", selected["model"],
+                   "-c", "model_reasoning_effort=" + json.dumps(selected["level"]),
+                   "-c", 'web_search="disabled"', "-c", "sandbox_workspace_write.network_access=false"]
+        for feature in ("plugins", "apps", "multi_agent", "browser_use", "computer_use", "skill_search"):
+            command.extend(["-c", "features." + feature + "=false"])
+        for path in images:
+            if path.suffix != ".svg":
+                command.extend(["--image", str(path)])
+        command.append("-")
+        process = await asyncio.create_subprocess_exec(
+            *command, cwd=folder, stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.DEVNULL,
+            stderr=asyncio.subprocess.PIPE, start_new_session=True)
+        try:
+            _, error = await asyncio.wait_for(process.communicate(prompt.encode()),
+                                             config.get("ai_timeout", 1800))
+            if process.returncode or not output.is_file():
+                raise Error("Codex 未完成或未生成代码：" + error.decode(errors="replace")[-500:])
+        except BaseException as exc:
+            if process.returncode is None:
+                os.killpg(process.pid, signal.SIGKILL)
+                await process.wait()
+            if output.exists():
+                output.unlink()
+            if isinstance(exc, asyncio.TimeoutError):
+                raise Error("Codex 超过 " + str(config.get("ai_timeout", 1800)) +
+                            " 秒，已停止并删除未完成代码。") from exc
+            raise
+
+
+async def obfuscate(source, config):
+    executable = config.get("cppobf")
+    if not executable:
+        return source
+    binary = Path(executable).expanduser()
+    if not binary.is_absolute():
+        binary = ROOT / binary
+    if not binary.is_file() or not os.access(binary, os.X_OK):
+        raise Error("cppobf 不存在或不可执行：" + str(binary))
+    output = source.with_suffix(".obf.cpp")
+    newest = max(source.stat().st_mtime_ns, binary.stat().st_mtime_ns)
+    if output.is_file() and output.stat().st_size and output.stat().st_mtime_ns >= newest:
+        return output
+    fd, name = tempfile.mkstemp(dir=source.parent, prefix=".obf-", suffix=".cpp")
+    os.close(fd)
+    temporary, process = Path(name), None
+    try:
+        process = await asyncio.create_subprocess_exec(
+            str(binary), "--compress", "--flatten", "--opaque", str(source), "-o", name,
+            "--", "-std=c++17", cwd=source.parent, stdout=asyncio.subprocess.DEVNULL,
+            stderr=asyncio.subprocess.PIPE, start_new_session=True)
+        _, error = await asyncio.wait_for(process.communicate(), config.get("cppobf_timeout", 30))
+        if process.returncode or not temporary.stat().st_size:
+            raise Error("cppobf 未完成或输出为空：" + error.decode(errors="replace")[-500:])
+        os.replace(temporary, output)
+        return output
+    except asyncio.TimeoutError as exc:
+        raise Error("cppobf 超时，未提交代码。") from exc
+    finally:
+        if process is not None and process.returncode is None:
+            os.killpg(process.pid, signal.SIGKILL)
+            await process.wait()
+        if temporary.exists():
+            temporary.unlink()
+
+
+def copy_code(source):
+    text = source.read_text()
+    for name, args in [("clip.exe", []), ("wl-copy", []), ("pbcopy", []),
+                       ("xclip", ["-selection", "clipboard"])]:
+        executable = shutil.which(name)
+        if executable:
+            encoding = "utf-16le" if name == "clip.exe" else "utf-8"
+            try:
+                subprocess.run([executable] + args, input=text.encode(encoding),
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                               check=True, timeout=3)
+                return "代码已复制"
+            except (OSError, subprocess.SubprocessError):
+                pass
+    sys.stdout.write("\x1b]52;c;" + base64.b64encode(text.encode()).decode() + "\x07")
+    sys.stdout.flush()
+    return "已发送终端剪贴板请求（OSC 52）"
+
+
+class UI:
+    def __init__(self, screen=None):
+        self.screen, self.rows, self.messages, self.buttons = screen, {}, [], []
+        self.offset = 0
+        self.title, self.start, self.end = "AtCoder", None, None
+        self.opened = time.monotonic()
+        self.solving, self.submitting, self.quit_button = set(), set(), None
+        self.mouse_buffer, self.sgr_mouse = "", False
+        if screen:
+            import curses
+            self.curses = curses
+            screen.nodelay(True)
+            screen.keypad(True)
+            curses.mousemask(curses.ALL_MOUSE_EVENTS)
+            curses.mouseinterval(0)
+            try:
+                curses.curs_set(0)
+            except curses.error:
+                pass
+            if sys.stdout.isatty():
+                # SGR keeps wide-terminal mouse coordinates in ASCII, including on old ncurses.
+                sys.stdout.write("\x1b[?1000h\x1b[?1006h")
+                sys.stdout.flush()
+                self.sgr_mouse = True
+
+    def event(self):
+        while True:
+            key = self.screen.getch()
+            if key == -1:
+                return key, None
+            if key == self.curses.KEY_MOUSE:
+                try:
+                    return key, self.curses.getmouse()
+                except self.curses.error:
+                    return -1, None
+            if key == 27:
+                self.mouse_buffer = "\x1b"
+                continue
+            if self.mouse_buffer and 0 <= key < 128:
+                self.mouse_buffer += chr(key)
+                match = re.fullmatch(r"\x1b\[<(\d+);(\d+);(\d+)([Mm])", self.mouse_buffer)
+                if match:
+                    self.mouse_buffer = ""
+                    button, x, y = map(int, match.groups()[:3])
+                    flag = 0
+                    if match[4] == "M":
+                        if button & 64:
+                            flag = getattr(self.curses, "BUTTON5_PRESSED", 1 << 21) if button & 1 else \
+                                getattr(self.curses, "BUTTON4_PRESSED", 1 << 16)
+                        elif button & 3 == 0 and not button & 32:
+                            flag = self.curses.BUTTON1_PRESSED
+                    return self.curses.KEY_MOUSE, (0, x - 1, y - 1, 0, flag)
+                if len(self.mouse_buffer) <= 64 and ("\x1b[<".startswith(self.mouse_buffer) or
+                        re.fullmatch(r"\x1b\[<[\d;]*", self.mouse_buffer)):
+                    continue
+            self.mouse_buffer = ""
+            return key, None
+
+    def close(self):
+        if self.sgr_mouse:
+            sys.stdout.write("\x1b[?1006l\x1b[?1000l")
+            sys.stdout.flush()
+
+    def say(self, text):
+        self.messages.append(text)
+        if not self.screen:
+            print(text, flush=True)
+
+    def set(self, key, status, source=None, solving=False, submitting=False):
+        self.rows[key] = (status, source)
+        if solving:
+            self.solving.add(key)
+        else:
+            self.solving.discard(key)
+        if submitting:
+            self.submitting.add(key)
+        else:
+            self.submitting.discard(key)
+        if not self.screen:
+            self.say(key + ": " + status + (("；代码：" + str(source)) if source else ""))
+
+    def contest(self, meta):
+        self.start, self.end = meta.get("start"), meta.get("end")
+
+    @staticmethod
+    def duration(seconds):
+        seconds = max(0, int(seconds))
+        return "%02d:%02d:%02d" % (seconds // 3600, seconds // 60 % 60, seconds % 60)
+
+    def timer(self, now):
+        if self.start is None:
+            return "正在读取赛程"
+        total = self.duration(self.end - self.start) if self.end is not None else "总时长未知"
+        if now < self.start:
+            return "距开赛 " + self.duration(math.ceil(self.start - now)) + "  ·  总时长 " + total
+        if self.end is not None and now >= self.end:
+            return "比赛已结束  " + total + " / " + total
+        return "已开始 " + self.duration(now - self.start) + " / " + total
+
+    @staticmethod
+    def cells(text):
+        return sum(0 if unicodedata.combining(c) else
+                   2 if unicodedata.east_asian_width(c) in {"W", "F"} else 1 for c in text)
+
+    def draw(self):
+        screen = self.screen
+        screen.erase()
+        height, width = screen.getmaxyx()
+        self.buttons = []
+        def line(y, text, x=0, limit=None):
+            budget = max(0, width - x - 1 if limit is None else limit)
+            clipped, used = [], 0
+            for char in text:
+                used += self.cells(char)
+                if used > budget:
+                    break
+                clipped.append(char)
+            try:
+                screen.addnstr(y, x, "".join(clipped), len(clipped))
+            except self.curses.error:
+                pass
+        now = time.time()
+        quit_text = "[ 退出 ]"
+        quit_left = max(0, width - self.cells(quit_text) - 1)
+        self.quit_button = (0, quit_left, quit_left + self.cells(quit_text))
+        line(0, self.title, limit=max(0, quit_left - 2))
+        line(0, quit_text, quit_left)
+        line(1, datetime.fromtimestamp(now, DISPLAY_TZ).strftime("%Y-%m-%d %H:%M:%S") +
+             "  UTC+8  ·  本次用时 " + self.duration(time.monotonic() - self.opened))
+        line(2, self.timer(now))
+        self.offset = min(self.offset, max(0, len(self.rows) - max(1, height - 7)))
+        spinner = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"[int(time.monotonic() * 8) % 10]
+        for y, (key, (status, source)) in enumerate(list(self.rows.items())[self.offset:], 4):
+            if y >= height - 3:
+                break
+            prefix = spinner if key in self.solving else \
+                "⇡↑"[int(time.monotonic() * 5) % 2] if key in self.submitting else " "
+            row = prefix + " " + key + "  " + status
+            if source:
+                button = "[ 复制代码 ]"
+                left = max(0, width - self.cells(button) - 1)
+                line(y, row, limit=max(0, left - 2))
+                line(y, button, left)
+                self.buttons.append((y, left, left + self.cells(button), source))
+            else:
+                line(y, row)
+        for y, message in enumerate(self.messages[-2:], height - 3):
+            line(y, message)
+        if len(self.rows) > max(1, height - 7):
+            line(height - 1, "题目 " + str(self.offset + 1) + "–" +
+                 str(min(len(self.rows), self.offset + max(1, height - 7))) +
+                 " / " + str(len(self.rows)))
+        screen.refresh()
+
+
+async def prepare(contest, client, config, ui):
+    async with lock(ROOT / contest):
+        return await prepare_locked(contest, client, config, ui)
+
+
+async def prepare_locked(contest, client, config, ui):
+    path = ROOT / contest / "contest.json"
+    if path.exists():
+        meta = json.loads(path.read_text())
+        if "tasks" in meta:
+            ui.say("复用 " + str(path) + "，跳过比赛信息获取。")
+            if meta.get("end") is None:
+                try:
+                    timings = contest_times(Tree(await fetch(client, "/contests/" + contest, ui)).root)
+                    meta["end"] = timings["end"]
+                    save(path, meta)
+                except Error as exc:
+                    ui.say("赛程补全失败：" + str(exc))
+            return meta
+    source = await fetch(client, "/contests/" + contest, ui)
+    meta = contest_info(source, contest, config)
+    try:
+        actual = task_list(await fetch(client, "/contests/" + contest + "/tasks", ui), contest)
+        points = {t["label"]: t for t in meta["tasks"]}
+        meta["tasks"] = [{**t, "score": points.get(t["label"], {}).get("score"),
+                          **profile(config, points.get(t["label"], {}).get("score"))} for t in actual]
+    except Error:
+        if time.time() >= meta["start"]:
+            raise
+    meta["count"] = len(meta["tasks"]) or None
+    save(path, meta)
+    ui.say("比赛配置已保存；题数：" + str(meta["count"] or "尚未公开"))
+    return meta
+
+
+async def job(contest, task, client, form, config, ui, fresh=False):
+    key = contest + "/" + task["label"]
+    folder = ROOT / contest / task["label"]
+    ui.set(key, "等待题目锁")
+    try:
+        async with lock(folder):
+            numbered = sorted((p for p in folder.glob("sol*.cpp")
+                               if p.is_file() and re.fullmatch(r"sol\d+", p.stem)),
+                              key=lambda p: int(p.stem[3:]), reverse=True)
+            if fresh:
+                number = int(numbered[0].stem[3:]) + 1 if numbered else 1
+                output = folder / ("sol" + str(number) + ".cpp")
+            else:
+                output = folder / "sol.cpp"
+            candidates = numbered + [folder / "sol.cpp"] if fresh else [output] + numbered
+            output = next((p for p in candidates if p.is_file()), output)
+            if not output.is_file():
+                md = folder / "statement.md"
+                if not md.exists():
+                    ui.set(key, "获取题面")
+                    atomic(md, statement(await fetch(client,
+                        "/contests/" + contest + "/tasks/" + task["id"], ui, key), task["id"], contest))
+                selected = {"model": task["model"], "level": task["level"]}
+                ui.set(key, "解题 " + selected["model"] + "/" + selected["level"], solving=True)
+                await solve(folder, output, selected, config)
+            if config.get("cppobf"):
+                ui.set(key, "混淆 " + output.name)
+            output = await obfuscate(output, config)
+            try:
+                if not form.done():
+                    ui.set(key, "等待提交表单 · " + output.name, submitting=True)
+                fields = await form
+                ui.set(key, "提交 " + output.name + " · C++ 23", submitting=True)
+                await client.submit(contest, task["id"], fields, output)
+                ui.set(key, "已提交 " + output.name)
+                return True
+            except Error as exc:
+                ui.set(key, "提交受阻：" + str(exc) + "；点击复制代码", output)
+                return False
+    except asyncio.CancelledError:
+        raise
+    except Exception as exc:
+        ui.set(key, "失败：" + str(exc))
+        return False
+
+
+async def program(args, config, ui):
+    session = config.get("accounts", {}).get(args.user)
+    if not session:
+        raise Error("没有账户别名 " + args.user + "；先执行 ./atcoder login " + args.user)
+    client = Client(session, config)
+    timing = None
+    if args.command == "run":
+        contest = identifier(args.contest).lower()
+        ui.title = "AtCoder · " + contest + " · " + args.user
+        meta = await prepare(contest, client, config, ui)
+        ui.contest(meta)
+        delay = max(0, meta["start"] - time.time())
+        if delay:
+            ui.say("准备完成，等待开赛：" +
+                   datetime.fromtimestamp(meta["start"], DISPLAY_TZ).isoformat())
+            await asyncio.sleep(delay)
+        if not meta["tasks"] or any(not t.get("id") for t in meta["tasks"]):
+            actual = task_list(await fetch(client, "/contests/" + contest + "/tasks", ui), contest)
+            cached = {t["label"]: t for t in meta["tasks"]}
+            meta["tasks"] = [{**t, "score": cached.get(t["label"], {}).get("score"),
+                              **(cached.get(t["label"]) or profile(config))} for t in actual]
+            # Use the canonical IDs from the public task list, never guess them.
+            for original, task in zip(actual, meta["tasks"]):
+                task["id"] = original["id"]
+            meta["count"] = len(meta["tasks"])
+            save(ROOT / contest / "contest.json", meta)
+        tasks, fresh = meta["tasks"], False
+    else:
+        task_id = identifier(args.problem).lower()
+        if "_" not in task_id:
+            raise Error("problemid 使用官方题号，例如 abc344_a。")
+        contest, suffix = task_id.rsplit("_", 1)
+        ui.title = "AtCoder · " + task_id + " · " + args.user
+        selected = profile(config)
+        if args.profile:
+            model, separator, level = args.profile.rpartition("/")
+            if not separator or not model or level not in EFFORTS:
+                raise Error("模型参数格式：MODEL/LEVEL，例如 gpt-6-astra/xhigh。")
+            selected = {"model": model, "level": level}
+        label = suffix.upper()
+        cached = ROOT / contest / "contest.json"
+        if cached.exists():
+            meta = json.loads(cached.read_text())
+            ui.contest(meta)
+            label = next((t["label"] for t in meta.get("tasks", [])
+                          if t.get("id") == task_id), label)
+        if suffix.isdigit() and label == suffix:
+            actual = task_list(await fetch(client, "/contests/" + contest + "/tasks", ui), contest)
+            label = next((t["label"] for t in actual if t["id"] == task_id), label)
+        tasks = [{"id": task_id, "label": label, **selected}]
+        fresh = True
+        if ui.end is None:
+            async def read_timing():
+                try:
+                    ui.contest(contest_times(Tree(await fetch(client, "/contests/" + contest, ui)).root))
+                    async with lock(ROOT / contest):
+                        path = ROOT / contest / "contest.json"
+                        meta = json.loads(path.read_text()) if path.exists() else {"contest": contest}
+                        meta.update(start=ui.start, end=ui.end)
+                        save(path, meta)
+                except Error as exc:
+                    ui.say("赛程读取失败：" + str(exc))
+            timing = asyncio.create_task(read_timing())
+    asyncio.get_running_loop().set_default_executor(
+        concurrent.futures.ThreadPoolExecutor(max_workers=max(16, len(tasks) + 4)))
+    form = asyncio.create_task(client.submit_form(contest))
+    try:
+        results = await asyncio.gather(*(job(contest, task, client, form, config, ui, fresh)
+                                        for task in tasks))
+        if timing is not None:
+            await timing
+        return 0 if all(results) else 1
+    finally:
+        pending = [form] + ([timing] if timing is not None else [])
+        for task in pending:
+            if not task.done():
+                task.cancel()
+        await asyncio.gather(*pending, return_exceptions=True)
+
+
+async def interactive(args, config, screen=None, ui=None):
+    ui = ui or UI(screen)
+    work = asyncio.create_task(program(args, config, ui))
+    if not screen:
+        return await work
+    copying = None
+    async def clipboard(source):
+        try:
+            ui.say(await io(copy_code, source))
+        except Exception as exc:
+            ui.say("复制失败：" + str(exc))
+    try:
+        while True:
+            ui.draw()
+            copies = [b for b in ui.buttons]
+            if work.done() and not any(source for _, source in ui.rows.values()):
+                return await work
+            key, mouse = ui.event()
+            source = None
+            if key in {ui.curses.KEY_DOWN, ui.curses.KEY_NPAGE}:
+                ui.offset += 1
+            if key in {ui.curses.KEY_UP, ui.curses.KEY_PPAGE}:
+                ui.offset = max(0, ui.offset - 1)
+            if ord("1") <= key <= ord("9") and key - ord("1") < len(copies):
+                source = copies[key - ord("1")][3]
+            if key == ui.curses.KEY_MOUSE and mouse is not None:
+                try:
+                    _, x, y, _, event = mouse
+                    if event & getattr(ui.curses, "BUTTON4_PRESSED", 1 << 16):
+                        ui.offset = max(0, ui.offset - 3)
+                    elif event & getattr(ui.curses, "BUTTON5_PRESSED", 1 << 21):
+                        ui.offset += 3
+                    elif event & (ui.curses.BUTTON1_CLICKED | ui.curses.BUTTON1_PRESSED):
+                        if ui.quit_button and y == ui.quit_button[0] and \
+                                ui.quit_button[1] <= x < ui.quit_button[2]:
+                            key = ord("q")
+                        source = next((p for row, left, right, p in copies
+                                       if row == y and left <= x < right), None)
+                except ui.curses.error:
+                    pass
+            if key == ord("q"):
+                work.cancel()
+                await asyncio.gather(work, return_exceptions=True)
+                return await work if work.done() and not work.cancelled() else 130
+            if source and (copying is None or copying.done()):
+                ui.say("正在复制代码")
+                copying = asyncio.create_task(clipboard(source))
+            await asyncio.sleep(0.05)
+    finally:
+        if not work.done():
+            work.cancel()
+            await asyncio.gather(work, return_exceptions=True)
+        if copying is not None:
+            try:
+                await asyncio.wait_for(copying, 4)
+            except (asyncio.TimeoutError, asyncio.CancelledError):
+                pass
+        ui.close()
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="AtCoder：仅保存 REVEL_SESSION，所有题并行解题，完成一题立即提交。",
+        epilog="主目录配置 config.json；后端提示词 solver_prompt.md；cppobf 配置程序路径后自动混淆提交。")
+    commands = parser.add_subparsers(dest="command", required=True)
+    login = commands.add_parser("login", help="保存账户别名及唯一凭据 REVEL_SESSION")
+    login.add_argument("alias", help="本地账户别名，run/do 的 user 使用此值")
+    login.add_argument("session", nargs="?", metavar="REVEL_SESSION",
+                       help="浏览器 Cookie REVEL_SESSION 的值；省略时隐藏输入")
+    run = commands.add_parser("run", help="缓存比赛配置，等待开赛，并行解所有题并提交")
+    run.add_argument("contest", help="比赛号，例如 abc344")
+    run.add_argument("user", help="login 保存的账户别名")
+    do = commands.add_parser("do", help="解答单题或直接提交已有代码")
+    do.add_argument("problem", help="官方题号，例如 abc344_a")
+    do.add_argument("user", help="login 保存的账户别名")
+    do.add_argument("profile", nargs="?", metavar="MODEL/LEVEL",
+                    help="无代码时使用的模型/深度；省略时用主配置 default；已有代码直接提交")
+    args = parser.parse_args()
+    config = json.loads((ROOT / "config.json").read_text())
+    profile(config)
+    if args.command == "login":
+        alias = identifier(args.alias)
+        session = args.session or getpass.getpass("REVEL_SESSION（隐藏输入）：")
+        Client(session, config)
+        config.setdefault("accounts", {})[alias] = session
+        save(ROOT / "config.json", config)
+        print("账户别名已保存：" + alias)
+        return
+    if not shutil.which(config.get("codex", "codex")):
+        raise Error("找不到 Codex CLI；请先安装并执行 codex login。")
+    if sys.stdin.isatty() and sys.stdout.isatty() and os.environ.get("TERM", "dumb") != "dumb":
+        import curses
+        ui = None
+        def run_screen(screen):
+            nonlocal ui
+            ui = UI(screen)
+            return asyncio.run(interactive(args, config, screen, ui))
+        result = curses.wrapper(run_screen)
+        for key, (status, source) in ui.rows.items():
+            print(key + ": " + status + (("；代码：" + str(source)) if source else ""))
+    else:
+        result = asyncio.run(interactive(args, config))
+    return result
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main() or 0)
+    except KeyboardInterrupt:
+        print("已中断。", file=sys.stderr)
+        sys.exit(130)
+    except (Error, OSError, ValueError, KeyError) as exc:
+        print("错误：" + str(exc), file=sys.stderr)
+        sys.exit(1)
