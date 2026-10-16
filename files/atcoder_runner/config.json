@@ -1,0 +1,39 @@
+{
+  "accounts": {
+    "nigger543": "ed44c320786b1955a78b9bb4d783c2e13be68d1f-%00UserName%3Anigger543%00%00a%3Afalse%00%00w%3Afalse%00%00csrf_token%3A%2BlpJ20%2B%2BMLmOL4%2BaIuWWq14sRy1T4tM%2BQ500%2BzI0p4E%3D%00%00_TS%3A1807355272%00%00SessionKey%3A16ab0d8695e0d9eeb4eefd6db5e94004eeb51fd795be9ce586c37444ffd5db4b%00%00UserScreenName%3Anigger543%00"
+  },
+  "codex": "codex",
+  "default": {
+    "model": "gpt-6-luna",
+    "level": "max",
+    "verify_samples": true
+  },
+  "rules": [
+    {
+      "min": 0,
+      "max": 500,
+      "model": "gpt-6-luna",
+      "level": "medium",
+      "verify_samples": false
+    },
+    {
+      "min": 500,
+      "max": 900,
+      "model": "gpt-6-luna",
+      "level": "high",
+      "verify_samples": true
+    },
+    {
+      "min": 900,
+      "max": null,
+      "model": "gpt-6-luna",
+      "level": "xhigh",
+      "verify_samples": true
+    }
+  ],
+  "http_timeout": 30,
+  "ai_timeout": 1800,
+  "cppobf": "./cppobf",
+  "cppobf_timeout": 30,
+  "proxy": "socks5h://127.0.0.1:40000"
+}
