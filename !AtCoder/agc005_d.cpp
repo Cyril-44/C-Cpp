@@ -3,10 +3,38 @@ template<typename T>constexpr inline T modInv(T x,T y){assert(x!=0);T u=0,v=1,a=
 constexpr auto MOD = 924844033;
 using Mint = MB<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
 constexpr int N = 2005;
-int f[N+N][N];
-int cnt[N];
+#ifdef CLANGD
+#define N 2
+#endif
+Mint f[N+N][N], fac[N]; // f[i][j] 表示已经处理了 i 个点，独立集大小为 j 的方案数
+bool cut[N+N];
+/*
+先容斥，然后化为独立集计数
+*/
 int main() {
     int n, k;
     scanf("%d%d", &n, &k);
-    
+    fac[0] = 1;
+    for (int i = 1; i <= n; i++) fac[i] = fac[i-1] * i;
+    int tot = 0;
+    cut[0] = true;
+    for (int r = 1; r <= k; r++) { // r, r+k, r+2k, ..., r+(p-1)k
+        int p = (n - r) / k; // r+(p-1)k <= n-k
+        cut[tot += p] = true;
+        cut[tot += p] = true;
+    }
+    f[0][0] = 1;
+    for (int i = 1; i <= 2 * (n-k); i++) {
+        for  (int j = 0; j <= n; j++) {
+            f[i][j] = f[i-1][j];
+            if (j > 0) f[i][j] += f[i-1 - !cut[i-1]][j-1];
+        }
+    }
+    Mint ans = 0;
+    for (int i = 0; i <= n; i++) {
+        Mint val = f[2*(n-k)][i] * fac[n - i];
+        if (i & 1) ans -= val;
+        else ans += val;
+    }
+    printf("%d\n", ans);
 }
