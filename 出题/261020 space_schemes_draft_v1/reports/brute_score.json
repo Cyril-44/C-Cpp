@@ -1,0 +1,360 @@
+{
+  "score": 12,
+  "subtasks": [
+    {
+      "id": 1,
+      "score": 5,
+      "maximum": 5
+    },
+    {
+      "id": 2,
+      "score": 7,
+      "maximum": 7
+    },
+    {
+      "id": 3,
+      "score": 0,
+      "maximum": 10
+    },
+    {
+      "id": 4,
+      "score": 0,
+      "maximum": 5
+    },
+    {
+      "id": 5,
+      "score": 0,
+      "maximum": 8
+    },
+    {
+      "id": 6,
+      "score": 0,
+      "maximum": 10
+    },
+    {
+      "id": 7,
+      "score": 0,
+      "maximum": 10
+    },
+    {
+      "id": 8,
+      "score": 0,
+      "maximum": 10
+    },
+    {
+      "id": 9,
+      "score": 0,
+      "maximum": 10
+    },
+    {
+      "id": 10,
+      "score": 0,
+      "maximum": 25
+    }
+  ],
+  "cases": [
+    {
+      "id": "01_01",
+      "subtask": 1,
+      "verdict": "AC",
+      "seconds": 0.01655570004368201,
+      "message": "AC: 1 answers match"
+    },
+    {
+      "id": "01_02",
+      "subtask": 1,
+      "verdict": "AC",
+      "seconds": 0.012979899998754263,
+      "message": "AC: 18 answers match"
+    },
+    {
+      "id": "01_03",
+      "subtask": 1,
+      "verdict": "AC",
+      "seconds": 0.23973939998541027,
+      "message": "AC: 300000 answers match"
+    },
+    {
+      "id": "02_01",
+      "subtask": 2,
+      "verdict": "AC",
+      "seconds": 0.01346929999999702,
+      "message": "AC: 100 answers match"
+    },
+    {
+      "id": "02_02",
+      "subtask": 2,
+      "verdict": "AC",
+      "seconds": 0.013109499996062368,
+      "message": "AC: 100 answers match"
+    },
+    {
+      "id": "02_03",
+      "subtask": 2,
+      "verdict": "AC",
+      "seconds": 0.012899200024548918,
+      "message": "AC: 100 answers match"
+    },
+    {
+      "id": "02_04",
+      "subtask": 2,
+      "verdict": "AC",
+      "seconds": 0.02063709998037666,
+      "message": "AC: 100 answers match"
+    },
+    {
+      "id": "02_05",
+      "subtask": 2,
+      "verdict": "AC",
+      "seconds": 0.05773510003928095,
+      "message": "AC: 100 answers match"
+    },
+    {
+      "id": "03_01",
+      "subtask": 3,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "03_02",
+      "subtask": 3,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "03_03",
+      "subtask": 3,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "03_04",
+      "subtask": 3,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "03_05",
+      "subtask": 3,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "04_01",
+      "subtask": 4,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "04_02",
+      "subtask": 4,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "04_03",
+      "subtask": 4,
+      "verdict": "AC",
+      "seconds": 0.01593029999639839,
+      "message": "AC: 2000 answers match"
+    },
+    {
+      "id": "05_01",
+      "subtask": 5,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "05_02",
+      "subtask": 5,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "05_03",
+      "subtask": 5,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "06_01",
+      "subtask": 6,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "06_02",
+      "subtask": 6,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "06_03",
+      "subtask": 6,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "06_04",
+      "subtask": 6,
+      "verdict": "AC",
+      "seconds": 0.03448560001561418,
+      "message": "AC: 2000 answers match"
+    },
+    {
+      "id": "07_01",
+      "subtask": 7,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "07_02",
+      "subtask": 7,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "07_03",
+      "subtask": 7,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "07_04",
+      "subtask": 7,
+      "verdict": "AC",
+      "seconds": 0.03270829998655245,
+      "message": "AC: 2000 answers match"
+    },
+    {
+      "id": "08_01",
+      "subtask": 8,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "08_02",
+      "subtask": 8,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "08_03",
+      "subtask": 8,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "08_04",
+      "subtask": 8,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "09_01",
+      "subtask": 9,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "09_02",
+      "subtask": 9,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "09_03",
+      "subtask": 9,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "09_04",
+      "subtask": 9,
+      "verdict": "AC",
+      "seconds": 0.02978490001987666,
+      "message": "AC: 2000 answers match"
+    },
+    {
+      "id": "10_01",
+      "subtask": 10,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "10_02",
+      "subtask": 10,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "10_03",
+      "subtask": 10,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "10_04",
+      "subtask": 10,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "10_05",
+      "subtask": 10,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "10_06",
+      "subtask": 10,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "10_07",
+      "subtask": 10,
+      "verdict": "RE",
+      "seconds": null,
+      "message": "work\\package_build\\brute.exe exited 2: brute.cpp supports 1 <= n <= 8 only.\r\n"
+    },
+    {
+      "id": "10_08",
+      "subtask": 10,
+      "verdict": "AC",
+      "seconds": 0.1209365000249818,
+      "message": "AC: 100000 answers match"
+    }
+  ],
+  "time_limit_seconds": 3,
+  "memory_limit_enforced": false
+}

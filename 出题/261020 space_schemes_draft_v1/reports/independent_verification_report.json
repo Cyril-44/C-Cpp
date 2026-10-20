@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "cases": 14,
+  "operations": 47366,
+  "elapsed_seconds": 0.722,
+  "results": [
+    {
+      "label": "all-subsets-gray-n1",
+      "n": 1,
+      "operations": 2
+    },
+    {
+      "label": "all-subsets-gray-n2",
+      "n": 2,
+      "operations": 8
+    },
+    {
+      "label": "all-subsets-gray-n3",
+      "n": 3,
+      "operations": 64
+    },
+    {
+      "label": "all-subsets-gray-n4",
+      "n": 4,
+      "operations": 1024
+    },
+    {
+      "label": "all-subsets-gray-n5",
+      "n": 5,
+      "operations": 32768
+    },
+    {
+      "label": "random-n6-seed17564",
+      "n": 6,
+      "operations": 1500
+    },
+    {
+      "label": "random-n6-seed998244353",
+      "n": 6,
+      "operations": 1500
+    },
+    {
+      "label": "random-n6-seed20261020",
+      "n": 6,
+      "operations": 1500
+    },
+    {
+      "label": "random-n7-seed17564",
+      "n": 7,
+      "operations": 1500
+    },
+    {
+      "label": "random-n7-seed998244353",
+      "n": 7,
+      "operations": 1500
+    },
+    {
+      "label": "random-n7-seed20261020",
+      "n": 7,
+      "operations": 1500
+    },
+    {
+      "label": "random-n8-seed17564",
+      "n": 8,
+      "operations": 1500
+    },
+    {
+      "label": "random-n8-seed998244353",
+      "n": 8,
+      "operations": 1500
+    },
+    {
+      "label": "random-n8-seed20261020",
+      "n": 8,
+      "operations": 1500
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "platform": "Windows-11-10.0.26300-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "compiler": "g++ (MinGW.org GCC Build-2) 9.2.0",
+  "python": "3.13.14",
+  "cases": [
+    {
+      "id": "06_01",
+      "seconds": [
+        0.09193499997491017,
+        0.0877864999929443,
+        0.0873009999631904
+      ],
+      "median_seconds": 0.0877864999929443,
+      "peak_working_set_bytes": 14110720
+    },
+    {
+      "id": "09_01",
+      "seconds": [
+        0.10157060000346974,
+        0.10071819997392595,
+        0.09346589999040589
+      ],
+      "median_seconds": 0.10071819997392595,
+      "peak_working_set_bytes": 14114816
+    },
+    {
+      "id": "10_01",
+      "seconds": [
+        0.16116160003002733,
+        0.16469780000625178,
+        0.16536949999863282
+      ],
+      "median_seconds": 0.16469780000625178,
+      "peak_working_set_bytes": 14110720
+    },
+    {
+      "id": "10_02",
+      "seconds": [
+        0.14296239998657256,
+        0.14314380002906546,
+        0.14055429998552427
+      ],
+      "median_seconds": 0.14296239998657256,
+      "peak_working_set_bytes": 14106624
+    },
+    {
+      "id": "10_05",
+      "seconds": [
+        0.12984739994863048,
+        0.13699389999965206,
+        0.1421690999995917
+      ],
+      "median_seconds": 0.13699389999965206,
+      "peak_working_set_bytes": 14118912
+    }
+  ],
+  "proposed_time_limit_seconds": 3,
+  "proposed_memory_limit_mib": 256,
+  "recompute_10_01_timed_out_at_3_seconds": true,
+  "recompute_elapsed_seconds": 3.1010794999892823,
+  "notes": "Wall clock includes process startup. Windows peak working set is sampled; this is a local benchmark, not a guarantee about another judge host."
+}

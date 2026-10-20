@@ -1,0 +1,360 @@
+{
+  "score": 18,
+  "subtasks": [
+    {
+      "id": 1,
+      "score": 5,
+      "maximum": 5
+    },
+    {
+      "id": 2,
+      "score": 0,
+      "maximum": 7
+    },
+    {
+      "id": 3,
+      "score": 0,
+      "maximum": 10
+    },
+    {
+      "id": 4,
+      "score": 5,
+      "maximum": 5
+    },
+    {
+      "id": 5,
+      "score": 8,
+      "maximum": 8
+    },
+    {
+      "id": 6,
+      "score": 0,
+      "maximum": 10
+    },
+    {
+      "id": 7,
+      "score": 0,
+      "maximum": 10
+    },
+    {
+      "id": 8,
+      "score": 0,
+      "maximum": 10
+    },
+    {
+      "id": 9,
+      "score": 0,
+      "maximum": 10
+    },
+    {
+      "id": 10,
+      "score": 0,
+      "maximum": 25
+    }
+  ],
+  "cases": [
+    {
+      "id": "01_01",
+      "subtask": 1,
+      "verdict": "AC",
+      "seconds": 0.047720399976242334,
+      "message": "AC: 1 answers match"
+    },
+    {
+      "id": "01_02",
+      "subtask": 1,
+      "verdict": "AC",
+      "seconds": 0.01338200003374368,
+      "message": "AC: 18 answers match"
+    },
+    {
+      "id": "01_03",
+      "subtask": 1,
+      "verdict": "AC",
+      "seconds": 0.20401429996127263,
+      "message": "AC: 300000 answers match"
+    },
+    {
+      "id": "02_01",
+      "subtask": 2,
+      "verdict": "WA",
+      "seconds": 0.014026699995156378,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "02_02",
+      "subtask": 2,
+      "verdict": "WA",
+      "seconds": 0.01162020000629127,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "02_03",
+      "subtask": 2,
+      "verdict": "WA",
+      "seconds": 0.0145642000134103,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "02_04",
+      "subtask": 2,
+      "verdict": "WA",
+      "seconds": 0.012316799955442548,
+      "message": "WA: operation 4: expected 2 2, found 2 1"
+    },
+    {
+      "id": "02_05",
+      "subtask": 2,
+      "verdict": "WA",
+      "seconds": 0.013945699960459024,
+      "message": "WA: operation 2: expected 3 3, found 3 1"
+    },
+    {
+      "id": "03_01",
+      "subtask": 3,
+      "verdict": "WA",
+      "seconds": 0.013013700023293495,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "03_02",
+      "subtask": 3,
+      "verdict": "WA",
+      "seconds": 0.012973900011274964,
+      "message": "WA: operation 3: expected 3 2, found 3 1"
+    },
+    {
+      "id": "03_03",
+      "subtask": 3,
+      "verdict": "WA",
+      "seconds": 0.014024299976881593,
+      "message": "WA: operation 2: expected 12 3, found 12 1"
+    },
+    {
+      "id": "03_04",
+      "subtask": 3,
+      "verdict": "WA",
+      "seconds": 0.02805000002263114,
+      "message": "WA: operation 2: expected 6 6, found 6 1"
+    },
+    {
+      "id": "03_05",
+      "subtask": 3,
+      "verdict": "WA",
+      "seconds": 0.08595479995710775,
+      "message": "WA: operation 2: expected 6 2, found 7 1"
+    },
+    {
+      "id": "04_01",
+      "subtask": 4,
+      "verdict": "AC",
+      "seconds": 0.35659150005085394,
+      "message": "AC: 300000 answers match"
+    },
+    {
+      "id": "04_02",
+      "subtask": 4,
+      "verdict": "AC",
+      "seconds": 0.18374529998982325,
+      "message": "AC: 150000 answers match"
+    },
+    {
+      "id": "04_03",
+      "subtask": 4,
+      "verdict": "AC",
+      "seconds": 0.013400600000750273,
+      "message": "AC: 2000 answers match"
+    },
+    {
+      "id": "05_01",
+      "subtask": 5,
+      "verdict": "AC",
+      "seconds": 0.3439697000430897,
+      "message": "AC: 300000 answers match"
+    },
+    {
+      "id": "05_02",
+      "subtask": 5,
+      "verdict": "AC",
+      "seconds": 0.18466309999348596,
+      "message": "AC: 150000 answers match"
+    },
+    {
+      "id": "05_03",
+      "subtask": 5,
+      "verdict": "AC",
+      "seconds": 0.015464199997950345,
+      "message": "AC: 2000 answers match"
+    },
+    {
+      "id": "06_01",
+      "subtask": 6,
+      "verdict": "WA",
+      "seconds": 0.33419670001603663,
+      "message": "WA: operation 100000: expected 100000 18, found 100000 1"
+    },
+    {
+      "id": "06_02",
+      "subtask": 6,
+      "verdict": "WA",
+      "seconds": 0.17715850000968203,
+      "message": "WA: operation 99999: expected 99999 18, found 99999 1"
+    },
+    {
+      "id": "06_03",
+      "subtask": 6,
+      "verdict": "WA",
+      "seconds": 0.17484600003808737,
+      "message": "WA: operation 65536: expected 65536 17, found 65536 1"
+    },
+    {
+      "id": "06_04",
+      "subtask": 6,
+      "verdict": "WA",
+      "seconds": 0.014364899951033294,
+      "message": "WA: operation 4: expected 4 2, found 4 1"
+    },
+    {
+      "id": "07_01",
+      "subtask": 7,
+      "verdict": "WA",
+      "seconds": 0.34443520003696904,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "07_02",
+      "subtask": 7,
+      "verdict": "WA",
+      "seconds": 0.1721296000177972,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "07_03",
+      "subtask": 7,
+      "verdict": "WA",
+      "seconds": 0.1708321999758482,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "07_04",
+      "subtask": 7,
+      "verdict": "WA",
+      "seconds": 0.013788099982775748,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "08_01",
+      "subtask": 8,
+      "verdict": "WA",
+      "seconds": 0.3717383000184782,
+      "message": "WA: operation 7: expected 52 2, found 53 1"
+    },
+    {
+      "id": "08_02",
+      "subtask": 8,
+      "verdict": "WA",
+      "seconds": 0.36873129999730736,
+      "message": "WA: operation 3: expected 28 8, found 28 1"
+    },
+    {
+      "id": "08_03",
+      "subtask": 8,
+      "verdict": "WA",
+      "seconds": 0.24930159997893497,
+      "message": "WA: operation 3: expected 20 6, found 20 1"
+    },
+    {
+      "id": "08_04",
+      "subtask": 8,
+      "verdict": "WA",
+      "seconds": 0.19758129998808727,
+      "message": "WA: operation 8: expected 33 4, found 33 1"
+    },
+    {
+      "id": "09_01",
+      "subtask": 9,
+      "verdict": "WA",
+      "seconds": 0.3422516999999061,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "09_02",
+      "subtask": 9,
+      "verdict": "WA",
+      "seconds": 0.3365532000316307,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "09_03",
+      "subtask": 9,
+      "verdict": "WA",
+      "seconds": 0.17340749996947125,
+      "message": "WA: operation 554: expected 138 2, found 138 1"
+    },
+    {
+      "id": "09_04",
+      "subtask": 9,
+      "verdict": "WA",
+      "seconds": 0.013410899962764233,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "10_01",
+      "subtask": 10,
+      "verdict": "WA",
+      "seconds": 0.3666439999942668,
+      "message": "WA: operation 6: expected 33 12, found 33 1"
+    },
+    {
+      "id": "10_02",
+      "subtask": 10,
+      "verdict": "WA",
+      "seconds": 0.3226793999783695,
+      "message": "WA: operation 2: expected 15 3, found 15 1"
+    },
+    {
+      "id": "10_03",
+      "subtask": 10,
+      "verdict": "WA",
+      "seconds": 0.35920180001994595,
+      "message": "WA: operation 13: expected 24 3, found 24 1"
+    },
+    {
+      "id": "10_04",
+      "subtask": 10,
+      "verdict": "WA",
+      "seconds": 0.2864289000281133,
+      "message": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "id": "10_05",
+      "subtask": 10,
+      "verdict": "WA",
+      "seconds": 0.3453072000411339,
+      "message": "WA: operation 3: expected 3 2, found 3 1"
+    },
+    {
+      "id": "10_06",
+      "subtask": 10,
+      "verdict": "WA",
+      "seconds": 0.30729189998237416,
+      "message": "WA: operation 3: expected 22 4, found 22 1"
+    },
+    {
+      "id": "10_07",
+      "subtask": 10,
+      "verdict": "WA",
+      "seconds": 0.35202200000640005,
+      "message": "WA: operation 7: expected 8 2, found 8 1"
+    },
+    {
+      "id": "10_08",
+      "subtask": 10,
+      "verdict": "WA",
+      "seconds": 0.07406060001812875,
+      "message": "WA: operation 6: expected 3 2, found 3 1"
+    }
+  ],
+  "time_limit_seconds": 3,
+  "memory_limit_enforced": false
+}

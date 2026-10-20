@@ -1,0 +1,620 @@
+{
+  "status": "passed",
+  "cases": 102,
+  "operations_compared": 93428,
+  "elapsed_seconds": 3.158,
+  "results": [
+    {
+      "solver": "whole_singleton",
+      "label": "six-operation-sample",
+      "n": 2,
+      "operations": 6
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "gray-all-subsets-n1",
+      "n": 1,
+      "operations": 2
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "gray-all-subsets-n2",
+      "n": 2,
+      "operations": 8
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "gray-all-subsets-n3",
+      "n": 3,
+      "operations": 16
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "gray-all-subsets-n4",
+      "n": 4,
+      "operations": 32
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "gray-all-subsets-n5",
+      "n": 5,
+      "operations": 64
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "gray-all-subsets-n6",
+      "n": 6,
+      "operations": 128
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "gray-all-subsets-n7",
+      "n": 7,
+      "operations": 256
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "gray-all-subsets-n8",
+      "n": 8,
+      "operations": 512
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "gray-all-subsets-n9",
+      "n": 9,
+      "operations": 1024
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n1-seed17564",
+      "n": 1,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n1-seed20261020",
+      "n": 1,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n2-seed17564",
+      "n": 2,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n2-seed20261020",
+      "n": 2,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n3-seed17564",
+      "n": 3,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n3-seed20261020",
+      "n": 3,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n5-seed17564",
+      "n": 5,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n5-seed20261020",
+      "n": 5,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n6-seed17564",
+      "n": 6,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n6-seed20261020",
+      "n": 6,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n7-seed17564",
+      "n": 7,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n7-seed20261020",
+      "n": 7,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n8-seed17564",
+      "n": 8,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n8-seed20261020",
+      "n": 8,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n9-seed17564",
+      "n": 9,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n9-seed20261020",
+      "n": 9,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n15-seed17564",
+      "n": 15,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n15-seed20261020",
+      "n": 15,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n16-seed17564",
+      "n": 16,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n16-seed20261020",
+      "n": 16,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n17-seed17564",
+      "n": 17,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n17-seed20261020",
+      "n": 17,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n31-seed17564",
+      "n": 31,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n31-seed20261020",
+      "n": 31,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n32-seed17564",
+      "n": 32,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n32-seed20261020",
+      "n": 32,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n33-seed17564",
+      "n": 33,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n33-seed20261020",
+      "n": 33,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n63-seed17564",
+      "n": 63,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n63-seed20261020",
+      "n": 63,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n65-seed17564",
+      "n": 65,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n65-seed20261020",
+      "n": 65,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n127-seed17564",
+      "n": 127,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n127-seed20261020",
+      "n": 127,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n257-seed17564",
+      "n": 257,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n257-seed20261020",
+      "n": 257,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n999-seed17564",
+      "n": 999,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "random-n999-seed20261020",
+      "n": 999,
+      "operations": 600
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "large-coordinate-boundaries",
+      "n": 100000,
+      "operations": 120
+    },
+    {
+      "solver": "short",
+      "label": "six-operation-sample",
+      "n": 2,
+      "operations": 6
+    },
+    {
+      "solver": "short",
+      "label": "gray-all-subsets-n1",
+      "n": 1,
+      "operations": 2
+    },
+    {
+      "solver": "short",
+      "label": "gray-all-subsets-n2",
+      "n": 2,
+      "operations": 8
+    },
+    {
+      "solver": "short",
+      "label": "gray-all-subsets-n3",
+      "n": 3,
+      "operations": 32
+    },
+    {
+      "solver": "short",
+      "label": "gray-all-subsets-n4",
+      "n": 4,
+      "operations": 128
+    },
+    {
+      "solver": "short",
+      "label": "gray-all-subsets-n5",
+      "n": 5,
+      "operations": 512
+    },
+    {
+      "solver": "short",
+      "label": "gray-all-subsets-n6",
+      "n": 6,
+      "operations": 2048
+    },
+    {
+      "solver": "short",
+      "label": "gray-all-subsets-n7",
+      "n": 7,
+      "operations": 8192
+    },
+    {
+      "solver": "short",
+      "label": "gray-all-subsets-n8",
+      "n": 8,
+      "operations": 32768
+    },
+    {
+      "solver": "short",
+      "label": "random-n1-seed17564",
+      "n": 1,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n1-seed20261020",
+      "n": 1,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n2-seed17564",
+      "n": 2,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n2-seed20261020",
+      "n": 2,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n3-seed17564",
+      "n": 3,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n3-seed20261020",
+      "n": 3,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n5-seed17564",
+      "n": 5,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n5-seed20261020",
+      "n": 5,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n6-seed17564",
+      "n": 6,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n6-seed20261020",
+      "n": 6,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n7-seed17564",
+      "n": 7,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n7-seed20261020",
+      "n": 7,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n8-seed17564",
+      "n": 8,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n8-seed20261020",
+      "n": 8,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n9-seed17564",
+      "n": 9,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n9-seed20261020",
+      "n": 9,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n15-seed17564",
+      "n": 15,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n15-seed20261020",
+      "n": 15,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n16-seed17564",
+      "n": 16,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n16-seed20261020",
+      "n": 16,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n17-seed17564",
+      "n": 17,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n17-seed20261020",
+      "n": 17,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n31-seed17564",
+      "n": 31,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n31-seed20261020",
+      "n": 31,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n32-seed17564",
+      "n": 32,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n32-seed20261020",
+      "n": 32,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n33-seed17564",
+      "n": 33,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n33-seed20261020",
+      "n": 33,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n63-seed17564",
+      "n": 63,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n63-seed20261020",
+      "n": 63,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n65-seed17564",
+      "n": 65,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n65-seed20261020",
+      "n": 65,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n127-seed17564",
+      "n": 127,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n127-seed20261020",
+      "n": 127,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n257-seed17564",
+      "n": 257,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n257-seed20261020",
+      "n": 257,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n999-seed17564",
+      "n": 999,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "random-n999-seed20261020",
+      "n": 999,
+      "operations": 600
+    },
+    {
+      "solver": "short",
+      "label": "large-coordinate-boundaries",
+      "n": 100000,
+      "operations": 120
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "root-held-fill-and-empty",
+      "n": 3,
+      "operations": 14
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "root-held-fill-and-empty",
+      "n": 6,
+      "operations": 26
+    },
+    {
+      "solver": "whole_singleton",
+      "label": "root-held-fill-and-empty",
+      "n": 257,
+      "operations": 1030
+    },
+    {
+      "solver": "short",
+      "label": "many-independent-ties-modulo",
+      "n": 256,
+      "operations": 768
+    },
+    {
+      "solver": "short",
+      "label": "three-sources-for-one-leaf",
+      "n": 5,
+      "operations": 6
+    }
+  ]
+}

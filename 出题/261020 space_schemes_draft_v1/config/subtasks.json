@@ -1,0 +1,24 @@
+{
+  "title": "空间相同，方案不同",
+  "short_name": "space_schemes",
+  "version": "draft-v1",
+  "date": "2026-10-20",
+  "time_limit_seconds": 3,
+  "memory_limit_mib": 256,
+  "modulus": 998244353,
+  "max_n": 100000,
+  "max_q": 300000,
+  "scoring": "independent_subtasks_all_cases_required",
+  "subtasks": [
+    {"id": 1, "score": 5, "exact_n": 1, "property": "general", "description": "n = 1"},
+    {"id": 2, "score": 7, "max_n": 8, "max_q": 100, "property": "general", "description": "n <= 8, q <= 100"},
+    {"id": 3, "score": 10, "max_product": 2000000, "property": "general", "description": "n * q <= 2000000"},
+    {"id": 4, "score": 5, "property": "singleton", "description": "每个操作区间均为单点"},
+    {"id": 5, "score": 8, "property": "disjoint", "description": "任意时刻活动区间两两不交"},
+    {"id": 6, "score": 10, "property": "whole-or-singleton", "description": "每个操作区间均为整段 [1,n] 或单点"},
+    {"id": 7, "score": 10, "property": "short", "description": "每个操作区间长度不超过 2"},
+    {"id": 8, "score": 10, "property": "insert-only", "description": "所有操作均为插入"},
+    {"id": 9, "score": 10, "property": "node", "description": "每个操作区间均为 L[1,n] 中的节点"},
+    {"id": 10, "score": 25, "property": "general", "description": "无额外约束"}
+  ]
+}

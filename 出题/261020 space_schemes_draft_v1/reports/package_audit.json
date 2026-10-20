@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "data_files_hashed": 90,
+  "markdown_links_checked": 17,
+  "reproduced_case_ids": [
+    "02_02",
+    "09_01",
+    "large2"
+  ],
+  "public_inputs_distinct_from_private": true,
+  "python_syntax_checked": true,
+  "subtask_score_total": 100
+}
