@@ -1,0 +1,2740 @@
+{
+  "status": "passed",
+  "cases": 262,
+  "operations": 638890,
+  "brute_operations": 520590,
+  "elapsed_seconds": 21.352084700018167,
+  "records": [
+    {
+      "id": "gray-1-mid-unit",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-mid-tie",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-mid-large",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-left_comb-unit",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-left_comb-tie",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-left_comb-large",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-right_comb-unit",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-right_comb-tie",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-right_comb-large",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-zigzag_comb-unit",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-zigzag_comb-tie",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-zigzag_comb-large",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-random-unit",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-random-tie",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-1-random-large",
+      "n": 1,
+      "q": 2,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-mid-unit",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-mid-tie",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-mid-large",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-left_comb-unit",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-left_comb-tie",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-left_comb-large",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-right_comb-unit",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-right_comb-tie",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-right_comb-large",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-zigzag_comb-unit",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-zigzag_comb-tie",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-zigzag_comb-large",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-random-unit",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-random-tie",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-2-random-large",
+      "n": 2,
+      "q": 8,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-mid-unit",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-mid-tie",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-mid-large",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-left_comb-unit",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-left_comb-tie",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-left_comb-large",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-right_comb-unit",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-right_comb-tie",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-right_comb-large",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-zigzag_comb-unit",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-zigzag_comb-tie",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-zigzag_comb-large",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-random-unit",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-random-tie",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-3-random-large",
+      "n": 3,
+      "q": 64,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-mid-unit",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-mid-tie",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-mid-large",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-left_comb-unit",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-left_comb-tie",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-left_comb-large",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-right_comb-unit",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-right_comb-tie",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-right_comb-large",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-zigzag_comb-unit",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-zigzag_comb-tie",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-zigzag_comb-large",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-random-unit",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-random-tie",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-4-random-large",
+      "n": 4,
+      "q": 1024,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-mid-unit",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-mid-tie",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-mid-large",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-left_comb-unit",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-left_comb-tie",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-left_comb-large",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-right_comb-unit",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-right_comb-tie",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-right_comb-large",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-zigzag_comb-unit",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-zigzag_comb-tie",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-zigzag_comb-large",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-random-unit",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-random-tie",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "gray-5-random-large",
+      "n": 5,
+      "q": 32768,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-0",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-1",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-2",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-3",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-4",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-5",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-6",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-7",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-8",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-9",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-10",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-11",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-12",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-13",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-14",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-15",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-16",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-17",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-18",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-19",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-20",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-21",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-22",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-23",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-24",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-25",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-26",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-27",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-28",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-29",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-30",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-31",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-32",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-33",
+      "n": 6,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-34",
+      "n": 7,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-35",
+      "n": 8,
+      "q": 350,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height",
+        "brute"
+      ]
+    },
+    {
+      "id": "random-36",
+      "n": 221,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-37",
+      "n": 238,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-38",
+      "n": 255,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-39",
+      "n": 272,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-40",
+      "n": 289,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-41",
+      "n": 306,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-42",
+      "n": 323,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-43",
+      "n": 340,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-44",
+      "n": 357,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-45",
+      "n": 374,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-46",
+      "n": 391,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-47",
+      "n": 408,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-48",
+      "n": 25,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-49",
+      "n": 42,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-50",
+      "n": 59,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-51",
+      "n": 76,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-52",
+      "n": 93,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-53",
+      "n": 110,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-54",
+      "n": 127,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-55",
+      "n": 144,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-56",
+      "n": 161,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-57",
+      "n": 178,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-58",
+      "n": 195,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-59",
+      "n": 212,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-60",
+      "n": 229,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-61",
+      "n": 246,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-62",
+      "n": 263,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-63",
+      "n": 280,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-64",
+      "n": 297,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-65",
+      "n": 314,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-66",
+      "n": 331,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-67",
+      "n": 348,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-68",
+      "n": 365,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-69",
+      "n": 382,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-70",
+      "n": 399,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-71",
+      "n": 16,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-72",
+      "n": 33,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-73",
+      "n": 50,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-74",
+      "n": 67,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-75",
+      "n": 84,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-76",
+      "n": 101,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-77",
+      "n": 118,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-78",
+      "n": 135,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-79",
+      "n": 152,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-80",
+      "n": 169,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-81",
+      "n": 186,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-82",
+      "n": 203,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-83",
+      "n": 220,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-84",
+      "n": 237,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-85",
+      "n": 254,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-86",
+      "n": 271,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-87",
+      "n": 288,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-88",
+      "n": 305,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-89",
+      "n": 322,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-90",
+      "n": 339,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-91",
+      "n": 356,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-92",
+      "n": 373,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-93",
+      "n": 390,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-94",
+      "n": 407,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-95",
+      "n": 24,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-96",
+      "n": 41,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-97",
+      "n": 58,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-98",
+      "n": 75,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-99",
+      "n": 92,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-100",
+      "n": 109,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-101",
+      "n": 126,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-102",
+      "n": 143,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-103",
+      "n": 160,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-104",
+      "n": 177,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-105",
+      "n": 194,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-106",
+      "n": 211,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-107",
+      "n": 228,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-108",
+      "n": 245,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-109",
+      "n": 262,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-110",
+      "n": 279,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-111",
+      "n": 296,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-112",
+      "n": 313,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-113",
+      "n": 330,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-114",
+      "n": 347,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-115",
+      "n": 364,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-116",
+      "n": 381,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-117",
+      "n": 398,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-118",
+      "n": 15,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-119",
+      "n": 32,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-120",
+      "n": 49,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-121",
+      "n": 66,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-122",
+      "n": 83,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-123",
+      "n": 100,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-124",
+      "n": 117,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-125",
+      "n": 134,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-126",
+      "n": 151,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-127",
+      "n": 168,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-128",
+      "n": 185,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-129",
+      "n": 202,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-130",
+      "n": 219,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-131",
+      "n": 236,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-132",
+      "n": 253,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-133",
+      "n": 270,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-134",
+      "n": 287,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-135",
+      "n": 304,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-136",
+      "n": 321,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-137",
+      "n": 338,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-138",
+      "n": 355,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-139",
+      "n": 372,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-140",
+      "n": 389,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-141",
+      "n": 406,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-142",
+      "n": 23,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-143",
+      "n": 40,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-144",
+      "n": 57,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-145",
+      "n": 74,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-146",
+      "n": 91,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-147",
+      "n": 108,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-148",
+      "n": 125,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-149",
+      "n": 142,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-150",
+      "n": 159,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-151",
+      "n": 176,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-152",
+      "n": 193,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-153",
+      "n": 210,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-154",
+      "n": 227,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-155",
+      "n": 244,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-156",
+      "n": 261,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-157",
+      "n": 278,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-158",
+      "n": 295,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-159",
+      "n": 312,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-160",
+      "n": 329,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-161",
+      "n": 346,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-162",
+      "n": 363,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-163",
+      "n": 380,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-164",
+      "n": 397,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-165",
+      "n": 14,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-166",
+      "n": 31,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-167",
+      "n": 48,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-168",
+      "n": 65,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-169",
+      "n": 82,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-170",
+      "n": 99,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-171",
+      "n": 116,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-172",
+      "n": 133,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-173",
+      "n": 150,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-174",
+      "n": 167,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-175",
+      "n": 184,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-176",
+      "n": 201,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-177",
+      "n": 218,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-178",
+      "n": 235,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "random-179",
+      "n": 252,
+      "q": 700,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "medium-mid",
+      "n": 1500,
+      "q": 2500,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "medium-random",
+      "n": 1500,
+      "q": 2500,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "medium-left_comb",
+      "n": 1500,
+      "q": 2500,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "medium-right_comb",
+      "n": 1500,
+      "q": 2500,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "medium-zigzag_comb",
+      "n": 1500,
+      "q": 2500,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "medium-heavy_right",
+      "n": 1500,
+      "q": 2500,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    },
+    {
+      "id": "medium-bounded30",
+      "n": 1500,
+      "q": 2500,
+      "solvers": [
+        "std",
+        "recompute",
+        "bounded_height"
+      ]
+    }
+  ]
+}

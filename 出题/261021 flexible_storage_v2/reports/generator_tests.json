@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "cases": 899,
+  "deterministic_seed": true,
+  "invalid_insert_only_rejected": true
+}

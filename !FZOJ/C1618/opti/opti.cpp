@@ -15,19 +15,6 @@ namespace FastI {
 } using FastI::in;
 constexpr int N = 200005, INF = 2.01e9;
 int a[N], b[N], n;
-inline int calc(const int hi) {
-    f[0] = INF;
-    f[1] = a[1] > hi ? 0 : a[1];
-    for (int i = 2; i <= n; i++) {
-        if (a[i] > hi) f[i] = 0;
-        else {
-            f[i] = std::min(a[i], f[i-1]);
-            if (a[i] + a[i-1] <= hi)
-                f[i] = std::max(f[i], std::min(f[i-2], a[i] + a[i-1]));
-        }
-    }
-    return hi - f[n];
-}
 class SegTr {
     struct Mat {
         int m[2][2]{INF, -INF, -INF, INF};
@@ -48,28 +35,36 @@ class SegTr {
         tr[u] = tr[u<<1|1] * tr[u<<1];
     }
 public:
-    void build(int u=1, int l=1, int r=n) {
-        if (l == r) { tr[u] = {a[l], -INF, -INF, INF}; return; }
+    void build(int u=1, int l=2, int r=n) {
+        if (l == r) { tr[u] = {a[l], -INF, INF, -INF}; return; }
         int mid = l + r >> 1;
         build(u<<1, l, mid); build(u<<1|1, mid+1, r);
         tr[u] = tr[u<<1|1] * tr[u<<1];
     }
     void update(int p) { P=p; upd(1, 2, n); }
     int inquire() { return (tr[1] * Mat{a[1], -INF, INF, -INF}).m[0][0]; }
-};
+} f;
 int main() {
-    std::mt19937 rng(std::random_device{}());
-    std::uniform_real_distribution<double> rngk(-1, 1), rngp(0, 1);
     int T; in(T);
     while (T--) {
         in(n);
         for (int i = 1; i <= n; i++) in(a[i]);
-        int start = *std::max_element(a+1, a+1+n);
-        std::iota(b+1, b+n, 2);
-        std::sort(b+1, b+1+n, [](int x, int y) { return a[x] + a[x-1] < a[y] + a[y-1]; });
-        
-        for (int pi = 1; pi < n; pi++) {
-            
+        if (n == 1) {
+            puts("0");
+            continue;
         }
+        int cur = *std::max_element(a+1, a+1+n);
+        std::iota(b+1, b+n, 2);
+        std::sort(b+1, b+n, [](int x, int y) { return a[x] + a[x-1] < a[y] + a[y-1]; });
+        f.build();
+        int idx = 1;
+        while (idx < n && a[b[idx]] + a[b[idx]-1] <= cur) f.update(b[idx++]);
+        int ans = cur - f.inquire();
+        for (; idx < n; idx++) {
+            f.update(b[idx]);
+            cur = a[b[idx]] + a[b[idx]-1];
+            ans = std::min(ans, cur - f.inquire());
+        }
+        printf("%d\n", ans);
     }
 }

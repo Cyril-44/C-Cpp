@@ -1,0 +1,1590 @@
+{
+  "status": "passed",
+  "checks": 317,
+  "differential_operations": 298940,
+  "elapsed_seconds": 20.417,
+  "results": [
+    {
+      "label": "val-six-step-unit-example",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=6, leaf-depth=1"
+    },
+    {
+      "label": "solvers-six-step-unit-example",
+      "operations": 6,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-six-step-unit-example",
+      "exit_code": 0,
+      "diagnostic": "PASS: 6 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "val-weighted-tie",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=6, leaf-depth=1"
+    },
+    {
+      "label": "solvers-weighted-tie",
+      "operations": 6,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-weighted-tie",
+      "exit_code": 0,
+      "diagnostic": "PASS: 6 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "val-all-subsets-n1-mid-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=2, leaf-depth=0"
+    },
+    {
+      "label": "solvers-all-subsets-n1-mid-unit",
+      "operations": 2,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n1-mid-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 2 snapshots, maximum active intervals=1"
+    },
+    {
+      "label": "val-all-subsets-n1-mid-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=2, leaf-depth=0"
+    },
+    {
+      "label": "solvers-all-subsets-n1-mid-size",
+      "operations": 2,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n1-mid-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 2 snapshots, maximum active intervals=1"
+    },
+    {
+      "label": "val-all-subsets-n1-mid-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=2, leaf-depth=0"
+    },
+    {
+      "label": "solvers-all-subsets-n1-mid-random",
+      "operations": 2,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n1-mid-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 2 snapshots, maximum active intervals=1"
+    },
+    {
+      "label": "val-all-subsets-n1-mid-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=2, leaf-depth=0"
+    },
+    {
+      "label": "solvers-all-subsets-n1-mid-large",
+      "operations": 2,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n1-mid-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 2 snapshots, maximum active intervals=1"
+    },
+    {
+      "label": "val-all-subsets-n1-random-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=2, leaf-depth=0"
+    },
+    {
+      "label": "solvers-all-subsets-n1-random-unit",
+      "operations": 2,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n1-random-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 2 snapshots, maximum active intervals=1"
+    },
+    {
+      "label": "val-all-subsets-n1-random-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=2, leaf-depth=0"
+    },
+    {
+      "label": "solvers-all-subsets-n1-random-size",
+      "operations": 2,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n1-random-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 2 snapshots, maximum active intervals=1"
+    },
+    {
+      "label": "val-all-subsets-n1-random-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=2, leaf-depth=0"
+    },
+    {
+      "label": "solvers-all-subsets-n1-random-random",
+      "operations": 2,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n1-random-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 2 snapshots, maximum active intervals=1"
+    },
+    {
+      "label": "val-all-subsets-n1-random-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=2, leaf-depth=0"
+    },
+    {
+      "label": "solvers-all-subsets-n1-random-large",
+      "operations": 2,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n1-random-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 2 snapshots, maximum active intervals=1"
+    },
+    {
+      "label": "val-all-subsets-n2-mid-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=8, leaf-depth=1"
+    },
+    {
+      "label": "solvers-all-subsets-n2-mid-unit",
+      "operations": 8,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n2-mid-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 8 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "val-all-subsets-n2-mid-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=8, leaf-depth=1"
+    },
+    {
+      "label": "solvers-all-subsets-n2-mid-size",
+      "operations": 8,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n2-mid-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 8 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "val-all-subsets-n2-mid-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=8, leaf-depth=1"
+    },
+    {
+      "label": "solvers-all-subsets-n2-mid-random",
+      "operations": 8,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n2-mid-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 8 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "val-all-subsets-n2-mid-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=8, leaf-depth=1"
+    },
+    {
+      "label": "solvers-all-subsets-n2-mid-large",
+      "operations": 8,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n2-mid-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 8 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "val-all-subsets-n2-random-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=8, leaf-depth=1"
+    },
+    {
+      "label": "solvers-all-subsets-n2-random-unit",
+      "operations": 8,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n2-random-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 8 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "val-all-subsets-n2-random-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=8, leaf-depth=1"
+    },
+    {
+      "label": "solvers-all-subsets-n2-random-size",
+      "operations": 8,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n2-random-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 8 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "val-all-subsets-n2-random-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=8, leaf-depth=1"
+    },
+    {
+      "label": "solvers-all-subsets-n2-random-random",
+      "operations": 8,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n2-random-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 8 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "val-all-subsets-n2-random-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=8, leaf-depth=1"
+    },
+    {
+      "label": "solvers-all-subsets-n2-random-large",
+      "operations": 8,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n2-random-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 8 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "val-all-subsets-n3-mid-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=64, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n3-mid-unit",
+      "operations": 64,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n3-mid-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 64 snapshots, maximum active intervals=6"
+    },
+    {
+      "label": "val-all-subsets-n3-mid-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=64, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n3-mid-size",
+      "operations": 64,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n3-mid-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 64 snapshots, maximum active intervals=6"
+    },
+    {
+      "label": "val-all-subsets-n3-mid-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=64, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n3-mid-random",
+      "operations": 64,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n3-mid-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 64 snapshots, maximum active intervals=6"
+    },
+    {
+      "label": "val-all-subsets-n3-mid-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=64, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n3-mid-large",
+      "operations": 64,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n3-mid-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 64 snapshots, maximum active intervals=6"
+    },
+    {
+      "label": "val-all-subsets-n3-random-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=64, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n3-random-unit",
+      "operations": 64,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n3-random-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 64 snapshots, maximum active intervals=6"
+    },
+    {
+      "label": "val-all-subsets-n3-random-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=64, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n3-random-size",
+      "operations": 64,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n3-random-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 64 snapshots, maximum active intervals=6"
+    },
+    {
+      "label": "val-all-subsets-n3-random-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=64, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n3-random-random",
+      "operations": 64,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n3-random-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 64 snapshots, maximum active intervals=6"
+    },
+    {
+      "label": "val-all-subsets-n3-random-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=64, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n3-random-large",
+      "operations": 64,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n3-random-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 64 snapshots, maximum active intervals=6"
+    },
+    {
+      "label": "val-all-subsets-n4-mid-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=1024, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n4-mid-unit",
+      "operations": 1024,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n4-mid-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1024 snapshots, maximum active intervals=10"
+    },
+    {
+      "label": "val-all-subsets-n4-mid-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=1024, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n4-mid-size",
+      "operations": 1024,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n4-mid-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1024 snapshots, maximum active intervals=10"
+    },
+    {
+      "label": "val-all-subsets-n4-mid-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=1024, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n4-mid-random",
+      "operations": 1024,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n4-mid-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1024 snapshots, maximum active intervals=10"
+    },
+    {
+      "label": "val-all-subsets-n4-mid-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=1024, leaf-depth=2"
+    },
+    {
+      "label": "solvers-all-subsets-n4-mid-large",
+      "operations": 1024,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n4-mid-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1024 snapshots, maximum active intervals=10"
+    },
+    {
+      "label": "val-all-subsets-n4-random-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=1024, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n4-random-unit",
+      "operations": 1024,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n4-random-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1024 snapshots, maximum active intervals=10"
+    },
+    {
+      "label": "val-all-subsets-n4-random-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=1024, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n4-random-size",
+      "operations": 1024,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n4-random-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1024 snapshots, maximum active intervals=10"
+    },
+    {
+      "label": "val-all-subsets-n4-random-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=1024, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n4-random-random",
+      "operations": 1024,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n4-random-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1024 snapshots, maximum active intervals=10"
+    },
+    {
+      "label": "val-all-subsets-n4-random-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=1024, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n4-random-large",
+      "operations": 1024,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n4-random-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1024 snapshots, maximum active intervals=10"
+    },
+    {
+      "label": "val-all-subsets-n5-mid-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=32768, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n5-mid-unit",
+      "operations": 32768,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n5-mid-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 32768 snapshots, maximum active intervals=15"
+    },
+    {
+      "label": "val-all-subsets-n5-mid-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=32768, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n5-mid-size",
+      "operations": 32768,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n5-mid-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 32768 snapshots, maximum active intervals=15"
+    },
+    {
+      "label": "val-all-subsets-n5-mid-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=32768, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n5-mid-random",
+      "operations": 32768,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n5-mid-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 32768 snapshots, maximum active intervals=15"
+    },
+    {
+      "label": "val-all-subsets-n5-mid-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=32768, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n5-mid-large",
+      "operations": 32768,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n5-mid-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 32768 snapshots, maximum active intervals=15"
+    },
+    {
+      "label": "val-all-subsets-n5-random-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=32768, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n5-random-unit",
+      "operations": 32768,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n5-random-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 32768 snapshots, maximum active intervals=15"
+    },
+    {
+      "label": "val-all-subsets-n5-random-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=32768, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n5-random-size",
+      "operations": 32768,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n5-random-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 32768 snapshots, maximum active intervals=15"
+    },
+    {
+      "label": "val-all-subsets-n5-random-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=32768, leaf-depth=3"
+    },
+    {
+      "label": "solvers-all-subsets-n5-random-random",
+      "operations": 32768,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n5-random-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 32768 snapshots, maximum active intervals=15"
+    },
+    {
+      "label": "val-all-subsets-n5-random-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=32768, leaf-depth=4"
+    },
+    {
+      "label": "solvers-all-subsets-n5-random-large",
+      "operations": 32768,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-all-subsets-n5-random-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 32768 snapshots, maximum active intervals=15"
+    },
+    {
+      "label": "val-random-n6-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=6, q=1000, leaf-depth=4"
+    },
+    {
+      "label": "solvers-random-n6-unit",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n6-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=17"
+    },
+    {
+      "label": "val-random-n6-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=6, q=1000, leaf-depth=4"
+    },
+    {
+      "label": "solvers-random-n6-size",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n6-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=16"
+    },
+    {
+      "label": "val-random-n6-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=6, q=1000, leaf-depth=5"
+    },
+    {
+      "label": "solvers-random-n6-random",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n6-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=16"
+    },
+    {
+      "label": "val-random-n6-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=6, q=1000, leaf-depth=3"
+    },
+    {
+      "label": "solvers-random-n6-large",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n6-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=16"
+    },
+    {
+      "label": "val-random-n7-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=7, q=1000, leaf-depth=4"
+    },
+    {
+      "label": "solvers-random-n7-unit",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n7-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=21"
+    },
+    {
+      "label": "val-random-n7-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=7, q=1000, leaf-depth=3"
+    },
+    {
+      "label": "solvers-random-n7-size",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n7-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=21"
+    },
+    {
+      "label": "val-random-n7-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=7, q=1000, leaf-depth=5"
+    },
+    {
+      "label": "solvers-random-n7-random",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n7-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=21"
+    },
+    {
+      "label": "val-random-n7-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=7, q=1000, leaf-depth=4"
+    },
+    {
+      "label": "solvers-random-n7-large",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n7-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=22"
+    },
+    {
+      "label": "val-random-n8-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=8, q=1000, leaf-depth=4"
+    },
+    {
+      "label": "solvers-random-n8-unit",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n8-unit",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=27"
+    },
+    {
+      "label": "val-random-n8-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=8, q=1000, leaf-depth=4"
+    },
+    {
+      "label": "solvers-random-n8-size",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n8-size",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=24"
+    },
+    {
+      "label": "val-random-n8-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=8, q=1000, leaf-depth=5"
+    },
+    {
+      "label": "solvers-random-n8-random",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n8-random",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=27"
+    },
+    {
+      "label": "val-random-n8-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=8, q=1000, leaf-depth=4"
+    },
+    {
+      "label": "solvers-random-n8-large",
+      "operations": 1000,
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-random-n8-large",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1000 snapshots, maximum active intervals=25"
+    },
+    {
+      "label": "val-one-child",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 1, line 2: a node must have zero or two children"
+    },
+    {
+      "label": "val-duplicate-child",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 1, line 2: left and right children must be different"
+    },
+    {
+      "label": "val-out-of-range-child",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 1, line 2: child index is out of range"
+    },
+    {
+      "label": "val-negative-child",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 1, line 2: child index is out of range"
+    },
+    {
+      "label": "val-self-loop",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 1, line 2: self-loop"
+    },
+    {
+      "label": "val-multiple-parents",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 3, line 4: a child has multiple parents"
+    },
+    {
+      "label": "val-disconnected-cycle",
+      "exit_code": 1,
+      "diagnostic": "INVALID: not all vertices are reachable from root 1 (possibly a disconnected cycle)"
+    },
+    {
+      "label": "val-wrong-leaf-count",
+      "exit_code": 1,
+      "diagnostic": "INVALID: tree must have exactly n leaves"
+    },
+    {
+      "label": "val-zero-weight",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 1, line 2: weight must be in [1,10^9]"
+    },
+    {
+      "label": "val-negative-weight",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 1, line 2: weight must be in [1,10^9]"
+    },
+    {
+      "label": "val-excessive-weight",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 1, line 2: weight must be in [1,10^9]"
+    },
+    {
+      "label": "val-duplicate-insertion",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 2, line 12: duplicate insertion"
+    },
+    {
+      "label": "val-inactive-deletion",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1, line 11: deletion of an inactive interval"
+    },
+    {
+      "label": "val-endpoint-too-small",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1, line 11: require 1 <= l <= r <= n"
+    },
+    {
+      "label": "val-endpoint-too-large",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1, line 11: require 1 <= l <= r <= n"
+    },
+    {
+      "label": "val-reversed-endpoints",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1, line 11: require 1 <= l <= r <= n"
+    },
+    {
+      "label": "val-invalid-operation",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1, line 11: expected + or -"
+    },
+    {
+      "label": "val-non-integer-endpoint",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1, line 11: missing or invalid endpoint"
+    },
+    {
+      "label": "val-overflow-endpoint",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1, line 11: missing or invalid endpoint"
+    },
+    {
+      "label": "val-missing-endpoint",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1, line 11: missing or invalid endpoint"
+    },
+    {
+      "label": "val-trailing-token",
+      "exit_code": 1,
+      "diagnostic": "INVALID: line 12: extra token after the final operation"
+    },
+    {
+      "label": "val-missing-operation",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1: unexpected end of input"
+    },
+    {
+      "label": "val-n-zero",
+      "exit_code": 1,
+      "diagnostic": "INVALID: header: require 1 <= n,q <= 100000"
+    },
+    {
+      "label": "val-n-excessive",
+      "exit_code": 1,
+      "diagnostic": "INVALID: header: require 1 <= n,q <= 100000"
+    },
+    {
+      "label": "val-q-zero",
+      "exit_code": 1,
+      "diagnostic": "INVALID: header: require 1 <= n,q <= 100000"
+    },
+    {
+      "label": "val-q-excessive",
+      "exit_code": 1,
+      "diagnostic": "INVALID: header: require 1 <= n,q <= 100000"
+    },
+    {
+      "label": "val-overflow-header",
+      "exit_code": 1,
+      "diagnostic": "INVALID: header: expected integers n and q"
+    },
+    {
+      "label": "val-non-integer-weight",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 1: missing or invalid integer"
+    },
+    {
+      "label": "val-subtask1-valid",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=1, leaf-depth=3, subtask=1"
+    },
+    {
+      "label": "val-subtask1-n-limit",
+      "exit_code": 1,
+      "diagnostic": "INVALID: subtask 1 requires n <= 7 and q <= 100"
+    },
+    {
+      "label": "val-subtask1-q-limit",
+      "exit_code": 1,
+      "diagnostic": "INVALID: subtask 1 requires n <= 7 and q <= 100"
+    },
+    {
+      "label": "val-subtask2-valid",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=1, leaf-depth=3, subtask=2"
+    },
+    {
+      "label": "val-subtask2-product-limit",
+      "exit_code": 1,
+      "diagnostic": "INVALID: subtask 2 requires n*q <= 2000000"
+    },
+    {
+      "label": "val-subtask3-valid",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=1, leaf-depth=3, subtask=3"
+    },
+    {
+      "label": "val-subtask3-balanced-but-wrong-split",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 5: subtask 3 requires the exact floor-midpoint split"
+    },
+    {
+      "label": "val-subtask4-depth30-valid",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=31, q=1, leaf-depth=30, subtask=4"
+    },
+    {
+      "label": "val-subtask4-depth31-invalid",
+      "exit_code": 1,
+      "diagnostic": "INVALID: subtask 4 requires maximum leaf depth <= 30 (root depth is 0)"
+    },
+    {
+      "label": "val-subtask5-node-valid",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=3, leaf-depth=3, subtask=5"
+    },
+    {
+      "label": "val-subtask5-nonnode-invalid",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1, line 11: subtask 5 requires every requested interval to equal a tree node"
+    },
+    {
+      "label": "val-subtask6-comb-valid",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=1, leaf-depth=4, subtask=6"
+    },
+    {
+      "label": "val-subtask6-noncomb-invalid",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 2: subtask 6 requires every internal node's left child to be a leaf"
+    },
+    {
+      "label": "val-subtask7-valid",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=1, leaf-depth=4, subtask=7"
+    },
+    {
+      "label": "val-subtask7-invalid",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 2: subtask 7 requires right subtree size >= left subtree size"
+    },
+    {
+      "label": "val-subtask8-valid",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=2, leaf-depth=3, subtask=8"
+    },
+    {
+      "label": "val-subtask8-invalid",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 2, line 12: subtask 8 forbids deletions"
+    },
+    {
+      "label": "val-subtask9-valid",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=2, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "val-subtask9-invalid",
+      "exit_code": 1,
+      "diagnostic": "INVALID: operation 1, line 11: subtask 9 requires interval length <= 2"
+    },
+    {
+      "label": "val-subtask10-valid",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=1, leaf-depth=3, subtask=10"
+    },
+    {
+      "label": "val-subtask-intersection",
+      "exit_code": 1,
+      "diagnostic": "INVALID: node 2: subtask 6 requires every internal node's left child to be a leaf"
+    },
+    {
+      "label": "val-unknown-option",
+      "exit_code": 1,
+      "diagnostic": "INVALID: unknown option --unknown"
+    },
+    {
+      "label": "val-missing-option-value",
+      "exit_code": 1,
+      "diagnostic": "INVALID: missing value after --subtask"
+    },
+    {
+      "label": "val-invalid-subtask",
+      "exit_code": 1,
+      "diagnostic": "INVALID: subtask must be an integer from 1 to 10"
+    },
+    {
+      "label": "val-short-n1-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=500, leaf-depth=0, subtask=9"
+    },
+    {
+      "label": "short-brute-n1-unit",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n1-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=500, leaf-depth=0, subtask=9"
+    },
+    {
+      "label": "short-brute-n1-size",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n1-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=500, leaf-depth=0, subtask=9"
+    },
+    {
+      "label": "short-brute-n1-random",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n1-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=1, q=500, leaf-depth=0, subtask=9"
+    },
+    {
+      "label": "short-brute-n1-large",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n2-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=500, leaf-depth=1, subtask=9"
+    },
+    {
+      "label": "short-brute-n2-unit",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n2-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=500, leaf-depth=1, subtask=9"
+    },
+    {
+      "label": "short-brute-n2-size",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n2-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=500, leaf-depth=1, subtask=9"
+    },
+    {
+      "label": "short-brute-n2-random",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n2-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=500, leaf-depth=1, subtask=9"
+    },
+    {
+      "label": "short-brute-n2-large",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n3-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=500, leaf-depth=2, subtask=9"
+    },
+    {
+      "label": "short-brute-n3-unit",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n3-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=500, leaf-depth=2, subtask=9"
+    },
+    {
+      "label": "short-brute-n3-size",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n3-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=500, leaf-depth=2, subtask=9"
+    },
+    {
+      "label": "short-brute-n3-random",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n3-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=3, q=500, leaf-depth=2, subtask=9"
+    },
+    {
+      "label": "short-brute-n3-large",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n4-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n4-unit",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n4-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n4-size",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n4-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n4-random",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n4-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=4, q=500, leaf-depth=2, subtask=9"
+    },
+    {
+      "label": "short-brute-n4-large",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n5-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n5-unit",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n5-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n5-size",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n5-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n5-random",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n5-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=5, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n5-large",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n6-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=6, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n6-unit",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n6-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=6, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n6-size",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n6-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=6, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n6-random",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n6-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=6, q=500, leaf-depth=4, subtask=9"
+    },
+    {
+      "label": "short-brute-n6-large",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n7-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=7, q=500, leaf-depth=5, subtask=9"
+    },
+    {
+      "label": "short-brute-n7-unit",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n7-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=7, q=500, leaf-depth=4, subtask=9"
+    },
+    {
+      "label": "short-brute-n7-size",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n7-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=7, q=500, leaf-depth=4, subtask=9"
+    },
+    {
+      "label": "short-brute-n7-random",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n7-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=7, q=500, leaf-depth=4, subtask=9"
+    },
+    {
+      "label": "short-brute-n7-large",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n8-unit",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=8, q=500, leaf-depth=3, subtask=9"
+    },
+    {
+      "label": "short-brute-n8-unit",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n8-size",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=8, q=500, leaf-depth=4, subtask=9"
+    },
+    {
+      "label": "short-brute-n8-size",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n8-random",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=8, q=500, leaf-depth=5, subtask=9"
+    },
+    {
+      "label": "short-brute-n8-random",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-short-n8-large",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=8, q=500, leaf-depth=5, subtask=9"
+    },
+    {
+      "label": "short-brute-n8-large",
+      "operations": 500,
+      "status": "passed"
+    },
+    {
+      "label": "val-large-right-comb",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=100000, q=2, leaf-depth=99999"
+    },
+    {
+      "label": "solver-large-right-comb",
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-large-right-comb",
+      "exit_code": 0,
+      "diagnostic": "PASS: 2 snapshots, maximum active intervals=1"
+    },
+    {
+      "label": "val-large-left-comb",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=100000, q=2, leaf-depth=99999"
+    },
+    {
+      "label": "solver-large-left-comb",
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-large-left-comb",
+      "exit_code": 0,
+      "diagnostic": "PASS: 2 snapshots, maximum active intervals=1"
+    },
+    {
+      "label": "val-large-n-and-q-short",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=100000, q=100000, leaf-depth=99999, subtask=9"
+    },
+    {
+      "label": "short-large-exact-singletons",
+      "status": "passed"
+    },
+    {
+      "label": "snapshot-large-exact-singletons",
+      "exit_code": 0,
+      "diagnostic": "PASS: 28 snapshots, maximum active intervals=100000"
+    },
+    {
+      "label": "snapshot-wrong-at-1",
+      "exit_code": 1,
+      "diagnostic": "FAIL: operation 1: expected 1000000000 1, found 1000000000 2"
+    },
+    {
+      "label": "snapshot-wrong-at-8",
+      "exit_code": 1,
+      "diagnostic": "FAIL: operation 8: expected 8000000000 1, found 8000000000 2"
+    },
+    {
+      "label": "snapshot-wrong-at-50000",
+      "exit_code": 1,
+      "diagnostic": "FAIL: operation 50000: expected 50000000000000 1, found 50000000000000 2"
+    },
+    {
+      "label": "snapshot-wrong-at-100000",
+      "exit_code": 1,
+      "diagnostic": "FAIL: operation 100000: expected 100000000000000 1, found 100000000000000 2"
+    },
+    {
+      "label": "snapshot-extra-answer-token",
+      "exit_code": 1,
+      "diagnostic": "FAIL: extra token after answers"
+    },
+    {
+      "label": "snapshot-missing-answer-token",
+      "exit_code": 1,
+      "diagnostic": "FAIL: missing or invalid answer at operation 1"
+    },
+    {
+      "label": "snapshot-extra-input-token",
+      "exit_code": 1,
+      "diagnostic": "FAIL: extra token after operations"
+    },
+    {
+      "label": "snapshot-zero-uniform-checks",
+      "exit_code": 0,
+      "diagnostic": "PASS: 6 snapshots, maximum active intervals=3"
+    },
+    {
+      "label": "snapshot-invalid-check-count",
+      "exit_code": 1,
+      "diagnostic": "FAIL: uniform_checks must be an integer in [0,100000]"
+    },
+    {
+      "label": "val-input-file",
+      "exit_code": 0,
+      "diagnostic": "VALID: n=2, q=6, leaf-depth=1"
+    },
+    {
+      "label": "checker-valid",
+      "exit_code": 0,
+      "diagnostic": "AC: 6 answers match"
+    },
+    {
+      "label": "checker-arbitrary-whitespace",
+      "exit_code": 0,
+      "diagnostic": "AC: 6 answers match"
+    },
+    {
+      "label": "checker-empty",
+      "exit_code": 1,
+      "diagnostic": "WA: missing or non-integer answer at operation 1"
+    },
+    {
+      "label": "checker-missing-token",
+      "exit_code": 1,
+      "diagnostic": "WA: missing or non-integer answer at operation 6"
+    },
+    {
+      "label": "checker-extra-token",
+      "exit_code": 1,
+      "diagnostic": "WA: extra token after the final answer"
+    },
+    {
+      "label": "checker-extra-word",
+      "exit_code": 1,
+      "diagnostic": "WA: extra token after the final answer"
+    },
+    {
+      "label": "checker-wrong-answer",
+      "exit_code": 1,
+      "diagnostic": "WA: operation 2: expected 2 2, found 2 1"
+    },
+    {
+      "label": "checker-decimal",
+      "exit_code": 1,
+      "diagnostic": "WA: missing or non-integer answer at operation 1"
+    },
+    {
+      "label": "checker-nan",
+      "exit_code": 1,
+      "diagnostic": "WA: missing or non-integer answer at operation 1"
+    },
+    {
+      "label": "checker-negative-cost",
+      "exit_code": 1,
+      "diagnostic": "WA: value out of range at operation 1"
+    },
+    {
+      "label": "checker-excessive-cost",
+      "exit_code": 1,
+      "diagnostic": "WA: value out of range at operation 1"
+    },
+    {
+      "label": "checker-negative-count",
+      "exit_code": 1,
+      "diagnostic": "WA: value out of range at operation 1"
+    },
+    {
+      "label": "checker-excessive-count",
+      "exit_code": 1,
+      "diagnostic": "WA: value out of range at operation 1"
+    },
+    {
+      "label": "checker-overflow",
+      "exit_code": 1,
+      "diagnostic": "WA: missing or non-integer answer at operation 1"
+    },
+    {
+      "label": "checker-missing-answer-token",
+      "exit_code": 3,
+      "diagnostic": "JUDGE FAILURE: missing or non-integer answer at operation 1"
+    },
+    {
+      "label": "checker-extra-answer-token",
+      "exit_code": 3,
+      "diagnostic": "JUDGE FAILURE: extra token in answer file"
+    },
+    {
+      "label": "checker-non-integer-answer",
+      "exit_code": 3,
+      "diagnostic": "JUDGE FAILURE: missing or non-integer answer at operation 1"
+    },
+    {
+      "label": "checker-out-of-range-answer",
+      "exit_code": 3,
+      "diagnostic": "JUDGE FAILURE: answer value out of range at operation 1"
+    },
+    {
+      "label": "checker-missing-arguments",
+      "exit_code": 3,
+      "diagnostic": "JUDGE FAILURE: usage: checker input contestant_output answer"
+    },
+    {
+      "label": "checker-int64-answer",
+      "exit_code": 0,
+      "diagnostic": "AC: 3 answers match"
+    }
+  ]
+}
