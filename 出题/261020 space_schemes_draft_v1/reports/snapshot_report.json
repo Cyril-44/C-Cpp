@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "tests": 17,
+  "results": [
+    {
+      "label": "random-n8-default-snapshots",
+      "exit_code": 0,
+      "diagnostic": "PASS: 56 snapshots checked out of 1500 operations"
+    },
+    {
+      "label": "random-n8-all-snapshots",
+      "exit_code": 0,
+      "diagnostic": "PASS: 1500 snapshots checked out of 1500 operations"
+    },
+    {
+      "label": "random-n8-first-last-only",
+      "exit_code": 0,
+      "diagnostic": "PASS: 17 snapshots checked out of 1500 operations"
+    },
+    {
+      "label": "random-n257-default-snapshots",
+      "exit_code": 0,
+      "diagnostic": "PASS: 56 snapshots checked out of 3000 operations"
+    },
+    {
+      "label": "random-n257-all-snapshots",
+      "exit_code": 0,
+      "diagnostic": "PASS: 3000 snapshots checked out of 3000 operations"
+    },
+    {
+      "label": "random-n257-first-last-only",
+      "exit_code": 0,
+      "diagnostic": "PASS: 17 snapshots checked out of 3000 operations"
+    },
+    {
+      "label": "large-exact-singleton-answers",
+      "exit_code": 0,
+      "diagnostic": "PASS: 56 snapshots checked out of 100000 operations"
+    },
+    {
+      "label": "detect-wrong-snapshot-1",
+      "exit_code": 1,
+      "diagnostic": "FAIL: operation 1: expected 1 1, found 1 2"
+    },
+    {
+      "label": "detect-wrong-snapshot-16",
+      "exit_code": 1,
+      "diagnostic": "FAIL: operation 16: expected 16 1, found 16 2"
+    },
+    {
+      "label": "detect-wrong-snapshot-50000",
+      "exit_code": 1,
+      "diagnostic": "FAIL: operation 50000: expected 31648 1, found 31648 2"
+    },
+    {
+      "label": "detect-wrong-snapshot-100000",
+      "exit_code": 1,
+      "diagnostic": "FAIL: operation 100000: expected 43276 1, found 43276 2"
+    },
+    {
+      "label": "detect-trailing-answer-token",
+      "exit_code": 1,
+      "diagnostic": "FAIL: extra token after answers"
+    },
+    {
+      "label": "detect-trailing-input-token",
+      "exit_code": 1,
+      "diagnostic": "FAIL: extra token after input operations"
+    },
+    {
+      "label": "detect-missing-final-answer",
+      "exit_code": 1,
+      "diagnostic": "FAIL: missing or invalid answer at operation 100000"
+    },
+    {
+      "label": "detect-invalid-final-answer",
+      "exit_code": 1,
+      "diagnostic": "FAIL: missing or invalid answer at operation 100000"
+    },
+    {
+      "label": "reject-negative-checks",
+      "exit_code": 1,
+      "diagnostic": "FAIL: checks must be an integer between 0 and 300000"
+    },
+    {
+      "label": "reject-checks-trailing-text",
+      "exit_code": 1,
+      "diagnostic": "FAIL: extra text after checks"
+    }
+  ]
+}
