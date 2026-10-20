@@ -1,0 +1,86 @@
+{
+  "title": "自由分割，按价存储",
+  "short_name": "flexible_storage",
+  "version": "draft-v2",
+  "date": "2026-10-21",
+  "time_limit_seconds": 10,
+  "memory_limit_mib": 256,
+  "limits_status": "locally_benchmarked_recheck_on_judge_host",
+  "modulus": 998244353,
+  "max_n": 100000,
+  "max_q": 100000,
+  "min_weight": 1,
+  "max_weight": 1000000000,
+  "root_id": 1,
+  "node_count": "2*n-1",
+  "tree": "ordered_rooted_binary_tree_with_zero_or_two_children",
+  "leaf_order": "left_to_right_independent_of_vertex_ids",
+  "scoring": "independent_subtasks_all_cases_required",
+  "subtasks": [
+    {
+      "id": 1,
+      "score": 5,
+      "max_n": 7,
+      "max_q": 100,
+      "property": "general",
+      "description": "n <= 7, q <= 100"
+    },
+    {
+      "id": 2,
+      "score": 10,
+      "max_product": 2000000,
+      "property": "general",
+      "description": "n*q <= 2000000"
+    },
+    {
+      "id": 3,
+      "score": 10,
+      "property": "exact-mid",
+      "description": "每个内部节点均按区间中点精确分割"
+    },
+    {
+      "id": 4,
+      "score": 5,
+      "max_leaf_depth": 30,
+      "property": "bounded-depth",
+      "description": "最大叶子深度 <= 30，根深度为 0"
+    },
+    {
+      "id": 5,
+      "score": 10,
+      "property": "node",
+      "description": "每个操作区间恰好等于某个树节点的区间"
+    },
+    {
+      "id": 6,
+      "score": 10,
+      "property": "right-comb",
+      "description": "每个内部节点的左孩子都是叶子"
+    },
+    {
+      "id": 7,
+      "score": 10,
+      "property": "right-heavy",
+      "description": "每个内部节点的右子树叶子数不少于左子树叶子数"
+    },
+    {
+      "id": 8,
+      "score": 10,
+      "property": "insert-only",
+      "description": "所有操作均为插入"
+    },
+    {
+      "id": 9,
+      "score": 5,
+      "max_interval_length": 2,
+      "property": "short",
+      "description": "每个操作区间长度不超过 2"
+    },
+    {
+      "id": 10,
+      "score": 25,
+      "property": "general",
+      "description": "无额外约束"
+    }
+  ]
+}
