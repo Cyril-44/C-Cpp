@@ -1,0 +1,263 @@
+{
+  "executable": "brute.exe",
+  "time_limit_seconds": 30.0,
+  "memory_limit_mib": 512,
+  "groups": [
+    {
+      "id": 1,
+      "score": 20,
+      "passed": true,
+      "cases": [
+        {
+          "id": "g1_min",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.017277,
+          "peak_working_set_bytes": 5435392,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g1_len3",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013336,
+          "peak_working_set_bytes": 5443584,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g1_len4",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013979,
+          "peak_working_set_bytes": 5443584,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g1_sweep",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.015055,
+          "peak_working_set_bytes": 5439488,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g1_pow2",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013164,
+          "peak_working_set_bytes": 5451776,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g1_prime",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013566,
+          "peak_working_set_bytes": 5435392,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g1_noop",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.024375,
+          "peak_working_set_bytes": 5439488,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g1_affine",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.012962,
+          "peak_working_set_bytes": 5447680,
+          "profile": null,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "score": 15,
+      "passed": false,
+      "cases": [
+        {
+          "id": "g2_edge",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.012761,
+          "peak_working_set_bytes": 5439488,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g2_pow2",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.89984,
+          "peak_working_set_bytes": 5443584,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g2_points",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 2.228641,
+          "peak_working_set_bytes": 6017024,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g2_large_n",
+          "status": "TLE",
+          "returncode": 1,
+          "wall_seconds": 30.009871,
+          "peak_working_set_bytes": 28975104,
+          "profile": null,
+          "stderr": ""
+        }
+      ],
+      "remaining_cases": "not run after first group failure"
+    },
+    {
+      "id": 3,
+      "score": 15,
+      "passed": false,
+      "cases": [
+        {
+          "id": "g3_edge",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013369,
+          "peak_working_set_bytes": 5443584,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g3_boundary",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.063924,
+          "peak_working_set_bytes": 5468160,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g3_nested",
+          "status": "TLE",
+          "returncode": 1,
+          "wall_seconds": 30.011277,
+          "peak_working_set_bytes": 6569984,
+          "profile": null,
+          "stderr": ""
+        }
+      ],
+      "remaining_cases": "not run after first group failure"
+    },
+    {
+      "id": 4,
+      "score": 20,
+      "passed": true,
+      "cases": [
+        {
+          "id": "g4_edge",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013219,
+          "peak_working_set_bytes": 5439488,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g4_random",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.305286,
+          "peak_working_set_bytes": 5427200,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g4_nested",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.601113,
+          "peak_working_set_bytes": 5427200,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g4_gc",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.608082,
+          "peak_working_set_bytes": 5529600,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g4_offsets",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.478228,
+          "peak_working_set_bytes": 5435392,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g4_noop",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.86391,
+          "peak_working_set_bytes": 5562368,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g4_small_k",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.295037,
+          "peak_working_set_bytes": 5435392,
+          "profile": null,
+          "stderr": ""
+        },
+        {
+          "id": "g4_large_k",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.291245,
+          "peak_working_set_bytes": 5423104,
+          "profile": null,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "score": 30,
+      "passed": false,
+      "cases": [
+        {
+          "id": "g5_full_mixed",
+          "status": "TLE",
+          "returncode": 1,
+          "wall_seconds": 30.009835,
+          "peak_working_set_bytes": 28958720,
+          "profile": null,
+          "stderr": ""
+        }
+      ],
+      "remaining_cases": "not run after first group failure"
+    }
+  ],
+  "score": 40,
+  "complete": true
+}

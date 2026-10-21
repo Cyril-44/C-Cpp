@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "modulus": 998244353,
+  "limits": {
+    "n_max": 3000000,
+    "m_max": 3000000,
+    "small_max": 2000,
+    "medium_max": 20000
+  },
+  "scoring": "Each group is scored all-or-nothing; groups have no dependency and their scores add to 100.",
+  "groups": [
+    {
+      "id": 1,
+      "score": 20,
+      "predicate": "max(n,m) <= small_max",
+      "description_zh": "小规模，无其他限制",
+      "target_zh": "直接维护原序列的小规模暴力"
+    },
+    {
+      "id": 2,
+      "score": 15,
+      "predicate": "max(n,m) > small_max and count(operation_1) == 0",
+      "description_zh": "超出小规模，且没有操作 1",
+      "target_zh": "区间仿射修改、区间求和线段树"
+    },
+    {
+      "id": 3,
+      "score": 15,
+      "predicate": "max(n,m) > small_max and count(operation_1) > 0 and all(operation_1.k == 1)",
+      "description_zh": "超出小规模，存在操作 1，且全部操作 1 的 k=1",
+      "target_zh": "二次多项式区间赋值与区间仿射修改"
+    },
+    {
+      "id": 4,
+      "score": 20,
+      "predicate": "small_max < max(n,m) <= medium_max and any(operation_1.k > 1)",
+      "description_zh": "中等规模，且存在 k>1 的操作 1",
+      "target_zh": "一般操作的部分分；允许比满分解消耗更多时间或空间"
+    },
+    {
+      "id": 5,
+      "score": 30,
+      "predicate": "max(n,m) > medium_max and any(operation_1.k > 1)",
+      "description_zh": "大规模，且存在 k>1 的操作 1",
+      "target_zh": "可回收引用计数的共享结构，或满足最终时空限制的其他正确算法"
+    }
+  ]
+}

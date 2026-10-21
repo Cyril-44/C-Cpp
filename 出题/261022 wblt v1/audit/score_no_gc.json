@@ -1,0 +1,465 @@
+{
+  "executable": "std_no_gc.exe",
+  "time_limit_seconds": 30.0,
+  "memory_limit_mib": 512,
+  "groups": [
+    {
+      "id": 1,
+      "score": 20,
+      "passed": true,
+      "cases": [
+        {
+          "id": "g1_min",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.044727,
+          "peak_working_set_bytes": 6979584,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 4,
+            "peak_live": 4,
+            "live": 4,
+            "allocations": 4,
+            "recycled": 0,
+            "pool_capacity_bytes": 262208
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g1_len3",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.014803,
+          "peak_working_set_bytes": 6447104,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 93,
+            "peak_live": 93,
+            "live": 93,
+            "allocations": 93,
+            "recycled": 0,
+            "pool_capacity_bytes": 262336
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g1_len4",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013801,
+          "peak_working_set_bytes": 6443008,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 298,
+            "peak_live": 298,
+            "live": 298,
+            "allocations": 298,
+            "recycled": 0,
+            "pool_capacity_bytes": 262400
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g1_sweep",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013702,
+          "peak_working_set_bytes": 6873088,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 11025,
+            "peak_live": 11025,
+            "live": 11025,
+            "allocations": 11025,
+            "recycled": 0,
+            "pool_capacity_bytes": 525440
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g1_pow2",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.023401,
+          "peak_working_set_bytes": 12206080,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 105151,
+            "peak_live": 105151,
+            "live": 105151,
+            "allocations": 105151,
+            "recycled": 0,
+            "pool_capacity_bytes": 5243904
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g1_prime",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.023373,
+          "peak_working_set_bytes": 13385728,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 104086,
+            "peak_live": 104086,
+            "live": 104086,
+            "allocations": 104086,
+            "recycled": 0,
+            "pool_capacity_bytes": 6241280
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g1_noop",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013554,
+          "peak_working_set_bytes": 10280960,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 84252,
+            "peak_live": 84252,
+            "live": 84252,
+            "allocations": 84252,
+            "recycled": 0,
+            "pool_capacity_bytes": 3121152
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g1_affine",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013017,
+          "peak_working_set_bytes": 10276864,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 64780,
+            "peak_live": 64780,
+            "live": 64780,
+            "allocations": 64780,
+            "recycled": 0,
+            "pool_capacity_bytes": 3121152
+          },
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "score": 15,
+      "passed": false,
+      "cases": [
+        {
+          "id": "g2_edge",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013223,
+          "peak_working_set_bytes": 10272768,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 63798,
+            "peak_live": 63798,
+            "live": 63798,
+            "allocations": 63798,
+            "recycled": 0,
+            "pool_capacity_bytes": 3121664
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g2_pow2",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.128014,
+          "peak_working_set_bytes": 81682432,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 2193000,
+            "peak_live": 2193000,
+            "live": 2193000,
+            "allocations": 2193000,
+            "recycled": 0,
+            "pool_capacity_bytes": 75499520
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g2_points",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.181352,
+          "peak_working_set_bytes": 145104896,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 2287214,
+            "peak_live": 2287214,
+            "live": 2287214,
+            "allocations": 2287214,
+            "recycled": 0,
+            "pool_capacity_bytes": 138411008
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g2_large_n",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.161725,
+          "peak_working_set_bytes": 210010112,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 5999999,
+            "peak_live": 5999999,
+            "live": 5999999,
+            "allocations": 5999999,
+            "recycled": 0,
+            "pool_capacity_bytes": 192262144
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g2_one_element",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.045027,
+          "peak_working_set_bytes": 15663104,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 170597,
+            "peak_live": 170597,
+            "live": 170597,
+            "allocations": 170597,
+            "recycled": 0,
+            "pool_capacity_bytes": 8390656
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g2_many_ops",
+          "status": "MLE",
+          "returncode": 1,
+          "wall_seconds": 0.8609,
+          "peak_working_set_bytes": 573734912,
+          "profile": null,
+          "stderr": ""
+        }
+      ],
+      "remaining_cases": "not run after first group failure"
+    },
+    {
+      "id": 3,
+      "score": 15,
+      "passed": false,
+      "cases": [
+        {
+          "id": "g3_edge",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013524,
+          "peak_working_set_bytes": 8556544,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 42645,
+            "peak_live": 42645,
+            "live": 42645,
+            "allocations": 42645,
+            "recycled": 0,
+            "pool_capacity_bytes": 1560832
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g3_boundary",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.033506,
+          "peak_working_set_bytes": 23298048,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 423584,
+            "peak_live": 423584,
+            "live": 423584,
+            "allocations": 423584,
+            "recycled": 0,
+            "pool_capacity_bytes": 16779264
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g3_nested",
+          "status": "MLE",
+          "returncode": 1,
+          "wall_seconds": 0.577653,
+          "peak_working_set_bytes": 552677376,
+          "profile": null,
+          "stderr": ""
+        }
+      ],
+      "remaining_cases": "not run after first group failure"
+    },
+    {
+      "id": 4,
+      "score": 20,
+      "passed": true,
+      "cases": [
+        {
+          "id": "g4_edge",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.013857,
+          "peak_working_set_bytes": 8642560,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 44951,
+            "peak_live": 44951,
+            "live": 44951,
+            "allocations": 44951,
+            "recycled": 0,
+            "pool_capacity_bytes": 1560832
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g4_random",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.07605,
+          "peak_working_set_bytes": 104775680,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 1556742,
+            "peak_live": 1556742,
+            "live": 1556742,
+            "allocations": 1556742,
+            "recycled": 0,
+            "pool_capacity_bytes": 98697216
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g4_nested",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.076565,
+          "peak_working_set_bytes": 89948160,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 1504641,
+            "peak_live": 1504641,
+            "live": 1504641,
+            "allocations": 1504641,
+            "recycled": 0,
+            "pool_capacity_bytes": 83881984
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g4_gc",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.065602,
+          "peak_working_set_bytes": 47988736,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 1259614,
+            "peak_live": 1259614,
+            "live": 1259614,
+            "allocations": 1259614,
+            "recycled": 0,
+            "pool_capacity_bytes": 41943040
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g4_offsets",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.077081,
+          "peak_working_set_bytes": 89952256,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 1554551,
+            "peak_live": 1554551,
+            "live": 1554551,
+            "allocations": 1554551,
+            "recycled": 0,
+            "pool_capacity_bytes": 83890176
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g4_noop",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.055629,
+          "peak_working_set_bytes": 55422976,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 1122992,
+            "peak_live": 1122992,
+            "live": 1122992,
+            "allocations": 1122992,
+            "recycled": 0,
+            "pool_capacity_bytes": 49348608
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g4_small_k",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.066376,
+          "peak_working_set_bytes": 55410688,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 1273068,
+            "peak_live": 1273068,
+            "live": 1273068,
+            "allocations": 1273068,
+            "recycled": 0,
+            "pool_capacity_bytes": 49348608
+          },
+          "stderr": ""
+        },
+        {
+          "id": "g4_large_k",
+          "status": "OK",
+          "returncode": 0,
+          "wall_seconds": 0.086641,
+          "peak_working_set_bytes": 104763392,
+          "profile": {
+            "node_bytes": 32,
+            "slots": 1580790,
+            "peak_live": 1580790,
+            "live": 1580790,
+            "allocations": 1580790,
+            "recycled": 0,
+            "pool_capacity_bytes": 98684928
+          },
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "score": 30,
+      "passed": false,
+      "cases": [
+        {
+          "id": "g5_full_mixed",
+          "status": "MLE",
+          "returncode": 1,
+          "wall_seconds": 0.378474,
+          "peak_working_set_bytes": 566259712,
+          "profile": null,
+          "stderr": ""
+        }
+      ],
+      "remaining_cases": "not run after first group failure"
+    }
+  ],
+  "score": 40,
+  "complete": true
+}

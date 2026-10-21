@@ -1,0 +1,81 @@
+{
+  "all_passed": true,
+  "tests": 15,
+  "cases": [
+    {
+      "name": "exact",
+      "expected_accepted": true,
+      "passed": true
+    },
+    {
+      "name": "whitespace",
+      "expected_accepted": true,
+      "passed": true
+    },
+    {
+      "name": "leading_zero_and_plus",
+      "expected_accepted": true,
+      "passed": true
+    },
+    {
+      "name": "wrong_value",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "missing_answer",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "extra_answer",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "empty",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "negative_residue",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "modulus_as_residue",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "decimal",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "scientific_notation",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "junk_suffix",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "utf8_bom",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "huge_integer",
+      "expected_accepted": false,
+      "passed": true
+    },
+    {
+      "name": "nan",
+      "expected_accepted": false,
+      "passed": true
+    }
+  ]
+}
