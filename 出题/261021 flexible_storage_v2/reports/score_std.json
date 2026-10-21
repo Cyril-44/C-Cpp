@@ -1,7 +1,6 @@
 {
   "solution": "std",
   "score": 100,
-  "method": "All private files executed during build_data; answers independently checked by verify_data.",
   "time_limit_seconds": 10,
   "memory_limit_enforced": false,
   "subtasks": [
@@ -12,22 +11,26 @@
         {
           "id": "s01_01",
           "status": "AC",
-          "seconds": 0.034501299960538745
+          "seconds": 0.0018551900000147725,
+          "detail": ""
         },
         {
           "id": "s01_02",
           "status": "AC",
-          "seconds": 0.013190999976359308
+          "seconds": 0.0014641079999364592,
+          "detail": ""
         },
         {
           "id": "s01_03",
           "status": "AC",
-          "seconds": 0.01175649999640882
+          "seconds": 0.0012864830000580696,
+          "detail": ""
         },
         {
           "id": "s01_04",
           "status": "AC",
-          "seconds": 0.011735500011127442
+          "seconds": 0.0013576100000136648,
+          "detail": ""
         }
       ]
     },
@@ -38,22 +41,26 @@
         {
           "id": "s02_01",
           "status": "AC",
-          "seconds": 0.0294323000125587
+          "seconds": 0.012195093000173074,
+          "detail": ""
         },
         {
           "id": "s02_02",
           "status": "AC",
-          "seconds": 0.07514089997857809
+          "seconds": 0.18315043300003708,
+          "detail": ""
         },
         {
           "id": "s02_03",
           "status": "AC",
-          "seconds": 0.05781369999749586
+          "seconds": 0.05641115200000968,
+          "detail": ""
         },
         {
           "id": "s02_04",
           "status": "AC",
-          "seconds": 0.02752239996334538
+          "seconds": 0.011148891000175354,
+          "detail": ""
         }
       ]
     },
@@ -64,22 +71,26 @@
         {
           "id": "s03_01",
           "status": "AC",
-          "seconds": 2.849814399960451
+          "seconds": 1.9095949099998961,
+          "detail": ""
         },
         {
           "id": "s03_02",
           "status": "AC",
-          "seconds": 1.4199231999809854
+          "seconds": 1.0917969510001058,
+          "detail": ""
         },
         {
           "id": "s03_03",
           "status": "AC",
-          "seconds": 1.3963520000106655
+          "seconds": 0.9452063249998446,
+          "detail": ""
         },
         {
           "id": "s03_04",
           "status": "AC",
-          "seconds": 4.726966499991249
+          "seconds": 3.799954711000055,
+          "detail": ""
         }
       ]
     },
@@ -90,22 +101,26 @@
         {
           "id": "s04_01",
           "status": "AC",
-          "seconds": 1.74447739997413
+          "seconds": 1.2538734039999326,
+          "detail": ""
         },
         {
           "id": "s04_02",
           "status": "AC",
-          "seconds": 3.8368723999592476
+          "seconds": 2.9113969780000843,
+          "detail": ""
         },
         {
           "id": "s04_03",
           "status": "AC",
-          "seconds": 1.8568784999661148
+          "seconds": 1.251028617999964,
+          "detail": ""
         },
         {
           "id": "s04_04",
           "status": "AC",
-          "seconds": 5.889200399979018
+          "seconds": 4.600938684000084,
+          "detail": ""
         }
       ]
     },
@@ -116,22 +131,26 @@
         {
           "id": "s05_01",
           "status": "AC",
-          "seconds": 0.6556315000052564
+          "seconds": 0.4134329459998298,
+          "detail": ""
         },
         {
           "id": "s05_02",
           "status": "AC",
-          "seconds": 0.6749759999802336
+          "seconds": 0.4036429089999274,
+          "detail": ""
         },
         {
           "id": "s05_03",
           "status": "AC",
-          "seconds": 0.8081713999854401
+          "seconds": 0.5107609870001397,
+          "detail": ""
         },
         {
           "id": "s05_04",
           "status": "AC",
-          "seconds": 2.294816499983426
+          "seconds": 1.8703094799998325,
+          "detail": ""
         }
       ]
     },
@@ -142,22 +161,26 @@
         {
           "id": "s06_01",
           "status": "AC",
-          "seconds": 0.7066951000015251
+          "seconds": 0.4938785629999529,
+          "detail": ""
         },
         {
           "id": "s06_02",
           "status": "AC",
-          "seconds": 0.7143535999930464
+          "seconds": 0.3114544500001557,
+          "detail": ""
         },
         {
           "id": "s06_03",
           "status": "AC",
-          "seconds": 0.5119155999855138
+          "seconds": 0.26576495499989505,
+          "detail": ""
         },
         {
           "id": "s06_04",
           "status": "AC",
-          "seconds": 1.0038129999884404
+          "seconds": 0.5152793530000963,
+          "detail": ""
         }
       ]
     },
@@ -168,22 +191,26 @@
         {
           "id": "s07_01",
           "status": "AC",
-          "seconds": 1.8625060000340454
+          "seconds": 1.1903917049999109,
+          "detail": ""
         },
         {
           "id": "s07_02",
           "status": "AC",
-          "seconds": 0.6268387999734841
+          "seconds": 0.29647464599997875,
+          "detail": ""
         },
         {
           "id": "s07_03",
           "status": "AC",
-          "seconds": 4.234524900035467
+          "seconds": 3.497365772999956,
+          "detail": ""
         },
         {
           "id": "s07_04",
           "status": "AC",
-          "seconds": 2.9449321000138298
+          "seconds": 2.413399962999847,
+          "detail": ""
         }
       ]
     },
@@ -194,22 +221,26 @@
         {
           "id": "s08_01",
           "status": "AC",
-          "seconds": 0.930061699997168
+          "seconds": 0.7143857890000618,
+          "detail": ""
         },
         {
           "id": "s08_02",
           "status": "AC",
-          "seconds": 0.7954280999838375
+          "seconds": 0.46827840400010246,
+          "detail": ""
         },
         {
           "id": "s08_03",
           "status": "AC",
-          "seconds": 0.7826856999890879
+          "seconds": 0.5567254709999361,
+          "detail": ""
         },
         {
           "id": "s08_04",
           "status": "AC",
-          "seconds": 0.824978899967391
+          "seconds": 0.4812607389999357,
+          "detail": ""
         }
       ]
     },
@@ -220,22 +251,26 @@
         {
           "id": "s09_01",
           "status": "AC",
-          "seconds": 3.2732778000063263
+          "seconds": 2.1730395710001176,
+          "detail": ""
         },
         {
           "id": "s09_02",
           "status": "AC",
-          "seconds": 2.4417880999972112
+          "seconds": 1.7508762249999563,
+          "detail": ""
         },
         {
           "id": "s09_03",
           "status": "AC",
-          "seconds": 1.1090533999959007
+          "seconds": 0.65185029700001,
+          "detail": ""
         },
         {
           "id": "s09_04",
           "status": "AC",
-          "seconds": 1.6342939999885857
+          "seconds": 1.2311621559999821,
+          "detail": ""
         }
       ]
     },
@@ -246,47 +281,56 @@
         {
           "id": "s10_01",
           "status": "AC",
-          "seconds": 1.0564826999907382
+          "seconds": 0.7593103120000251,
+          "detail": ""
         },
         {
           "id": "s10_02",
           "status": "AC",
-          "seconds": 1.124481700011529
+          "seconds": 0.7439740960001018,
+          "detail": ""
         },
         {
           "id": "s10_03",
           "status": "AC",
-          "seconds": 0.8207463000435382
+          "seconds": 0.4833128590000797,
+          "detail": ""
         },
         {
           "id": "s10_04",
           "status": "AC",
-          "seconds": 0.5989801000105217
+          "seconds": 0.3256141619999653,
+          "detail": ""
         },
         {
           "id": "s10_05",
           "status": "AC",
-          "seconds": 1.7679515999625437
+          "seconds": 1.1921708990000752,
+          "detail": ""
         },
         {
           "id": "s10_06",
           "status": "AC",
-          "seconds": 2.8480093000107445
+          "seconds": 2.272683661000201,
+          "detail": ""
         },
         {
           "id": "s10_07",
           "status": "AC",
-          "seconds": 2.114256499975454
+          "seconds": 1.4409000349999133,
+          "detail": ""
         },
         {
           "id": "s10_08",
           "status": "AC",
-          "seconds": 5.435121699993033
+          "seconds": 4.399490736999951,
+          "detail": ""
         },
         {
           "id": "s10_09",
           "status": "AC",
-          "seconds": 4.61033789999783
+          "seconds": 3.6558931080001003,
+          "detail": ""
         }
       ]
     }
