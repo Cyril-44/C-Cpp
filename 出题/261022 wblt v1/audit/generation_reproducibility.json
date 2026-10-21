@@ -1,0 +1,25 @@
+{
+  "all_passed": true,
+  "original": "Windows Python 3.13.14",
+  "reproduced": "Ubuntu 20.04 Python 3.8.10 on WSL2",
+  "cases": [
+    {
+      "id": "g1_len4",
+      "bytes": 1973,
+      "sha256": "7f37d102d63a47341efb58cb4b82b378f537626783bf3b7d66316493a4fc37a4",
+      "equal": true
+    },
+    {
+      "id": "g4_nested",
+      "bytes": 499648,
+      "sha256": "8d101b4683b02096d6e20cd3b1f839204a5121bec18ea0637ac168eb2f0c80c8",
+      "equal": true
+    },
+    {
+      "id": "g5_preserved_seed",
+      "bytes": 55036089,
+      "sha256": "8403ffc42268d42e8f1c1437a3e644c46da8d0886f4fa0825ad2140d029e6d5e",
+      "equal": true
+    }
+  ]
+}

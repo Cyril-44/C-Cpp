@@ -1,0 +1,260 @@
+{
+  "schema": "window-calibration-judge-v1",
+  "title": "窗口校准",
+  "version": "1.0",
+  "release_date": "2026-10-22",
+  "time_limit_seconds": 30,
+  "memory_limit_mib": 512,
+  "input": "stdin",
+  "output": "stdout",
+  "language_reference": "GNU C++17, 64-bit",
+  "compile_flags": [
+    "-std=c++17",
+    "-O2",
+    "-DNDEBUG"
+  ],
+  "checker": {
+    "kind": "integer_tokens",
+    "modulus": 998244353,
+    "canonical_residues": true,
+    "command": "python3 tools/checker.py {input} {contestant_output} {answer}"
+  },
+  "scoring": "sum of all-or-nothing groups",
+  "groups": [
+    {
+      "id": 1,
+      "score": 20,
+      "aggregation": "minimum",
+      "cases": [
+        {
+          "id": "g1_min",
+          "input": "data/g1_min.in",
+          "answer": "data/g1_min.ans"
+        },
+        {
+          "id": "g1_len3",
+          "input": "data/g1_len3.in",
+          "answer": "data/g1_len3.ans"
+        },
+        {
+          "id": "g1_len4",
+          "input": "data/g1_len4.in",
+          "answer": "data/g1_len4.ans"
+        },
+        {
+          "id": "g1_sweep",
+          "input": "data/g1_sweep.in",
+          "answer": "data/g1_sweep.ans"
+        },
+        {
+          "id": "g1_pow2",
+          "input": "data/g1_pow2.in",
+          "answer": "data/g1_pow2.ans"
+        },
+        {
+          "id": "g1_prime",
+          "input": "data/g1_prime.in",
+          "answer": "data/g1_prime.ans"
+        },
+        {
+          "id": "g1_noop",
+          "input": "data/g1_noop.in",
+          "answer": "data/g1_noop.ans"
+        },
+        {
+          "id": "g1_affine",
+          "input": "data/g1_affine.in",
+          "answer": "data/g1_affine.ans"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "score": 15,
+      "aggregation": "minimum",
+      "cases": [
+        {
+          "id": "g2_edge",
+          "input": "data/g2_edge.in",
+          "answer": "data/g2_edge.ans"
+        },
+        {
+          "id": "g2_pow2",
+          "input": "data/g2_pow2.in",
+          "answer": "data/g2_pow2.ans"
+        },
+        {
+          "id": "g2_points",
+          "input": "data/g2_points.in",
+          "answer": "data/g2_points.ans"
+        },
+        {
+          "id": "g2_large_n",
+          "input": "data/g2_large_n.in",
+          "answer": "data/g2_large_n.ans"
+        },
+        {
+          "id": "g2_one_element",
+          "input": "data/g2_one_element.in",
+          "answer": "data/g2_one_element.ans"
+        },
+        {
+          "id": "g2_many_ops",
+          "input": "data/g2_many_ops.in",
+          "answer": "data/g2_many_ops.ans"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "score": 15,
+      "aggregation": "minimum",
+      "cases": [
+        {
+          "id": "g3_edge",
+          "input": "data/g3_edge.in",
+          "answer": "data/g3_edge.ans"
+        },
+        {
+          "id": "g3_boundary",
+          "input": "data/g3_boundary.in",
+          "answer": "data/g3_boundary.ans"
+        },
+        {
+          "id": "g3_nested",
+          "input": "data/g3_nested.in",
+          "answer": "data/g3_nested.ans"
+        },
+        {
+          "id": "g3_offsets",
+          "input": "data/g3_offsets.in",
+          "answer": "data/g3_offsets.ans"
+        },
+        {
+          "id": "g3_large_n",
+          "input": "data/g3_large_n.in",
+          "answer": "data/g3_large_n.ans"
+        },
+        {
+          "id": "g3_many_ops",
+          "input": "data/g3_many_ops.in",
+          "answer": "data/g3_many_ops.ans"
+        },
+        {
+          "id": "g3_noop",
+          "input": "data/g3_noop.in",
+          "answer": "data/g3_noop.ans"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "score": 20,
+      "aggregation": "minimum",
+      "cases": [
+        {
+          "id": "g4_edge",
+          "input": "data/g4_edge.in",
+          "answer": "data/g4_edge.ans"
+        },
+        {
+          "id": "g4_random",
+          "input": "data/g4_random.in",
+          "answer": "data/g4_random.ans"
+        },
+        {
+          "id": "g4_nested",
+          "input": "data/g4_nested.in",
+          "answer": "data/g4_nested.ans"
+        },
+        {
+          "id": "g4_gc",
+          "input": "data/g4_gc.in",
+          "answer": "data/g4_gc.ans"
+        },
+        {
+          "id": "g4_offsets",
+          "input": "data/g4_offsets.in",
+          "answer": "data/g4_offsets.ans"
+        },
+        {
+          "id": "g4_noop",
+          "input": "data/g4_noop.in",
+          "answer": "data/g4_noop.ans"
+        },
+        {
+          "id": "g4_small_k",
+          "input": "data/g4_small_k.in",
+          "answer": "data/g4_small_k.ans"
+        },
+        {
+          "id": "g4_large_k",
+          "input": "data/g4_large_k.in",
+          "answer": "data/g4_large_k.ans"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "score": 30,
+      "aggregation": "minimum",
+      "cases": [
+        {
+          "id": "g5_full_mixed",
+          "input": "data/g5_full_mixed.in",
+          "answer": "data/g5_full_mixed.ans"
+        },
+        {
+          "id": "g5_full_gc",
+          "input": "data/g5_full_gc.in",
+          "answer": "data/g5_full_gc.ans"
+        },
+        {
+          "id": "g5_long",
+          "input": "data/g5_long.in",
+          "answer": "data/g5_long.ans"
+        },
+        {
+          "id": "g5_many_ops",
+          "input": "data/g5_many_ops.in",
+          "answer": "data/g5_many_ops.ans"
+        },
+        {
+          "id": "g5_pow2_minus",
+          "input": "data/g5_pow2_minus.in",
+          "answer": "data/g5_pow2_minus.ans"
+        },
+        {
+          "id": "g5_pow2",
+          "input": "data/g5_pow2.in",
+          "answer": "data/g5_pow2.ans"
+        },
+        {
+          "id": "g5_pow2_plus",
+          "input": "data/g5_pow2_plus.in",
+          "answer": "data/g5_pow2_plus.ans"
+        },
+        {
+          "id": "g5_prime",
+          "input": "data/g5_prime.in",
+          "answer": "data/g5_prime.ans"
+        },
+        {
+          "id": "g5_boundaries",
+          "input": "data/g5_boundaries.in",
+          "answer": "data/g5_boundaries.ans"
+        },
+        {
+          "id": "g5_noop",
+          "input": "data/g5_noop.in",
+          "answer": "data/g5_noop.ans"
+        },
+        {
+          "id": "g5_preserved_seed",
+          "input": "data/g5_preserved_seed.in",
+          "answer": "data/g5_preserved_seed.ans"
+        }
+      ]
+    }
+  ]
+}

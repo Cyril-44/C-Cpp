@@ -1,0 +1,381 @@
+{
+  "all_passed": true,
+  "count": 75,
+  "cases": [
+    {
+      "name": "valid_minimum_n1_query",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_n1_affine_then_query",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_len3_k1",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_len4_k1",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_len4_k2_no_changed_values",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_crlf",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_mixed_lf_crlf",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_leading_zeroes",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_modulus_minus_one",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "n_zero",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "n_exceeds_default_max",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "n_exceeds_explicit_max",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "m_zero",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "m_exceeds_default_max",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "m_exceeds_explicit_max",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "a_equals_modulus",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "a_negative",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "integer_overflow_attempt",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "u_equals_modulus",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "v_equals_modulus",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "u_negative",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "v_negative",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "operation_zero",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "operation_four",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "left_zero",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "left_exceeds_n",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "right_exceeds_n",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "right_before_left",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "calibration_len1",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "calibration_len2",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "k_zero",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "k_negative",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "k_exceeds_len_minus_two",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "missing_query",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "m_too_few_operations",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "m_too_many_operations",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "extra_token_same_line",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "extra_token_new_line",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "extra_blank_line",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "header_extra_field",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "array_wraps_line",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "array_too_few_fields",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "array_too_many_fields",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "m_line_trailing_space",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "operation_wraps_line",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "operation_missing_field",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "double_space",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "tab_separator",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "leading_space",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "trailing_space",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "empty_line_in_input",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "utf8_bom",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "plus_sign",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "missing_final_newline",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "bare_cr",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "valid_scaled_group_1",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_scaled_group_2",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_scaled_group_3",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_scaled_group_4",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "valid_scaled_group_5",
+      "passed": true,
+      "returncode": 0
+    },
+    {
+      "name": "group2_rejects_small_case",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "group2_rejects_calibration",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "group3_rejects_no_calibration",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "group3_rejects_k2",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "group4_rejects_small_case",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "group4_rejects_all_k1",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "group4_rejects_large_case",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "group5_rejects_medium_case",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "group5_rejects_no_calibration",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "group5_rejects_all_k1",
+      "passed": true,
+      "returncode": 1
+    },
+    {
+      "name": "unknown_option",
+      "passed": true,
+      "returncode": 2
+    },
+    {
+      "name": "missing_option_value",
+      "passed": true,
+      "returncode": 2
+    },
+    {
+      "name": "zero_maximum",
+      "passed": true,
+      "returncode": 2
+    },
+    {
+      "name": "invalid_group",
+      "passed": true,
+      "returncode": 2
+    },
+    {
+      "name": "reversed_group_thresholds",
+      "passed": true,
+      "returncode": 2
+    }
+  ]
+}

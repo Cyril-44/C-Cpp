@@ -1,0 +1,560 @@
+{
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.13.14",
+  "timeout_seconds": 120,
+  "memory_limit_mib": 512,
+  "cross_check": true,
+  "cases": [
+    {
+      "id": "g1_min",
+      "group": 1,
+      "n": 1,
+      "m": 7,
+      "seed": 852400101,
+      "array": "edges",
+      "profile": "boundaries",
+      "purpose_zh": "n=1；单点仿射与查询，最小输入",
+      "input": "g1_min.in",
+      "validator": {
+        "returncode": 0,
+        "message": "VALID group=1 n=1 m=7 op1=0 queries=3"
+      },
+      "std": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.056154,
+        "peak_working_set_bytes": 6459392,
+        "profile": {
+          "node_bytes": 32,
+          "slots": 2,
+          "peak_live": 2,
+          "live": 1,
+          "allocations": 4,
+          "recycled": 2,
+          "pool_capacity_bytes": 262208
+        },
+        "stderr": ""
+      },
+      "answers": 3,
+      "reference": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.047004,
+        "peak_working_set_bytes": 6184960,
+        "profile": {
+          "reference": "direct-array-avl",
+          "node_bytes": 36,
+          "slots": 2,
+          "peak_live": 2,
+          "live": 1,
+          "allocations": 4,
+          "reused": 2
+        },
+        "stderr": ""
+      },
+      "brute": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.014398,
+        "peak_working_set_bytes": 5427200,
+        "profile": null,
+        "stderr": ""
+      },
+      "partial": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.053923,
+        "peak_working_set_bytes": 6963200,
+        "profile": null,
+        "stderr": ""
+      },
+      "input_bytes": 88,
+      "answer_bytes": 14,
+      "input_sha256": "41e97dffa1d7996a11a4f09bdbbab20149f741955e2672078158072fd37d5b1d",
+      "answer_sha256": "51a61b2ece78446bc2bd8a0e0c88bbdb2ea8b205bdc59e716d674542fc5c4662"
+    },
+    {
+      "id": "g1_len3",
+      "group": 1,
+      "n": 3,
+      "m": 128,
+      "seed": 852400102,
+      "array": "edges",
+      "profile": "boundaries",
+      "purpose_zh": "长度3，k=1，校准本身不改值；u=0/1/P-1",
+      "input": "g1_len3.in",
+      "validator": {
+        "returncode": 0,
+        "message": "VALID group=1 n=3 m=128 op1=77 queries=27"
+      },
+      "std": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.012923,
+        "peak_working_set_bytes": 6463488,
+        "profile": {
+          "node_bytes": 32,
+          "slots": 12,
+          "peak_live": 12,
+          "live": 5,
+          "allocations": 93,
+          "recycled": 81,
+          "pool_capacity_bytes": 262336
+        },
+        "stderr": ""
+      },
+      "answers": 27,
+      "reference": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.013084,
+        "peak_working_set_bytes": 5664768,
+        "profile": {
+          "reference": "direct-array-avl",
+          "node_bytes": 36,
+          "slots": 10,
+          "peak_live": 10,
+          "live": 5,
+          "allocations": 58,
+          "reused": 48
+        },
+        "stderr": ""
+      },
+      "brute": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.012822,
+        "peak_working_set_bytes": 5431296,
+        "profile": null,
+        "stderr": ""
+      },
+      "partial": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.012973,
+        "peak_working_set_bytes": 6443008,
+        "profile": null,
+        "stderr": ""
+      },
+      "input_bytes": 1238,
+      "answer_bytes": 215,
+      "input_sha256": "72046c4fe9ac14a7232adc0cb78fbf7207003c0ca824708b038eda975b9f0b26",
+      "answer_sha256": "2a67f8a14ef428eff2d4d40b2152d8e15bdf0c4bd94e80d62c0c88f9d967508e"
+    },
+    {
+      "id": "g1_len4",
+      "group": 1,
+      "n": 4,
+      "m": 191,
+      "seed": 852400103,
+      "array": "random",
+      "profile": "boundaries",
+      "purpose_zh": "长度4，k=1/2；区分保留k+2项与保留k项",
+      "input": "g1_len4.in",
+      "validator": {
+        "returncode": 0,
+        "message": "VALID group=1 n=4 m=191 op1=111 queries=34"
+      },
+      "std": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.012518,
+        "peak_working_set_bytes": 6463488,
+        "profile": {
+          "node_bytes": 32,
+          "slots": 16,
+          "peak_live": 16,
+          "live": 7,
+          "allocations": 298,
+          "recycled": 282,
+          "pool_capacity_bytes": 262400
+        },
+        "stderr": ""
+      },
+      "answers": 34,
+      "reference": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.012601,
+        "peak_working_set_bytes": 5672960,
+        "profile": {
+          "reference": "direct-array-avl",
+          "node_bytes": 36,
+          "slots": 20,
+          "peak_live": 20,
+          "live": 7,
+          "allocations": 458,
+          "reused": 438
+        },
+        "stderr": ""
+      },
+      "brute": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.012756,
+        "peak_working_set_bytes": 5435392,
+        "profile": null,
+        "stderr": ""
+      },
+      "partial": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.013605,
+        "peak_working_set_bytes": 6443008,
+        "profile": null,
+        "stderr": ""
+      },
+      "input_bytes": 1973,
+      "answer_bytes": 234,
+      "input_sha256": "7f37d102d63a47341efb58cb4b82b378f537626783bf3b7d66316493a4fc37a4",
+      "answer_sha256": "65871a7623d5f51a40f29e7d018d367bb32bab5720241c12b9c631514254baeb"
+    },
+    {
+      "id": "g1_sweep",
+      "group": 1,
+      "n": 9,
+      "m": 2000,
+      "seed": 852400104,
+      "array": "edges",
+      "profile": "sweep",
+      "purpose_zh": "枚举所有(l,r,k)，夹杂仿射和查询供暴力对拍",
+      "input": "g1_sweep.in",
+      "validator": {
+        "returncode": 0,
+        "message": "VALID group=1 n=9 m=2000 op1=1000 queries=500"
+      },
+      "std": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.013871,
+        "peak_working_set_bytes": 6463488,
+        "profile": {
+          "node_bytes": 32,
+          "slots": 33,
+          "peak_live": 33,
+          "live": 16,
+          "allocations": 11025,
+          "recycled": 10992,
+          "pool_capacity_bytes": 262720
+        },
+        "stderr": ""
+      },
+      "answers": 500,
+      "reference": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.012874,
+        "peak_working_set_bytes": 5677056,
+        "profile": {
+          "reference": "direct-array-avl",
+          "node_bytes": 36,
+          "slots": 44,
+          "peak_live": 44,
+          "live": 17,
+          "allocations": 13507,
+          "reused": 13463
+        },
+        "stderr": ""
+      },
+      "brute": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.013105,
+        "peak_working_set_bytes": 5427200,
+        "profile": null,
+        "stderr": ""
+      },
+      "partial": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.013535,
+        "peak_working_set_bytes": 6447104,
+        "profile": null,
+        "stderr": ""
+      },
+      "input_bytes": 20276,
+      "answer_bytes": 4086,
+      "input_sha256": "9c30c4fddaa6155c5c343fdd6be14c4a56619d403f1106647ebda3cb08787fa8",
+      "answer_sha256": "ccf2b103f90ffb1c040f3b156d28ec4b5d180e046631aeaae5e50ca66e791868"
+    },
+    {
+      "id": "g1_pow2",
+      "group": 1,
+      "n": 1025,
+      "m": 2000,
+      "seed": 852400105,
+      "array": "periodic",
+      "profile": "offset",
+      "purpose_zh": "2幂附近长度；相同周期不同偏移重复校准",
+      "input": "g1_pow2.in",
+      "validator": {
+        "returncode": 0,
+        "message": "VALID group=1 n=1025 m=2000 op1=1143 queries=355"
+      },
+      "std": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.024364,
+        "peak_working_set_bytes": 6455296,
+        "profile": {
+          "node_bytes": 32,
+          "slots": 2085,
+          "peak_live": 2085,
+          "live": 210,
+          "allocations": 105151,
+          "recycled": 103066,
+          "pool_capacity_bytes": 327744
+        },
+        "stderr": ""
+      },
+      "answers": 355,
+      "reference": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.023198,
+        "peak_working_set_bytes": 5677056,
+        "profile": {
+          "reference": "direct-array-avl",
+          "node_bytes": 36,
+          "slots": 2088,
+          "peak_live": 2088,
+          "live": 174,
+          "allocations": 122348,
+          "reused": 120260
+        },
+        "stderr": ""
+      },
+      "brute": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.012749,
+        "peak_working_set_bytes": 5431296,
+        "profile": null,
+        "stderr": ""
+      },
+      "partial": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.024234,
+        "peak_working_set_bytes": 6475776,
+        "profile": null,
+        "stderr": ""
+      },
+      "input_bytes": 39540,
+      "answer_bytes": 3263,
+      "input_sha256": "820908935135b41bc0f548e90cad01bea8fd6b5390af2342cef06b68cfa9d9e0",
+      "answer_sha256": "f22b48470955d2deb2ea2c5a49023ea60b1cd8021f9b6d4c30477c4f2feb9549"
+    },
+    {
+      "id": "g1_prime",
+      "group": 1,
+      "n": 1999,
+      "m": 2000,
+      "seed": 852400106,
+      "array": "random",
+      "profile": "mixed",
+      "purpose_zh": "小规模素数长度的混合随机数据",
+      "input": "g1_prime.in",
+      "validator": {
+        "returncode": 0,
+        "message": "VALID group=1 n=1999 m=2000 op1=1132 queries=370"
+      },
+      "std": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.012875,
+        "peak_working_set_bytes": 6459392,
+        "profile": {
+          "node_bytes": 32,
+          "slots": 4072,
+          "peak_live": 4072,
+          "live": 205,
+          "allocations": 104086,
+          "recycled": 100014,
+          "pool_capacity_bytes": 390080
+        },
+        "stderr": ""
+      },
+      "answers": 370,
+      "reference": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.023246,
+        "peak_working_set_bytes": 5677056,
+        "profile": {
+          "reference": "direct-array-avl",
+          "node_bytes": 36,
+          "slots": 4079,
+          "peak_live": 4079,
+          "live": 231,
+          "allocations": 126509,
+          "reused": 122430
+        },
+        "stderr": ""
+      },
+      "brute": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.013281,
+        "peak_working_set_bytes": 5443584,
+        "profile": null,
+        "stderr": ""
+      },
+      "partial": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.023704,
+        "peak_working_set_bytes": 6541312,
+        "profile": null,
+        "stderr": ""
+      },
+      "input_bytes": 51151,
+      "answer_bytes": 3233,
+      "input_sha256": "04941a07c96aa6c736920097c837924a289b179d49ebe177a312f626f63f23e6",
+      "answer_sha256": "5981e7f8bdaa487b05290809cd5fe74a49492bf636bc3761f90ca8ef3cbd1e7e"
+    },
+    {
+      "id": "g1_noop",
+      "group": 1,
+      "n": 2000,
+      "m": 2000,
+      "seed": 852400107,
+      "array": "polynomial",
+      "profile": "noop",
+      "purpose_zh": "二次多项式初值及全局仿射，全部校准均不改变序列",
+      "input": "g1_noop.in",
+      "validator": {
+        "returncode": 0,
+        "message": "VALID group=1 n=2000 m=2000 op1=1503 queries=293"
+      },
+      "std": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.01272,
+        "peak_working_set_bytes": 6471680,
+        "profile": {
+          "node_bytes": 32,
+          "slots": 4036,
+          "peak_live": 4036,
+          "live": 117,
+          "allocations": 84252,
+          "recycled": 80216,
+          "pool_capacity_bytes": 390144
+        },
+        "stderr": ""
+      },
+      "answers": 293,
+      "reference": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.023168,
+        "peak_working_set_bytes": 5672960,
+        "profile": {
+          "reference": "direct-array-avl",
+          "node_bytes": 36,
+          "slots": 4057,
+          "peak_live": 4057,
+          "live": 137,
+          "allocations": 95405,
+          "reused": 91348
+        },
+        "stderr": ""
+      },
+      "brute": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.022898,
+        "peak_working_set_bytes": 5443584,
+        "profile": null,
+        "stderr": ""
+      },
+      "partial": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.033856,
+        "peak_working_set_bytes": 6447104,
+        "profile": null,
+        "stderr": ""
+      },
+      "input_bytes": 46354,
+      "answer_bytes": 1947,
+      "input_sha256": "fb17b37e03a5e1f489b4af4af5db5623277156d3f021830f5527984f9e5fbc99",
+      "answer_sha256": "9d6f6edf8070c894b3689e69a726b8623e85ca6e4444cfef35fc02c4c7ec8ea0"
+    },
+    {
+      "id": "g1_affine",
+      "group": 1,
+      "n": 2000,
+      "m": 2000,
+      "seed": 852400108,
+      "array": "edges",
+      "profile": "affine",
+      "purpose_zh": "小规模上界；仿射标记复合、清零、取负与单点操作",
+      "input": "g1_affine.in",
+      "validator": {
+        "returncode": 0,
+        "message": "VALID group=1 n=2000 m=2000 op1=0 queries=697"
+      },
+      "std": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.013184,
+        "peak_working_set_bytes": 6467584,
+        "profile": {
+          "node_bytes": 32,
+          "slots": 4059,
+          "peak_live": 4059,
+          "live": 3999,
+          "allocations": 64780,
+          "recycled": 60721,
+          "pool_capacity_bytes": 390144
+        },
+        "stderr": ""
+      },
+      "answers": 697,
+      "reference": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.013588,
+        "peak_working_set_bytes": 5672960,
+        "profile": {
+          "reference": "direct-array-avl",
+          "node_bytes": 36,
+          "slots": 4042,
+          "peak_live": 4042,
+          "live": 3999,
+          "allocations": 51525,
+          "reused": 47483
+        },
+        "stderr": ""
+      },
+      "brute": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.013365,
+        "peak_working_set_bytes": 5435392,
+        "profile": null,
+        "stderr": ""
+      },
+      "partial": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.012956,
+        "peak_working_set_bytes": 6434816,
+        "profile": null,
+        "stderr": ""
+      },
+      "input_bytes": 49152,
+      "answer_bytes": 5864,
+      "input_sha256": "0c92e417d00af439d61e3f453b7dd63ec253a88cda1b270c8d6aab8c706bd37b",
+      "answer_sha256": "dba11721ed9c5a8fd9597f5c6bf802c18f2eaf94a648fd5e8c1c0b2f4c0cd417"
+    }
+  ],
+  "all_passed": true,
+  "total_cases": 8,
+  "max_std_seconds": 0.056154,
+  "max_std_working_set_bytes": 6471680,
+  "total_input_bytes": 209772,
+  "total_answer_bytes": 18856,
+  "answer_newlines": "LF, normalized after verification"
+}

@@ -1,0 +1,67 @@
+{
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.13.14",
+  "timeout_seconds": 30.0,
+  "memory_limit_mib": 512,
+  "cross_check": true,
+  "cases": [
+    {
+      "id": "g1_len4",
+      "group": 1,
+      "n": 4,
+      "m": 191,
+      "seed": 852400103,
+      "array": "random",
+      "profile": "boundaries",
+      "purpose_zh": "长度4，k=1/2；区分保留k+2项与保留k项",
+      "input": "g1_len4.in",
+      "validator": {
+        "returncode": 0,
+        "message": "VALID group=1 n=4 m=191 op1=111 queries=34"
+      },
+      "std": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.016003,
+        "peak_working_set_bytes": 6451200,
+        "profile": {
+          "node_bytes": 32,
+          "slots": 16,
+          "peak_live": 16,
+          "live": 7,
+          "allocations": 298,
+          "recycled": 282,
+          "pool_capacity_bytes": 262400
+        },
+        "stderr": ""
+      },
+      "answers": 34,
+      "reference": {
+        "status": "OK",
+        "returncode": 0,
+        "wall_seconds": 0.015871,
+        "peak_working_set_bytes": 5677056,
+        "profile": {
+          "reference": "direct-array-avl",
+          "node_bytes": 36,
+          "slots": 20,
+          "peak_live": 20,
+          "live": 7,
+          "allocations": 458,
+          "reused": 438
+        },
+        "stderr": ""
+      },
+      "input_bytes": 1973,
+      "answer_bytes": 234,
+      "input_sha256": "7f37d102d63a47341efb58cb4b82b378f537626783bf3b7d66316493a4fc37a4",
+      "answer_sha256": "65871a7623d5f51a40f29e7d018d367bb32bab5720241c12b9c631514254baeb"
+    }
+  ],
+  "all_passed": true,
+  "total_cases": 1,
+  "max_std_seconds": 0.016003,
+  "max_std_working_set_bytes": 6451200,
+  "total_input_bytes": 1973,
+  "total_answer_bytes": 234
+}
