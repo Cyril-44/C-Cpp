@@ -12,7 +12,7 @@ CXX=${CXX:-g++}
 "$CXX" -std=c++17 -O2 -DNDEBUG "$ROOT/sol/std_avl.cpp" -o "$BUILD/avl"
 printf 'profile\tprogram\tseconds\trss_kib\n' > "$ROOT/review/scale_benchmark.tsv"
 for profile in mixed gc offset nested small_k large_k preserved_seed; do
-  "$BUILD/gen" 500000 500000 5 random "$profile" 20261022 > "$BUILD/scale.in"
+  "$BUILD/gen" 100000 100000 5 random "$profile" 20261022 > "$BUILD/scale.in"
   "$BUILD/val" --group 5 < "$BUILD/scale.in" > /dev/null 2> "$BUILD/val.log"
   for program in std avl; do
     /usr/bin/time -f '%e\t%M' -o "$BUILD/time" timeout 4s "$BUILD/$program" < "$BUILD/scale.in" > "$BUILD/$program.out"

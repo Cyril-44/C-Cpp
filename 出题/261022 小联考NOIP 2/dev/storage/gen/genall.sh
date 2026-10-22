@@ -21,6 +21,7 @@ root, build, data, down = map(pathlib.Path, sys.argv[1:])
 plan = json.loads((root/'review/cases.json').read_text(encoding='utf-8'))
 records = []
 for bucket, target in (('cases',data),('large_samples',down)):
+    public_samples = bucket == 'large_samples'
     for case in plan[bucket]:
         name = case['id']
         print('Generating {} n={} q={} {} {}'.format(name,case['n'],case['q'],case['shape'],case['mode']), flush=True)
@@ -49,6 +50,10 @@ for bucket, target in (('cases',data),('large_samples',down)):
                 with tempfile.NamedTemporaryFile(dir=str(target),prefix='.storage-'+name+'-',delete=False) as f:
                     stage = pathlib.Path(f.name)
                 shutil.copyfile(str(source),str(stage))
+                # Public samples must remain readable after an atomic replace;
+                # NamedTemporaryFile creates files as 0600 regardless of umask.
+                if public_samples:
+                    stage.chmod(0o664)
                 os.replace(str(stage),str(target/source.name))
             finally:
                 if stage is not None and stage.exists():

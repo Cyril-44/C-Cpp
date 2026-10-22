@@ -2,6 +2,6 @@
   "status": "passed",
   "verified_published_files": 86,
   "line_endings": "LF",
-  "final_statement": "4 sec, 512 MiB, n,m <= 500000; preserve k+1 values; 1 <= k <= r-l",
+  "final_statement": "4 sec, 512 MiB, n,m <= 100000; size tiers 1000/10000/100000; preserve k+1 values; 1 <= k <= r-l",
   "git_commit_created": false
 }
