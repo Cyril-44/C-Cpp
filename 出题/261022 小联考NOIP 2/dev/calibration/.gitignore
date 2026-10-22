@@ -1,0 +1,3 @@
+.build/
+.genall.*/
+__pycache__/

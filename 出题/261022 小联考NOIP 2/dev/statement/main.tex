@@ -1,4 +1,4 @@
-% xelatex -shell-escape -jobname=statement main.tex
+% xelatex -jobname=statement main.tex (run twice for page references)
 \documentclass[12pt,a4paper,oneside]{ctexart}
 \usepackage{xeCJKfntef,xcolor}
 \usepackage{tabularx}
@@ -11,7 +11,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{bm}
-\usepackage{minted}
+% No external syntax highlighter is needed; samples use verbatim.
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{enumitem}
@@ -30,7 +30,8 @@ citecolor=blue
 \usepackage{indentfirst}
 
 \setlength{\parindent}{2em}
-\linespread{1.3}
+\emergencystretch=2em
+\linespread{1.15}
 \setcounter{secnumdepth}{0}
 
 \newcommand{\bfemph}[1]{\CJKunderdot{\textbf{#1}}}
@@ -79,17 +80,17 @@ citecolor=blue
 \hline
 题目类型 & 传统型 & 传统型 & 传统型 & 传统型\\
 \hline
-目录 & \texttt{leaf} & \texttt{calibration} & \texttt{lrud} & \texttt{storage}\\
+目录 & \texttt{ring} & \texttt{calibration} & \texttt{lrud} & \texttt{storage}\\
 \hline
-可执行文件名 & \texttt{leaf} & \texttt{calibration} & \texttt{lrud} & \texttt{storage}\\
+可执行文件名 & \texttt{ring} & \texttt{calibration} & \texttt{lrud} & \texttt{storage}\\
 \hline
-输入文件名 & \texttt{leaf.in} & \texttt{calibration.in} & \texttt{lrud.in} & \texttt{storage.in}\\
+输入文件名 & \texttt{ring.in} & \texttt{calibration.in} & \texttt{lrud.in} & \texttt{storage.in}\\
 \hline
-输出文件名 & \texttt{leaf.out} & \texttt{calibration.out} & \texttt{lrud.out} & \texttt{storage.out}\\
+输出文件名 & \texttt{ring.out} & \texttt{calibration.out} & \texttt{lrud.out} & \texttt{storage.out}\\
 \hline
-测试点时限 & 5 秒 & 30 秒 & 未提供 & 10 秒\\
+测试点时限 & 5 秒 & 4 秒 & 1 秒 & 10 秒\\
 \hline
-内存限制 & 128 MiB & 512 MiB & 未提供 & 256 MiB\\
+内存限制 & 128 MiB & 512 MiB & 512 MiB & 256 MiB\\
 \hline
     \end{tabularx}
   \end{center}
@@ -98,7 +99,7 @@ citecolor=blue
     \footnotesize
     \begin{tabularx}{\textwidth}{|p{90pt}|X<{\centering}|X<{\centering}|X<{\centering}|X<{\centering}|}
     \hline
-    对 C++ 语言 & \texttt{leaf.cpp} & \texttt{calibration.cpp} & \texttt{lrud.cpp} & \texttt{storage.cpp}\\
+    对 C++ 语言 & \texttt{ring.cpp} & \texttt{calibration.cpp} & \texttt{lrud.cpp} & \texttt{storage.cpp}\\
     \hline
     \end{tabularx}
   \end{center}
@@ -120,13 +121,13 @@ citecolor=blue
     \setlength{\itemindent}{.5em}
     \item 文件名（程序名和输入输出文件名）必须使用英文小写。
     \item C/C++ 中函数 main() 的返回类型必须是 int，程序正常结束时的返回值必须为 0。
-    \item 若无特殊说明，结果的比较方式为全文比较（过滤行末空格及文末回车）。
+    \item 第三题（lrud）采用特殊评测，其余题目采用全文比较（过滤行末空格及文末回车）。
     \item 程序可使用的栈内存空间限制与题目的内存限制一致。
     \item 只提供 Linux 格式的附加样例文件。
   \end{enumerate}
   \thispagestyle{empty}
   \newpage
-\problemtitle{叶环独立集(leaf)}{probA_title}
+\problemtitle{叶环独立集(ring)}{probA_title}
 \noindent 时间限制：5 秒\qquad 空间限制：128 MiB\par
 \problemheading{题目描述}{probA_description}
 
@@ -162,23 +163,28 @@ citecolor=blue
 
 输出一个整数，表示独立集总数对 \(1\,000\,000\,007\) 取模后的结果。
 
+\par\medskip\noindent\begin{minipage}{\linewidth}
 \problemheading{样例 1 输入}{probA_sample_1_input}
 
 \begin{verbatim}
 7
 1 1 2 2 3 3
 \end{verbatim}
+\end{minipage}\par\medskip
 
+\par\medskip\noindent\begin{minipage}{\linewidth}
 \problemheading{样例 1 输出}{probA_sample_1_output}
 
 \begin{verbatim}
 21
 \end{verbatim}
+\end{minipage}\par\medskip
 
 \problemheading{样例 1 解释}{probA_sample_1_explanation}
 
 树的叶子依次为 \(4,5,6,7\)，它们在图中构成一个四边形。结合树边限制，图的独立集总数为 \(21\)。
 
+\par\medskip\noindent\begin{minipage}{\linewidth}
 \problemheading{数据规模与约定}{probA_constraints}
 
 所有数据均满足 \(4\le n\le 10^6\)，且 \(1\le p_i<i\)。树中允许出现只有一个孩子的顶点。
@@ -196,45 +202,50 @@ Subtask & 分值 & 额外限制\\\hline
 \end{tabularx}\end{centeredtable}
 
 每个 Subtask 的全部测试点均通过后获得该档分数。
+\end{minipage}\par\medskip
 \newpage
 \problemtitle{窗口校准(calibration)}{probB_title}
-\noindent 时间限制：30 秒\qquad 空间限制：512 MiB\par
-建议使用 64 位 C++17 编译环境。
 
-给定长度为 \(n\) 的序列 \(a_1,a_2,\ldots,a_n\)。序列中的元素均为模 \(P=998244353\) 意义下的整数，以下所有运算也均在模 \(P\) 意义下进行。
+时间限制：4 秒。空间限制：512 MiB。建议使用 64 位 C++17 编译环境。
+
+给定长度为 \(n\) 的序列 \(a_1,a_2,\ldots,a_n\)。序列中的元素均为模
+\(P=998244353\) 意义下的整数，以下所有运算也均在模 \(P\) 意义下进行。
 
 你需要依次处理 \(m\) 次操作。
 
 \textbf{操作一：\texttt{1\ l\ r\ k}，校准窗口。}
 
-保证 \(1\le k\le r-l-1\)。对区间 \([l,r]\)，定义长度为 \(k\) 的窗口和
+保证 \(1\le k\le r-l\)。对区间 \([l,r]\)，定义长度为 \(k\) 的窗口和
 
 \[
 W_i=\sum_{j=i}^{i+k-1}a_j\qquad(l\le i\le r-k+1).
 \]
 
-保留 \(a_l,a_{l+1},\ldots,a_{l+k+1}\) 的当前值，修改 \(a_{l+k+2},\ldots,a_r\)，使得存在一个模 \(P\) 意义下的整数 \(c\)，满足
+保留 \(a_l,a_{l+1},\ldots,a_{l+k}\) 的当前值，修改
+\(a_{l+k+1},\ldots,a_r\)，使这些窗口和按起点递增的顺序构成等差数列。也就是说，存在一个模
+\(P\) 意义下的整数 \(c\)，满足
 
 \[
-W_{i+2}-2W_{i+1}+W_i=c
-\qquad(l\le i\le r-k-1).
+W_{i+1}-W_i=c\qquad(l\le i\le r-k).
 \]
 
-这里的 \(W_i\) 均由修改后的序列计算，\(c\) 可以在不同操作中取不同值。区间 \([l,r]\) 外的元素保持不变。
+这里的 \(W_i\) 均由修改后的序列计算，\(c\)
+可以在不同操作中取不同值。区间 \([l,r]\) 外的元素保持不变。
 
-可以证明，满足要求的修改结果存在且唯一。当 \(r-l+1=k+2\) 时，本次操作不改变任何元素。
+可以证明，满足要求的修改结果存在且唯一。当 \(k=r-l\)
+时，本次操作不改变任何元素。
 
 \textbf{操作二：\texttt{2\ l\ r\ u\ v}，仿射变换。}
 
 对每个 \(l\le i\le r\)，令
 
-\[a_i\leftarrow u a_i+v.\]
+\[a_i\leftarrow ua_i+v.\]
 
 \textbf{操作三：\texttt{3\ l\ r}，区间查询。}
 
 输出 \(\sum_{i=l}^r a_i\) 对 \(P\) 取模后的值。
 
-\problemheading{输入格式}{probB_input}
+\problemheading{输入格式}{probB_heading_1}
 
 第一行包含一个整数 \(n\)。
 
@@ -244,149 +255,175 @@ W_{i+2}-2W_{i+1}+W_i=c
 
 接下来 \(m\) 行，每行描述一次操作，格式如上。
 
-\problemheading{输出格式}{probB_output}
+\problemheading{输出格式}{probB_heading_2}
 
 对于每次操作三，输出一行一个整数，表示答案。答案应位于 \([0,P-1]\) 内。
 
-\problemheading{样例 1 输入}{probB_sample_1_input}
+\problemheading{样例一}{probB_heading_3}
+
+\par\medskip\noindent\begin{minipage}{\linewidth}
+输入：
 
 \begin{verbatim}
 8
-1 2 4 8 16 32 64 128
+1 4 6 9 13 18 24 31
 8
 3 1 8
-1 1 8 2
+1 1 8 3
 3 1 8
 3 4 7
 2 3 6 2 1
 3 1 8
-1 2 7 3
+1 2 7 2
 3 5 8
 \end{verbatim}
+\end{minipage}\par\medskip
 
-\problemheading{样例 1 输出}{probB_sample_1_output}
+\par\medskip\noindent\begin{minipage}{\linewidth}
+输出：
 
 \begin{verbatim}
-255
-114
-69
-163
-162
+106
+83
+52
+128
+125
 \end{verbatim}
+\end{minipage}\par\medskip
 
-\problemheading{样例 1 解释}{probB_sample_1_explanation}
+第一次校准保留前四项，修改后的序列为
 
-第一次校准保留前四项。修改后的序列为
+\[1,4,6,9,12,14,17,20.\]
 
-\[1,2,4,8,13,20,28,38.\]
+长度为 \(3\) 的窗口和依次为 \(11,19,27,35,43,51\)，它们构成公差为 \(8\)
+的等差数列。
 
-此时长度为 \(2\) 的窗口和依次为 \(3,6,12,21,33,48,66\)；将任意相邻三个窗口和代入题目中的表达式，结果均为 \(3\)。
+仿射变换后的序列为 \(1,4,13,19,25,29,17,20\)。最后一次校准保留第 \(2\)
+至第 \(4\) 项，校准后的整个序列为
+\(1,4,13,19,28,34,43,20\)，所以最后一问的答案是 \(28+34+43+20=125\)。
 
-仿射变换后的序列为 \(1,2,9,17,27,41,28,38\)。最后一次校准只把第 \(7\) 项改为 \(56\)，所以最后一问的答案为 \(27+41+56+38=162\)。
+\problemheading{样例二}{probB_heading_4}
 
-\problemheading{样例 2 输入}{probB_sample_2_input}
+\par\medskip\noindent\begin{minipage}{\linewidth}
+输入：
 
 \begin{verbatim}
 5
-3 1 4 1 5
+4 7 2 9 1
 10
 3 1 1
-2 3 3 0 7
+2 3 3 0 10
 3 2 4
-1 1 3 1
+1 1 3 2
 3 1 5
 1 1 5 1
 3 3 5
-2 1 1 3 2
+2 1 1 2 3
 2 5 5 0 0
 3 1 5
 \end{verbatim}
+\end{minipage}\par\medskip
 
-\problemheading{样例 2 输出}{probB_sample_2_output}
+\par\medskip\noindent\begin{minipage}{\linewidth}
+输出：
 
 \begin{verbatim}
-3
-9
-17
-71
-40
+4
+26
+31
+39
+41
 \end{verbatim}
+\end{minipage}\par\medskip
 
-\problemheading{样例 2 解释}{probB_sample_2_explanation}
+第一次仿射变换把第 \(3\) 项设为 \(10\)。操作 \texttt{1\ 1\ 3\ 2} 的
+\(k=r-l\)，因此序列仍为 \(4,7,10,9,1\)。
 
-第一次仿射变换把第 \(3\) 项设为 \(7\)。校准 \texttt{1\ 1\ 3\ 1} 保留整个操作区间，因此序列仍为 \(3,1,7,1,5\)。
+操作 \texttt{1\ 1\ 5\ 1} 后，长度为 \(1\) 的窗口和就是每一项，序列变为
+\(4,7,10,13,16\)。最后两次单点仿射变换后，序列为 \(11,7,10,13,0\)。
 
-校准 \texttt{1\ 1\ 5\ 1} 后，序列变为 \(3,1,7,21,43\)。最后两次单点仿射变换后，序列为 \(11,1,7,21,0\)。
+\problemheading{样例三}{probB_heading_5}
 
-\problemheading{样例 3 输入}{probB_sample_3_input}
+\par\medskip\noindent\begin{minipage}{\linewidth}
+输入：
 
 \begin{verbatim}
 6
-998244352 0 998244352 0 0 0
-10
+998244351 1 998244351 4 0 3
+12
 3 1 6
-1 1 6 2
+1 1 5 2
 3 1 6
 2 2 5 998244352 998244352
 3 1 6
 2 1 6 0 0
 1 2 6 1
 3 2 5
-2 1 1 998244352 998244352
-3 1 2
+2 6 6 998244352 998244352
+3 5 6
+1 4 6 1
+3 1 6
 \end{verbatim}
+\end{minipage}\par\medskip
 
-\problemheading{样例 3 输出}{probB_sample_3_output}
+\par\medskip\noindent\begin{minipage}{\linewidth}
+输出：
 
 \begin{verbatim}
-998244351
-998244350
-998244350
+4
+998244352
+998244352
 0
 998244352
+0
 \end{verbatim}
+\end{minipage}\par\medskip
 
-\problemheading{样例 3 解释}{probB_sample_3_explanation}
+在模 \(P\)
+意义下，\(998244351=-2\)，\(998244352=-1\)。
 
-在模 \(P\) 意义下，\(998244352=-1\)。第一次校准后，序列为 \(-1,0,-1,0,-1,0\)；随后的仿射变换 \(a_i\leftarrow-a_i-1\) 使序列变为 \(-1,-1,0,-1,0,0\)。
+第一次校准后，序列为
+\(-2,1,-2,1,-2,3\)，第 \(6\) 项保持为 \(3\)。随后的仿射变换
+\(a_i\leftarrow-a_i-1\) 使序列变为 \(-2,-2,1,-2,1,3\)。
 
-将整个序列设为 \(0\) 后，下一次校准仍得到全零序列。
+将整个序列设为 \(0\) 后，下一次校准仍得到全零序列。单点仿射变换把第
+\(6\) 项改为 \(-1\)，最后一次校准又将它改回 \(0\)。
 
-\problemheading{数据规模与约定}{probB_constraints}
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\problemheading{数据范围与分组}{probB_heading_6}
 
 对于所有数据，保证：
 
 \begin{itemize}
 \tightlist
 \item
-  \(1\le n,m\le 3\times10^6\)；
+  \(1\le n,m\le5\times10^5\)；
 \item
   \(0\le a_i,u,v<P\)；
 \item
   每次操作均满足 \(1\le l\le r\le n\)；
 \item
-  操作一还满足 \(1\le k\le r-l-1\)；
+  操作一还满足 \(1\le k\le r-l\)；
 \item
   至少包含一次操作三。
 \end{itemize}
 
-本题采用分组计分。一个组内的所有测试点均通过，才能获得该组的分数。下表中的 \(N=\max(n,m)\)。
+本题采用分组计分。一个组内的所有测试点均通过，才能获得该组的分数。下表中的
+\(N=\max(n,m)\)。
 
-\begin{centeredtable}\begin{tabularx}{0.85\textwidth}{|c|c|X|}
+\begin{centeredtable}\begin{tabularx}{0.9\textwidth}{|c|c|X|}
 \hline
 组别 & 分值 & 数据范围与额外限制\\\hline
-
-
 1 & 20 & \(N\le2000\)\\\hline
 2 & 15 & \(N>2000\)，不包含操作一\\\hline
 3 & 15 & \(N>2000\)，包含操作一，且所有操作一均满足 \(k=1\)\\\hline
 4 & 20 & \(2000<N\le20000\)，至少一次操作一满足 \(k>1\)\\\hline
 5 & 30 & \(N>20000\)，至少一次操作一满足 \(k>1\)\\\hline
-
 \end{tabularx}\end{centeredtable}
+\end{minipage}\par\medskip
 \newpage
 \problemtitle{上下左右(lrud)}{probC_title}
-\noindent 时间限制：未提供\qquad 空间限制：未提供\par
+\noindent 时间限制：1 秒\qquad 空间限制：512 MiB\par
 \problemheading{题目描述}{probC_description}
 
 给定正整数 \(N\)。
@@ -419,6 +456,7 @@ W_{i+2}-2W_{i+1}+W_i=c
 
 对于每组数据，一行输出一个整数，表示向右移动次数的最大值；然后一行一个字符串表示操作序列，第 \(i\) 个字符表示路径中第 \(i\) 步的移动方向。其中，\texttt{Q}，\texttt{W}，\texttt{E}，\texttt{D}，\texttt{C}，\texttt{X}，\texttt{Z}，\texttt{A}分别代表左上，上，右上，右，右下，下，左下，左。
 
+\par\medskip\noindent\begin{minipage}{\linewidth}
 \problemheading{样例 1 输入}{probC_sample_1_input}
 
 \begin{verbatim}
@@ -427,7 +465,9 @@ W_{i+2}-2W_{i+1}+W_i=c
 3
 4
 \end{verbatim}
+\end{minipage}\par\medskip
 
+\par\medskip\noindent\begin{minipage}{\linewidth}
 \problemheading{样例 1 输出}{probC_sample_1_output}
 
 \begin{verbatim}
@@ -438,10 +478,27 @@ DDXAAXDD
 8
 DDDXZDQZQDZXDDD
 \end{verbatim}
+\end{minipage}\par\medskip
 
+\par\medskip\noindent\begin{minipage}{\linewidth}
 \problemheading{数据规模与约定}{probC_constraints}
 
-对于 \(100\%\) 的数据，\(1\le T\le 5,2\le N\le 1000\)。
+所有数据均满足 \(1\le T\le5\)、\(2\le N\le1000\)。
+
+本题采用分组计分。一个子任务内全部测试点通过后，才能获得该组分数；各组分数独立相加。
+
+\begin{centeredtable}\begin{tabularx}{0.9\textwidth}{|c|c|X|}
+\hline
+子任务 & 分值 & 额外限制\\\hline
+1 & 10 & \(N\le3\)\\\hline
+2 & 15 & \(N\le4\)\\\hline
+3 & 20 & 每组数据满足 \(N\le4\) 或 \(N\) 为奇数\\\hline
+4 & 20 & 每组数据满足 \(N\le4\) 或 \(N\not\equiv0\pmod4\)\\\hline
+5 & 35 & 无额外限制\\\hline
+\end{tabularx}\end{centeredtable}
+
+本题使用特殊评测。只要输出的路径合法且向右移动次数达到最大值，即可通过；操作序列不必与样例或标准答案相同。
+\end{minipage}\par\medskip
 \newpage
 \problemtitle{存储空间(storage)}{probD_title}
 \noindent 时间限制：10 秒\qquad 空间限制：256 MiB\par
@@ -497,6 +554,7 @@ DDDXZDQZQDZXDDD
 
 最小总费用不取模，可能超过 \(32\) 位有符号整数的范围。
 
+\par\medskip\noindent\begin{minipage}{\linewidth}
 \problemheading{样例 1 输入}{probD_sample_1_input}
 
 \begin{verbatim}
@@ -511,7 +569,9 @@ DDDXZDQZQDZXDDD
 - 1 2
 - 2 2
 \end{verbatim}
+\end{minipage}\par\medskip
 
+\par\medskip\noindent\begin{minipage}{\linewidth}
 \problemheading{样例 1 输出}{probD_sample_1_output}
 
 \begin{verbatim}
@@ -522,6 +582,7 @@ DDDXZDQZQDZXDDD
 1 1
 0 1
 \end{verbatim}
+\end{minipage}\par\medskip
 
 \problemheading{样例 1 解释}{probD_sample_1_explanation}
 
@@ -535,6 +596,7 @@ DDDXZDQZQDZXDDD
 
 最后一次操作后，\(T=\varnothing\)。空存储方案是唯一的最优方案，因此输出 \texttt{0\ 1}。
 
+\par\medskip\noindent\begin{minipage}{\linewidth}
 \problemheading{数据规模与约定}{probD_constraints}
 
 对于所有数据，保证：
@@ -572,4 +634,5 @@ DDDXZDQZQDZXDDD
 \end{tabularx}\end{centeredtable}
 
 子任务 3 中，``按区间中点分割''是指：对每个非叶节点 \(v\)，令 \(m=\lfloor(L_v+R_v)/2\rfloor\)，其左孩子的区间恰为 \([L_v,m]\)，右孩子的区间恰为 \([m+1,R_v]\)。
+\end{minipage}\par\medskip
 \end{document}

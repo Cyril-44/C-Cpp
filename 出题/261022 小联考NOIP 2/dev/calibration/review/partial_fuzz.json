@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.29",
+  "python": "3.8.10",
+  "seed": 770000,
+  "cases": 600,
+  "n_max": 80,
+  "m_min": 80,
+  "m_max": 220,
+  "oracle": "direct recurrence of window sums; no difference-array data structure",
+  "executable_name": "partial",
+  "executable_sha256": "eb96ac716bb5307510c5679d3c144071f89bb70947160a9a2a26cfe58e869241",
+  "samples": {
+    "01": "passed",
+    "02": "passed",
+    "03": "passed"
+  },
+  "random_passed": 600,
+  "operations": 91198,
+  "answers": 30964,
+  "random_general_k_cases": 300,
+  "random_k1_only_cases": 300,
+  "elapsed_seconds": 1.105
+}

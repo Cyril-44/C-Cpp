@@ -1,0 +1,652 @@
+{
+  "status": "passed",
+  "seed": 1756420261021,
+  "standard_sha256": "d28831f0cee37651125e143244d64625b928138cee8e91848fbf190318a537da",
+  "standard_unchanged_during_test": true,
+  "generated_cases": [
+    {
+      "name": "unit_two_leaf",
+      "n": 2,
+      "q": 6,
+      "oracle": "brute"
+    },
+    {
+      "name": "weighted_root_tie",
+      "n": 2,
+      "q": 6,
+      "oracle": "brute"
+    },
+    {
+      "name": "shared_heavy_references",
+      "n": 4,
+      "q": 4,
+      "oracle": "brute"
+    },
+    {
+      "name": "int64_costs",
+      "n": 5,
+      "q": 10,
+      "oracle": "brute"
+    },
+    {
+      "name": "lazy_then_point_right_comb",
+      "n": 32,
+      "q": 10,
+      "oracle": "recompute"
+    },
+    {
+      "name": "lazy_then_point_left_comb",
+      "n": 32,
+      "q": 10,
+      "oracle": "recompute"
+    },
+    {
+      "name": "random_n50_unit",
+      "n": 50,
+      "q": 600,
+      "oracle": "recompute"
+    },
+    {
+      "name": "random_n50_size",
+      "n": 50,
+      "q": 600,
+      "oracle": "recompute"
+    },
+    {
+      "name": "random_n50_random",
+      "n": 50,
+      "q": 600,
+      "oracle": "recompute"
+    },
+    {
+      "name": "random_n50_large",
+      "n": 50,
+      "q": 600,
+      "oracle": "recompute"
+    },
+    {
+      "name": "mid_n49_unit",
+      "n": 49,
+      "q": 600,
+      "oracle": "recompute"
+    },
+    {
+      "name": "mid_n49_size",
+      "n": 49,
+      "q": 600,
+      "oracle": "recompute"
+    },
+    {
+      "name": "mid_n49_random",
+      "n": 49,
+      "q": 600,
+      "oracle": "recompute"
+    },
+    {
+      "name": "mid_n49_large",
+      "n": 49,
+      "q": 600,
+      "oracle": "recompute"
+    },
+    {
+      "name": "brute_n8_unit",
+      "n": 8,
+      "q": 400,
+      "oracle": "brute"
+    },
+    {
+      "name": "brute_n8_size",
+      "n": 8,
+      "q": 400,
+      "oracle": "brute"
+    },
+    {
+      "name": "brute_n8_random",
+      "n": 8,
+      "q": 400,
+      "oracle": "brute"
+    },
+    {
+      "name": "brute_n8_large",
+      "n": 8,
+      "q": 400,
+      "oracle": "brute"
+    },
+    {
+      "name": "odd_random_n7",
+      "n": 7,
+      "q": 400,
+      "oracle": "brute"
+    },
+    {
+      "name": "single_leaf_root",
+      "n": 1,
+      "q": 16,
+      "oracle": "brute"
+    }
+  ],
+  "official_cases_available": 20,
+  "mutants": 12,
+  "generated_wrong_output_kills": 12,
+  "official_wrong_output_kills": 12,
+  "elapsed_seconds": 11.859,
+  "review": {
+    "findings": "No correctness defect identified in the reviewed standard solution.",
+    "checked_invariants": [
+      "Maximal contained endpoint ancestors and exclusion of the LCA edge",
+      "Heavy-child reference counts versus light-child lazily maintained counts",
+      "Two orientation minima and eligibility-dependent four-product merge",
+      "Lazy propagation before coefficient point remakes",
+      "Bottom-up chain propagation using X/B states independent of own root count",
+      "Root requirement handled separately",
+      "Compact segment-node indices and iterative input-tree traversals",
+      "Finite matrix costs remain safely below INF under input bounds"
+    ]
+  },
+  "results": [
+    {
+      "name": "ways_always_one",
+      "description": "Always output one optimal storage set",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "unit_two_leaf",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 2,
+          "field": "ways",
+          "expected": [
+            "2",
+            "2"
+          ],
+          "actual": [
+            "2",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "f956da79ff8b6e99b1cf6c374bee79262f525ee4004ab9ae548d84972d9b8fe9",
+        "actual_stdout_sha256": "8b087123cdcfae01961e1112e2da7e23b3b1c2ff1a1a7ce4ea51f3bfd1dc2273"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_02.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 1,
+          "field": "ways",
+          "expected": [
+            "2",
+            "2"
+          ],
+          "actual": [
+            "2",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "c70c93337b3bc89e78f30ad2be0d3662db87cebc100a27ad688f5726ed96a142",
+        "actual_stdout_sha256": "e57cf5b01f9b1fa997bfc712a8c2d18692c8341e658770bdc398670d90b5ee81"
+      }
+    },
+    {
+      "name": "drop_equal_cost_alternative",
+      "description": "Do not add ways when Value alternatives tie",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "unit_two_leaf",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 2,
+          "field": "ways",
+          "expected": [
+            "2",
+            "2"
+          ],
+          "actual": [
+            "2",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "f956da79ff8b6e99b1cf6c374bee79262f525ee4004ab9ae548d84972d9b8fe9",
+        "actual_stdout_sha256": "8b087123cdcfae01961e1112e2da7e23b3b1c2ff1a1a7ce4ea51f3bfd1dc2273"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_02.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 1,
+          "field": "ways",
+          "expected": [
+            "2",
+            "2"
+          ],
+          "actual": [
+            "2",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "c70c93337b3bc89e78f30ad2be0d3662db87cebc100a27ad688f5726ed96a142",
+        "actual_stdout_sha256": "e57cf5b01f9b1fa997bfc712a8c2d18692c8341e658770bdc398670d90b5ee81"
+      }
+    },
+    {
+      "name": "heavy_counter_is_boolean",
+      "description": "Forget shared references to a heavy child",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "shared_heavy_references",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 3,
+          "field": "cost",
+          "expected": [
+            "2",
+            "1"
+          ],
+          "actual": [
+            "1",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "d7e1ea02896705cc3c192b265df21b916ad2b922a9f2f767c34852845d08b825",
+        "actual_stdout_sha256": "9eb9e1f892da6c943c27d3cf513d1ee89ad3e6f82960bc42fa827e09521fa47c"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_03.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 53,
+          "field": "cost",
+          "expected": [
+            "3997021066",
+            "1"
+          ],
+          "actual": [
+            "2997713294",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "293dd9a7ecf14614b259b0526349d729ec6794c1129776a8782e389dd707c9fc",
+        "actual_stdout_sha256": "1c749531c7dd728aff5cdc9ad4ef9de487535dc26f530753a0f82b402ffc0710"
+      }
+    },
+    {
+      "name": "reverse_boundary_directions",
+      "description": "Use outside siblings instead of inside siblings",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "shared_heavy_references",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 2,
+          "field": "cost",
+          "expected": [
+            "2",
+            "1"
+          ],
+          "actual": [
+            "3",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "d7e1ea02896705cc3c192b265df21b916ad2b922a9f2f767c34852845d08b825",
+        "actual_stdout_sha256": "e49c61cbf991348f8f20f050623a262d0a78135843333994033715bc0ddcbd76"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_03.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 3,
+          "field": "cost",
+          "expected": [
+            "2997713294",
+            "1"
+          ],
+          "actual": [
+            "3997536085",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "293dd9a7ecf14614b259b0526349d729ec6794c1129776a8782e389dd707c9fc",
+        "actual_stdout_sha256": "11437621c7d674d124e5e4d7f50b810200e03b5faf284891373fb6f12a786f42"
+      }
+    },
+    {
+      "name": "do_not_lift_endpoints",
+      "description": "Start at raw leaves instead of maximal contained nodes",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "unit_two_leaf",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 1,
+          "field": "cost",
+          "expected": [
+            "1",
+            "1"
+          ],
+          "actual": [
+            "2",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "f956da79ff8b6e99b1cf6c374bee79262f525ee4004ab9ae548d84972d9b8fe9",
+        "actual_stdout_sha256": "14b961930dc89c072941792e8fc18969ac7a4b9fa27df14497eae087747cb4bb"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_02.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 1,
+          "field": "ways",
+          "expected": [
+            "2",
+            "2"
+          ],
+          "actual": [
+            "2",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "c70c93337b3bc89e78f30ad2be0d3662db87cebc100a27ad688f5726ed96a142",
+        "actual_stdout_sha256": "e57cf5b01f9b1fa997bfc712a8c2d18692c8341e658770bdc398670d90b5ee81"
+      }
+    },
+    {
+      "name": "ignore_root_requirement",
+      "description": "Ignore the root's direct requirement counter",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "unit_two_leaf",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 1,
+          "field": "cost",
+          "expected": [
+            "1",
+            "1"
+          ],
+          "actual": [
+            "0",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "f956da79ff8b6e99b1cf6c374bee79262f525ee4004ab9ae548d84972d9b8fe9",
+        "actual_stdout_sha256": "e1bfe73c9a4467b06cd1d7dacfa6a13ab89f8fb6b1c7c826e923d5f4fd244a4a"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_01.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 1,
+          "field": "cost",
+          "expected": [
+            "1",
+            "1"
+          ],
+          "actual": [
+            "0",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "23a0ab8687eb908eabfc3b9f132d55d9606b81abfc33b60d730de158517a8df6",
+        "actual_stdout_sha256": "9034f7665584cf66ba216b6783287bd6d706ab3182be9a92460d40c2b88b70db"
+      }
+    },
+    {
+      "name": "ignore_right_zero_minimum",
+      "description": "Always treat right-light-child counters as positive in query",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "int64_costs",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 1,
+          "field": "cost",
+          "expected": [
+            "1000000000",
+            "1"
+          ],
+          "actual": [
+            "3000000000",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "558a74fa12ab709f0238c89fb8a3409b1543a89c3775a294efe92cc59fba7e0c",
+        "actual_stdout_sha256": "617b7320adeec15375c883972573671526117e88c35427cf145a3cf21a0c745e"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_03.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 2,
+          "field": "cost",
+          "expected": [
+            "1998277371",
+            "1"
+          ],
+          "actual": [
+            "2997713294",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "293dd9a7ecf14614b259b0526349d729ec6794c1129776a8782e389dd707c9fc",
+        "actual_stdout_sha256": "8fa00617ec87258dc20258eae38fdf389c68b56e06cd16fdde06dfb8e4b99609"
+      }
+    },
+    {
+      "name": "matrix_ways_add_instead_multiply",
+      "description": "Add ways when concatenating independent matrix choices",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "unit_two_leaf",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 2,
+          "field": "ways",
+          "expected": [
+            "2",
+            "2"
+          ],
+          "actual": [
+            "2",
+            "4"
+          ]
+        },
+        "expected_stdout_sha256": "f956da79ff8b6e99b1cf6c374bee79262f525ee4004ab9ae548d84972d9b8fe9",
+        "actual_stdout_sha256": "c95a97e9066383e338da25034a8486aee77f11e246bae9502edf9e79793ca26d"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_02.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 5,
+          "field": "ways",
+          "expected": [
+            "1",
+            "1"
+          ],
+          "actual": [
+            "1",
+            "2"
+          ]
+        },
+        "expected_stdout_sha256": "c70c93337b3bc89e78f30ad2be0d3662db87cebc100a27ad688f5726ed96a142",
+        "actual_stdout_sha256": "dc65e8a1c842634c2bcacb6434063e34321437bde683349096395db08e17573d"
+      }
+    },
+    {
+      "name": "truncate_cost_to_int32",
+      "description": "Truncate the final minimum cost to signed 32 bits",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "int64_costs",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 3,
+          "field": "cost",
+          "expected": [
+            "3000000000",
+            "1"
+          ],
+          "actual": [
+            "-1294967296",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "558a74fa12ab709f0238c89fb8a3409b1543a89c3775a294efe92cc59fba7e0c",
+        "actual_stdout_sha256": "3708d9b0430c63a5bc5e273a4b43d520a7b22e8281e189531a062e36d6ab0e49"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_03.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 3,
+          "field": "cost",
+          "expected": [
+            "2997713294",
+            "1"
+          ],
+          "actual": [
+            "-1297254002",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "293dd9a7ecf14614b259b0526349d729ec6794c1129776a8782e389dd707c9fc",
+        "actual_stdout_sha256": "a243335c13e2f17ac01fcd2b9a155c9dc6adebc71e6011552967c6e3786573f7"
+      }
+    },
+    {
+      "name": "point_remake_without_push",
+      "description": "Rebuild a point before pushing pending counter changes",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "lazy_then_point_right_comb",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 2,
+          "field": "cost",
+          "expected": [
+            "32",
+            "25"
+          ],
+          "actual": [
+            "28",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "92286df274e8a86679bbbc0cf6608c89f5382a668bc660b1bf4613c312d9b002",
+        "actual_stdout_sha256": "8f8d430b01c7cc54b5ed0316b384ed5d170a85d48d245f60f624c9b5935827cf"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_04.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 40,
+          "field": "cost",
+          "expected": [
+            "706731276",
+            "1"
+          ],
+          "actual": [
+            "706725122",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "bda16c73239b77a91b0067960685c07c3cc77f7c9f40bb72279282ddc3df4b9f",
+        "actual_stdout_sha256": "55bf1fcde2261c48de8f1b26c0b575ff18a9cb103c6a0199f09b89dfd68ee7df"
+      }
+    },
+    {
+      "name": "propagate_chains_top_down",
+      "description": "Propagate parent chains before changed child chains",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "shared_heavy_references",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 2,
+          "field": "cost",
+          "expected": [
+            "2",
+            "1"
+          ],
+          "actual": [
+            "1",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "d7e1ea02896705cc3c192b265df21b916ad2b922a9f2f767c34852845d08b825",
+        "actual_stdout_sha256": "652bcc1774725c4b8d9cc07ad2b2b5208a581b850f56b6bd4e6d3b1ad44f8be3"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_04.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 29,
+          "field": "cost",
+          "expected": [
+            "442398317",
+            "1"
+          ],
+          "actual": [
+            "205714120",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "bda16c73239b77a91b0067960685c07c3cc77f7c9f40bb72279282ddc3df4b9f",
+        "actual_stdout_sha256": "29c10054014218305b0705ff1a8996a44b206a1be8b20dbdfb2efd7673db0dea"
+      }
+    },
+    {
+      "name": "ignore_child_minimum_eligibility",
+      "description": "Treat a child's larger minima as global minima",
+      "generated": {
+        "status": "killed_by_wrong_output",
+        "case": "int64_costs",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 3,
+          "field": "cost",
+          "expected": [
+            "3000000000",
+            "1"
+          ],
+          "actual": [
+            "2000000000",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "558a74fa12ab709f0238c89fb8a3409b1543a89c3775a294efe92cc59fba7e0c",
+        "actual_stdout_sha256": "1fc2f0e308add856dc6f672d4041d81f12ae2a59d25ba4ced7318b48865b0175"
+      },
+      "official": {
+        "status": "killed_by_wrong_output",
+        "case": "private\\s01_03.in",
+        "return_code": 0,
+        "first_difference": {
+          "operation": 18,
+          "field": "cost",
+          "expected": [
+            "1999017337",
+            "1"
+          ],
+          "actual": [
+            "999581414",
+            "1"
+          ]
+        },
+        "expected_stdout_sha256": "293dd9a7ecf14614b259b0526349d729ec6794c1129776a8782e389dd707c9fc",
+        "actual_stdout_sha256": "706a86c2137bf7088b520672ac4d2dc88b142c06552b61054fe733b7397e7264"
+      }
+    }
+  ]
+}

@@ -1,40 +1,58 @@
-# 叶环独立集
+# ring：叶环独立集（出题报告）
 
-一份可直接生成、校验并评测的 OI 题包。
+## 定位与核心考点
 
-## 目录
+本题在树的 DFS 叶序上增加一个环，要求统计独立集。预期考查树形 DP、子树叶序连续性，以及有序子问题合并时保留首尾边界的状态设计。面向提高组，核心思维难点在于找到常数大小的边界，代码量和实现细节适中。
 
-- `statement.md`：中文题面和样例。
-- `solution/`：标准程序、题解以及各档参考程序。
-- `validator.cpp`、`gen.cpp`：testlib 输入校验器和数据生成器。
-- `make_data.sh`：编译工具并生成分档评测数据和公开样例。
-- `judge.sh`：运行选手程序并用 `diff` 比对所有输入的答案。
-- `data/subtask*`：生成后的官方数据，每个 `.in` 都有同名 `.ans`。
-- `samples/`：题面样例及几组较大的公开测试。
+普通树独立集只记录根选或不选；本题还记录子树首叶、末叶的选取状态，共 8 个状态。依孩子编号顺序合并时，只新增一条跨边界叶子边，最后在根补上首尾闭环约束。单叶不补边，两叶的重复边不改变约束。每个独立集唯一对应各子树的状态及分解，因此既无漏计也无重计。完整转移与归纳证明见 `sol/solution.md`。
 
-## 生成数据
+标准解时间 O(n)、空间 O(n)，按编号从大到小计算，避免百万长链上的递归栈溢出。主要数组约 44 MB；乘法用 64 位整数。题面限制为 **5 秒 / 128 MiB**。实测及环境限制见 `review/test_report.md`；发布前仍应按目标评测机复核限时。
 
-需要 `g++`、Bash、`awk`、`diff`、GNU coreutils（提供 `timeout`）和 `~/C-Cpp/testlib.h`：
+## 统一目录
+
+- `statement.md`：完整题面，含样例和分组评分。
+- `sol/std_boundary_dp.cpp`：8 状态线性标准程序。
+- `sol/partial_15_bruteforce.cpp`：枚举顶点集合的 15 分程序。
+- `sol/partial_25_few_leaves.cpp`：枚举叶子状态的 25 分程序。
+- `sol/partial_15_star.cpp`：星形树的 15 分程序。
+- `sol/solution.md`：题解、正确性证明和复杂度。
+- `gen/gen.cpp`、`gen/val.cpp`、`gen/genall.sh`：固定种子 testlib 生成器、严格格式及分组校验器、一键生成脚本。
+- `review/`：独立矩阵参考、暴力入口、checker、对拍/评测脚本、题面样例、验证报告及输入 SHA-256。
+- 最终正式数据位于题目目录的 `../../data/ring/`，大样例位于 `../../down/ring/`；编译产物与临时文件只在忽略的 `review/.build/`。
+
+## 数据分组与目的
+
+| Subtask | 分值 | 条件 | 测试点 | 主要覆盖 |
+|---|---:|---|---|---|
+| 1 | 15 | n<=20 | 01_01..01_08 | 最小规模、单叶、双叶、星、平衡、8叶、随机、随机二叉 |
+| 2 | 25 | n<=100000，叶子<=8 | 02_01..02_08 | 长单链/双叶/3叶/8叶、随机少叶树、交错编号、最小8叶骨架 |
+| 3 | 15 | 根为中心的星 | 03_01..03_04 | 最小星、奇偶叶数、百万上界 |
+| 4 | 45 | 无额外限制 | 04_01..04_10 | 百万链、双叶、平衡、梳、扫帚、随机、随机二叉、999999边界、百万少叶 |
+
+每点输入命名为 `01_01.in` 等，输出为同名 `.ans`；采用 Subtask 整组计分。`manifest.tsv` 给出每个输入的分组、形态、n、种子和叶数参数，可完整复现。各组允许重叠，但分值和适用范围均单独说明。
+
+大样例共 5 组：`ring1` 为10万链，`ring2` 为10万随机8叶树，`ring3` 为百万星，`ring4` 为百万随机树，`ring5` 为百万随机二叉树，均包含 `.in/.ans`。
+
+## 生成与校验
+
+依赖 Bash、git、g++（C++17）、Python 3、GNU timeout/time；**gen/val/checker 只使用 git 根目录 `/home/cyril/code/testlib.h`**，不依赖个人目录中的其他 testlib。
+
+从任意工作目录调用脚本均可：
 
 ```bash
-bash make_data.sh
+bash /path/to/dev/ring/gen/genall.sh
+bash /path/to/dev/ring/gen/genall.sh /custom/data/ring /custom/down/ring
 ```
 
-可通过 `TESTLIB_INCLUDE_DIR` 指定 testlib.h 所在目录。数据生成器的随机树使用显式固定种子，重新运行会得到相同数据。
-
-## 评测程序
+默认路径相对于 `dev/ring` 题目目录解析；用户提供的相对路径相对于调用时的工作目录解析。脚本先在本题临时目录生成全部输入，用对应 Subtask 校验并运行标准程序产生答案，全部成功后复制到最终目录。它覆盖本题生成的同名文件和清单，**不会删除传入目录中的无关文件**。两个目标目录必须不同。每次随机种子显式固定。
 
 ```bash
-bash judge.sh ./solution/std data
+python3 /path/to/dev/ring/review/run_tests.py
+bash /path/to/dev/ring/review/judge.sh /absolute/path/to/program /path/to/data/ring
 ```
 
-脚本递归遍历指定目录中的 `.in`，优先匹配同名 `.ans`，没有时匹配同名 `.out`。每个测试默认限时 5 秒，可用 `TIME_LIMIT=秒数` 调整。输出比较会忽略每行末尾的空白字符，并统一文末换行；其他差异由 `diff -u` 报告。程序非零退出、超时或答案不匹配时脚本返回非零状态。
+完整自测编译所有程序，穷举 n=4..8 的 5910 棵递增父编号树，随机对拍，再验证全部正式数据和大样例的答案、分组和可复现性。独立矩阵参考从逆序孩子合并，得到整体叶序反转，利用无向环在反转下不变检查标准实现的有序合并。参数 `--check-generation` 还会实际验证含空格的自定义输出目录和无关文件保留；`--skip-large` 可只跑小规模，`--data`、`--down` 可指定待审计目录。
 
-## 编译参考程序
+## 风险及当前结论
 
-```bash
-g++ -std=c++17 -O2 -pipe solution/std.cpp -o solution/std
-g++ -std=c++17 -O2 -pipe solution/brute.cpp -o solution/brute
-g++ -std=c++17 -O2 -pipe solution/few_leaves.cpp -o solution/few_leaves
-g++ -std=c++17 -O2 -pipe solution/star.cpp -o solution/star
-```
+必须特判单叶不添加自环；双叶重复边无需重复计数；不能按顶点编号代替 DFS 叶序，不能忽略闭环边。百万深链要求迭代实现，且标准程序不能为每个顶点保存大矩阵或显式集合。以上边界均有穷举或正式数据覆盖。当前没有已知正确性或数据格式遗留问题；准确测试结果、运行时间和峰值内存由 `review/test_report.md` 记录。

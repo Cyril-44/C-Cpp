@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "topics": {
+    "ring": {
+      "formal": 30,
+      "large_samples": 5,
+      "subtask_counts": {
+        "01": 8,
+        "02": 8,
+        "03": 4,
+        "04": 10
+      },
+      "data_bytes": 74407900,
+      "sample_bytes": 16570271,
+      "sha256": "661ecf998cf15b3c9eae5a212fd66e127d69f85644f03d1614f0728c67339ded"
+    },
+    "calibration": {
+      "formal": 40,
+      "large_samples": 3,
+      "subtask_counts": {
+        "01": 8,
+        "02": 6,
+        "03": 7,
+        "04": 8,
+        "05": 11
+      },
+      "data_bytes": 200593695,
+      "sample_bytes": 17900799,
+      "sha256": "add37df67161b41a37c53ebcee7a0df1fcb9904b58c4729b3981200556a3d4ae"
+    },
+    "lrud": {
+      "formal": 37,
+      "large_samples": 3,
+      "subtask_counts": {
+        "01": 6,
+        "02": 5,
+        "03": 8,
+        "04": 8,
+        "05": 10
+      },
+      "data_bytes": 44359987,
+      "sample_bytes": 7748517,
+      "sha256": "7a10a233ac06e1b54ba192058f1fc50241be300aab5452cb648461fcbf8b2b2b"
+    },
+    "storage": {
+      "formal": 45,
+      "large_samples": 2,
+      "subtask_counts": {
+        "01": 4,
+        "02": 4,
+        "03": 4,
+        "04": 4,
+        "05": 4,
+        "06": 4,
+        "07": 4,
+        "08": 4,
+        "09": 4,
+        "10": 9
+      },
+      "data_bytes": 197586530,
+      "sample_bytes": 11892106,
+      "sha256": "8484aebac40f6a21c3dd29ab46bba8326183a39f27e7a656a2650286bc87a5fc"
+    }
+  },
+  "formal_total": 152,
+  "sample_total": 13
+}

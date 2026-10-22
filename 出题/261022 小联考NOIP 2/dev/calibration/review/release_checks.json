@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "verified_published_files": 86,
+  "line_endings": "LF",
+  "final_statement": "4 sec, 512 MiB, n,m <= 500000; preserve k+1 values; 1 <= k <= r-l",
+  "git_commit_created": false
+}
