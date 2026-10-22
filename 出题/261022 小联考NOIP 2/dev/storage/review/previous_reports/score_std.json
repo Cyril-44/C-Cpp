@@ -1,0 +1,294 @@
+{
+  "solution": "std",
+  "score": 100,
+  "method": "All private files executed during build_data; answers independently checked by verify_data.",
+  "time_limit_seconds": 10,
+  "memory_limit_enforced": false,
+  "subtasks": [
+    {
+      "subtask": 1,
+      "score": 5,
+      "tests": [
+        {
+          "id": "s01_01",
+          "status": "AC",
+          "seconds": 0.034501299960538745
+        },
+        {
+          "id": "s01_02",
+          "status": "AC",
+          "seconds": 0.013190999976359308
+        },
+        {
+          "id": "s01_03",
+          "status": "AC",
+          "seconds": 0.01175649999640882
+        },
+        {
+          "id": "s01_04",
+          "status": "AC",
+          "seconds": 0.011735500011127442
+        }
+      ]
+    },
+    {
+      "subtask": 2,
+      "score": 10,
+      "tests": [
+        {
+          "id": "s02_01",
+          "status": "AC",
+          "seconds": 0.0294323000125587
+        },
+        {
+          "id": "s02_02",
+          "status": "AC",
+          "seconds": 0.07514089997857809
+        },
+        {
+          "id": "s02_03",
+          "status": "AC",
+          "seconds": 0.05781369999749586
+        },
+        {
+          "id": "s02_04",
+          "status": "AC",
+          "seconds": 0.02752239996334538
+        }
+      ]
+    },
+    {
+      "subtask": 3,
+      "score": 10,
+      "tests": [
+        {
+          "id": "s03_01",
+          "status": "AC",
+          "seconds": 2.849814399960451
+        },
+        {
+          "id": "s03_02",
+          "status": "AC",
+          "seconds": 1.4199231999809854
+        },
+        {
+          "id": "s03_03",
+          "status": "AC",
+          "seconds": 1.3963520000106655
+        },
+        {
+          "id": "s03_04",
+          "status": "AC",
+          "seconds": 4.726966499991249
+        }
+      ]
+    },
+    {
+      "subtask": 4,
+      "score": 5,
+      "tests": [
+        {
+          "id": "s04_01",
+          "status": "AC",
+          "seconds": 1.74447739997413
+        },
+        {
+          "id": "s04_02",
+          "status": "AC",
+          "seconds": 3.8368723999592476
+        },
+        {
+          "id": "s04_03",
+          "status": "AC",
+          "seconds": 1.8568784999661148
+        },
+        {
+          "id": "s04_04",
+          "status": "AC",
+          "seconds": 5.889200399979018
+        }
+      ]
+    },
+    {
+      "subtask": 5,
+      "score": 10,
+      "tests": [
+        {
+          "id": "s05_01",
+          "status": "AC",
+          "seconds": 0.6556315000052564
+        },
+        {
+          "id": "s05_02",
+          "status": "AC",
+          "seconds": 0.6749759999802336
+        },
+        {
+          "id": "s05_03",
+          "status": "AC",
+          "seconds": 0.8081713999854401
+        },
+        {
+          "id": "s05_04",
+          "status": "AC",
+          "seconds": 2.294816499983426
+        }
+      ]
+    },
+    {
+      "subtask": 6,
+      "score": 10,
+      "tests": [
+        {
+          "id": "s06_01",
+          "status": "AC",
+          "seconds": 0.7066951000015251
+        },
+        {
+          "id": "s06_02",
+          "status": "AC",
+          "seconds": 0.7143535999930464
+        },
+        {
+          "id": "s06_03",
+          "status": "AC",
+          "seconds": 0.5119155999855138
+        },
+        {
+          "id": "s06_04",
+          "status": "AC",
+          "seconds": 1.0038129999884404
+        }
+      ]
+    },
+    {
+      "subtask": 7,
+      "score": 10,
+      "tests": [
+        {
+          "id": "s07_01",
+          "status": "AC",
+          "seconds": 1.8625060000340454
+        },
+        {
+          "id": "s07_02",
+          "status": "AC",
+          "seconds": 0.6268387999734841
+        },
+        {
+          "id": "s07_03",
+          "status": "AC",
+          "seconds": 4.234524900035467
+        },
+        {
+          "id": "s07_04",
+          "status": "AC",
+          "seconds": 2.9449321000138298
+        }
+      ]
+    },
+    {
+      "subtask": 8,
+      "score": 10,
+      "tests": [
+        {
+          "id": "s08_01",
+          "status": "AC",
+          "seconds": 0.930061699997168
+        },
+        {
+          "id": "s08_02",
+          "status": "AC",
+          "seconds": 0.7954280999838375
+        },
+        {
+          "id": "s08_03",
+          "status": "AC",
+          "seconds": 0.7826856999890879
+        },
+        {
+          "id": "s08_04",
+          "status": "AC",
+          "seconds": 0.824978899967391
+        }
+      ]
+    },
+    {
+      "subtask": 9,
+      "score": 5,
+      "tests": [
+        {
+          "id": "s09_01",
+          "status": "AC",
+          "seconds": 3.2732778000063263
+        },
+        {
+          "id": "s09_02",
+          "status": "AC",
+          "seconds": 2.4417880999972112
+        },
+        {
+          "id": "s09_03",
+          "status": "AC",
+          "seconds": 1.1090533999959007
+        },
+        {
+          "id": "s09_04",
+          "status": "AC",
+          "seconds": 1.6342939999885857
+        }
+      ]
+    },
+    {
+      "subtask": 10,
+      "score": 25,
+      "tests": [
+        {
+          "id": "s10_01",
+          "status": "AC",
+          "seconds": 1.0564826999907382
+        },
+        {
+          "id": "s10_02",
+          "status": "AC",
+          "seconds": 1.124481700011529
+        },
+        {
+          "id": "s10_03",
+          "status": "AC",
+          "seconds": 0.8207463000435382
+        },
+        {
+          "id": "s10_04",
+          "status": "AC",
+          "seconds": 0.5989801000105217
+        },
+        {
+          "id": "s10_05",
+          "status": "AC",
+          "seconds": 1.7679515999625437
+        },
+        {
+          "id": "s10_06",
+          "status": "AC",
+          "seconds": 2.8480093000107445
+        },
+        {
+          "id": "s10_07",
+          "status": "AC",
+          "seconds": 2.114256499975454
+        },
+        {
+          "id": "s10_08",
+          "status": "AC",
+          "seconds": 5.435121699993033
+        },
+        {
+          "id": "s10_09",
+          "status": "AC",
+          "seconds": 4.61033789999783
+        }
+      ]
+    }
+  ]
+}

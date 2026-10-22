@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "environment": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.29",
+  "compiler": "g++ (Ubuntu 10.5.0-1ubuntu1~20.04.1+esm1) 10.5.0",
+  "runs": 15,
+  "max_median_seconds": 2.8,
+  "peak_rss_kib": 104380,
+  "records": [
+    {
+      "id": "04_04",
+      "seconds": [
+        2.78,
+        2.8,
+        3.01
+      ],
+      "median_seconds": 2.8,
+      "peak_rss_kib": 104380
+    },
+    {
+      "id": "07_03",
+      "seconds": [
+        2.03,
+        1.93,
+        1.97
+      ],
+      "median_seconds": 1.97,
+      "peak_rss_kib": 104360
+    },
+    {
+      "id": "10_05",
+      "seconds": [
+        0.69,
+        0.69,
+        0.69
+      ],
+      "median_seconds": 0.69,
+      "peak_rss_kib": 104352
+    },
+    {
+      "id": "10_08",
+      "seconds": [
+        2.6,
+        2.6,
+        2.57
+      ],
+      "median_seconds": 2.6,
+      "peak_rss_kib": 81848
+    },
+    {
+      "id": "10_09",
+      "seconds": [
+        2.37,
+        2.17,
+        2.2
+      ],
+      "median_seconds": 2.2,
+      "peak_rss_kib": 104364
+    }
+  ]
+}

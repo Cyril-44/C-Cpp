@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "arbitrary_cwd": true,
+  "default_paths": true,
+  "spaced_override_paths": true,
+  "unrelated_files_preserved": true,
+  "cross_filesystem_target": true
+}

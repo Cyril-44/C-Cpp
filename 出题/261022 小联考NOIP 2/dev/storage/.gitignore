@@ -1,0 +1,8 @@
+.genall.*/
+.build/
+__pycache__/
+
+.verify.*/
+.path-test.*/
+.benchmark.*/
+.mutation.*/

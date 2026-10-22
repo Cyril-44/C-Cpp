@@ -1,0 +1,164 @@
+{
+  "solution": "recompute",
+  "score": 15,
+  "time_limit_seconds": 10,
+  "memory_limit_enforced": false,
+  "subtasks": [
+    {
+      "subtask": 1,
+      "score": 5,
+      "tests": [
+        {
+          "id": "s01_01",
+          "status": "AC",
+          "seconds": 0.056153500045184046,
+          "detail": ""
+        },
+        {
+          "id": "s01_02",
+          "status": "AC",
+          "seconds": 0.013093300047330558,
+          "detail": ""
+        },
+        {
+          "id": "s01_03",
+          "status": "AC",
+          "seconds": 0.013634599978104234,
+          "detail": ""
+        },
+        {
+          "id": "s01_04",
+          "status": "AC",
+          "seconds": 0.014765600033570081,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "subtask": 2,
+      "score": 10,
+      "tests": [
+        {
+          "id": "s02_01",
+          "status": "AC",
+          "seconds": 0.055119600030593574,
+          "detail": ""
+        },
+        {
+          "id": "s02_02",
+          "status": "AC",
+          "seconds": 0.09771300002466887,
+          "detail": ""
+        },
+        {
+          "id": "s02_03",
+          "status": "AC",
+          "seconds": 0.07920769997872412,
+          "detail": ""
+        },
+        {
+          "id": "s02_04",
+          "status": "AC",
+          "seconds": 0.05677500000456348,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "subtask": 3,
+      "score": 0,
+      "tests": [
+        {
+          "id": "s03_01",
+          "status": "TLE",
+          "seconds": 10.0142993000336,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "subtask": 4,
+      "score": 0,
+      "tests": [
+        {
+          "id": "s04_01",
+          "status": "TLE",
+          "seconds": 10.017957200005185,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "subtask": 5,
+      "score": 0,
+      "tests": [
+        {
+          "id": "s05_01",
+          "status": "TLE",
+          "seconds": 10.00996870000381,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "subtask": 6,
+      "score": 0,
+      "tests": [
+        {
+          "id": "s06_01",
+          "status": "TLE",
+          "seconds": 10.016055499960203,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "subtask": 7,
+      "score": 0,
+      "tests": [
+        {
+          "id": "s07_01",
+          "status": "TLE",
+          "seconds": 10.01530669996282,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "subtask": 8,
+      "score": 0,
+      "tests": [
+        {
+          "id": "s08_01",
+          "status": "TLE",
+          "seconds": 10.008251099963672,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "subtask": 9,
+      "score": 0,
+      "tests": [
+        {
+          "id": "s09_01",
+          "status": "TLE",
+          "seconds": 10.016351700003725,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "subtask": 10,
+      "score": 0,
+      "tests": [
+        {
+          "id": "s10_01",
+          "status": "TLE",
+          "seconds": 10.013321299978998,
+          "detail": ""
+        }
+      ]
+    }
+  ]
+}
