@@ -30,8 +30,9 @@ done
 
 for problem in ring calibration lrud storage; do
   echo "[$problem] Generating data"
-  if [[ "$problem" == lrud ]]; then
-    bash "$DEV_DIR/$problem/gen/genall.sh" "$DATA_DIR/$problem"
+  if [[ -f "$DEV_DIR/$problem/gen/genall.py" ]]; then
+    python3 "$DEV_DIR/$problem/gen/genall.py" \
+      "$DATA_DIR/$problem" "$DOWN_DIR/$problem"
   else
     bash "$DEV_DIR/$problem/gen/genall.sh" \
       "$DATA_DIR/$problem" "$DOWN_DIR/$problem"

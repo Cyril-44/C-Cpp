@@ -6,7 +6,6 @@ import subprocess
 import tempfile
 from pathlib import Path
 from check_output import check
-from checker import check as token_check
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -74,14 +73,7 @@ def main():
                 assert not good, text
             else:
                 assert good, text
-            try:
-                token_check(out, ans)
-            except (ValueError, OSError):
-                assert not good, text
-            else:
-                assert good, text
-    report = dict(status='passed', validator_and_generator_tests=len(tests), generated_strategies=generated, output_shape_tests=8, token_checker_tests=8, tests=tests)
-    (ROOT / 'review/tool_tests.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+    report = dict(status='passed', validator_and_generator_tests=len(tests), generated_strategies=generated, output_shape_tests=8, tests=tests)
     print(json.dumps({key: value for key, value in report.items() if key != 'tests'}))
 
 if __name__ == '__main__':

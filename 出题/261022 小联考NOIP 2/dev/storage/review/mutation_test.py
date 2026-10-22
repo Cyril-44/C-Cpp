@@ -5,7 +5,7 @@ Run from any cwd: python3 /absolute/path/dev/storage/review/mutation_test.py
 Fixed seeds and mutation anchors reproduce every result. Original sources and
 official data are never modified; temporary binaries are removed at the end.
 """
-import concurrent.futures, hashlib, json, pathlib, subprocess, tempfile, time
+import argparse, concurrent.futures, hashlib, json, pathlib, subprocess, tempfile, time
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 REPO=pathlib.Path(subprocess.check_output(['git','-C',str(ROOT),'rev-parse','--show-toplevel'],text=True).strip())
 
@@ -49,10 +49,16 @@ def run(command,data=None):
     return subprocess.run(list(map(str,command)),input=data,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=30)
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--generated-only',action='store_true',help='only run the small targeted tests')
+    args=parser.parse_args()
+    plan=json.loads((ROOT/'gen/cases.json').read_text(encoding='utf-8'))
+    categories=('generated',) if args.generated_only else ('generated','official')
     started=time.monotonic()
     original=(ROOT/'sol/std_hld.cpp').read_bytes();source=original.decode()
     standard_hash=hashlib.sha256(original).hexdigest()
-    with tempfile.TemporaryDirectory(prefix='.mutation.',dir=str(ROOT)) as temp:
+    (ROOT/'.build').mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='mutation-',dir=str(ROOT/'.build')) as temp:
         temp=pathlib.Path(temp)
         sources={'baseline':ROOT/'sol/std_hld.cpp','brute':ROOT/'review/brute.cpp',
                  'recompute':ROOT/'sol/partial_recompute.cpp','gen':ROOT/'gen/gen.cpp'}
@@ -77,7 +83,11 @@ def main():
         def custom(name,n,shape,weight,ops):
             rows=generate(n,1,shape,weight,17564).splitlines(keepends=True)[1:2*n]
             add(name,('{} {}\n'.format(n,len(ops))).encode()+b''.join(rows)+(''.join(op+'\n' for op in ops)).encode())
-        add('statement_sample',(ROOT/'review/samples/sample1.in').read_bytes())
+        for case in plan.get('statement_samples',[]):
+            sample=ROOT/'review/samples'/('sample'+str(case['sample_index']))
+            sample_input,sample_answer=sample.with_suffix('.in').read_bytes(),sample.with_suffix('.ans').read_bytes()
+            add(case['id'],sample_input)
+            assert cases[-1]['answer']==sample_answer,(case['id'],'saved sample output differs')
         custom('shared_heavy_references',4,'mid','unit',['+ 3 4','+ 2 4','- 3 4','- 2 4'])
         custom('int64_costs',5,'random','large',['+ {} {}'.format(x,x) for x in range(1,6)])
         ops=['+ 1 31','+ 8 32','+ 9 32','- 8 32','- 1 31','+ 2 31','+ 1 30','- 9 32','- 2 31','- 1 30']
@@ -89,12 +99,11 @@ def main():
                 add('{}-{}'.format(shape,weight),generate(50,600,shape,weight,2026102200+i*10+j,'mixed' if i%2 else 'adversarial'))
         for j,weight in enumerate(('unit','tie','random','large')):
             add('brute8-'+weight,generate(8,400,'random',weight,998244350+j,'mixed'))
-        manifest=json.loads((ROOT/'review/generated_manifest.json').read_text())
-        official=[c for c in manifest['cases'] if not c['id'].startswith('storage')]
+        official=plan['cases']
         results=[]
         for name,description,_ in MUTATIONS:
             record={'name':name,'description':description}
-            for category in ('generated','official'):
+            for category in categories:
                 record[category]={'status':'survived'}
                 for c in cases if category=='generated' else official:
                     data=c['input'] if category=='generated' else (ROOT/c['input']).read_bytes()
@@ -107,14 +116,13 @@ def main():
                                           'input_sha256':hashlib.sha256(data).hexdigest()}
                         break
             results.append(record)
-            print('{}: generated={}, official={}'.format(name,record['generated'],record['official']),flush=True)
+            print(name+': '+json.dumps({category:record[category] for category in categories}),flush=True)
         unchanged=hashlib.sha256((ROOT/'sol/std_hld.cpp').read_bytes()).hexdigest()==standard_hash
-        kills={category:sum(r[category]['status']=='wrong_output' for r in results) for category in ('generated','official')}
+        kills={category:sum(r[category]['status']=='wrong_output' for r in results) for category in categories}
         report={'status':'passed' if unchanged and all(k==len(MUTATIONS) for k in kills.values()) else 'needs_attention',
                 'standard_sha256':standard_hash,'standard_unchanged':unchanged,
-                'generated_cases':len(cases),'official_cases_available':len(official),'mutants':len(MUTATIONS),
+                'generated_cases':len(cases),'official_cases_checked':0 if args.generated_only else len(official),'mutants':len(MUTATIONS),
                 'wrong_output_kills':kills,'elapsed_seconds':round(time.monotonic()-started,3),'results':results}
-        (ROOT/'review/mutations.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
         print(json.dumps({k:v for k,v in report.items() if k!='results'}),flush=True)
         assert report['status']=='passed'
 

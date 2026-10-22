@@ -19,67 +19,45 @@ CXX=${CXX:-g++}
 STAGE=$(mktemp -d "$BUILD/generate.XXXXXX")
 trap 'rm -rf -- "$STAGE"' EXIT
 mkdir -p "$STAGE/data" "$STAGE/down"
-printf 'file\tsubtask\ttype\tn\tseed\tleaves_parameter\n' > "$STAGE/data/manifest.tsv"
-printf 'file\ttype\tn\tseed\tleaves_parameter\n' > "$STAGE/down/manifest.tsv"
+statement_sample() {
+  awk -v target="$1" '
+    /^## 样例$/ { sample = 1; next }
+    sample && /^## / { exit }
+    sample && /^```text$/ { ++block; inside = 1; next }
+    sample && /^```$/ { inside = 0; next }
+    sample && inside && block == target { print; found = 1 }
+    END { if (!found) exit 1 }
+  ' "$ROOT/statement.md"
+}
 make_case() {
-  local group=$1 number=$2 type=$3 n=$4 seed=$5 leaves=${6:-}
-  local name input
-  printf -v name '%02d_%02d' "$group" "$number"
-  input="$STAGE/data/$name.in"
-  local -a args=("--type=$type" "--n=$n" "--seed=$seed")
-  [[ -z "$leaves" ]] || args+=("--leaves=$leaves")
-  "$BUILD/gen" "${args[@]}" > "$input"
-  "$BUILD/val" "--subtask=$group" < "$input"
-  "$BUILD/std" < "$input" > "${input%.in}.ans"
-  echo "Validated $name ($type, n=$n)"
+  local destination=$1 filename=$2 group=$3 type=$4 n=$5 seed=$6 leaves=$7
+  local input="$STAGE/$destination/$filename"
+  local answer="${input%.in}.ans"
+  local -a options=()
+  [[ "$group" == - ]] || options+=("--subtask=$group")
+  if [[ "$type" == statement ]]; then
+    statement_sample 1 > "$input"
+    [[ "$(head -n 1 -- "$input")" == "$n" ]]
+  else
+    local -a args=("--type=$type" "--n=$n" "--seed=$seed")
+    [[ "$leaves" == - ]] || args+=("--leaves=$leaves")
+    "$BUILD/gen" "${args[@]}" > "$input"
+  fi
+  "$BUILD/val" "${options[@]}" < "$input"
+  "$BUILD/std" < "$input" > "$answer"
+  if [[ "$type" == statement ]]; then
+    statement_sample 2 > "$STAGE/statement.ans"
+    cmp -- "$answer" "$STAGE/statement.ans"
+  fi
+  echo "Validated $destination/$filename ($type, n=$n)"
 }
-make_sample() {
-  local number=$1 type=$2 n=$3 seed=$4 leaves=${5:-}
-  local input="$STAGE/down/ring$number.in"
-  local -a args=("--type=$type" "--n=$n" "--seed=$seed")
-  [[ -z "$leaves" ]] || args+=("--leaves=$leaves")
-  "$BUILD/gen" "${args[@]}" > "$input"
-  "$BUILD/val" < "$input"
-  "$BUILD/std" < "$input" > "${input%.in}.ans"
-}
-make_case 1 1 chain 4 101
-make_case 1 2 two 4 102
-make_case 1 3 star 4 103
-make_case 1 4 star 20 104
-make_case 1 5 balanced 20 105
-make_case 1 6 few 20 106 8
-make_case 1 7 random 20 107
-make_case 1 8 binary_random 19 108
-make_case 2 1 chain 100000 201
-make_case 2 2 two 100000 202
-make_case 2 3 few 100000 203 3
-make_case 2 4 few 100000 204 8
-make_case 2 5 few_random 100000 205 8
-make_case 2 6 few_random 99999 206 7
-make_case 2 7 few_random 99999 207 2
-make_case 2 8 few_random 15 208 8
-make_case 3 1 star 4 301
-make_case 3 2 star 99999 302
-make_case 3 3 star 100000 303
-make_case 3 4 star 1000000 304
-make_case 4 1 chain 1000000 401
-make_case 4 2 two 1000000 402
-make_case 4 3 balanced 1000000 403
-make_case 4 4 comb 1000000 404
-make_case 4 5 broom 1000000 405
-make_case 4 6 random 1000000 406
-make_case 4 7 binary_random 1000000 407
-make_case 4 8 random 999999 408
-make_case 4 9 few_random 1000000 409 8
-make_case 4 10 balanced 999999 410
-make_sample 1 chain 100000 501
-make_sample 2 few_random 100000 502 8
-make_sample 3 star 1000000 503
-make_sample 4 random 1000000 504
-make_sample 5 binary_random 1000000 505
-cp -- "$STAGE/data/"* "$DATA/"
-cp -- "$STAGE/down/"* "$DOWN/"
-for file in "$STAGE/down/"*; do
+while IFS=$'\t' read -r destination filename group type n seed leaves; do
+  [[ "$destination" == destination ]] && continue
+  make_case "$destination" "$filename" "$group" "$type" "$n" "$seed" "$leaves"
+done < "$HERE/cases.tsv"
+cp -- "$STAGE/data/"*.in "$STAGE/data/"*.ans "$DATA/"
+cp -- "$STAGE/down/"*.in "$STAGE/down/"*.ans "$DOWN/"
+for file in "$STAGE/down/"*.in "$STAGE/down/"*.ans; do
   chmod 664 -- "$DOWN/$(basename -- "$file")"
 done
-echo "Generated 30 official cases in $DATA and 5 public cases in $DOWN"
+echo "Generated 30 official cases in $DATA and 6 public cases in $DOWN"

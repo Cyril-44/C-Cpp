@@ -1,72 +1,72 @@
-// Enumerate ALL logically weight-balanced binary tree shapes up to 14 leaves.
-// Test every split, every ordered join up to 14 total leaves, and shared repeats.
-// Compile without -DNDEBUG:
-// g++ -std=c++17 -O2 -DAUDIT review/wblt_exhaustive.cpp -o wblt_exhaustive
+// 穷举至 14 个叶子的所有严格 3 倍平衡形状。
+// g++ -std=c++17 -O2 review/wblt_exhaustive.cpp -o wblt_exhaustive
 #define main reference_solution_main
 #include "../sol/std_wblt.cpp"
 #undef main
+#include "wblt_audit.hpp"
 
 struct Shape { int l, r, n; };
-std::vector<Shape> shapes{{-1, -1, 1}};
-std::vector<int> by_size[15];
+vector<Shape> shapes{{-1, -1, 1}};
+vector<int> bySize[15];
 
-u32 instantiate(Rope& tree, int id, u32& value) {
+int instantiate(WBLT& tree, int id, int& value) {
     Shape s = shapes[id];
-    if (s.n == 1) return tree.leaf(++value);
-    u32 a = instantiate(tree, s.l, value), b = instantiate(tree, s.r, value);
-    u32 root = tree.node(a, b);
-    tree.release(a); tree.release(b);
-    return root;
+    if (s.n == 1) {
+        int u = tree.alloc();
+        tree.tr[u].w = 1;
+        tree.tr[u].sum = ++value;
+        return u;
+    }
+    int left = instantiate(tree, s.l, value), right = instantiate(tree, s.r, value);
+    return tree.node(left, right);
 }
 
-void verify(Rope& tree, u32 root, int len, int period, u32 factor = 1) {
-    tree.audit(root);
-    Agg expected;
-    for (int i = 0; i < len; ++i) expected = cat(expected, {1, mul(i % period + 1, factor), 0});
-    Agg got = tree.agg(root);
-    assert(got.n == expected.n && got.s0 == expected.s0 && got.s1 == expected.s1);
+void verify(WBLT& tree, int root, int len, int period, int factor = 1) {
+    audit(tree, root);
+    Info expected;
+    for (int i = 0; i < len; ++i) {
+        expected = expected + Info{1, mul(i % period + 1, factor), 0};
+    }
+    Info got = tree.info(root);
+    assert(got.len == expected.len && got.sum == expected.sum && got.moment == expected.moment);
+    tree.recycle(root);
+    audit(tree, 0);
 }
 
 int main() {
-    by_size[1].push_back(0);
+    bySize[1].push_back(0);
     for (int n = 2; n <= 14; ++n) {
-        for (int l = 1; l < n; ++l) if (l <= 3 * (n - l) && n - l <= 3 * l) {
-            for (int x : by_size[l]) for (int y : by_size[n - l]) {
-                by_size[n].push_back(int(shapes.size()));
+        for (int l = 1; l < n; ++l) if (l < 3 * (n - l) && n - l < 3 * l) {
+            for (int x : bySize[l]) for (int y : bySize[n - l]) {
+                bySize[n].push_back(int(shapes.size()));
                 shapes.push_back({x, y, n});
             }
         }
     }
-    Rope tree(32);
-    u64 splits = 0, joins = 0, repeats = 0;
-    for (int n = 1; n <= 14; ++n) for (int id : by_size[n]) {
+    WBLT tree(32);
+    long long splits = 0, joins = 0, repeats = 0;
+    for (int n = 1; n <= 14; ++n) for (int id : bySize[n]) {
         for (int cut = 0; cut <= n; ++cut) {
-            u32 value = 0, root = instantiate(tree, id, value);
-            auto [a, b] = tree.split(root, cut);
-            u32 joined = tree.join(a, b);
-            tree.release(root); tree.release(a); tree.release(b);
-            verify(tree, joined, n, n);
-            tree.release(joined); assert(!tree.live); ++splits;
+            int value = 0, root = instantiate(tree, id, value);
+            auto [left, right] = tree.split(root, cut);
+            verify(tree, tree.merge(left, right), n, n);
+            ++splits;
         }
         if (n <= 12) for (int len : {n, n + 1, 2 * n - 1, 2 * n, 2 * n + 1, 31}) {
-            u32 value = 0, raw = instantiate(tree, id, value);
-            u32 factor = n % 3 == 0 ? 0 : P - 1;
-            u32 source = tree.scale(raw, factor), root = tree.repeat(source, len);
-            tree.release(raw); tree.release(source);
-            verify(tree, root, len, n, factor);
-            tree.release(root); assert(!tree.live); ++repeats;
+            int value = 0, root = instantiate(tree, id, value);
+            int factor = n % 3 == 0 ? 0 : P - 1;
+            tree.multiply(root, factor);
+            verify(tree, tree.repeat(root, len), len, n, factor);
+            ++repeats;
         }
     }
-    for (int len = 2; len <= 14; ++len) for (int l = 1; l < len; ++l) {
-        for (int x : by_size[l]) for (int y : by_size[len - l]) {
-            u32 value = 0, a = instantiate(tree, x, value), b = instantiate(tree, y, value);
-            u32 root = tree.join(a, b);
-            tree.release(a); tree.release(b);
-            verify(tree, root, len, len);
-            tree.release(root); assert(!tree.live); ++joins;
+    for (int n = 2; n <= 14; ++n) for (int l = 1; l < n; ++l) {
+        for (int x : bySize[l]) for (int y : bySize[n - l]) {
+            int value = 0, left = instantiate(tree, x, value), right = instantiate(tree, y, value);
+            verify(tree, tree.merge(left, right), n, n);
+            ++joins;
         }
     }
-    printf("{\"result\":\"PASS\",\"max_leaves\":14,\"balanced_shapes\":%zu,"
-           "\"split_rejoin_cases\":%llu,\"ordered_join_cases\":%llu,\"shared_repeat_cases\":%llu}\n",
-           shapes.size(), (unsigned long long)splits, (unsigned long long)joins, (unsigned long long)repeats);
+    cout << "PASS: " << shapes.size() << " shapes, " << splits << " splits, "
+         << joins << " merges, " << repeats << " repeats\n";
 }

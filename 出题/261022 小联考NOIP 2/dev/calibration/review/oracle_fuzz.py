@@ -3,7 +3,7 @@
 
 Input layout: n, then n array values, then m, then m operations.
 Example (run from the package root):
-  python3 review/oracle_fuzz.py --std ../../work/linear/bin/std.exe --cases 3000
+  python3 review/oracle_fuzz.py --std .build/std --reference .build/avl --cases 3000
   python3 review/oracle_fuzz.py --self-check-only --self-check 10000
 
 Expected values come only from direct array operations and arithmetic window sums.
@@ -22,6 +22,8 @@ import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 
 P = 998244353
 EDGE_VALUES = (0, 1, 2, P - 1, P - 2, P // 2, (P + 1) // 2)
@@ -93,6 +95,16 @@ def parse_case(path: Path) -> Case:
     case = Case(path.stem, a, operations)
     validate_case(case)
     return case
+
+
+def sample_cases() -> list[Case]:
+    cases = []
+    for path in sorted((ROOT / "review/samples").glob("*.in")):
+        case = parse_case(path)
+        answers = list(map(int, path.with_suffix(".out").read_text(encoding="utf-8").split()))
+        assert expected_output(case) == answers, f"Sample disagrees with oracle: {path.name}"
+        cases.append(case)
+    return cases
 
 
 def validate_case(case: Case) -> None:
@@ -373,7 +385,7 @@ def main() -> int:
     parser.add_argument("--self-check", type=int, default=2000,
                         help="random formula audits before fuzzing; 0 skips all formula audits")
     parser.add_argument("--self-check-only", action="store_true")
-    parser.add_argument("--failure-dir", type=Path, default=Path(__file__).resolve().parent / "oracle_failures")
+    parser.add_argument("--failure-dir", type=Path, default=ROOT / ".build" / "oracle_failures")
     parser.add_argument("--report", type=Path, help="save final JSON summary to this file")
     parser.add_argument("--progress-every", type=int, default=100)
     options = parser.parse_args()
@@ -402,7 +414,7 @@ def main() -> int:
         cases = iter([random_case(options.case_seed, 0, options.n_max, options.m_max)])
     else:
         rng = random.Random(options.seed)
-        cases = itertools.chain(fixed_cases(),
+        cases = itertools.chain(sample_cases(), fixed_cases(),
                                 (random_case(rng.getrandbits(64), i, options.n_max, options.m_max)
                                  for i in range(options.cases)))
     checked = operation_count = query_count = 0
