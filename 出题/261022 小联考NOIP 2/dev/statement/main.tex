@@ -1,0 +1,575 @@
+% xelatex -shell-escape -jobname=statement main.tex
+\documentclass[12pt,a4paper,oneside]{ctexart}
+\usepackage{xeCJKfntef,xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{bookmark}
+\usepackage{parallel}
+\usepackage{clrscode3e}
+\usepackage{lastpage}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{booktabs}
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+citecolor=blue
+}
+\usepackage[english]{babel}
+\usepackage{setspace}
+\usepackage{geometry}
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+\usepackage{indentfirst}
+
+\setlength{\parindent}{2em}
+\linespread{1.3}
+\setcounter{secnumdepth}{0}
+
+\newcommand{\bfemph}[1]{\CJKunderdot{\textbf{#1}}}
+\renewcommand{\emph}[1]{\bfemph{#1}}
+\setlength{\headheight}{18pt}
+\setlist[itemize]{labelsep = 1.1em, itemsep = 0pt, parsep = 1pt, itemindent = 1.5em, topsep = 0pt}
+\setlist[enumerate]{labelsep = 1.1em, itemsep = 0pt, parsep = 1pt, itemindent = 1.5em, topsep = 0pt}
+\newcommand{\tightlist}{}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength{\headheight}{18pt}
+\lhead{2610 小联考 2}
+\chead{}
+\rhead{\rightmark}
+\lfoot{}
+\cfoot{\small 第 \thepage\ 页  \hspace{2em} 共 \pageref{LastPage} 页}
+\rfoot{}
+
+\newcommand{\problemtitle}[2]{%
+  \section*{#1}%
+  \markright{#1}%
+  \phantomsection\label{#2}%
+  \pdfbookmark[1]{#1}{#2}%
+}
+\newcommand{\problemheading}[2]{%
+  \subsection*{#1}%
+  \markright{#1}%
+  \phantomsection\label{#2}%
+  \pdfbookmark[2]{#1}{#2}%
+}
+\newenvironment{centeredtable}{\par\vspace{.35em}\setlength{\tabcolsep}{4pt}\begin{center}}{\end{center}\vspace{.35em}}
+
+\begin{document}
+  \title{\heiti\zihao{1} 2610 小联考 2}
+  \author{ASDFZ}
+  \date{2026年10月22日}
+  \maketitle
+  \begin{center}
+    \footnotesize
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+    \hline
+题目名称 & 叶环独立集 & 窗口校准 & 上下左右 & 存储空间\\
+\hline
+题目类型 & 传统型 & 传统型 & 传统型 & 传统型\\
+\hline
+目录 & \texttt{leaf} & \texttt{calibration} & \texttt{lrud} & \texttt{storage}\\
+\hline
+可执行文件名 & \texttt{leaf} & \texttt{calibration} & \texttt{lrud} & \texttt{storage}\\
+\hline
+输入文件名 & \texttt{leaf.in} & \texttt{calibration.in} & \texttt{lrud.in} & \texttt{storage.in}\\
+\hline
+输出文件名 & \texttt{leaf.out} & \texttt{calibration.out} & \texttt{lrud.out} & \texttt{storage.out}\\
+\hline
+测试点时限 & 5 秒 & 30 秒 & 未提供 & 10 秒\\
+\hline
+内存限制 & 128 MiB & 512 MiB & 未提供 & 256 MiB\\
+\hline
+    \end{tabularx}
+  \end{center}
+  \hspace{2em}提交源程序文件名
+  \begin{center}
+    \footnotesize
+    \begin{tabularx}{\textwidth}{|p{90pt}|X<{\centering}|X<{\centering}|X<{\centering}|X<{\centering}|}
+    \hline
+    对 C++ 语言 & \texttt{leaf.cpp} & \texttt{calibration.cpp} & \texttt{lrud.cpp} & \texttt{storage.cpp}\\
+    \hline
+    \end{tabularx}
+  \end{center}
+  \hspace{2em}编译选项
+  \begin{center}
+    \begin{tabularx}{\textwidth}{|p{100pt}|X<{\centering}|}
+    \hline
+    对 C++ 语言 & \texttt{-O2 -std=c++17} \\
+    \hline
+    \end{tabularx}
+  \end{center}
+  \vspace{.8em}
+  \hspace{1em}{\heiti 注意事项与提醒：}
+  \begin{enumerate}[topsep = 4pt]
+    \setlength{\labelsep}{1.1em}
+    \setlength{\itemsep}{2pt}
+    \setlength{\parsep}{2pt}
+    \setlength{\parskip}{2pt}
+    \setlength{\itemindent}{.5em}
+    \item 文件名（程序名和输入输出文件名）必须使用英文小写。
+    \item C/C++ 中函数 main() 的返回类型必须是 int，程序正常结束时的返回值必须为 0。
+    \item 若无特殊说明，结果的比较方式为全文比较（过滤行末空格及文末回车）。
+    \item 程序可使用的栈内存空间限制与题目的内存限制一致。
+    \item 只提供 Linux 格式的附加样例文件。
+  \end{enumerate}
+  \thispagestyle{empty}
+  \newpage
+\problemtitle{叶环独立集(leaf)}{probA_title}
+\noindent 时间限制：5 秒\qquad 空间限制：128 MiB\par
+\problemheading{题目描述}{probA_description}
+
+给定一棵有根树，共有 \(n\) 个顶点，编号为 \(1,2,\ldots,n\)，根为 \(1\)。对于每个 \(i>1\)，顶点 \(i\) 的父亲是 \(p_i\)，并且 \(p_i<i\)。没有孩子的顶点称为\textbf{叶子}。
+
+从根开始进行深度优先遍历。遍历一个顶点时，按照孩子编号从小到大的顺序访问它的孩子。设叶子按照此次 DFS 中的访问顺序依次为 \(l_1,l_2,\ldots,l_k\)。
+
+现在构造一个无向图 \(G\)：
+
+\begin{itemize}
+\tightlist
+\item
+  对于树中的每条父子边，在 \(G\) 中连接对应的两个顶点。
+\item
+  对于叶子序列中相邻的每一对 \(l_i,l_{i+1}\)（\(1\le i<k\)），在 \(G\) 中连接这两个叶子。
+\item
+  连接 \(l_k\) 和 \(l_1\)。
+\end{itemize}
+
+如果新增边重复，则只保留一条；不添加自环。因此，只有一个叶子时不添加叶子边，只有两个叶子时它们之间只有一条边。
+
+\textbf{独立集}是一个顶点集合，其中任意两个不同顶点都不相邻。
+
+请计算图 \(G\) 的独立集总数（包括空集），并对 \(1\,000\,000\,007\) 取模。
+
+\problemheading{输入格式}{probA_input}
+
+第一行包含一个整数 \(n\)。
+
+第二行包含 \(n-1\) 个整数 \(p_2,p_3,\ldots,p_n\)，其中 \(p_i\) 表示顶点 \(i\) 的父亲。
+
+\problemheading{输出格式}{probA_output}
+
+输出一个整数，表示独立集总数对 \(1\,000\,000\,007\) 取模后的结果。
+
+\problemheading{样例 1 输入}{probA_sample_1_input}
+
+\begin{verbatim}
+7
+1 1 2 2 3 3
+\end{verbatim}
+
+\problemheading{样例 1 输出}{probA_sample_1_output}
+
+\begin{verbatim}
+21
+\end{verbatim}
+
+\problemheading{样例 1 解释}{probA_sample_1_explanation}
+
+树的叶子依次为 \(4,5,6,7\)，它们在图中构成一个四边形。结合树边限制，图的独立集总数为 \(21\)。
+
+\problemheading{数据规模与约定}{probA_constraints}
+
+所有数据均满足 \(4\le n\le 10^6\)，且 \(1\le p_i<i\)。树中允许出现只有一个孩子的顶点。
+
+\begin{centeredtable}\begin{tabularx}{0.85\textwidth}{|c|c|X|}
+\hline
+Subtask & 分值 & 额外限制\\\hline
+
+
+1 & 15 & \(n\le 20\)\\\hline
+2 & 25 & \(n\le 10^5\)，叶子数不超过 \(8\)\\\hline
+3 & 15 & 这棵树是以 \(1\) 为中心的星形树\\\hline
+4 & 45 & 无额外限制\\\hline
+
+\end{tabularx}\end{centeredtable}
+
+每个 Subtask 的全部测试点均通过后获得该档分数。
+\newpage
+\problemtitle{窗口校准(calibration)}{probB_title}
+\noindent 时间限制：30 秒\qquad 空间限制：512 MiB\par
+建议使用 64 位 C++17 编译环境。
+
+给定长度为 \(n\) 的序列 \(a_1,a_2,\ldots,a_n\)。序列中的元素均为模 \(P=998244353\) 意义下的整数，以下所有运算也均在模 \(P\) 意义下进行。
+
+你需要依次处理 \(m\) 次操作。
+
+\textbf{操作一：\texttt{1\ l\ r\ k}，校准窗口。}
+
+保证 \(1\le k\le r-l-1\)。对区间 \([l,r]\)，定义长度为 \(k\) 的窗口和
+
+\[
+W_i=\sum_{j=i}^{i+k-1}a_j\qquad(l\le i\le r-k+1).
+\]
+
+保留 \(a_l,a_{l+1},\ldots,a_{l+k+1}\) 的当前值，修改 \(a_{l+k+2},\ldots,a_r\)，使得存在一个模 \(P\) 意义下的整数 \(c\)，满足
+
+\[
+W_{i+2}-2W_{i+1}+W_i=c
+\qquad(l\le i\le r-k-1).
+\]
+
+这里的 \(W_i\) 均由修改后的序列计算，\(c\) 可以在不同操作中取不同值。区间 \([l,r]\) 外的元素保持不变。
+
+可以证明，满足要求的修改结果存在且唯一。当 \(r-l+1=k+2\) 时，本次操作不改变任何元素。
+
+\textbf{操作二：\texttt{2\ l\ r\ u\ v}，仿射变换。}
+
+对每个 \(l\le i\le r\)，令
+
+\[a_i\leftarrow u a_i+v.\]
+
+\textbf{操作三：\texttt{3\ l\ r}，区间查询。}
+
+输出 \(\sum_{i=l}^r a_i\) 对 \(P\) 取模后的值。
+
+\problemheading{输入格式}{probB_input}
+
+第一行包含一个整数 \(n\)。
+
+第二行包含 \(n\) 个整数 \(a_1,a_2,\ldots,a_n\)。
+
+第三行包含一个整数 \(m\)。
+
+接下来 \(m\) 行，每行描述一次操作，格式如上。
+
+\problemheading{输出格式}{probB_output}
+
+对于每次操作三，输出一行一个整数，表示答案。答案应位于 \([0,P-1]\) 内。
+
+\problemheading{样例 1 输入}{probB_sample_1_input}
+
+\begin{verbatim}
+8
+1 2 4 8 16 32 64 128
+8
+3 1 8
+1 1 8 2
+3 1 8
+3 4 7
+2 3 6 2 1
+3 1 8
+1 2 7 3
+3 5 8
+\end{verbatim}
+
+\problemheading{样例 1 输出}{probB_sample_1_output}
+
+\begin{verbatim}
+255
+114
+69
+163
+162
+\end{verbatim}
+
+\problemheading{样例 1 解释}{probB_sample_1_explanation}
+
+第一次校准保留前四项。修改后的序列为
+
+\[1,2,4,8,13,20,28,38.\]
+
+此时长度为 \(2\) 的窗口和依次为 \(3,6,12,21,33,48,66\)；将任意相邻三个窗口和代入题目中的表达式，结果均为 \(3\)。
+
+仿射变换后的序列为 \(1,2,9,17,27,41,28,38\)。最后一次校准只把第 \(7\) 项改为 \(56\)，所以最后一问的答案为 \(27+41+56+38=162\)。
+
+\problemheading{样例 2 输入}{probB_sample_2_input}
+
+\begin{verbatim}
+5
+3 1 4 1 5
+10
+3 1 1
+2 3 3 0 7
+3 2 4
+1 1 3 1
+3 1 5
+1 1 5 1
+3 3 5
+2 1 1 3 2
+2 5 5 0 0
+3 1 5
+\end{verbatim}
+
+\problemheading{样例 2 输出}{probB_sample_2_output}
+
+\begin{verbatim}
+3
+9
+17
+71
+40
+\end{verbatim}
+
+\problemheading{样例 2 解释}{probB_sample_2_explanation}
+
+第一次仿射变换把第 \(3\) 项设为 \(7\)。校准 \texttt{1\ 1\ 3\ 1} 保留整个操作区间，因此序列仍为 \(3,1,7,1,5\)。
+
+校准 \texttt{1\ 1\ 5\ 1} 后，序列变为 \(3,1,7,21,43\)。最后两次单点仿射变换后，序列为 \(11,1,7,21,0\)。
+
+\problemheading{样例 3 输入}{probB_sample_3_input}
+
+\begin{verbatim}
+6
+998244352 0 998244352 0 0 0
+10
+3 1 6
+1 1 6 2
+3 1 6
+2 2 5 998244352 998244352
+3 1 6
+2 1 6 0 0
+1 2 6 1
+3 2 5
+2 1 1 998244352 998244352
+3 1 2
+\end{verbatim}
+
+\problemheading{样例 3 输出}{probB_sample_3_output}
+
+\begin{verbatim}
+998244351
+998244350
+998244350
+0
+998244352
+\end{verbatim}
+
+\problemheading{样例 3 解释}{probB_sample_3_explanation}
+
+在模 \(P\) 意义下，\(998244352=-1\)。第一次校准后，序列为 \(-1,0,-1,0,-1,0\)；随后的仿射变换 \(a_i\leftarrow-a_i-1\) 使序列变为 \(-1,-1,0,-1,0,0\)。
+
+将整个序列设为 \(0\) 后，下一次校准仍得到全零序列。
+
+\problemheading{数据规模与约定}{probB_constraints}
+
+对于所有数据，保证：
+
+\begin{itemize}
+\tightlist
+\item
+  \(1\le n,m\le 3\times10^6\)；
+\item
+  \(0\le a_i,u,v<P\)；
+\item
+  每次操作均满足 \(1\le l\le r\le n\)；
+\item
+  操作一还满足 \(1\le k\le r-l-1\)；
+\item
+  至少包含一次操作三。
+\end{itemize}
+
+本题采用分组计分。一个组内的所有测试点均通过，才能获得该组的分数。下表中的 \(N=\max(n,m)\)。
+
+\begin{centeredtable}\begin{tabularx}{0.85\textwidth}{|c|c|X|}
+\hline
+组别 & 分值 & 数据范围与额外限制\\\hline
+
+
+1 & 20 & \(N\le2000\)\\\hline
+2 & 15 & \(N>2000\)，不包含操作一\\\hline
+3 & 15 & \(N>2000\)，包含操作一，且所有操作一均满足 \(k=1\)\\\hline
+4 & 20 & \(2000<N\le20000\)，至少一次操作一满足 \(k>1\)\\\hline
+5 & 30 & \(N>20000\)，至少一次操作一满足 \(k>1\)\\\hline
+
+\end{tabularx}\end{centeredtable}
+\newpage
+\problemtitle{上下左右(lrud)}{probC_title}
+\noindent 时间限制：未提供\qquad 空间限制：未提供\par
+\problemheading{题目描述}{probC_description}
+
+给定正整数 \(N\)。
+
+有一个 \(N \times N\) 的网格。从上往下数第 \(r\) 行、从左往右数第 \(c\) 列的格子记作 \((r, c)\)。
+
+初始时，棋子放置在格子 \((1, 1)\) 上。
+
+你需要恰好执行 \(N^2 - 1\) 次以下操作，使得棋子最终停在格子 \((N, N)\) 上：
+
+\begin{itemize}
+\tightlist
+\item
+  将棋子移动到当前所在格子的上下左右\textbf{或斜向}相邻格子之一。
+\end{itemize}
+
+并且，在整个移动过程中，\(N^2\) 个格子必须恰好各访问一次。初始放置棋子的格子 \((1, 1)\) 视为已被访问。
+
+请计算一个操作序列中棋子恰好向右（不包括右上，右下）移动次数的最大值，并给出一组操作序列。
+
+你需要解决 \(T\) 组这样的问题。
+
+\problemheading{输入格式}{probC_input}
+
+第一行一个整数 \(T\)，表示数据组数。
+
+之后 \(T\) 行，每行一个整数 \(N\)。
+
+\problemheading{输出格式}{probC_output}
+
+对于每组数据，一行输出一个整数，表示向右移动次数的最大值；然后一行一个字符串表示操作序列，第 \(i\) 个字符表示路径中第 \(i\) 步的移动方向。其中，\texttt{Q}，\texttt{W}，\texttt{E}，\texttt{D}，\texttt{C}，\texttt{X}，\texttt{Z}，\texttt{A}分别代表左上，上，右上，右，右下，下，左下，左。
+
+\problemheading{样例 1 输入}{probC_sample_1_input}
+
+\begin{verbatim}
+3
+2
+3
+4
+\end{verbatim}
+
+\problemheading{样例 1 输出}{probC_sample_1_output}
+
+\begin{verbatim}
+2
+DZD
+4
+DDXAAXDD
+8
+DDDXZDQZQDZXDDD
+\end{verbatim}
+
+\problemheading{数据规模与约定}{probC_constraints}
+
+对于 \(100\%\) 的数据，\(1\le T\le 5,2\le N\le 1000\)。
+\newpage
+\problemtitle{存储空间(storage)}{probD_title}
+\noindent 时间限制：10 秒\qquad 空间限制：256 MiB\par
+\problemheading{题目描述}{probD_description}
+
+给定一棵有根有序二叉树，共有 \(n\) 个叶子和 \(N=2n-1\) 个节点，根为节点 \(1\)。每个节点要么没有孩子，要么恰好有一个左孩子和一个右孩子。
+
+将所有叶子按从左到右的顺序编号为 \(1,2,\ldots,n\)。这里的顺序是：递归遍历时，总是先遍历左子树，再遍历右子树。\textbf{叶子的顺序编号与输入中的节点编号是两个不同的概念。}
+
+每个节点 \(v\) 对应一个区间 \(I_v=[L_v,R_v]\)，表示它的子树中所有叶子的顺序编号。节点 \(v\) 还有一个正整数存储费用 \(w_v\)。
+
+记 \([l,r]=\{x\in\mathbb Z:l\le x\le r\}\)。你需要维护一个初始为空的区间集合 \(T\)，其中每个区间都是 \([1,n]\) 的非空子区间。
+
+一个\textbf{存储方案}是树节点的一个集合 \(P\)。若对于每个 \(J\in T\)，都存在 \(U\subseteq P\)，使得 \(\{I_v:v\in U\}\) 中的区间两两无交，且它们的并集恰好为 \(J\)，则称 \(P\) 是当前 \(T\) 的一个可行存储方案。
+
+方案 \(P\) 的总费用为
+
+\[
+\sum_{v\in P}w_v.
+\]
+
+你需要处理 \(q\) 次操作：
+
+\begin{itemize}
+\tightlist
+\item
+  `+ l r`：将区间 \([l,r]\) 加入 \(T\)；
+\item
+  `- l r`：将区间 \([l,r]\) 从 \(T\) 中删除。
+\end{itemize}
+
+保证每次加入的区间当前不在 \(T\) 中，每次删除的区间当前在 \(T\) 中。
+
+每次操作后，输出当前可行存储方案的\textbf{最小总费用}，以及\textbf{达到该最小费用的不同存储方案数量}。方案数对 \(998244353\) 取模。
+
+两个存储方案不同，当且仅当它们选取的节点集合不同。同一方案对某个目标区间的不同拼接方式，不额外计为不同方案。
+
+注意，整个 \(P\) 允许同时包含祖先与子孙节点。两两无交的要求只针对覆盖某个目标时选出的子集 \(U\)；覆盖不同目标时，可以重复使用同一个存储节点。
+
+\problemheading{输入格式}{probD_input}
+
+第一行包含两个整数 \(n,q\)。
+
+接下来 \(N=2n-1\) 行，第 \(v\) 行包含三个整数 \(\mathrm{ls}_v,\mathrm{rs}_v,w_v\)，分别表示节点 \(v\) 的左孩子编号、右孩子编号和存储费用。
+
+若节点 \(v\) 是叶子，则 \(\mathrm{ls}_v=\mathrm{rs}_v=0\)；否则两者都是 \([1,N]\) 中的非零编号。除根为 \(1\) 外，节点编号没有其他顺序保证。
+
+接下来 \(q\) 行，每行包含一个字符 \(\mathrm{op}\) 和两个整数 \(l,r\)。\(\mathrm{op}\) 为 \texttt{+} 或 \texttt{-}，表示一次操作。端点 \(l,r\) 使用叶子的顺序编号。
+
+\problemheading{输出格式}{probD_output}
+
+输出 \(q\) 行，每行包含两个非负整数，分别为本次操作后的最小总费用，以及最优存储方案数量对 \(998244353\) 取模的结果。
+
+最小总费用不取模，可能超过 \(32\) 位有符号整数的范围。
+
+\problemheading{样例 1 输入}{probD_sample_1_input}
+
+\begin{verbatim}
+2 6
+2 3 2
+0 0 1
+0 0 1
++ 1 2
++ 1 1
++ 2 2
+- 1 1
+- 1 2
+- 2 2
+\end{verbatim}
+
+\problemheading{样例 1 输出}{probD_sample_1_output}
+
+\begin{verbatim}
+2 2
+2 1
+2 1
+2 1
+1 1
+0 1
+\end{verbatim}
+
+\problemheading{样例 1 解释}{probD_sample_1_explanation}
+
+节点 \(1\) 对应 \([1,2]\)，费用为 \(2\)；节点 \(2,3\) 分别对应 \([1,1],[2,2]\)，费用均为 \(1\)。
+
+第一次操作后，仅需覆盖 \([1,2]\)。选择根节点，或选择两个叶子，费用都为 \(2\)，所以共有两种最优方案。
+
+第二次操作后还需覆盖 \([1,1]\)。选择两个叶子的总费用为 \(2\)；选择根和左叶子的费用为 \(3\)。因此只有前一种方案最优。
+
+第三、四次操作后，选择两个叶子仍是唯一的最优方案。第五次操作后，仅剩右侧单点需求，最优费用为 \(1\)，方案数为 \(1\)。
+
+最后一次操作后，\(T=\varnothing\)。空存储方案是唯一的最优方案，因此输出 \texttt{0\ 1}。
+
+\problemheading{数据规模与约定}{probD_constraints}
+
+对于所有数据，保证：
+
+\begin{itemize}
+\tightlist
+\item
+  \(1\le n,q\le 10^5\)；
+\item
+  \(N=2n-1\)，\(0\le\mathrm{ls}_v,\mathrm{rs}_v\le N\)，\(1\le w_v\le 10^9\)；
+\item
+  输入构成一棵以 \(1\) 为根的合法有序二叉树，全部节点均可从根到达，每个非叶节点恰有两个孩子，且恰有 \(n\) 个叶子；
+\item
+  每次操作均满足 \(1\le l\le r\le n\)，且所有操作合法。
+\end{itemize}
+
+本题采用独立子任务计分。只有通过某个子任务中的全部测试点，才能获得该子任务的分数。表中未列出的约束均遵循上述全局限制。
+
+\begin{centeredtable}\begin{tabularx}{0.85\textwidth}{|c|c|X|}
+\hline
+子任务 & 分值 & 额外约束\\\hline
+
+
+1 & 5 & \(n\le7\)，\(q\le100\)\\\hline
+2 & 10 & \(nq\le2\times10^6\)\\\hline
+3 & 10 & 每个非叶节点均按区间中点分割，定义见下文\\\hline
+4 & 5 & 所有叶子的深度均不超过 \(30\)，根的深度为 \(0\)\\\hline
+5 & 10 & 每个操作区间都恰好等于某个节点的区间 \(I_v\)\\\hline
+6 & 10 & 每个非叶节点的左孩子都是叶子\\\hline
+7 & 10 & 每个非叶节点的右子树叶子数不少于左子树叶子数\\\hline
+8 & 10 & 所有操作均为加入操作\\\hline
+9 & 5 & 每个操作区间的长度不超过 \(2\)，即 \(r-l+1\le2\)\\\hline
+10 & 25 & 无额外约束\\\hline
+
+\end{tabularx}\end{centeredtable}
+
+子任务 3 中，``按区间中点分割''是指：对每个非叶节点 \(v\)，令 \(m=\lfloor(L_v+R_v)/2\rfloor\)，其左孩子的区间恰为 \([L_v,m]\)，右孩子的区间恰为 \([m+1,R_v]\)。
+\end{document}
