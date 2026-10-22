@@ -1,0 +1,422 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="610" viewBox="0 0 1120 610">
+<rect width="100%" height="100%" fill="white"/>
+<text x="560" y="32" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="27" font-weight="700" fill="#233545" text-anchor="middle" dominant-baseline="central">两个小规模特例：仅用两次竖直步</text>
+<text x="265.0" y="82" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="22" font-weight="700" fill="#233545" text-anchor="middle" dominant-baseline="central">N = 4，最优 D = 8</text>
+<rect x="105" y="125" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="185" y="125" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="265" y="125" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="345" y="125" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="105" y="205" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="185" y="205" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="265" y="205" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="345" y="205" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="105" y="285" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="185" y="285" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="265" y="285" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="345" y="285" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="105" y="365" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="185" y="365" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="265" y="365" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="345" y="365" width="80" height="80" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<line x1="145.0" y1="165.0" x2="225.0" y2="165.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="203.4,165.0 192.20000000000002,169.256 192.20000000000002,160.744" fill="#2864ac"/>
+<line x1="225.0" y1="165.0" x2="305.0" y2="165.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="283.40000000000003,165.0 272.2,169.256 272.2,160.744" fill="#2864ac"/>
+<line x1="305.0" y1="165.0" x2="385.0" y2="165.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="363.40000000000003,165.0 352.2,169.256 352.2,160.744" fill="#2864ac"/>
+<line x1="385.0" y1="165.0" x2="305.0" y2="245.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="328.2402020253553,221.75979797464467 333.15035151391476,210.8307555646254 339.1692444353746,216.8496484860853" fill="#738493"/>
+<line x1="305.0" y1="245.0" x2="385.0" y2="245.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="363.40000000000003,245.0 352.2,249.256 352.2,240.744" fill="#2864ac"/>
+<line x1="385.0" y1="245.0" x2="385.0" y2="325.0" stroke="#d64b45" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="385.0,303.40000000000003 380.744,292.2 389.256,292.2" fill="#d64b45"/>
+<line x1="385.0" y1="325.0" x2="305.0" y2="325.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="326.59999999999997,325.0 337.8,320.744 337.8,329.256" fill="#738493"/>
+<line x1="305.0" y1="325.0" x2="225.0" y2="245.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="248.24020202535533,268.2402020253553 259.1692444353746,273.15035151391476 253.15035151391473,279.1692444353746" fill="#738493"/>
+<line x1="225.0" y1="245.0" x2="145.0" y2="245.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="166.6,245.0 177.79999999999998,240.744 177.79999999999998,249.256" fill="#738493"/>
+<line x1="145.0" y1="245.0" x2="145.0" y2="325.0" stroke="#d64b45" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="145.0,303.40000000000003 140.744,292.2 149.256,292.2" fill="#d64b45"/>
+<line x1="145.0" y1="325.0" x2="225.0" y2="325.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="203.4,325.0 192.20000000000002,329.256 192.20000000000002,320.744" fill="#2864ac"/>
+<line x1="225.0" y1="325.0" x2="145.0" y2="405.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="168.24020202535533,381.7597979746447 173.1503515139147,370.8307555646254 179.1692444353746,376.84964848608524" fill="#738493"/>
+<line x1="145.0" y1="405.0" x2="225.0" y2="405.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="203.4,405.0 192.20000000000002,409.256 192.20000000000002,400.744" fill="#2864ac"/>
+<line x1="225.0" y1="405.0" x2="305.0" y2="405.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="283.40000000000003,405.0 272.2,409.256 272.2,400.744" fill="#2864ac"/>
+<line x1="305.0" y1="405.0" x2="385.0" y2="405.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="363.40000000000003,405.0 352.2,409.256 352.2,400.744" fill="#2864ac"/>
+<circle cx="145.0" cy="165.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="145.0" y="165.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">1</text>
+<circle cx="225.0" cy="165.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="225.0" y="165.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">2</text>
+<circle cx="305.0" cy="165.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="305.0" y="165.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">3</text>
+<circle cx="385.0" cy="165.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="385.0" y="165.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">4</text>
+<circle cx="305.0" cy="245.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="305.0" y="245.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">5</text>
+<circle cx="385.0" cy="245.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="385.0" y="245.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">6</text>
+<circle cx="385.0" cy="325.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="385.0" y="325.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">7</text>
+<circle cx="305.0" cy="325.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="305.0" y="325.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">8</text>
+<circle cx="225.0" cy="245.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="225.0" y="245.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">9</text>
+<circle cx="145.0" cy="245.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="145.0" y="245.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">10</text>
+<circle cx="145.0" cy="325.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="145.0" y="325.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">11</text>
+<circle cx="225.0" cy="325.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="225.0" y="325.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">12</text>
+<circle cx="145.0" cy="405.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="145.0" y="405.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">13</text>
+<circle cx="225.0" cy="405.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="225.0" y="405.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">14</text>
+<circle cx="305.0" cy="405.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="305.0" y="405.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">15</text>
+<circle cx="385.0" cy="405.0" r="13.600000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="385.0" y="405.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">16</text>
+<circle cx="145.0" cy="165.0" r="21.6" fill="white" stroke="#23815d" stroke-width="2.4"/>
+<text x="145.0" y="165.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="700" fill="#23815d" text-anchor="middle" dominant-baseline="central">1</text>
+<circle cx="385.0" cy="405.0" r="21.6" fill="white" stroke="#d64b45" stroke-width="2.4"/>
+<text x="385.0" y="405.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="700" fill="#d64b45" text-anchor="middle" dominant-baseline="central">16</text>
+<text x="265.0" y="476" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">V = 2，R = 0，C = 2</text>
+<text x="840.0" y="82" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="22" font-weight="700" fill="#233545" text-anchor="middle" dominant-baseline="central">N = 8，最优 D = 34</text>
+<rect x="680" y="125" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="720" y="125" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="760" y="125" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="800" y="125" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="840" y="125" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="880" y="125" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="920" y="125" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="960" y="125" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="680" y="165" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="720" y="165" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="760" y="165" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="800" y="165" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="840" y="165" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="880" y="165" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="920" y="165" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="960" y="165" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="680" y="205" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="720" y="205" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="760" y="205" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="800" y="205" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="840" y="205" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="880" y="205" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="920" y="205" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="960" y="205" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="680" y="245" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="720" y="245" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="760" y="245" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="800" y="245" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="840" y="245" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="880" y="245" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="920" y="245" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="960" y="245" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="680" y="285" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="720" y="285" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="760" y="285" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="800" y="285" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="840" y="285" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="880" y="285" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="920" y="285" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="960" y="285" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="680" y="325" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="720" y="325" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="760" y="325" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="800" y="325" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="840" y="325" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="880" y="325" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="920" y="325" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="960" y="325" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="680" y="365" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="720" y="365" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="760" y="365" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="800" y="365" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="840" y="365" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="880" y="365" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="920" y="365" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="960" y="365" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="680" y="405" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="720" y="405" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="760" y="405" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="800" y="405" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="840" y="405" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="880" y="405" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="920" y="405" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<rect x="960" y="405" width="40" height="40" fill="#f9fbfd" stroke="#c8d2db" stroke-width="1"/>
+<line x1="700.0" y1="145.0" x2="740.0" y2="145.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="729.1999999999999,145.0 723.6,147.128 723.6,142.872" fill="#2864ac"/>
+<line x1="740.0" y1="145.0" x2="780.0" y2="145.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="769.1999999999999,145.0 763.6,147.128 763.6,142.872" fill="#2864ac"/>
+<line x1="780.0" y1="145.0" x2="820.0" y2="145.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="809.1999999999999,145.0 803.6,147.128 803.6,142.872" fill="#2864ac"/>
+<line x1="820.0" y1="145.0" x2="780.0" y2="185.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="791.6201010126777,173.37989898732235 794.0751757569574,167.9153777823127 797.0846222176874,170.92482424304262" fill="#738493"/>
+<line x1="780.0" y1="185.0" x2="820.0" y2="185.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="809.1999999999999,185.0 803.6,187.128 803.6,182.872" fill="#2864ac"/>
+<line x1="820.0" y1="185.0" x2="780.0" y2="225.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="791.6201010126777,213.37989898732235 794.0751757569574,207.9153777823127 797.0846222176874,210.92482424304262" fill="#738493"/>
+<line x1="780.0" y1="225.0" x2="820.0" y2="225.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="809.1999999999999,225.0 803.6,227.128 803.6,222.872" fill="#2864ac"/>
+<line x1="820.0" y1="225.0" x2="780.0" y2="265.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="791.6201010126777,253.37989898732235 794.0751757569574,247.9153777823127 797.0846222176874,250.92482424304262" fill="#738493"/>
+<line x1="780.0" y1="265.0" x2="740.0" y2="225.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="751.6201010126777,236.62010101267765 757.0846222176874,239.07517575695738 754.0751757569574,242.0846222176873" fill="#738493"/>
+<line x1="740.0" y1="225.0" x2="700.0" y2="185.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="711.6201010126777,196.62010101267765 717.0846222176874,199.07517575695738 714.0751757569574,202.0846222176873" fill="#738493"/>
+<line x1="700.0" y1="185.0" x2="740.0" y2="185.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="729.1999999999999,185.0 723.6,187.128 723.6,182.872" fill="#2864ac"/>
+<line x1="740.0" y1="185.0" x2="700.0" y2="225.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="711.6201010126777,213.37989898732235 714.0751757569574,207.9153777823127 717.0846222176874,210.92482424304262" fill="#738493"/>
+<line x1="700.0" y1="225.0" x2="700.0" y2="265.0" stroke="#d64b45" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="700.0,254.20000000000002 697.872,248.6 702.128,248.6" fill="#d64b45"/>
+<line x1="700.0" y1="265.0" x2="740.0" y2="265.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="729.1999999999999,265.0 723.6,267.128 723.6,262.872" fill="#2864ac"/>
+<line x1="740.0" y1="265.0" x2="700.0" y2="305.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="711.6201010126777,293.3798989873223 714.0751757569574,287.9153777823127 717.0846222176874,290.9248242430426" fill="#738493"/>
+<line x1="700.0" y1="305.0" x2="740.0" y2="305.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="729.1999999999999,305.0 723.6,307.128 723.6,302.872" fill="#2864ac"/>
+<line x1="740.0" y1="305.0" x2="700.0" y2="345.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="711.6201010126777,333.3798989873223 714.0751757569574,327.9153777823127 717.0846222176874,330.9248242430426" fill="#738493"/>
+<line x1="700.0" y1="345.0" x2="740.0" y2="345.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="729.1999999999999,345.0 723.6,347.128 723.6,342.872" fill="#2864ac"/>
+<line x1="740.0" y1="345.0" x2="700.0" y2="385.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="711.6201010126777,373.3798989873223 714.0751757569574,367.9153777823127 717.0846222176874,370.9248242430426" fill="#738493"/>
+<line x1="700.0" y1="385.0" x2="740.0" y2="385.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="729.1999999999999,385.0 723.6,387.128 723.6,382.872" fill="#2864ac"/>
+<line x1="740.0" y1="385.0" x2="700.0" y2="425.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="711.6201010126777,413.3798989873223 714.0751757569574,407.9153777823127 717.0846222176874,410.9248242430426" fill="#738493"/>
+<line x1="700.0" y1="425.0" x2="740.0" y2="425.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="729.1999999999999,425.0 723.6,427.128 723.6,422.872" fill="#2864ac"/>
+<line x1="740.0" y1="425.0" x2="780.0" y2="425.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="769.1999999999999,425.0 763.6,427.128 763.6,422.872" fill="#2864ac"/>
+<line x1="780.0" y1="425.0" x2="820.0" y2="425.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="809.1999999999999,425.0 803.6,427.128 803.6,422.872" fill="#2864ac"/>
+<line x1="820.0" y1="425.0" x2="780.0" y2="385.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="791.6201010126777,396.6201010126777 797.0846222176874,399.0751757569574 794.0751757569574,402.0846222176873" fill="#738493"/>
+<line x1="780.0" y1="385.0" x2="820.0" y2="385.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="809.1999999999999,385.0 803.6,387.128 803.6,382.872" fill="#2864ac"/>
+<line x1="820.0" y1="385.0" x2="780.0" y2="345.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="791.6201010126777,356.6201010126777 797.0846222176874,359.0751757569574 794.0751757569574,362.0846222176873" fill="#738493"/>
+<line x1="780.0" y1="345.0" x2="820.0" y2="345.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="809.1999999999999,345.0 803.6,347.128 803.6,342.872" fill="#2864ac"/>
+<line x1="820.0" y1="345.0" x2="780.0" y2="305.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="791.6201010126777,316.6201010126777 797.0846222176874,319.0751757569574 794.0751757569574,322.0846222176873" fill="#738493"/>
+<line x1="780.0" y1="305.0" x2="820.0" y2="305.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="809.1999999999999,305.0 803.6,307.128 803.6,302.872" fill="#2864ac"/>
+<line x1="820.0" y1="305.0" x2="860.0" y2="305.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="849.1999999999999,305.0 843.6,307.128 843.6,302.872" fill="#2864ac"/>
+<line x1="860.0" y1="305.0" x2="820.0" y2="265.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="831.6201010126777,276.6201010126777 837.0846222176874,279.0751757569574 834.0751757569574,282.0846222176873" fill="#738493"/>
+<line x1="820.0" y1="265.0" x2="860.0" y2="265.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="849.1999999999999,265.0 843.6,267.128 843.6,262.872" fill="#2864ac"/>
+<line x1="860.0" y1="265.0" x2="900.0" y2="265.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="889.1999999999999,265.0 883.6,267.128 883.6,262.872" fill="#2864ac"/>
+<line x1="900.0" y1="265.0" x2="860.0" y2="225.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="871.6201010126777,236.62010101267765 877.0846222176874,239.07517575695738 874.0751757569574,242.0846222176873" fill="#738493"/>
+<line x1="860.0" y1="225.0" x2="900.0" y2="225.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="889.1999999999999,225.0 883.6,227.128 883.6,222.872" fill="#2864ac"/>
+<line x1="900.0" y1="225.0" x2="860.0" y2="185.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="871.6201010126777,196.62010101267765 877.0846222176874,199.07517575695738 874.0751757569574,202.0846222176873" fill="#738493"/>
+<line x1="860.0" y1="185.0" x2="900.0" y2="185.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="889.1999999999999,185.0 883.6,187.128 883.6,182.872" fill="#2864ac"/>
+<line x1="900.0" y1="185.0" x2="860.0" y2="145.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="871.6201010126777,156.62010101267765 877.0846222176874,159.07517575695738 874.0751757569574,162.0846222176873" fill="#738493"/>
+<line x1="860.0" y1="145.0" x2="900.0" y2="145.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="889.1999999999999,145.0 883.6,147.128 883.6,142.872" fill="#2864ac"/>
+<line x1="900.0" y1="145.0" x2="940.0" y2="145.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="929.1999999999999,145.0 923.6,147.128 923.6,142.872" fill="#2864ac"/>
+<line x1="940.0" y1="145.0" x2="980.0" y2="145.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="969.1999999999999,145.0 963.6,147.128 963.6,142.872" fill="#2864ac"/>
+<line x1="980.0" y1="145.0" x2="940.0" y2="185.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="951.6201010126777,173.37989898732235 954.0751757569574,167.9153777823127 957.0846222176874,170.92482424304262" fill="#738493"/>
+<line x1="940.0" y1="185.0" x2="980.0" y2="185.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="969.1999999999999,185.0 963.6,187.128 963.6,182.872" fill="#2864ac"/>
+<line x1="980.0" y1="185.0" x2="940.0" y2="225.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="951.6201010126777,213.37989898732235 954.0751757569574,207.9153777823127 957.0846222176874,210.92482424304262" fill="#738493"/>
+<line x1="940.0" y1="225.0" x2="980.0" y2="225.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="969.1999999999999,225.0 963.6,227.128 963.6,222.872" fill="#2864ac"/>
+<line x1="980.0" y1="225.0" x2="940.0" y2="265.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="951.6201010126777,253.37989898732235 954.0751757569574,247.9153777823127 957.0846222176874,250.92482424304262" fill="#738493"/>
+<line x1="940.0" y1="265.0" x2="980.0" y2="265.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="969.1999999999999,265.0 963.6,267.128 963.6,262.872" fill="#2864ac"/>
+<line x1="980.0" y1="265.0" x2="940.0" y2="305.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="951.6201010126777,293.3798989873223 954.0751757569574,287.9153777823127 957.0846222176874,290.9248242430426" fill="#738493"/>
+<line x1="940.0" y1="305.0" x2="980.0" y2="305.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="969.1999999999999,305.0 963.6,307.128 963.6,302.872" fill="#2864ac"/>
+<line x1="980.0" y1="305.0" x2="980.0" y2="345.0" stroke="#d64b45" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="980.0,334.2 977.872,328.59999999999997 982.128,328.59999999999997" fill="#d64b45"/>
+<line x1="980.0" y1="345.0" x2="940.0" y2="385.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="951.6201010126777,373.3798989873223 954.0751757569574,367.9153777823127 957.0846222176874,370.9248242430426" fill="#738493"/>
+<line x1="940.0" y1="385.0" x2="980.0" y2="385.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="969.1999999999999,385.0 963.6,387.128 963.6,382.872" fill="#2864ac"/>
+<line x1="980.0" y1="385.0" x2="940.0" y2="345.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="951.6201010126777,356.6201010126777 957.0846222176874,359.0751757569574 954.0751757569574,362.0846222176873" fill="#738493"/>
+<line x1="940.0" y1="345.0" x2="900.0" y2="305.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="911.6201010126777,316.6201010126777 917.0846222176874,319.0751757569574 914.0751757569574,322.0846222176873" fill="#738493"/>
+<line x1="900.0" y1="305.0" x2="860.0" y2="345.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="871.6201010126777,333.3798989873223 874.0751757569574,327.9153777823127 877.0846222176874,330.9248242430426" fill="#738493"/>
+<line x1="860.0" y1="345.0" x2="900.0" y2="345.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="889.1999999999999,345.0 883.6,347.128 883.6,342.872" fill="#2864ac"/>
+<line x1="900.0" y1="345.0" x2="860.0" y2="385.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="871.6201010126777,373.3798989873223 874.0751757569574,367.9153777823127 877.0846222176874,370.9248242430426" fill="#738493"/>
+<line x1="860.0" y1="385.0" x2="900.0" y2="385.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="889.1999999999999,385.0 883.6,387.128 883.6,382.872" fill="#2864ac"/>
+<line x1="900.0" y1="385.0" x2="860.0" y2="425.0" stroke="#738493" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="871.6201010126777,413.3798989873223 874.0751757569574,407.9153777823127 877.0846222176874,410.9248242430426" fill="#738493"/>
+<line x1="860.0" y1="425.0" x2="900.0" y2="425.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="889.1999999999999,425.0 883.6,427.128 883.6,422.872" fill="#2864ac"/>
+<line x1="900.0" y1="425.0" x2="940.0" y2="425.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="929.1999999999999,425.0 923.6,427.128 923.6,422.872" fill="#2864ac"/>
+<line x1="940.0" y1="425.0" x2="980.0" y2="425.0" stroke="#2864ac" stroke-width="2.0" stroke-linecap="round"/>
+<polygon points="969.1999999999999,425.0 963.6,427.128 963.6,422.872" fill="#2864ac"/>
+<circle cx="700.0" cy="145.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="700.0" y="145.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">1</text>
+<circle cx="740.0" cy="145.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="740.0" y="145.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">2</text>
+<circle cx="780.0" cy="145.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="780.0" y="145.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">3</text>
+<circle cx="820.0" cy="145.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="820.0" y="145.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">4</text>
+<circle cx="780.0" cy="185.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="780.0" y="185.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">5</text>
+<circle cx="820.0" cy="185.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="820.0" y="185.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">6</text>
+<circle cx="780.0" cy="225.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="780.0" y="225.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">7</text>
+<circle cx="820.0" cy="225.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="820.0" y="225.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">8</text>
+<circle cx="780.0" cy="265.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="780.0" y="265.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">9</text>
+<circle cx="740.0" cy="225.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="740.0" y="225.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">10</text>
+<circle cx="700.0" cy="185.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="700.0" y="185.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">11</text>
+<circle cx="740.0" cy="185.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="740.0" y="185.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">12</text>
+<circle cx="700.0" cy="225.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="700.0" y="225.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">13</text>
+<circle cx="700.0" cy="265.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="700.0" y="265.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">14</text>
+<circle cx="740.0" cy="265.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="740.0" y="265.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">15</text>
+<circle cx="700.0" cy="305.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="700.0" y="305.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">16</text>
+<circle cx="740.0" cy="305.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="740.0" y="305.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">17</text>
+<circle cx="700.0" cy="345.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="700.0" y="345.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">18</text>
+<circle cx="740.0" cy="345.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="740.0" y="345.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">19</text>
+<circle cx="700.0" cy="385.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="700.0" y="385.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">20</text>
+<circle cx="740.0" cy="385.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="740.0" y="385.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">21</text>
+<circle cx="700.0" cy="425.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="700.0" y="425.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">22</text>
+<circle cx="740.0" cy="425.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="740.0" y="425.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">23</text>
+<circle cx="780.0" cy="425.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="780.0" y="425.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">24</text>
+<circle cx="820.0" cy="425.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="820.0" y="425.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">25</text>
+<circle cx="780.0" cy="385.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="780.0" y="385.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">26</text>
+<circle cx="820.0" cy="385.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="820.0" y="385.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">27</text>
+<circle cx="780.0" cy="345.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="780.0" y="345.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">28</text>
+<circle cx="820.0" cy="345.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="820.0" y="345.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">29</text>
+<circle cx="780.0" cy="305.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="780.0" y="305.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">30</text>
+<circle cx="820.0" cy="305.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="820.0" y="305.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">31</text>
+<circle cx="860.0" cy="305.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="860.0" y="305.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">32</text>
+<circle cx="820.0" cy="265.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="820.0" y="265.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">33</text>
+<circle cx="860.0" cy="265.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="860.0" y="265.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">34</text>
+<circle cx="900.0" cy="265.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="900.0" y="265.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">35</text>
+<circle cx="860.0" cy="225.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="860.0" y="225.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">36</text>
+<circle cx="900.0" cy="225.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="900.0" y="225.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">37</text>
+<circle cx="860.0" cy="185.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="860.0" y="185.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">38</text>
+<circle cx="900.0" cy="185.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="900.0" y="185.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">39</text>
+<circle cx="860.0" cy="145.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="860.0" y="145.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">40</text>
+<circle cx="900.0" cy="145.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="900.0" y="145.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">41</text>
+<circle cx="940.0" cy="145.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="940.0" y="145.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">42</text>
+<circle cx="980.0" cy="145.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="980.0" y="145.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">43</text>
+<circle cx="940.0" cy="185.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="940.0" y="185.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">44</text>
+<circle cx="980.0" cy="185.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="980.0" y="185.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">45</text>
+<circle cx="940.0" cy="225.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="940.0" y="225.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">46</text>
+<circle cx="980.0" cy="225.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="980.0" y="225.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">47</text>
+<circle cx="940.0" cy="265.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="940.0" y="265.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">48</text>
+<circle cx="980.0" cy="265.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="980.0" y="265.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">49</text>
+<circle cx="940.0" cy="305.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="940.0" y="305.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">50</text>
+<circle cx="980.0" cy="305.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="980.0" y="305.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">51</text>
+<circle cx="980.0" cy="345.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="980.0" y="345.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">52</text>
+<circle cx="940.0" cy="385.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="940.0" y="385.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">53</text>
+<circle cx="980.0" cy="385.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="980.0" y="385.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">54</text>
+<circle cx="940.0" cy="345.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="940.0" y="345.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">55</text>
+<circle cx="900.0" cy="305.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="900.0" y="305.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">56</text>
+<circle cx="860.0" cy="345.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="860.0" y="345.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">57</text>
+<circle cx="900.0" cy="345.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="900.0" y="345.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">58</text>
+<circle cx="860.0" cy="385.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="860.0" y="385.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">59</text>
+<circle cx="900.0" cy="385.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="900.0" y="385.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">60</text>
+<circle cx="860.0" cy="425.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="860.0" y="425.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">61</text>
+<circle cx="900.0" cy="425.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="900.0" y="425.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">62</text>
+<circle cx="940.0" cy="425.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="940.0" y="425.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">63</text>
+<circle cx="980.0" cy="425.0" r="6.800000000000001" fill="white" stroke="white" stroke-width="1"/>
+<text x="980.0" y="425.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="10.5" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">64</text>
+<circle cx="700.0" cy="145.0" r="10.8" fill="white" stroke="#23815d" stroke-width="2.4"/>
+<text x="700.0" y="145.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="700" fill="#23815d" text-anchor="middle" dominant-baseline="central">1</text>
+<circle cx="980.0" cy="425.0" r="10.8" fill="white" stroke="#d64b45" stroke-width="2.4"/>
+<text x="980.0" y="425.0" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="13" font-weight="700" fill="#d64b45" text-anchor="middle" dominant-baseline="central">64</text>
+<text x="840.0" y="476" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">V = 2，R = 0，C = 2</text>
+<line x1="105" y1="535" x2="175" y2="535" stroke="#2864ac" stroke-width="3" stroke-linecap="round"/>
+<polygon points="156.2,535.0 146.2,538.8 146.2,531.2" fill="#2864ac"/>
+<text x="195" y="535" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="400" fill="#233545" text-anchor="start" dominant-baseline="central">正右移 D</text>
+<line x1="405" y1="535" x2="475" y2="535" stroke="#738493" stroke-width="3" stroke-linecap="round"/>
+<polygon points="456.2,535.0 446.2,538.8 446.2,531.2" fill="#738493"/>
+<text x="495" y="535" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="400" fill="#233545" text-anchor="start" dominant-baseline="central">其余非竖步</text>
+<line x1="745" y1="535" x2="815" y2="535" stroke="#d64b45" stroke-width="3" stroke-linecap="round"/>
+<polygon points="796.2,535.0 786.2,538.8 786.2,531.2" fill="#d64b45"/>
+<text x="835" y="535" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="18" font-weight="400" fill="#233545" text-anchor="start" dominant-baseline="central">竖直步</text>
+<text x="560.0" y="575" font-family="Noto Sans CJK SC,Microsoft YaHei,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#738493" text-anchor="middle" dominant-baseline="central">格内数字为访问次序；绿色圈为起点，红色圈为终点</text>
+</svg>

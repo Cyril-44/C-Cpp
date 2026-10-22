@@ -2,10 +2,9 @@
 """Compile, differential-test and audit the ring package. Python 3 stdlib only."""
 import argparse
 import csv
-import hashlib
 import itertools
-import platform
 import random
+import stat
 import subprocess
 import tempfile
 import time
@@ -25,6 +24,75 @@ def run(name, data, expect_ok=True, args=()):
 def encode(parents):
     return (str(len(parents)+1)+'\n'+' '.join(map(str, parents))+'\n').encode()
 
+def generation_plan(destination):
+    with (ROOT/'gen/cases.tsv').open(newline='') as source:
+        return [record for record in csv.DictReader(source, delimiter='\t')
+                if record['destination'] == destination]
+
+def statement_sample():
+    return tuple((ROOT/'review'/f'statement_sample{suffix}').read_bytes()
+                 for suffix in ['.in', '.ans'])
+
+def reproduce(record):
+    if record['type'] == 'statement':
+        data, _ = statement_sample()
+        assert int(data.splitlines()[0]) == int(record['n'])
+        return data
+    options = [f"--type={record['type']}", f"--n={record['n']}", f"--seed={record['seed']}"]
+    if record['leaves_parameter'] != '-':
+        options.append(f"--leaves={record['leaves_parameter']}")
+    return subprocess.check_output([str(BUILD/'gen'), *options])
+
+def check_custom_generation(config):
+    with tempfile.TemporaryDirectory(prefix='custom output ', dir=BUILD) as temporary:
+        folder = Path(temporary)
+        custom_data, custom_down = folder/'data with spaces', folder/'down with spaces'
+        for target in [custom_data, custom_down]:
+            target.mkdir()
+            (target/'unrelated.in').write_text('keep this unrelated file\n')
+            (target/'nested').mkdir()
+            (target/'nested/keep.txt').write_text('keep this nested file\n')
+        subprocess.run(['bash', str(ROOT/'gen/genall.sh'), custom_data.name, custom_down.name],
+                       cwd=folder, check=True, stdout=subprocess.PIPE)
+        for target, original, destination in [(custom_data, config.data, 'data'), (custom_down, config.down, 'down')]:
+            assert (target/'unrelated.in').read_text() == 'keep this unrelated file\n'
+            assert (target/'nested/keep.txt').read_text() == 'keep this nested file\n'
+            expected_names = {record['file'] for record in generation_plan(destination)}
+            expected_names |= {str(Path(name).with_suffix('.ans')) for name in expected_names}
+            assert {path.name for path in target.iterdir()} == expected_names | {'unrelated.in', 'nested'}
+            for name in expected_names:
+                assert (target/name).read_bytes() == (original/name).read_bytes(), name
+                if destination == 'down':
+                    assert stat.S_IMODE((target/name).stat().st_mode) == 0o664, target/name
+    print('Custom generation passed: relative paths with spaces, unrelated files preserved, public permissions 664', flush=True)
+
+def audit_generation(config):
+    total = 0
+    for destination, directory in [('data', config.data.resolve()), ('down', config.down.resolve())]:
+        records = generation_plan(destination)
+        expected_names = {record['file'] for record in records}
+        expected_names |= {str(Path(name).with_suffix('.ans')) for name in expected_names}
+        assert {path.name for path in directory.iterdir()} == expected_names, directory
+        for record in records:
+            path = directory/record['file']
+            data = path.read_bytes()
+            answer = path.with_suffix('.ans').read_bytes()
+            options = [f"--subtask={record['subtask']}"] if destination == 'data' else []
+            assert subprocess.run([str(BUILD/'val'), *options], input=data, capture_output=True).returncode == 0, path
+            actual = subprocess.check_output([str(BUILD/'std')], input=data, timeout=10)
+            assert actual == answer, ('standard-answer mismatch', path)
+            assert reproduce(record) == data, ('nonreproducible', path)
+            if record['type'] == 'statement':
+                assert (data, answer) == statement_sample(), path
+            if destination == 'down':
+                assert stat.S_IMODE(path.stat().st_mode) == 0o664, path
+                assert stat.S_IMODE(path.with_suffix('.ans').stat().st_mode) == 0o664, path
+        total += len(records)
+        print(f'Validated and reproduced {len(records)} cases in {directory}; only .in/.ans present', flush=True)
+    if config.check_generation:
+        check_custom_generation(config)
+    print(f'PASS: generation audit, official/public={total}', flush=True)
+
 def check(data, use_few=False, use_star=False):
     expected = run('std', data)
     assert run('brute', data) == expected, ('brute mismatch', data.decode())
@@ -40,20 +108,26 @@ def main():
     parser.add_argument('--random', type=int, default=400)
     parser.add_argument('--skip-large', action='store_true')
     parser.add_argument('--check-generation', action='store_true', help='also test custom output paths and unrelated-file preservation')
+    parser.add_argument('--generation-only', action='store_true', help='audit the planned generated files without algorithm differential tests')
     parser.add_argument('--data', type=Path, default=ROOT/'../../data/ring')
     parser.add_argument('--down', type=Path, default=ROOT/'../../down/ring')
     config = parser.parse_args()
     BUILD.mkdir(parents=True, exist_ok=True)
     programs = {
         'std': 'sol/std_boundary_dp.cpp',
-        'brute': 'review/brute.cpp',
+        'brute': 'sol/partial_15_bruteforce.cpp',
         'reference': 'review/reference_matrix.cpp',
         'few': 'sol/partial_25_few_leaves.cpp',
         'star': 'sol/partial_15_star.cpp',
         'gen': 'gen/gen.cpp', 'val': 'gen/val.cpp', 'check': 'review/check.cpp',
     }
+    if config.generation_only:
+        programs = {name: path for name, path in programs.items() if name in ['std', 'gen', 'val']}
     for name, path in programs.items():
         subprocess.run(['g++', '-std=c++17', '-O2', '-pipe', '-Wall', '-Wextra', '-I'+str(REPO), str(ROOT/path), '-o', str(BUILD/name)], check=True)
+    if config.generation_only:
+        audit_generation(config)
+        return
     start = time.monotonic()
     count = 0
     for n in range(4, config.exhaustive_max_n+1):
@@ -82,8 +156,9 @@ def main():
             assert result.returncode == 0, result.stderr.decode()
             check(data, use_few=(shape in ['chain', 'two', 'few', 'few_random']), use_star=shape == 'star')
             generator_tests += 1
-    good = encode([1, 1, 2, 2, 3, 3])
-    assert run('std', good) == b'21'
+    good, sample_answer = statement_sample()
+    run('val', good)
+    assert run('std', good) == sample_answer.strip(), 'statement sample answer mismatch'
     invalid = [b'3\n1 2\n', b'1000001\n', b'4\n0 1 1\n', b'4\n2 1 1\n',
                b'4\n1 1\n', b'4\n1 1 1\nextra\n', b'4\n1 1 1 2\n', b'4\n1 1 1', b'4\n1  1 1\n']
     for data in invalid:
@@ -97,17 +172,18 @@ def main():
     with tempfile.TemporaryDirectory(dir=BUILD) as temporary:
         folder = Path(temporary)
         (folder/'input').write_bytes(good)
-        (folder/'answer').write_text('21\n')
-        for actual, should_pass in [(' 21 \n', True), ('22\n', False), ('21 0\n', False), ('-1\n', False)]:
+        (folder/'answer').write_bytes(sample_answer)
+        answer = sample_answer.strip().decode()
+        wrong = (int(answer) + 1) % 1000000007
+        for actual, should_pass in [(f' {answer} \n', True), (f'{wrong}\n', False), (f'{answer} 0\n', False), ('-1\n', False)]:
             (folder/'actual').write_text(actual)
             result = subprocess.run([str(BUILD/'check'), str(folder/'input'), str(folder/'actual'), str(folder/'answer')], capture_output=True)
             assert (result.returncode == 0) == should_pass, (actual, result.stderr)
     rows = []
-    fingerprints = []
     if not config.skip_large:
         for directory, official in [(config.data.resolve(), True), (config.down.resolve(), False)]:
-            manifest = list(csv.DictReader((directory/'manifest.tsv').open(), delimiter='\t'))
-            for record in manifest:
+            records = generation_plan('data' if official else 'down')
+            for record in records:
                 path = directory/record['file']
                 data = path.read_bytes()
                 expected = path.with_suffix('.ans').read_bytes().strip()
@@ -125,49 +201,17 @@ def main():
                     assert run('few', data) == expected
                 if official and record['subtask'] == '3':
                     assert run('star', data) == expected
-                # Reproduce input bytes from the complete fixed-seed manifest.
-                gen_options = [f"--type={record['type']}", f"--n={record['n']}", f"--seed={record['seed']}"]
-                if record['leaves_parameter']:
-                    gen_options.append(f"--leaves={record['leaves_parameter']}")
-                reproduced = subprocess.check_output([str(BUILD/'gen'), *gen_options])
-                assert reproduced == data, ('nonreproducible', path)
+                # Generation parameters stay with the generator; the statement prefix is copied verbatim.
+                assert reproduce(record) == data, ('nonreproducible', path)
+                if record['type'] == 'statement':
+                    assert (data, path.with_suffix('.ans').read_bytes()) == statement_sample(), path
                 rows.append((('data/' if official else 'down/')+path.name, record['type'], record['n'], float(elapsed), int(memory)))
-                fingerprints.append(hashlib.sha256(data).hexdigest()+'  '+('data/' if official else 'down/')+path.name)
-            print(f'Validated, reproduced and cross-checked {len(manifest)} cases in {directory}', flush=True)
+            print(f'Validated, reproduced and cross-checked {len(records)} cases in {directory}', flush=True)
     if config.check_generation:
-        with tempfile.TemporaryDirectory(prefix='custom-output-', dir=BUILD) as temporary:
-            folder = Path(temporary)
-            custom_data, custom_down = folder/'data with spaces', folder/'down with spaces'
-            for target in [custom_data, custom_down]:
-                target.mkdir()
-                (target/'unrelated.in').write_text('keep this unrelated file\n')
-                (target/'nested').mkdir()
-                (target/'nested/keep.txt').write_text('keep this nested file\n')
-            subprocess.run(['bash', str(ROOT/'gen/genall.sh'), str(custom_data), str(custom_down)], cwd='/tmp', check=True, stdout=subprocess.PIPE)
-            for target, original in [(custom_data, config.data), (custom_down, config.down)]:
-                assert (target/'unrelated.in').read_text() == 'keep this unrelated file\n'
-                assert (target/'nested/keep.txt').read_text() == 'keep this nested file\n'
-                for name in ['manifest.tsv']+[path.name for path in original.glob('*.in')]+[path.name for path in original.glob('*.ans')]:
-                    assert (target/name).read_bytes() == (original/name).read_bytes(), name
-            print('Custom generation from /tmp passed; paths with spaces and unrelated files preserved', flush=True)
+        check_custom_generation(config)
     total = time.monotonic()-start
-    report = ['# ring 验证报告', '', f'- 环境：{platform.platform()}；`g++ -std=c++17 -O2 -pipe`。',
-              f'- 穷举：n=4..{config.exhaustive_max_n} 的全部递增父编号树，共 {count} 棵；标准解、顶点子集暴力、矩阵参考及适用的部分分程序答案一致。',
-              f'- 随机：固定种子 261022，共 {config.random} 棵 n<=20 的树；另验证全部 10 种生成模式共 {generator_tests} 例。',
-              '- 校验器：拒绝 9 种基础非法输入和 5 种分组/参数违规；通过全部正式/公开输入。',
-              '- Checker：正确输出及空白通过；错误数字、额外 token、负数均拒绝。',
-              '- 正式数据和大样例全部逐字节固定种子复现，并用独立矩阵实现交叉检查答案；对应组的部分分程序也通过。',
-              f'- 本轮验证耗时（不含编译）：{total:.2f} 秒。', '']
-    if config.check_generation:
-        report += ['- 从 /tmp 调用 genall 指定含空格目录，35 对输入/答案及清单与默认输出逐字节一致；目标目录中无关输入和嵌套文件均保留。', '']
     if rows:
-        maximum_time = max(row[3] for row in rows)
-        maximum_memory = max(row[4] for row in rows)
-        report += [f'正式/公开数据标准程序实测最大 {maximum_time:.2f} 秒、{maximum_memory} KiB RSS；题面限制 5 秒 / 128 MiB。计时依赖本机，出题环境需按评测机比例复核。', '',
-                   '| 输入 | 形态 | n | 秒 | RSS / KiB |', '|---|---|---:|---:|---:|']
-        report += [f'| {name} | {shape} | {n} | {elapsed:.2f} | {memory} |' for name,shape,n,elapsed,memory in rows]
-    (ROOT/'review/test_report.md').write_text('\n'.join(report)+'\n')
-    (ROOT/'review/input_sha256.txt').write_text('\n'.join(fingerprints)+'\n')
+        print(f'Standard maximum: {max(row[3] for row in rows):.2f} seconds, {max(row[4] for row in rows)} KiB RSS', flush=True)
     print(f'PASS: exhaustive={count}, random={config.random}, generated-small={generator_tests}, official/public={len(rows)}, seconds={total:.2f}', flush=True)
 
 if __name__ == '__main__':

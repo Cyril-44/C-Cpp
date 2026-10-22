@@ -1,6 +1,78 @@
 {
-  "status": "generated",
-  "generator": "testlib C++17",
+  "schema_version": 2,
+  "generator": "gen/gen.cpp (testlib)",
+  "input_format": "n q; 2*n-1 lines: left_child right_child positive_cost; q legal +/- l r operations",
+  "root": 1,
+  "default_numbering": "random non-root permutation",
+  "limits": {
+    "n": 100000,
+    "q": 100000,
+    "weight": 1000000000
+  },
+  "generation_status": "Reproducible generation parameters; genall.py and review/verify.py print results to stdout.",
+  "private_case_count": 45,
+  "large_sample_count": 2,
+  "cli_fields": [
+    "n",
+    "q",
+    "shape",
+    "mode",
+    "weights",
+    "seed",
+    "numbering"
+  ],
+  "subtasks": [
+    {
+      "id": 1,
+      "constraint": "n <= 7 and q <= 100",
+      "case_count": 4
+    },
+    {
+      "id": 2,
+      "constraint": "n*q <= 2000000",
+      "case_count": 4
+    },
+    {
+      "id": 3,
+      "constraint": "every internal node uses the exact midpoint split",
+      "case_count": 4
+    },
+    {
+      "id": 4,
+      "constraint": "maximum leaf depth <= 30, root depth is zero",
+      "case_count": 4
+    },
+    {
+      "id": 5,
+      "constraint": "every queried interval is exactly a tree-node interval",
+      "case_count": 4
+    },
+    {
+      "id": 6,
+      "constraint": "every internal node has a left child that is a leaf",
+      "case_count": 4
+    },
+    {
+      "id": 7,
+      "constraint": "right subtree has at least as many leaves as left at every internal node",
+      "case_count": 4
+    },
+    {
+      "id": 8,
+      "constraint": "all operations are insertions",
+      "case_count": 4
+    },
+    {
+      "id": 9,
+      "constraint": "every queried interval has length at most two",
+      "case_count": 4
+    },
+    {
+      "id": 10,
+      "constraint": "no additional restriction",
+      "case_count": 9
+    }
+  ],
   "cases": [
     {
       "id": "01_01",
@@ -14,10 +86,7 @@
       "numbering": "random",
       "input": "../../data/storage/01_01.in",
       "answer": "../../data/storage/01_01.ans",
-      "purpose": "empty/nonempty and root=leaf",
-      "elapsed_seconds": 0.038,
-      "input_sha256": "cfdb550541ea0a57a586130d37ec2e05b4d1c55e575bac34f64cff684b5d75cc",
-      "answer_sha256": "23a0ab8687eb908eabfc3b9f132d55d9606b81abfc33b60d730de158517a8df6"
+      "purpose": "empty/nonempty and root=leaf"
     },
     {
       "id": "01_02",
@@ -31,10 +100,7 @@
       "numbering": "reverse",
       "input": "../../data/storage/01_02.in",
       "answer": "../../data/storage/01_02.ans",
-      "purpose": "equal parent/children cost",
-      "elapsed_seconds": 0.025,
-      "input_sha256": "f40d43b6dd24c7cf4e031c2f3f026a968b378ee4b136b46abf01feee1dbe4413",
-      "answer_sha256": "51d6016608d8100f1850d7650472ddd843d4ac4fa2ebfe3ff9d2e29e0ba25a64"
+      "purpose": "equal parent/children cost"
     },
     {
       "id": "01_03",
@@ -48,10 +114,7 @@
       "numbering": "random",
       "input": "../../data/storage/01_03.in",
       "answer": "../../data/storage/01_03.ans",
-      "purpose": "small skew tree and 64-bit sums",
-      "elapsed_seconds": 0.026,
-      "input_sha256": "9453d636163ce4f83be6c7366de9a9988184ce9ccf2326bbd1346d67bc6df83f",
-      "answer_sha256": "8767460b73a118768c8cb576fa7162441e5968a1f6d3a60057f0e987ad5adb5d"
+      "purpose": "small skew tree and 64-bit sums"
     },
     {
       "id": "01_04",
@@ -65,10 +128,7 @@
       "numbering": "random",
       "input": "../../data/storage/01_04.in",
       "answer": "../../data/storage/01_04.ans",
-      "purpose": "enumeration-oracle coverage",
-      "elapsed_seconds": 0.036,
-      "input_sha256": "7b982c28a55e93ce0397f36016ab2b977fe378d1148ad689f784d4b2540e0ffa",
-      "answer_sha256": "55df5917f79827e3a1bcc41230b6e5cc78924de346ff3582c88bc1e2ce020b4d"
+      "purpose": "enumeration-oracle coverage"
     },
     {
       "id": "02_01",
@@ -82,10 +142,7 @@
       "numbering": "random",
       "input": "../../data/storage/02_01.in",
       "answer": "../../data/storage/02_01.ans",
-      "purpose": "full-recompute boundary",
-      "elapsed_seconds": 0.049,
-      "input_sha256": "4dd3125ade2220f511977a135cec6cd37025bbbe61799b75860f3818f291dce6",
-      "answer_sha256": "2bb845d17c0e5f2b277ff7224f302db9a384b5d522026525e362a62a89346ebc"
+      "purpose": "full-recompute boundary"
     },
     {
       "id": "02_02",
@@ -99,10 +156,7 @@
       "numbering": "reverse",
       "input": "../../data/storage/02_02.in",
       "answer": "../../data/storage/02_02.ans",
-      "purpose": "large n and small q",
-      "elapsed_seconds": 0.101,
-      "input_sha256": "4f6c0ed36c54051d29953841c2f871c17c70acebd14464147a40862f9f1e2010",
-      "answer_sha256": "285c3c46fe978069356c84ba7540e092b369446dff4085d8377ef53a15d2934f"
+      "purpose": "large n and small q"
     },
     {
       "id": "02_03",
@@ -116,10 +170,7 @@
       "numbering": "random",
       "input": "../../data/storage/02_03.in",
       "answer": "../../data/storage/02_03.ans",
-      "purpose": "many zero crossings",
-      "elapsed_seconds": 0.102,
-      "input_sha256": "24799f87898d5df56162acf60030cd7619ee802e86ad5d069a12c4c9554ea784",
-      "answer_sha256": "edbb9a623cd83a358ab2e37e477d6f5b7e478abaee400eeec0249dbfbb4c05bf"
+      "purpose": "many zero crossings"
     },
     {
       "id": "02_04",
@@ -133,10 +184,7 @@
       "numbering": "random",
       "input": "../../data/storage/02_04.in",
       "answer": "../../data/storage/02_04.ans",
-      "purpose": "unequal weights and multilevel tree",
-      "elapsed_seconds": 0.047,
-      "input_sha256": "58e8dba93e4d3ed59ea2e29b7398702d54ec169854a0e79177f48a2f4784e8f8",
-      "answer_sha256": "301772abe502ed371401d65402328332867a8e07b2d19eac9648891e781d8917"
+      "purpose": "unequal weights and multilevel tree"
     },
     {
       "id": "03_01",
@@ -150,10 +198,7 @@
       "numbering": "random",
       "input": "../../data/storage/03_01.in",
       "answer": "../../data/storage/03_01.ans",
-      "purpose": "many ties and shared canonical references",
-      "elapsed_seconds": 2.655,
-      "input_sha256": "708b934517df9750405be05053fd412a2653db1c018c8321b54c9d014036b78f",
-      "answer_sha256": "ebcb1828addd88230be869d4bf94e8b2101c4163187407020e0e3955732503c3"
+      "purpose": "many ties and shared canonical references"
     },
     {
       "id": "03_02",
@@ -167,10 +212,7 @@
       "numbering": "reverse",
       "input": "../../data/storage/03_02.in",
       "answer": "../../data/storage/03_02.ans",
-      "purpose": "whole-tree partitions and modulus",
-      "elapsed_seconds": 1.524,
-      "input_sha256": "e648f5b218667268b97cbf0deac8291cdbc127e2cec9cfa125b8ad4cb0481d79",
-      "answer_sha256": "79a6d483e090139e0d810514378cff0d3984d0b61dc6776c96922ba079c44e9e"
+      "purpose": "whole-tree partitions and modulus"
     },
     {
       "id": "03_03",
@@ -184,10 +226,7 @@
       "numbering": "random",
       "input": "../../data/storage/03_03.in",
       "answer": "../../data/storage/03_03.ans",
-      "purpose": "fill all leaves and then empty them",
-      "elapsed_seconds": 1.467,
-      "input_sha256": "4ec22008419dfaa7bde446ba4475d7b1fc148c51f7fa64bdc7f99b810da0a293",
-      "answer_sha256": "eb3888d683ac8580c5317b98673daaab0d4e1e5cd8bebf3d530990f08f02461c"
+      "purpose": "fill all leaves and then empty them"
     },
     {
       "id": "03_04",
@@ -201,10 +240,7 @@
       "numbering": "random",
       "input": "../../data/storage/03_04.in",
       "answer": "../../data/storage/03_04.ans",
-      "purpose": "non-power-of-two midpoint boundaries",
-      "elapsed_seconds": 4.962,
-      "input_sha256": "68a93cff857b83456796c26468a3373ef1af0ad48bb8d3621f461346201395a9",
-      "answer_sha256": "8faeccd030fdf5a55549ee50d9161aae540fcabdf59b4564b6d854a4b0abf82a"
+      "purpose": "non-power-of-two midpoint boundaries"
     },
     {
       "id": "04_01",
@@ -218,10 +254,7 @@
       "numbering": "random",
       "input": "../../data/storage/04_01.in",
       "answer": "../../data/storage/04_01.ans",
-      "purpose": "bounded depth but arbitrary splits",
-      "elapsed_seconds": 1.942,
-      "input_sha256": "42740e0dfaeaa2e9a65cae62d700fb1d8903fc644a169d31e2c2dd5bb8da6eb9",
-      "answer_sha256": "2044f2f58263e8dc8769cf3a87f29084a537947e1c5a42979c9d500af040acf6"
+      "purpose": "bounded depth but arbitrary splits"
     },
     {
       "id": "04_02",
@@ -235,10 +268,7 @@
       "numbering": "reverse",
       "input": "../../data/storage/04_02.in",
       "answer": "../../data/storage/04_02.ans",
-      "purpose": "depth-limit boundaries",
-      "elapsed_seconds": 3.732,
-      "input_sha256": "e954d5e2e39a87d6effe29c77947eacaaabfd139275dd96956382204fd2406bf",
-      "answer_sha256": "6ee348d31310f56e3d69dd408fe137432e15be3a69ca3e2e6624087d48a3dc57"
+      "purpose": "depth-limit boundaries"
     },
     {
       "id": "04_03",
@@ -252,10 +282,7 @@
       "numbering": "random",
       "input": "../../data/storage/04_03.in",
       "answer": "../../data/storage/04_03.ans",
-      "purpose": "frequent zero/nonzero changes",
-      "elapsed_seconds": 1.888,
-      "input_sha256": "a40ab61ade9870549ab3b0571e968eb3b0b2feee3a412eb8c6195405f0172cd1",
-      "answer_sha256": "1f507582c33a73d09589f358f22d63331c714313cceed159d4b7fd01f0c3e589"
+      "purpose": "frequent zero/nonzero changes"
     },
     {
       "id": "04_04",
@@ -269,10 +296,7 @@
       "numbering": "random",
       "input": "../../data/storage/04_04.in",
       "answer": "../../data/storage/04_04.ans",
-      "purpose": "large costs and irregular branching",
-      "elapsed_seconds": 5.846,
-      "input_sha256": "21032b56131cdb6c814fc50d1c6654f3749ff9876a05686ecf3e8212df825d33",
-      "answer_sha256": "2007ee653a0cf8ba9ab1a40549b29fdc8f071474004f8da6be04975545c5050e"
+      "purpose": "large costs and irregular branching"
     },
     {
       "id": "05_01",
@@ -286,10 +310,7 @@
       "numbering": "random",
       "input": "../../data/storage/05_01.in",
       "answer": "../../data/storage/05_01.ans",
-      "purpose": "point updates on a deep right chain",
-      "elapsed_seconds": 1.157,
-      "input_sha256": "20f08dd3caf9580003e63a6b263f3e6c550a9c744a155a2fdd2e5373682481cb",
-      "answer_sha256": "fc0329cdccc317322b60d330858dde49635fc9fe59fab5cdd63ffc614e8804d3"
+      "purpose": "point updates on a deep right chain"
     },
     {
       "id": "05_02",
@@ -303,10 +324,7 @@
       "numbering": "reverse",
       "input": "../../data/storage/05_02.in",
       "answer": "../../data/storage/05_02.ans",
-      "purpose": "point updates on a deep left chain",
-      "elapsed_seconds": 1.106,
-      "input_sha256": "1706c73715bfdd01444edbb3b3f5f2cb74f98e5ffd79167d471deba1168ac56b",
-      "answer_sha256": "c30877a5c04c1b2db957f778ffad0573b4f3c3ad2eb98de8cd28acd3e3797a87"
+      "purpose": "point updates on a deep left chain"
     },
     {
       "id": "05_03",
@@ -320,10 +338,7 @@
       "numbering": "random",
       "input": "../../data/storage/05_03.in",
       "answer": "../../data/storage/05_03.ans",
-      "purpose": "alternating heavy-child directions",
-      "elapsed_seconds": 1.266,
-      "input_sha256": "332f5640bb175af09887cdcfd30528734d6371a333119fa91c69699866dd2cd4",
-      "answer_sha256": "ecc6f6b2c023289a83faf5c796c16f8748f6410220ef4a16fd6eeba12e270bdc"
+      "purpose": "alternating heavy-child directions"
     },
     {
       "id": "05_04",
@@ -337,10 +352,7 @@
       "numbering": "random",
       "input": "../../data/storage/05_04.in",
       "answer": "../../data/storage/05_04.ans",
-      "purpose": "many equal-cost canonical choices",
-      "elapsed_seconds": 2.864,
-      "input_sha256": "ed120302498a856bed4f1b6be951db3a4180de169bc8e3e5f85397e9d2193aed",
-      "answer_sha256": "92fdbcdad29e7b5b40539a402f01e4e326e0644ece84a9ff79a6db6507f4707e"
+      "purpose": "many equal-cost canonical choices"
     },
     {
       "id": "06_01",
@@ -354,10 +366,7 @@
       "numbering": "random",
       "input": "../../data/storage/06_01.in",
       "answer": "../../data/storage/06_01.ans",
-      "purpose": "canonical blocks along one long chain",
-      "elapsed_seconds": 1.214,
-      "input_sha256": "b7009e961f65880258577b0c4d2e696505130b8ed348a5e3eae1a3c78bcf175e",
-      "answer_sha256": "7b92f283727cbf4f721a76182846b9600ab276c3cf04c112d1c951970d88644a"
+      "purpose": "canonical blocks along one long chain"
     },
     {
       "id": "06_02",
@@ -371,10 +380,7 @@
       "numbering": "reverse",
       "input": "../../data/storage/06_02.in",
       "answer": "../../data/storage/06_02.ans",
-      "purpose": "shared-reference removal order",
-      "elapsed_seconds": 0.769,
-      "input_sha256": "8be4bc9ff4294a415094df87281460c779684f7276908858b3eeb1e87caa358f",
-      "answer_sha256": "44d062931a1a4758c4e69c23f95923ec1e14396c6275b3c51a513f59a154ada5"
+      "purpose": "shared-reference removal order"
     },
     {
       "id": "06_03",
@@ -388,10 +394,7 @@
       "numbering": "random",
       "input": "../../data/storage/06_03.in",
       "answer": "../../data/storage/06_03.ans",
-      "purpose": "whole interval held while endpoints move",
-      "elapsed_seconds": 0.666,
-      "input_sha256": "950ff6d6f0bf2d465ec1fb11347aaceda9d2b090c57c11f3f3d1d992870abbe1",
-      "answer_sha256": "2adb6cdc58963c009501ed8f595f1f723dc9e523b360f44e0441b5d135bf9126"
+      "purpose": "whole interval held while endpoints move"
     },
     {
       "id": "06_04",
@@ -405,10 +408,7 @@
       "numbering": "random",
       "input": "../../data/storage/06_04.in",
       "answer": "../../data/storage/06_04.ans",
-      "purpose": "large weighted prefix/suffix updates",
-      "elapsed_seconds": 1.057,
-      "input_sha256": "a6f9692eeddc22e956f0a2d1d04342062b9e67835629b20766da708ddefd6091",
-      "answer_sha256": "c1ada7963af7cc103f175265d9cb4fa0e7134e06c2ff7a1e9c6b46cd244c87d4"
+      "purpose": "large weighted prefix/suffix updates"
     },
     {
       "id": "07_01",
@@ -422,10 +422,7 @@
       "numbering": "random",
       "input": "../../data/storage/07_01.in",
       "answer": "../../data/storage/07_01.ans",
-      "purpose": "right-heavy chains plus light branches",
-      "elapsed_seconds": 1.727,
-      "input_sha256": "3008c3f0663ddf6842e6da536eee3b73c43b3499bc13ca03249059eec606c3dd",
-      "answer_sha256": "4062072de65dcb8c86fc24f7e1e4f350b2a2abe3f9a1dc9bc2df1fe9bfd3d092"
+      "purpose": "right-heavy chains plus light branches"
     },
     {
       "id": "07_02",
@@ -439,10 +436,7 @@
       "numbering": "reverse",
       "input": "../../data/storage/07_02.in",
       "answer": "../../data/storage/07_02.ans",
-      "purpose": "linear-depth right-heavy tree; rejects height-dependent updates",
-      "elapsed_seconds": 0.747,
-      "input_sha256": "09eaeda9254ffac4fb2fc656061d9c36618bde057f95994c1d220bad2b13d91e",
-      "answer_sha256": "1f507582c33a73d09589f358f22d63331c714313cceed159d4b7fd01f0c3e589"
+      "purpose": "linear-depth right-heavy tree; rejects height-dependent updates"
     },
     {
       "id": "07_03",
@@ -456,10 +450,7 @@
       "numbering": "random",
       "input": "../../data/storage/07_03.in",
       "answer": "../../data/storage/07_03.ans",
-      "purpose": "right-heavy weighted updates",
-      "elapsed_seconds": 4.115,
-      "input_sha256": "aa7863f57bc16fef0070206e8a1957ed7741af484e625b04037a39359507db46",
-      "answer_sha256": "c014fbc246870ed16c6d526698f21ad85cf5ad0fd425e8c6ca606b77f2f44082"
+      "purpose": "right-heavy weighted updates"
     },
     {
       "id": "07_04",
@@ -473,10 +464,7 @@
       "numbering": "random",
       "input": "../../data/storage/07_04.in",
       "answer": "../../data/storage/07_04.ans",
-      "purpose": "chain-head propagation across levels",
-      "elapsed_seconds": 2.969,
-      "input_sha256": "2a16b5ae3333302dfc8707ebb49022978e972bcdf21f2df42f93646eacdb3e83",
-      "answer_sha256": "4779d9d1fb20ef926286c947a4d87a86f9692b5a06b531a9af51c2e55ff262c8"
+      "purpose": "chain-head propagation across levels"
     },
     {
       "id": "08_01",
@@ -490,10 +478,7 @@
       "numbering": "random",
       "input": "../../data/storage/08_01.in",
       "answer": "../../data/storage/08_01.ans",
-      "purpose": "deep monotone requirements",
-      "elapsed_seconds": 1.383,
-      "input_sha256": "07ae92881faa3b23ceb715eccf431884b6ae42f905f2c1028132b6bd1b36b342",
-      "answer_sha256": "e01b49f1c51f2cbcf70d8027ceb8558123fef35da399ff186917b22229017ed2"
+      "purpose": "deep monotone requirements"
     },
     {
       "id": "08_02",
@@ -507,10 +492,7 @@
       "numbering": "reverse",
       "input": "../../data/storage/08_02.in",
       "answer": "../../data/storage/08_02.ans",
-      "purpose": "many distinct intervals sharing blocks",
-      "elapsed_seconds": 1.197,
-      "input_sha256": "2b82109c72323dd8861c63ca91338a2a782d498807bba8cf0ca38a76efa13b6b",
-      "answer_sha256": "d903b63b14a11669f940f1d9b29f7ed11a50acf47b737100a57108926103db0f"
+      "purpose": "many distinct intervals sharing blocks"
     },
     {
       "id": "08_03",
@@ -524,10 +506,7 @@
       "numbering": "random",
       "input": "../../data/storage/08_03.in",
       "answer": "../../data/storage/08_03.ans",
-      "purpose": "near-universe-capacity collision fallback",
-      "elapsed_seconds": 1.021,
-      "input_sha256": "20c9b07f4562f0cfaa3dc8f16c07d7278589e2163ecdb78bc1600ecb785bcca3",
-      "answer_sha256": "e0358d48de4575bc943f92f95e8cf72c89425f7c19dfd07b5c11ac16b5bc53ce"
+      "purpose": "near-universe-capacity collision fallback"
     },
     {
       "id": "08_04",
@@ -541,10 +520,7 @@
       "numbering": "random",
       "input": "../../data/storage/08_04.in",
       "answer": "../../data/storage/08_04.ans",
-      "purpose": "monotone large weighted costs",
-      "elapsed_seconds": 1.142,
-      "input_sha256": "48796c388dbab0e1a346000ffa65bc63bb9a33a69206ecd90e932ac87f3ada27",
-      "answer_sha256": "eea380cb2ab94108e4838b283d2e4d2855a0f04e1d18e9b0f25d13ee4138760f"
+      "purpose": "monotone large weighted costs"
     },
     {
       "id": "09_01",
@@ -558,10 +534,7 @@
       "numbering": "random",
       "input": "../../data/storage/09_01.in",
       "answer": "../../data/storage/09_01.ans",
-      "purpose": "many independent two-choice components",
-      "elapsed_seconds": 2.964,
-      "input_sha256": "99f3a4e94c85cedeff6035ece7aa27e491c076886aaf722971d401036fc31131",
-      "answer_sha256": "4332d9e1f26c6254802a591087f51d455890276c677f14a796d20c145c9dafa8"
+      "purpose": "many independent two-choice components"
     },
     {
       "id": "09_02",
@@ -575,10 +548,7 @@
       "numbering": "reverse",
       "input": "../../data/storage/09_02.in",
       "answer": "../../data/storage/09_02.ans",
-      "purpose": "parent/children equal-cost factors",
-      "elapsed_seconds": 2.408,
-      "input_sha256": "1dc6cb2c9d8d13011663009f2c9848fc40b9ac5b9d821b98f857ab7985282d32",
-      "answer_sha256": "da3a99f861deb8e64364fa24606b30584e7c0e21e3fa1c22c946c37bd42eaa12"
+      "purpose": "parent/children equal-cost factors"
     },
     {
       "id": "09_03",
@@ -592,10 +562,7 @@
       "numbering": "random",
       "input": "../../data/storage/09_03.in",
       "answer": "../../data/storage/09_03.ans",
-      "purpose": "isolated leaves on a deep tree",
-      "elapsed_seconds": 1.472,
-      "input_sha256": "4010c4f6a178951b69c71eff5e8ad8e3e7100a86cb339241f24ada1116c99582",
-      "answer_sha256": "e3086f4e09117f53cce48a65a21d7de2ed7d48a30fa535b3e0bb41f2cdb238eb"
+      "purpose": "isolated leaves on a deep tree"
     },
     {
       "id": "09_04",
@@ -609,10 +576,7 @@
       "numbering": "random",
       "input": "../../data/storage/09_04.in",
       "answer": "../../data/storage/09_04.ans",
-      "purpose": "shared short-interval leaf counters",
-      "elapsed_seconds": 2.144,
-      "input_sha256": "7e4c398f9da8ef05638593b40799acc64dcbfe57c5d891ffa5736b9efd8321d0",
-      "answer_sha256": "22ec6550b0b22e4a36c3ca6d55b26f5c5c39e9b73e2a4e46e884a82b7673e1c3"
+      "purpose": "shared short-interval leaf counters"
     },
     {
       "id": "10_01",
@@ -626,10 +590,7 @@
       "numbering": "random",
       "input": "../../data/storage/10_01.in",
       "answer": "../../data/storage/10_01.ans",
-      "purpose": "maximal depth and both sibling directions",
-      "elapsed_seconds": 1.368,
-      "input_sha256": "c71d221ec3bc5f741eaf4d121ce4ac1ee8ab7a325e1e255bc0af26c27971c731",
-      "answer_sha256": "718d4af6e8d6572ded54768e6de1129a8241f75b9e6dfd8deda746fba996c736"
+      "purpose": "maximal depth and both sibling directions"
     },
     {
       "id": "10_02",
@@ -643,10 +604,7 @@
       "numbering": "reverse",
       "input": "../../data/storage/10_02.in",
       "answer": "../../data/storage/10_02.ans",
-      "purpose": "weighted alternating-chain updates",
-      "elapsed_seconds": 1.384,
-      "input_sha256": "db29d1aa366d844097ae28152ff685c63b4ff589fb9222f1225e696436d49287",
-      "answer_sha256": "200b98588e7249e36104e3fd704ff66729967ecfe26a90046588012be7bfbcd4"
+      "purpose": "weighted alternating-chain updates"
     },
     {
       "id": "10_03",
@@ -660,10 +618,7 @@
       "numbering": "random",
       "input": "../../data/storage/10_03.in",
       "answer": "../../data/storage/10_03.ans",
-      "purpose": "64-bit costs and long canonical changes",
-      "elapsed_seconds": 1.267,
-      "input_sha256": "e182ced635a506a54475d0639fd97f5668f34b0d780a986be9b6cfa25004d59e",
-      "answer_sha256": "fa9f0712da3823a05203983153d1fc5276b1d79c9e9b23af03190a55b14033a0"
+      "purpose": "64-bit costs and long canonical changes"
     },
     {
       "id": "10_04",
@@ -677,10 +632,7 @@
       "numbering": "random",
       "input": "../../data/storage/10_04.in",
       "answer": "../../data/storage/10_04.ans",
-      "purpose": "repeated zero-class recombination",
-      "elapsed_seconds": 0.933,
-      "input_sha256": "3ac010f7e0954356b3d058c1a675dec52160edb7daeced6d9f9101f87e2e0be0",
-      "answer_sha256": "1f507582c33a73d09589f358f22d63331c714313cceed159d4b7fd01f0c3e589"
+      "purpose": "repeated zero-class recombination"
     },
     {
       "id": "10_05",
@@ -694,10 +646,7 @@
       "numbering": "random",
       "input": "../../data/storage/10_05.in",
       "answer": "../../data/storage/10_05.ans",
-      "purpose": "branching structure and many optimum sets",
-      "elapsed_seconds": 1.822,
-      "input_sha256": "da23b350fa438e82c624bdbc424b6ab73451a721dca99ef01a5df51b2321ad40",
-      "answer_sha256": "6fb576c3713a72aa0490853336f4f61c13f61d0cd3ea1302f45f6a73112fff6c"
+      "purpose": "branching structure and many optimum sets"
     },
     {
       "id": "10_06",
@@ -711,10 +660,7 @@
       "numbering": "random",
       "input": "../../data/storage/10_06.in",
       "answer": "../../data/storage/10_06.ans",
-      "purpose": "many affected chain heads",
-      "elapsed_seconds": 3.581,
-      "input_sha256": "a14a9f1abdcc6f1ff210da8257a3bf4648fdeb5206ef1337dadd8b308758cc8c",
-      "answer_sha256": "32eda01341676f1c41d0f739f3aeebbacfcfdd65ab115803d966e7a1a91a53fe"
+      "purpose": "many affected chain heads"
     },
     {
       "id": "10_07",
@@ -728,10 +674,7 @@
       "numbering": "random",
       "input": "../../data/storage/10_07.in",
       "answer": "../../data/storage/10_07.ans",
-      "purpose": "deep multilevel light-branch propagation",
-      "elapsed_seconds": 2.178,
-      "input_sha256": "91411f2bba9e6ea79bd2e275816cd5ec0a6bc5b7997115b51cf9c3d23000cba3",
-      "answer_sha256": "b887ed2c5e8af926ee75d8990ed1e5ff00f15cdbc14093bfc00585df4fbfb9e1"
+      "purpose": "deep multilevel light-branch propagation"
     },
     {
       "id": "10_08",
@@ -745,10 +688,7 @@
       "numbering": "random",
       "input": "../../data/storage/10_08.in",
       "answer": "../../data/storage/10_08.ans",
-      "purpose": "independent random regression",
-      "elapsed_seconds": 5.74,
-      "input_sha256": "c828eecca9ee3ee70ea9e10c2eccf675e84e5c2e64f98ebbbe5b8021bf2913f6",
-      "answer_sha256": "ec2f9003dbcc30302d057c11c7e065c6049399a5ff928d6a0db39a16f6464351"
+      "purpose": "independent random regression"
     },
     {
       "id": "10_09",
@@ -762,13 +702,12 @@
       "numbering": "random",
       "input": "../../data/storage/10_09.in",
       "answer": "../../data/storage/10_09.ans",
-      "purpose": "sparse active requirements, frequent multilevel tie updates",
-      "elapsed_seconds": 4.861,
-      "input_sha256": "1ed3b1b37cc055b2875ed23ba3d38cd1efd922d900b2a540b7646758b288273c",
-      "answer_sha256": "032afe8c4557145549bd24b7e6a792cfbd8af5e3e2fc56e2ff794a2a4b2dad14"
-    },
+      "purpose": "sparse active requirements, frequent multilevel tie updates"
+    }
+  ],
+  "large_samples": [
     {
-      "id": "storage1",
+      "id": "storage2",
       "subtask": 10,
       "n": 100000,
       "q": 100000,
@@ -777,15 +716,12 @@
       "weights": "tie",
       "seed": 2026102191,
       "numbering": "random",
-      "input": "../../down/storage/storage1.in",
-      "answer": "../../down/storage/storage1.ans",
-      "purpose": "full-size branching tree with weighted ties",
-      "elapsed_seconds": 3.904,
-      "input_sha256": "f572e4fff4dfea35eb240a8fb99d1ea538ec6aefd44478cb660822aaca742884",
-      "answer_sha256": "7413a451a476e567505523a4366f193bf6fb625e3eaaac15a64968d29be6f839"
+      "input": "../../down/storage/storage2.in",
+      "answer": "../../down/storage/storage2.ans",
+      "purpose": "full-size branching tree with weighted ties"
     },
     {
-      "id": "storage2",
+      "id": "storage3",
       "subtask": 10,
       "n": 100000,
       "q": 100000,
@@ -794,12 +730,24 @@
       "weights": "large",
       "seed": 2026102192,
       "numbering": "random",
-      "input": "../../down/storage/storage2.in",
-      "answer": "../../down/storage/storage2.ans",
-      "purpose": "full-size deep alternating chain and int64 answers",
-      "elapsed_seconds": 1.428,
-      "input_sha256": "356a3c65d5c4762daf3a3c423afa27fed4eebc1eb683c29cd3d052ea4ea73099",
-      "answer_sha256": "7de3e052f7165464dd9ef8c7dfe6a7e22fc8d1b8c5031a36f39b6bceb6925ff0"
+      "input": "../../down/storage/storage3.in",
+      "answer": "../../down/storage/storage3.ans",
+      "purpose": "full-size deep alternating chain and int64 answers"
+    }
+  ],
+  "statement_sample_count": 1,
+  "public_sample_count": 3,
+  "statement_samples": [
+    {
+      "id": "storage1",
+      "subtask": 10,
+      "n": 2,
+      "q": 6,
+      "source": "statement.md",
+      "sample_index": 1,
+      "input": "../../down/storage/storage1.in",
+      "answer": "../../down/storage/storage1.ans",
+      "purpose": "exact statement sample, with output checked by the standard solution"
     }
   ]
 }

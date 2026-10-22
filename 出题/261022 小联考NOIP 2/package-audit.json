@@ -3,7 +3,10 @@
   "topics": {
     "ring": {
       "formal": 30,
+      "public_samples": 6,
+      "statement_samples": 1,
       "large_samples": 5,
+      "entry": "dev/ring/gen/genall.sh",
       "subtask_counts": {
         "01": 8,
         "02": 8,
@@ -11,12 +14,15 @@
         "04": 10
       },
       "data_bytes": 74407900,
-      "sample_bytes": 16570271,
-      "sha256": "661ecf998cf15b3c9eae5a212fd66e127d69f85644f03d1614f0728c67339ded"
+      "sample_bytes": 16570288,
+      "sha256": "bb4e0a4560825fc08d5308726e4472273834513768dac4813cd0e2a47987113b"
     },
     "calibration": {
       "formal": 40,
+      "public_samples": 6,
+      "statement_samples": 3,
       "large_samples": 3,
+      "entry": "dev/calibration/gen/genall.py",
       "subtask_counts": {
         "01": 8,
         "02": 6,
@@ -24,13 +30,16 @@
         "04": 8,
         "05": 11
       },
-      "data_bytes": 200593695,
-      "sample_bytes": 17900799,
-      "sha256": "add37df67161b41a37c53ebcee7a0df1fcb9904b58c4729b3981200556a3d4ae"
+      "data_bytes": 47803826,
+      "sample_bytes": 4403054,
+      "sha256": "b3430f0a45a2491c7a07e50b3712a4ed0cec75fa79d1556df8819fc05b921211"
     },
     "lrud": {
       "formal": 37,
-      "large_samples": 3,
+      "public_samples": 1,
+      "statement_samples": 1,
+      "large_samples": 0,
+      "entry": "dev/lrud/gen/genall.sh",
       "subtask_counts": {
         "01": 6,
         "02": 5,
@@ -39,12 +48,15 @@
         "05": 10
       },
       "data_bytes": 44359987,
-      "sample_bytes": 7748517,
-      "sha256": "7a10a233ac06e1b54ba192058f1fc50241be300aab5452cb648461fcbf8b2b2b"
+      "sample_bytes": 10,
+      "sha256": "d8a5bdc491382af24f767530c4f07617c991023174716212e0bee1e1f3a4b5fc"
     },
     "storage": {
       "formal": 45,
+      "public_samples": 3,
+      "statement_samples": 1,
       "large_samples": 2,
+      "entry": "dev/storage/gen/genall.py",
       "subtask_counts": {
         "01": 4,
         "02": 4,
@@ -58,10 +70,14 @@
         "10": 9
       },
       "data_bytes": 197586530,
-      "sample_bytes": 11892106,
-      "sha256": "8484aebac40f6a21c3dd29ab46bba8326183a39f27e7a656a2650286bc87a5fc"
+      "sample_bytes": 11892188,
+      "sha256": "0fcf87b5ead776c34cf56b70f7ec8589ee54b9a801a7ea220b6c5a0e898a7da6"
     }
   },
   "formal_total": 152,
-  "sample_total": 13
+  "sample_total": 16,
+  "statement_sample_total": 6,
+  "data_answer_files": 336,
+  "statement_sample_bytes_equal": true,
+  "ring_manifest_absent": true
 }

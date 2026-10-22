@@ -40,7 +40,7 @@ with tempfile.TemporaryDirectory(prefix='.review.',dir=ROOT) as temp:
     with inp.open() as f, ans.open('w') as g: call([build/'std'],stdin=f,stdout=g)
     with inp.open() as f, out.open('w') as g: call([build/partials[0]],stdin=f,stdout=g)
     check([build/'checker',inp,out,ans])
-    # Valid alternate N=4 path from the statement must be accepted.
+    # The retained alternate N=4 path must also be accepted.
     inp.write_text('1\n4\n')
     with inp.open() as f, ans.open('w') as g: call([build/'std'],stdin=f,stdout=g)
     out.write_text('8\nDDDXZDQZQDZXDDD\n')
@@ -83,8 +83,7 @@ with tempfile.TemporaryDirectory(prefix='.review.',dir=ROOT) as temp:
         times.append(time.perf_counter()-begin)
     compiler=subprocess.check_output([CXX,'--version'],text=True).splitlines()[0]
     cpu=next((line.split(':',1)[1].strip() for line in Path('/proc/cpuinfo').read_text().splitlines() if line.startswith('model name')),platform.machine())
-    report=['# LRUD 实测复核报告','','执行 `python3 review/run.py` 生成；时间会受机器负载影响。',f'环境：{cpu}；{compiler}；C++17 `-O2`。','',f'- {verified}，耗时 {elapsed:.3f} 秒。','- 独立反向子集 DP：N=2,3,4 的最优值分别为 2,4,8，与正解及路径恢复部分分一致。','- SPJ 接受题面中的另一条最优构造，并拒绝长度错误、最优值错误、额外输出、越界移动四种输出。','- validator 拒绝 8 类非法输入；各组固定种子随机生成可复现且通过组别校验。',f'- 正式数据 {sum(totals)} 点均通过 validator 与 SPJ。',f'- 最大单点（5×N=1000）三次生成答案耗时：'+', '.join(f'{t:.3f}s' for t in times)+'。','','## 部分分实测','','表中为通过点数 / 该组总点数。组别独立相加。','','| 实现 | 组1 | 组2 | 组3 | 组4 | 组5 | 得分 |','| --- | --- | --- | --- | --- | --- | ---: |']
+    report=['# LRUD 实测复核报告','','运行 `python3 review/run.py`；结果直接输出到终端，时间会受机器负载影响。',f'环境：{cpu}；{compiler}；C++17 `-O2`。','',f'- {verified}，耗时 {elapsed:.3f} 秒。','- 独立反向子集 DP：N=2,3,4 的最优值分别为 2,4,8，与正解及路径恢复部分分一致。','- SPJ 接受另一条已知的 4×4 最优构造，并拒绝长度错误、最优值错误、额外输出、越界移动四种输出。','- validator 拒绝 8 类非法输入；各组固定种子随机生成可复现且通过组别校验。',f'- 正式数据 {sum(totals)} 点均通过 validator 与 SPJ。',f'- 最大单点（5×N=1000）三次生成答案耗时：'+', '.join(f'{t:.3f}s' for t in times)+'。','','## 部分分实测','','表中为通过点数 / 该组总点数。组别独立相加。','','| 实现 | 组1 | 组2 | 组3 | 组4 | 组5 | 得分 |','| --- | --- | --- | --- | --- | --- | ---: |']
     for name,row,score in zip(partials,matrix,[10,25,45,65]):
         report.append('| '+name+' | '+' | '.join(f'{a}/{b}' for a,b in zip(row,totals))+f' | {score} |')
-    (ROOT/'review/report.md').write_text('\n'.join(report)+'\n')
     print('\n'.join(report),flush=True)

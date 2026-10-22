@@ -5,19 +5,23 @@
 - 时限 1 秒，空间 512 MiB，C++17 `-O2`。
 - $1\le T\le5$，$2\le N\le1000$。
 - 五个独立计分组为 10、15、20、20、35 分，对应累计 10、25、45、65、100 分五档实现。
-- 最终数据 37 点：各组分别 6、5、8、8、10 点；不下发大样例。
+- 最终数据 37 点：各组分别 6、5、8、8、10 点；下发当前题面样例 `lrud1.in/ans` 与选手用简易 checker。
 - 必须启用 `checker.cpp` 特殊评测；全文比较不适用于构造题。评测机版本依赖 Git 项目根目录的 `testlib.h`。
 
 ## 生成与复核
 
 ```bash
-# 只生成正式数据；也可传入自定义数据目录
+# 生成正式数据和题面样例；也可传入自定义目录
 bash gen/genall.sh
-bash gen/genall.sh /absolute/final_data
+bash gen/genall.sh /absolute/final_data /absolute/public_samples
 python3 review/run.py
 ```
 
-默认正式数据位于 `../../data/lrud`，相对本题目录 `dev/lrud` 解析。数据文件为 `01_01.in/ans` 等两位子任务编号与组内编号。脚本只发布本次清单中的同名文件，保留指定目录内其他文件；构建文件在退出时清理。`down/lrud/` 不再放大样例。
+默认正式数据位于 `../../data/lrud`，下发样例位于 `../../down/lrud`，均相对本题目录 `dev/lrud` 解析。数据文件为 `01_01.in/ans` 等两位子任务编号与组内编号。脚本只发布本次清单中的同名文件，保留指定目录内其他文件；构建文件在退出时清理。脚本直接从当前 `statement.md` 提取原始输入和输出，使用 validator、标准解和评测机 checker 核验，再按 `lrud1.in/ans` 下发；沿用当前仅下发题面样例的安排。
+
+## 核心验题文件
+
+`review/` 只保留三份核心文件：`brute_subset.cpp` 是独立的小规模最优值 DP，`verify_construction.cpp` 检查全部允许规模的构造，`run.py` 编译并组合对拍、checker/validator 反例及部分分检查。题面样例直接由生成流程读取 `statement.md`；评测机 checker 唯一源码是本题根目录的 `checker.cpp`，不在 `review/` 留兼容副本。
 
 ## Checker
 
@@ -27,7 +31,7 @@ python3 review/run.py
 
 `gen/cases.tsv` 给出每点全部参数和覆盖目的。生成器与校验器均使用 Git 根目录的 testlib；每个答案用 SPJ 检查路径长度、每格恰好访问一次、八邻接、终点、`D` 计数与最优值。
 
-第 1、2 组覆盖 $N=2,3,4$；第 3 组覆盖最大奇数和多个蛇形边界；第 4 组覆盖 $N\equiv2\pmod4$ 的大小边界；第 5 组区分 $4,8,12$，并覆盖多个四竖步构造边界、$N=1000$ 和五组最大输出。独立复核覆盖所有 $N=2,\ldots,1000$，并以小规模子集 DP 验证最优值；实际结果见 [review/report.md](review/report.md)。
+第 1、2 组覆盖 $N=2,3,4$；第 3 组覆盖最大奇数和多个蛇形边界；第 4 组覆盖 $N\equiv2\pmod4$ 的大小边界；第 5 组区分 $4,8,12$，并覆盖多个四竖步构造边界、$N=1000$ 和五组最大输出。独立复核覆盖所有 $N=2,\ldots,1000$，并以小规模子集 DP 验证最优值；可运行 [review/run.py](review/run.py) 复现检查和部分分矩阵，结果直接输出到终端。
 
 ## 最优值证明
 

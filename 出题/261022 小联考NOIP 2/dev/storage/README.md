@@ -10,27 +10,26 @@
 - [sol/solution.md](sol/solution.md)：完整证明、实现说明及部分分算法。
 - [sol/std_hld.cpp](sol/std_hld.cpp)：重链矩阵、两类计数最小值与四种乘积，时间 $O(n+q\log^2 n)$，空间 $O(n)$。
 - `sol/partial_recompute.cpp`：每次全树重算；`partial_height.cpp`：只重算受影响祖先；`partial_short.cpp`：长度不超过 2 的独立组件算法。
-- `gen/{gen.cpp,val.cpp,genall.sh}`：testlib 生成器、严格验证器、全量生成脚本。
-- `review/`：独立枚举暴力、扫描线快照解、复现脚本、参数、核验报告及历史报告。
-- 正式数据位于本题目录的 `../../data/storage/`，格式为 `01_01.in/ans` 至 `10_09.in/ans`；下发大样例位于 `../../down/storage/`，名称为 `storage1.in/ans`、`storage2.in/ans`。
+- `gen/{gen.cpp,val.cpp,genall.py,cases.json}`：testlib 生成器、严格验证器、全量生成脚本。
+- `review/{brute.cpp,snapshot_oracle.cpp,verify.py,mutation_test.py,benchmark.py}`：独立枚举暴力、扫描线快照解、核心核验、错误实现测试与性能复测。`review/samples/` 保留独立原样例，与下发的 `storage1.in/ans` 逐字核对。
+- 正式数据位于本题目录的 `../../data/storage/`，格式为 `01_01.in/ans` 至 `10_09.in/ans`；下发样例位于 `../../down/storage/`：`storage1.in/ans` 为题面原样例，原两个大样例顺延为 `storage2.in/ans`、`storage3.in/ans`。
 
 在本题目录运行：
 
 ```bash
-bash gen/genall.sh
+python3 gen/genall.py
 python3 review/verify.py --data
-python3 review/test_genall.py
 python3 review/benchmark.py
 python3 review/mutation_test.py
 ```
 
-`genall.sh` 可从任意当前目录调用，默认路径始终相对本题目录定位。可传入正式数据目录和大样例目录；显式相对路径相对调用时的当前目录解释：
+`genall.py` 可从任意当前目录调用，默认路径始终相对本题目录定位。可传入正式数据目录和下发样例目录；显式相对路径相对调用时的当前目录解释：
 
 ```bash
-bash /absolute/path/dev/storage/gen/genall.sh /path/to/data /path/to/samples
+python3 /absolute/path/dev/storage/gen/genall.py /path/to/data /path/to/samples
 ```
 
-脚本先编译生成器、验证器和标准解，对每个输入执行所属分组验证，再生成并检查答案。只替换本题计划中的输入、答案文件，不清理目标目录，不删除无关文件；暂存文件建在目标目录内，支持将结果输出到 Windows 挂载盘。生成参数见 [review/cases.json](review/cases.json)，文件哈希与生成耗时见 [review/generated_manifest.json](review/generated_manifest.json)。验证命令需要 `g++`、Python 3.8+；性能复测还需要 `/usr/bin/time`。
+脚本先编译生成器、验证器和标准解，对每个输入执行所属分组验证，再生成并检查答案；题面原样例直接提取自 `statement.md`，其标准解输出必须逐字等于题面输出。只替换本题计划中的输入、答案文件，不清理目标目录，不删除无关文件；暂存文件建在目标目录内，支持将结果输出到 Windows 挂载盘；下发样例权限设为 `0664`，已有正式数据文件的权限保持不变。生成参数和正式文件路径统一见 [gen/cases.json](gen/cases.json)，生成与核验结果输出到终端。验证命令需要 `g++`、Python 3.8+；性能复测还需要 `/usr/bin/time`。
 
 单独编译与运行：
 
@@ -79,22 +78,27 @@ $$
 | 9 | 5 | 4 | 操作长度不超过 2，独立线性组件算法 |
 | 10 | 25 | 9 | 无额外约束 |
 
-正式数据共 45 点，另有两个 $n=q=100000$ 的下发大样例。合计 3,923,500 次操作。主要覆盖随机非拓扑编号、最大深度左右梳状树、重边方向交替、多层轻链传播、多个原区间共享规范块及不同删除顺序、整段与端点单点相互影响、反复清空、父子正费用平局、方案数取模、大费用 64 位累加、接近区间全集的只加操作。
+正式数据共 45 点，另有题面原样例和两个 $n=q=100000$ 的下发大样例，共 3 组下发样例。合计 3,923,506 次操作。主要覆盖随机非拓扑编号、最大深度左右梳状树、重边方向交替、多层轻链传播、多个原区间共享规范块及不同删除顺序、整段与端点单点相互影响、反复清空、父子正费用平局、方案数取模、大费用 64 位累加、接近区间全集的只加操作。
 
 第 9 档采用短区间条件，没有使用早期的 `q<=2000` 方案。第 3 档要求精确中点，不能只保证大致平衡；第 6、7 档都以实际树结构检查，不能依赖节点编号。
 
-## 本次整理的实测核验
+## 已完成的核验
 
-本次已实际编译全部 8 份 C++ 工具及参考程序，并执行：
+整理时已通过 899 组生成器/验证器检查、262 组整程序对拍（638,815 次操作，其中 520,515 次同时与独立枚举暴力核对），并拒绝全局非法输入、逐档违约输入和非法分组编号。45 组正式点及 3 组下发样例均通过分组验证、答案格式检查和独立扫描线/Fenwick 快照核对；适用分组还与部分分程序逐行比较。12 类错误实现均被小型定向用例与当时的正式数据抓住。
 
-- 899 组生成器/验证器检查，覆盖全部小规模形态、操作、费用组合和三类最大深度树；固定种子复现通过。
-- 6 种全局非法输入、9 档限制的逐档违约输入，以及非法分组编号全部被拒绝。验证器显式调用 `prepareOpts`，确保 Git 根 testlib 的 `--group` 真正生效。
-- 262 组整程序对拍，共 638,815 次操作；其中 520,515 次操作还与直接枚举全部存储节点集合的暴力核对。包括小规模活动区间全集的 Gray 遍历、180 组随机测试、7 组中型测试。
-- 45 组正式点与 2 组大样例全部重新生成，全部通过所属分组检查、答案格式检查和 SHA-256 复核。
-- 全部 47 个文件经独立扫描线/Fenwick 快照解核对。该解从当前活动原区间集合重建规范需求，不复用标准解的动态 HLD 矩阵；检查前 8 次、均匀 20 个时点与末次，去重后通常 28 次。适用分组还逐行与枚举、全树重算、受影响祖先或短区间程序比较。
-- `genall.sh` 已从 `/tmp` 调用，测试默认目录、含空格的自定义目录、WSL 到 Windows 挂载盘的跨文件系统输出及无关哨兵文件保留。
-- 12 类故意错误的标准解变体在 37 组针对性测试中全部出现实际错误输出，也全部被当前正式数据抓住；题面样例逐字比较通过。复现命令为 `python3 review/mutation_test.py`，结果见 [review/mutations.json](review/mutations.json)。
+Python 生成入口已验证任意 cwd、含空格的自定义路径、跨文件系统输出、下发样例权限和无关文件保留；迁移保持原 45 个正式点的输入答案，原两个大样例仅顺延编号，题面原样例逐字一致。这些是已完成的历史核验结论，重复报告与旧日志已清理。
 
-当前结果见 [review/verification.json](review/verification.json)、[review/data_verification.json](review/data_verification.json)、[review/genall_paths.json](review/genall_paths.json)。五组代表性数据各重复三次，在 WSL2、g++ 10.5.0 下最慢中位数为 2.80 秒，峰值 RSS 为 104,380 KiB；详见 [review/benchmark.json](review/benchmark.json)。实际评测平台应按其处理器与编译器复测 10 秒、256 MiB 限制。
+五组代表性数据各重复三次，在 WSL2、g++ 10.5.0 下最慢中位数为 2.80 秒，峰值 RSS 为 104,380 KiB；可用 `python3 review/benchmark.py` 重新测量。实际评测平台应按其处理器与编译器复测 10 秒、256 MiB 限制。
 
-`review/previous_reports/` 保存原包的历史验收、错误实现测试、分数及 Windows 性能记录；其中路径、输入哈希和运行环境属于原 Python 生成器版本。本次新数据的核验以 `review/` 顶层报告为准。更详细的构造动机与实现不变量保存在 [review/author_notes.md](review/author_notes.md)。
+快速检查核心工具与少量已有数据：
+
+```bash
+python3 review/verify.py --smoke
+python3 review/verify.py --data-only --case 01_01 --case storage1
+python3 review/mutation_test.py --generated-only
+python3 review/benchmark.py --case 01_01 --repeat 1
+```
+
+`verify.py --data` 执行完整核验并追加正式数据及下发样例检查；`--data-only` 仅检查已有数据，`--case ID` 可重复指定少量点。`mutation_test.py` 默认同时检查 37 组小型定向用例与正式数据；`benchmark.py` 默认复测五组代表性数据各三次，可用 `--case ID --repeat N` 缩小范围。脚本可从任意 cwd 调用，结果只输出到终端，临时二进制和失败输入放在已忽略的 `.build/` 中。答案格式检查复用生成入口，分组合法性由验证器判定，正式文件路径统一读取 `gen/cases.json`。
+
+命题证明、实现不变量和部分分算法集中保存在 [sol/solution.md](sol/solution.md)。
