@@ -28,9 +28,9 @@ def main():
         validate('sample_' + path.stem, path.read_text(), True, 1)
     invalid = {
         'n_zero': minimal.replace('1\n0', '0\n0', 1),
-        'n_above_max': '500001\n',
+        'n_above_max': '100001\n',
         'm_zero': '1\n0\n0\n',
-        'm_above_max': '1\n0\n500001\n',
+        'm_above_max': '1\n0\n100001\n',
         'negative_initial': minimal.replace('\n0\n', '\n-1\n'),
         'initial_modulus': minimal.replace('\n0\n', '\n998244353\n'),
         'no_query': '1\n0\n1\n2 1 1 0 0\n',

@@ -10,27 +10,24 @@
 | --- | ---: | ---: | ---: | ---: |
 | ring | 30 | 5 | 5 秒 | 128 MiB |
 | calibration | 40 | 3 | 4 秒 | 512 MiB |
-| lrud | 37 | 3 | 1 秒 | 512 MiB |
+| lrud | 37 | 0 | 1 秒 | 512 MiB |
 | storage | 45 | 2 | 10 秒 | 256 MiB |
-| 合计 | 152 | 13 | | |
+| 合计 | 152 | 10 | | |
 
-正式数据已经生成到比赛根目录 `data/题目名/`，命名为 `01_01.in/ans` 等；大样例已经生成到 `down/题目名/`，命名为 `ring1.in/ans`、`lrud1.in/ans` 等。共 330 个输入、答案文件，均检查了配对、命名、LF 换行及非空；各题的清单、随机种子和复核报告位于其 `gen/` 或 `review/` 中。`package-audit.json` 保存分组点数、大小与汇总哈希。
+正式数据位于比赛根目录 `data/题目名/`，命名为 `01_01.in/ans` 等；下发样例位于 `down/题目名/`。LRUD 不再下发大样例，`down/lrud/` 只放选手使用的简易 checker。当前数据包共 324 个输入、答案文件；各题清单、随机种子和复核报告位于其 `gen/` 或 `review/` 中。
 
 ## 一键重生成
 
 ```bash
-cd '/home/cyril/code/出题/261022 小联考NOIP 2'
-for p in ring calibration lrud storage; do
-  bash "dev/$p/gen/genall.sh"
-done
+./dev/build.sh
 
-# 单题可指定正式数据和大样例目录，也可从任意 cwd 用绝对脚本路径调用
-bash dev/lrud/gen/genall.sh '/custom/final data' '/custom/large samples'
+# 只生成 LRUD 正式数据
+bash dev/lrud/gen/genall.sh '/custom/final data'
 ```
 
-默认 `../../data/题目名`、`../../down/题目名` 均相对题目目录 `dev/题目名` 解析；显式传入的相对路径相对调用时的 cwd。四题均实测从 `/tmp` 运行、包含空格的自定义目录、保留无关文件。脚本会校验子任务限制，并生成对应答案。
+总构建脚本会从 Markdown 更新并编译题面，生成四题数据，并复制 PDF 与 LRUD 简易 checker 到 `down/`。各题生成脚本默认路径相对题目目录解析；显式传入的相对路径相对调用时的 cwd。脚本会校验子任务限制并生成答案。
 
-**LRUD 必须配置特殊评测**：使用 `dev/lrud/review/checker.cpp`，以 C++17 `-O2 -I /home/cyril/code` 编译；不能对构造串做全文比较。checker 验证最优值、路径长度、八邻接、每格恰好访问一次、起终点、正右步计数及额外输出。
+**LRUD 必须配置特殊评测**：评测机使用 `dev/lrud/checker.cpp`，这是依赖 testlib 的 checker；不能对构造串做全文比较。它验证最优值、路径长度、八邻接、每格恰好访问一次、起终点、正右步计数及额外输出。选手可使用 `down/lrud/checker.cpp` 本地检查，该版本不依赖 testlib，运行方式为 `checker input.txt output.txt`。
 
 ## LRUD 的五档
 
@@ -42,7 +39,7 @@ bash dev/lrud/gen/genall.sh '/custom/final data' '/custom/large samples'
 
 题目定义为**窗口和构成等差数列，保留前 $k+1$ 项**，合法 $1\le k\le r-l$；与原合订题面中二阶差分恒定、保留 $k+2$ 项的旧版本不同。已将单题题面、合订 Markdown、TeX、PDF 统一为指定版本，包括全部样例。
 
-范围从 $n,m\le3\times10^6$ 缩至 **$n,m\le5\times10^5$**，时限定为 **4 秒**。全部 40 个正式点及 3 个大样例经过 WBLT、独立 AVL 交叉核对；小组另与暴力比较。WSL 实测正式数据最慢为 1.783 / 1.996 秒，额外七类满规模策略最慢为 2.83 / 2.92 秒，内存约 32 / 35 MiB。直接模拟与专用部分分实测为 40 / 70 分。另通过 1210 例四路审计、公式和共享结构检查。
+calibration 的数据上限现为 **$n,m\le10^5$**，三个规模档为 1000、10000、100000，时限 **4 秒**。40 个正式点及 3 个大样例按新范围重新生成；生成脚本会用 WBLT 与独立 AVL 逐点交叉核对，第 1 组另与暴力比较。此前的 500000 规模性能数据属于旧范围，不代表当前正式数据。
 
 上述耗时来自当前 WSL2、i7-14650HX、g++ 10.5.0、C++17 `-O2`；目标评测机应依据其 CPU 与编译器复核 4 秒时限。
 

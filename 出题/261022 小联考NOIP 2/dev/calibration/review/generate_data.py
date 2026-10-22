@@ -44,7 +44,7 @@ def main():
     assert len(cases) == 40
     samples = [('calibration1', '4', '5000', '5000', 'random', 'mixed', '2026102201', '一般混合'),
                ('calibration2', '5', '50000', '50000', 'edges', 'gc', '2026102202', '共享和覆盖'),
-               ('calibration3', '5', '500000', '500000', 'random', 'preserved_seed', '2026102203', '最大规模保留随机种子')]
+               ('calibration3', '5', '100000', '100000', 'random', 'preserved_seed', '2026102203', '最大规模保留随机种子')]
     report = {'status': 'running', 'platform': platform.platform(), 'time_limit_seconds': 4,
               'data_directory': str(args.data.resolve()), 'large_sample_directory': str(args.down.resolve()),
               'cases': [], 'samples': []}
@@ -67,9 +67,15 @@ def main():
             report['samples' if sample else 'cases'].append(row)
     # Publish only declared names after every validation succeeds; preserve all unrelated files.
     for rows, destination in [(cases, args.data), (samples, args.down)]:
+        public_samples = rows is samples
         for row in rows:
             for ext in ['.in', '.ans']:
-                shutil.copyfile(stage / (row[0] + ext), destination / (row[0] + ext))
+                published = destination / (row[0] + ext)
+                shutil.copyfile(stage / (row[0] + ext), published)
+                if public_samples:
+                    # Samples are shared with contestants; copyfile alone
+                    # follows the process umask and can create unreadable files.
+                    published.chmod(0o664)
     report['status'] = 'passed'
     (ROOT / 'review/generation.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(f'Done: {len(cases)} formal cases, {len(samples)} large samples; all answers match independent AVL.', flush=True)

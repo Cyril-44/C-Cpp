@@ -31,7 +31,6 @@ make_case() {
   "$BUILD/gen" "${args[@]}" > "$input"
   "$BUILD/val" "--subtask=$group" < "$input"
   "$BUILD/std" < "$input" > "${input%.in}.ans"
-  printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$name.in" "$group" "$type" "$n" "$seed" "$leaves" >> "$STAGE/data/manifest.tsv"
   echo "Validated $name ($type, n=$n)"
 }
 make_sample() {
@@ -42,7 +41,6 @@ make_sample() {
   "$BUILD/gen" "${args[@]}" > "$input"
   "$BUILD/val" < "$input"
   "$BUILD/std" < "$input" > "${input%.in}.ans"
-  printf 'ring%s.in\t%s\t%s\t%s\t%s\n' "$number" "$type" "$n" "$seed" "$leaves" >> "$STAGE/down/manifest.tsv"
 }
 make_case 1 1 chain 4 101
 make_case 1 2 two 4 102
@@ -81,4 +79,7 @@ make_sample 4 random 1000000 504
 make_sample 5 binary_random 1000000 505
 cp -- "$STAGE/data/"* "$DATA/"
 cp -- "$STAGE/down/"* "$DOWN/"
+for file in "$STAGE/down/"*; do
+  chmod 664 -- "$DOWN/$(basename -- "$file")"
+done
 echo "Generated 30 official cases in $DATA and 5 public cases in $DOWN"

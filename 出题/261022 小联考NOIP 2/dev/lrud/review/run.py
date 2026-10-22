@@ -19,7 +19,7 @@ def check(args, good=True, **kw):
 
 with tempfile.TemporaryDirectory(prefix='.review.',dir=ROOT) as temp:
     build = Path(temp)
-    sources = {'std':'sol/std_maximum.cpp','brute':'review/brute_subset.cpp','verify':'review/verify_construction.cpp','checker':'review/checker.cpp','val':'gen/val.cpp','gen':'gen/gen.cpp'}
+    sources = {'std':'sol/std_maximum.cpp','brute':'review/brute_subset.cpp','verify':'review/verify_construction.cpp','checker':'checker.cpp','val':'gen/val.cpp','gen':'gen/gen.cpp'}
     partials = ['partial_dfs_10','partial_subset_25','partial_odd_45','partial_bands_65']
     sources.update({s:'sol/'+s+'.cpp' for s in partials})
     for name, source in sources.items():

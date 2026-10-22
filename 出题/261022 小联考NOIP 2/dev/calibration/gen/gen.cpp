@@ -6,7 +6,7 @@
 #include <utility>
 #include <vector>
 using namespace std;
-constexpr int P=998244353, LIMIT=500000;
+constexpr int P=998244353, LIMIT=100000;
 const vector<int> periods={1,2,3,4,5,7,8,15,16,17,31,32,33,63,64,65,127,128,129,255,256,257,1023,1024,1025};
 const vector<int> edges={0,1,P-1,P-2,P/2,2};
 pair<int,int> boundary(int n,int step,bool cal) {
@@ -66,16 +66,16 @@ int main(int argc,char**argv) {
     // of registerGen's command-line hash, so each full command is reproducible.
     ensuref(argc==7,"usage: gen n m group array profile seed");
     int n=atoi(argv[1]),m=atoi(argv[2]),g=atoi(argv[3]);string ar=argv[4],profile=argv[5];
-    ensuref(1<=n&&n<=LIMIT&&1<=m&&m<=LIMIT,"n,m must be in [1,500000]");
+    ensuref(1<=n&&n<=LIMIT&&1<=m&&m<=LIMIT,"n,m must be in [1,100000]");
     ensuref(1<=g&&g<=5,"group must be 1..5");
     ensuref(ar=="random"||ar=="edges"||ar=="periodic"||ar=="arithmetic","unknown initial array");
     ensuref(profile=="mixed"||profile=="affine"||profile=="queries"||profile=="point"||profile=="boundaries"||profile=="offset"||profile=="nested"||profile=="gc"||profile=="noop"||profile=="sweep"||profile=="small_k"||profile=="large_k"||profile=="preserved_seed","unknown profile");
-    ensuref(g!=1||max(n,m)<=2000,"group 1 size");
-    ensuref(g==1||max(n,m)>2000,"groups 2..5 lower size bound");
+    ensuref(g!=1||max(n,m)<=1000,"group 1 size");
+    ensuref(g==1||max(n,m)>1000,"groups 2..5 lower size bound");
     ensuref(g!=3||(n>=2&&m>=2),"group 3 requires calibration and query");
     ensuref((g!=4&&g!=5)||(n>=3&&m>=2),"general groups require k>1");
-    ensuref(g!=4||max(n,m)<=20000,"group 4 upper size bound");
-    ensuref(g!=5||max(n,m)>20000,"group 5 lower size bound");
+    ensuref(g!=4||max(n,m)<=10000,"group 4 upper size bound");
+    ensuref(g!=5||max(n,m)>10000,"group 5 lower size bound");
     ensuref(profile!="sweep"||(n<=16&&g==1),"sweep requires n<=16 and group 1");
     ensuref(profile!="preserved_seed"||(n>=8&&(g==1||g==4||g==5)),"preserved_seed requires n>=8 and a general calibration group");
     setvbuf(stdout,nullptr,_IOFBF,1<<20);
