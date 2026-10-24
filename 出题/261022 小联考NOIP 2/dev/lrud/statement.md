@@ -64,6 +64,8 @@ DZD
 
 ## 提示
 
-本题附加文件下发了 `checker.cpp`，你可以用它来判断自己构造是否正确。不保证实际测评中使用同样的 checker.
+本题附加文件下发了 `checker.c`，你可以用它来判断自己构造是否正确。不保证实际测评中使用同样的 checker.
 
-使用方法：编译后在终端运行：`./checker [infile] [outfile]`（实际输入文件名时不带中括号）
+编译方法：使用 `gcc checker.c -lm -o checker` 编译检查器。
+
+使用方法：在终端运行：`./checker [infile] [outfile]`（实际输入文件名时不带中括号）
