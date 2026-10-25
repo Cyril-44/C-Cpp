@@ -35,7 +35,7 @@ struct Matrix {
     Value get(int i) const { return {c[i], w[i]}; }
     void set(int i, Value x) { c[i] = x.cost; w[i] = x.ways; }
 };
-Matrix identity() {
+Matrix _identity() {
     Matrix a;
     a.set(0, {0, 1}); a.set(1, {INF, 0});
     a.set(2, {INF, 0}); a.set(3, {0, 1});
@@ -94,7 +94,7 @@ class Solver {
     }
     void remakeLeaf(int p, int v) {
         if (!lc[v]) {
-            for (auto &m : seg[p].product) m = identity();
+            for (auto &m : seg[p].product) m = _identity();
             return;
         }
         int direction = light[v] == rc[v]; // 0: left, 1: right

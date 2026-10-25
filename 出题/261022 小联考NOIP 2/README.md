@@ -27,9 +27,9 @@ python3 dev/calibration/gen/genall.py '/custom/final data' '/custom/samples'
 python3 dev/storage/gen/genall.py '/custom/final data' '/custom/samples'
 ```
 
-总构建脚本会从 Markdown 更新并编译题面，根据各题入口直接调用 `genall.py` 或纯 Bash `genall.sh`，生成四题数据，并复制 PDF 与 LRUD 简易 checker 到 `down/`。ring 的正式目录与下发目录仅生成 `.in/.ans`，不再生成 manifest。各题生成脚本默认路径相对题目目录解析；显式传入的相对路径相对调用时的 cwd。脚本会校验子任务限制并生成答案。
+总构建脚本会从 Markdown 更新并编译题面，根据各题入口直接调用 `genall.py` 或纯 Bash `genall.sh`，生成四题数据，并复制 PDF 与 LRUD 混淆 checker.c 到 `down/`。ring 的正式目录与下发目录仅生成 `.in/.ans`，不再生成 manifest。各题生成脚本默认路径相对题目目录解析；显式传入的相对路径相对调用时的 cwd。脚本会校验子任务限制并生成答案。
 
-**LRUD 必须配置特殊评测**：评测机使用 `dev/lrud/checker.cpp`，这是依赖 testlib 的 checker；不能对构造串做全文比较。它验证最优值、路径长度、八邻接、每格恰好访问一次、起终点、正右步计数及额外输出。选手可使用 `down/lrud/checker.cpp` 本地检查，该版本不依赖 testlib，运行方式为 `checker input.txt output.txt`。
+**LRUD 必须配置特殊评测**：评测机使用 `dev/lrud/checker/checker.cpp`，这是依赖 testlib 的 checker；不能对构造串做全文比较。它验证最优值、路径长度、八邻接、每格恰好访问一次、起终点、正右步计数及额外输出。选手仅下发已有混淆产物 `down/lrud/checker.c`，使用 `gcc checker.c -lm -ldl -pthread -o checker` 编译、`checker input.txt output.txt` 运行；生成脚本会清理旧版明文 `down/lrud/checker.cpp`。明文 C++ 与 JavaScript checker 及混淆构建文件均不下发。
 
 ## LRUD 的五档
 

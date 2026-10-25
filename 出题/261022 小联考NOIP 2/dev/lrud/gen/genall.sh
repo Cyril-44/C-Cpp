@@ -15,10 +15,13 @@ DOWN=$(cd -- "$DOWN" && pwd)
 BUILD=$(mktemp -d "$ROOT/.genall.XXXXXX")
 trap 'rm -rf -- "$BUILD"' EXIT
 CXX=${CXX:-g++}
+CC=${CC:-gcc}
 "$CXX" -std=c++17 -O2 -I "$REPO" "$ROOT/gen/gen.cpp" -o "$BUILD/gen"
 "$CXX" -std=c++17 -O2 -I "$REPO" "$ROOT/gen/val.cpp" -o "$BUILD/val"
 "$CXX" -std=c++17 -O2 "$ROOT/sol/std_maximum.cpp" -o "$BUILD/std"
-"$CXX" -std=c++17 -O2 -I "$REPO" "$ROOT/checker.cpp" -o "$BUILD/checker"
+"$CXX" -std=c++17 -O2 -I "$REPO" "$ROOT/checker/checker.cpp" -o "$BUILD/checker"
+# Ship only the existing obfuscated single-file checker, never the plain C++ sources.
+"$CC" "$ROOT/checker/checker.c" -lm -ldl -pthread -o "$BUILD/public-checker"
 generate() {
   local target=$1 group=$2 values=$3
   "$BUILD/gen" --subtask="$group" --mode=list --values="$values" --seed=20261022 > "$BUILD/case.in"
@@ -63,9 +66,14 @@ for ((i=1; i<=samples; i++)); do
   "$BUILD/val" --subtask=5 < "$input"
   timeout 1s "$BUILD/std" < "$input" > "$BUILD/reference.ans"
   "$BUILD/checker" "$input" "$answer" "$BUILD/reference.ans" > "$BUILD/check.log" 2>&1 || { cat "$BUILD/check.log" >&2; exit 1; }
+  "$BUILD/public-checker" "$input" "$answer" > "$BUILD/check.log" 2>&1 || { cat "$BUILD/check.log" >&2; exit 1; }
 done
 cp -- "$BUILD/public/"* "$DOWN/"
 for file in "$BUILD/public/"*; do
   chmod 664 -- "$DOWN/$(basename -- "$file")"
 done
-printf 'Done: %d final cases in %s; %d statement samples in %s\n' "$count" "$DATA" "$samples" "$DOWN"
+# Publish the packed source byte-for-byte, and remove the obsolete leaking checker.
+cp -- "$ROOT/checker/checker.c" "$DOWN/checker.c"
+chmod 664 -- "$DOWN/checker.c"
+rm -f -- "$DOWN/checker.cpp"
+printf 'Done: %d final cases in %s; %d statement samples and checker.c in %s\n' "$count" "$DATA" "$samples" "$DOWN"

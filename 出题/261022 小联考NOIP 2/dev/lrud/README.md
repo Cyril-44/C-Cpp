@@ -5,8 +5,8 @@
 - 时限 1 秒，空间 512 MiB，C++17 `-O2`。
 - $1\le T\le5$，$2\le N\le1000$。
 - 五个独立计分组为 10、15、20、20、35 分，对应累计 10、25、45、65、100 分五档实现。
-- 最终数据 37 点：各组分别 6、5、8、8、10 点；下发当前题面样例 `lrud1.in/ans` 与选手用简易 checker。
-- 必须启用 `checker.cpp` 特殊评测；全文比较不适用于构造题。评测机版本依赖 Git 项目根目录的 `testlib.h`。
+- 最终数据 37 点：各组分别 6、5、8、8、10 点；下发当前题面样例 `lrud1.in/ans` 与选手用混淆 checker.c。
+- 必须启用 `checker/checker.cpp` 特殊评测；全文比较不适用于构造题。评测机版本依赖 Git 项目根目录的 `testlib.h`。
 
 ## 生成与复核
 
@@ -17,17 +17,18 @@ bash gen/genall.sh /absolute/final_data /absolute/public_samples
 python3 review/run.py
 ```
 
-默认正式数据位于 `../../data/lrud`，下发样例位于 `../../down/lrud`，均相对本题目录 `dev/lrud` 解析。数据文件为 `01_01.in/ans` 等两位子任务编号与组内编号。脚本只发布本次清单中的同名文件，保留指定目录内其他文件；构建文件在退出时清理。脚本直接从当前 `statement.md` 提取原始输入和输出，使用 validator、标准解和评测机 checker 核验，再按 `lrud1.in/ans` 下发；沿用当前仅下发题面样例的安排。
+默认正式数据位于 `../../data/lrud`，下发样例位于 `../../down/lrud`，均相对本题目录 `dev/lrud` 解析。数据文件为 `01_01.in/ans` 等两位子任务编号与组内编号。脚本发布本次清单中的数据、样例和混淆 `checker.c`，并删除旧版泄露公式的 `checker.cpp`；其他文件保留。构建文件在退出时清理。脚本直接从当前 `statement.md` 提取原始输入和输出，使用 validator、标准解和评测机 checker 核验，再按 `lrud1.in/ans` 下发；混淆 checker 也按题面命令编译并核验样例，通过后逐字节复制到下发目录；沿用当前仅下发题面样例的安排。
 
 ## 核心验题文件
 
-`review/` 只保留三份核心文件：`brute_subset.cpp` 是独立的小规模最优值 DP，`verify_construction.cpp` 检查全部允许规模的构造，`run.py` 编译并组合对拍、checker/validator 反例及部分分检查。题面样例直接由生成流程读取 `statement.md`；评测机 checker 唯一源码是本题根目录的 `checker.cpp`，不在 `review/` 留兼容副本。
+`review/` 只保留三份核心文件：`brute_subset.cpp` 是独立的小规模最优值 DP，`verify_construction.cpp` 检查全部允许规模的构造，`run.py` 编译并组合对拍、checker/validator 反例及部分分检查。题面样例直接由生成流程读取 `statement.md`；评测机 checker 源码是 `checker/checker.cpp`，不在 `review/` 留兼容副本。
 
 ## Checker
 
-- 评测机使用本目录的 `checker.cpp`，依赖 testlib；标准评测机按 `checker input output answer` 调用。可用 `g++ -std=c++17 -O2 -I "$(git rev-parse --show-toplevel)" checker.cpp -o checker` 编译。
-- `down/lrud/checker.cpp` 是发给选手的简易版本，不依赖 testlib。选手可用 `g++ -std=c++17 -O2 checker.cpp -o checker` 编译，再运行 `./checker input.txt output.txt` 检查输出。
-- 简易版本与评测机版本均检查最优值、路径长度、八邻接、每格恰好访问一次、起终点、正右步计数和多余输出。
+- 评测机使用 `checker/checker.cpp`，依赖 Git 根目录的 testlib，按 `checker input output answer` 调用。编译命令为 `g++ -std=c++17 -O2 -I "$(git rev-parse --show-toplevel)" checker/checker.cpp -o checker`。
+- 下发文件仅使用已有的 `checker/checker.c` 混淆产物，发布为 `down/lrud/checker.c`。按题面使用 `gcc checker.c -lm -ldl -pthread -o checker` 编译，再运行 `./checker input.txt output.txt`。
+- `checker/contestant_checker.cpp`、`checker/checker.cpp`、`checker/checker.mjs` 及混淆构建文件只留在出题目录，均不下发；尤其不能发布原明文 `checker.cpp`，其中含有最优值公式。
+- 两个实际使用的 checker 均检查最优值、路径长度、八邻接、格子唯一访问、终点、正右步计数和多余输出。`review/run.py` 用小网格正反例测试两个版本，混淆版覆盖全部最优值分支；37 个正式点由评测机版复核。脚本同时检查下发目录没有明文副本、`checker.c` 与已有混淆产物逐字节一致。
 
 `gen/cases.tsv` 给出每点全部参数和覆盖目的。生成器与校验器均使用 Git 根目录的 testlib；每个答案用 SPJ 检查路径长度、每格恰好访问一次、八邻接、终点、`D` 计数与最优值。
 

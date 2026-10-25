@@ -26,7 +26,7 @@ int main() {
         std::vector<std::pair<int,int>> ans;
         ans.reserve(n-1);
         std::iota(b+1, b+1+n, 1);
-        std::sort(b+1, b+1+n, [](int x, int y){ return b[x] < b[y]; });
+        std::sort(b+1, b+1+n, [](int x, int y){ return sz[x] < sz[y]; });
         for (int ip = 1; ip < n; ip++) {
             for (int jp = 1, cur = n; jp <= n; jp++) {
                 if (ip == jp) q[b[jp]] = 1;

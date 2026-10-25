@@ -8,7 +8,7 @@ DATA_DIR="$EVENT_DIR/data"
 DOWN_DIR="$EVENT_DIR/down"
 PDF_SOURCE="$STATEMENT_DIR/statement.pdf"
 
-for command in pandoc python3 xelatex "${CXX:-g++}"; do
+for command in pandoc python3 xelatex "${CXX:-g++}" "${CC:-gcc}"; do
   command -v -- "$command" >/dev/null 2>&1 || {
     echo "Required command not found: $command" >&2
     exit 1
@@ -39,9 +39,7 @@ for problem in ring calibration lrud storage; do
   fi
 done
 
-mkdir -p -- "$DOWN_DIR/lrud"
-cp -- "$DEV_DIR/lrud/contestant_checker.cpp" "$DOWN_DIR/lrud/checker.cpp"
-chmod 664 -- "$DOWN_DIR/lrud/checker.cpp"
+# LRUD genall.sh publishes its checked, obfuscated checker.c.
 
 [[ -s "$PDF_SOURCE" ]] || {
   echo "Statement PDF was not generated: $PDF_SOURCE" >&2

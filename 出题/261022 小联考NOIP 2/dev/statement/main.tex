@@ -214,11 +214,15 @@ citecolor=blue
 
 保证 \(1\le k\le r-l\)。对区间 \([l,r]\)，定义长度为 \(k\) 的窗口和
 
-\[W_i=\sum_{j=i}^{i+k-1}a_j\qquad(l\le i\le r-k+1).\]
+\[
+W_i=\sum_{j=i}^{i+k-1}a_j\qquad(l\le i\le r-k+1).
+\]
 
 保留 \(a_l,a_{l+1},\ldots,a_{l+k}\) 的当前值，修改 \(a_{l+k+1},\ldots,a_r\)，使这些窗口和按起点递增的顺序构成等差数列。也就是说，存在一个模 \(P\) 意义下的整数 \(c\)，满足
 
-\[W_{i+1}-W_i=c\qquad(l\le i\le r-k).\]
+\[
+W_{i+1}-W_i=c\qquad(l\le i\le r-k).
+\]
 
 这里的 \(W_i\) 均由修改后的序列计算，\(c\) 可以在不同操作中取不同值。区间 \([l,r]\) 外的元素保持不变。
 
@@ -464,7 +468,7 @@ DZD
 
 本题附加文件下发了 \texttt{checker.c}，你可以用它来判断自己构造是否正确。不保证实际测评中使用同样的 checker.
 
-编译方法：使用 \texttt{gcc\ checker.c\ -lm\ -o\ checker} 编译检查器。
+编译方法：使用 \texttt{gcc\ checker.c\ -lm\ -ldl\ -pthread\ -o\ checker} 编译检查器。
 
 使用方法：在终端运行：\texttt{./checker\ {[}infile{]}\ {[}outfile{]}}（实际输入文件名时不带中括号）
 \newpage
