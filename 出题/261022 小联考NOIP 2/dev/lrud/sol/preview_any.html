@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>LRUD Moving：指定右移次数的构造</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+  html { background: #f1f4f7; }
+  body { max-width: 1080px; margin: 32px auto; padding: 38px 56px; background: white; color: #243748; font-family: 'Microsoft YaHei','Noto Sans CJK SC',sans-serif; font-size: 17px; line-height: 1.85; box-shadow: 0 2px 16px #17314b12; }
+  h1 { font-size: 30px; line-height: 1.45; margin: 0 0 28px; }
+  h2 { margin: 46px 0 18px; border-bottom: 2px solid #e2ebf3; padding-bottom: 8px; font-size: 25px; }
+  h3 { margin-top: 30px; font-size: 21px; }
+  p { margin: 13px 0; }
+  a { color: #2864ac; text-decoration: none; }
+  code { font-family: Consolas,'DejaVu Sans Mono',monospace; font-size: .92em; background: #f1f5f9; padding: 2px 5px; border-radius: 4px; }
+  pre { padding: 18px; line-height: 1.55; background: #f3f6fa; border: 1px solid #dce5ee; border-radius: 8px; overflow-x: auto; }
+  pre code { padding: 0; background: transparent; }
+  table { border-collapse: collapse; width: 100%; margin: 22px 0; font-size: 15px; }
+  th,td { border: 1px solid #d8e1e9; padding: 9px 13px; vertical-align: top; }
+  th { background: #edf4fb; text-align: left; }
+  tr:nth-child(even) td { background: #fbfcfe; }
+  figure { margin: 30px 0; padding: 14px; border: 1px solid #e0e7ee; border-radius: 9px; }
+  img { max-width: 100%; height: auto; display: block; margin: auto; }
+  figcaption { color: #647688; font-size: 14px; line-height: 1.6; padding: 10px 12px 0; }
+  math[display='block'] { margin: 24px 0; overflow-x: auto; overflow-y: hidden; font-size: 1.08em; }
+  nav#TOC { background: #f5f8fc; padding: 16px 24px; border-radius: 8px; font-size: 15px; }
+  @media(max-width:800px) { body { margin:0; padding:24px 18px; font-size:16px; } table { display:block; overflow-x:auto; } h1 {font-size:25px;} }
+  @media print { html {background:white;} body {box-shadow:none; margin:0; max-width:none; padding:0;} figure,table,pre {break-inside:avoid;} nav#TOC {display:none;} }
+  </style>
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#lrud-moving指定右移次数的构造"
+id="toc-lrud-moving指定右移次数的构造">LRUD
+Moving：指定右移次数的构造</a>
+<ul>
+<li><a href="#先判断是否有解" id="toc-先判断是否有解">1.
+先判断是否有解</a></li>
+<li><a href="#小-k从转弯处一次减掉一个-d"
+id="toc-小-k从转弯处一次减掉一个-d">2. 小
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>：从转弯处一次减掉一个
+<code>D</code></a></li>
+<li><a href="#两种可以调节次数的条带" id="toc-两种可以调节次数的条带">3.
+两种可以调节次数的条带</a></li>
+<li><a href="#奇数与模-4-余-2直接把次数分配给条带"
+id="toc-奇数与模-4-余-2直接把次数分配给条带">4. 奇数与模 4 余
+2：直接把次数分配给条带</a></li>
+<li><a href="#四的倍数普通-k底部留一个四行底座"
+id="toc-四的倍数普通-k底部留一个四行底座">5. 四的倍数、普通
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>：底部留一个四行底座</a></li>
+<li><a href="#超过-n22从最大路径中只换一段"
+id="toc-超过-n22从最大路径中只换一段">6. 超过
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N^2/2</annotation></semantics></math>：从最大路径中只换一段</a></li>
+<li><a href="#正确性与复杂度" id="toc-正确性与复杂度">7.
+正确性与复杂度</a></li>
+<li><a href="#实现对应关系" id="toc-实现对应关系">8.
+实现对应关系</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="lrud-moving指定右移次数的构造">LRUD
+Moving：指定右移次数的构造</h1>
+<p>给定
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>,</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">N,K</annotation></semantics></math>，从左上角出发，恰好访问每个格子一次，最后停在右下角，并且恰好走
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+次正右方向的 <code>D</code>。这里不再预设
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>≤</mo><mo stretchy="false" form="prefix">⌊</mo><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">K\le\lfloor N^2/2\rfloor</annotation></semantics></math>，因此也要处理接近真正最大值的情况。</p>
+<p>本文沿用 <strong>LRUD Moving 4</strong>
+的最大值结论和五阶段路径，重点解释：<strong>怎样在保持入口、出口不变的前提下，调节路径中的
+<code>D</code> 数量。</strong> 最大值的证明不再重复。</p>
+<p>行列坐标均从
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+开始。允许斜边相交；只要求格子不被重复访问。</p>
+<h2 id="先判断是否有解">1. 先判断是否有解</h2>
+<p>记 LRUD Moving 4 中求出的最大值为</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>N</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> 为奇数</mtext></mrow><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mn>2</mn></msup><mo>+</mo><mi>N</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>N</mi><mo>≡</mo><mn>2</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mn>2</mn></msup><mo>+</mo><mi>N</mi><mo>−</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>N</mi><mo>=</mo><mn>4</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> 或 </mtext><mspace width="0.333em"></mspace></mrow><mn>8</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mn>2</mn></msup><mo>+</mo><mi>N</mi><mo>−</mo><mn>6</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>N</mi><mo>≡</mo><mn>0</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><mo>,</mo><mspace width="0.222em"></mspace><mi>N</mi><mo>≥</mo><mn>12</mn><mi>.</mi></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
+M(N)=
+\begin{cases}
+(N^2-1)/2,&amp;N\text{ 为奇数},\\
+(N^2+N-2)/2,&amp;N\equiv2\pmod4,\\
+(N^2+N-4)/2,&amp;N=4\text{ 或 }8,\\
+(N^2+N-6)/2,&amp;N\equiv0\pmod4,\ N\ge12.
+\end{cases}
+</annotation></semantics></math></p>
+<p>判定规则十分简单：</p>
+<ul>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">K&lt;0</annotation></semantics></math>
+或
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>&gt;</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K&gt;M(N)</annotation></semantics></math>：无解。</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>2</mn><mo>,</mo><mi>K</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N=2,K=1</annotation></semantics></math>：无解。</li>
+<li>其他情况：都有解。</li>
+</ul>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N=2</annotation></semantics></math>
+只有两条合法路径：<code>XEX</code> 贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+次 <code>D</code>，<code>DZD</code> 贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+次
+<code>D</code>。下面的构造会证明，<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">N\ge3</annotation></semantics></math>
+时，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">0,1,\ldots,M(N)</annotation></semantics></math>
+没有任何空缺。</strong></p>
+<p>整个算法按下面的路线分支。区间有少量重叠，实现时按表中顺序选择即可。</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>情况</th>
+<th>使用的构造</th>
+<th>该构造支持的
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>奇数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>，小
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math></td>
+<td>列蛇形，逐个拆掉转弯处的 <code>D</code></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mi>…</mi><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\ldots N-1</annotation></semantics></math></td>
+</tr>
+<tr>
+<td>偶数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>，小
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math></td>
+<td>前
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N-2</annotation></semantics></math>
+列蛇形，末两列收尾</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mi>…</mi><mi>N</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">0\ldots N-2</annotation></semantics></math></td>
+</tr>
+<tr>
+<td>奇数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>，其他
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math></td>
+<td>两行一组，最后一行向右</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn><mi>…</mi><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N-1\ldots M(N)</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≡</mo><mn>2</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">N\equiv2\pmod4</annotation></semantics></math>，其他
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math></td>
+<td>两列一组，上下交替</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>/</mi><mn>2</mn><mo>−</mo><mn>1</mn><mi>…</mi><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N/2-1\ldots M(N)</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≡</mo><mn>0</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><mo>,</mo><mspace width="0.222em"></mspace><mi>K</mi><mo>≤</mo><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N\equiv0\pmod4,\ K\le N^2/2</annotation></semantics></math></td>
+<td>上方两行条带，底部四行收尾</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>/</mi><mn>2</mn><mo>−</mo><mn>2</mn><mi>…</mi><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N/2-2\ldots N^2/2</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≡</mo><mn>0</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow><mo>,</mo><mspace width="0.222em"></mspace><mi>K</mi><mo>&gt;</mo><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N\equiv0\pmod4,\ K&gt;N^2/2</annotation></semantics></math></td>
+<td>五阶段最大路径，替换其中一小段</td>
+<td>直到
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M(N)</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<h2 id="小-k从转弯处一次减掉一个-d">2. 小
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>：从转弯处一次减掉一个
+<code>D</code></h2>
+<p>先看列蛇形的一个底部转弯：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>c</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>c</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+(r,c)\to(r+1,c)\to(r+1,c+1)\to(r,c+1).
+</annotation></semantics></math></p>
+<p>方向串为 <code>XDW</code>，恰好有一次
+<code>D</code>。<strong>交换中间两个格子的访问顺序</strong>，就变成</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>c</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>c</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+(r,c)\to(r+1,c+1)\to(r+1,c)\to(r,c+1),
+</annotation></semantics></math></p>
+<p>方向串为 <code>CAE</code>，不再包含 <code>D</code>。</p>
+<figure>
+<img src="figures/lrud-any-turn.svg" style="width:100.0%"
+alt="交换中间两格，只减少一次 D。数字表示局部访问顺序。" />
+<figcaption aria-hidden="true">交换中间两格，只减少一次
+D。数字表示局部访问顺序。</figcaption>
+</figure>
+<p>四个格子的集合没变，入口、出口也没变，因此路径的其余部分完全不用修改。顶部转弯同理：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="monospace">𝚆𝙳𝚇</mtext><mspace width="0.222em"></mspace><mo>→</mo><mspace width="0.222em"></mspace><mtext mathvariant="monospace">𝙴𝙰𝙲</mtext><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\texttt{WDX}\ \longrightarrow\ \texttt{EAC}.
+</annotation></semantics></math></p>
+<h3 id="奇数-n">2.1 奇数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math></h3>
+<p>按列上下蛇形遍历，恰有
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N-1</annotation></semantics></math>
+个转弯，每个转弯贡献一个 <code>D</code>，最后到达右下角。</p>
+<p>任意选择
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn><mo>−</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">N-1-K</annotation></semantics></math>
+个转弯进行替换，就得到任意
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">K\in[0,N-1]</annotation></semantics></math>。</p>
+<h3 id="偶数-n">2.2 偶数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math></h3>
+<p>只蛇形遍历前
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N-2</annotation></semantics></math>
+列。因为列数为偶数，此时停在
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mi>N</mi><mo>−</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(0,N-3)</annotation></semantics></math>。</p>
+<p>最后两列每两行放一个 <code>XEX</code> 小块：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>N</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="1.0em"></mspace><mi>r</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>2</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo>−</mo><mn>2</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+(r,N-2)\to(r+1,N-2)\to(r,N-1)\to(r+1,N-1),
+\quad r=0,2,\ldots,N-2.
+</annotation></semantics></math></p>
+<p>这些小块内部没有 <code>D</code>，块间连接也没有
+<code>D</code>。加上进入最后两列的那一步，总共恰好有
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N-2</annotation></semantics></math>
+次 <code>D</code>。</p>
+<p>进入最后两列的那次 <code>D</code> 也处在 <code>WDX</code>
+中，可以同样拆掉。因此支持任意
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>N</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">K\in[0,N-2]</annotation></semantics></math>。</p>
+<figure>
+<img src="figures/lrud-any-low.svg" style="width:100.0%"
+alt="左图是奇数 N 的例子；右图中浅黄色区域是偶数 N 的最后两列。" />
+<figcaption aria-hidden="true">左图是奇数 N
+的例子；右图中浅黄色区域是偶数 N 的最后两列。</figcaption>
+</figure>
+<p>实现时先生成坐标数组，再扫描原路径中的
+<code>D</code>；需要减少时交换这条边的两个端点。各转弯被交换的两格互不重合，相邻转弯即使共享格子，也只共享未移动的外端点，所以这些替换可以独立进行。</p>
+<h2 id="两种可以调节次数的条带">3. 两种可以调节次数的条带</h2>
+<p>后面的构造都用下面两个工具。<strong>参数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+只统计块内部的 <code>D</code>，块间连接要另外计数。</strong></p>
+<h3 id="两行条带-a_wt任意-0le-tle-w-1">3.1 两行条带
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>w</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A_w(t)</annotation></semantics></math>：任意
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mi>w</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\le t\le w-1</annotation></semantics></math></h3>
+<p>在一个
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo><mi>w</mi></mrow><annotation encoding="application/x-tex">2\times w</annotation></semantics></math>
+矩形中，从左上进入，左下离开。</p>
+<p>先从左往右，每列只访问一格；到最右列后竖直换到另一格，再从右往左访问各列剩下的格子。</p>
+<p>回程始终向左，不会产生
+<code>D</code>。出程中，相邻两列选同行就产生一个
+<code>D</code>，选异行就产生一个右斜步。因此，只需让前
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+次过渡保持同行，之后每次换行。</p>
+<figure>
+<img src="figures/lrud-any-two-rows.svg" style="width:100.0%"
+alt="宽度为 7 的两行条带，分别贡献 0、3、6 次 D。橙色格子属于出程，绿色格子属于回程。" />
+<figcaption aria-hidden="true">宽度为 7 的两行条带，分别贡献 0、3、6 次
+D。橙色格子属于出程，绿色格子属于回程。</figcaption>
+</figure>
+<p>设第
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+列出程所选的相对行号为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>c</mi></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">s_c\in\{0,1\}</annotation></semantics></math>。一种直接的实现是</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>s</mi><mi>c</mi></msub><mo>=</mo><msub><mi>s</mi><mrow><mi>c</mi><mo>−</mo><mn>1</mn></mrow></msub><mrow><mi mathvariant="normal">x</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false" form="prefix">[</mo><mi>c</mi><mo>&gt;</mo><mi>t</mi><mo stretchy="false" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+s_0=0,\qquad
+s_c=s_{c-1}\mathbin{\mathrm{xor}}[c&gt;t].
+</annotation></semantics></math></p>
+<p>依次加入
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>c</mi></msub><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(s_c,c)</annotation></semantics></math>，再倒序加入
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>s</mi><mi>c</mi></msub><mo>,</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1-s_c,c)</annotation></semantics></math>
+即可。入口、出口始终是左上、左下。</p>
+<h3 id="偶数高度的两列条带-b_ht任意-0le-tle-h">3.2 偶数高度的两列条带
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B_h(t)</annotation></semantics></math>：任意
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>t</mi><mo>≤</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">0\le t\le h</annotation></semantics></math></h3>
+<p>要求
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>≥</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">h\ge4</annotation></semantics></math>
+且为偶数。从左上进入，右下离开。</p>
+<p>一个
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2\times2</annotation></semantics></math>
+小块已经支持两种选择：</p>
+<ul>
+<li><code>XEX</code>：贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+次 <code>D</code>；</li>
+<li><code>DZD</code>：贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+次 <code>D</code>。</li>
+</ul>
+<p>但只使用它们，无法调整奇偶性。因此，先预留一个
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">4\times2</annotation></semantics></math>
+小块，它有以下五种固定路径：</p>
+<table>
+<thead>
+<tr>
+<th>内部 <code>D</code> 数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math></th>
+<th>方向串</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>XEXZXEX</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>DXAXXEX</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>DZDZXEX</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>DZDXAXD</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>DZDZDZD</code></td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="figures/lrud-any-block42.svg" style="width:100.0%"
+alt="五个小块的入口、出口相同，可以直接相互替换。" />
+<figcaption
+aria-hidden="true">五个小块的入口、出口相同，可以直接相互替换。</figcaption>
+</figure>
+<p>其余
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>−</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">h-4</annotation></semantics></math>
+行，每两行使用一个 <code>XEX</code> 或
+<code>DZD</code>。相邻小块之间用左下一步连接，不增加
+<code>D</code>。</p>
+<p>给定目标
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>，先选</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>,</mo><mn>4</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+a=\min(t,4),
+</annotation></semantics></math></p>
+<p>若
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+与
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+奇偶性不同，就将
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
+减一。于是</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>a</mi><mo>≤</mo><mn>4</mn><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>≤</mo><mi>t</mi><mo>−</mo><mi>a</mi><mo>≤</mo><mi>h</mi><mo>−</mo><mn>4</mn><mo>,</mo><mspace width="2.0em"></mspace><mi>t</mi><mo>−</mo><mi>a</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> 为偶数</mtext></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+0\le a\le4,\qquad 0\le t-a\le h-4,\qquad t-a\text{ 为偶数}.
+</annotation></semantics></math></p>
+<p>首个
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">4\times2</annotation></semantics></math>
+小块贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>，再让
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(t-a)/2</annotation></semantics></math>
+个
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2\times2</annotation></semantics></math>
+小块贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>，其余贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>，便得到任意
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>∈</mo><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>h</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">t\in[0,h]</annotation></semantics></math>。</p>
+<p><strong>上下翻转整个条带不会改变 <code>D</code> 数量。</strong>
+翻转后，从左下进入、右上离开；后面会交替使用这两个方向。</p>
+<h2 id="奇数与模-4-余-2直接把次数分配给条带">4. 奇数与模 4 余
+2：直接把次数分配给条带</h2>
+<h3 id="奇数-n-1">4.1 奇数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math></h3>
+<p>将前
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N-1</annotation></semantics></math>
+行分成
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(N-1)/2</annotation></semantics></math>
+个两行条带
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A_N(t)</annotation></semantics></math>。每条带从左上到左下，条带之间竖直向下衔接，不增加
+<code>D</code>。</p>
+<p>最后一行从左往右，固定贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N-1</annotation></semantics></math>
+次 <code>D</code>。</p>
+<p>因此，只需将</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">
+K-(N-1)
+</annotation></semantics></math></p>
+<p>分配给前面的条带，每条带的容量为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N-1</annotation></semantics></math>。总容量恰好是</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mfrac><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><mn>2</mn></mfrac><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><msup><mi>N</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn></mrow><mn>2</mn></mfrac><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+(N-1)+\frac{N-1}{2}(N-1)=\frac{N^2-1}{2}=M(N).
+</annotation></semantics></math></p>
+<p>所以支持整个
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo>,</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[N-1,M(N)]</annotation></semantics></math>。结合小
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+构造，奇数的所有可行取值均被覆盖。</p>
+<h3 id="nequiv2pmod4">4.2
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≡</mo><mn>2</mn><mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">mod</mi><mo>&#8289;</mo></mrow><mspace width="0.222em"></mspace><mn>4</mn><mo stretchy="false" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">N\equiv2\pmod4</annotation></semantics></math></h3>
+<p>将列分成
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>N</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">m=N/2</annotation></semantics></math>
+个条带
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B_N(t)</annotation></semantics></math>，偶数编号向下，奇数编号向上。</p>
+<p>因为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+为奇数，最后恰好在右下角结束。相邻条带之间固定走一次
+<code>D</code>，共有
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m-1</annotation></semantics></math>
+次。</p>
+<figure>
+<img src="figures/lrud-any-columns.svg" style="width:100.0%"
+alt="同一种条带骨架，可以将内部次数全部取 0，也可以全部取 N。紫色箭头是固定连接。" />
+<figcaption aria-hidden="true">同一种条带骨架，可以将内部次数全部取
+0，也可以全部取 N。紫色箭头是固定连接。</figcaption>
+</figure>
+<p>只需把
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K-(m-1)</annotation></semantics></math>
+分配给
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+个条带，每个容量为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>，就覆盖</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>−</mo><mn>1</mn><mo>≤</mo><mi>K</mi><mo>≤</mo><mi>m</mi><mi>N</mi><mo>+</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+m-1\le K\le mN+m-1=M(N).
+</annotation></semantics></math></p>
+<p>小
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+构造覆盖到
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N-2</annotation></semantics></math>，两个区间之间没有空缺。</p>
+<p><strong>分配不需要背包。</strong> 每个模块都支持从
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+到容量的所有整数，因此依次取
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">剩余次数</mtext><mo>,</mo><mtext mathvariant="normal">容量</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t=\min(\text{剩余次数},\text{容量})</annotation></semantics></math>
+即可。这里的“容量”指最多能放入多少次 <code>D</code>。</p>
+<h2 id="四的倍数普通-k底部留一个四行底座">5. 四的倍数、普通
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>：底部留一个四行底座</h2>
+<p>以下
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>∣</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">4\mid N</annotation></semantics></math>，先处理
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>≤</mo><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">K\le N^2/2</annotation></semantics></math>。设</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mfrac><mrow><mi>N</mi><mo>−</mo><mn>4</mn></mrow><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+q=\frac{N-4}{2}.
+</annotation></semantics></math></p>
+<p>将整个网格划分为：</p>
+<ol type="1">
+<li>上方
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N-4</annotation></semantics></math>
+行：分成
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+个两行条带
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A_N(t)</annotation></semantics></math>；</li>
+<li>底部四行的前
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N-4</annotation></semantics></math>
+列：分成
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+个高度为 4 的两列条带
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mn>4</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B_4(t)</annotation></semantics></math>，上下交替；</li>
+<li>右下角：一个
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">4\times4</annotation></semantics></math>
+收尾块。</li>
+</ol>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+为偶数，所以底部两列条带走完后，停在底座的顶行，可以向右进入最后的
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">4\times4</annotation></semantics></math>
+小块。</p>
+<figure>
+<img src="figures/lrud-any-even-layout.svg" style="width:100.0%"
+alt="左图是区域划分；右图展示 N=8、K=32 的真实路径。" />
+<figcaption aria-hidden="true">左图是区域划分；右图展示 N=8、K=32
+的真实路径。</figcaption>
+</figure>
+<p>收尾块从左上到右下，可以贡献任意
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mi>…</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">0\ldots8</annotation></semantics></math>
+次
+<code>D</code>。这只是一个常数大小的表，九条路径如下图所示；代码直接保存对应方向串，不进行搜索。</p>
+<figure>
+<img src="figures/lrud-any-block44.svg" style="width:100.0%"
+alt="4×4 收尾块的全部九种取值。每幅图均按编号依次访问。" />
+<figcaption aria-hidden="true">4×4
+收尾块的全部九种取值。每幅图均按编号依次访问。</figcaption>
+</figure>
+<p>上方条带之间，以及上方向底座的连接，都是向下走，不增加
+<code>D</code>。底座内部，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+个两列条带与最后的收尾块之间，固定贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>
+次 <code>D</code>。</p>
+<p>所以将
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>−</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">K-q</annotation></semantics></math>
+依次分配给各块即可。总的最大值恰为</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><munder><mi>q</mi><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">固定连接</mtext></munder><mo>+</mo><munder><munder><mrow><mi>q</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">上方横条带</mtext></munder><mo>+</mo><munder><munder><mrow><mn>4</mn><mi>q</mi></mrow><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">底座竖条带</mtext></munder><mo>+</mo><munder><munder><mn>8</mn><mo accent="true">⏟</mo></munder><mtext mathvariant="normal">收尾块</mtext></munder><mo>=</mo><mfrac><msup><mi>N</mi><mn>2</mn></msup><mn>2</mn></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\underbrace{q}_{\text{固定连接}}
++\underbrace{q(N-1)}_{\text{上方横条带}}
++\underbrace{4q}_{\text{底座竖条带}}
++\underbrace{8}_{\text{收尾块}}
+=\frac{N^2}{2}.
+</annotation></semantics></math></p>
+<p>所有块都支持连续的整数区间，因此覆盖整个
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>q</mi><mo>,</mo><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[q,N^2/2]</annotation></semantics></math>。小
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+构造覆盖
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mn>0</mn><mo>,</mo><mi>N</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[0,N-2]</annotation></semantics></math>，且
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>≤</mo><mi>N</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">q\le N-2</annotation></semantics></math>，所以区间衔接完整。</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N=4</annotation></semantics></math>
+时
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">q=0</annotation></semantics></math>，整个网格就是一个收尾块，也自然包含在这个分支中。</p>
+<h2 id="超过-n22从最大路径中只换一段">6. 超过
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N^2/2</annotation></semantics></math>：从最大路径中只换一段</h2>
+<p>对于四的倍数，普通构造停在
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N^2/2</annotation></semantics></math>。剩下的取值数量只有
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(N)</annotation></semantics></math>，没有必要重新设计整个网格：<strong>从最大路径出发，把多出来的
+<code>D</code> 从一条长条带里扣掉。</strong></p>
+<h3 id="先处理-n8">6.1 先处理
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">N=8</annotation></semantics></math></h3>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">N=8</annotation></semantics></math>
+只剩
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>=</mo><mn>33</mn><mo>,</mo><mn>34</mn></mrow><annotation encoding="application/x-tex">K=33,34</annotation></semantics></math>
+两个值。直接保存两条固定路径即可：</p>
+<pre class="text"><code>K=33:
+DDDZDDDQDDDZDXZDQAZDQAZDQQAXDZDZDDDDDDDXZDQAZDQAZDQZQDZXDDDDDDD
+
+K=34:
+DDDZDZDZQQDZXDZDZDZDZDDDQDQDQDDQDDQDQDQDDDZDZDZDZDXZDQQZDZDZDDD</code></pre>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N=4</annotation></semantics></math>
+没有超过
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N^2/2</annotation></semantics></math>
+的可行值，不需要进入本节。</p>
+<h3 id="nge12沿用-lrud-moving-4-的五阶段路径">6.2
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>≥</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">N\ge12</annotation></semantics></math>：沿用
+LRUD Moving 4 的五阶段路径</h3>
+<p>设
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mi>N</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">m=N/2</annotation></semantics></math>，将列分为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+个两列条带。最大路径依次访问：</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">顶部条带</mtext><mo>→</mo><mtext mathvariant="normal">上通道</mtext><mo>→</mo><mtext mathvariant="normal">中部条带</mtext><mo>→</mo><mtext mathvariant="normal">下通道</mtext><mo>→</mo><mtext mathvariant="normal">底部条带</mtext><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\text{顶部条带}\to\text{上通道}\to
+\text{中部条带}\to\text{下通道}\to\text{底部条带}.
+</annotation></semantics></math></p>
+<p>三个条带段从左到右访问，两个通道段从右到左返回。五段之间恰有四次竖步，其余连接不含右斜步。</p>
+<figure>
+<img src="figures/lrud-stages.svg" style="width:100.0%"
+alt="沿用 LRUD Moving 4 的五阶段走法。本题只修改第三阶段的第一条带。" />
+<figcaption aria-hidden="true">沿用 LRUD Moving 4
+的五阶段走法。本题只修改第三阶段的第一条带。</figcaption>
+</figure>
+<p>为方便独立实现，这里保留五阶段的区域划分。记</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mn>2</mn><mi>j</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>R</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mn>2</mn><mi>j</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+L_j(h)=(h,2j),\qquad R_j(h)=(h,2j+1),
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>j</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">min</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>m</mi><mo>−</mo><mn>2</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>b</mi><mi>j</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">max</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>2</mn><mo>−</mo><mi>j</mi><mo>,</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+a_j=\min(j+1,m-2),\qquad b_j=\max(N-2-j,m+1),
+</annotation></semantics></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>j</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mi>−</mi><mn>1</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mi>j</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> 为偶数且 </mtext><mspace width="0.333em"></mspace></mrow><mi>j</mi><mo>&lt;</mo><mi>m</mi><mo>−</mo><mn>3</mn><mo>,</mo></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn><mo>,</mo></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">其他</mtext><mi>.</mi></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
+d_j=
+\begin{cases}
+-1,&amp;j\text{ 为偶数且 }j&lt;m-3,\\
+1,&amp;\text{其他}.
+\end{cases}
+</annotation></semantics></math></p>
+<p>通道中的折返模块为</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mspace width="1.0em"></mspace><msub><mi>R</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><msub><mi>L</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>+</mo><msub><mi>d</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>→</mo><msub><mi>R</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>+</mo><msub><mi>d</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>→</mo><msub><mi>L</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+F(j,h):\quad
+R_j(h)\to L_j(h+d_j)\to R_j(h+d_j)\to L_j(h).
+</annotation></semantics></math></p>
+<figure>
+<img src="figures/lrud-fold.svg" style="width:95.0%"
+alt="折返模块的两种方向。通道从右进入、从左离开。" />
+<figcaption
+aria-hidden="true">折返模块的两种方向。通道从右进入、从左离开。</figcaption>
+</figure>
+<p>用
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>P</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[P]</annotation></semantics></math>
+表示条件
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
+成立时为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>，否则为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>。按下表顺序追加格子；普通扫描每行均先访问左格、再访问右格。</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>阶段</th>
+<th>条带顺序</th>
+<th>访问的行或模块</th>
+<th>普通扫描的方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>顶部</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>0</mn><mo>→</mo><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j=0\to m-1</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mi>…</mi><msub><mi>a</mi><mi>j</mi></msub><mo>−</mo><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">[</mo><mi>j</mi><mo>&gt;</mo><mn>0</mn><mo>∧</mo><msub><mi>d</mi><mi>j</mi></msub><mo>=</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">0\ldots a_j-1-[j&gt;0\land d_j=-1]</annotation></semantics></math></td>
+<td>奇数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+向下，偶数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+向上</td>
+</tr>
+<tr>
+<td>上通道</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">j=m-1\to0</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">j&gt;0</annotation></semantics></math>
+用
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><msub><mi>a</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(j,a_j)</annotation></semantics></math>；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">j=0</annotation></semantics></math>
+只走
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo><mo>,</mo><msub><mi>L</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">R_0(a_0),L_0(a_0)</annotation></semantics></math></td>
+<td>—</td>
+</tr>
+<tr>
+<td>中部</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>0</mn><mo>→</mo><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j=0\to m-1</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn><mo>+</mo><mo stretchy="false" form="prefix">[</mo><mi>j</mi><mo>&gt;</mo><mn>0</mn><mo>∧</mo><msub><mi>d</mi><mi>j</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mi>…</mi><msub><mi>b</mi><mi>j</mi></msub><mo>−</mo><mn>1</mn><mo>−</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>d</mi><mi>j</mi></msub><mo>=</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">a_j+1+[j&gt;0\land d_j=1]\ldots b_j-1-[d_j=-1]</annotation></semantics></math></td>
+<td>偶数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+向下，奇数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+向上</td>
+</tr>
+<tr>
+<td>下通道</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">j=m-1\to0</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>,</mo><msub><mi>b</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F(j,b_j)</annotation></semantics></math></td>
+<td>—</td>
+</tr>
+<tr>
+<td>底部</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>0</mn><mo>→</mo><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j=0\to m-1</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>b</mi><mi>j</mi></msub><mo>+</mo><mn>1</mn><mo>+</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>d</mi><mi>j</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">]</mo><mi>…</mi><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">b_j+1+[d_j=1]\ldots N-1</annotation></semantics></math></td>
+<td>奇数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+向下，偶数
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+向上</td>
+</tr>
+</tbody>
+</table>
+<p>这些公式只是将通道占用的行预留出来。五个区域互不重叠，恰好覆盖全部格子；相邻段的首尾格本来就相邻，不能重复加入连接端点。</p>
+<p>这条路径有
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M(N)</annotation></semantics></math>
+次 <code>D</code>。接下来只改其中一个矩形。</p>
+<h3 id="唯一需要改动的位置">6.3 唯一需要改动的位置</h3>
+<p>目标比最大值少</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">
+\delta=M(N)-K
+</annotation></semantics></math></p>
+<p>次 <code>D</code>。</p>
+<p>观察中部的第
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>
+个条带：它从第
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>
+行向下扫描到第
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N-4</annotation></semantics></math>
+行，总共
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">N-5</annotation></semantics></math>
+行，每行原本贡献一次 <code>D</code>。</p>
+<p>保留最后一行，即第
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N-4</annotation></semantics></math>
+行的两个格子不动。其上方剩下</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><mi>N</mi><mo>−</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">
+H=N-6
+</annotation></semantics></math></p>
+<p>行，是一个偶数高度的两列矩形，入口为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(2,0)</annotation></semantics></math>，出口为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>−</mo><mn>5</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(N-5,1)</annotation></semantics></math>。<strong>这正是第
+3.2 节已经解决的
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>H</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B_H(t)</annotation></semantics></math>！</strong></p>
+<p>因此，把这一段从“贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
+次 <code>D</code>”替换成“贡献
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>−</mo><mi>δ</mi></mrow><annotation encoding="application/x-tex">H-\delta</annotation></semantics></math>
+次 <code>D</code>”，整个答案就恰好从
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M(N)</annotation></semantics></math>
+变成
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>。</p>
+<figure>
+<img src="figures/lrud-any-super.svg" style="width:100.0%"
+alt="N=16 的例子：最大值为 133，目标为 130，只把橙框内的 10 次 D 改成 7 次。底部保留的一行和外部路径均不变。" />
+<figcaption aria-hidden="true">N=16 的例子：最大值为 133，目标为
+130，只把橙框内的 10 次 D 改成 7
+次。底部保留的一行和外部路径均不变。</figcaption>
+</figure>
+<p>替换一定合法，因为本分支中</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msup><mi>N</mi><mn>2</mn></msup><mn>2</mn></mfrac><mo>&lt;</mo><mi>K</mi><mo>≤</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><msup><mi>N</mi><mn>2</mn></msup><mn>2</mn></mfrac><mo>+</mo><mfrac><mi>N</mi><mn>2</mn></mfrac><mo>−</mo><mn>3</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">
+\frac{N^2}{2}&lt;K\le M(N)=\frac{N^2}{2}+\frac N2-3,
+</annotation></semantics></math></p>
+<p>所以</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>δ</mi><mo>≤</mo><mfrac><mi>N</mi><mn>2</mn></mfrac><mo>−</mo><mn>4</mn><mo>,</mo><mspace width="2.0em"></mspace><mn>0</mn><mo>≤</mo><mi>H</mi><mo>−</mo><mi>δ</mi><mo>≤</mo><mi>H</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
+0\le\delta\le\frac N2-4,\qquad
+0\le H-\delta\le H.
+</annotation></semantics></math></p>
+<p>新旧两段使用完全相同的格子，入口、出口也完全相同。外部连接保持原样，因此不会出现遗漏、重复或不相邻。</p>
+<p><strong>高
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+的新增操作就这一处。</strong> 五阶段路径本身不用随着
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+改变区域划分。</p>
+<h2 id="正确性与复杂度">7. 正确性与复杂度</h2>
+<p>最大值结论给出了
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo>&gt;</mo><mi>M</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">K&gt;M(N)</annotation></semantics></math>
+的无解判定；<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N=2</annotation></semantics></math>
+的唯一空缺单独处理。对剩下的输入：</p>
+<ul>
+<li>小
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+由转弯替换逐次减少 <code>D</code>；</li>
+<li>奇数和模 4 余 2 的情况，把次数分配给支持连续区间的条带；</li>
+<li>四的倍数在
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N^2/2</annotation></semantics></math>
+以下，用横条带和四行底座覆盖；</li>
+<li>超过
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>N</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N^2/2</annotation></semantics></math>
+时，固定小例子或五阶段局部替换覆盖剩下全部取值。</li>
+</ul>
+<p>每个模块都访问它负责的所有格子恰好一次，模块之间的端点相邻，整个路径从左上到右下。各部分的
+<code>D</code> 已分别计数，因此构造满足所有要求，也证明了第 1
+节的判定没有遗漏任何可行输入。</p>
+<p>每格只加入、扫描常数次，时间、空间均为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>N</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(N^2)</annotation></semantics></math>，与输出规模一致。</p>
+<h2 id="实现对应关系">8. 实现对应关系</h2>
+<p>完整 C++17 代码为 <a
+href="std_any.cpp">std_any.cpp</a>。输入、输出沿用判定构造题的格式：</p>
+<pre class="text"><code>输入：
+T
+N K
+N K
+...
+
+输出：
+No
+
+或者：
+Yes
+长度恰为 N²-1 的方向串</code></pre>
+<p>注意这是<strong>输入目标
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math></strong>
+的程序，与 LRUD Moving 4 中“输出最大
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>”的程序不同。</p>
+<p>代码函数与题解的对应关系如下：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>smallK</code></td>
+<td>列蛇形及转弯替换</td>
+</tr>
+<tr>
+<td><code>twoRows</code></td>
+<td>两行条带
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">A_N(t)</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><code>evenColumns</code></td>
+<td>偶数高度两列条带
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>h</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B_h(t)</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><code>ordinaryMultiple4</code></td>
+<td>横条带加四行底座</td>
+</tr>
+<tr>
+<td><code>fiveStages</code></td>
+<td>五阶段路径，扣掉 <code>delta</code> 次 <code>D</code></td>
+</tr>
+<tr>
+<td><code>pattern</code></td>
+<td>追加固定小块，可上下翻转</td>
+</tr>
+<tr>
+<td><code>answer</code></td>
+<td>将坐标序列转成方向字符</td>
+</tr>
+</tbody>
+</table>
+<p>实现时最容易混淆两件事：</p>
+<ol type="1">
+<li><strong>先扣固定连接的 <code>D</code>，再分配块内部次数。</strong>
+例如两列条带蛇形先扣
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>/</mi><mn>2</mn><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N/2-1</annotation></semantics></math>，四行底座先扣
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math>。</li>
+<li><strong>模块的坐标集合互不重叠，不额外复制连接点。</strong>
+<code>pattern</code> 会加入它的起点，调用者不再手工加入同一个点。</li>
+</ol>
+<p>方向字符由相邻坐标差查表：</p>
+<pre class="text"><code>Q W E
+A ? D
+Z X C</code></pre>
+<p>其中行下标为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>r</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\Delta r+1</annotation></semantics></math>，列下标为
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>c</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\Delta c+1</annotation></semantics></math>。合法路径中不会取到
+<code>?</code>。</p>
+</body>
+</html>

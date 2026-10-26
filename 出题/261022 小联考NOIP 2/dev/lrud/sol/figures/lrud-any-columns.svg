@@ -1,0 +1,371 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="690" viewBox="0 0 1120 690">
+<rect width="100%" height="100%" fill="white"/>
+<text x="560.0" y="34" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="27" font-weight="700" fill="#233545" text-anchor="middle" dominant-baseline="central">两列条带：内部可调，条带间固定贡献 D</text>
+<text x="560.0" y="69" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#738493" text-anchor="middle" dominant-baseline="central">紫色是条带间的固定 D；上下翻转局部路径不会改变 D 的数量。</text>
+<rect x="25" y="108" width="510" height="532" rx="12" fill="#fbfcfe" stroke="#e2e8ee" stroke-width="1"/>
+<text x="280.0" y="135" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="21" font-weight="700" fill="#233545" text-anchor="middle" dominant-baseline="central">N = 6：内部全取 0，总 K = 2</text>
+<rect x="76" y="174" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="144" y="174" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="212" y="174" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="280" y="174" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="348" y="174" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="416" y="174" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="76" y="242" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="144" y="242" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="212" y="242" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="280" y="242" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="348" y="242" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="416" y="242" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="76" y="310" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="144" y="310" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="212" y="310" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="280" y="310" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="348" y="310" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="416" y="310" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="76" y="378" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="144" y="378" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="212" y="378" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="280" y="378" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="348" y="378" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="416" y="378" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="76" y="446" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="144" y="446" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="212" y="446" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="280" y="446" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="348" y="446" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="416" y="446" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="76" y="514" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="144" y="514" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="212" y="514" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="280" y="514" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="348" y="514" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="416" y="514" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<line x1="110.0" y1="208.0" x2="110.0" y2="276.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="110.0,254.92 105.7,244.92 114.3,244.92" fill="#cc4b4b"/>
+<line x1="110.0" y1="276.0" x2="178.0" y2="208.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="156.92,229.08 152.88949134723666,239.19162697096763 146.80837302903237,233.11050865276334" fill="#738493"/>
+<line x1="178.0" y1="208.0" x2="178.0" y2="276.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="178.0,254.92 173.7,244.92 182.3,244.92" fill="#cc4b4b"/>
+<line x1="178.0" y1="276.0" x2="110.0" y2="344.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="131.08,322.92 135.11050865276334,312.8083730290324 141.19162697096763,318.8894913472367" fill="#738493"/>
+<line x1="110.0" y1="344.0" x2="110.0" y2="412.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="110.0,390.92 105.7,380.92 114.3,380.92" fill="#cc4b4b"/>
+<line x1="110.0" y1="412.0" x2="178.0" y2="344.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="156.92,365.08 152.88949134723666,375.1916269709676 146.80837302903237,369.1105086527633" fill="#738493"/>
+<line x1="178.0" y1="344.0" x2="178.0" y2="412.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="178.0,390.92 173.7,380.92 182.3,380.92" fill="#cc4b4b"/>
+<line x1="178.0" y1="412.0" x2="110.0" y2="480.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="131.08,458.92 135.11050865276334,448.8083730290324 141.19162697096763,454.8894913472367" fill="#738493"/>
+<line x1="110.0" y1="480.0" x2="110.0" y2="548.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="110.0,526.92 105.7,516.92 114.3,516.92" fill="#cc4b4b"/>
+<line x1="110.0" y1="548.0" x2="178.0" y2="480.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="156.92,501.08 152.88949134723666,511.1916269709676 146.80837302903237,505.1105086527633" fill="#738493"/>
+<line x1="178.0" y1="480.0" x2="178.0" y2="548.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="178.0,526.92 173.7,516.92 182.3,516.92" fill="#cc4b4b"/>
+<line x1="178.0" y1="548.0" x2="246.0" y2="548.0" stroke="#8553ad" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="224.92,548.0 214.92,552.3 214.92,543.7" fill="#8553ad"/>
+<line x1="246.0" y1="548.0" x2="246.0" y2="480.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="246.0,501.08 250.3,511.08 241.7,511.08" fill="#cc4b4b"/>
+<line x1="246.0" y1="480.0" x2="314.0" y2="548.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="292.92,526.92 282.8083730290324,522.8894913472367 288.8894913472367,516.8083730290324" fill="#738493"/>
+<line x1="314.0" y1="548.0" x2="314.0" y2="480.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="314.0,501.08 318.3,511.08 309.7,511.08" fill="#cc4b4b"/>
+<line x1="314.0" y1="480.0" x2="246.0" y2="412.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="267.08,433.08 277.1916269709676,437.1105086527633 271.1105086527633,443.1916269709676" fill="#738493"/>
+<line x1="246.0" y1="412.0" x2="246.0" y2="344.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="246.0,365.08 250.3,375.08 241.7,375.08" fill="#cc4b4b"/>
+<line x1="246.0" y1="344.0" x2="314.0" y2="412.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="292.92,390.92 282.8083730290324,386.8894913472367 288.8894913472367,380.8083730290324" fill="#738493"/>
+<line x1="314.0" y1="412.0" x2="314.0" y2="344.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="314.0,365.08 318.3,375.08 309.7,375.08" fill="#cc4b4b"/>
+<line x1="314.0" y1="344.0" x2="246.0" y2="276.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="267.08,297.08 277.1916269709676,301.1105086527633 271.1105086527633,307.1916269709676" fill="#738493"/>
+<line x1="246.0" y1="276.0" x2="246.0" y2="208.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="246.0,229.08 250.3,239.08 241.7,239.08" fill="#cc4b4b"/>
+<line x1="246.0" y1="208.0" x2="314.0" y2="276.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="292.92,254.92 282.8083730290324,250.88949134723666 288.8894913472367,244.80837302903237" fill="#738493"/>
+<line x1="314.0" y1="276.0" x2="314.0" y2="208.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="314.0,229.08 318.3,239.08 309.7,239.08" fill="#cc4b4b"/>
+<line x1="314.0" y1="208.0" x2="382.0" y2="208.0" stroke="#8553ad" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="360.92,208.0 350.92,212.3 350.92,203.7" fill="#8553ad"/>
+<line x1="382.0" y1="208.0" x2="382.0" y2="276.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="382.0,254.92 377.7,244.92 386.3,244.92" fill="#cc4b4b"/>
+<line x1="382.0" y1="276.0" x2="450.0" y2="208.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="428.92,229.08 424.8894913472367,239.19162697096763 418.8083730290324,233.11050865276334" fill="#738493"/>
+<line x1="450.0" y1="208.0" x2="450.0" y2="276.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="450.0,254.92 445.7,244.92 454.3,244.92" fill="#cc4b4b"/>
+<line x1="450.0" y1="276.0" x2="382.0" y2="344.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="403.08,322.92 407.1105086527633,312.8083730290324 413.1916269709676,318.8894913472367" fill="#738493"/>
+<line x1="382.0" y1="344.0" x2="382.0" y2="412.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="382.0,390.92 377.7,380.92 386.3,380.92" fill="#cc4b4b"/>
+<line x1="382.0" y1="412.0" x2="450.0" y2="344.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="428.92,365.08 424.8894913472367,375.1916269709676 418.8083730290324,369.1105086527633" fill="#738493"/>
+<line x1="450.0" y1="344.0" x2="450.0" y2="412.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="450.0,390.92 445.7,380.92 454.3,380.92" fill="#cc4b4b"/>
+<line x1="450.0" y1="412.0" x2="382.0" y2="480.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="403.08,458.92 407.1105086527633,448.8083730290324 413.1916269709676,454.8894913472367" fill="#738493"/>
+<line x1="382.0" y1="480.0" x2="382.0" y2="548.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="382.0,526.92 377.7,516.92 386.3,516.92" fill="#cc4b4b"/>
+<line x1="382.0" y1="548.0" x2="450.0" y2="480.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="428.92,501.08 424.8894913472367,511.1916269709676 418.8083730290324,505.1105086527633" fill="#738493"/>
+<line x1="450.0" y1="480.0" x2="450.0" y2="548.0" stroke="#cc4b4b" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="450.0,526.92 445.7,516.92 454.3,516.92" fill="#cc4b4b"/>
+<circle cx="110.0" cy="208.0" r="12.58" fill="white"/>
+<text x="110.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">1</text>
+<circle cx="110.0" cy="276.0" r="12.58" fill="white"/>
+<text x="110.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">2</text>
+<circle cx="178.0" cy="208.0" r="12.58" fill="white"/>
+<text x="178.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">3</text>
+<circle cx="178.0" cy="276.0" r="12.58" fill="white"/>
+<text x="178.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">4</text>
+<circle cx="110.0" cy="344.0" r="12.58" fill="white"/>
+<text x="110.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">5</text>
+<circle cx="110.0" cy="412.0" r="12.58" fill="white"/>
+<text x="110.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">6</text>
+<circle cx="178.0" cy="344.0" r="12.58" fill="white"/>
+<text x="178.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">7</text>
+<circle cx="178.0" cy="412.0" r="12.58" fill="white"/>
+<text x="178.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">8</text>
+<circle cx="110.0" cy="480.0" r="12.58" fill="white"/>
+<text x="110.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">9</text>
+<circle cx="110.0" cy="548.0" r="12.58" fill="white"/>
+<text x="110.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">10</text>
+<circle cx="178.0" cy="480.0" r="12.58" fill="white"/>
+<text x="178.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">11</text>
+<circle cx="178.0" cy="548.0" r="12.58" fill="white"/>
+<text x="178.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">12</text>
+<circle cx="246.0" cy="548.0" r="12.58" fill="white"/>
+<text x="246.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">13</text>
+<circle cx="246.0" cy="480.0" r="12.58" fill="white"/>
+<text x="246.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">14</text>
+<circle cx="314.0" cy="548.0" r="12.58" fill="white"/>
+<text x="314.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">15</text>
+<circle cx="314.0" cy="480.0" r="12.58" fill="white"/>
+<text x="314.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">16</text>
+<circle cx="246.0" cy="412.0" r="12.58" fill="white"/>
+<text x="246.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">17</text>
+<circle cx="246.0" cy="344.0" r="12.58" fill="white"/>
+<text x="246.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">18</text>
+<circle cx="314.0" cy="412.0" r="12.58" fill="white"/>
+<text x="314.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">19</text>
+<circle cx="314.0" cy="344.0" r="12.58" fill="white"/>
+<text x="314.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">20</text>
+<circle cx="246.0" cy="276.0" r="12.58" fill="white"/>
+<text x="246.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">21</text>
+<circle cx="246.0" cy="208.0" r="12.58" fill="white"/>
+<text x="246.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">22</text>
+<circle cx="314.0" cy="276.0" r="12.58" fill="white"/>
+<text x="314.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">23</text>
+<circle cx="314.0" cy="208.0" r="12.58" fill="white"/>
+<text x="314.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">24</text>
+<circle cx="382.0" cy="208.0" r="12.58" fill="white"/>
+<text x="382.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">25</text>
+<circle cx="382.0" cy="276.0" r="12.58" fill="white"/>
+<text x="382.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">26</text>
+<circle cx="450.0" cy="208.0" r="12.58" fill="white"/>
+<text x="450.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">27</text>
+<circle cx="450.0" cy="276.0" r="12.58" fill="white"/>
+<text x="450.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">28</text>
+<circle cx="382.0" cy="344.0" r="12.58" fill="white"/>
+<text x="382.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">29</text>
+<circle cx="382.0" cy="412.0" r="12.58" fill="white"/>
+<text x="382.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">30</text>
+<circle cx="450.0" cy="344.0" r="12.58" fill="white"/>
+<text x="450.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">31</text>
+<circle cx="450.0" cy="412.0" r="12.58" fill="white"/>
+<text x="450.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">32</text>
+<circle cx="382.0" cy="480.0" r="12.58" fill="white"/>
+<text x="382.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">33</text>
+<circle cx="382.0" cy="548.0" r="12.58" fill="white"/>
+<text x="382.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">34</text>
+<circle cx="450.0" cy="480.0" r="12.58" fill="white"/>
+<text x="450.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">35</text>
+<circle cx="450.0" cy="548.0" r="12.58" fill="white"/>
+<text x="450.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">36</text>
+<circle cx="110.0" cy="208.0" r="15.64" fill="none" stroke="#298260" stroke-width="1.7"/>
+<circle cx="450.0" cy="548.0" r="15.64" fill="none" stroke="#b34854" stroke-width="1.7"/>
+<text x="280" y="615" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="15" font-weight="400" fill="#738493" text-anchor="middle" dominant-baseline="central">条带 0 向下 → 条带 1 向上 → 条带 2 向下</text>
+<rect x="585" y="108" width="510" height="532" rx="12" fill="#fbfcfe" stroke="#e2e8ee" stroke-width="1"/>
+<text x="840.0" y="135" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="21" font-weight="700" fill="#233545" text-anchor="middle" dominant-baseline="central">N = 6：内部全取 6，总 K = 20</text>
+<rect x="636" y="174" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="704" y="174" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="772" y="174" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="840" y="174" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="908" y="174" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="976" y="174" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="636" y="242" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="704" y="242" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="772" y="242" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="840" y="242" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="908" y="242" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="976" y="242" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="636" y="310" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="704" y="310" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="772" y="310" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="840" y="310" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="908" y="310" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="976" y="310" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="636" y="378" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="704" y="378" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="772" y="378" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="840" y="378" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="908" y="378" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="976" y="378" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="636" y="446" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="704" y="446" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="772" y="446" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="840" y="446" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="908" y="446" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="976" y="446" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="636" y="514" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="704" y="514" width="68" height="68" rx="0" fill="#eaf2fc" stroke="#cad5df" stroke-width="1"/>
+<rect x="772" y="514" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="840" y="514" width="68" height="68" rx="0" fill="#e8f5ed" stroke="#cad5df" stroke-width="1"/>
+<rect x="908" y="514" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<rect x="976" y="514" width="68" height="68" rx="0" fill="#fff0d3" stroke="#cad5df" stroke-width="1"/>
+<line x1="670.0" y1="208.0" x2="738.0" y2="208.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="716.92,208.0 706.92,212.3 706.92,203.7" fill="#2864ac"/>
+<line x1="738.0" y1="208.0" x2="670.0" y2="276.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="691.08,254.92 695.1105086527633,244.80837302903237 701.1916269709676,250.88949134723666" fill="#738493"/>
+<line x1="670.0" y1="276.0" x2="738.0" y2="276.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="716.92,276.0 706.92,280.3 706.92,271.7" fill="#2864ac"/>
+<line x1="738.0" y1="276.0" x2="670.0" y2="344.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="691.08,322.92 695.1105086527633,312.8083730290324 701.1916269709676,318.8894913472367" fill="#738493"/>
+<line x1="670.0" y1="344.0" x2="738.0" y2="344.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="716.92,344.0 706.92,348.3 706.92,339.7" fill="#2864ac"/>
+<line x1="738.0" y1="344.0" x2="670.0" y2="412.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="691.08,390.92 695.1105086527633,380.8083730290324 701.1916269709676,386.8894913472367" fill="#738493"/>
+<line x1="670.0" y1="412.0" x2="738.0" y2="412.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="716.92,412.0 706.92,416.3 706.92,407.7" fill="#2864ac"/>
+<line x1="738.0" y1="412.0" x2="670.0" y2="480.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="691.08,458.92 695.1105086527633,448.8083730290324 701.1916269709676,454.8894913472367" fill="#738493"/>
+<line x1="670.0" y1="480.0" x2="738.0" y2="480.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="716.92,480.0 706.92,484.3 706.92,475.7" fill="#2864ac"/>
+<line x1="738.0" y1="480.0" x2="670.0" y2="548.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="691.08,526.92 695.1105086527633,516.8083730290324 701.1916269709676,522.8894913472367" fill="#738493"/>
+<line x1="670.0" y1="548.0" x2="738.0" y2="548.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="716.92,548.0 706.92,552.3 706.92,543.7" fill="#2864ac"/>
+<line x1="738.0" y1="548.0" x2="806.0" y2="548.0" stroke="#8553ad" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="784.92,548.0 774.92,552.3 774.92,543.7" fill="#8553ad"/>
+<line x1="806.0" y1="548.0" x2="874.0" y2="548.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="852.92,548.0 842.92,552.3 842.92,543.7" fill="#2864ac"/>
+<line x1="874.0" y1="548.0" x2="806.0" y2="480.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="827.08,501.08 837.1916269709676,505.1105086527633 831.1105086527633,511.1916269709676" fill="#738493"/>
+<line x1="806.0" y1="480.0" x2="874.0" y2="480.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="852.92,480.0 842.92,484.3 842.92,475.7" fill="#2864ac"/>
+<line x1="874.0" y1="480.0" x2="806.0" y2="412.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="827.08,433.08 837.1916269709676,437.1105086527633 831.1105086527633,443.1916269709676" fill="#738493"/>
+<line x1="806.0" y1="412.0" x2="874.0" y2="412.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="852.92,412.0 842.92,416.3 842.92,407.7" fill="#2864ac"/>
+<line x1="874.0" y1="412.0" x2="806.0" y2="344.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="827.08,365.08 837.1916269709676,369.1105086527633 831.1105086527633,375.1916269709676" fill="#738493"/>
+<line x1="806.0" y1="344.0" x2="874.0" y2="344.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="852.92,344.0 842.92,348.3 842.92,339.7" fill="#2864ac"/>
+<line x1="874.0" y1="344.0" x2="806.0" y2="276.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="827.08,297.08 837.1916269709676,301.1105086527633 831.1105086527633,307.1916269709676" fill="#738493"/>
+<line x1="806.0" y1="276.0" x2="874.0" y2="276.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="852.92,276.0 842.92,280.3 842.92,271.7" fill="#2864ac"/>
+<line x1="874.0" y1="276.0" x2="806.0" y2="208.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="827.08,229.08 837.1916269709676,233.11050865276334 831.1105086527633,239.19162697096763" fill="#738493"/>
+<line x1="806.0" y1="208.0" x2="874.0" y2="208.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="852.92,208.0 842.92,212.3 842.92,203.7" fill="#2864ac"/>
+<line x1="874.0" y1="208.0" x2="942.0" y2="208.0" stroke="#8553ad" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="920.92,208.0 910.92,212.3 910.92,203.7" fill="#8553ad"/>
+<line x1="942.0" y1="208.0" x2="1010.0" y2="208.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="988.92,208.0 978.92,212.3 978.92,203.7" fill="#2864ac"/>
+<line x1="1010.0" y1="208.0" x2="942.0" y2="276.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="963.08,254.92 967.1105086527633,244.80837302903237 973.1916269709676,250.88949134723666" fill="#738493"/>
+<line x1="942.0" y1="276.0" x2="1010.0" y2="276.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="988.92,276.0 978.92,280.3 978.92,271.7" fill="#2864ac"/>
+<line x1="1010.0" y1="276.0" x2="942.0" y2="344.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="963.08,322.92 967.1105086527633,312.8083730290324 973.1916269709676,318.8894913472367" fill="#738493"/>
+<line x1="942.0" y1="344.0" x2="1010.0" y2="344.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="988.92,344.0 978.92,348.3 978.92,339.7" fill="#2864ac"/>
+<line x1="1010.0" y1="344.0" x2="942.0" y2="412.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="963.08,390.92 967.1105086527633,380.8083730290324 973.1916269709676,386.8894913472367" fill="#738493"/>
+<line x1="942.0" y1="412.0" x2="1010.0" y2="412.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="988.92,412.0 978.92,416.3 978.92,407.7" fill="#2864ac"/>
+<line x1="1010.0" y1="412.0" x2="942.0" y2="480.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="963.08,458.92 967.1105086527633,448.8083730290324 973.1916269709676,454.8894913472367" fill="#738493"/>
+<line x1="942.0" y1="480.0" x2="1010.0" y2="480.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="988.92,480.0 978.92,484.3 978.92,475.7" fill="#2864ac"/>
+<line x1="1010.0" y1="480.0" x2="942.0" y2="548.0" stroke="#738493" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="963.08,526.92 967.1105086527633,516.8083730290324 973.1916269709676,522.8894913472367" fill="#738493"/>
+<line x1="942.0" y1="548.0" x2="1010.0" y2="548.0" stroke="#2864ac" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="988.92,548.0 978.92,552.3 978.92,543.7" fill="#2864ac"/>
+<circle cx="670.0" cy="208.0" r="12.58" fill="white"/>
+<text x="670.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">1</text>
+<circle cx="738.0" cy="208.0" r="12.58" fill="white"/>
+<text x="738.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">2</text>
+<circle cx="670.0" cy="276.0" r="12.58" fill="white"/>
+<text x="670.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">3</text>
+<circle cx="738.0" cy="276.0" r="12.58" fill="white"/>
+<text x="738.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">4</text>
+<circle cx="670.0" cy="344.0" r="12.58" fill="white"/>
+<text x="670.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">5</text>
+<circle cx="738.0" cy="344.0" r="12.58" fill="white"/>
+<text x="738.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">6</text>
+<circle cx="670.0" cy="412.0" r="12.58" fill="white"/>
+<text x="670.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">7</text>
+<circle cx="738.0" cy="412.0" r="12.58" fill="white"/>
+<text x="738.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">8</text>
+<circle cx="670.0" cy="480.0" r="12.58" fill="white"/>
+<text x="670.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">9</text>
+<circle cx="738.0" cy="480.0" r="12.58" fill="white"/>
+<text x="738.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">10</text>
+<circle cx="670.0" cy="548.0" r="12.58" fill="white"/>
+<text x="670.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">11</text>
+<circle cx="738.0" cy="548.0" r="12.58" fill="white"/>
+<text x="738.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">12</text>
+<circle cx="806.0" cy="548.0" r="12.58" fill="white"/>
+<text x="806.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">13</text>
+<circle cx="874.0" cy="548.0" r="12.58" fill="white"/>
+<text x="874.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">14</text>
+<circle cx="806.0" cy="480.0" r="12.58" fill="white"/>
+<text x="806.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">15</text>
+<circle cx="874.0" cy="480.0" r="12.58" fill="white"/>
+<text x="874.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">16</text>
+<circle cx="806.0" cy="412.0" r="12.58" fill="white"/>
+<text x="806.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">17</text>
+<circle cx="874.0" cy="412.0" r="12.58" fill="white"/>
+<text x="874.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">18</text>
+<circle cx="806.0" cy="344.0" r="12.58" fill="white"/>
+<text x="806.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">19</text>
+<circle cx="874.0" cy="344.0" r="12.58" fill="white"/>
+<text x="874.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">20</text>
+<circle cx="806.0" cy="276.0" r="12.58" fill="white"/>
+<text x="806.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">21</text>
+<circle cx="874.0" cy="276.0" r="12.58" fill="white"/>
+<text x="874.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">22</text>
+<circle cx="806.0" cy="208.0" r="12.58" fill="white"/>
+<text x="806.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">23</text>
+<circle cx="874.0" cy="208.0" r="12.58" fill="white"/>
+<text x="874.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">24</text>
+<circle cx="942.0" cy="208.0" r="12.58" fill="white"/>
+<text x="942.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">25</text>
+<circle cx="1010.0" cy="208.0" r="12.58" fill="white"/>
+<text x="1010.0" y="208.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">26</text>
+<circle cx="942.0" cy="276.0" r="12.58" fill="white"/>
+<text x="942.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">27</text>
+<circle cx="1010.0" cy="276.0" r="12.58" fill="white"/>
+<text x="1010.0" y="276.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">28</text>
+<circle cx="942.0" cy="344.0" r="12.58" fill="white"/>
+<text x="942.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">29</text>
+<circle cx="1010.0" cy="344.0" r="12.58" fill="white"/>
+<text x="1010.0" y="344.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">30</text>
+<circle cx="942.0" cy="412.0" r="12.58" fill="white"/>
+<text x="942.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">31</text>
+<circle cx="1010.0" cy="412.0" r="12.58" fill="white"/>
+<text x="1010.0" y="412.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">32</text>
+<circle cx="942.0" cy="480.0" r="12.58" fill="white"/>
+<text x="942.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">33</text>
+<circle cx="1010.0" cy="480.0" r="12.58" fill="white"/>
+<text x="1010.0" y="480.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">34</text>
+<circle cx="942.0" cy="548.0" r="12.58" fill="white"/>
+<text x="942.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">35</text>
+<circle cx="1010.0" cy="548.0" r="12.58" fill="white"/>
+<text x="1010.0" y="548.0" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="14.28" font-weight="400" fill="#233545" text-anchor="middle" dominant-baseline="central">36</text>
+<circle cx="670.0" cy="208.0" r="15.64" fill="none" stroke="#298260" stroke-width="1.7"/>
+<circle cx="1010.0" cy="548.0" r="15.64" fill="none" stroke="#b34854" stroke-width="1.7"/>
+<text x="840" y="615" font-family="Microsoft YaHei,Noto Sans CJK SC,DejaVu Sans,sans-serif" font-size="15" font-weight="400" fill="#738493" text-anchor="middle" dominant-baseline="central">条带 0 向下 → 条带 1 向上 → 条带 2 向下</text>
+</svg>
