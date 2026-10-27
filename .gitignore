@@ -11,3 +11,8 @@ Default.code-workspace
 .clangd
 typst-x86_64-unknown-linux-musl/
 Functions/HLTV VSC Ext/.git/
+**.in
+**.out
+**.ans
+**.dbg
+**.err
