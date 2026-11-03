@@ -10,7 +10,7 @@ namespace FastI {
     }
     inline void in(int &x) {
         char ch = gc();
-        while (ch < 0) ch = gc();
+        while (ch < '0') ch = gc();
         for (x = 0; ch >= '0'; ch = gc())
             x = (x << 3) + (x << 1) + (ch ^ '0');
     }
