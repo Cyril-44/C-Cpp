@@ -1,0 +1,75 @@
+{
+  "id": 48691,
+  "type": 7,
+  "statementZh": "zeyc 的校门口有两棵树，一棵是枣树，还有一棵是无忧树。\n\nPION6202 赛前，共有 $n$ 名参赛者在无忧树下排队，祈求事事顺意，生活无忧。他们被依次编号为 $1$ 到 $n$，第 $i$ 名参赛者会在入场程序启动后的第 $i$ 分钟进入赛场。\n\n每位参赛者在赛前都有一定的焦虑程度，在入场程序启动前，第 $i$ 名参赛者的初始焦虑程度为整数 $a_i$，不保证 $a_i \\ge 0$。此后每分钟，他的焦虑程度会变化$b_i$，在启动后的第 $x$ 分钟，第 $i$ 名参赛者的焦虑程度为 $a_i + x \\cdot b_i$。\n\n无忧树拥有神奇的安抚力量。每当一名参赛者靠近无忧树，树便会吸收他此刻的全部焦虑，使其焦虑程度立刻变为 $0$，且之后不再变化。每位参赛者最多只能被安抚一次。\n\n无忧树对第 $i$ 名参赛者的“安抚成效”定义为：安抚时刻该参赛者的焦虑程度。也就是说，若在第 $t_i$ 分钟安抚第 $i$ 名参赛者，则成效为 $a_i + t_i \\cdot b_i$。\n\n参赛者将按编号从小到大的顺序依次靠近无忧树接受安抚。无忧树的安抚力量有限，因而可能只安抚前 $k$ 名参赛者。对于前 $k$ 名参赛者中的每一位，设定一个非负整数 $t_i$，表示安抚时刻。$t_i$ 可以为 $0$，表示在入场程序启动前就已安抚完毕。安抚必须在参赛者入场前完成，即 $t_i < i$。无忧树可以在同一分钟内连续安抚多名参赛者。\n\n定义无忧树安抚的总成效为：\n$$\\sum_{i=1}^{k} (a_i + t_i \\cdot b_i)$$\n\n\n此外，无忧树提前制定了一份安抚计划，由 $n$ 个整数 $p_1, p_2, \\dots, p_n$ 组成。\n* 若 $p_i \\ne -1$，则表示在启动后的第 $i$ 分钟（即前 $i$ 名参赛者刚入场时），无忧树必须**恰好**安抚完前 $p_i$ 名参赛者。此时保证 $p_i \\ge i$。\n* 若 $p_i = -1$，则表示在第 $i$ 分钟时，对已被安抚的参赛者数量没有限制。\n\n请帮助无忧树确定，在满足所有上述限制的条件下，它能获得的最大安抚总成效是多少。可以证明，总能找到符合所有限制的安抚方案。\n",
+  "statementEn": "",
+  "tags": null,
+  "correctRate": 0,
+  "totalScore": 100,
+  "blankNumber": 0,
+  "userAnswer": [],
+  "userLastAnswer": [],
+  "url": "",
+  "expireTime": 0,
+  "content": "",
+  "videoId": "",
+  "playAuth": "",
+  "sourceType": 0,
+  "programId": 25862,
+  "origin": "xjoi",
+  "titleZh": "无忧树",
+  "titleEn": "carefree",
+  "inputFormatZh": "从文件 `carefree.in` 中读入数据。\n\n第一行包含一个整数 $n$ ($1 \\le n \\le 10^6$)，表示排队等候入场的参赛者人数。\n\n接下来的 $n$ 行，每行包含两个整数 $a_i$ 和 $b_i$ ($-10^9 \\le a_i \\le 10^9, -10^6 \\le b_i \\le 10^6$)，分别表示第 $i$ 名参赛者的焦虑参数。\n\n最后一行包含 $n$ 个整数 $p_1, p_2, \\dots, p_n$，其中 $i \\le p_i \\le n$ 或 $p_i = -1$，描述安抚计划。保证对于任意一对 $1 \\le i < j \\le n$，只要 $p_i \\ne -1$ 且 $p_j \\ne -1$，就一定满足 $p_i \\le p_j$。\n",
+  "outputFormatZh": "\n输出到文件 `carefree.out` 中。\n\n输出一个整数，表示无忧树的最大安抚总成效。\n",
+  "constraintZh": "对于所有测试数据，满足：\n\n- $1 \\le n \\le 10^6$；\n- 对于所有 $i$ $(1 \\le i \\le n)$，$-10^9 \\le a_i \\le 10^9, -10^6 \\le b_i \\le 10^6$；\n- 对于所有 $i$ $(1 \\le i \\le n)$，$i \\le p_i \\le n$ 或 $p_i = -1$；\n- 对于所有 $i, j$ $(1 \\le i < j \\le n)$，$p_i = -1$ 或 $p_j = -1$ 或 $p_i \\le p_j$；\n\n详细测试点附加限制如下表所示。\n\n| 测试点编号 | $n \\le$ | $b_i$ 限制 | 特殊性质 |\n| :--- | :--- | :--- | :--- |\n| 1 | 100 | 无 | 是 |\n| 2 | 100 | 无 | 否 |\n| 3~4 | 5,000 | 无 | 是 |\n| 5~8 | 5,000 | 无 | 否 |\n| 9 | $10^6$ | $b_i \\le 0$ | 是 |\n| 10 | $10^6$ | $b_i \\le 0$ | 否 |\n| 11 | $10^6$ | $b_i \\ge 0$ | 是 |\n| 12 | $10^6$ | $b_i \\ge 0$ | 否 |\n| 13 | $10^6$ | $b_i \\le b_{i+1}$ | 是 |\n| 14 | $10^6$ | $b_i \\le b_{i+1}$ | 否 |\n| 15 | $10^6$ | $b_i > 10$ 的数量 $\\le 10$ | 是 |\n| 16 | $10^6$ | $b_i > 10$ 的数量 $\\le 10$ | 否 |\n| $17 \\sim 18$ | $10^6$ | 无 | 是 |\n| $19 \\sim 20$ | $10^6$ | 无 | 否 |\n\n* **特殊性质**：对于所有 $i$ ($1 \\le i \\le n$)，$p_i = -1$。\n",
+  "explanationZh": "### 【样例 1 解释】\n在第一个样例中，最优选择是 $k = 4$ 且谈话时刻序列 $t = \\{0, 0, 0, 3\\}$。此时总成效为 $15$。\n\n\n### 【样例 2 解释】\n在第二个样例中，最优选择是 $k = 3$ 且谈话时刻序列 $t = \\{0, 0, 1\\}$。此时总成效为 $-1$。\n\n### 【其他样例】\n* **样例 3**：见选手目录下的 `carefree/carefree3.in` 与 `carefree/carefree3.ans`（满足测试点 2 的性质）。\n* **样例 4**：见选手目录下的 `carefree/carefree4.in` 与 `carefree/carefree4.ans`（满足测试点 $5 \\sim 8$ 的性质）。\n* **样例 5~11**：分别对应 `carefree5.in` 至 `carefree11.in`（分别满足测试点 10、12、14、15、16、$17 \\sim 18$、$19 \\sim 20$ 的性质）。\n\n\n### 【提示】\n无忧树终不能让生活真正无忧。与其寄望于一纸空想，不如看看枣树上那几颗触手可及的枣子——它们或许更能带来生活的快慰。",
+  "timeLimit": "500ms",
+  "memoryLimit": "1048576kB",
+  "fileIO": "carefree.in/carefree.out",
+  "hustOJProblemId": 0,
+  "source": "Contest/4409 上海市曹杨第二中学",
+  "outCases": [
+    "uoj1.ans",
+    "uoj2.ans",
+    "uoj3.ans",
+    "uoj4.ans",
+    "uoj5.ans",
+    "uoj6.ans",
+    "uoj7.ans",
+    "uoj8.ans",
+    "uoj9.ans",
+    "uoj10.ans",
+    "uoj11.ans",
+    "uoj12.ans",
+    "uoj13.ans",
+    "uoj14.ans",
+    "uoj15.ans",
+    "uoj16.ans",
+    "uoj17.ans",
+    "uoj18.ans",
+    "uoj19.ans",
+    "uoj20.ans"
+  ],
+  "annexs": [
+    {
+      "url": "https://staticw.turingstar.com.cn/202611031155/eca06fb1d6efbc9e992619351d4ad6ea/b72503ad-2664-4563-b1f1-086b7ea85461",
+      "uuid": "b72503ad-2664-4563-b1f1-086b7ea85461",
+      "fileName": "carefree.zip"
+    }
+  ],
+  "examples": [
+    {
+      "input": "4\n3 -6\n4 -10\n-7 -3\n-3 6\n3 3 -1 -1\n",
+      "output": "15"
+    },
+    {
+      "input": "4\n-6 -1\n-5 14\n0 10\n-30 2\n2 3 -1 -1",
+      "output": "-1"
+    }
+  ],
+  "hasViewedAnswer": false,
+  "canViewAnswer": false,
+  "shouldShowAnswer": false,
+  "background": "",
+  "sourceTemplate": ""
+}
