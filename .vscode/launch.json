@@ -22,13 +22,17 @@
             "MIMode": "gdb",
             "setupCommands": [
                 {
+                    "description": "Load Mint pretty printer",
+                    "text": "source ${workspaceFolder}/.vscode/mint_printer.py"
+                },
+                {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
                 },
                 {
                     "description": "Set Disassembly Flavor to Intel",
                     "text": "-gdb-set disassembly-flavor intel",
-                }
+                },
             ],
             "preLaunchTask": "Cpp Debug Build"
         },
