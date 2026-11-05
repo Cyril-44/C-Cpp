@@ -84,7 +84,6 @@ using Mint = ModBase<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
 // Dynamic_ModInt::value_type Dynamic_ModInt::value = 0;
 // Dynamic_ModInt::value_type &Mod = Dynamic_ModInt::value;
 // using Mint = ModInt<Dynamic_ModInt>;
-Mint sqrt(Mint x) { return x ^ (-2); }
 struct Fact {
     Fact(const int n) : aa(n+1, Mint(1)), ia(n+1), sz(n) {
         aa[0] = 1;

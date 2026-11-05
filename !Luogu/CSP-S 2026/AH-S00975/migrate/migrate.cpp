@@ -19,11 +19,9 @@ namespace FastI {
     }
 } using FastI::in;
 using LL = long long;
-constexpr int N = 2000005, K = 20;
-LL x[N];
-int nxt[N], reach[N], length[N], pre[N], opts[N], cnt[N], val[N];
-LL vals[N];
-#define fprintf(...) (void)0
+constexpr int N = 2000005;
+LL x[N], F1a[N], F1b[N], F2[N];
+int nxt[N], pre[N];
 int main() {
     freopen("migrate.in", "r", stdin);
     freopen("migrate.out", "w", stdout);
@@ -32,42 +30,31 @@ int main() {
     while (T--) {
         in(n), in(d);
         for (int i = 1; i <= n; i++) in(x[i]);
-        for (int i = 1; i <= n; i++) {
-            nxt[i] = std::upper_bound(x+1, x+1+n, x[i] + d) - x - 1;
-            pre[i] = std::lower_bound(x+1, x+1+n, x[i] - d) - x;
-            ++cnt[pre[i]];
+        for (int i = 1, r = 1; i <= n; i++) {
+            if (r < i) r = i;
+            while (r < n && x[r+1] - x[i] <= d) r++;
+            nxt[i] = r;
         }
-        for (int i = 1; i <= n; i++) {
-            --cnt[pre[i]];
-            vals[i] = val[i] = cnt[i-1];
+        for (int i = 1, l = 1; i <= n; i++) {
+            while (x[i] - x[l] > d) l++;
+            pre[i] = l;
         }
-        for (int i = 1; i <= n; i++) fprintf(stderr, "%d%c", val[i], " \n"[i==n]);
+        nxt[0] = 0;
         for (int i = n; i >= 1; i--) {
-            opts[i] = i - pre[nxt[i]];
-            if (opts[i] || i == nxt[i]) reach[i] = i, length[i] = 0;
-            else {
-                if (nxt[i] == i+1 || pre[nxt[i]-1] == i) vals[i] += vals[nxt[i]];
-                reach[i] = reach[nxt[i]], length[i] = length[nxt[i]] + 1;
-            }
+            int j = nxt[i];
+            if (j == i) { F1a[i] = F1b[i] = F2[i] = 0; continue; }
+            int o = i - pre[j];                                   // 你的 opts[i]
+            LL cR = std::max(0, j - std::max(i, nxt[i-1]));       // 状态2：下一层 pre[w]==i 的点数
+            LL cA = i >= 2 ? std::max(0, nxt[i-1] - std::max(i, nxt[i-2])) : 0; // 状态1a：pre[w]==i-1 且 w>i
+            F2[i] = cR + (o == 0 ? F2[j] : 0);
+            LL go = 0;                                            // o==0：沿链继续，α 保持 1
+            if (o == 0) go = (j >= i + 2 && pre[j-1] == i) ? F1a[j] : F1b[j];
+            F1a[i] = cA + (o == 0 ? go : o == 1 ? F2[j] : 0);     // o==1：1+1=2，进入状态2
+            F1b[i] = go;                                          // 1b 下 o>=1 时 α+β>=3，停止
         }
-        for (int i = 1; i <= n; i++) fprintf(stderr, "%d%c", nxt[i], " \n"[i==n]);
-        for (int i = 1; i <= n; i++) fprintf(stderr, "%d%c", pre[i], " \n"[i==n]);
-        for (int i = 1; i <= n; i++) fprintf(stderr, "%d%c", opts[i], " \n"[i==n]);
-        for (int i = 1; i <= n; i++) fprintf(stderr, "%d%c", cnt[i], " \n"[i==n]);
-        for (int i = 1; i <= n; i++) fprintf(stderr, "%d%c", reach[i], " \n"[i==n]);
-        for (int i = 1; i <= n; i++) fprintf(stderr, "%d%c", length[i], " \n"[i==n]);
-        for (int i = 1; i <= n; i++) fprintf(stderr, "%d%c", vals[i], " \n"[i==n]);
         LL ans = 0;
-        for (int i = 1; i <= n; i++) {
-            int p1 = reach[nxt[i]];
-            ans += vals[nxt[i]];
-            fprintf(stderr, "i=%d, p1=%d, {A} ans += vals[nxt[i]] (%lld)\n", i, p1, vals[nxt[i]]);
-            if (opts[p1] == 1) {
-                int p2 = nxt[p1];
-                ans += length[p2];
-                fprintf(stderr, "i=%d, {B} ans += length[%d] (%d)\n", i, p2, length[p2]);
-            }
-        }
+        for (int u = 1; u <= n; u++)
+            if (nxt[u] != u) ans += (nxt[u] >= u + 2) ? F1a[nxt[u]] : F1b[nxt[u]];
         printf("%lld\n", ans);
     }
 }
