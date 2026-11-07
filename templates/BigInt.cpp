@@ -1,12 +1,6 @@
-#include <string>
-#include <iostream>
-#include <stdio.h>
-#include <cstring>
-#include <bitset>
-#include <vector>
-#include "FastIO.cpp"
+#include <bits/stdc++.h>
 class Decimal {
-    constexpr static size_t DIGITLEN = 1 << 17;
+    constexpr static size_t DIGITLEN = (int)4e6 + 5;
     constexpr static unsigned BASE = 1e9;
     constexpr static int BASE_I = 1e9;
     constexpr static int BASELEN = 9;
@@ -37,37 +31,25 @@ template <typename FuncType>
         static char buf[DIGITLEN];
         int top(0);
         char ch = method();
-        while ((ch < '0' || ch > '9') && (ch ^ '-')) ch = method();
+        while ((ch < '0' || ch > '9') && (ch != '-')) ch = method();
         if (ch == '-') buf[top++] = '-', ch = method();
-        while ((top ^ DIGITLEN) && ch >= '0' && ch <= '9')
+        while (ch >= '0' && ch <= '9')
             buf[top++] = ch, ch = method();
         buf[top] = '\0';
         return buf;
     }
-    Decimal(const bool &x, const std::vector<unsigned> &y) : sign(x), a(y) {}
-    Decimal(const char *_s, const bool &flg) : sign(false) {
-        char *s = const_cast<char*>((*_s ^ '-') ? (_s) : (_s + 1));
-        if (*s == '0') return;
-        if (*_s == '-') sign = true;
-        static char _buf[DIGITLEN];
-        char* buf;
-        int top;
-        if (flg) {for (top = 0; s[top]; ++top); buf = s;}
-        else {
-            buf = _buf;
-            for (top = 0; s[top]; ++top) {
-                if (s[top] < '0' || s[top] > '9') throw;
-                buf[top] = s[top];
-            }
+    Decimal(const bool x, const std::vector<unsigned> &y) : sign(x), a(y) {}
+    bool internal_cmp(const Decimal &x, const bool fallback) const { // Returns true if strictly less, *fallback* if equal.
+        if (sign && !x.sign) return true; // - < +
+        if (!sign && x.sign) return false; // + > -
+        const bool lt = sign ? false : true; // -a < -b => a > b
+        if (a.size() < x.a.size()) return lt;
+        if (x.a.size() < a.size()) return !lt;
+        for (size_t i = a.size()-1; i != (size_t)(-1); --i) {
+            if (a[i] < x.a[i]) return lt;
+            if (a[i] > x.a[i]) return !lt;
         }
-        for (int i = 0, j = top-1; i < j; i++, --j)
-            buf[i] ^= buf[j] ^= buf[i] ^= buf[j];
-        a.resize((top + BASELEN - 1) / BASELEN);
-        for (size_t i = 0, j = 0; i < a.size(); i++) {
-            unsigned bs = 1;
-            for (char k = BASELEN; (j ^ top) && k; j++, --k)
-                a[i] += bs * (buf[j] ^ '0'), bs *= 10;
-        }
+        return fallback;
     }
 public:
     Decimal() : sign(false) {}
@@ -91,14 +73,24 @@ template<size_t N> Decimal(std::bitset<N> bit) {
             base *= long_up;
         }
     }
-    Decimal(const char *s) { *this = Decimal(s, false); }
-    Decimal(const std::string &s) { *this = Decimal(s.c_str(), false); }
-    explicit operator bool () const { return !a.empty(); }
+    Decimal(const char *s) : sign(false) {
+        // if (*s == '0') return;
+        if (*s == '-') sign = true;
+        size_t top = strlen(s + sign);
+        a.resize((top + BASELEN - 1) / BASELEN);
+        for (size_t i = 0, j = top-1 + sign; i < a.size(); i++) {
+            unsigned bs = 1;
+            for (int k = BASELEN; j != (sign ? 0 : (size_t)(-1)) && k; j--, --k)
+                a[i] += bs * (s[j] ^ '0'), bs *= 10;
+        }
+    }
+    Decimal(const std::string &s) { *this = Decimal(s.c_str()); }
+    explicit operator bool() const { return !a.empty(); }
 
 // #ifdef _FASTIO
 //     void in() { *this = Decimal(read(FastIO::nc), true); }
 // #else
-    void in() { *this = Decimal(read(getchar), true); }
+    void in() { *this = Decimal(read(getchar)); }
 // #endif
     char* c_str() const { // Temporary, Coverable and Unstable
         static char buffer[DIGITLEN];
@@ -132,64 +124,24 @@ template<size_t N> Decimal(std::bitset<N> bit) {
     friend OStream& operator<<(OStream &os, const Decimal &x) { return os << x.c_str(); }
     friend Decimal abs(Decimal x) { x.sign = false; return x; }
     Decimal operator-() const { return Decimal(!sign, a); }
-    Decimal operator+(const Decimal &x) const { return Decimal(*this) += x; }
     Decimal& operator-=(const Decimal &x) { return *this += -x; }
-    Decimal operator-(const Decimal &x) const { return Decimal(*this) + -x; }
-    Decimal operator*(const Decimal &x) const { return Decimal(*this) *= x; }
-    Decimal operator/(const Decimal &x) const { return Decimal(*this) /= x; }
+    friend Decimal operator+(Decimal x, const Decimal &y) { return x += y; }
+    friend Decimal operator-(Decimal x, const Decimal &y) { return x -= y; }
+    friend Decimal operator*(Decimal x, const Decimal &y) { return x *= y; }
+    friend Decimal operator/(Decimal x, const Decimal &y) { return x /= y; }
+    friend Decimal operator^(Decimal x, const Decimal &y) { return x ^= y; }
     Decimal& operator%=(const Decimal &x) { return *this -= *this / x * x; }
     Decimal operator%(const Decimal &x) const { return *this - *this / x * x; }
     Decimal operator^(const Decimal &x) const { return Decimal(*this) ^= x; }
-    bool operator==(const Decimal &x) const { return sign == x.sign && a == x.a; }
-    bool operator!=(const Decimal &x) const { return sign != x.sign || a != x.a; }
-    bool operator<=(const Decimal &x) const { return *this == x || *this < x; }
-    bool operator>(const Decimal &x) const { return x < *this; }
-    bool operator>=(const Decimal &x) const { return x == *this || x < *this; }
-    template <typename T> friend bool operator==(const T &x, const Decimal &y) { return Decimal(x) == y; }
-    template <typename T> friend bool operator==(const Decimal &x, const T &y) { return x == Decimal(y); }
-    template <typename T> friend bool operator!=(const T &x, const Decimal &y) { return Decimal(x) != y; }
-    template <typename T> friend bool operator!=(const Decimal &x, const T &y) { return x != Decimal(y); }
-    template <typename T> friend bool operator<(const T &x, const Decimal &y) { return Decimal(x) < y; }
-    template <typename T> friend bool operator<(const Decimal &x, const T &y) { return x < Decimal(y); }
-    template <typename T> friend bool operator<=(const T &x, const Decimal &y) { return Decimal(x) <= y; }
-    template <typename T> friend bool operator<=(const Decimal &x, const T &y) { return x <= Decimal(y); }
-    template <typename T> friend bool operator>(const T &x, const Decimal &y) { return Decimal(x) > y; }
-    template <typename T> friend bool operator>(const Decimal &x, const T &y) { return x > Decimal(y); }
-    template <typename T> friend bool operator>=(const T &x, const Decimal &y) { return Decimal(x) >= y; }
-    template <typename T> friend bool operator>=(const Decimal &x, const T &y) { return x >= Decimal(y); }
-    template <typename T> friend Decimal operator+(const T &x, const Decimal &y) { return Decimal(x) + y; }
-    template <typename T> friend Decimal operator+(const Decimal &x, const T &y) { return x + Decimal(y); }
-    template <typename T> friend Decimal& operator+=(Decimal &x, const T &y) { return x += Decimal(y); }
-    template <typename T> friend Decimal operator-(const T &x, const Decimal &y) { return Decimal(x) - y; }
-    template <typename T> friend Decimal operator-(const Decimal &x, const T &y) { return x - Decimal(y); }
-    template <typename T> friend Decimal& operator-=(Decimal &x, const T &y) { return x -= Decimal(y); }
-    template <typename T> friend Decimal operator*(const T &x, const Decimal &y) { return Decimal(x) * y; }
-    template <typename T> friend Decimal operator*(const Decimal &x, const T &y) { return x * Decimal(y); }
-    template <typename T> friend Decimal& operator*=(Decimal &x, const T &y) { return x *= Decimal(y); }
-    template <typename T> friend Decimal operator/(const T &x, const Decimal &y) { return Decimal(x) / y; }
-    template <typename T> friend Decimal operator/(const Decimal &x, const T &y) { return x / Decimal(y); }
-    template <typename T> friend Decimal& operator/=(Decimal &x, const T &y) { return x /= Decimal(y); }
-    template <typename T> friend Decimal operator%(const T &x, const Decimal &y) { return Decimal(x) % y; }
-    template <typename T> friend Decimal operator%(const Decimal &x, const T &y) { return x % Decimal(y); }
-    template <typename T> friend Decimal& operator%=(Decimal &x, const T &y) { return x %= Decimal(y); }
-    template <typename T> friend Decimal operator^(const T &x, const Decimal &y) { return Decimal(x) ^ y; }
-    template <typename T> friend Decimal operator^(const Decimal &x, const T &y) { return x ^ Decimal(y); }
-    template <typename T> friend Decimal& operator^=(Decimal &x, const T &y) { return x ^= Decimal(y); }
-    bool operator<(const Decimal &x) const {
-        if (sign && !x.sign) return true; // - < +
-        if (!sign && x.sign) return false; // + > -
-        if (sign) return -x < -*this; // -a < -b => b < a
-        if (a.size() < x.a.size()) return true;
-        if (x.a.size() < a.size()) return false;
-        for (size_t i = a.size()-1; i ^ static_cast<size_t>(-1); --i) {
-            if (a[i] < x.a[i]) return true;
-            if (a[i] > x.a[i]) return false;
-        }
-        return false;
-    }
+    friend bool operator<(const Decimal &x, const Decimal &y) { return x.internal_cmp(y, false); }
+    friend bool operator>(const Decimal &x, const Decimal &y) { return y < x; }
+    friend bool operator<=(const Decimal &x, const Decimal &y) { return x.internal_cmp(y, true); }
+    friend bool operator>=(const Decimal &x, const Decimal &y) { return y <= x; }
+    friend bool operator==(const Decimal &x, const Decimal &y) { return x.sign == y.sign && x.a < y.a; }
+    friend bool operator!=(const Decimal &x, const Decimal &y) { return x.sign != y.sign || x.a != y.a; }
     Decimal& operator+=(const Decimal &x) {
         static std::vector<int> help_array;
-        const static auto func = [](std::vector<int>& a, const std::vector<unsigned>& x, const std::vector<unsigned>& y, const int &fx, const int &fy)->void {
+        const static auto func = [](std::vector<int>& a, const std::vector<unsigned>& x, const std::vector<unsigned>& y, const int fx, const int fy)->void {
             size_t digits(std::max(x.size(), y.size()));
             a.resize(digits + 1);
             std::fill(a.begin(), a.end(), 0);
@@ -235,7 +187,7 @@ template<size_t N> Decimal(std::bitset<N> bit) {
         bool sn = static_cast<bool>(sign ^ x.sign);
         sign = false;
         std::vector<int> div(digits);
-        for (size_t i = digits - 1; i ^ static_cast<size_t>(-1); --i) {
+        for (size_t i = digits - 1; i != (size_t)(-1); --i) {
             int l(0), r(BASE - 1), mid;
             while (l <= r) {
                 mid = (l + r) >> 1;

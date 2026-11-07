@@ -1,2 +1,223 @@
-#include<bits/stdc++.h>
-using namespace std;int e,d,a[((int)(15782472695651657466ULL^15782472695651656983ULL))][((int)(18306663732160487420ULL^18306663732160486417ULL))];vector<int>l[((int)(14586771138502777858ULL^14586771138502777880ULL))];char g[((int)(13617591774326342850ULL^13617591774326343471ULL))],k[((int)(9300863677837359618ULL^9300863677837834311ULL))];int main(){{unsigned long long m=5528759193523983625ULL;if((((m*m)+m)&1ULL)==0ULL){m^=3264948486519033026ULL;}else{m+=3264948486519033026ULL;}((void)(m));}unsigned f=286234739u;const unsigned i=132976991u;bool j=false;while(!j)switch(f^=i){case 383945004u:{scanf(([]{static char n[]={(char)0xED,(char)0xB2,(char)0xC1,(char)0x96,(char)0x25,(char)0x7D,(char)0x39,(char)0x59,(char)0x38};static bool q=[]{for(unsigned r=0;r<sizeof(n);++r)n[r]^=(char)(200+r*14);return true;}();(void)q;return n;}()),&e,&d,g+1,k+1);}f=657832749u;continue;case 551070322u:{;for(int b=1;b<=d;b++){l[k[b]-'A'].push_back(b);};}f=3313258918u;continue;case 3264299257u:{memset(a,([]{static int s=12770079809638006663;return(int)(s^12770079809638006712ULL);}()),sizeof(a));}f=2526810733u;continue;case 2440102706u:{;a[0][0]=0;}f=2913843188u;continue;case 2856363691u:{;for(int b=1;b<=e;b++){for(int c=0;c<=b;c++){a[b][c]=a[b-1][c];if(c){int p=g[b]-'A';int o=upper_bound(l[p].begin(),l[p].end(),a[b-1][c-1])-l[p].begin();if(o!=l[p].size())a[b][c]=min(a[b][c],l[p][o]);}}};}f=2092591972u;continue;case 2069330491u:{for(int b=e;b>=0;b--){if(a[e][b]<=d){cout<<b<<endl;return 0;}};}f=1345090016u;continue;case 1472291007u:{return 0;}f=2933369121u;continue;default:j=true;break;};}
+#include <bits/stdc++.h>
+class Decimal {
+    constexpr static size_t DIGITLEN = (int)4e6 + 5;
+    constexpr static unsigned BASE = 1e9;
+    constexpr static int BASE_I = 1e9;
+    constexpr static int BASELEN = 9;
+    bool sign;  // 0->positive 1->negative
+    std::vector<unsigned> a;
+    /// @brief Helper Function : fix array due to BASE
+    /// @tparam T an integral type (aka. unsigned, unsigned long long)
+    /// @param x the array to fix
+   
+template <typename T>  void normalize(std::vector<T> &x) {
+        for (size_t i = 0; i < x.size(); i++) {
+            if (i+1 == x.size() && (x[i] >= BASE_I || x[i] < 0))
+                x.emplace_back(); // Which is impossible
+            if (x[i] >= BASE_I) x[i+1] += x[i] / BASE_I;
+            if (x[i] < 0) x[i+1] -= ((-x[i] + BASE_I-1) / BASE_I);
+            x[i] = (x[i] % BASE_I + BASE_I) % BASE_I;
+        }
+        a.resize(x.size());
+        for (size_t i = 0; i < x.size(); i++)
+            a[i] = static_cast<unsigned>(x[i]);
+        while (!a.empty())
+            if (*a.rbegin() == 0) a.pop_back();
+            else break;
+        if (a.empty()) sign = false;
+    }
+template <typename FuncType>
+    char* read(FuncType method) {
+        static char buf[DIGITLEN];
+        int top(0);
+        char ch = method();
+        while ((ch < '0' || ch > '9') && (ch != '-')) ch = method();
+        if (ch == '-') buf[top++] = '-', ch = method();
+        while (ch >= '0' && ch <= '9')
+            buf[top++] = ch, ch = method();
+        buf[top] = '\0';
+        return buf;
+    }
+    Decimal(const bool &x, const std::vector<unsigned> &y) : sign(x), a(y) {}
+    bool internal_cmp(const Decimal &x, const bool fallback) const { // Returns true if strictly less, *fallback* if equal.
+        if (sign && !x.sign) return true; // - < +
+        if (!sign && x.sign) return false; // + > -
+        const bool lt = sign ? false : true; // -a < -b => a > b
+        if (a.size() < x.a.size()) return lt;
+        if (x.a.size() < a.size()) return !lt;
+        for (size_t i = a.size()-1; i != (size_t)(-1); --i) {
+            if (a[i] < x.a[i]) return lt;
+            if (a[i] > x.a[i]) return !lt;
+        }
+        return fallback;
+    }
+public:
+    Decimal() : sign(false) {}
+template <typename T, typename = typename std::enable_if<std::is_integral<T>::value, bool>::type> Decimal(T x) : sign(false) {
+        if (std::is_signed<T>::value && x < 0)
+            sign = true, x = -x;
+        while (x) {
+            a.emplace_back(x % BASE);
+            x /= BASE;
+        }
+    }
+
+template<size_t N> Decimal(std::bitset<N> bit) {
+        unsigned long tp;
+        Decimal base(1);
+        static const Decimal long_up = (sizeof(unsigned long) == 8UL) ? Decimal("18446744073709551616") : Decimal("4294967296");
+        while (bit.any()) {
+            tp = bit & static_cast<unsigned long>(-1);
+            bit >>= (sizeof(unsigned long) == 8UL) ? 64 : 32;
+            *this += base * tp;
+            base *= long_up;
+        }
+    }
+    Decimal(const char *s) : sign(false) {
+        // if (*s == '0') return;
+        if (*s == '-') sign = true;
+        size_t top = strlen(s + sign);
+        a.resize((top + BASELEN - 1) / BASELEN);
+        for (size_t i = 0, j = top-1 + sign; i < a.size(); i++) {
+            unsigned bs = 1;
+            for (int k = BASELEN; j != (sign ? 0 : (size_t)(-1)) && k; j--, --k)
+                a[i] += bs * (s[j] ^ '0'), bs *= 10;
+        }
+    }
+    Decimal(const std::string &s) { *this = Decimal(s.c_str()); }
+    explicit operator bool() const { return !a.empty(); }
+
+// #ifdef _FASTIO
+//     void in() { *this = Decimal(read(FastIO::nc), true); }
+// #else
+    void in() { *this = Decimal(read(getchar)); }
+// #endif
+    char* c_str() const { // Temporary, Coverable and Unstable
+        static char buffer[DIGITLEN];
+        if (a.empty()) {
+            buffer[0] = '0';
+            buffer[1] = '\0';
+            return buffer;
+        }
+        int top(0);
+        if (sign) buffer[top++] = '-';
+        char buf[BASELEN];
+        auto it = a.crbegin(); unsigned y = *it;
+        for (int i = BASELEN - 1; i >= 0; --i) buf[i] = (y % 10) ^ '0', y /= 10;
+        for (int i = 0; i < BASELEN; i++) if (buf[i] ^ '0') { for (; i < BASELEN; i++) buffer[top++] = buf[i]; break; }
+        for (++it; it != a.crend(); ++it) { y = *it;
+            for (int i = BASELEN - 1; i >= 0; --i) buf[i] = (y % 10) ^ '0', y /= 10;
+            for (int i = 0; i < BASELEN; i++) buffer[top++] = buf[i];
+        }
+        buffer[top] = '\0';
+        return buffer;
+    }
+
+    friend std::string to_string(const Decimal &x) { return std::string(x.c_str()); }
+
+    template<typename IStream>
+    friend IStream& operator>>(IStream &is, Decimal &x) {
+        x = Decimal(x.read([&is]()->int {return is.get();}), true);
+        return is;
+    }
+    template<typename OStream>
+    friend OStream& operator<<(OStream &os, const Decimal &x) { return os << x.c_str(); }
+    friend Decimal abs(Decimal x) { x.sign = false; return x; }
+    Decimal operator-() const { return Decimal(!sign, a); }
+    Decimal& operator-=(const Decimal &x) { return *this += -x; }
+    friend Decimal operator+(Decimal x, const Decimal &y) { return x += y; }
+    friend Decimal operator-(Decimal x, const Decimal &y) { return x -= y; }
+    friend Decimal operator*(Decimal x, const Decimal &y) { return x *= y; }
+    friend Decimal operator/(Decimal x, const Decimal &y) { return x /= y; }
+    friend Decimal operator^(Decimal x, const Decimal &y) { return x ^= y; }
+    Decimal& operator%=(const Decimal &x) { return *this -= *this / x * x; }
+    Decimal operator%(const Decimal &x) const { return *this - *this / x * x; }
+    Decimal operator^(const Decimal &x) const { return Decimal(*this) ^= x; }
+    friend bool operator<(const Decimal &x, const Decimal &y) { return x.internal_cmp(y, false); }
+    friend bool operator>(const Decimal &x, const Decimal &y) { return y < x; }
+    friend bool operator<=(const Decimal &x, const Decimal &y) { return x.internal_cmp(y, true); }
+    friend bool operator>=(const Decimal &x, const Decimal &y) { return y <= x; }
+    friend bool operator==(const Decimal &x, const Decimal &y) { return x.sign == y.sign && x.a < y.a; }
+    friend bool operator!=(const Decimal &x, const Decimal &y) { return x.sign != y.sign || x.a != y.a; }
+    Decimal& operator+=(const Decimal &x) {
+        static std::vector<int> help_array;
+        const static auto func = [](std::vector<int>& a, const std::vector<unsigned>& x, const std::vector<unsigned>& y, const int &fx, const int &fy)->void {
+            size_t digits(std::max(x.size(), y.size()));
+            a.resize(digits + 1);
+            std::fill(a.begin(), a.end(), 0);
+            for (size_t i = 0; i < digits; ++i) {
+                if (i < x.size()) a[i] += x[i] * fx;
+                if (i < y.size()) a[i] += y[i] * fy;
+            }
+        };
+        if (sign && !x.sign)
+            if (-*this > x) // -a + b (a>b) = -(a + -b)
+                sign = false, *this += -x, sign = true;
+            else // -a + b (a<b)
+                sign = false, func(help_array, a, x.a, -1, 1);
+        else if (!sign && x.sign)
+            if (*this < -x) // a + -b (a<b) = -(-a + b)
+                sign = true, *this += -x, sign = true;
+            else // a + -b (a>b)
+                func(help_array, a, x.a, 1, -1);
+        else func(help_array, a, x.a, 1, 1);
+        normalize(help_array);
+        return *this;
+    }
+    Decimal& operator*=(const Decimal &x) {
+        sign = static_cast<bool>(sign ^ x.sign);
+        std::vector<unsigned long long> help_array(a.size() + x.a.size() + 1);
+        for (size_t i = 0; i < a.size(); i++)
+            for (size_t j = 0; j < x.a.size(); j++) {
+                help_array[i + j] += 1ULL * a[i] * x.a[j];
+                if (help_array[i+j] >= BASE) { // to prevent overflow
+                    help_array[i+j+1] += help_array[i+j] / BASE;
+                    help_array[i+j] %= BASE;
+                }
+            }
+        normalize(help_array);
+        return *this;
+    }
+    Decimal& operator/=(const Decimal &x) {
+        if (x.a.empty()) throw std::domain_error("Division by zero.");   // Throw an exception when x=0
+        if (a.size() < x.a.size()) return *this = std::move(Decimal());
+        size_t digits(a.size() - x.a.size() + 1);
+        Decimal tp;
+        std::vector<unsigned long long> help_array(a.size());
+        bool sn = static_cast<bool>(sign ^ x.sign);
+        sign = false;
+        std::vector<int> div(digits);
+        for (size_t i = digits - 1; i != (size_t)(-1); --i) {
+            int l(0), r(BASE - 1), mid;
+            while (l <= r) {
+                mid = (l + r) >> 1;
+                std::fill(help_array.begin(), help_array.end(), 0);
+                for (size_t j = 0; j < x.a.size(); j++)
+                    help_array[i + j] += 1ULL * mid * x.a[j];
+                tp.normalize(help_array);
+                if (tp > *this) r = mid - 1;
+                else l = mid + 1;
+            }
+            std::fill(help_array.begin(), help_array.end(), 0);
+            for (size_t j = 0; j < x.a.size(); j++)
+                help_array[i + j] += 1ULL * r * x.a[j];
+            tp.normalize(help_array);
+            *this -= tp;
+            div[i] = r;
+        }
+        sign = sn;
+        normalize(div);
+        return *this;
+    }
+    Decimal& operator^=(Decimal x) {
+        if (x < 0) throw std::range_error("Negative Exponent.");
+        Decimal tp = abs(*this);
+        *this = (sign ? -1 : 1);
+        while (!x.a.empty()) {
+            if (x % 2 == 1) *this *= tp;
+            tp *= tp;
+            x /= Decimal(2);
+        }
+        return *this;
+    }
+};
