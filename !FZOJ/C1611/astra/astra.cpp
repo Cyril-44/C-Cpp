@@ -1,128 +1,255 @@
+
 #include <bits/stdc++.h>
-#ifdef CLANGD
-constexpr int N = 25;
-#else
-constexpr int N = 200005;
-#endif
-using Pii = std::pair<int,int>;
-std::vector<Pii> g[N];
-std::vector<int> ng[N<<1];
-int n, k;
+using namespace std;
+
+constexpr int N = 200005, M = N << 1;
+using Pii = pair<int, int>;
+
+vector<Pii> g[N];
+vector<int> ng[M];
+int n, k, tot;
+int cnt1[M], cnt2[M];
+
+void add(int u, int v) {
+    ng[u].push_back(v);
+    ng[v].push_back(u);
+}
+
 namespace BuildGraph {
-    Pii fa[N];
-    int rep[N];
-    void dfs1(int u) {
-        for (auto [v, c] : g[u]) if (v != fa[u].first) fa[v] = {u, c}, dfs1(v);
-    }
-    int curEdgIdx, curEdgClr;
-    void dfs2(int u) {
-        ng[curEdgIdx].push_back(u);
-        ng[u].push_back(curEdgIdx);
-        for (auto [v, c] : g[u]) if (v != fa[u].first && c == curEdgClr) dfs2(v);
-    }
-    inline void work() {
-        dfs1(1);
-        int top = n;
-        for (int u = 1; u <= n; u++)
-            for (auto [v, c] : g[u]) if (v != fa[u].first && c != fa[u].second)
-                curEdgIdx = ++top, ng[top].push_back(u), ng[u].push_back(top), dfs2(v);
-    }
-}
-int cnt1[N], cnt2[N];
-namespace CalcCnt1 {
-    int curSubTrSz, centroid;
-    bool vis[N<<1];
-    int dfs1(int u, int fa = 0) {
-        int mxsz = 0, szu = 1;
-        for (int v : ng[u]) if (!vis[v] && v != fa) {
-            int szv = dfs1(v, u);
-            szu += szv;
-            mxsz = std::max(mxsz, szv);
-        }
-        mxsz = std::max(mxsz, curSubTrSz - szu);
-        if (mxsz <= curSubTrSz / 2) centroid = u;
-        return szu;
-    }
-    std::vector<std::pair<int,int>> subtr[N];
-    std::vector<int> cnt[N]; int curSonIdx;
-    int dfs2(int u, int fa = 0, int dep = 1) {
-        subtr[curSonIdx].emplace_back(u, dep);
-        if (cnt[0].size() == dep) cnt[0].emplace_back();
-        if (cnt[curSonIdx].size() == dep) cnt[curSonIdx].emplace_back(0);
-        if (u <= n) ++cnt[0][dep], ++cnt[curSonIdx][dep];
-        int sz = 1;
-        for (int v : ng[u]) if (!vis[v] && v != fa)
-            sz += dfs2(v, u, dep + 1);
-        return sz;
-    }
-    void dfs(int u, int cursubsz) {
-        curSubTrSz = cursubsz; dfs1(u);
-        vis[u = centroid] = true;
-        cnt[0].assign(1, 0);
-        std::vector<std::pair<int,int>> sons;
-        for (int v : ng[u]) if (!vis[v]) {
-            curSonIdx = (int)sons.size() + 1;
-            cnt[curSonIdx].assign(1, 0);
-            subtr[curSonIdx].clear();
-            sons.emplace_back(v, dfs2(v));
-        }
-        for (int i = 0; i <= (int)sons.size(); i++)
-            for (int j = 1; j < (int)cnt[i].size(); j++)
-                cnt[i][j] += cnt[i][j-1];
-        for (int i = 1; i <= (int)sons.size(); i++)
-            for (auto [u, dep] : subtr[i])
-                if (u <= n && dep <= k) cnt1[u] += cnt[0][k - dep] - cnt[i][k - dep];
-        for (int j = 1; j < (int)cnt[0].size() && j <= k; j++)
-            cnt1[u] += cnt[0][j];
-        for (auto [v, s] : sons) dfs(v, s);
-    }
-    inline void launchPointDivision() { dfs(1, n); }
-}
-namespace CalcCnt2 {
-    constexpr int N = ::N << 1;
-    int* f[N];
-    int dep[N], lson[N], dfn[N], _f[N], top=0;
-    void dfs1(int u, int fa=0) {
-        for (int v : ng[u]) if (v != fa) {
-            dfs1(v, u);
-            if (dep[v] >= dep[lson[u]]) lson[u] = v;
-            dep[u] = std::max(dep[u], dep[v] + 1);
-        }
-    }
-    void dfs2(int u, int fa=0) {
-        dfn[u] = ++top;
-        f[u] = _f + top;
-        if (u <= n) f[u][0]++;
-        if (lson[u]) {
-            dfs2(lson[u], u);
-            for (int v : ng[u]) if (v != fa && v != lson[u]) {
-                dfs2(v, u);
-                for (int j = 0; j <= dep[v]; j++)
-                    f[u][j+1] += f[v][j];
+    int fa[N], col[N], rep[N];
+
+    void work() {
+        vector<int> ord(1, 1);
+        for (int i = 0; i < (int)ord.size(); i++) {
+            int u = ord[i];
+            for (auto [v, c] : g[u]) if (v != fa[u]) {
+                fa[v] = u;
+                col[v] = c;
+                ord.push_back(v);
             }
         }
-        if (u <= n && k <= dep[u]) cnt2[u] = f[u][k];
-    }
-    inline void launchDP() {
-        dfs1(1);
-        dfs2(1);
+
+        tot = n;
+        for (int u : ord) {
+            sort(g[u].begin(), g[u].end(),
+                [](Pii x, Pii y) {
+                    return x.second < y.second;
+                });
+
+            int last = 0, id = 0;
+            for (auto [v, c] : g[u]) if (v != fa[u]) {
+                if (c != last) {
+                    if (c == col[u]) id = rep[u];
+                    else {
+                        id = ++tot;
+                        add(u, id);
+                    }
+                    last = c;
+                }
+                add(id, v);
+                rep[v] = id;
+            }
+        }
     }
 }
-int64_t com3(int n) {
-    return n * (n-1ll) * (n-2ll) / 6;
+
+namespace CalcCnt1 {
+    int fa[M], sz[M];
+    bool vis[M];
+
+    int get(const vector<int>& a, int p) {
+        return a[min(p, (int)a.size() - 1)];
+    }
+
+    void launchPointDivision() {
+        vector<int> comps(1, 1), ord;
+        vector<tuple<int, int, int>> nodes;
+        ord.reserve(tot);
+
+        while (!comps.empty()) {
+            int rt = comps.back();
+            comps.pop_back();
+            if (vis[rt]) continue;
+
+            ord.clear();
+            ord.push_back(rt);
+            fa[rt] = 0;
+
+            for (int i = 0; i < (int)ord.size(); i++) {
+                int u = ord[i];
+                for (int v : ng[u])
+                    if (!vis[v] && v != fa[u]) {
+                        fa[v] = u;
+                        ord.push_back(v);
+                    }
+            }
+
+            int ss = (int)ord.size();
+            int best = ss + 1, cen = 0;
+
+            for (int i = ss - 1; i >= 0; i--) {
+                int u = ord[i], mx = 0;
+                sz[u] = 1;
+
+                for (int v : ng[u])
+                    if (!vis[v] && v != fa[u]) {
+                        sz[u] += sz[v];
+                        mx = max(mx, sz[v]);
+                    }
+
+                mx = max(mx, ss - sz[u]);
+                if (mx < best) {
+                    best = mx;
+                    cen = u;
+                }
+            }
+
+            vis[cen] = true;
+
+            vector<int> all(1, cen <= n);
+            vector<vector<int>> hs;
+            nodes.clear();
+
+            for (int v : ng[cen]) if (!vis[v]) {
+                comps.push_back(v);
+
+                int id = (int)hs.size();
+                hs.emplace_back(1, 0);
+
+                vector<tuple<int, int, int>> st;
+                st.emplace_back(v, cen, 1);
+
+                while (!st.empty()) {
+                    auto [x, p, d] = st.back();
+                    st.pop_back();
+
+                    if (d > k) continue;
+                    nodes.emplace_back(x, d, id);
+
+                    if (x <= n) {
+                        if ((int)all.size() <= d)
+                            all.resize(d + 1);
+                        if ((int)hs[id].size() <= d)
+                            hs[id].resize(d + 1);
+
+                        ++all[d];
+                        ++hs[id][d];
+                    }
+
+                    if (d == k) continue;
+
+                    for (int y : ng[x])
+                        if (!vis[y] && y != p)
+                            st.emplace_back(y, x, d + 1);
+                }
+            }
+
+            for (int j = 1; j < (int)all.size(); j++)
+                all[j] += all[j - 1];
+
+            for (auto& h : hs)
+                for (int j = 1; j < (int)h.size(); j++)
+                    h[j] += h[j - 1];
+
+            cnt1[cen] += all.back();
+
+            for (auto [u, d, id] : nodes)
+                cnt1[u] += get(all, k - d)
+                         - get(hs[id], k - d);
+        }
+    }
 }
+
+namespace CalcCnt2 {
+    int fa[M], dep[M], hv[M], dfn[M], f[M];
+
+    void launchDP() {
+        vector<int> ord(1, 1);
+
+        for (int i = 0; i < (int)ord.size(); i++) {
+            int u = ord[i];
+            for (int v : ng[u]) if (v != fa[u]) {
+                fa[v] = u;
+                ord.push_back(v);
+            }
+        }
+
+        for (int i = (int)ord.size() - 1; i >= 0; i--) {
+            int u = ord[i];
+            for (int v : ng[u])
+                if (v != fa[u] && dep[v] + 1 > dep[u]) {
+                    dep[u] = dep[v] + 1;
+                    hv[u] = v;
+                }
+        }
+
+        vector<int> seq, st(1, 1);
+        seq.reserve(tot);
+        int tim = 0;
+
+        while (!st.empty()) {
+            int u = st.back();
+            st.pop_back();
+
+            dfn[u] = ++tim;
+            seq.push_back(u);
+
+            for (int v : ng[u])
+                if (v != fa[u] && v != hv[u])
+                    st.push_back(v);
+
+            if (hv[u]) st.push_back(hv[u]);
+        }
+
+        for (int i = (int)seq.size() - 1; i >= 0; i--) {
+            int u = seq[i];
+
+            if (u <= n) ++f[dfn[u]];
+
+            for (int v : ng[u])
+                if (v != fa[u] && v != hv[u])
+                    for (int j = 0; j <= dep[v]; j++)
+                        f[dfn[u] + j + 1] += f[dfn[v] + j];
+
+            if (k <= dep[u])
+                cnt2[u] = f[dfn[u] + k];
+        }
+    }
+}
+
+long long com3(long long x) {
+    return x * (x - 1) * (x - 2) / 6;
+}
+
 int main() {
     scanf("%d%d", &n, &k);
-    for (int u, v, c, i = 1; i < n; i++) {
+
+    for (int i = 1, u, v, c; i < n; i++) {
         scanf("%d%d%d", &u, &v, &c);
         g[u].emplace_back(v, c);
         g[v].emplace_back(u, c);
     }
+
+    if (n < 3) {
+        puts("0");
+        return 0;
+    }
+
+    if (k >= n - 1) {
+        printf("%lld\n", com3(n));
+        return 0;
+    }
+
     BuildGraph::work();
     CalcCnt1::launchPointDivision();
     CalcCnt2::launchDP();
-    int64_t ans = 0;
-    for (int i = 1; i <= n; i++)
-        ans += com3(cnt1[i]) - com3(cnt2[i]);
+
+    long long ans = com3(cnt1[1]);
+
+    for (int i = 2; i <= tot; i++)
+        ans += com3(cnt1[i])
+             - com3(cnt1[i] - cnt2[i]);
+
     printf("%lld\n", ans);
+    return 0;
 }
