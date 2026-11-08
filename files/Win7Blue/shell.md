@@ -29,6 +29,9 @@ echo 1 > /proc/sys/kernel/sysrq
 echo c > /proc/sysrq-trigger
 ```
 
+CQ: `cQ569535536`
+FZ: `Asdfz_241001` `FZ_241001` `admin1234`
+
 Capture 
 ```sh
 llks -s -m /usr/local/bin/llkk.cnf -o /tmp/xxxxxxxx
