@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
-constexpr int N = 5005;
+constexpr int N = 150005;
 #define L first
 #define R second
 using Pll = std::pair<int64_t, int64_t>;
 using Pii = std::pair<int, int>;
-Pll a[N]; int64_t all[N*2]; Pii allL[N], b[N], c[N];
+Pll a[N]; int64_t all[N*2]; std::pair<int64_t, int> allL[N]; Pii b[N], c[N];
 inline Pii operator+(Pii x, Pii y) {
     return {std::min(x.L, y.L), std::max(x.R, y.R)};
 }
@@ -13,7 +13,7 @@ class SegTr1 {
     struct Node {
         int mx, add;
         void pull(int x) { mx += x, add += x; }
-    } tr[N << 2];
+    } tr[N << 3];
     int ql, qr, qx;
     void pushdown(int u) { tr[u<<1].pull(tr[u].add), tr[u<<1|1].pull(tr[u].add), tr[u].add = 0; }
     void pushup(int u) { tr[u].mx = std::max(tr[u<<1].mx, tr[u<<1|1].mx); }
@@ -89,7 +89,7 @@ public:
         auto res = inq(1, 1, n);
         // fprintf(stderr, "inquire [%d, %d]: mn = %d, (%d+1)*%d - %lld\n", lo, j, res.mn, j, res.mncnt, res.mnsum);
         if (res.mn != -j) return 0;
-        return (j+1)*res.mncnt - res.mnsum;
+        return (j+1ll)*res.mncnt - res.mnsum;
     }
 } f2;
 std::vector<int> result;
@@ -139,7 +139,8 @@ int main() {
             b[i].L = std::lower_bound(all+1, end, a[i].L) - all;
             b[i].R = std::lower_bound(all+1, end, a[i].R) - all;
             c[allL[i].second].L = i;
-            c[i].R = std::upper_bound(allL+1, allL+1+n, Pii(a[i].R, n)) - allL-1;
+            auto tmp = Pii(a[i].R, n);
+            c[i].R = std::upper_bound(allL+1, allL+1+n, std::make_pair(a[i].R, n)) - allL-1;
         }
 
         memset(&f1, 0, sizeof f1);

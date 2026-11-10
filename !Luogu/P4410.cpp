@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-constexpr int N = 100005
+constexpr int N = 100005;
 #ifdef CLANGD
 #define N 15
 #endif
