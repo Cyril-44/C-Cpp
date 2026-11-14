@@ -1,0 +1,85 @@
+{
+  "contest": "awc0200",
+  "start": 1794567600.0,
+  "end": 1794576600.0,
+  "labels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O"
+  ],
+  "tasks": [
+    {
+      "id": "awc0200_a",
+      "label": "A"
+    },
+    {
+      "id": "awc0200_b",
+      "label": "B"
+    },
+    {
+      "id": "awc0200_c",
+      "label": "C"
+    },
+    {
+      "id": "awc0200_d",
+      "label": "D"
+    },
+    {
+      "id": "awc0200_e",
+      "label": "E"
+    },
+    {
+      "id": "awc0200_f",
+      "label": "F"
+    },
+    {
+      "id": "awc0200_g",
+      "label": "G"
+    },
+    {
+      "id": "awc0200_h",
+      "label": "H"
+    },
+    {
+      "id": "awc0200_i",
+      "label": "I"
+    },
+    {
+      "id": "awc0200_j",
+      "label": "J"
+    },
+    {
+      "id": "awc0200_k",
+      "label": "K"
+    },
+    {
+      "id": "awc0200_l",
+      "label": "L"
+    },
+    {
+      "id": "awc0200_m",
+      "label": "M"
+    },
+    {
+      "id": "awc0200_n",
+      "label": "N"
+    },
+    {
+      "id": "awc0200_o",
+      "label": "O"
+    }
+  ],
+  "count": 15
+}
