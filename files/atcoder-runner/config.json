@@ -1,0 +1,114 @@
+{
+  "accounts": {
+    "nigger543": "42d8c3ffcc835303b886fd1372517999bb0630c8-%00UserName%3Anigger543%00%00a%3Afalse%00%00w%3Afalse%00%00_TS%3A1810118581%00%00csrf_token%3AQvRPcKVZEjBiOk36zRV4L4bb73CC1OXpnIik5%2BjDq%2BQ%3D%00%00SessionKey%3Ad39dbc5e9f76908cb3f4207f37e91ed19711666fbfa403a88b723de47854d8f3%00%00UserScreenName%3Anigger543%00"
+  },
+  "codex": "codex",
+  "default": {
+    "model": "gpt-6-luna",
+    "level": "max",
+    "verify_samples": true
+  },
+  "rules": [
+    {
+      "min": 0,
+      "max": 300,
+      "model": "gpt-6-luna",
+      "level": "medium"
+    },
+    {
+      "min": 300,
+      "max": 600,
+      "model": "gpt-6-luna",
+      "level": "high"
+    },
+    {
+      "min": 600,
+      "max": null,
+      "model": "gpt-6-luna",
+      "level": "xhigh"
+    }
+  ],
+  "http_timeout": 30,
+  "ai_timeout": 1800,
+  "proxy": "",
+  "codex_args": [
+    "--no-daemon",
+    "--ask-for-approval",
+    "never",
+    "exec",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "--dangerously-bypass-approvals-and-sandbox",
+    "-c",
+    "web_search=\"disabled\"",
+    "-c",
+    "service_tier=\"fast\"",
+    "-c",
+    "features.plugins=false",
+    "-c",
+    "features.apps=false",
+    "-c",
+    "features.multi_agent=false",
+    "-c",
+    "features.browser_use=false",
+    "-c",
+    "features.computer_use=false",
+    "-c",
+    "features.skill_search=false"
+  ],
+  "language": "cpp",
+  "urgent": false,
+  "obfuscators": {
+    "cpp": {
+      "command": [
+        "./cppobf",
+        "--compress",
+        "--flatten",
+        "--opaque",
+        "${file}",
+        "-o",
+        "${output}",
+        "--",
+        "-std=c++17"
+      ],
+      "timeout": 30,
+      "env": {}
+    },
+    "python": {
+      "command": [
+        "python3",
+        "-m",
+        "PyObfuscator",
+        "${file}",
+        "-o",
+        "${output}",
+        "-l",
+        "6"
+      ],
+      "timeout": 30,
+      "env": {}
+    },
+    "javascript": {
+      "command": [
+        "npx",
+        "--no-install",
+        "javascript-obfuscator",
+        "${file}",
+        "--output",
+        "${output}",
+        "--target",
+        "node",
+        "--compact",
+        "true",
+        "--vm-obfuscation",
+        "true",
+        "--pro-api-token",
+        "${env:JAVASCRIPT_OBFUSCATOR_API_KEY}"
+      ],
+      "timeout": 300,
+      "env": {}
+    }
+  }
+}

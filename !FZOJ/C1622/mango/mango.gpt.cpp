@@ -19,7 +19,7 @@ int r[N], col[N];
 int dep[N], rem[N], mask[N];
 int ans[N][3];
 
-// best[mask][k] 存储最大深度 + 1
+// best[mask][k] 存储最大深度  + 1
 // 0 表示不存在
 int best[M][3];
 int kept;

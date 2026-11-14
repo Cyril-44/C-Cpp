@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 #ifdef CLANGD
 constexpr int N = 25, M = 405;
