@@ -6,42 +6,107 @@ constexpr int N = 4000005;
 #endif
 int n;
 struct SegTr {
-    struct Node {
-        uint8_t flg;
-    } tr[N << 2];
-    void pushup(int u) {
+    struct Node { // pre: 右括号前缀最多剩多少，suf: 左括号后缀最多剩多少
+        int pre, suf, ans, sum;
+    } tr[N << 2], revtr[N << 2];
+    Node promote(const Node &ls, const Node &rs, int l, int r, int mid, Node *tr) { // [0,mp): [l,mid] 拆开的区间范围
+        Node res;
+        res.pre = std::max(ls.pre, ls.sum + rs.pre);
+        res.suf = std::max(rs.suf, rs.sum + ls.suf);
+        res.ans = std::max(ls.ans, rs.ans);
+        const int len = std::min(ls.suf, rs.pre);
+        res.ans = std::max(res.ans, pres(tr, mid+1, r, len) - sufs(tr, l, mid, len) + 1);
+    }
+    bool inv[N << 2];
+    void invert(int u) { inv[u] = !inv[u]; std::swap(tr[u], revtr[u]); }
+    void pushdown(int u) {
+        if (inv[u]) {
+            invert(u<<1), invert(u<<1|1);
+            inv[u] = false;
+        }
+    }
+    int pres(Node *tr, int L, int R, int x) { // 找到最后一个满足 [l, p] 的 pre = x 的 p
+        int ans = -1;
+        Node now;
+        for (auto [u, l, r] : nodes) {
+            if (L > r || R < l) continue;
+            if ()
+            while (l < r) {
+                int mid = l + r >> 1;
+                pushdown(u);
+                if (tr[u<<1].pre <= x) x -= tr[u<<1].sum, l = mid + 1, u = u<<1|1;
+                else r = mid, u = u<<1;
+            }
+        }
+        return l-1;
+    }
+    int sufs(Node *tr, int u, int l, int r, int x) {
+        int ans = 0;
+        std::reverse(nodes.begin(), nodes.end());
+        Node now;
+        for (auto [u, l, r] : nodes) {
 
+        }
+        while (l < r) {
+            int mid = l + r >> 1;
+            pushdown(u);
+            if (tr[u<<1|1].suf <= x) x -= tr[u<<1|1].sum, r = mid, u = u<<1;
+            else l = mid + 1, u = u<<1|1;
+        }
+        return l+1;
+    }
+    void pushup(Node *tr, int u, int l, int r) {
+        int mid = l + r >> 1;
+        tr[u].pre = std::max(tr[u<<1].pre, sum[u<<1] + tr[u<<1|1].pre);
+        tr[u].suf = std::max(tr[u<<1|1].suf, sum[u<<1|1] + tr[u<<1].suf);
+        tr[u].ans = std::max(tr[u<<1].ans, tr[u<<1|1].ans);
+        const int len = std::min(tr[u<<1].suf, tr[u<<1|1].pre);
+        tr[u].ans = std::max(tr[u].ans, pres(tr, u<<1|1, mid+1, r, len) - sufs(tr, u<<1, l, mid, len) + 1);
+    }
+    void pushup(int u, int l, int r) {
+        sum[u] = sum[u<<1] + sum[u<<1|1];
+        pushup(tr, u, l, r), pushup(revtr, u, l, r);
     }
     void build(int u=1, int l=1, int r=n) {
         if (l == r) {
             bool flg; fin >> flg;
-
+            sum[u] = flg ? 1 : -1;
+            (flg ? tr[u].pre : tr[u].suf) = 1;
+            (flg ? revtr[u].pre : revtr[u].suf) = 1;
             return;
         }
         int mid = l + r >> 1;
         build(u<<1, l, mid), build(u<<1|1, mid+1, r);
-        pushup(u);
+        pushup(u, l, r);
     }
     int L, R;
     void upd(int u, int l, int r) {
-        if (L <= l && r <= R) {
-            return;
-        }
+        if (L <= l && r <= R) invert(u);
         int mid = l + r >> 1;
         pushdown(u);
         if (L <= mid) upd(u<<1, l, mid);
         if (mid < R) upd(u<<1|1, mid+1, r);
-        pushup(u);
+        pushup(u, l, r);
     }
-    int inq(int u, int l, int r) {
-        if (L <= l && r <= R) return;
+    std::vector<std::tuple<int,int,int>> nodes;
+    void loc(int u, int l, int r) {
+        if (L <= l && r <= R) { nodes.emplace_back(u, l, r); return; }
         int mid = l + r >> 1;
-        if (R <= mid) return inq(u<<1, l, mid);
-        if (mid < L) return inq(u<<1|1, mid+1, r);
-        return inq(u<<1, l, mid) + inq(u<<1|1, mid+1, r);
+        pushdown(u);
+        if (L <= mid) loc(u<<1, l, mid);
+        if (mid < R) loc(u<<1|1, mid+1, r);
     }
     void flip(int l, int r) { L=l, R=r; upd(1, 1, n); }
-    int inquire(int l, int r) { L=l, R=r; return inq(1, 1, n); }
+    int inquire(int l, int r) {
+        L=l, R=r, nodes.clear(); loc(1, 1, n);
+        int ans = -1;
+        for (auto [u, l, r] : nodes) {
+            if (ans == -1) {
+                
+            }
+            ans = std::max(ans, tr[u].ans);
+        }
+    }
 } f;
 int main() {
     int q;
