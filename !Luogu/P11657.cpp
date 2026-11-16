@@ -9,14 +9,6 @@ struct SegTr {
     struct Node { // pre: 右括号前缀最多剩多少，suf: 左括号后缀最多剩多少
         int pre, suf, ans, sum;
     } tr[N << 2], revtr[N << 2];
-    Node promote(const Node &ls, const Node &rs, int l, int r, int mid, Node *tr) { // [0,mp): [l,mid] 拆开的区间范围
-        Node res;
-        res.pre = std::max(ls.pre, ls.sum + rs.pre);
-        res.suf = std::max(rs.suf, rs.sum + ls.suf);
-        res.ans = std::max(ls.ans, rs.ans);
-        const int len = std::min(ls.suf, rs.pre);
-        res.ans = std::max(res.ans, pres(tr, mid+1, r, len) - sufs(tr, l, mid, len) + 1);
-    }
     bool inv[N << 2];
     void invert(int u) { inv[u] = !inv[u]; std::swap(tr[u], revtr[u]); }
     void pushdown(int u) {
@@ -25,68 +17,14 @@ struct SegTr {
             inv[u] = false;
         }
     }
-    int pres(Node *tr, int L, int R, int x) { // 找到最后一个满足 [l, p] 的 pre = x 的 p
-        int ans = -1;
-        Node now;
-        for (auto [u, l, r] : nodes) {
-            if (L > r || R < l) continue;
-            if ()
-            while (l < r) {
-                int mid = l + r >> 1;
-                pushdown(u);
-                if (tr[u<<1].pre <= x) x -= tr[u<<1].sum, l = mid + 1, u = u<<1|1;
-                else r = mid, u = u<<1;
-            }
-        }
-        return l-1;
-    }
-    int sufs(Node *tr, int u, int l, int r, int x) {
-        int ans = 0;
-        std::reverse(nodes.begin(), nodes.end());
-        Node now;
-        for (auto [u, l, r] : nodes) {
-
-        }
-        while (l < r) {
-            int mid = l + r >> 1;
-            pushdown(u);
-            if (tr[u<<1|1].suf <= x) x -= tr[u<<1|1].sum, r = mid, u = u<<1;
-            else l = mid + 1, u = u<<1|1;
-        }
-        return l+1;
-    }
-    void pushup(Node *tr, int u, int l, int r) {
-        int mid = l + r >> 1;
-        tr[u].pre = std::max(tr[u<<1].pre, sum[u<<1] + tr[u<<1|1].pre);
-        tr[u].suf = std::max(tr[u<<1|1].suf, sum[u<<1|1] + tr[u<<1].suf);
-        tr[u].ans = std::max(tr[u<<1].ans, tr[u<<1|1].ans);
-        const int len = std::min(tr[u<<1].suf, tr[u<<1|1].pre);
-        tr[u].ans = std::max(tr[u].ans, pres(tr, u<<1|1, mid+1, r, len) - sufs(tr, u<<1, l, mid, len) + 1);
-    }
-    void pushup(int u, int l, int r) {
-        sum[u] = sum[u<<1] + sum[u<<1|1];
-        pushup(tr, u, l, r), pushup(revtr, u, l, r);
-    }
-    void build(int u=1, int l=1, int r=n) {
-        if (l == r) {
-            bool flg; fin >> flg;
-            sum[u] = flg ? 1 : -1;
-            (flg ? tr[u].pre : tr[u].suf) = 1;
-            (flg ? revtr[u].pre : revtr[u].suf) = 1;
-            return;
-        }
-        int mid = l + r >> 1;
-        build(u<<1, l, mid), build(u<<1|1, mid+1, r);
-        pushup(u, l, r);
-    }
-    int L, R;
-    void upd(int u, int l, int r) {
-        if (L <= l && r <= R) invert(u);
-        int mid = l + r >> 1;
-        pushdown(u);
-        if (L <= mid) upd(u<<1, l, mid);
-        if (mid < R) upd(u<<1|1, mid+1, r);
-        pushup(u, l, r);
+    Node promote(const Node &ls, const Node &rs, int l, int r, int mid, Node *tr) { // [0,mp): [l,mid] 拆开的区间范围
+        const int len = std::min(ls.suf, rs.pre);
+        return {
+            std::max(ls.pre, rs.pre - ls.sum),
+            std::max(rs.suf, ls.suf + rs.sum),
+            std::max({ls.ans, rs.ans, pres(tr, mid+1, r, len) - sufs(tr, l, mid, len) + 1}),
+            ls.sum + rs.sum
+        };
     }
     std::vector<std::tuple<int,int,int>> nodes;
     void loc(int u, int l, int r) {
@@ -96,16 +34,80 @@ struct SegTr {
         if (L <= mid) loc(u<<1, l, mid);
         if (mid < R) loc(u<<1|1, mid+1, r);
     }
-    void flip(int l, int r) { L=l, R=r; upd(1, 1, n); }
-    int inquire(int l, int r) {
-        L=l, R=r, nodes.clear(); loc(1, 1, n);
-        int ans = -1;
+    int pres(Node *tr, const int L, const int R, const int x) { // 找到最后一个满足 [L, p] 的 pre = x 的 p
+        int v = x+1;
         for (auto [u, l, r] : nodes) {
-            if (ans == -1) {
-                
+            if (L > r || R < l) continue;
+            if (tr[u].pre >= v) {
+                while (l < r) {
+                    int mid = l + r >> 1;
+                    pushdown(u);
+                    if (tr[u<<1].pre < v) v += tr[u<<1].sum, l = mid+1, u = u<<1|1;
+                    else r = mid, u = u<<1;
+                }
+                return l-1;
             }
-            ans = std::max(ans, tr[u].ans);
+            v += tr[u].sum;
         }
+        if (v == 1) return R;
+        return sufs(tr, L, R, v - 2) - 2;
+    }
+    int sufs(Node *tr, const int L, const int R, const int x) {
+        int v = x+1;
+        for (auto it = nodes.rbegin(); it != nodes.rend(); ++it) {
+            auto [u, l, r] = *it;
+            if (L > r || R < l) continue;
+            if (tr[u].suf >= v) {
+                while (l < r) {
+                    int mid = l + r >> 1;
+                    pushdown(u);
+                    if (tr[u<<1|1].suf < v) v -= tr[u<<1|1].sum, r = mid, u = u<<1;
+                    else l = mid + 1, u = u<<1|1;
+                }
+                return l+1;
+            }
+            v -= tr[u].sum;
+        }
+        if (v == 1) return L;
+        return pres(tr, L, R, v - 2) + 2;
+    }
+    void pushup(int u, int l, int r) {
+        int mid = l + r >> 1;
+        nodes = {{u<<1, l, mid}, {u<<1|1, mid+1, r}};
+        tr[u] = promote(tr[u<<1], tr[u<<1|1], l, r, mid, tr);
+        revtr[u] = promote(revtr[u<<1], revtr[u<<1|1], l, r, mid, revtr);
+    }
+
+    void build(int u=1, int l=1, int r=n) {
+        if (l == r) {
+            tr[u] = {0, 1, 0, 1}, revtr[u] = {1, 0, 0, -1};
+            bool flg; fin >> flg;
+            if (flg) std::swap(tr[u], revtr[u]);
+            return;
+        }
+        int mid = l + r >> 1;
+        build(u<<1, l, mid), build(u<<1|1, mid+1, r);
+        pushup(u, l, r);
+    }
+    int L, R;
+    void upd(int u, int l, int r) {
+        if (L <= l && r <= R) return invert(u);
+        int mid = l + r >> 1;
+        pushdown(u);
+        if (L <= mid) upd(u<<1, l, mid);
+        if (mid < R) upd(u<<1|1, mid+1, r);
+        pushup(u, l, r);
+    }
+public:
+    void flip(int l, int r) { L=l, R=r; upd(1, 1, n); }
+    int inquire(int ql, int qr) {
+        L=ql, R=qr, nodes.clear(); loc(1, 1, n);
+        bool first = true; Node res;
+        for (auto [u, l, r] : nodes) {
+            if (first) res = tr[u], first = false;
+            else res = promote(res, tr[u], ql, r, l-1, tr);
+        }
+        return res.ans;
     }
 } f;
 int main() {
@@ -115,6 +117,7 @@ int main() {
     for (int op, l, r, last = 0; q--;) {
         fin >> op >> l >> r;
         l = (l + last) % n + 1, r = (r + last) % n + 1;
+        if (l > r) std::swap(l, r);
         if (op == 1) fout << (last = f.inquire(l, r)) << '\n';
         else f.flip(l, r);
     }
