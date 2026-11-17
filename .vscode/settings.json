@@ -13,12 +13,11 @@
         "*.tbl": "cpp"
     },
     "clangd.arguments": [
-        "--background-index=false",
         "--malloc-trim"
     ],
     // "cmake.sourceDirectory": "/home/cyril/code/Functions/clang-cpp-obf",
     "C_Cpp.intelliSenseEngine": "disabled",
-    "clangd.path": "/usr/bin/clangd-22",
+    "clangd.path": "/usr/bin/clangd-24",
     "clangd.checkUpdates": false,
     "C_Cpp.renameInCurrentFileOnly": true,
     "python-envs.defaultEnvManager": "ms-python.python:system"
