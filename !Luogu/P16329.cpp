@@ -8,7 +8,7 @@ using Mint = MB<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
 // using Mint = MB<Dynamic_ModInt>;
 struct Fact{Fact(const int n):aa(n+1,Mint(1)),ia(n+1),sz(n){aa[0]=1;for(int i=1;i<=n;i++)aa[i]=aa[i-1]*i;ia[n]=Mint(1)/aa[n];for(int i=n;i>=1;i--)ia[i-1]=ia[i]*i;}Mint C(int n,int m)const{if(n<0||m<0||n<m)[[unlikely]]return 0;if(n>sz)[[unlikely]]throw std::out_of_range("Expected n < "+std::to_string(sz)+", but found n = "+std::to_string(n)+".");return aa[n]*ia[m]*ia[n-m];}Mint A(int n,int m)const{if(n<0||m<0||n<m)[[unlikely]]return 0;if(n>sz)[[unlikely]]throw std::out_of_range("Expected n < "+std::to_string(sz)+", but found n = "+std::to_string(n)+".");return aa[n]*ia[n-m];}Mint F(int n)const{if(n<0)[[unlikely]]return 0;if(n>sz)[[unlikely]]throw std::out_of_range("Expected n < "+std::to_string(sz)+", but found n = "+std::to_string(n)+".");return aa[n];}private:std::vector<Mint>aa,ia;const int sz;};
 // Fact F(5000000);
-Mint f[N][N], p[N];
+Mint f[N][N], g[N][N], p[N];
 int a[N];
 int main() {
     int n, m;
@@ -17,6 +17,7 @@ int main() {
         scanf("%d", &a[i]);
     for (int i = 1; i <= n; i++)
         scanf("%d", &p[i]);
+    
     for (int i = 1; i <= n; i++) {
         
     }

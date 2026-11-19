@@ -22,24 +22,25 @@ int main() {
         for (int j = 1; j < i; j++)
             C[i][j] = C[i-1][j-1] + C[i-1][j];
     }
-    f[0][0] = g[0][0] = h[1][0] = 1;
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j <= i; j++)
-            f[i+1][j+1] += f[i][j], f[i+1][j] += f[i][j] * pw2[n-i-1];
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j <= i; j++)
-            g[i+1][j+1] += g[i][j], g[i+1][j] += g[i][j] * (pw2[i]-1);
+    f[1][0] = g[1][0] = h[1][0] = 1;
     for (int i = 1; i < n; i++)
-        for (int j = 0; j < i; j++)
-            h[i+1][j+1] += h[i][j] * (pw2[i-j-1]-1), h[i+1][j] += h[i][j] * (pw2[i-j]-1);
+        for (int j = 0; j < i; j++) {
+            f[i+1][j+1] += f[i][j], f[i+1][j] += f[i][j] * pw2[n-i-1];                      // f[i][j] 表示考虑了长度为 i（考虑了“1”），1,2 序列长度为 j 的套上 3 的方案数
+            g[i+1][j+1] += g[i][j], g[i+1][j] += g[i][j] * (pw2[i]-1);                      // g[i][j] 表示考虑了长度为 i（考虑了“1”），1 序列长度为 j 的套上 2 的方案数
+            h[i+1][j+1] += h[i][j] * (pw2[i-j-1]-1), h[i+1][j] += h[i][j] * (pw2[i-j]-1);   // h[i][j] 表示计算了前 i 个点的出边选择方案数，钦定前 i-1 个点中有 j 个无出边（每次考虑前一个的钦定情况）
+        }
     for (int i = 1; i <= n; i++)
         for (int j = 0; j < i; j++)
-            if (j & 1) t[i] -= g[i][j];
-            else t[i] += g[i][j];
-    for (int i = 1; i <= n; i++)
+            if (j & 1) t[i] -= h[i][j];
+            else t[i] += h[i][j];
+    Mint ans0 = f[n][0];
+    for (int i = 1; i < n; i++)
+        ans0 += f[n-1][i] * g[i+1][0];
+    printf("%d 0", ans0);
+    for (int i = 0; i < n; i++) // 计数方案：3 可以任意向后连边；然后是 2 可以往前面的 1,2 连边；内层的 1 由钦定零入边数量容斥得到（要求每一个点必须有入边和出边）。
         for (int j = 0; j <= i; j++)
-            ans[j] += f[n][i] * g[i][j] * t[j];
-    for (int i = 0; i <= n; i++)
-        printf("%d ", ans[i]);
+            ans[j+2] += f[n-1][i] * g[i+1][j] * t[j+2];
+    for (int i = 2; i <= n; i++)
+        printf(" %d", ans[i]);
     putchar('\n');
 }
