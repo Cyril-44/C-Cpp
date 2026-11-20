@@ -6,25 +6,58 @@ constexpr int N = 4000005;
 #endif
 int n;
 struct SegTr {
-    struct Node { // pre: 右括号前缀最多剩多少，suf: 左括号后缀最多剩多少
-        int pre, suf, ans, sum;
+    struct Node { // nl: 左括号（在后缀）最多剩多少，nr: 右括号（在前缀）
+        int nl, nr, ans;
     } tr[N << 2], revtr[N << 2];
     bool inv[N << 2];
     void invert(int u) { inv[u] = !inv[u]; std::swap(tr[u], revtr[u]); }
-    void pushdown(int u) {
-        if (inv[u]) {
-            invert(u<<1), invert(u<<1|1);
-            inv[u] = false;
+    void pushdown(int u) { inv[u] && (invert(u<<1), invert(u<<1|1), inv[u] = false); }
+    int pres(Node *tr, int L, int R, int x) { // 找到第一个满足 [L, p] 的 n_) = x 的 p
+        if (x == 0) return L - 1;
+        for (auto [u, l, r] : nodes) if (L <= l && r <= R) {
+            if (tr[u].nr >= x) {
+                while (l < r) {
+                    int mid = l + r >> 1; pushdown(u);
+                    if (tr[u<<1].nr >= x) r = mid, u = u<<1;
+                    else x = x - tr[u<<1].nr + tr[u<<1].nl, l = mid+1, u = u<<1|1;
+                }
+                return l;
+            }
+            x = x - tr[u].nr + tr[u].nl;
         }
     }
-    Node promote(const Node &ls, const Node &rs, int l, int r, int mid, Node *tr) { // [0,mp): [l,mid] 拆开的区间范围
-        const int len = std::min(ls.suf, rs.pre);
-        return {
-            std::max(ls.pre, rs.pre - ls.sum),
-            std::max(rs.suf, ls.suf + rs.sum),
-            std::max({ls.ans, rs.ans, pres(tr, mid+1, r, len) - sufs(tr, l, mid, len) + 1}),
-            ls.sum + rs.sum
+    int sufs(Node *tr, int L, int R, int x) {
+        if (x == 0) return R + 1;
+        for (auto it = nodes.rbegin(); it != nodes.rend(); ++it) {
+            auto [u, l, r] = *it;
+            if (L > r || R < l) continue;
+            if (tr[u].nl >= x) {
+                while (l < r) {
+                    int mid = l + r >> 1;
+                    pushdown(u);
+                    if (tr[u<<1|1].nl >= x) l = mid + 1, u = u<<1|1;
+                    else x = x - tr[u<<1|1].nl + tr[u<<1|1].nr, r = mid, u = u<<1;
+                }
+                return l;
+            }
+            x = x - tr[u].nl + tr[u].nr;
+        }
+    }
+    Node promote(const Node &ls, const Node &rs, int l, int r, int mid, Node *tr) {
+        Node res = {
+            std::max(ls.nl - rs.nr, 0) + rs.nl,
+            std::max(rs.nr - ls.nl, 0) + ls.nr,
+            std::max(ls.ans, rs.ans)
         };
+        const int n = std::min(ls.nl, rs.nr);
+        const int lp = ls.nl == n ? 
+            pres(tr, l, mid, ls.nr) + 1 : 
+            sufs(tr, l, mid, n+1) + 1;
+        const int rp = rs.nr == n ? 
+            sufs(tr, mid+1, r, rs.nl) - 1 :
+            pres(tr, mid+1, r, n+1) - 1;
+        res.ans = std::max(res.ans, rp - lp + 1);
+        return res;
     }
     std::vector<std::tuple<int,int,int>> nodes;
     void loc(int u, int l, int r) {
@@ -33,43 +66,6 @@ struct SegTr {
         pushdown(u);
         if (L <= mid) loc(u<<1, l, mid);
         if (mid < R) loc(u<<1|1, mid+1, r);
-    }
-    int pres(Node *tr, const int L, const int R, const int x) { // 找到最后一个满足 [L, p] 的 pre = x 的 p
-        int v = x+1;
-        for (auto [u, l, r] : nodes) {
-            if (L > r || R < l) continue;
-            if (tr[u].pre >= v) {
-                while (l < r) {
-                    int mid = l + r >> 1;
-                    pushdown(u);
-                    if (tr[u<<1].pre < v) v += tr[u<<1].sum, l = mid+1, u = u<<1|1;
-                    else r = mid, u = u<<1;
-                }
-                return l-1;
-            }
-            v += tr[u].sum;
-        }
-        if (v == 1) return R;
-        return sufs(tr, L, R, v - 2) - 2;
-    }
-    int sufs(Node *tr, const int L, const int R, const int x) {
-        int v = x+1;
-        for (auto it = nodes.rbegin(); it != nodes.rend(); ++it) {
-            auto [u, l, r] = *it;
-            if (L > r || R < l) continue;
-            if (tr[u].suf >= v) {
-                while (l < r) {
-                    int mid = l + r >> 1;
-                    pushdown(u);
-                    if (tr[u<<1|1].suf < v) v -= tr[u<<1|1].sum, r = mid, u = u<<1;
-                    else l = mid + 1, u = u<<1|1;
-                }
-                return l+1;
-            }
-            v -= tr[u].sum;
-        }
-        if (v == 1) return L;
-        return pres(tr, L, R, v - 2) + 2;
     }
     void pushup(int u, int l, int r) {
         int mid = l + r >> 1;
@@ -80,7 +76,7 @@ struct SegTr {
 
     void build(int u=1, int l=1, int r=n) {
         if (l == r) {
-            tr[u] = {0, 1, 0, 1}, revtr[u] = {1, 0, 0, -1};
+            tr[u] = {1, 0, 0}, revtr[u] = {0, 1, 0};
             bool flg; fin >> flg;
             if (flg) std::swap(tr[u], revtr[u]);
             return;
