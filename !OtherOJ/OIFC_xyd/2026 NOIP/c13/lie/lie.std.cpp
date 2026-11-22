@@ -10,10 +10,10 @@ struct node{
     }
 }tr;
 long long C(long long n,long long m){return tr.f[n]*tr.finv[m]%P*tr.finv[n-m]%P;}
-void dfs(int x,int fa){
+void dfs1(int x,int fa){
     siz[x]=1,f[x][1]=1,g[x][1]=0,dp[x][1]=0;
     for(auto i:a[x]) if(i!=fa){
-        dfs(i,x);
+        dfs1(i,x);
         for(int j=siz[x];j>=1;j--) for(int k=siz[i];k>=1;k--){
             (f[x][j+k]+=f[x][j]*f[i][k]%P*C(j+k-1,j-1)%P)%=P;
             (g[x][j+k]+=g[x][j]*f[i][k]%P*C(j+k-2,j-2)%P+(g[i][k]+f[i][k])*f[x][j]%P*C(j+k-2,j-1)%P)%=P;
@@ -31,7 +31,7 @@ int main(){
 	freopen("traveller.out","w",stdout);
 	ios::sync_with_stdio(0);cin.tie(0),cout.tie(0);
 	cin>>n;for(int i=1,j,k;i<n;i++) cin>>j>>k,a[j].push_back(k),a[k].push_back(j);
-	tr.init(n),dfs(1,0);
+	tr.init(n),dfs1(1,0);
     for(int i=2;i<=n;i++) (ans+=dp[1][i]*tr.f[n-i+1]%P*tr.finv[n]%P)%=P;
     cout<<ans;
 	return 0;
