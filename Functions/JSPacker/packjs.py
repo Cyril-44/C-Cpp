@@ -107,6 +107,14 @@ def merge_c(amalgam_path, generated):
         )
 
     return (
+        "#if defined(_WIN32)\n"
+        "#ifndef _WIN32_WINNT\n"
+        "#define _WIN32_WINNT 0x0601\n"
+        "#endif\n"
+        "#ifndef WINVER\n"
+        "#define WINVER _WIN32_WINNT\n"
+        "#endif\n"
+        "#endif\n"
         "#define QJS_BUILD_LIBC 1\n"
         "/* Single-file QuickJS-NG application. */\n\n"
         + amalgam.rstrip()

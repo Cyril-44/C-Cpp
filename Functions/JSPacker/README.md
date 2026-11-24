@@ -56,5 +56,33 @@ directory.
   QuickJS link libraries are needed. On Linux, a typical command is:
 
   ```sh
-  cc -O2 checker.c -lm -ldl -lpthread -o checker
+  cc -O2 checker.c -lm -pthread -ldl -o checker
   ```
+
+  With glibc 2.34 or newer, `-pthread` and `-ldl` can be omitted because
+  those libraries' functionality is integrated into `libc`. Keep them when
+  targeting older glibc versions; `-lm` is still needed.
+
+### Windows
+
+The generated source sets `_WIN32_WINNT` and `WINVER` to Windows 7 by default,
+before including the QuickJS amalgam. This makes MinGW expose the Windows
+one-time initialization and condition-variable APIs used by QuickJS-NG. Compile
+the `.c` file as C (use `-std=c11`, not `-std=c++11`):
+
+```bat
+gcc -O2 -std=c11 -static checker.c -lm -o checker.exe
+```
+
+The executable targets Windows 7 or later. If the compiler command line defines
+these version macros itself, set both to at least `0x0601`:
+
+```bat
+gcc -O2 -std=c11 -D_WIN32_WINNT=0x0601 -DWINVER=0x0601 -static checker.c -lm -o checker.exe
+```
+
+MinGW links the required Windows system APIs from `kernel32` automatically.
+The compiler installation must include Windows headers and import libraries
+that declare and provide `InitOnceExecuteOnce`, `InitializeConditionVariable`,
+`WakeConditionVariable`, `WakeAllConditionVariable`, and
+`SleepConditionVariableCS`.

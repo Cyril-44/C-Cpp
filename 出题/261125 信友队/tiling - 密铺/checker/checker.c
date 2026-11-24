@@ -1,3 +1,11 @@
+#if defined(_WIN32)
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0601
+#endif
+#ifndef WINVER
+#define WINVER _WIN32_WINNT
+#endif
+#endif
 #define QJS_BUILD_LIBC 1
 /* Single-file QuickJS-NG application. */
 

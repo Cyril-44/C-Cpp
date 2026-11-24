@@ -1,0 +1,700 @@
+% xelatex -jobname=statement main.tex (run twice for page references)
+\documentclass[12pt,a4paper,oneside]{ctexart}
+\usepackage{xeCJKfntef,xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{bookmark}
+\usepackage{parallel}
+\usepackage{clrscode3e}
+\usepackage{lastpage}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{bm}
+% No external syntax highlighter is needed; samples use verbatim.
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{booktabs}
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+citecolor=blue
+}
+\usepackage[english]{babel}
+\usepackage{setspace}
+\usepackage{geometry}
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+\usepackage{indentfirst}
+
+\setlength{\parindent}{2em}
+\emergencystretch=2em
+\linespread{1.15}
+\setcounter{secnumdepth}{0}
+
+\newcommand{\bfemph}[1]{\CJKunderdot{\textbf{#1}}}
+\renewcommand{\emph}[1]{\bfemph{#1}}
+\setlength{\headheight}{18pt}
+\setlist[itemize]{labelsep = 1.1em, itemsep = 0pt, parsep = 1pt, itemindent = 1.5em, topsep = 0pt}
+\setlist[enumerate]{labelsep = 1.1em, itemsep = 0pt, parsep = 1pt, itemindent = 1.5em, topsep = 0pt}
+\newcommand{\tightlist}{}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength{\headheight}{18pt}
+\lhead{NOIP 模拟赛}
+\chead{}
+\rhead{\rightmark}
+\lfoot{}
+\cfoot{\small 第 \thepage\ 页  \hspace{2em} 共 \pageref{LastPage} 页}
+\rfoot{}
+
+\newcommand{\problemtitle}[2]{%
+  \section*{#1}%
+  \markright{#1}%
+  \phantomsection\label{#2}%
+  \pdfbookmark[1]{#1}{#2}%
+}
+\newcommand{\problemheading}[2]{%
+  \subsection*{#1}%
+  \markright{#1}%
+  \phantomsection\label{#2}%
+  \pdfbookmark[2]{#1}{#2}%
+}
+\newenvironment{centeredtable}{\par\vspace{.35em}\setlength{\tabcolsep}{4pt}\begin{center}}{\end{center}\vspace{.35em}}
+
+\usepackage{longtable}
+\usepackage{hhline}
+\begin{document}
+  \title{\heiti\zihao{1} NOIP 模拟赛}
+  \author{ASDFZ}
+  \date{2026年10月24日}
+  \maketitle
+  \begin{center}
+    \footnotesize
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+    \hline
+题目名称 & 叶环独立集 & 窗口校准 & 上下左右 & 存储空间\\
+\hline
+题目类型 & 传统型 & 传统型 & 传统型 & 传统型\\
+\hline
+目录 & \texttt{ring} & \texttt{calibration} & \texttt{lrud} & \texttt{storage}\\
+\hline
+可执行文件名 & \texttt{ring} & \texttt{calibration} & \texttt{lrud} & \texttt{storage}\\
+\hline
+输入文件名 & \texttt{ring.in} & \texttt{calibration.in} & \texttt{lrud.in} & \texttt{storage.in}\\
+\hline
+输出文件名 & \texttt{ring.out} & \texttt{calibration.out} & \texttt{lrud.out} & \texttt{storage.out}\\
+\hline
+测试点时限 & 1 秒 & 1 秒 & 1 秒 & 10 秒\\
+\hline
+内存限制 & 512 MiB & 512 MiB & 512 MiB & 512 MiB\\
+\hline
+    \end{tabularx}
+  \end{center}
+  \hspace{2em}提交源程序文件名
+  \begin{center}
+    \footnotesize
+    \begin{tabularx}{\textwidth}{|p{90pt}|X<{\centering}|X<{\centering}|X<{\centering}|X<{\centering}|}
+    \hline
+    对 C++ 语言 & \texttt{ring.cpp} & \texttt{calibration.cpp} & \texttt{lrud.cpp} & \texttt{storage.cpp}\\
+    \hline
+    \end{tabularx}
+  \end{center}
+  \hspace{2em}编译选项
+  \begin{center}
+    \begin{tabularx}{\textwidth}{|p{100pt}|X<{\centering}|}
+    \hline
+    对 C++ 语言 & \texttt{-O2 -std=c++17} \\
+    \hline
+    \end{tabularx}
+  \end{center}
+  \vspace{.8em}
+  \hspace{1em}{\heiti 注意事项与提醒：}
+  \begin{enumerate}[topsep = 4pt]
+    \setlength{\labelsep}{1.1em}
+    \setlength{\itemsep}{2pt}
+    \setlength{\parsep}{2pt}
+    \setlength{\parskip}{2pt}
+    \setlength{\itemindent}{.5em}
+    \item 文件名（程序名和输入输出文件名）必须使用英文小写。
+    \item C/C++ 中函数 main() 的返回类型必须是 int，程序正常结束时的返回值必须为 0。
+    \item 第三题（lrud）采用特殊评测，其余题目采用全文比较（过滤行末空格及文末回车）。
+    \item 程序可使用的栈内存空间限制与题目的内存限制一致。
+    \item 只提供 Linux 格式的附加样例文件。
+  \end{enumerate}
+  \thispagestyle{empty}
+  \newpage
+% BEGIN GENERATED PROBLEMS
+\problemtitle{串串题 (findstring)}{ux4e32ux4e32ux9898-findstring}
+
+\problemheading{题目背景}{ux9898ux76eeux80ccux666f}
+
+樱花飘落的速度是秒速五厘米，我到底要用怎么样的速度生活，才能与你再次相遇。 ------《秒速五厘米》
+
+\problemheading{题目描述}{ux9898ux76eeux63cfux8ff0}
+
+明里有一个长度为 \(n\) 的，下标从 \(1\) 开始的字符串 \(S\)。
+
+记 \(S\) 的长度为 \(i\) 的前缀为 \(P_{i}\)，并记 \(P_{i}\) 的无限循环串为 \(R_{i}\)。
+
+贵树需要在 \(n\) 个无限循环串 \(R_{1},R_{2},\dots,R_{n}\) 中找出字典序最小的字符串和字典序最大的字符串。如果多个字符串满足条件，贵树应当找出所有满足条件的字符串。
+
+贵树不知道字符串 \(S\) 是什么，但你可以通过调用函数的方式向明里询问其中两个字符的大小关系来解决这个问题。你需要帮助贵树通过和明里扮演的交互库进行交流以解决这个问题。
+
+\subsubsection{实现细节}\label{ux5b9eux73b0ux7ec6ux8282}
+
+这是一道\textbf{交互题}。
+
+你不需要，也不应该实现 \texttt{main} 函数。你应该在引入头文件时额外引入 \texttt{findstring.h}，即：
+
+\begin{verbatim}
+#include "findstring.h"
+\end{verbatim}
+
+你需要实现以下函数：
+
+\begin{verbatim}
+void init(int c, int t);
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \(c\) 表示测试点编号（特别地，样例中 \(c = 0\)），\(t\) 表示测试点内数据组数。
+\item
+  在单个测试点中，这个函数会被调用恰好一次，且在调用函数 \texttt{find\_string} 前被调用。
+\end{itemize}
+
+\begin{verbatim}
+std::pair<std::vector<int>, std::vector<int>> find_string(int n);
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \(n\) 表示交互库的字符串 \(S\) 的长度；
+\item
+  函数需要返回的二元组中，第一个元素为字典序最小的字符串下标序列，第二个元素为字典序最大的字符串下标序列，你需要保证序列无重复元素，但\textbf{不需要保证序列升序}。
+\item
+  在单个测试点中，这个函数会被调用恰好 \(t\) 次。
+\end{itemize}
+
+你可以在函数 \texttt{find\_string} 中调用以下函数：
+
+\begin{verbatim}
+int compare(int x, int y);
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  你需要保证 \(1 \leq x,y \leq n\)。
+\item
+  函数返回 \(S_{x}\) 和 \(S_{y}\) 的大小关系，\(-1\) 表示 \(S_{x} < S_{y}\)，\(0\) 表示 \(S_{x} = S_{y}\)，\(1\) 表示 \(S_{x} > S_{y}\)。
+\item
+  在单组数据中，你可以调用这个函数不超过 \(L = 10^{7}\) 次。
+\end{itemize}
+
+正式交互库与下发交互库的实现有所不同，但保证若交互过程均合法，则交互库用时不超过 \(1200 \text{ms}\)，内存消耗不超过 \(220 \text{MB}\)。
+
+\subsubsection{测试程序方式}\label{ux6d4bux8bd5ux7a0bux5e8fux65b9ux5f0f}
+
+本题下发 \texttt{grader.cpp}。你可以通过执行以下命令得到可执行文件：
+
+\begin{verbatim}
+g++ findstring.cpp grader.cpp -o findstring -O2 -std=c++14
+\end{verbatim}
+
+对于编译得到的可执行文件 \texttt{findstring}：
+
+\begin{itemize}
+\tightlist
+\item
+  可执行文件将从标准输入按照以下格式读入数据：
+
+  \begin{itemize}
+  \tightlist
+  \item
+    第一行两个整数 \(c,t\)。
+  \item
+    接下来对于每组数据，第一行一个正整数 \(n\)，接下来一行 \(n\) 个正整数 \(S_{1},S_{2},\dots,S_{n} (1 \leq S_{i} \leq \Sigma)\) 表示字符串 \(S\) 每个字符的大小。
+  \end{itemize}
+\item
+  如果调用 \texttt{compare} 函数的过程始终合法，可执行文件将按照以下格式将数据输出到标准输出：
+
+  \begin{itemize}
+  \tightlist
+  \item
+    对于每组数据，输出两行，第一行表示程序计算出的最小下标序列，第二行表示最大下标序列。每一行的格式为：第一个数 \(l\) 表示序列长度，接下来 \(l\) 个数从小到大输出序列。注意：如果 \texttt{find\_string} 返回的序列不符合格式要求，程序可能会出现未定义行为。
+  \end{itemize}
+\item
+  可执行文件将按照以下格式将数据输出到标准错误流：
+
+  \begin{itemize}
+  \tightlist
+  \item
+    如果调用 \texttt{compare} 函数的过程始终合法，输出一行：\texttt{Max\ query:\ x} 其中，\(x\) 表示所有数据中查询次数的最大值。
+  \item
+    否则，输出一行：\texttt{Invalid\ query.}
+  \end{itemize}
+\end{itemize}
+
+如果调用 \texttt{compare} 函数的过程始终合法，程序将返回 \(0\)，否则将会返回一个不为 \(0\) 的整数。
+
+\problemheading{样例 1}{ux6837ux4f8b-1}
+
+\subsubsection{输入}\label{ux8f93ux5165}
+
+\begin{verbatim}
+0 4
+3
+1 2 3
+6
+1 1 4 5 1 4
+11
+3 1 4 1 5 9 2 6 5 3 5
+12
+1 9 1 9 8 1 1 1 4 5 1 4
+\end{verbatim}
+
+\subsubsection{输出}\label{ux8f93ux51fa}
+
+\begin{verbatim}
+1 1 
+1 3 
+2 1 2 
+1 6 
+1 2 
+1 1 
+1 1 
+1 5
+\end{verbatim}
+
+\subsubsection{样例 2}\label{ux6837ux4f8b-2}
+
+见 \texttt{findstring2.in} 与 \texttt{findstring2.ans}。
+
+该样例满足测试点 \(1 \sim 3\) 的约束条件。
+
+\subsubsection{样例 3}\label{ux6837ux4f8b-3}
+
+见 \texttt{findstring3.in} 与 \texttt{findstring3.ans}。
+
+该样例满足测试点 \(7 \sim 9\) 的约束条件。
+
+\subsubsection{样例 4}\label{ux6837ux4f8b-4}
+
+见 \texttt{findstring4.in} 与 \texttt{findstring4.ans}。
+
+该样例满足测试点 \(13 \sim 15\) 的约束条件。
+
+\problemheading{数据范围}{ux6570ux636eux8303ux56f4}
+
+记字符集大小为 \(\Sigma\)，单组数据 \texttt{compare} 函数调用次数上限为 \(L\)。
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{c|c|c}
+\toprule\noalign{}
+测试点编号 & \(n \leq\) & 特殊性质 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(1 \sim 3\) & \(100\) & 无 \\ \hline
+\(4 \sim 6\) & \(400\) & 无 \\ \hline
+\(7 \sim 9\) & \(2 \times 10^{3}\) & 无 \\ \hline
+\(10 \sim 12\) & \(5 \times 10^{4}\) & 无 \\ \hline
+\(13 \sim 15\) & \(2 \times 10^{5}\) & 无 \\ \hline
+\(16,17\) & \(2 \times 10^{6}\) & 无 \\ \hline
+\(18,19\) & \(5 \times 10^{6}\) & 无 \\ \hline
+\(20,21\) & \(10^{7}\) & \(\text{A}\) \\ \hline
+\(22,23\) & \(10^{7}\) & \(\text{B}\) \\ \hline
+\(24,25\) & \(10^{7}\) & 无 \\
+\end{longtable}
+}
+
+特殊性质 \(\text{A}\)：\(\Sigma \leq 2\)；
+
+特殊性质 \(\text{B}\)：\(S_{i}\) 在 \([1,\Sigma]\) 内随机。
+
+对于所有数据，\(1 \leq t \leq 10,1 \leq \Sigma \leq n \leq 10^{7}, L = 10^{7}\)。
+
+\newpage
+\problemtitle{存储方案 (storage)}{ux5b58ux50a8ux65b9ux6848-storage}
+
+\problemheading{题目背景}{ux9898ux76eeux80ccux666f-1}
+
+私が高木さんを幸せにする。
+
+私が西片を幸せにする。
+
+西片最近正在研究新的可以战胜高木同学的方式。他认为自己很擅长数据结构，尤其了解线段树的构造，于是他出了这个题。
+
+\problemheading{题目描述}{ux9898ux76eeux63cfux8ff0-1}
+
+记认为 \([l,r]\) 为整数集合 \(\{x\in\mathbb Z:l\le x\le r\}\)。
+
+西片对于一个区间 \([l,r]\)，定义它的线段树节点集合 \(L_{l,r}\)：
+
+\begin{itemize}
+\tightlist
+\item
+  若 \(l=r\)，则 \(L_{l,r}=\{[l,r]\}\)；
+\item
+  否则，令 \(\mathrm{mid}=\lfloor(l+r)/2\rfloor\)，则
+\end{itemize}
+
+\[L_{l,r}=L_{l,\mathrm{mid}}\cup L_{\mathrm{mid}+1,r}\cup\{[l,r]\}.\]
+
+西片给定正整数 \(n\)，高木同学需要维护一个初始为空的区间集合 \(T\)。\(T\) 中的每个区间都是 \([1,n]\) 的非空子区间。
+
+一个\textbf{存储方案}是节点集合 \(P\subseteq L_{1,n}\)。若对于每个 \(I\in T\)，都存在 \(U\subseteq P\)，使得 \(U\) 中的区间两两无交，且它们的并集恰好为 \(I\)，则西片称 \(P\) 是当前 \(T\) 的一个可行存储方案。
+
+存储方案 \(P\) 的占用空间为 \(|P|\)。高木同学需要处理 \(q\) 次操作：
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{+\ l\ r}：将区间 \([l,r]\) 加入 \(T\)；
+\item
+  \texttt{-\ l\ r}：将区间 \([l,r]\) 从 \(T\) 中删除。
+\end{itemize}
+
+西片保证每次加入的区间当前不在 \(T\) 中，每次删除的区间当前在 \(T\) 中。
+
+每次操作后，西片要求你输出当前可行存储方案的\textbf{最小占用空间}，以及\textbf{达到最小占用空间的不同存储方案数量}。方案数对 \(998244353\) 取模。
+
+西片认为两个存储方案不同，当且仅当它们选取的节点集合 \(P\) 不同。同一个 \(P\) 对目标区间的不同覆盖方式不算作不同存储方案。
+
+注意，\(P\) 本身不要求两两无交；两两无交的要求仅针对覆盖某一个目标时选出的子集 \(U\)。覆盖不同目标时，可以重复使用 \(P\) 中的同一个节点。
+
+但是高木同学是战无不胜的，她轻松解决了这个题，现在到你了。
+
+\problemheading{输入格式}{ux8f93ux5165ux683cux5f0f}
+
+第一行包含三个整数 \(Tid,n,q\)，分别表示数据所属的子任务编号、区间长度和操作次数。
+
+接下来 \(q\) 行，每行包含一个字符 \(\mathrm{op}\) 和两个整数 \(l,r\)，表示一次操作。其中 \(\mathrm{op}\) 为 \texttt{+} 或 \texttt{-}，含义如题目描述。
+
+\problemheading{输出格式}{ux8f93ux51faux683cux5f0f}
+
+输出 \(q\) 行。第 \(i\) 行包含两个非负整数，分别表示第 \(i\) 次操作后的最小占用空间，以及最优存储方案数量对 \(998244353\) 取模的结果。
+
+\problemheading{样例}{ux6837ux4f8b}
+
+\subsubsection{输入}\label{ux8f93ux5165-1}
+
+\begin{verbatim}
+2 6
++ 1 2
++ 1 1
++ 2 2
+- 1 1
+- 1 2
+- 2 2
+\end{verbatim}
+
+\subsubsection{输出}\label{ux8f93ux51fa-1}
+
+\begin{verbatim}
+1 1
+2 2
+2 1
+2 2
+1 1
+0 1
+\end{verbatim}
+
+\subsubsection{解释}\label{ux89e3ux91ca}
+
+此时 \(L_{1,2}=\{[1,1],[2,2],[1,2]\}\)。
+
+第一次操作后，\(T=\{[1,2]\}\)。唯一的最优方案是 \(P=\{[1,2]\}\)，占用空间为 \(1\)。
+
+第二次操作后，\(T=\{[1,2],[1,1]\}\)。最小占用空间为 \(2\)，恰有两个最优方案：
+
+\[P_1=\{[1,2],[1,1]\},\qquad P_2=\{[1,1],[2,2]\}.\]
+
+第三次操作后，\(T\) 包含全部三个区间。唯一的最优方案是 \(\{[1,1],[2,2]\}\)，占用空间为 \(2\)。
+
+第四次操作后的情况与第二次对称，最小占用空间为 \(2\)，最优方案数为 \(2\)。
+
+第五次操作后，仅剩目标 \([2,2]\)，唯一的最优方案是 \(\{[2,2]\}\)。
+
+第六次操作后，\(T=\varnothing\)。空存储方案 \(P=\varnothing\) 是唯一的最优方案，因此输出 \texttt{0\ 1}。
+
+\subsubsection{大样例}\label{ux5927ux6837ux4f8b}
+
+下发文件中第 \(i\) 组大样例满足子任务 \(i\) 的约束，共 \(10\) 组大样例。
+
+\problemheading{数据范围}{ux6570ux636eux8303ux56f4-1}
+
+对于所有数据，保证：
+
+\begin{itemize}
+\tightlist
+\item
+  \(1 \le Tid \le 10\)；
+\item
+  \(1\le n\le 10^5\)；
+\item
+  \(1\le q\le 3\times10^5\)；
+\item
+  每次操作均满足 \(1\le l\le r\le n\)；
+\item
+  操作类型为 \texttt{+} 或 \texttt{-}，且所有操作均合法。
+\end{itemize}
+
+本题采用独立子任务计分。只有通过某个子任务内的全部测试点，才能获得该子任务的分数。各子任务可以包含相互重叠的限制条件；表中未列出的约束均遵循上述全局限制。
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{l|r|l}
+\toprule\noalign{}
+子任务 & 分值 & 额外约束 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & 5 & \(n=1\) \\ \hline
+2 & 7 & \(n\le 8\)，\(q\le 100\) \\ \hline
+3 & 10 & \(nq\le 2\times10^6\) \\ \hline
+4 & 5 & 每个操作区间均为单点，即 \(l=r\) \\ \hline
+5 & 8 & 任意时刻，\(T\) 中的区间两两无交 \\ \hline
+6 & 10 & 每个操作区间均为 \([1,n]\) 或单点 \\ \hline
+7 & 10 & 每个操作区间的长度不超过 \(2\)，即 \(r-l+1\le 2\) \\ \hline
+8 & 10 & 所有操作均为加入操作 \\ \hline
+9 & 10 & 每个操作给出的区间均属于 \(L_{1,n}\) \\ \hline
+10 & 25 & 无额外约束 \\
+\end{longtable}
+}
+
+子任务 5 的限制仅针对同一时刻仍在 \(T\) 中的区间；已经删除的区间不再参与该限制。
+
+\newpage
+\problemtitle{密铺 (tiling)}{ux5bc6ux94fa-tiling}
+
+\problemheading{题目背景}{ux9898ux76eeux80ccux666f-2}
+
+再相见，会是怎样的世界，好期待呢。 ------《烟花》
+
+\problemheading{题目描述}{ux9898ux76eeux63cfux8ff0-2}
+
+对于一个 \(N\times M\) 的黑白网格，典道定义其密铺数为用若干 \(1\times 2\) 的多米诺骨牌覆盖所有白色方格且不覆盖任意黑色方格的方案数。
+
+典道现在给出 \(K\)，及川荠需要给出 \(N,M\) 并构造一个 \(N\times M\) 的黑白网格，使得其密铺数恰好为 \(K\)。
+
+及川荠需要保证 \(1\le N\le 10,1\le M\le 10^4\)。但是及川荠显然并不会解决这个问题，所以她来求助你。你需要帮助她完成这个问题。
+
+\problemheading{输入格式}{ux8f93ux5165ux683cux5f0f-1}
+
+一行两个正整数 \(T,K\)，其中 \(T\) 表示子任务编号。
+
+\problemheading{输出格式}{ux8f93ux51faux683cux5f0f-1}
+
+第一行两个正整数 \(N,M\)。
+
+之后 \(N\) 行，每行 \(M\) 个\texttt{0}或\texttt{1}，表示你构造的黑白网格，其中\texttt{0}代表白，\texttt{1}代表黑。
+
+\problemheading{样例}{ux6837ux4f8b-5}
+
+\subsubsection{输入}\label{ux8f93ux5165-2}
+
+\begin{verbatim}
+1 4
+\end{verbatim}
+
+\subsubsection{输出}\label{ux8f93ux51fa-2}
+
+\begin{verbatim}
+3 3
+100
+000
+000
+\end{verbatim}
+
+\problemheading{数据范围}{ux6570ux636eux8303ux56f4-2}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{l|l|l}
+\toprule\noalign{}
+Subtask & 特殊性质 & 分值 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(1\) & \(K\le5\) & \(5\) \\ \hline
+\(2\) & \(K\le10\) & \(7\) \\ \hline
+\(3\) & 保证存在 \(N,M\le4\) 的构造 & \(5\) \\ \hline
+\(4\) & 保证存在 \(N=2\) 的构造 & \(7\) \\ \hline
+\(5\) & \(K\le1000\) & \(6\) \\ \hline
+\(6\) & \(\text{popcount}(K)=2\) & \(20\) \\ \hline
+\(7\) & 无 & \(50\) \\
+\end{longtable}
+}
+
+第 \(6,7\) subtask 评分规则：
+
+记 \(t\ =\ \log_{\frac{10000}{180}}\left(\frac{\max\left(M,180\right)}{180}\right)\)，\(f(M)\ =\ 100-84t-15\sqrt{t}+4t^{2}\)（百分数），\(g(N)\ =\ 0.8^{\max\left(N-4,0\right)}\)。设子任务总分为 \(W\)，同一子任务的测试点按最低得分率计分，则该子任务得分为
+
+\[\left\lfloor W\times \min_{\text{该子任务测试点}}\left(\frac{f(M)}{100}\times g(N)\right)\right\rfloor.\]
+
+第 \(1\) 至 \(5\) 个子任务中，构造正确即可获得该子任务的全部分数。
+
+设 \(M\) 为输出网格的列数。下表给出部分列数对应的得分率，数值四舍五入至两位小数。
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{r|r}
+\toprule\noalign{}
+\(M\) & \(f(M)\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(180\) & \(100.00\%\) \\ \hline
+\(200\) & \(95.37\%\) \\ \hline
+\(360\) & \(79.40\%\) \\ \hline
+\(800\) & \(60.22\%\) \\ \hline
+\(2000\) & \(39.48\%\) \\ \hline
+\(10000\) & \(5.00\%\) \\
+\end{longtable}
+}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+对于所有数据，\(1 \le T \le 7, 1\le K \le 10^{18}\)。
+
+你需要保证 \(1\le N\le 10,1\le M\le 10^4\)。
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+下发文件中提供 \(7\) 个大样例，分别对应 \(7\) 个子任务。
+
+下发文件中还提供 \texttt{checker.c}，你可以用它来检测你的输出是否正确，以及能得到多少分数。
+
+使用方式：
+
+\begin{itemize}
+\tightlist
+\item
+  编译：
+
+  \begin{itemize}[label=\textbullet]
+  \tightlist
+  \item
+    对于 Windows 系统：\texttt{gcc\ checker.c\ -lm\ -o\ checker}
+  \item
+    对于 Linux 系统：\texttt{gcc\ checker.c\ -lm\ -ldl\ -lpthread\ -o\ checker}
+  \end{itemize}
+\item
+  运行：\texttt{./checker\ \textless{}input\textgreater{}\ \textless{}output\textgreater{}}，其中 \texttt{\textless{}input\textgreater{}} 和 \texttt{\textless{}output\textgreater{}} 你应当全文替换为输入文件和输出文件。
+\end{itemize}
+
+\newpage
+\problemtitle{增高树木 (tree)}{ux589eux9ad8ux6811ux6728-tree}
+
+\problemheading{题目背景}{ux9898ux76eeux80ccux666f-3}
+
+我们在过去的梦境中相遇，我们在未来的现实中重逢。 ------君の名は
+
+\problemheading{题目描述}{ux9898ux76eeux63cfux8ff0-3}
+
+立花泷给了宮水三葉一棵 \(n\) 个点，\(n-1\) 条边组成的以 \(1\) 为根的树。第 \(i\) 个点有一棵高度为 \(h_i\) 的枫树。有 \(k\) 个小朋友，第 \(i\) 个小朋友身高为 \(a_i\)。
+
+小朋友们会找到一棵枫树去玩耍。宮水三葉需要给他们钦定 \(k\) 个互不相同的终点（终点可以是根）。他们会从根出发，走向宮水三葉给他们钦定的终点。但是小朋友们都喜欢抬头，所以对于每个小朋友，他经过的所有枫树的高度不能低于他的身高。
+
+显然宮水三葉可能会在钦定时遇到一些困难。宮水三葉获得了神力，可以选择其中一棵枫树提高 \(t\) 米。宮水三葉想请你求出存在一种钦定方案的 \(t\) 的最小值，如果宮水三葉拼尽全力都无法满足小朋友们的需求，请输出 \texttt{-1}。
+
+\problemheading{输入格式}{ux8f93ux5165ux683cux5f0f-2}
+
+本题有多组测试数据。
+
+第一行两个数 \(id,T\) 代表数据编号和数据组数。\(id = 0\) 代表样例。
+
+对于每组数据：
+
+第一行两个数 \(n,k\)，代表树的点数和小朋友人数。
+
+后面 \(n-1\) 行每行两个数，描述一条边。
+
+下一行 \(n\) 个数第 \(i\) 个为 \(h_i\)。
+
+再下一行 \(k\) 个数第 \(i\) 个为 \(a_i\)。
+
+\problemheading{输出格式}{ux8f93ux51faux683cux5f0f-2}
+
+一个数，若存在提升一棵枫树就满足的方案数出最小的 \(t\)，如果不存在方案输出 \texttt{-1}。特别的，如果不需要提升就满足条件当然有 \(t = 0\)。
+
+\problemheading{样例}{ux6837ux4f8b-6}
+
+\subsubsection{输入}\label{ux8f93ux5165-3}
+
+\begin{verbatim}
+0 3
+6 6
+1 2
+1 3
+4 2
+2 5
+6 3
+5 8 4 6 3 12
+7 4 2 5 3 11
+7 6
+1 2
+2 3
+2 4
+5 1
+6 5
+1 7
+10 14 7 12 4 50 1
+7 3 4 8 8 10
+3 2
+1 2
+1 3
+4 2 8
+17 15
+\end{verbatim}
+
+\subsubsection{输出}\label{ux8f93ux51fa-3}
+
+\begin{verbatim}
+6
+0
+-1
+\end{verbatim}
+
+\subsubsection{大样例}\label{ux5927ux6837ux4f8b-1}
+
+大样例 \(2 \sim 7\) 分别满足测试点 \(1 \sim 3\)，\(4 \sim 8\)，\(10 \sim12\)，\(13 \sim 15\)，\(16 \sim 18\)，\(19 \sim 20\) 的要求。
+
+\problemheading{数据范围}{ux6570ux636eux8303ux56f4-3}
+
+本题共有 \(20\) 个等分测试点。
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{c|c|c|c}
+\hhline{-|-|-|-}
+测试点编号 & \(n\) & \(k\) & 特殊性质 \\
+\hhline{-|-|-|-}
+\endhead
+\hhline{-|-|-|-}
+\endlastfoot
+\(1 \sim 3\) & \(\le 8\) & \multirow{2}{*}{\(\le n\)} & 无 \\ \hhline{-|-|~|-}
+\(4 \sim 8\) & \(\le 1000\) &  & 有 \\ \hhline{-|-|-|-}
+\(9\) & \(\le 2 \times 10^5\) & \(=1\) & \multirow{2}{*}{无} \\ \hhline{-|-|-|~}
+\(10 \sim 12\) & \multirow{3}{*}{\(\le 2 \times 10^5\)} & \(\le 10\) &  \\ \hhline{-|~|-|~}
+\(13 \sim 15\) &  & \multirow{3}{*}{\(\le n\)} & 有 \\ \hhline{-|~|~|-}
+\(16 \sim 18\) &  &  & \multirow{2}{*}{无} \\ \hhline{-|-|~|~}
+\(19 \sim 20\) & \(\le 5 \times 10^5\) &  &  \\
+\end{longtable}
+}
+
+特殊性质：保证 \(a_i,h_i \le 40\)。
+
+对于 \(100\%\) 的数据，\(1 \le k \le n \le 5 \times 10^5,1 \le \sum n \le 10^6,1 \le T \le 5,1 \le h_i \le 10^{18},1 \le a_i \le 10^{18}\)。
+% END GENERATED PROBLEMS
+\end{document}
