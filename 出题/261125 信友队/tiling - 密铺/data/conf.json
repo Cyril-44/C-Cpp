@@ -1,0 +1,88 @@
+{
+    "timeLimit": 2000,
+    "memoryLimit": 524288,
+    "subtasks": [
+        {
+            "cases": [
+                "1_[1-5]"
+            ],
+            "memoryLimit": 524288,
+            "points": 5,
+            "rule": "min",
+            "timeLimit": 2000
+        },
+        {
+            "cases": [
+                "2_[1-10]"
+            ],
+            "memoryLimit": 524288,
+            "points": 7,
+            "rule": "min",
+            "timeLimit": 2000
+        },
+        {
+            "cases": [
+                "3_[1-7]"
+            ],
+            "memoryLimit": 524288,
+            "points": 5,
+            "rule": "min",
+            "timeLimit": 2000
+        },
+        {
+            "cases": [
+                "4_[1-15]"
+            ],
+            "memoryLimit": 524288,
+            "points": 7,
+            "rule": "min",
+            "timeLimit": 2000
+        },
+        {
+            "cases": [
+                "5_[1-21]"
+            ],
+            "memoryLimit": 524288,
+            "points": 6,
+            "rule": "min",
+            "timeLimit": 2000
+        },
+        {
+            "cases": [
+                "6_[1-16]"
+            ],
+            "memoryLimit": 524288,
+            "points": 20,
+            "rule": "min",
+            "timeLimit": 2000
+        },
+        {
+            "cases": [
+                "7_[1-37]"
+            ],
+            "memoryLimit": 524288,
+            "points": 50,
+            "rule": "min",
+            "timeLimit": 2000
+        }
+    ],
+    "aliases": [
+        {
+            "from": "#.in",
+            "to": "in"
+        },
+        {
+            "from": "#.ans",
+            "to": "ans"
+        }
+    ],
+    "check": {
+        "input": "tiling.in",
+        "output": "tiling.out",
+        "target": "checker"
+    },
+    "run": {
+        "readable": "tiling.in",
+        "writable": "tiling.out"
+    }
+}

@@ -1,0 +1,417 @@
+{
+  "time_limit_seconds": 3,
+  "memory_limit_mib": 256,
+  "scoring": "independent_subtasks_all_cases_required",
+  "subtasks": [
+    {
+      "id": 1,
+      "score": 5,
+      "exact_n": 1,
+      "property": "general",
+      "description": "n = 1"
+    },
+    {
+      "id": 2,
+      "score": 7,
+      "max_n": 8,
+      "max_q": 100,
+      "property": "general",
+      "description": "n <= 8, q <= 100"
+    },
+    {
+      "id": 3,
+      "score": 10,
+      "max_product": 2000000,
+      "property": "general",
+      "description": "n * q <= 2000000"
+    },
+    {
+      "id": 4,
+      "score": 5,
+      "property": "singleton",
+      "description": "每个操作区间均为单点"
+    },
+    {
+      "id": 5,
+      "score": 8,
+      "property": "disjoint",
+      "description": "任意时刻活动区间两两不交"
+    },
+    {
+      "id": 6,
+      "score": 10,
+      "property": "whole-or-singleton",
+      "description": "每个操作区间均为整段 [1,n] 或单点"
+    },
+    {
+      "id": 7,
+      "score": 10,
+      "property": "short",
+      "description": "每个操作区间长度不超过 2"
+    },
+    {
+      "id": 8,
+      "score": 10,
+      "property": "insert-only",
+      "description": "所有操作均为插入"
+    },
+    {
+      "id": 9,
+      "score": 10,
+      "property": "node",
+      "description": "每个操作区间均为 L[1,n] 中的节点"
+    },
+    {
+      "id": 10,
+      "score": 25,
+      "property": "general",
+      "description": "无额外约束"
+    }
+  ],
+  "cases": [
+    {
+      "id": "1_1",
+      "subtask": 1,
+      "n": 1,
+      "q": 1,
+      "mode": "singletons",
+      "seed": 101
+    },
+    {
+      "id": "1_2",
+      "subtask": 1,
+      "n": 1,
+      "q": 18,
+      "mode": "gray",
+      "seed": 102
+    },
+    {
+      "id": "1_3",
+      "subtask": 1,
+      "n": 1,
+      "q": 300000,
+      "mode": "singletons",
+      "seed": 103
+    },
+    {
+      "id": "2_1",
+      "subtask": 2,
+      "n": 2,
+      "q": 100,
+      "mode": "gray",
+      "seed": 201
+    },
+    {
+      "id": "2_2",
+      "subtask": 2,
+      "n": 3,
+      "q": 100,
+      "mode": "gray",
+      "seed": 202
+    },
+    {
+      "id": "2_3",
+      "subtask": 2,
+      "n": 5,
+      "q": 100,
+      "mode": "boundary",
+      "seed": 203
+    },
+    {
+      "id": "2_4",
+      "subtask": 2,
+      "n": 7,
+      "q": 100,
+      "mode": "random",
+      "seed": 204
+    },
+    {
+      "id": "2_5",
+      "subtask": 2,
+      "n": 8,
+      "q": 100,
+      "mode": "shared",
+      "seed": 205
+    },
+    {
+      "id": "3_1",
+      "subtask": 3,
+      "n": 100000,
+      "q": 20,
+      "mode": "boundary",
+      "seed": 301
+    },
+    {
+      "id": "3_2",
+      "subtask": 3,
+      "n": 2000,
+      "q": 1000,
+      "mode": "mixed",
+      "seed": 302
+    },
+    {
+      "id": "3_3",
+      "subtask": 3,
+      "n": 1000,
+      "q": 2000,
+      "mode": "shared",
+      "seed": 303
+    },
+    {
+      "id": "3_4",
+      "subtask": 3,
+      "n": 100,
+      "q": 20000,
+      "mode": "random",
+      "seed": 304
+    },
+    {
+      "id": "3_5",
+      "subtask": 3,
+      "n": 20,
+      "q": 100000,
+      "mode": "random",
+      "seed": 305
+    },
+    {
+      "id": "4_1",
+      "subtask": 4,
+      "n": 99999,
+      "q": 300000,
+      "mode": "singletons",
+      "seed": 401
+    },
+    {
+      "id": "4_2",
+      "subtask": 4,
+      "n": 65536,
+      "q": 150000,
+      "mode": "singletons",
+      "seed": 402
+    },
+    {
+      "id": "4_3",
+      "subtask": 4,
+      "n": 3,
+      "q": 2000,
+      "mode": "singletons",
+      "seed": 403
+    },
+    {
+      "id": "5_1",
+      "subtask": 5,
+      "n": 100000,
+      "q": 300000,
+      "mode": "disjoint",
+      "seed": 501
+    },
+    {
+      "id": "5_2",
+      "subtask": 5,
+      "n": 99991,
+      "q": 150000,
+      "mode": "disjoint",
+      "seed": 502
+    },
+    {
+      "id": "5_3",
+      "subtask": 5,
+      "n": 13,
+      "q": 2000,
+      "mode": "disjoint",
+      "seed": 503
+    },
+    {
+      "id": "6_1",
+      "subtask": 6,
+      "n": 100000,
+      "q": 300000,
+      "mode": "whole-singleton",
+      "seed": 601
+    },
+    {
+      "id": "6_2",
+      "subtask": 6,
+      "n": 99999,
+      "q": 150000,
+      "mode": "whole-singleton",
+      "seed": 602
+    },
+    {
+      "id": "6_3",
+      "subtask": 6,
+      "n": 65536,
+      "q": 150000,
+      "mode": "whole-singleton",
+      "seed": 603
+    },
+    {
+      "id": "6_4",
+      "subtask": 6,
+      "n": 7,
+      "q": 2000,
+      "mode": "whole-singleton",
+      "seed": 604
+    },
+    {
+      "id": "7_1",
+      "subtask": 7,
+      "n": 100000,
+      "q": 300000,
+      "mode": "short",
+      "seed": 701
+    },
+    {
+      "id": "7_2",
+      "subtask": 7,
+      "n": 99999,
+      "q": 150000,
+      "mode": "short",
+      "seed": 702
+    },
+    {
+      "id": "7_3",
+      "subtask": 7,
+      "n": 65536,
+      "q": 150000,
+      "mode": "short",
+      "seed": 703
+    },
+    {
+      "id": "7_4",
+      "subtask": 7,
+      "n": 7,
+      "q": 2000,
+      "mode": "short",
+      "seed": 704
+    },
+    {
+      "id": "8_1",
+      "subtask": 8,
+      "n": 100000,
+      "q": 300000,
+      "mode": "insert-only",
+      "seed": 801
+    },
+    {
+      "id": "8_2",
+      "subtask": 8,
+      "n": 99999,
+      "q": 300000,
+      "mode": "insert-only",
+      "seed": 802
+    },
+    {
+      "id": "8_3",
+      "subtask": 8,
+      "n": 65536,
+      "q": 200000,
+      "mode": "insert-only",
+      "seed": 803
+    },
+    {
+      "id": "8_4",
+      "subtask": 8,
+      "n": 1000,
+      "q": 200000,
+      "mode": "insert-only",
+      "seed": 804
+    },
+    {
+      "id": "9_1",
+      "subtask": 9,
+      "n": 100000,
+      "q": 300000,
+      "mode": "ties",
+      "seed": 901
+    },
+    {
+      "id": "9_2",
+      "subtask": 9,
+      "n": 65536,
+      "q": 300000,
+      "mode": "hierarchy",
+      "seed": 902
+    },
+    {
+      "id": "9_3",
+      "subtask": 9,
+      "n": 99999,
+      "q": 150000,
+      "mode": "node-only",
+      "seed": 903
+    },
+    {
+      "id": "9_4",
+      "subtask": 9,
+      "n": 7,
+      "q": 2000,
+      "mode": "nested-path",
+      "seed": 904
+    },
+    {
+      "id": "10_1",
+      "subtask": 10,
+      "n": 100000,
+      "q": 300000,
+      "mode": "random",
+      "seed": 1001
+    },
+    {
+      "id": "10_2",
+      "subtask": 10,
+      "n": 99999,
+      "q": 300000,
+      "mode": "shared",
+      "seed": 1002
+    },
+    {
+      "id": "10_3",
+      "subtask": 10,
+      "n": 65536,
+      "q": 300000,
+      "mode": "random",
+      "seed": 1003
+    },
+    {
+      "id": "10_4",
+      "subtask": 10,
+      "n": 99991,
+      "q": 300000,
+      "mode": "boundary",
+      "seed": 1004
+    },
+    {
+      "id": "10_5",
+      "subtask": 10,
+      "n": 100000,
+      "q": 300000,
+      "mode": "mixed",
+      "seed": 1005
+    },
+    {
+      "id": "10_6",
+      "subtask": 10,
+      "n": 100000,
+      "q": 300000,
+      "mode": "prefix-wave",
+      "seed": 1006
+    },
+    {
+      "id": "10_7",
+      "subtask": 10,
+      "n": 32769,
+      "q": 300000,
+      "mode": "random",
+      "seed": 1007
+    },
+    {
+      "id": "10_8",
+      "subtask": 10,
+      "n": 5,
+      "q": 100000,
+      "mode": "random",
+      "seed": 1008
+    }
+  ]
+}

@@ -1,0 +1,388 @@
+{
+  "validator_rejections": 19,
+  "operations": 6483539,
+  "wrong_first_mismatch": {
+    "zero_empty_count": "1_2",
+    "add_child_counts": "2_1",
+    "drop_tied_branch": "2_1",
+    "ways_always_one": "2_1",
+    "boolean_marks": "2_2",
+    "wrong_odd_split": "2_2",
+    "overflow_32bit_product": "3_2"
+  },
+  "cases": [
+    {
+      "case": "1_1",
+      "subtask": 1,
+      "snapshots": 1,
+      "full_checks": [
+        "partial_brute",
+        "partial_recompute",
+        "partial_disjoint"
+      ],
+      "std_seconds": 0.001
+    },
+    {
+      "case": "1_2",
+      "subtask": 1,
+      "snapshots": 18,
+      "full_checks": [
+        "partial_brute",
+        "partial_recompute",
+        "partial_disjoint"
+      ],
+      "std_seconds": 0.002
+    },
+    {
+      "case": "1_3",
+      "subtask": 1,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute",
+        "partial_disjoint"
+      ],
+      "std_seconds": 0.008
+    },
+    {
+      "case": "2_1",
+      "subtask": 2,
+      "snapshots": 50,
+      "full_checks": [
+        "partial_brute",
+        "partial_recompute"
+      ],
+      "std_seconds": 0.002
+    },
+    {
+      "case": "2_2",
+      "subtask": 2,
+      "snapshots": 50,
+      "full_checks": [
+        "partial_brute",
+        "partial_recompute"
+      ],
+      "std_seconds": 0.001
+    },
+    {
+      "case": "2_3",
+      "subtask": 2,
+      "snapshots": 50,
+      "full_checks": [
+        "partial_brute",
+        "partial_recompute"
+      ],
+      "std_seconds": 0.001
+    },
+    {
+      "case": "2_4",
+      "subtask": 2,
+      "snapshots": 50,
+      "full_checks": [
+        "partial_brute",
+        "partial_recompute"
+      ],
+      "std_seconds": 0.001
+    },
+    {
+      "case": "2_5",
+      "subtask": 2,
+      "snapshots": 50,
+      "full_checks": [
+        "partial_brute",
+        "partial_recompute"
+      ],
+      "std_seconds": 0.001
+    },
+    {
+      "case": "3_1",
+      "subtask": 3,
+      "snapshots": 20,
+      "full_checks": [
+        "partial_recompute"
+      ],
+      "std_seconds": 0.004
+    },
+    {
+      "case": "3_2",
+      "subtask": 3,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute"
+      ],
+      "std_seconds": 0.002
+    },
+    {
+      "case": "3_3",
+      "subtask": 3,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute"
+      ],
+      "std_seconds": 0.002
+    },
+    {
+      "case": "3_4",
+      "subtask": 3,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute"
+      ],
+      "std_seconds": 0.005
+    },
+    {
+      "case": "3_5",
+      "subtask": 3,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute"
+      ],
+      "std_seconds": 0.012
+    },
+    {
+      "case": "4_1",
+      "subtask": 4,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_disjoint"
+      ],
+      "std_seconds": 0.111
+    },
+    {
+      "case": "4_2",
+      "subtask": 4,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_disjoint"
+      ],
+      "std_seconds": 0.049
+    },
+    {
+      "case": "4_3",
+      "subtask": 4,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute",
+        "partial_disjoint"
+      ],
+      "std_seconds": 0.001
+    },
+    {
+      "case": "5_1",
+      "subtask": 5,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_disjoint"
+      ],
+      "std_seconds": 0.168
+    },
+    {
+      "case": "5_2",
+      "subtask": 5,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_disjoint"
+      ],
+      "std_seconds": 0.092
+    },
+    {
+      "case": "5_3",
+      "subtask": 5,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute",
+        "partial_disjoint"
+      ],
+      "std_seconds": 0.001
+    },
+    {
+      "case": "6_1",
+      "subtask": 6,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_whole_singleton"
+      ],
+      "std_seconds": 0.091
+    },
+    {
+      "case": "6_2",
+      "subtask": 6,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_whole_singleton"
+      ],
+      "std_seconds": 0.052
+    },
+    {
+      "case": "6_3",
+      "subtask": 6,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_whole_singleton"
+      ],
+      "std_seconds": 0.045
+    },
+    {
+      "case": "6_4",
+      "subtask": 6,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute",
+        "partial_whole_singleton"
+      ],
+      "std_seconds": 0.002
+    },
+    {
+      "case": "7_1",
+      "subtask": 7,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_short"
+      ],
+      "std_seconds": 0.108
+    },
+    {
+      "case": "7_2",
+      "subtask": 7,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_short"
+      ],
+      "std_seconds": 0.055
+    },
+    {
+      "case": "7_3",
+      "subtask": 7,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_short"
+      ],
+      "std_seconds": 0.05
+    },
+    {
+      "case": "7_4",
+      "subtask": 7,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute",
+        "partial_short"
+      ],
+      "std_seconds": 0.001
+    },
+    {
+      "case": "8_1",
+      "subtask": 8,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.166
+    },
+    {
+      "case": "8_2",
+      "subtask": 8,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.197
+    },
+    {
+      "case": "8_3",
+      "subtask": 8,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.108
+    },
+    {
+      "case": "8_4",
+      "subtask": 8,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.057
+    },
+    {
+      "case": "9_1",
+      "subtask": 9,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.104
+    },
+    {
+      "case": "9_2",
+      "subtask": 9,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.083
+    },
+    {
+      "case": "9_3",
+      "subtask": 9,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.054
+    },
+    {
+      "case": "9_4",
+      "subtask": 9,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute"
+      ],
+      "std_seconds": 0.001
+    },
+    {
+      "case": "10_1",
+      "subtask": 10,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.185
+    },
+    {
+      "case": "10_2",
+      "subtask": 10,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.14
+    },
+    {
+      "case": "10_3",
+      "subtask": 10,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.205
+    },
+    {
+      "case": "10_4",
+      "subtask": 10,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.068
+    },
+    {
+      "case": "10_5",
+      "subtask": 10,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.129
+    },
+    {
+      "case": "10_6",
+      "subtask": 10,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.157
+    },
+    {
+      "case": "10_7",
+      "subtask": 10,
+      "snapshots": 56,
+      "full_checks": [],
+      "std_seconds": 0.13
+    },
+    {
+      "case": "10_8",
+      "subtask": 10,
+      "snapshots": 56,
+      "full_checks": [
+        "partial_recompute"
+      ],
+      "std_seconds": 0.009
+    }
+  ]
+}
