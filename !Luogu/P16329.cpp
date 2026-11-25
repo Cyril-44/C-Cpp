@@ -17,8 +17,7 @@ int main() {
         scanf("%d", &a[i]);
     for (int i = 1; i <= n; i++)
         scanf("%d", &p[i]);
-    
     for (int i = 1; i <= n; i++) {
-        
+        f[i][j];
     }
 }
