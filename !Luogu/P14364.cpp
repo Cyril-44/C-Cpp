@@ -4,15 +4,18 @@ constexpr auto MOD = 998244353;
 using Mint = MB<std::integral_constant<std::decay_t<decltype(MOD)>, MOD>>;
 constexpr int N = 505;
 char s[N];
-int h[N];
+int w[N];
 Mint f[2][N][N], fac[N];
+/*
+f[i][j][k] 表示考虑到第 i 天，共寄掉 j 个人，已经选中了 k 个人的顺序（其余 n-k 个人任意排列）
+*/
 int main() {
     int n, m;
     scanf("%d%d %s", &n, &m, s+1);
     for (int i = 1, ai; i <= n; i++)
-        scanf("%d", &ai), ++h[ai];
+        scanf("%d", &ai), ++w[ai];
     for (int i = 1; i <= n; i++)
-        h[i] += h[i-1];
+        w[i] += w[i-1];
     fac[0] = 1;
     for (int i = 1; i <= n; i++) fac[i] = fac[i-1] * i;
     auto fnow = f[0], fnxt = f[1];
@@ -20,14 +23,14 @@ int main() {
     for (int i = 1; i <= n; i++) {
         memset(fnxt, 0, sizeof(f) / 2);
         if (s[i] == '0')
-            for (int j = 1; j <= i; j++)
-                for (int k = j; k <= i; k++)
-                    fnxt[j][k] = fnow[j-1][k-1];
+            for (int j = 0; j < i; j++)
+                for (int k = 0; k < i; k++)
+                    fnxt[j+1][k] = fnow[j][k];
         else
             for (int j = 0; j < i; j++)
-                for (int k = j; k < i; k++) {
+                for (int k = 0; k < i; k++) {
                     fnxt[j][k] += fnow[j][k];
-                    int cnt = h[i] - k;
+                    int cnt = w[j] - k;
                     if (cnt > 0) {
                         fnxt[j][k+1] -= fnow[j][k] * cnt;
                         fnxt[j+1][k+1] += fnow[j][k] * cnt;
@@ -35,14 +38,9 @@ int main() {
                 }
         std::swap(fnow, fnxt);
     }
-    int k = 0;
-    for (int i = 1; i <= n; i++)
-        if (s[i] == '0') ++k;
     Mint ans = 0;
-    for (int i = m; i <= n; i++)
-        for (int j = i; j >= 0; j--)
-            if (i-j & 1) ans -= fnow[i][j];
-            else ans += fnow[i][j];
-    ans *= fac[k];
+    for (int j = 0; j <= n - m; j++)
+        for (int k = 0; k <= n; k++)
+            ans += fac[n - k] * fnow[j][k];
     printf("%d\n", ans);
 ;}

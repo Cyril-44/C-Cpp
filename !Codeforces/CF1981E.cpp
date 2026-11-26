@@ -135,8 +135,8 @@ int main() {
             f.build();
             for (int i = 1; i <= n; i++) std::set<Pii>().swap(st[i]), std::map<int,int>().swap(vec[i]);
             for (int i = n, j = n; i >= 1; i--) {
-                const int rt = find(b[i].id);
-                for (; j >= 1 && b[i].r < a[j].l; j--) {
+                const int rt = find(i);
+                for (; j >= 1 && b[j].r < a[i].l; j--) {
                     if (!--vec[a[j].x][find(j)]) vec[a[j].x].erase(find(j));
                     update(a[j].x);
                 }
